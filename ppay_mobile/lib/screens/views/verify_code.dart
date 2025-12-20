@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/screens/views/verify_phone.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
@@ -23,6 +24,14 @@ class _VerifyCodeState extends State<VerifyCode> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               102.verticalSpace,
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: SvgPicture.asset(
+                  height: 16.h,
+                  width: 12.w,
+                  'assets/icon/arrow_back.svg',
+                ),
+              ),
               20.verticalSpace,
               Text(
                 'Verify Email',

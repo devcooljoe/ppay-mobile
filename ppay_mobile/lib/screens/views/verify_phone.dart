@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:ppay_mobile/screens/views/create_password.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class VerifyPhone extends StatefulWidget {
@@ -22,6 +24,14 @@ class _VerifyPhoneState extends State<VerifyPhone> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               102.verticalSpace,
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: SvgPicture.asset(
+                  height: 16.h,
+                  width: 12.w,
+                  'assets/icon/arrow_back.svg',
+                ),
+              ),
               20.verticalSpace,
               Text(
                 'Verify Phone No',
@@ -33,14 +43,27 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                 ),
               ),
               8.verticalSpace,
-              Text(
-                'Please enter 6-digit code sent to joh***@gmail.com. Please enter below  ',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                children: [
+                  Text(
+                    'Please enter 6-digit code sent to ',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    '+234 8045679345',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
               ),
               38.verticalSpace,
               Container(
@@ -172,7 +195,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => VerifyPhone()),
+                      MaterialPageRoute(builder: (context) => CreatePassword()),
                     );
                   },
                   child: Text(

@@ -7,11 +7,13 @@ class PPTextfield extends StatefulWidget {
   final Widget prefixI;
   final String hintT;
   final TextStyle hintS;
+  final Widget? suffixI;
   const PPTextfield({
     super.key,
     required this.prefixI,
     required this.hintT,
     required this.hintS,
+    this.suffixI,
   });
 
   @override
@@ -25,6 +27,7 @@ class _PPTextfieldState extends State<PPTextfield> {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 15.h),
         prefixIcon: widget.prefixI,
+        suffixIcon: widget.suffixI,
         hintText: widget.hintT,
         hintStyle: widget.hintS,
         // prefixIcon: SvgPicture.asset(
