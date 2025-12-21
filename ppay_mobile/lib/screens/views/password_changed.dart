@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/screens/views/bvnconfirm_screen.dart';
+import 'package:ppay_mobile/screens/views/login_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class PasswordChanged extends StatefulWidget {
@@ -47,7 +49,7 @@ class _PasswordChangedState extends State<PasswordChanged> {
                         ),
                         60.verticalSpace,
                         Text(
-                          'Create Password',
+                          'Password Changed',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
@@ -81,7 +83,7 @@ class _PasswordChangedState extends State<PasswordChanged> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => PasswordChanged(),
+                                  builder: (context) => LoginScreen(),
                                 ),
                               );
                             },

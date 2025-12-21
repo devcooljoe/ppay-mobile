@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/model/onboarditem_model.dart';
 import 'package:ppay_mobile/screens/views/login_screen.dart';
+import 'package:ppay_mobile/screens/views/signup_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -184,7 +185,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(builder: (context) => SignupScreen()),
                     );
                   },
                   child: Text(
@@ -216,13 +217,21 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   ),
                 ),
                 5.horizontalSpace,
-                Text(
-                  'Sign In',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                    color: PPaymobileColors.highlightTextColor,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                  child: Text(
+                    'Sign In',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                      color: PPaymobileColors.highlightTextColor,
+                    ),
                   ),
                 ),
               ],

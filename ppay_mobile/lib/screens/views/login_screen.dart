@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/screens/views/forgotpassword_screen.dart';
+import 'package:ppay_mobile/screens/views/route_screen.dart';
+import 'package:ppay_mobile/screens/views/signup_screen.dart';
 import 'package:ppay_mobile/screens/views/verify_code.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/textfield.dart';
@@ -23,11 +26,21 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              48.verticalSpace,
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  41.verticalSpace,
+                  SizedBox(
+                    height: 56.h,
+                    width: 36.w,
+                    child: Image.asset(
+                      'assets/images/logo2.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  25.verticalSpace,
                   Text(
-                    'Sign',
+                    'Sign In',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: PPaymobileColors.buttonColorandText,
@@ -35,22 +48,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  6.horizontalSpace,
+                  6.verticalSpace,
                   Text(
-                    'UP',
+                    'Welcome back, enter the details below',
                     style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.buttonColorandText,
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Montserrat',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: PPaymobileColors.svgIconColor,
                     ),
                   ),
-                  8.verticalSpace,
                 ],
               ),
-              8.verticalSpace,
+              60.verticalSpace,
               Text(
-                'Welcome, Let’s Get You Started',
+                'Enter Email or Phone No',
+                textAlign: TextAlign.start,
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: Colors.black,
@@ -58,106 +71,79 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              45.verticalSpace,
-              Text(
-                'Full Name',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              6.verticalSpace,
+              4.verticalSpace,
               SizedBox(
                 height: 56.h,
-                child: PPTextfield(
-                  prefixI: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/person_icon.svg'),
-                  ),
-                  hintT: 'e.g John Doe',
-                  hintS: TextStyle(
-                    fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.sp,
-                    fontStyle: FontStyle.italic,
-                    color: PPaymobileColors.svgIconColor,
-                  ),
-                ),
-              ),
-              29.verticalSpace,
-              Text(
-                'Email Address',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              6.verticalSpace,
-              SizedBox(
-                height: 56.h,
-                child: PPTextfield(
-                  prefixI: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/message_icon.svg'),
-                  ),
-                  hintT: 'e.g johndoegmail.com',
-                  hintS: TextStyle(
-                    fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.sp,
-                    fontStyle: FontStyle.italic,
-                    color: PPaymobileColors.svgIconColor,
-                  ),
-                ),
-              ),
-              29.verticalSpace,
-              Text(
-                'Phone Number',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              6.verticalSpace,
-              SizedBox(
-                height: 56.h,
-                child: PPTextfield(
-                  prefixI: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/flag_icon.svg'),
-                  ),
-                  hintT: '+234',
-                  hintS: TextStyle(
-                    fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.sp,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              24.verticalSpace,
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 18.0).r,
-                    child: SvgPicture.asset(
-                      'assets/icon/mark_icon.svg',
-                      width: 18.w,
-                      height: 18.h,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 15.h,
+                    ),
+                    hintText: 'Enter Details',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Gilroy',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16.sp,
+                      fontStyle: FontStyle.italic,
+                      color: PPaymobileColors.svgIconColor,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
+                      ),
                     ),
                   ),
-                  3.horizontalSpace,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              ),
+              29.verticalSpace,
+              Text(
+                'Enter Password',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              4.verticalSpace,
+              PPTextfield(
+                prefixI: Padding(
+                  padding: const EdgeInsets.all(14.0).r,
+                  child: SvgPicture.asset('assets/icon/lock.svg'),
+                ),
+                hintT: 'johndoe@gmail.com',
+                hintS: TextStyle(
+                  fontFamily: 'Gilroy',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  fontStyle: FontStyle.italic,
+                  color: PPaymobileColors.svgIconColor,
+                ),
+                suffixI: Padding(
+                  padding: const EdgeInsets.all(14.0).r,
+                  child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+                ),
+              ),
+              6.verticalSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0).r,
+                        child: SvgPicture.asset(
+                          'assets/icon/mark_icon.svg',
+                          width: 18.w,
+                          height: 18.h,
+                        ),
+                      ),
+                      3.horizontalSpace,
                       Text(
-                        'By opening an account you agree to our ',
+                        'Remember Me',
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Colors.black,
@@ -165,25 +151,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 14.sp,
                         ),
                       ),
-                      3.verticalSpace,
-                      Text(
-                        'terms and conditions',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: PPaymobileColors.highlightTextColor,
-                          fontFamily: 'Montserrat',
-                          color: PPaymobileColors.highlightTextColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                        ),
-                      ),
                     ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForgotpasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Forgot Password',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        decorationColor: PPaymobileColors.highlightTextColor,
+                        fontFamily: 'Montserrat',
+                        color: PPaymobileColors.highlightTextColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              101.verticalSpace,
+              71.verticalSpace,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: SizedBox(
                   width: double.infinity,
                   height: 50.h,
@@ -197,11 +192,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => VerifyCode()),
+                        MaterialPageRoute(builder: (context) => RouteScreen()),
                       );
                     },
                     child: Text(
-                      'Get Started',
+                      'Sign In',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600,
@@ -213,13 +208,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               6.verticalSpace,
-
-              /// Sign in
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Or Use Biometrics',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.black,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  22.verticalSpace,
+                  SizedBox(
+                    height: 80.h,
+                    width: 80.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/fingerprint.svg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ],
+              ),
+              36.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Already have an account?',
+                    "Don't have an account?",
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w500,
@@ -228,13 +246,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   5.horizontalSpace,
-                  Text(
-                    'Sign In',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                      color: PPaymobileColors.highlightTextColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignupScreen()),
+                      );
+                    },
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        color: PPaymobileColors.highlightTextColor,
+                      ),
                     ),
                   ),
                 ],
