@@ -18,9 +18,13 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+      appBar: AppBar(
+        leading: SizedBox.shrink(),
+        backgroundColor: PPaymobileColors.mainScreenBackground,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -153,7 +157,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       height: 18.h,
                     ),
                   ),
-                  3.horizontalSpace,
+                  9.horizontalSpace,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/model/onboarditem_model.dart';
+import 'package:ppay_mobile/model/onboard_item_model.dart';
 import 'package:ppay_mobile/screens/views/login_screen.dart';
 import 'package:ppay_mobile/screens/views/signup_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
@@ -19,8 +19,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   final List<OnboardItem> pages = [
     OnboardItem(
-      title: 'FUND',
-      highlight: '& PAY EASILY',
+      title: 'Fund',
+      highlight: '& Pay Easily',
       image: 'assets/images/first.png',
       description:
           'Top up your NGN wallet instantly and pay for bills, airtime, data, and more all in one place.',
@@ -30,8 +30,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
       space2: 115,
     ),
     OnboardItem(
-      title: 'TRADE',
-      highlight: 'CRYPTO & GIFTCARDS',
+      title: 'Trade',
+      highlight: 'Crypto & Giftcards',
       image: 'assets/images/second.png',
       description:
           'Buy, sell, and receive crypto, plus trade giftcards at the best rates with fast approvals.',
@@ -41,8 +41,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
       space2: 268,
     ),
     OnboardItem(
-      title: 'SHOP',
-      highlight: '& SEND GIFTS',
+      title: 'Shop',
+      highlight: '& Send Gifts',
       image: 'assets/images/third.png',
       description:
           'Purchase items from our Shopper store and send gifts to friends or family anywhere',
@@ -52,8 +52,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
       space2: 73,
     ),
     OnboardItem(
-      title: 'BOOK',
-      highlight: 'FLIGHT & USE CARD',
+      title: 'Book',
+      highlight: 'Flight & Use Card',
       image: 'assets/images/fourth.png',
       description:
           'Book local or international flights and enjoy a secure virtual dollar card for your Payment',
@@ -84,7 +84,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      97.verticalSpace,
+                      35.verticalSpace,
 
                       /// Title
                       Row(
@@ -145,8 +145,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
               count: pages.length,
               effect: ExpandingDotsEffect(
                 activeDotColor: PPaymobileColors.highlightTextColor,
-                dotColor: Colors.white30,
-                dotHeight: 6.h,
+                dotColor: Color(0xffE6E6E6),
+                dotHeight: 8.h,
                 dotWidth: 18.w,
                 expansionFactor: 3,
                 spacing: 9.0.w,
@@ -163,7 +163,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   fontFamily: 'Montserrat',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white70,
+                  color: PPaymobileColors.mainScreenBackground,
                 ),
               ),
             ),
@@ -213,7 +213,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w600,
                     fontSize: 16.sp,
-                    color: Colors.white70,
+                    color: Colors.white,
                   ),
                 ),
                 5.horizontalSpace,

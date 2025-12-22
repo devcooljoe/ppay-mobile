@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/verifyforgot_screen.dart';
+import 'package:ppay_mobile/screens/views/verify_forgot_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
-class ForgotpasswordScreen extends StatefulWidget {
-  const ForgotpasswordScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotpasswordScreen> createState() => _ForgotpasswordScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotpasswordScreenState();
 }
 
-class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
+class _ForgotpasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +95,7 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => VerifyforgotScreen(),
+                        builder: (context) => VerifyForgotScreen(),
                       ),
                     );
                   },

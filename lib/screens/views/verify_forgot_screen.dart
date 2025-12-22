@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/screens/views/create_password.dart';
 import 'package:ppay_mobile/screens/views/passwordreset_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
-class VerifyforgotScreen extends StatefulWidget {
-  const VerifyforgotScreen({super.key});
+class VerifyForgotScreen extends StatefulWidget {
+  const VerifyForgotScreen({super.key});
 
   @override
-  State<VerifyforgotScreen> createState() => _VerifyforgotScreenState();
+  State<VerifyForgotScreen> createState() => _VerifyforgotScreenState();
 }
 
-class _VerifyforgotScreenState extends State<VerifyforgotScreen> {
+class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +44,7 @@ class _VerifyforgotScreenState extends State<VerifyforgotScreen> {
                 ),
               ),
               60.verticalSpace,
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Pinput(
                   length: 6,
@@ -70,7 +69,7 @@ class _VerifyforgotScreenState extends State<VerifyforgotScreen> {
                 ),
               ),
               10.verticalSpace,
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Pinput(
                   length: 6,
@@ -189,6 +188,5 @@ class _VerifyforgotScreenState extends State<VerifyforgotScreen> {
         ),
       ),
     );
-    ;
   }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/forgotpassword_screen.dart';
+import 'package:ppay_mobile/screens/views/forgot_password_screen.dart';
 import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/views/signup_screen.dart';
-import 'package:ppay_mobile/screens/views/verify_code.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/textfield.dart';
 
@@ -158,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ForgotpasswordScreen(),
+                          builder: (context) => ForgotPasswordScreen(),
                         ),
                       );
                     },
