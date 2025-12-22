@@ -131,7 +131,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: PPTextfield(
                   prefixI: Padding(
                     padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/images/flag.png'),
+                    child: Image.asset('assets/images/flag.png'),
                   ),
                   hintT: '+234',
                   hintS: TextStyle(
