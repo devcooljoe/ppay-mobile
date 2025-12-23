@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/screens/views/kyc_face_verification_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/document_bottom_sheet.dart';
 
@@ -123,7 +124,74 @@ class _NationalIdentityScreenState extends State<NationalIdentityScreen> {
                   ),
                 ),
               ),
-              356.verticalSpace,
+              32.verticalSpace,
+              Text(
+                'Enter Passport number',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              4.verticalSpace,
+              Container(
+                height: 54.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6).r,
+                ),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter Number v  ',
+                    hintStyle: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.textfiedBorder,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 14.h,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              14.verticalSpace,
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 18.0).r,
+                    child: SvgPicture.asset(
+                      'assets/icon/info.svg',
+                      width: 14.w,
+                      height: 14.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  9.horizontalSpace,
+                  Expanded(
+                    child: Text(
+                      'You can find your 11-digit NIN on your National ID (NIN slip) or Driver’s License',
+                      style: TextStyle(
+                        decorationColor: PPaymobileColors.highlightTextColor,
+                        fontFamily: 'Montserrat',
+                        color: PPaymobileColors.buttonColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              178.verticalSpace,
               SizedBox(
                 width: double.infinity,
                 height: 50.h,
@@ -146,6 +214,59 @@ class _NationalIdentityScreenState extends State<NationalIdentityScreen> {
                   ),
                 ),
               ),
+              10.verticalSpace,
+              SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PPaymobileColors.backgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(42),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => KycFaceVerificationScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.sp,
+                      color: PPaymobileColors.mainScreenBackground,
+                    ),
+                  ),
+                ),
+              ),
+              // 356.verticalSpace,
+              // SizedBox(
+              //   width: double.infinity,
+              //   height: 50.h,
+              //   child: ElevatedButton(
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: PPaymobileColors.textfiedBorder,
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(42),
+              //       ),
+              //     ),
+              //     onPressed: () {},
+              //     child: Text(
+              //       'Continue',
+              //       style: TextStyle(
+              //         fontFamily: 'InstrumentSans',
+              //         fontWeight: FontWeight.w500,
+              //         fontSize: 16.sp,
+              //         color: PPaymobileColors.mainScreenBackground,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

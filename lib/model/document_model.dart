@@ -18,8 +18,16 @@ List documents = [
   ),
   DocumentModel(
     text: 'International Passport',
-    screen: InternationalPassportScreen(),
+    screen: InternationalPassportScreen(
+      selectedDocument: 'International Passport',
+    ),
   ),
-  DocumentModel(text: "Driver's License", screen: DriverLicenseScreen()),
-  DocumentModel(text: 'Voters Card', screen: VoterCardScreen()),
+  DocumentModel(
+    text: "Driver's License",
+    screen: DriverLicenseScreen(selectedDocument: "Driver's License"),
+  ),
+  DocumentModel(
+    text: 'Voters Card',
+    screen: VoterCardScreen(selectedDocument: 'Voters Card'),
+  ),
 ];
