@@ -17,21 +17,27 @@ class _VerifyPhoneState extends State<VerifyPhone> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
+      appBar: AppBar(
+        backgroundColor: PPaymobileColors.mainScreenBackground,
+        toolbarHeight: 56,
+        leadingWidth: 56.w,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 16.w),
+          child: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: SvgPicture.asset(
+              'assets/icon/arrow_back.svg',
+              height: 16.h,
+              width: 12.w,
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
-              102.verticalSpace,
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: SvgPicture.asset(
-                  height: 16.h,
-                  width: 12.w,
-                  'assets/icon/arrow_back.svg',
-                ),
-              ),
               20.verticalSpace,
               Text(
                 'Verify Phone No',

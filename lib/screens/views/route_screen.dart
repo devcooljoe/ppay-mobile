@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/screens/views/features_screen.dart';
 import 'package:ppay_mobile/screens/views/history_screen.dart';
 import 'package:ppay_mobile/screens/views/home_screen.dart';
+import 'package:ppay_mobile/screens/views/kyc_verification_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
@@ -33,7 +34,7 @@ class _RouteScreenState extends State<RouteScreen> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: PPaymobileColors.mainScreenBackground,
         elevation: 1,
-        currentIndex: selectedIndex,
+        currentIndex: selectedIndex > 3 ? 0 : selectedIndex,
         onTap: onTapped,
         selectedItemColor: PPaymobileColors.buttonColor,
         unselectedItemColor: PPaymobileColors.textfiedBorder,

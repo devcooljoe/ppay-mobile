@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp(
         title: 'PPayMobile',
-
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,

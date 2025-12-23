@@ -22,8 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -222,10 +221,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   22.verticalSpace,
                   SizedBox(
-                    height: 80.h,
-                    width: 80.w,
-                    child: SvgPicture.asset(
-                      'assets/icon/fingerprint.svg',
+                    width: 60.w,
+                    height: 60.h,
+                    child: Image.asset(
+                      'assets/images/fingerprint.png',
                       fit: BoxFit.contain,
                     ),
                   ),

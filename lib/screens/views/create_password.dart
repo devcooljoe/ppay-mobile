@@ -20,10 +20,9 @@ class _CreatePasswordState extends State<CreatePassword> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
-              102.verticalSpace,
+              40.verticalSpace,
               Text(
                 'Create Password',
                 style: TextStyle(
