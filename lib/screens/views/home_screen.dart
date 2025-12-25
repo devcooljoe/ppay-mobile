@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/main.dart';
 import 'package:ppay_mobile/model/transaction_history_model.dart';
+import 'package:ppay_mobile/screens/views/fund_wallet_screen.dart';
+import 'package:ppay_mobile/screens/views/review_document_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/kyc_bottomsheet.dart';
 
@@ -247,39 +249,51 @@ class _HomeScreenState extends State<HomeScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
-                                    height: 46.h,
-                                    width: 173.w,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          PPaymobileColors.buttonColorandText,
-                                      borderRadius: BorderRadius.circular(26.r),
-                                    ),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: 24.w,
-                                            height: 24.h,
-                                            child: SvgPicture.asset(
-                                              'assets/icon/fund.svg',
-                                              fit: BoxFit.contain,
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => FundWalletScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 46.h,
+                                      width: 173.w,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            PPaymobileColors.buttonColorandText,
+                                        borderRadius: BorderRadius.circular(
+                                          26.r,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 24.w,
+                                              height: 24.h,
+                                              child: SvgPicture.asset(
+                                                'assets/icon/fund.svg',
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
-                                          ),
-                                          4.horizontalSpace,
-                                          Text(
-                                            'Fund Wallet',
-                                            style: TextStyle(
-                                              fontFamily: 'InstrumentSans',
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: PPaymobileColors
-                                                  .mainScreenBackground,
+                                            4.horizontalSpace,
+                                            Text(
+                                              'Fund Wallet',
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: PPaymobileColors
+                                                    .mainScreenBackground,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -421,41 +435,51 @@ class _HomeScreenState extends State<HomeScreen> {
               18.verticalSpace,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                child: Container(
-                  height: 56.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 11.w,
-                    vertical: 9.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: PPaymobileColors.warningColor,
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 24.h,
-                        width: 24.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/warning.svg',
-                          fit: BoxFit.contain,
-                        ),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReviewDocumentScreen(),
                       ),
-                      8.horizontalSpace,
-                      Expanded(
-                        child: Text(
-                          'Documents currently being reviewed. Please this won’t take long. Click to view status',
-                          softWrap: true,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w500,
-                            color: PPaymobileColors.warningTextColor,
+                    );
+                  },
+                  child: Container(
+                    height: 56.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 11.w,
+                      vertical: 9.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.warningColor,
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 24.h,
+                          width: 24.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/warning.svg',
+                            fit: BoxFit.contain,
                           ),
                         ),
-                      ),
-                    ],
+                        8.horizontalSpace,
+                        Expanded(
+                          child: Text(
+                            'Documents currently being reviewed. Please this won’t take long. Click to view status',
+                            softWrap: true,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w500,
+                              color: PPaymobileColors.warningTextColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
