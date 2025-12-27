@@ -5,8 +5,10 @@ import 'package:ppay_mobile/main.dart';
 import 'package:ppay_mobile/model/transaction_history_model.dart';
 import 'package:ppay_mobile/screens/views/fund_wallet_screen.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
+import 'package:ppay_mobile/screens/views/transfer_funds_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/kyc_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/withdrawal_bottomsheet.dart';
 
 import '../../main.dart';
 
@@ -297,39 +299,55 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    height: 46.h,
-                                    width: 173.w,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          PPaymobileColors.buttonColorandText,
-                                      borderRadius: BorderRadius.circular(26.r),
-                                    ),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: 24.w,
-                                            height: 24.h,
-                                            child: SvgPicture.asset(
-                                              'assets/icon/transfer.svg',
-                                              fit: BoxFit.contain,
+                                  GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled:
+                                            true, // ✅ allows custom height
+                                        backgroundColor: Colors
+                                            .transparent, // for rounded corners
+                                        builder: (context) {
+                                          return WithdrawalBottomsheet();
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 46.h,
+                                      width: 173.w,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            PPaymobileColors.buttonColorandText,
+                                        borderRadius: BorderRadius.circular(
+                                          26.r,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 24.w,
+                                              height: 24.h,
+                                              child: SvgPicture.asset(
+                                                'assets/icon/transfer.svg',
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
-                                          ),
-                                          4.horizontalSpace,
-                                          Text(
-                                            'Transfer',
-                                            style: TextStyle(
-                                              fontFamily: 'InstrumentSans',
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: PPaymobileColors
-                                                  .mainScreenBackground,
+                                            4.horizontalSpace,
+                                            Text(
+                                              'Transfer',
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: PPaymobileColors
+                                                    .mainScreenBackground,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
