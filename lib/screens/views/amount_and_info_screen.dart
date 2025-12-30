@@ -35,10 +35,11 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
   void _openChangeBottomSheet() {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (_) => const SelectAccountBottomsheet(),
+      isScrollControlled: true, // ✅ allows custom height
+      backgroundColor: Colors.transparent, // for rounded corners
+      builder: (context) {
+        return SelectAccountBottomsheet();
+      },
     );
   }
 
@@ -321,11 +322,11 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
                     ),
                   ),
                   16.verticalSpace,
+                  // Custom Keyboard
+                  CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
                 ],
               ),
             ),
-            // Custom Keyboard
-            CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
           ],
         ),
       ),

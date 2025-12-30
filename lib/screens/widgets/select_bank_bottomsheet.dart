@@ -134,10 +134,7 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
                           ),
 
                           onTap: () {
-                            Navigator.pop(
-                              context,
-                              banksModel[index],
-                            ); // ✅ return value
+                            Navigator.pop(context, banksModel[index]);
                           },
                         );
                       },
