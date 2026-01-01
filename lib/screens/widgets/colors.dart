@@ -17,4 +17,5 @@ class PPaymobileColors {
   static const warningTextColor = Color(0xFF996300);
   static const doneTextColor = Color(0xFF146600);
   static const dangerTextColor = Color(0xFF990003);
+  static const netflixContainerColor = Color(0xFF001A33);
 }

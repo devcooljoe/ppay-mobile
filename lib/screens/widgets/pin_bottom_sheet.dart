@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:ppay_mobile/screens/views/transaction_successful_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
+import 'package:ppay_mobile/screens/widgets/pin_custom_keyboard.dart';
 
 class PinBottomSheet extends StatefulWidget {
   const PinBottomSheet({super.key});
@@ -13,43 +15,77 @@ class PinBottomSheet extends StatefulWidget {
 }
 
 class _PinBottomSheetState extends State<PinBottomSheet> {
-  final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _displayController = TextEditingController();
+  String _realPin = '';
+
+  final emptyPinTheme = PinTheme(
+    width: 18.w,
+    height: 18.w,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
+      color: Colors.transparent, // 👈 empty is transparent
+    ),
+  );
+
+  final filledPinTheme = PinTheme(
+    width: 18.w,
+    height: 18.w,
+    decoration: const BoxDecoration(
+      shape: BoxShape.circle,
+      color: Color(0xFF0B3A3A), // 👈 filled color
+    ),
+  );
 
   void _onKeyTap(String value) {
-    if (_pinController.text.length < 4) {
-      setState(() {
-        _pinController.text += value;
-      });
-    }
-  }
+    if (_realPin.length >= 4) return;
 
-  void _onDelete() {
-    if (_pinController.text.isNotEmpty) {
-      setState(() {
-        _pinController.text = _pinController.text.substring(
-          0,
-          _pinController.text.length - 1,
+    setState(() {
+      _realPin += value;
+      _displayController.text = _realPin;
+    });
+
+    if (_realPin.length == 4) {
+      Future.delayed(const Duration(milliseconds: 200), () {
+        if (!mounted) return;
+
+        Navigator.pop(context);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const TransactionSuccessfulScreen(),
+          ),
         );
       });
     }
   }
 
+  void _onDelete() {
+    if (_realPin.isEmpty) return;
+
+    setState(() {
+      _realPin = _realPin.substring(0, _realPin.length - 1);
+      _displayController.text = _realPin;
+    });
+  }
+
   @override
   void dispose() {
-    _pinController.dispose();
+    _displayController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme = PinTheme(
-      width: 12.w,
-      height: 12.w,
-      decoration: BoxDecoration(
-        color: const Color(0xFF0B3A3A), // dot color
-        shape: BoxShape.circle,
-      ),
-    );
+    // final defaultPinTheme = PinTheme(
+    //   width: 12.w,
+    //   height: 12.w,
+    //   decoration: BoxDecoration(
+    //     color: const Color(0xFF0B3A3A), // dot color
+    //     shape: BoxShape.circle,
+    //   ),
+    // );
 
     return FractionallySizedBox(
       heightFactor: 0.680,
@@ -111,20 +147,22 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
                   ),
                   20.verticalSpace,
                   Pinput(
-                    controller: _pinController,
+                    controller: _displayController,
                     length: 4,
+                    readOnly: true,
                     showCursor: false,
-                    readOnly: true, // 🔥 disables system keyboard
-                    defaultPinTheme: defaultPinTheme,
-                    focusedPinTheme: defaultPinTheme,
-                    submittedPinTheme: defaultPinTheme,
-                    separatorBuilder: (index) => SizedBox(width: 24.w),
+
+                    defaultPinTheme: emptyPinTheme,
+                    focusedPinTheme: emptyPinTheme,
+                    submittedPinTheme: filledPinTheme,
+
+                    separatorBuilder: (_) => SizedBox(width: 24.w),
                   ),
 
                   48.verticalSpace,
 
                   /// CUSTOM KEYPAD
-                  CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
                 ],
               ),
             ),

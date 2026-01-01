@@ -211,6 +211,129 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                       ],
                     ),
                   ),
+                  32.verticalSpace,
+                  Container(
+                    height: 53.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.only(bottom: 13.h),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.deepBackgroundColor,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 40.h,
+                          width: 44.w,
+                          padding: EdgeInsets.all(10).r,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2).r,
+                            color: PPaymobileColors.doneColor,
+                          ),
+                          child: SizedBox(
+                            height: 30.h,
+                            width: 28.w,
+                            child: Image.asset(
+                              'assets/images/access_bank.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        14.horizontalSpace,
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Adebami Samuel',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '9087976570',
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12.sp,
+                                          color: PPaymobileColors.svgIconColor,
+                                        ),
+                                      ),
+                                      8.horizontalSpace,
+                                      SizedBox(
+                                        height: 7.h,
+                                        width: 7.w,
+                                        child: SvgPicture.asset(
+                                          'assets/icon/spacer.svg',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      8.horizontalSpace,
+                                      Text(
+                                        'Access Bank',
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12.sp,
+                                          color: PPaymobileColors.svgIconColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          ConfirmTransactionScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  height: 36.h,
+                                  width: 80.w,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 7.w,
+                                    vertical: 6.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4).r,
+                                    color: PPaymobileColors.backgroundColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Transfer",
+                                      style: TextStyle(
+                                        color: PPaymobileColors
+                                            .mainScreenBackground,
+                                        fontSize: 14.sp,
+                                        fontFamily: 'InstrumentSans',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
