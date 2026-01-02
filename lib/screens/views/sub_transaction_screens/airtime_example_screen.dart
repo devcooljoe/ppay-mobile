@@ -204,7 +204,7 @@ class _AirtimeExampleScreenState extends State<AirtimeExampleScreen> {
                       left: 160.w,
                       child: CircleAvatar(
                         backgroundImage: AssetImage('assets/images/mtn.png'),
-                        maxRadius: 39.5.r,
+                        radius: 39.5.r,
                       ),
                     ),
                   ],
@@ -410,44 +410,6 @@ class _AirtimeExampleScreenState extends State<AirtimeExampleScreen> {
                       ],
                     ),
                   ],
-                ),
-              ),
-              48.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 24.h,
-                        width: 24.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/share_white.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      8.horizontalSpace,
-                      Text(
-                        'Share Receipt',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: PPaymobileColors.mainScreenBackground,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ],

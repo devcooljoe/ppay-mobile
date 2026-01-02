@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/screens/views/home_screen.dart';
+import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/views/sub_transaction_screens/airtime_example_screen.dart';
+import 'package:ppay_mobile/screens/views/sub_transaction_screens/buy_giftcard_screen.dart';
 import 'package:ppay_mobile/screens/views/sub_transaction_screens/flight_booking_screen.dart';
+import 'package:ppay_mobile/screens/views/sub_transaction_screens/sell_giftcard_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class TransactionModel {
@@ -25,7 +27,7 @@ class TransactionModel {
 }
 
 class TransactionDayGroup {
-  final String dayLabel; // Today, Yesterday, May 21, etc
+  final String dayLabel; // Today, Yesterday,
   final List<TransactionModel> transactions;
 
   TransactionDayGroup({required this.dayLabel, required this.transactions});
@@ -42,7 +44,8 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.dangerTextColor,
         imageAsset: 'assets/images/apple.png',
         containerColor: PPaymobileColors.deepBackgroundColor,
-        screen: const HomeScreen(),
+        screen:
+            const RouteScreen(), //same thing as sell and buy gift card, the only change is that it is dollar card not gift card
       ),
       TransactionModel(
         title: 'Spotify Subscription',
@@ -51,7 +54,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.dangerTextColor,
         imageAsset: 'assets/images/spotify.png',
         containerColor: PPaymobileColors.deepBackgroundColor,
-        screen: const HomeScreen(),
+        screen: const RouteScreen(),
       ),
       TransactionModel(
         title: 'Deposit to Wallet',
@@ -60,7 +63,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: Colors.black,
         imageAsset: 'assets/images/logo.png',
         containerColor: PPaymobileColors.backgroundColor,
-        screen: const HomeScreen(),
+        screen: const BuyGiftcardScreen(),
       ),
     ],
   ),
@@ -75,7 +78,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: Colors.green,
         imageAsset: 'assets/images/netflix.png',
         containerColor: PPaymobileColors.netflixContainerColor,
-        screen: const HomeScreen(),
+        screen: const RouteScreen(),
       ),
       TransactionModel(
         title: 'MTN',
@@ -102,7 +105,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: Colors.black,
         imageAsset: 'assets/images/logo.png',
         containerColor: PPaymobileColors.backgroundColor,
-        screen: const HomeScreen(),
+        screen: SellGiftcardScreen(),
       ),
     ],
   ),

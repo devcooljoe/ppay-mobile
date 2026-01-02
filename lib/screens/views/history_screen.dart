@@ -19,7 +19,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       appBar: AppBar(
         backgroundColor: PPaymobileColors.mainScreenBackground,
         toolbarHeight: 56,
-        leadingWidth: 56.w,
+        automaticallyImplyLeading: false,
         title: Text(
           'Transaction History',
           style: TextStyle(
@@ -30,20 +30,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
         ),
         centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
-              height: 24.h,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-        ),
       ),
       body: SafeArea(
         child: Padding(
