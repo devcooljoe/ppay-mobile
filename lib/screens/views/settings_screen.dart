@@ -203,6 +203,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                           final isLogout =
                               option.optionTitle.toLowerCase() == 'logout';
+                          final isBiometric =
+                              option.optionTitle.toLowerCase() ==
+                              'enable biometric';
+                          final isKyc =
+                              option.optionTitle == 'Kyc Verification';
+                          final isKycTitle =
+                              option.optionTitle.toLowerCase() ==
+                              'kyc verification';
 
                           return GestureDetector(
                             onTap: option.optionScreen != null
@@ -235,24 +243,138 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                                 12.horizontalSpace,
                                 Expanded(
-                                  child: Text(
-                                    option.optionTitle,
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: isLogout
-                                          ? Colors.red
-                                          : Colors.black,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        option.optionTitle,
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          color: isLogout
+                                              ? Colors.red
+                                              : Colors.black,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+
+                                      if (isKycTitle) ...[
+                                        8.horizontalSpace,
+                                        Container(
+                                          height: 29.h,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 6.w,
+                                            vertical: 3.h,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                PPaymobileColors.warningColor,
+                                            borderRadius: BorderRadius.circular(
+                                              4,
+                                            ).r,
+                                          ),
+                                          child: Text(
+                                            'Pending',
+                                            style: TextStyle(
+                                              fontFamily: 'InstrumentSans',
+                                              color: PPaymobileColors
+                                                  .warningTextColor,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ],
                                   ),
                                 ),
+
                                 if (!isLogout)
-                                  SvgPicture.asset(
-                                    'assets/icon/settings/arrow_right.svg',
-                                    height: 16.h,
-                                    width: 16.w,
-                                  ),
+                                  isBiometric
+                                      ? Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Switch(
+                                              value: true,
+                                              thumbColor:
+                                                  WidgetStateProperty.resolveWith<
+                                                    Color
+                                                  >((states) {
+                                                    return PPaymobileColors
+                                                        .buttonColor;
+                                                  }),
+                                              trackColor:
+                                                  WidgetStateProperty.resolveWith<
+                                                    Color
+                                                  >((states) {
+                                                    return PPaymobileColors
+                                                        .doneColor;
+                                                  }),
+                                              trackOutlineColor:
+                                                  WidgetStateProperty.resolveWith<
+                                                    Color?
+                                                  >((states) {
+                                                    return Colors.transparent;
+                                                  }),
+                                              onChanged: (value) {},
+                                            ),
+                                            6.horizontalSpace,
+                                            SizedBox(
+                                              height: 24.h,
+                                              width: 12.w,
+                                              child: SvgPicture.asset(
+                                                'assets/icon/arrow_forward.svg',
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : isKyc
+                                      ? Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              height: 29.h,
+                                              // width: 56.w,
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 6.w,
+                                                vertical: 3.h,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: PPaymobileColors
+                                                    .warningColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(4).r,
+                                              ),
+                                              child: Text(
+                                                'Pending',
+                                                style: TextStyle(
+                                                  fontFamily: 'InstrumentSans',
+                                                  color: PPaymobileColors
+                                                      .warningTextColor,
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            6.horizontalSpace,
+                                            SizedBox(
+                                              height: 24.h,
+                                              width: 12.w,
+                                              child: SvgPicture.asset(
+                                                'assets/icon/arrow_forward.svg',
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : SizedBox(
+                                          height: 24.h,
+                                          width: 12.w,
+                                          child: SvgPicture.asset(
+                                            'assets/icon/arrow_forward.svg',
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
                               ],
                             ),
                           );

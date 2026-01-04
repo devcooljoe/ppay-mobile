@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/profile_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/privacy_screen.dart';
 
 class SettingsOptionModel {
   final String optionIcon;
@@ -27,11 +29,12 @@ final List<SettingsOptionGroup> settingsGroup = [
     optionGroup: 'Manage Account',
     group: [
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/person.svg',
+        optionIcon: 'assets/icon/person.svg',
         optionTitle: 'Profile',
+        optionScreen: ProfileScreen(),
       ),
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/id.svg',
+        optionIcon: 'assets/icon/id.svg',
         optionTitle: 'Kyc Verification',
         optionScreen: ReviewDocumentScreen(),
       ),
@@ -49,11 +52,11 @@ final List<SettingsOptionGroup> settingsGroup = [
         optionTitle: 'Change Password',
       ),
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/key_black.svg',
+        optionIcon: 'assets/icon/key_black.svg',
         optionTitle: 'Change Transaction Pin',
       ),
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/biometric.svg',
+        optionIcon: 'assets/icon/biometric.svg',
         optionTitle: 'Enable Biometric',
       ),
       SettingsOptionModel(
@@ -66,7 +69,7 @@ final List<SettingsOptionGroup> settingsGroup = [
     optionGroup: 'Account Limit',
     group: [
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/transaction.svg',
+        optionIcon: 'assets/icon/transaction.svg',
         optionTitle: 'Transaction Limit',
       ),
     ],
@@ -75,7 +78,7 @@ final List<SettingsOptionGroup> settingsGroup = [
     optionGroup: 'Referral',
     group: [
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/multiple_person.svg',
+        optionIcon: 'assets/icon/multiple_person.svg',
         optionTitle: 'Refer & Earn',
       ),
     ],
@@ -84,15 +87,16 @@ final List<SettingsOptionGroup> settingsGroup = [
     optionGroup: 'Teams & Support',
     group: [
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/terms.svg',
+        optionIcon: 'assets/icon/terms.svg',
         optionTitle: 'Terms & Conditions',
       ),
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/privacy.svg',
+        optionIcon: 'assets/icon/privacy.svg',
         optionTitle: 'Privacy Policy',
+        optionScreen: PrivacyScreen(),
       ),
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/help.svg',
+        optionIcon: 'assets/icon/help.svg',
         optionTitle: 'Help & Support',
       ),
     ],
@@ -101,7 +105,7 @@ final List<SettingsOptionGroup> settingsGroup = [
     optionGroup: 'Sign Out',
     group: [
       SettingsOptionModel(
-        optionIcon: 'assets/icon/settings/logout.svg',
+        optionIcon: 'assets/icon/logout.svg',
         optionTitle: 'Logout',
       ),
     ],
