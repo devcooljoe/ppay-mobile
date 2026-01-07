@@ -144,14 +144,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       5.horizontalSpace,
                       Container(
                         height: 24.h,
-                        width: 124.w,
+                        width: 130.w,
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(45).r,
                           color: PPaymobileColors.doneColor,
                         ),
                         child: Text(
-                          'Account Tire 3',
+                          'Account Tier 3',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: PPaymobileColors.doneTextColor,

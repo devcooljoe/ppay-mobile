@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/bank_accounts.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/notification.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/profile_screen.dart';
-import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/privacy_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/privacy_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/refer.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/change_password.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/pin_reset.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/terms_and_conditions.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/transaction_limit.dart';
 
 class SettingsOptionModel {
   final String optionIcon;
@@ -41,6 +48,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/bank_black.svg',
         optionTitle: 'Saved Bank Accounts',
+        optionScreen: BankAccounts(),
       ),
     ],
   ),
@@ -50,10 +58,12 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/lock.svg',
         optionTitle: 'Change Password',
+        optionScreen: ChangePassword(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/key_black.svg',
         optionTitle: 'Change Transaction Pin',
+        optionScreen: PinReset(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/biometric.svg',
@@ -62,6 +72,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/notif.svg',
         optionTitle: 'Notification Settings',
+        optionScreen: NotificationScreen(),
       ),
     ],
   ),
@@ -71,6 +82,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/transaction.svg',
         optionTitle: 'Transaction Limit',
+        optionScreen: TransactionLimit(),
       ),
     ],
   ),
@@ -80,6 +92,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/multiple_person.svg',
         optionTitle: 'Refer & Earn',
+        optionScreen: Referral(),
       ),
     ],
   ),
@@ -89,6 +102,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/terms.svg',
         optionTitle: 'Terms & Conditions',
+        optionScreen: TermsAndConditions(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/privacy.svg',
