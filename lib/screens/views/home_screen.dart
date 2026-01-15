@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/main.dart';
 import 'package:ppay_mobile/model/transaction_history_model.dart';
 import 'package:ppay_mobile/screens/views/fund_wallet_screen.dart';
+import 'package:ppay_mobile/screens/views/notification_screen.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
 import 'package:ppay_mobile/screens/views/transfer_funds_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
@@ -105,38 +106,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    Container(
-                      height: 47.h,
-                      width: 47.w,
-                      decoration: BoxDecoration(
-                        color: PPaymobileColors.textfiedBorder,
-                        borderRadius: BorderRadius.circular(23.r),
-                      ),
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: SizedBox(
-                              height: 24.h,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/notif.svg',
-                                fit: BoxFit.contain,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 47.h,
+                        width: 47.w,
+                        decoration: BoxDecoration(
+                          color: PPaymobileColors.textfiedBorder,
+                          borderRadius: BorderRadius.circular(23.r),
+                        ),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                height: 24.h,
+                                width: 24.w,
+                                child: SvgPicture.asset(
+                                  'assets/icon/notif.svg',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: 12,
-                            left: 25,
-                            child: SizedBox(
-                              height: 9.h,
-                              width: 9.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/newnotif.svg',
-                                fit: BoxFit.contain,
+                            Positioned(
+                              top: 12,
+                              left: 25,
+                              child: SizedBox(
+                                height: 9.h,
+                                width: 9.w,
+                                child: SvgPicture.asset(
+                                  'assets/icon/newnotif.svg',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

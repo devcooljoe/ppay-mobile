@@ -223,159 +223,165 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     );
                                   }
                                 : null,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 44.h,
-                                  width: 44.w,
-                                  decoration: BoxDecoration(
-                                    color: PPaymobileColors.deepBackgroundColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                    child: SvgPicture.asset(
-                                      option.optionIcon,
-                                      height: 20.h,
-                                      width: 20.w,
-                                      color: isLogout ? Colors.red : null,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 44.h,
+                                    width: 44.w,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          PPaymobileColors.deepBackgroundColor,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        option.optionIcon,
+                                        height: 20.h,
+                                        width: 20.w,
+                                        color: isLogout ? Colors.red : null,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                12.horizontalSpace,
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        option.optionTitle,
-                                        style: TextStyle(
-                                          fontFamily: 'InstrumentSans',
-                                          color: isLogout
-                                              ? Colors.red
-                                              : Colors.black,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-
-                                      if (isKycTitle) ...[
-                                        8.horizontalSpace,
-                                        Container(
-                                          height: 29.h,
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 6.w,
-                                            vertical: 3.h,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color:
-                                                PPaymobileColors.warningColor,
-                                            borderRadius: BorderRadius.circular(
-                                              4,
-                                            ).r,
-                                          ),
-                                          child: Text(
-                                            'Pending',
-                                            style: TextStyle(
-                                              fontFamily: 'InstrumentSans',
-                                              color: PPaymobileColors
-                                                  .warningTextColor,
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w500,
-                                            ),
+                                  12.horizontalSpace,
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          option.optionTitle,
+                                          style: TextStyle(
+                                            fontFamily: 'InstrumentSans',
+                                            color: isLogout
+                                                ? Colors.red
+                                                : Colors.black,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                      ],
-                                    ],
-                                  ),
-                                ),
 
-                                if (!isLogout)
-                                  isBiometric
-                                      ? Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Switch(
-                                              value: true,
-                                              thumbColor:
-                                                  WidgetStateProperty.resolveWith<
-                                                    Color
-                                                  >((states) {
-                                                    return PPaymobileColors
-                                                        .buttonColor;
-                                                  }),
-                                              trackColor:
-                                                  WidgetStateProperty.resolveWith<
-                                                    Color
-                                                  >((states) {
-                                                    return PPaymobileColors
-                                                        .doneColor;
-                                                  }),
-                                              trackOutlineColor:
-                                                  WidgetStateProperty.resolveWith<
-                                                    Color?
-                                                  >((states) {
-                                                    return Colors.transparent;
-                                                  }),
-                                              onChanged: (value) {},
+                                        if (isKycTitle) ...[
+                                          8.horizontalSpace,
+                                          Container(
+                                            height: 29.h,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 6.w,
+                                              vertical: 3.h,
                                             ),
-                                            6.horizontalSpace,
-                                            SizedBox(
-                                              height: 24.h,
-                                              width: 12.w,
-                                              child: SvgPicture.asset(
-                                                'assets/icon/arrow_forward.svg',
-                                                fit: BoxFit.contain,
-                                              ),
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  PPaymobileColors.warningColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(4).r,
                                             ),
-                                          ],
-                                        )
-                                      : isKyc
-                                      ? Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              height: 29.h,
-                                              // width: 56.w,
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 6.w,
-                                                vertical: 3.h,
-                                              ),
-                                              decoration: BoxDecoration(
+                                            child: Text(
+                                              'Pending',
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
                                                 color: PPaymobileColors
-                                                    .warningColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(4).r,
+                                                    .warningTextColor,
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
                                               ),
-                                              child: Text(
-                                                'Pending',
-                                                style: TextStyle(
-                                                  fontFamily: 'InstrumentSans',
-                                                  color: PPaymobileColors
-                                                      .warningTextColor,
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                  ),
+
+                                  if (!isLogout)
+                                    isBiometric
+                                        ? Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Switch(
+                                                value: true,
+                                                thumbColor:
+                                                    WidgetStateProperty.resolveWith<
+                                                      Color
+                                                    >((states) {
+                                                      return PPaymobileColors
+                                                          .buttonColor;
+                                                    }),
+                                                trackColor:
+                                                    WidgetStateProperty.resolveWith<
+                                                      Color
+                                                    >((states) {
+                                                      return PPaymobileColors
+                                                          .doneColor;
+                                                    }),
+                                                trackOutlineColor:
+                                                    WidgetStateProperty.resolveWith<
+                                                      Color?
+                                                    >((states) {
+                                                      return Colors.transparent;
+                                                    }),
+                                                onChanged: (value) {},
+                                              ),
+                                              6.horizontalSpace,
+                                              SizedBox(
+                                                height: 24.h,
+                                                width: 12.w,
+                                                child: SvgPicture.asset(
+                                                  'assets/icon/arrow_forward.svg',
+                                                  fit: BoxFit.contain,
                                                 ),
                                               ),
-                                            ),
-                                            6.horizontalSpace,
-                                            SizedBox(
-                                              height: 24.h,
-                                              width: 12.w,
-                                              child: SvgPicture.asset(
-                                                'assets/icon/arrow_forward.svg',
-                                                fit: BoxFit.contain,
+                                            ],
+                                          )
+                                        : isKyc
+                                        ? Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                height: 29.h,
+                                                // width: 56.w,
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 6.w,
+                                                  vertical: 3.h,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: PPaymobileColors
+                                                      .warningColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                        4,
+                                                      ).r,
+                                                ),
+                                                child: Text(
+                                                  'Pending',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'InstrumentSans',
+                                                    color: PPaymobileColors
+                                                        .warningTextColor,
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
                                               ),
+                                              6.horizontalSpace,
+                                              SizedBox(
+                                                height: 24.h,
+                                                width: 12.w,
+                                                child: SvgPicture.asset(
+                                                  'assets/icon/arrow_forward.svg',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : SizedBox(
+                                            height: 24.h,
+                                            width: 12.w,
+                                            child: SvgPicture.asset(
+                                              'assets/icon/arrow_forward.svg',
+                                              fit: BoxFit.contain,
                                             ),
-                                          ],
-                                        )
-                                      : SizedBox(
-                                          height: 24.h,
-                                          width: 12.w,
-                                          child: SvgPicture.asset(
-                                            'assets/icon/arrow_forward.svg',
-                                            fit: BoxFit.contain,
                                           ),
-                                        ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },

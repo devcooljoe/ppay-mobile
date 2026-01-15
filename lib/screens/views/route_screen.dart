@@ -48,7 +48,7 @@ class _RouteScreenState extends State<RouteScreen> {
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: navSvgIcon('assets/icon/features.svg', 2),
+            icon: navSvgIcon('assets/icon/features_1.svg', 2),
             label: 'Features',
           ),
           BottomNavigationBarItem(

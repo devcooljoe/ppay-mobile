@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/bank_accounts.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/help_and_support.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/notification.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/profile_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/privacy_screen.dart';
@@ -112,6 +113,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/help.svg',
         optionTitle: 'Help & Support',
+        optionScreen: HelpSupportScreen(),
       ),
     ],
   ),

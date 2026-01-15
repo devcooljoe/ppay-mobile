@@ -15,6 +15,7 @@ class CustomKeyboard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 82.w,
         alignment: Alignment.center,
         child: Text(
           value,
@@ -50,7 +51,7 @@ class CustomKeyboard extends StatelessWidget {
         _key('7', onTap: () => onKeyTap('7')),
         _key('8', onTap: () => onKeyTap('8')),
         _key('9', onTap: () => onKeyTap('9')),
-        const SizedBox(),
+        _key('.', onTap: () => onKeyTap('.')),
         _key('0', onTap: () => onKeyTap('0')),
         _deleteKey(onTap: onDelete),
       ],
