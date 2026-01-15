@@ -532,7 +532,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 24.h,
                         width: 24.w,
                         child: SvgPicture.asset(
-                          'assets/icon/done.svg',
+                          'assets/icon/tick_pass.svg',
                           fit: BoxFit.contain,
                         ),
                       ),
