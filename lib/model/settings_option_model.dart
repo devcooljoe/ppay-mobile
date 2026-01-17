@@ -67,7 +67,7 @@ final List<SettingsOptionGroup> settingsGroup = [
         optionScreen: PinReset(),
       ),
       SettingsOptionModel(
-        optionIcon: 'assets/icon/biometric.svg',
+        optionIcon: 'assets/icon/biometric_finger.svg',
         optionTitle: 'Enable Biometric',
       ),
       SettingsOptionModel(

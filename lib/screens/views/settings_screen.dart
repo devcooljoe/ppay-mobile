@@ -240,7 +240,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         option.optionIcon,
                                         height: 20.h,
                                         width: 20.w,
-                                        color: isLogout ? Colors.red : null,
+                                        fit: BoxFit.contain,
                                       ),
                                     ),
                                   ),

@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/main.dart';
 import 'package:ppay_mobile/model/transaction_history_model.dart';
 import 'package:ppay_mobile/screens/views/fund_wallet_screen.dart';
 import 'package:ppay_mobile/screens/views/notification_screen.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
-import 'package:ppay_mobile/screens/views/transfer_funds_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/kyc_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/withdrawal_bottomsheet.dart';
-
-import '../../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,14 +22,14 @@ List transactionHistroy = [
     titleText: 'Apple',
     subtitleText: 'Paid with Dollar Card',
     trailingText: '-₦60,000.00',
-    trailingColor: PPaymobileColors.redTextfield,
+    trailingColor: PPaymobileColors.cryptoNumbersColor,
   ),
   TransactionHistoryModel(
     leadingImage: 'assets/images/spotify.png',
     titleText: 'Spotify',
     subtitleText: 'Paid with Dollar Card',
     trailingText: '-₦60,000.00',
-    trailingColor: PPaymobileColors.redTextfield,
+    trailingColor: PPaymobileColors.cryptoNumbersColor,
   ),
 ];
 
@@ -46,323 +42,114 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              17.verticalSpace,
               Container(
-                height: 53.h,
-                padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 53.h,
-                          width: 53.w,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/profilepic.png'),
-                            ),
-                            borderRadius: BorderRadius.circular(27.r),
-                          ),
-                        ),
-                        12.horizontalSpace,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Hello',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                3.horizontalSpace,
-                                SizedBox(
-                                  height: 17.h,
-                                  width: 17.w,
-                                  child: Image.asset(
-                                    'assets/images/thumbs.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Mary Evans',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NotificationScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 47.h,
-                        width: 47.w,
-                        decoration: BoxDecoration(
-                          color: PPaymobileColors.textfiedBorder,
-                          borderRadius: BorderRadius.circular(23.r),
-                        ),
-                        child: Stack(
-                          children: [
-                            Center(
-                              child: SizedBox(
-                                height: 24.h,
-                                width: 24.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/notif.svg',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 12,
-                              left: 25,
-                              child: SizedBox(
-                                height: 9.h,
-                                width: 9.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/newnotif.svg',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                height: 83.h,
+                width: double.infinity,
+                padding: EdgeInsets.only(
+                  left: 20.w,
+                  right: 20.w,
+                  bottom: 13.h,
+                  top: 17.h,
                 ),
-              ),
-              19.verticalSpace,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                child: Container(
-                  height: 223.h,
-                  padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: PPaymobileColors.backgroundColor,
-                    borderRadius: BorderRadius.circular(19.r),
-                  ),
-                  child: Stack(
+                color: PPaymobileColors.mainScreenBackground,
+                child: SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Center(
-                        child: RotatedBox(
-                          quarterTurns: 3,
-                          child: Image.asset(
-                            'assets/images/earthbackground1.png',
+                      Row(
+                        children: [
+                          Container(
+                            height: 53.h,
+                            width: 53.w,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  'assets/images/profilepic.png',
+                                ),
+                              ),
+                              borderRadius: BorderRadius.circular(27.r),
+                            ),
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: Container(
-                          height: 29.h,
-                          width: 77.w,
-                          padding: EdgeInsets.only(
-                            top: 3.h,
-                            left: 8.w,
-                            right: 8.w,
-                            bottom: 3.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.buttonColorandText,
-                            borderRadius: BorderRadius.circular(16.r),
-                          ),
-                          child: Row(
+                          12.horizontalSpace,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                height: 15.h,
-                                width: 15.w,
-                                child: Image.asset(
-                                  'assets/images/flag.png',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              Text(
-                                'NGN',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: PPaymobileColors.mainScreenBackground,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 29.h,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: SizedBox(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Wallet Balance',
+                                    'Hello',
                                     style: TextStyle(
                                       fontFamily: 'InstrumentSans',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
                                     ),
                                   ),
-                                  8.horizontalSpace,
+                                  3.horizontalSpace,
                                   SizedBox(
-                                    height: 25.h,
-                                    width: 25.w,
-                                    child: SvgPicture.asset(
-                                      'assets/icon/eye-slash.svg',
+                                    height: 17.h,
+                                    width: 17.w,
+                                    child: Image.asset(
+                                      'assets/images/thumbs.png',
                                       fit: BoxFit.contain,
                                     ),
                                   ),
                                 ],
                               ),
-                              6.verticalSpace,
                               Text(
-                                '₦5,000,000.00',
+                                'Mary Evans',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
-                                  fontSize: 32.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: PPaymobileColors.mainScreenBackground,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
                                 ),
                               ),
-                              27.verticalSpace,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => FundWalletScreen(),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      height: 46.h,
-                                      width: 173.w,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            PPaymobileColors.buttonColorandText,
-                                        borderRadius: BorderRadius.circular(
-                                          26.r,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24.w,
-                                              height: 24.h,
-                                              child: SvgPicture.asset(
-                                                'assets/icon/fund.svg',
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ),
-                                            4.horizontalSpace,
-                                            Text(
-                                              'Fund Wallet',
-                                              style: TextStyle(
-                                                fontFamily: 'InstrumentSans',
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: PPaymobileColors
-                                                    .mainScreenBackground,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NotificationScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 47.h,
+                          width: 47.w,
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.textfiedBorder,
+                            borderRadius: BorderRadius.circular(23.r),
+                          ),
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: SizedBox(
+                                  height: 24.h,
+                                  width: 24.w,
+                                  child: SvgPicture.asset(
+                                    'assets/icon/notif.svg',
+                                    fit: BoxFit.contain,
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled:
-                                            true, // ✅ allows custom height
-                                        backgroundColor: Colors
-                                            .transparent, // for rounded corners
-                                        builder: (context) {
-                                          return WithdrawalBottomsheet();
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      height: 46.h,
-                                      width: 173.w,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            PPaymobileColors.buttonColorandText,
-                                        borderRadius: BorderRadius.circular(
-                                          26.r,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24.w,
-                                              height: 24.h,
-                                              child: SvgPicture.asset(
-                                                'assets/icon/transfer.svg',
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ),
-                                            4.horizontalSpace,
-                                            Text(
-                                              'Transfer',
-                                              style: TextStyle(
-                                                fontFamily: 'InstrumentSans',
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: PPaymobileColors
-                                                    .mainScreenBackground,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 12,
+                                left: 25,
+                                child: SizedBox(
+                                  height: 9.h,
+                                  width: 9.w,
+                                  child: SvgPicture.asset(
+                                    'assets/icon/newnotif.svg',
+                                    fit: BoxFit.contain,
                                   ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
@@ -372,11 +159,128 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-
+              19.verticalSpace,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                child: Container(
+                  height: 223.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/dash.png'),
+                      fit: BoxFit.contain,
+                    ),
+                    borderRadius: BorderRadius.circular(19.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      13.verticalSpace,
+                      Padding(
+                        padding: EdgeInsets.only(left: 16.0.w),
+                        child: SizedBox(
+                          height: 29.h,
+                          width: 77.w,
+                          child: Image.asset(
+                            'assets/images/currency_dash.png',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      2.5.verticalSpace,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Wallet Balance',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: PPaymobileColors.mainScreenBackground,
+                                ),
+                              ),
+                              8.horizontalSpace,
+                              SizedBox(
+                                height: 25.h,
+                                width: 25.w,
+                                child: SvgPicture.asset(
+                                  'assets/icon/eye-slash.svg',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
+                          ),
+                          4.verticalSpace,
+                          Text(
+                            '₦5,000,000.00',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 32.sp,
+                              fontWeight: FontWeight.w600,
+                              color: PPaymobileColors.mainScreenBackground,
+                            ),
+                          ),
+                          27.verticalSpace,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => FundWalletScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    width: 172.5.w,
+                                    height: 46.h,
+                                    child: Image.asset(
+                                      'assets/images/fund_dash.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      builder: (context) {
+                                        return WithdrawalBottomsheet();
+                                      },
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    width: 172.5.w,
+                                    height: 46.h,
+                                    child: Image.asset(
+                                      'assets/images/transfer_dash.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               18.verticalSpace,
               SizedBox(
                 height: 88.h,
-                width: double.infinity,
+                width: 400.w,
                 child: Image.asset(
                   'assets/images/ads.png',
                   fit: BoxFit.contain,
@@ -446,13 +350,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: PPaymobileColors.mainScreenBackground,
                             borderRadius: BorderRadius.circular(9.r),
                           ),
-                          child: Text(
-                            'Verify',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                          child: Center(
+                            child: Text(
+                              'Verify',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ),
@@ -462,8 +368,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               18.verticalSpace,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+              Container(
+                height: 76.h,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
+                color: PPaymobileColors.mainScreenBackground,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -513,58 +422,66 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               8.verticalSpace,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                child: Container(
-                  height: 56.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 11.w,
-                    vertical: 9.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: PPaymobileColors.doneColor,
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 24.h,
-                        width: 24.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/tick_pass.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      8.horizontalSpace,
-                      Expanded(
-                        child: Text(
-                          'All documents are verified. You can activate your wallet by making your first deposit. Click here',
-                          softWrap: true,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w500,
-                            color: PPaymobileColors.doneTextColor,
+              Container(
+                height: 76.h,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
+                color: PPaymobileColors.mainScreenBackground,
+                child: SizedBox(
+                  child: Container(
+                    height: 56.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 11.w,
+                      vertical: 9.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.doneColor,
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 24.h,
+                          width: 24.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/tick_pass.svg',
+                            fit: BoxFit.contain,
                           ),
                         ),
-                      ),
-                      8.horizontalSpace,
-                      SizedBox(
-                        height: 28.h,
-                        width: 28.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/cancel.svg',
-                          fit: BoxFit.contain,
+                        8.horizontalSpace,
+                        Expanded(
+                          child: Text(
+                            'All documents are verified. You can activate your wallet by making your first deposit. Click here',
+                            softWrap: true,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w500,
+                              color: PPaymobileColors.doneTextColor,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        8.horizontalSpace,
+                        SizedBox(
+                          height: 28.h,
+                          width: 28.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/cancel.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
               8.verticalSpace,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+              Container(
+                height: 76.h,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
+                color: PPaymobileColors.mainScreenBackground,
                 child: Container(
                   height: 56.h,
                   width: double.infinity,
@@ -616,9 +533,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 height: 180.h,
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 20.0,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0.w,
+                  vertical: 20.0.h,
                 ).r,
                 decoration: BoxDecoration(
                   color: PPaymobileColors.mainScreenBackground,
@@ -635,9 +552,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    10.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                       children: [
                         Column(
                           children: [
@@ -773,7 +690,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontFamily: 'InstrumentSans',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
-                            color: PPaymobileColors.highlightTextColor,
+                            color: PPaymobileColors.buttonColor,
                           ),
                         ),
                       ],
