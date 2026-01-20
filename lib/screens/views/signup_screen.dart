@@ -132,8 +132,8 @@ class _SignupScreenState extends State<SignupScreen> {
               height: 56.h,
               child: PPTextfield(
                 prefixI: Padding(
-                  padding: const EdgeInsets.all(14.0).r,
-                  child: Image.asset('assets/images/flag.png'),
+                  padding: const EdgeInsets.all(17.0).r,
+                  child: Image.asset('assets/images/flag_1.png'),
                 ),
                 hintT: '+234',
                 hintS: TextStyle(
@@ -173,9 +173,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       'terms and conditions',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                        decorationColor: PPaymobileColors.highlightTextColor,
+                        decorationColor: Color(0xff429E6E),
                         fontFamily: 'Montserrat',
-                        color: PPaymobileColors.highlightTextColor,
+                        color: Color(0xff429E6E),
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
                       ),
@@ -185,32 +185,30 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ),
             101.verticalSpace,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
+            SizedBox(
+              width: double.infinity,
+              height: 50.h,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: PPaymobileColors.backgroundColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(42),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => VerifyCode()),
-                    );
-                  },
-                  child: Text(
-                    'Get Started',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => VerifyCode()),
+                  );
+                },
+                child: Text(
+                  'Get Started',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                    color: Colors.white,
                   ),
                 ),
               ),

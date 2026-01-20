@@ -59,7 +59,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                 ),
               ),
               38.verticalSpace,
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Pinput(
                   length: 6,
@@ -84,7 +84,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                 ),
               ),
               10.verticalSpace,
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Pinput(
                   length: 6,
@@ -136,7 +136,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                       fontFamily: 'InstrumentSans',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
-                      color: PPaymobileColors.highlightTextColor,
+                      color: Color(0xff429E6E),
                     ),
                   ),
                 ],
@@ -148,7 +148,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                   fontFamily: 'InstrumentSans',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: PPaymobileColors.textfiedBorder,
+                  color: Color(0xff5B5B5B),
                 ),
               ),
               76.verticalSpace,
