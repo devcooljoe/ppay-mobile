@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/card_limit_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/card_transaction_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/fund_card_screen.dart';
+import 'package:ppay_mobile/screens/widgets/card_details_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_switch.dart';
 
@@ -12,7 +16,210 @@ class CardScreen extends StatefulWidget {
 }
 
 class _CardScreenState extends State<CardScreen> {
+  void _onFreezeSwitchTapped(bool newValue) async {
+    if (newValue) {
+      final confirmed = await _showFreezeDialog();
+      if (confirmed != true) return;
+    }
+    setState(() {
+      isEnabled = newValue;
+    });
+  }
+
   bool isEnabled = false;
+
+  Future<bool?> _showFreezeDialog() {
+    return showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(11.r),
+          ),
+          child: SizedBox(
+            height: 282.h,
+            width: double.infinity,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 28.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Freeze Card',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context, false),
+                        child: SizedBox(
+                          height: 20.56.h,
+                          width: 20.56.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/cancel1.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  20.verticalSpace,
+                  Text(
+                    'Are you sure you want to freeze card. All transactions will be put on hold.',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  66.verticalSpace,
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => Navigator.pop(context, true),
+                          child: SizedBox(
+                            height: 50.h,
+                            width: 172.w,
+                            child: Image.asset(
+                              'assets/images/yes.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => Navigator.pop(context, false),
+                          child: SizedBox(
+                            height: 50.h,
+                            width: 172.w,
+                            child: Image.asset(
+                              'assets/images/cancel.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showBillingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(9.r),
+          ),
+          child: SizedBox(
+            height: 434.h,
+            width: double.infinity,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Below is your billing address details',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  45.verticalSpace,
+                  Text(
+                    'Address Information',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  Text(
+                    'Billing Address',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Text(
+                    '1234 Market Street, San Francisco, CA 94103, United States',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  37.verticalSpace,
+                  Text(
+                    'Postal Code',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Text(
+                    '111010',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  46.verticalSpace,
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: SizedBox(
+                      height: 48.h,
+                      width: 147.w,
+                      child: Image.asset(
+                        'assets/images/go_back.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +331,8 @@ class _CardScreenState extends State<CardScreen> {
                               width: 103.w,
                               child: Image.asset(
                                 'assets/images/activate.png', //for existing users, use this instead 'assets/images/active.png'
-                                fit: BoxFit.contain,
+                                fit: BoxFit
+                                    .contain, //for blocked cards, use this instead 'assets/images/blocked.png'
                               ),
                             ),
                           ],
@@ -223,80 +431,110 @@ class _CardScreenState extends State<CardScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 40.h,
-                    width: 190.w,
-                    child: Image.asset(
-                      'assets/images/fund_card.png',
-                      fit: BoxFit.contain,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FundCardScreen(),
+                        ),
+                      );
+                    },
+                    child: SizedBox(
+                      height: 40.h,
+                      width: 190.w,
+                      child: Image.asset(
+                        'assets/images/fund_card.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                    width: 190.w,
-                    child: Image.asset(
-                      'assets/images/transact.png',
-                      fit: BoxFit.contain,
+                  ), // for blocked card scenario, this is faded and the asset for this is 'assets/images/fund_faded.png',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CardTransactionScreen(),
+                        ),
+                      );
+                    },
+                    child: SizedBox(
+                      height: 40.h,
+                      width: 190.w,
+                      child: Image.asset(
+                        'assets/images/transact.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ],
               ),
               48.verticalSpace,
-              Container(
-                height: 61.h,
-                width: double.infinity,
-                padding: EdgeInsets.only(bottom: 10.h),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: PPaymobileColors.textfiedBorder,
-                      width: 1.w,
+              GestureDetector(
+                onTap: () async {
+                  final bank = await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (_) => const CardDetailsBottomsheet(),
+                  );
+                },
+                child: Container(
+                  height: 61.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.only(bottom: 10.h),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
+                      ),
                     ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Card Details',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Card Details',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Get and copy card information here',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
+                                Text(
+                                  'Get and copy card information here',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 24.h,
-                      width: 12.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_forward.svg',
-                        fit: BoxFit.contain,
+                      SizedBox(
+                        height: 24.h,
+                        width: 12.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/arrow_forward.svg',
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               27.verticalSpace,
@@ -351,130 +589,139 @@ class _CardScreenState extends State<CardScreen> {
                       height: 25.h,
                       child: CustomSwitch(
                         value: isEnabled,
-                        onChanged: (val) {
-                          setState(() {
-                            isEnabled = val;
-                          });
-                        },
+                        onChanged: _onFreezeSwitchTapped,
                       ),
                     ),
                   ],
                 ),
               ),
               27.verticalSpace,
-              Container(
-                height: 61.h,
-                width: double.infinity,
-                padding: EdgeInsets.only(bottom: 10.h),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: PPaymobileColors.textfiedBorder,
-                      width: 1.w,
+              GestureDetector(
+                onTap: _showBillingDialog,
+                child: Container(
+                  height: 61.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.only(bottom: 10.h),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
+                      ),
                     ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Billing Address',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Billing Address',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Get your billing address info',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
+                                Text(
+                                  'Get your billing address info',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 24.h,
-                      width: 12.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_forward.svg',
-                        fit: BoxFit.contain,
+                      SizedBox(
+                        height: 24.h,
+                        width: 12.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/arrow_forward.svg',
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               27.verticalSpace,
-              Container(
-                height: 61.h,
-                width: double.infinity,
-                padding: EdgeInsets.only(bottom: 10.h),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: PPaymobileColors.textfiedBorder,
-                      width: 1.w,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CardLimitScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 61.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.only(bottom: 10.h),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
+                      ),
                     ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Card Limit',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Card Limit',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Review all limit on your card',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
+                                Text(
+                                  'Review all limit on your card',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 24.h,
-                      width: 12.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_forward.svg',
-                        fit: BoxFit.contain,
+                      SizedBox(
+                        height: 24.h,
+                        width: 12.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/arrow_forward.svg',
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

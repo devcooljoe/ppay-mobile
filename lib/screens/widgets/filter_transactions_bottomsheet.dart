@@ -17,8 +17,6 @@ class _FilterTransactionsBottomsheetState
   bool isEnabled = false;
   final TextEditingController _dateController = TextEditingController();
 
-  double _currentValue = 0;
-
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -121,20 +119,9 @@ class _FilterTransactionsBottomsheetState
                   SizedBox(
                     height: 25.h,
                     width: double.infinity,
-                    child: Slider(
-                      padding: EdgeInsets.zero,
-                      value: _currentValue,
-                      activeColor: PPaymobileColors.buttonColor,
-                      thumbColor: PPaymobileColors.buttonColor,
-                      min: 0,
-                      max: 30,
-                      label: _currentValue.toString(),
-                      inactiveColor: PPaymobileColors.deepBackgroundColor,
-                      onChanged: (value) {
-                        setState(() {
-                          _currentValue = value;
-                        });
-                      },
+                    child: Image.asset(
+                      'assets/images/range.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
                   13.verticalSpace,
