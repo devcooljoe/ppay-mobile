@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/fund_card_successful_screen.dart';
 import 'package:ppay_mobile/screens/views/transaction_successful_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
@@ -51,12 +52,10 @@ class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
 
         Navigator.pop(context);
 
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => const TransactionSuccessfulScreen(),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const FundCardSuccessfulScreen()),
+        );
       });
     }
   }
@@ -156,7 +155,7 @@ class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
                     submittedPinTheme: filledPinTheme,
                     separatorBuilder: (_) => 40.horizontalSpace,
                   ),
-                  12.verticalSpace,
+                  14.verticalSpace,
                   Text(
                     'Incorrect Transaction Pin. Try again',
                     style: TextStyle(
@@ -168,20 +167,7 @@ class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
                   ),
                   14.verticalSpace,
                   // CUSTOM KEYPAD
-                  Container(
-                    height: 406.h,
-                    width: double.infinity,
-                    padding: EdgeInsets.only(
-                      top: 18.h,
-                      left: 10.w,
-                      right: 10.w,
-                      bottom: 37.h,
-                    ),
-                    child: PinCustomKeyboard(
-                      onKeyTap: _onKeyTap,
-                      onDelete: _onDelete,
-                    ),
-                  ),
+                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
                 ],
               ),
             ),

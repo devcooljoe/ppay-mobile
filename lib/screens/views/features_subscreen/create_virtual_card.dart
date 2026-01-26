@@ -254,14 +254,7 @@ class _CreateVirtualCardState extends State<CreateVirtualCard> {
                     ),
                     elevation: 0,
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CreateVirtualCard(),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                   child: Text(
                     'Pay \$XXX to activate card',
                     style: TextStyle(
