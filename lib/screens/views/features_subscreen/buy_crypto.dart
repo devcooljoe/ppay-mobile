@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_puurchase_bottomsheet.dart';

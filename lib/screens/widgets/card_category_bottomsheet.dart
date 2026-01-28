@@ -3,14 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
-class CardTypeBottomsheet extends StatefulWidget {
-  const CardTypeBottomsheet({super.key});
+class CardCategoryBottomsheet extends StatefulWidget {
+  const CardCategoryBottomsheet({super.key});
 
   @override
-  State<CardTypeBottomsheet> createState() => _CardTypeBottomsheetState();
+  State<CardCategoryBottomsheet> createState() =>
+      _CardCategoryBottomsheetState();
 }
 
-class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
+class _CardCategoryBottomsheetState extends State<CardCategoryBottomsheet> {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -55,7 +56,7 @@ class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Card Type',
+                        'Select Card Category',
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
@@ -107,7 +108,7 @@ class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
                               ),
                               12.horizontalSpace,
                               Text(
-                                'Amazon',
+                                'Amazon UK',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   fontWeight: FontWeight.w500,
@@ -146,7 +147,7 @@ class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
                               ),
                               12.horizontalSpace,
                               Text(
-                                'Walmart',
+                                'Walmart USA',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   fontWeight: FontWeight.w500,

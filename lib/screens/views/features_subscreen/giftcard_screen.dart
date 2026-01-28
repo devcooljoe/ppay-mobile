@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/buy_gift_card_features_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/sell_gift_card_features_screen.dart';
 import 'package:ppay_mobile/screens/views/sub_transaction_screens/buy_giftcard_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
@@ -147,78 +148,88 @@ class _GiftcardScreenState extends State<GiftcardScreen> {
                 ),
               ),
               36.verticalSpace,
-              SizedBox(
-                height: 251.h,
-                width: double.infinity,
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      height: 251.h,
-                      width: double.infinity,
-                      child: Image.asset(
-                        'assets/images/sell_gift_card.png',
-                        fit: BoxFit.contain,
-                      ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SellGiftCardFeaturesScreen(),
                     ),
-                    Positioned(
-                      left: 117.w,
-                      bottom: 7.h,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Click to sell',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w600,
+                  );
+                },
+                child: SizedBox(
+                  height: 251.h,
+                  width: double.infinity,
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        height: 251.h,
+                        width: double.infinity,
+                        child: Image.asset(
+                          'assets/images/sell_gift_card.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Positioned(
+                        left: 117.w,
+                        bottom: 7.h,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Click to sell',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              4.verticalSpace,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 18.h,
-                                    width: 18.w,
-                                    child: SvgPicture.asset(
-                                      'assets/icon/check.svg',
-                                      fit: BoxFit.contain,
+                                4.verticalSpace,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 18.h,
+                                      width: 18.w,
+                                      child: SvgPicture.asset(
+                                        'assets/icon/check.svg',
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
-                                  ),
-                                  8.horizontalSpace,
-                                  Text(
-                                    'Fast & Secure',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: PPaymobileColors.svgIconColor,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
+                                    8.horizontalSpace,
+                                    Text(
+                                      'Fast & Secure',
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        color: PPaymobileColors.svgIconColor,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          47.horizontalSpace,
-                          SizedBox(
-                            height: 44.h,
-                            width: 122.w,
-                            child: Image.asset(
-                              'assets/images/explore.png',
-                              fit: BoxFit.contain,
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                            47.horizontalSpace,
+                            SizedBox(
+                              height: 44.h,
+                              width: 122.w,
+                              child: Image.asset(
+                                'assets/images/explore.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
