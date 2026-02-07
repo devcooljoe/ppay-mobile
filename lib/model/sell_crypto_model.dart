@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/screens/widgets/colors.dart';
-
 class SellCryptoModel {
   final String containerImage;
   final String cryptoTitle;

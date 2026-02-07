@@ -11,7 +11,6 @@ class KeyboardContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 424.h,
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
       decoration: BoxDecoration(
         color: PPaymobileColors.mainScreenBackground,
         boxShadow: [

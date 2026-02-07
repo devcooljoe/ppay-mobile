@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/screens/views/fingerprint_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class PinCustomKeyboard extends StatefulWidget {
@@ -20,12 +21,14 @@ class PinCustomKeyboard extends StatefulWidget {
 Widget _faceIdKey({VoidCallback? onTap}) {
   return GestureDetector(
     onTap: onTap,
-    child: SizedBox(
-      height: 46.h,
-      width: 44.w,
-      child: SvgPicture.asset(
-        'assets/images/fingerprint1.png',
-        fit: BoxFit.contain,
+    child: Center(
+      child: SizedBox(
+        height: 46.h,
+        width: 44.w,
+        child: Image.asset(
+          'assets/images/fingerprint_1.png',
+          fit: BoxFit.contain,
+        ),
       ),
     ),
   );
@@ -151,7 +154,14 @@ class _PinCustomKeyboardState extends State<PinCustomKeyboard> {
             padding: EdgeInsets.symmetric(horizontal: 32.w),
             child: _key('9', onTap: () => widget.onKeyTap('9')),
           ),
-          _faceIdKey(onTap: () {}),
+          _faceIdKey(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FingerprintScreen()),
+              );
+            },
+          ),
           Container(
             height: 62.h,
             width: 88.w,

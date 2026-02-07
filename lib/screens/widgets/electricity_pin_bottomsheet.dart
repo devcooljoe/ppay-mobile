@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/fund_card_successful_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/electricity_bill_success_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/pin_custom_keyboard.dart';
 
-class FundCardPinBottomsheet extends StatefulWidget {
-  const FundCardPinBottomsheet({super.key});
+class ElectricityPinBottomsheet extends StatefulWidget {
+  const ElectricityPinBottomsheet({super.key});
 
   @override
-  State<FundCardPinBottomsheet> createState() => _FundCardPinBottomsheetState();
+  State<ElectricityPinBottomsheet> createState() =>
+      _ElectricityPinBottomsheetState();
 }
 
-class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
+class _ElectricityPinBottomsheetState extends State<ElectricityPinBottomsheet> {
   final TextEditingController _displayController = TextEditingController();
   String _realPin = '';
 
@@ -32,7 +33,7 @@ class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
     height: 11.w,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
-      color: PPaymobileColors.backgroundColor,
+      color: PPaymobileColors.buttonColor,
     ),
   );
 
@@ -52,7 +53,9 @@ class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const FundCardSuccessfulScreen()),
+          MaterialPageRoute(
+            builder: (_) => const ElectricityBillSuccessScreen(),
+          ),
         );
       });
     }

@@ -15,8 +15,6 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-  final bool _onTap = false;
-
   void _showBillingDialog() {
     showDialog(
       context: context,

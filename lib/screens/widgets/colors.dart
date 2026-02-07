@@ -39,4 +39,6 @@ class PPaymobileColors {
   static const textfieldGrey = Color(0xffB4B4B4);
   static const tabColor = Color(0xff72A78B);
   static const anotherGreyColor = Color(0xff8D8D8D);
+  static const shadowColor = Color(0x25767676);
+  static const onTapButtonColor = Color(0xFFC0D8CB);
 }

@@ -268,15 +268,13 @@ class _BuyCryptoState extends State<BuyCrypto> {
                                       11.horizontalSpace,
                                       GestureDetector(
                                         onTap: () async {
-                                          final bank =
-                                              await showModalBottomSheet(
-                                                context: context,
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                builder: (_) =>
-                                                    const CryptoBottomsheet(),
-                                              );
+                                          showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            builder: (_) =>
+                                                const CryptoBottomsheet(),
+                                          );
                                         },
                                         child: SizedBox(
                                           height: 12.h,
@@ -401,7 +399,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
                             ),
                           ),
                           onPressed: () async {
-                            final bank = await showModalBottomSheet(
+                            showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
