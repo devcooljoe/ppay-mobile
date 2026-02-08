@@ -45,6 +45,10 @@ class _PPTextfieldState extends State<PPTextfield> {
           borderRadius: BorderRadius.circular(6.r),
           borderSide: BorderSide(color: Color(0xff9C9C9C)),
         ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(color: Color(0xff9C9C9C)),
+        ),
       ),
     );
   }

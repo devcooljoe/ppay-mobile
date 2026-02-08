@@ -216,7 +216,7 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                 height: 54.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.doneColor,
+                    backgroundColor: Color(0xffE0EBE5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(42).r,
                     ),
