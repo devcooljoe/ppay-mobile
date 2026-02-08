@@ -229,7 +229,7 @@ class _FundCardScreenState extends State<FundCardScreen> {
                             elevation: 0,
                           ),
                           onPressed: () async {
-                            final bank = await showModalBottomSheet(
+                            await showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,

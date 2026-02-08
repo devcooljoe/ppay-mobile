@@ -279,7 +279,7 @@ class _CreateVirtualCardState extends State<CreateVirtualCard> {
                     elevation: 0,
                   ),
                   onPressed: () async {
-                    final bank = await showModalBottomSheet(
+                    await showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,

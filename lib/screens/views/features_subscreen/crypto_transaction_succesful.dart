@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/buy_crypto.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/crypto_receipt.dart';
 import 'package:ppay_mobile/screens/views/home_screen.dart';
-import 'package:ppay_mobile/screens/views/receipt_screen.dart';
-import 'package:ppay_mobile/screens/views/transfer_funds_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class CryptoTransactionSuccesful extends StatefulWidget {

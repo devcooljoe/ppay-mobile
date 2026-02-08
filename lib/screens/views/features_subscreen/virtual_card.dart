@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/create_virtual_card.dart';
-import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class VirtualCard extends StatefulWidget {

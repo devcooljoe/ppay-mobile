@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/screens/views/features_screen.dart';
-import 'package:ppay_mobile/screens/views/transaction_history_screen.dart';
 import 'package:ppay_mobile/screens/views/home_screen.dart';
-import 'package:ppay_mobile/screens/views/kyc_verification_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_screen.dart';
+import 'package:ppay_mobile/screens/views/transaction_history_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class RouteScreen extends StatefulWidget {

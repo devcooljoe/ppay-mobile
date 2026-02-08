@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/model/settings_option_model.dart';
 import 'package:ppay_mobile/screens/views/notification_screen.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/bank_accounts.dart';

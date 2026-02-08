@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/bank_model.dart';
 import 'package:ppay_mobile/screens/views/amount_and_info_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
-import 'package:ppay_mobile/screens/widgets/document_bottom_sheet.dart';
 import 'package:ppay_mobile/screens/widgets/select_bank_bottomsheet.dart';
 
 class TransferFundsScreen extends StatefulWidget {

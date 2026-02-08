@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/bank_accounts_model.dart';
-import 'package:ppay_mobile/model/bank_model.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/edit_account.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 

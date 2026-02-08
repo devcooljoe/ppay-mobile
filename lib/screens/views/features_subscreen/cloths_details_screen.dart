@@ -75,7 +75,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                 14.horizontalSpace,
                 GestureDetector(
                   onTap: () async {
-                    final bank = await showModalBottomSheet(
+                    await showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
@@ -557,7 +557,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
               29.verticalSpace,
               GestureDetector(
                 onTap: () async {
-                  final bank = await showModalBottomSheet(
+                  await showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
@@ -625,7 +625,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
               19.verticalSpace,
               GestureDetector(
                 onTap: () async {
-                  final bank = await showModalBottomSheet(
+                  await showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
@@ -720,7 +720,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        final bank = await showModalBottomSheet(
+                        await showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,

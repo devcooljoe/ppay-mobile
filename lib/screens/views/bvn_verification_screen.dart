@@ -5,7 +5,6 @@ import 'package:ppay_mobile/screens/views/bvn_face_recog_screen.dart';
 import 'package:ppay_mobile/screens/widgets/bvn_reason_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_date_picker.dart';
-import 'package:ppay_mobile/screens/widgets/trade_bottomsheet.dart';
 
 class BvnVerificationScreen extends StatefulWidget {
   const BvnVerificationScreen({super.key});
@@ -269,7 +268,7 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
               15.verticalSpace,
               GestureDetector(
                 onTap: () async {
-                  final bank = await showModalBottomSheet(
+                  await showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,

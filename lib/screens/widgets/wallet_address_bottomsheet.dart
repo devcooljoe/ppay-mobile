@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/transfer_funds_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
-import 'package:ppay_mobile/screens/widgets/crypto_pin_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/crypto_sell_pin_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/pin_bottom_sheet.dart';
 
 class WalletAddressBottomsheet extends StatefulWidget {
   const WalletAddressBottomsheet({super.key});

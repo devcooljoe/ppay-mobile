@@ -11,7 +11,7 @@ class BvnconfirmScreen extends StatefulWidget {
 }
 
 class _BvnconfirmScreenState extends State<BvnconfirmScreen> {
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

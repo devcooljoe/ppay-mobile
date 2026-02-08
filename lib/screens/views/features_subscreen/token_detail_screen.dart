@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/all_token_screen_model.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/trade_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/wallet_address_bottomsheet.dart';
 
 class TokenDetailScreen extends StatefulWidget {
   final TokenDetailModel token;
@@ -347,7 +346,7 @@ class _TokenDetailScreenState extends State<TokenDetailScreen> {
                   ),
                 ),
                 onPressed: () async {
-                  final bank = await showModalBottomSheet(
+                  await showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,

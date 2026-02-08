@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
-import 'package:ppay_mobile/screens/widgets/crypto_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_confirm_sell_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/crypto_puurchase_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_sell_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
@@ -277,7 +275,7 @@ class _SellCryptoState extends State<SellCrypto> {
                                       11.horizontalSpace,
                                       GestureDetector(
                                         onTap: () async {
-                                          final bank = await showModalBottomSheet(
+                                          await showModalBottomSheet(
                                             context: context,
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
@@ -419,7 +417,7 @@ class _SellCryptoState extends State<SellCrypto> {
                             ),
                           ),
                           onPressed: () async {
-                            final bank = await showModalBottomSheet(
+                            await showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
