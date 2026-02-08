@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/settings_option_model.dart';
+import 'package:ppay_mobile/screens/views/notification_screen.dart';
+import 'package:ppay_mobile/screens/views/review_document_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/bank_accounts.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/help_and_support.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/privacy_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/profile_screen.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/refer.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/change_password.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/pin_reset.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/terms_and_conditions.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/transaction_limit.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/custom_switch.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -12,6 +24,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool isEnabled = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,231 +179,924 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             16.verticalSpace,
-            ListView.separated(
-              itemCount: settingsGroup.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (_, __) => 16.verticalSpace,
-              itemBuilder: (context, groupIndex) {
-                final group = settingsGroup[groupIndex];
-                return Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 17.h,
+            Container(
+              height: 267.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
+              color: PPaymobileColors.mainScreenBackground,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Manage Account',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  color: PPaymobileColors.mainScreenBackground,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        group.optionGroup,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
+                  18.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(),
                         ),
-                      ),
-                      12.verticalSpace,
-                      ListView.separated(
-                        itemCount: group.group.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        separatorBuilder: (_, __) => 20.verticalSpace,
-                        itemBuilder: (context, index) {
-                          final option = group.group[index];
-
-                          final isLogout =
-                              option.optionTitle.toLowerCase() == 'logout';
-                          final isBiometric =
-                              option.optionTitle.toLowerCase() ==
-                              'enable biometric';
-                          final isKyc =
-                              option.optionTitle == 'Kyc Verification';
-                          final isKycTitle =
-                              option.optionTitle.toLowerCase() ==
-                              'kyc verification';
-
-                          return GestureDetector(
-                            onTap: option.optionScreen != null
-                                ? () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => option.optionScreen!,
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/profile_set.png',
                                       ),
-                                    );
-                                  }
-                                : null,
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 44.h,
-                                    width: 44.w,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          PPaymobileColors.deepBackgroundColor,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: SvgPicture.asset(
-                                        option.optionIcon,
-                                        height: 20.h,
-                                        width: 20.w,
-                                        color: isLogout ? Colors.red : null,
-                                      ),
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
-                                  12.horizontalSpace,
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          option.optionTitle,
-                                          style: TextStyle(
-                                            fontFamily: 'InstrumentSans',
-                                            color: isLogout
-                                                ? Colors.red
-                                                : Colors.black,
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-
-                                        if (isKycTitle) ...[
-                                          8.horizontalSpace,
-                                          Container(
-                                            height: 29.h,
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 6.w,
-                                              vertical: 3.h,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  PPaymobileColors.warningColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(4).r,
-                                            ),
-                                            child: Text(
-                                              'Pending',
-                                              style: TextStyle(
-                                                fontFamily: 'InstrumentSans',
-                                                color: PPaymobileColors
-                                                    .warningTextColor,
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ],
-                                    ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Profile',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
                                   ),
-
-                                  if (!isLogout)
-                                    isBiometric
-                                        ? Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Switch(
-                                                value: true,
-                                                thumbColor:
-                                                    WidgetStateProperty.resolveWith<
-                                                      Color
-                                                    >((states) {
-                                                      return PPaymobileColors
-                                                          .buttonColor;
-                                                    }),
-                                                trackColor:
-                                                    WidgetStateProperty.resolveWith<
-                                                      Color
-                                                    >((states) {
-                                                      return PPaymobileColors
-                                                          .doneColor;
-                                                    }),
-                                                trackOutlineColor:
-                                                    WidgetStateProperty.resolveWith<
-                                                      Color?
-                                                    >((states) {
-                                                      return Colors.transparent;
-                                                    }),
-                                                onChanged: (value) {},
-                                              ),
-                                              6.horizontalSpace,
-                                              SizedBox(
-                                                height: 24.h,
-                                                width: 12.w,
-                                                child: SvgPicture.asset(
-                                                  'assets/icon/arrow_forward.svg',
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : isKyc
-                                        ? Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Container(
-                                                height: 29.h,
-                                                // width: 56.w,
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 6.w,
-                                                  vertical: 3.h,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: PPaymobileColors
-                                                      .warningColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                        4,
-                                                      ).r,
-                                                ),
-                                                child: Text(
-                                                  'Pending',
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'InstrumentSans',
-                                                    color: PPaymobileColors
-                                                        .warningTextColor,
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ),
-                                              6.horizontalSpace,
-                                              SizedBox(
-                                                height: 24.h,
-                                                width: 12.w,
-                                                child: SvgPicture.asset(
-                                                  'assets/icon/arrow_forward.svg',
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : SizedBox(
-                                            height: 24.h,
-                                            width: 12.w,
-                                            child: SvgPicture.asset(
-                                              'assets/icon/arrow_forward.svg',
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          );
-                        },
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                );
-              },
+                  12.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReviewDocumentScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/kyc_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'KYC Verification',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                11.horizontalSpace,
+                                Container(
+                                  height: 29.h,
+                                  width: 59.w,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/pending.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                    borderRadius: BorderRadius.circular(4.r),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 29.h,
+                            width: 59.w,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/verified.png'),
+                                fit: BoxFit.contain,
+                              ),
+                              borderRadius: BorderRadius.circular(4.r),
+                            ),
+                          ),
+                          5.horizontalSpace,
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  12.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BankAccounts()),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/saved_bank_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Saved Bank Account',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+            16.verticalSpace,
+            Container(
+              height: 335.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
+              color: PPaymobileColors.mainScreenBackground,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Security & Notification Setting',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangePassword(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/change_pass_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Change Password',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  12.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PinReset()),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/change_pin_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Change Transaction Pin',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  12.verticalSpace,
+                  Container(
+                    height: 56.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 9.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 38.h,
+                                width: 38.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(19.r),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/enable_biom_set.png',
+                                    ),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                              10.horizontalSpace,
+                              Text(
+                                'Enable Biometric',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 35.h,
+                          width: 43.w,
+                          child: CustomSwitch(
+                            value: isEnabled,
+                            onChanged: (val) {
+                              setState(() {
+                                isEnabled = val;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                          width: 12.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/arrow_forward.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  12.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/notif_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Notification Settings',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            16.verticalSpace,
+            Container(
+              height: 131.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
+              color: PPaymobileColors.mainScreenBackground,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Account Limit',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TransactionLimit(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/transc_lim_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Transactions Limit',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            16.verticalSpace,
+            Container(
+              height: 131.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
+              color: PPaymobileColors.mainScreenBackground,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Referral',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Referral()),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/refer_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Refer & Earn',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            16.verticalSpace,
+            Container(
+              height: 267.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
+              color: PPaymobileColors.mainScreenBackground,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Terms & Support',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TermsAndConditions(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/terms_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Terms & Condition',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  12.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PrivacyScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/privacy_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Privacy Policy',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  12.verticalSpace,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HelpSupportScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: 9.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 38.h,
+                                  width: 38.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(19.r),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/help_set.png',
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                10.horizontalSpace,
+                                Text(
+                                  'Help & Support',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 12.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            16.verticalSpace,
+            Container(
+              height: 131.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
+              color: PPaymobileColors.mainScreenBackground,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Sign out',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  Container(
+                    height: 56.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 9.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 38.h,
+                                width: 38.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(19.r),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/logout_set.png',
+                                    ),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                              10.horizontalSpace,
+                              Text(
+                                'Logout',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: PPaymobileColors.redTextfield,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                          width: 12.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/arrow_forward.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            16.verticalSpace,
           ],
         ),
       ),

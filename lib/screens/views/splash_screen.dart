@@ -50,6 +50,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ppay_mobile/screens/views/onboard_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -60,6 +61,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OnboardScreen()),
+        );
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -7,7 +7,7 @@ class PPaymobileColors {
   static const deepBackgroundColor = Color.fromARGB(255, 246, 247, 246);
   static const buttonColorandText = Color(0xFF26585F);
   static const buttonColor = Color(0xFF429E6E);
-  static const textfiedBorder = Color(0xFF9C9C9C);
+  static const textfiedBorder = Color(0xFFE6E6E6);
   static const svgIconColor = Color(0xFF5B5B5B);
   static const redTextfield = Color(0xFFFF3336);
   static const kyccontainerColor = Color(0xFF383838);
@@ -30,4 +30,7 @@ class PPaymobileColors {
   static const cryptoNumbersColor = Color(0xFFFF474A);
   static const cryptoContainerColor = Color(0x20E0EBE5);
   static const buyTradeContainerColor = Color(0xFF0069CC);
+  static const greenTextColor = Color(0xff0D7E42);
+  static const filterBorderColor = Color(0xffDEDEDE);
+  static const transactRed = Color(0xffCC0003);
 }

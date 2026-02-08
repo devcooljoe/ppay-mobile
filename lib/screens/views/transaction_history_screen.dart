@@ -4,14 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/history_model.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class TransactionHistoryScreen extends StatefulWidget {
+  const TransactionHistoryScreen({super.key});
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
+  State<TransactionHistoryScreen> createState() =>
+      _TransactionHistoryScreenState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

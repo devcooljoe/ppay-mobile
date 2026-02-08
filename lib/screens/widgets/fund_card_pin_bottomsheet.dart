@@ -2,41 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/crypto_sell_sucessful.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/crypto_transaction_succesful.dart';
 import 'package:ppay_mobile/screens/views/transaction_successful_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/pin_custom_keyboard.dart';
 
-class CryptoSellPinBottomsheet extends StatefulWidget {
-  const CryptoSellPinBottomsheet({super.key});
+class FundCardPinBottomsheet extends StatefulWidget {
+  const FundCardPinBottomsheet({super.key});
 
   @override
-  State<CryptoSellPinBottomsheet> createState() =>
-      _CryptoSellPinBottomsheetState();
+  State<FundCardPinBottomsheet> createState() => _FundCardPinBottomsheetState();
 }
 
-class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
+class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
   final TextEditingController _displayController = TextEditingController();
   String _realPin = '';
 
   final emptyPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
-      color: Colors.transparent, // 👈 empty is transparent
+      color: Colors.transparent,
     ),
   );
 
   final filledPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
-    decoration: const BoxDecoration(
+    width: 11.w,
+    height: 11.w,
+    decoration: BoxDecoration(
       shape: BoxShape.circle,
-      color: Color(0xFF0B3A3A),
+      color: PPaymobileColors.backgroundColor,
     ),
   );
 
@@ -54,10 +51,12 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
 
         Navigator.pop(context);
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const CryptoSellSucessful()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (_) => const TransactionSuccessfulScreen(),
+        //   ),
+        // );
       });
     }
   }
@@ -89,7 +88,7 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
     // );
 
     return FractionallySizedBox(
-      heightFactor: 0.680,
+      heightFactor: 0.740,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -122,7 +121,7 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(36).r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,8 +130,8 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
                     'Security Pin',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),
                   ),
@@ -152,18 +151,37 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
                     length: 4,
                     readOnly: true,
                     showCursor: false,
-
                     defaultPinTheme: emptyPinTheme,
                     focusedPinTheme: emptyPinTheme,
                     submittedPinTheme: filledPinTheme,
-
-                    separatorBuilder: (_) => SizedBox(width: 24.w),
+                    separatorBuilder: (_) => 40.horizontalSpace,
                   ),
-
-                  48.verticalSpace,
-
-                  /// CUSTOM KEYPAD
-                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+                  12.verticalSpace,
+                  Text(
+                    'Incorrect Transaction Pin. Try again',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: PPaymobileColors.redTextfield,
+                    ),
+                  ),
+                  14.verticalSpace,
+                  // CUSTOM KEYPAD
+                  Container(
+                    height: 406.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.only(
+                      top: 18.h,
+                      left: 10.w,
+                      right: 10.w,
+                      bottom: 37.h,
+                    ),
+                    child: PinCustomKeyboard(
+                      onKeyTap: _onKeyTap,
+                      onDelete: _onDelete,
+                    ),
+                  ),
                 ],
               ),
             ),
