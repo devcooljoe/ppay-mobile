@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/screens/views/home_screen.dart';
+import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/views/verify_code.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/create_pin_bottomsheet.dart';
@@ -115,7 +116,7 @@ class _KycVerificationCompleteScreenState
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        MaterialPageRoute(builder: (context) => RouteScreen()),
                         (route) => false,
                       );
                     },

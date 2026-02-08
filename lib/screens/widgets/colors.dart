@@ -41,4 +41,6 @@ class PPaymobileColors {
   static const anotherGreyColor = Color(0xff8D8D8D);
   static const shadowColor = Color(0x25767676);
   static const onTapButtonColor = Color(0xFFC0D8CB);
+  static const flightbgColor = Color(0x30C0D8CB);
+  static const upcomingflightsbgColor = Color(0x49EFF5F2);
 }

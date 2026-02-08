@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/buy_gift_card_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/card_type_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
-import 'package:ppay_mobile/screens/widgets/select_country_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/select_region_bottomsheet.dart';
 
 class BuyGiftCardFeaturesScreen extends StatefulWidget {
