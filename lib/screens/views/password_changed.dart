@@ -23,6 +23,13 @@ class _PasswordChangedState extends State<PasswordChanged> {
         leading: Padding(
           padding: EdgeInsets.only(left: 16.w),
           child: IconButton(
+            style: ButtonStyle(
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100.r),
+                ),
+              ),
+            ),
             onPressed: () => Navigator.pop(context),
             icon: SvgPicture.asset(
               'assets/icon/arrow_back.svg',
@@ -80,6 +87,7 @@ class _PasswordChangedState extends State<PasswordChanged> {
                           height: 50.h,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
+                              elevation: 0,
                               backgroundColor: PPaymobileColors.backgroundColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(42),

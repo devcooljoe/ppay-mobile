@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/password_changed.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/textfield.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({super.key});
@@ -228,26 +229,28 @@ class _CreatePasswordState extends State<CreatePassword> {
                   ),
                 ),
               ),
-              6.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    height: 16.h,
-                    width: 12.w,
-                    'assets/icon/arrow_back.svg',
-                  ),
-                  5.horizontalSpace,
-                  Text(
-                    'Back to Login',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                      color: PPaymobileColors.svgIconColor,
+              21.verticalSpace,
+              TouchOpacity(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      height: 16.h,
+                      width: 12.w,
+                      'assets/icon/arrow_back.svg',
                     ),
-                  ),
-                ],
+                    5.horizontalSpace,
+                    Text(
+                      'Back to Login',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        color: PPaymobileColors.svgIconColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
