@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/settings_screen.dart';
-import 'package:ppay_mobile/screens/views/verify_code.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_date_picker.dart';
 import 'package:ppay_mobile/screens/widgets/gender_bottomsheet.dart';

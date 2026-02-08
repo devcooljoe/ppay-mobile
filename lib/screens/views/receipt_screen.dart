@@ -11,8 +11,6 @@ class ReceiptScreen extends StatefulWidget {
 }
 
 class _ReceiptScreenState extends State<ReceiptScreen> {
-  VoidCallback? get _openChangeBottomSheet => null;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

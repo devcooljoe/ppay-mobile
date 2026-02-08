@@ -18,7 +18,6 @@ class ShoppingScreen extends StatefulWidget {
 class _ShoppingScreenState extends State<ShoppingScreen> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
-  final PageController _itemController = PageController();
 
   @override
   Widget build(BuildContext context) {

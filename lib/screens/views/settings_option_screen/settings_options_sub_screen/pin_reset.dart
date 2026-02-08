@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/screens/views/created_pin_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/pin_reset_complete.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 

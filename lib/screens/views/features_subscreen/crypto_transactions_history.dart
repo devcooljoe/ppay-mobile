@@ -95,7 +95,7 @@ class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
                   12.horizontalSpace,
                   GestureDetector(
                     onTap: () async {
-                      final bank = await showModalBottomSheet(
+                      await showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,

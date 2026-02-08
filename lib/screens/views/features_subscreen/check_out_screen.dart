@@ -517,7 +517,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                final bank = await showModalBottomSheet(
+                                await showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
@@ -620,7 +620,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                final bank = await showModalBottomSheet(
+                                await showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,

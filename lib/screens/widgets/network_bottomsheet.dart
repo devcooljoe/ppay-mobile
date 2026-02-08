@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/model/select_crypto_model.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class NetworkBottomsheet extends StatefulWidget {

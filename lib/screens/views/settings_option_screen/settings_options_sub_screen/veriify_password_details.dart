@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/screens/views/passwordreset_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/reset_password.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 

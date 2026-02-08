@@ -3,11 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/crypto_confirm_sell_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/crypto_puurchase_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/crypto_sell_bottomsheet.dart';
-import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
-import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/screens/widgets/network_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/wallet_address_bottomsheet.dart';
 
@@ -19,7 +14,6 @@ class ReceiveCrypto extends StatefulWidget {
 }
 
 class _ReceiveCryptoState extends State<ReceiveCrypto> {
-  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +96,7 @@ class _ReceiveCryptoState extends State<ReceiveCrypto> {
                       ),
                       child: GestureDetector(
                         onTap: () async {
-                          final bank = await showModalBottomSheet(
+                          await showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
@@ -179,7 +173,7 @@ class _ReceiveCryptoState extends State<ReceiveCrypto> {
                     ),
                     suffixIcon: GestureDetector(
                       onTap: () async {
-                        final bank = await showModalBottomSheet(
+                        await showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
@@ -228,7 +222,7 @@ class _ReceiveCryptoState extends State<ReceiveCrypto> {
                     ),
                   ),
                   onPressed: () async {
-                    final bank = await showModalBottomSheet(
+                    await showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,

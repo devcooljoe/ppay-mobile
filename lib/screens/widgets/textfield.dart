@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class PPTextfield extends StatefulWidget {
   final Widget prefixI;
@@ -45,10 +43,7 @@ class _PPTextfieldState extends State<PPTextfield> {
         // ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6.r),
-          borderSide: BorderSide(
-            color: PPaymobileColors.textfiedBorder,
-            width: 1.w,
-          ),
+          borderSide: BorderSide(color: Color(0xff9C9C9C)),
         ),
       ),
     );

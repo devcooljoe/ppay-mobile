@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class YourAssetModel {
   final String containerImage;

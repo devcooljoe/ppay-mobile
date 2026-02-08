@@ -104,7 +104,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                     30.verticalSpace,
                                     GestureDetector(
                                       onTap: () async {
-                                        final bank = await showModalBottomSheet(
+                                        await showModalBottomSheet(
                                           context: context,
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,

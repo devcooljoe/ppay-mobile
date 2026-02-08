@@ -72,7 +72,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                 ],
               ),
               38.verticalSpace,
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Pinput(
                   length: 6,
@@ -97,7 +97,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                 ),
               ),
               10.verticalSpace,
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Pinput(
                   length: 6,

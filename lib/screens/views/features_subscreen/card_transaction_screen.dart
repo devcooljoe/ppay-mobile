@@ -99,7 +99,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                   14.horizontalSpace,
                   GestureDetector(
                     onTap: () async {
-                      final bank = await showModalBottomSheet(
+                      await showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,

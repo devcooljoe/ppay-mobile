@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/screens/views/onboard_screen.dart';
+import 'package:ppay_mobile/screens/views/splash_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.light(primary: PPaymobileColors.buttonColor),
         ),
-        home: const OnboardScreen(),
+        home: SplashScreen(),
       ),
       designSize: const Size(440, 920),
       minTextAdapt: true,

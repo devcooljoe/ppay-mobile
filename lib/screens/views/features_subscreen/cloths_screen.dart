@@ -130,7 +130,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                   11.horizontalSpace,
                   GestureDetector(
                     onTap: () async {
-                      final bank = await showModalBottomSheet(
+                      await showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,

@@ -298,7 +298,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                final bank = await showModalBottomSheet(
+                                await showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
@@ -401,7 +401,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                final bank = await showModalBottomSheet(
+                                await showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/screens/views/create_pin_screen.dart';
-import 'package:ppay_mobile/screens/views/kyc_verification_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class CreatePinBottomsheet extends StatefulWidget {
