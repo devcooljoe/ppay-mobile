@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/bills_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/crypto.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/giftcard_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/shopping_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/virtual_card.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
@@ -64,22 +67,32 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 98.h,
-                        width: 122.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: PPaymobileColors.textfiedBorder,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GiftcardScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 98.h,
+                          width: 122.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
+                            borderRadius: BorderRadius.circular(8).r,
                           ),
-                          borderRadius: BorderRadius.circular(8).r,
-                        ),
-                        child: Center(
-                          child: SizedBox(
-                            height: 52.h,
-                            width: 52.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/gift_card_green.svg',
-                              fit: BoxFit.contain,
+                          child: Center(
+                            child: SizedBox(
+                              height: 52.h,
+                              width: 52.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/gift_card_green.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         ),
@@ -100,22 +113,32 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 98.h,
-                        width: 122.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: PPaymobileColors.textfiedBorder,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BillsScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 98.h,
+                          width: 122.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
+                            borderRadius: BorderRadius.circular(8).r,
                           ),
-                          borderRadius: BorderRadius.circular(8).r,
-                        ),
-                        child: Center(
-                          child: SizedBox(
-                            height: 52.h,
-                            width: 52.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/bills_green.svg',
-                              fit: BoxFit.contain,
+                          child: Center(
+                            child: SizedBox(
+                              height: 52.h,
+                              width: 52.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/bills_green.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         ),
@@ -273,22 +296,30 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 98.h,
-                        width: 122.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: PPaymobileColors.textfiedBorder,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => ShoppingScreen()),
+                          );
+                        },
+                        child: Container(
+                          height: 98.h,
+                          width: 122.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
+                            borderRadius: BorderRadius.circular(8).r,
                           ),
-                          borderRadius: BorderRadius.circular(8).r,
-                        ),
-                        child: Center(
-                          child: SizedBox(
-                            height: 52.h,
-                            width: 52.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/cart_green.svg',
-                              fit: BoxFit.contain,
+                          child: Center(
+                            child: SizedBox(
+                              height: 52.h,
+                              width: 52.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/cart_green.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         ),

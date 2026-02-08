@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/all_tokens_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/your_assets_screen.dart';
-import 'package:ppay_mobile/screens/views/settings_option_screen/contact.dart';
-import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/faq.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
 class AssetsScreen extends StatefulWidget {

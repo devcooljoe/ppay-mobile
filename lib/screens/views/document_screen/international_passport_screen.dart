@@ -254,6 +254,5 @@ class _InternationalPassportScreenState
         ),
       ),
     );
-    ;
   }
 }

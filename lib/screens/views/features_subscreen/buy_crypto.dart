@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_puurchase_bottomsheet.dart';
@@ -269,15 +268,13 @@ class _BuyCryptoState extends State<BuyCrypto> {
                                       11.horizontalSpace,
                                       GestureDetector(
                                         onTap: () async {
-                                          final bank =
-                                              await showModalBottomSheet(
-                                                context: context,
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                builder: (_) =>
-                                                    const CryptoBottomsheet(),
-                                              );
+                                          showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            builder: (_) =>
+                                                const CryptoBottomsheet(),
+                                          );
                                         },
                                         child: SizedBox(
                                           height: 12.h,
@@ -402,7 +399,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
                             ),
                           ),
                           onPressed: () async {
-                            final bank = await showModalBottomSheet(
+                            showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,

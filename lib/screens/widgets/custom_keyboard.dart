@@ -52,7 +52,7 @@ class CustomKeyboard extends StatelessWidget {
       crossAxisCount: 3,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: 40.w),
+      padding: EdgeInsets.symmetric(horizontal: 25.w),
       mainAxisSpacing: 24.h,
       crossAxisSpacing: 48.w,
       children: [

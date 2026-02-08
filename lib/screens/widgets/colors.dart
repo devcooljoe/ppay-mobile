@@ -33,4 +33,12 @@ class PPaymobileColors {
   static const greenTextColor = Color(0xff0D7E42);
   static const filterBorderColor = Color(0xffDEDEDE);
   static const transactRed = Color(0xffCC0003);
+  static const anotherColor = Color(0xff807D7D);
+  static const lightGrey = Color(0xff9C9C9C);
+  static const darkGrey = Color(0xff4D4D4D);
+  static const textfieldGrey = Color(0xffB4B4B4);
+  static const tabColor = Color(0xff72A78B);
+  static const anotherGreyColor = Color(0xff8D8D8D);
+  static const shadowColor = Color(0x25767676);
+  static const onTapButtonColor = Color(0xFFC0D8CB);
 }

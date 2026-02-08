@@ -24,7 +24,7 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
-      color: Colors.transparent, // 👈 empty is transparent
+      color: Colors.transparent, //  empty is transparent
     ),
   );
 
@@ -33,7 +33,7 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
     height: 18.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
-      color: Color(0xFF0B3A3A), // 👈 filled color
+      color: Color(0xFF0B3A3A), // filled color
     ),
   );
 
