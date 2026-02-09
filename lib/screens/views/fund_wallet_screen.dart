@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FundWalletScreen extends StatefulWidget {
   const FundWalletScreen({super.key});
@@ -30,15 +31,15 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
         ),
         centerTitle: true,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -82,7 +83,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                     'Use details to fund your wallet',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
-                      color: Colors.black,
+                      color: PPaymobileColors.svgIconColor,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),
@@ -115,7 +116,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                           'Account Number',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.textfiedBorder,
+                            color: PPaymobileColors.lightGrey,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                           ),
@@ -128,7 +129,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                               '0976547890',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.textfiedBorder,
+                                color: Colors.black,
                                 fontSize: 32.sp,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -188,7 +189,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                               'Account Holder',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.textfiedBorder,
+                                color: PPaymobileColors.lightGrey,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -248,7 +249,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                               'Bank',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.textfiedBorder,
+                                color: PPaymobileColors.lightGrey,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -268,76 +269,83 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                     ),
                   ),
                   92.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20.h,
-                            width: 20.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/paste_white.svg',
-                              fit: BoxFit.contain,
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 20.h,
+                              width: 20.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/paste_white.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          12.horizontalSpace,
-                          Text(
-                            'Click to Copy',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.white,
+                            12.horizontalSpace,
+                            Text(
+                              'Click to Copy',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   16.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.doneColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              PPaymobileColors.anotherbuttonbgColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20.h,
-                            width: 20.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/share.svg',
-                              fit: BoxFit.contain,
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 20.h,
+                              width: 20.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/share.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          12.horizontalSpace,
-                          Text(
-                            'Share',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.black,
+                            12.horizontalSpace,
+                            Text(
+                              'Share',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

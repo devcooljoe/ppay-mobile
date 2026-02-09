@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/bvn_verification_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class PasswordChanged extends StatefulWidget {
   const PasswordChanged({super.key});
@@ -21,20 +22,16 @@ class _PasswordChangedState extends State<PasswordChanged> {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: IconButton(
-            style: ButtonStyle(
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.r),
-                ),
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
+              height: 24.h,
+              width: 24.w,
+              child: SvgPicture.asset(
+                'assets/icon/arrow_back.svg',
+                fit: BoxFit.scaleDown,
               ),
-            ),
-            onPressed: () => Navigator.pop(context),
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
             ),
           ),
         ),
@@ -76,38 +73,42 @@ class _PasswordChangedState extends State<PasswordChanged> {
                           'You have successfully changed your password. Please go back to login',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
-                            color: Colors.black,
+                            color: PPaymobileColors.svgIconColor,
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         76.verticalSpace,
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50.h,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: PPaymobileColors.backgroundColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(42),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BvnVerificationScreen(),
+                        TouchOpacity(
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 50.h,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                backgroundColor:
+                                    PPaymobileColors.backgroundColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(42.r),
                                 ),
-                              );
-                            },
-                            child: Text(
-                              'Back to Login',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        BvnVerificationScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Back to Login',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),

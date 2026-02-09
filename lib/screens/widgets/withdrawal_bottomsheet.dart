@@ -44,7 +44,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
           10.verticalSpace,
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 20.w, top: 40.h, right: 20.w),
+              padding: EdgeInsets.only(left: 20.w, top: 29.h, right: 20.w),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
@@ -92,7 +92,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                             padding: EdgeInsets.all(10).r,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(2).r,
-                              color: PPaymobileColors.deepBackgroundColor,
+                              color: PPaymobileColors.anotherbuttonbgColor,
                             ),
                             child: Center(
                               child: SizedBox(

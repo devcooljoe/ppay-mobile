@@ -292,6 +292,7 @@ class _CryptoPuurchaseBottomsheetState
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(42),
                         ),
+                        elevation: 0,
                       ),
                       onPressed: () async {
                         await showModalBottomSheet(

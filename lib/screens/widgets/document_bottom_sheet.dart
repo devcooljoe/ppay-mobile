@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/document_model.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class DocumentBottomSheet extends StatefulWidget {
   const DocumentBottomSheet({super.key});
@@ -71,44 +72,47 @@ class _DocumentBottomSheetState extends State<DocumentBottomSheet> {
 
                         return Padding(
                           padding: EdgeInsets.only(bottom: 8.h),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => documents[index].screen,
+                          child: TouchOpacity(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        documents[index].screen,
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 66.h,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 12.w,
+                                  vertical: 20.h,
                                 ),
-                              );
-                            },
-                            child: Container(
-                              height: 66.h,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 12.w,
-                                vertical: 20.h,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    document.text, // 👈 MODEL USED HERE
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
-                                      color: Colors.black,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      document.text,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.sp,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                    width: 20.w,
-                                    child: SvgPicture.asset(
-                                      'assets/icon/check_circle.svg',
-                                      fit: BoxFit.contain,
+                                    SizedBox(
+                                      height: 20.h,
+                                      width: 20.w,
+                                      child: SvgPicture.asset(
+                                        'assets/icon/check_circle.svg',
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

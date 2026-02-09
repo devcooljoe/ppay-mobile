@@ -7,7 +7,7 @@ import 'package:ppay_mobile/screens/views/settings_option_screen/bank_accounts.d
 import 'package:ppay_mobile/screens/views/settings_option_screen/help_and_support.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/privacy_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/profile_screen.dart';
-import 'package:ppay_mobile/screens/views/settings_option_screen/refer.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/refer_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/change_password.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/pin_reset.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/terms_and_conditions.dart';
@@ -27,11 +27,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PPaymobileColors.deepBackgroundColor,
+      backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
         backgroundColor: PPaymobileColors.mainScreenBackground,
         toolbarHeight: 56,
         leadingWidth: 56.w,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
         title: Text(
           'Settings',
           style: TextStyle(
@@ -39,20 +41,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Colors.black,
             fontSize: 18.sp,
             fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
-              height: 24.h,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
-              ),
-            ),
           ),
         ),
       ),
@@ -177,7 +165,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            16.verticalSpace,
+            Container(
+              height: 16.h,
+              width: double.infinity,
+              color: PPaymobileColors.deepBackgroundColor,
+            ),
             Container(
               height: 267.h,
               width: double.infinity,
@@ -402,7 +394,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            16.verticalSpace,
+            Container(
+              height: 16.h,
+              width: double.infinity,
+              color: PPaymobileColors.deepBackgroundColor,
+            ),
             Container(
               height: 335.h,
               width: double.infinity,
@@ -578,8 +574,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 35.h,
-                          width: 43.w,
+                          height: 20.h,
+                          width: 37.w,
                           child: CustomSwitch(
                             value: isEnabled,
                             onChanged: (val) {
@@ -663,7 +659,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            16.verticalSpace,
+            Container(
+              height: 16.h,
+              width: double.infinity,
+              color: PPaymobileColors.deepBackgroundColor,
+            ),
             Container(
               height: 131.h,
               width: double.infinity,
@@ -744,7 +744,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            16.verticalSpace,
+            Container(
+              height: 16.h,
+              width: double.infinity,
+              color: PPaymobileColors.deepBackgroundColor,
+            ),
             Container(
               height: 131.h,
               width: double.infinity,
@@ -767,7 +771,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Referral()),
+                        MaterialPageRoute(builder: (context) => ReferScreen()),
                       );
                     },
                     child: Container(
@@ -823,7 +827,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            16.verticalSpace,
+            Container(
+              height: 16.h,
+              width: double.infinity,
+              color: PPaymobileColors.deepBackgroundColor,
+            ),
             Container(
               height: 267.h,
               width: double.infinity,
@@ -1024,7 +1032,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            16.verticalSpace,
+            Container(
+              height: 16.h,
+              width: double.infinity,
+              color: PPaymobileColors.deepBackgroundColor,
+            ),
             Container(
               height: 131.h,
               width: double.infinity,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/fingerprint_complete.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class SettingUpFingerprint extends StatefulWidget {
   const SettingUpFingerprint({super.key});
@@ -21,13 +22,16 @@ class _SettingUpFingerprintState extends State<SettingUpFingerprint> {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back_white.svg',
-              height: 16.h,
-              width: 12.w,
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
+              height: 24.h,
+              width: 24.w,
+              child: SvgPicture.asset(
+                'assets/icon/arrow_back_white.svg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ),
         ),
@@ -122,39 +126,42 @@ class _SettingUpFingerprintState extends State<SettingUpFingerprint> {
                   ),
                   107.verticalSpace,
                   //this is here because of setting up the fingerprint is done by you so i just use this button to navigate to next page
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.buttonColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.buttonColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
                         ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return FingerprintComplete();
-                            },
-                          ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Finish',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return FingerprintComplete();
+                              },
                             ),
-                          ),
-                        ],
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Finish',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

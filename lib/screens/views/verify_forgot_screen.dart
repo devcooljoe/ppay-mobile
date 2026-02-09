@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/screens/views/passwordreset_screen.dart';
+import 'package:ppay_mobile/screens/views/login_password_reset_screen.dart';
+import 'package:ppay_mobile/screens/views/login_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class VerifyForgotScreen extends StatefulWidget {
   const VerifyForgotScreen({super.key});
@@ -17,6 +19,21 @@ class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
+      appBar: AppBar(
+        backgroundColor: PPaymobileColors.mainScreenBackground,
+        leadingWidth: 56.w,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 16.w),
+          child: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: SvgPicture.asset(
+              'assets/icon/arrow_back.svg',
+              height: 16.h,
+              width: 12.w,
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
@@ -49,10 +66,10 @@ class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
                 child: Pinput(
                   length: 6,
                   keyboardType: TextInputType.number,
-                  separatorBuilder: (index) => 18.horizontalSpace,
+                  separatorBuilder: (index) => 12.horizontalSpace,
                   defaultPinTheme: PinTheme(
-                    width: 52.w,
-                    height: 49.h,
+                    width: 56.6.w,
+                    height: 56.h,
                     textStyle: TextStyle(
                       fontSize: 20.sp,
                       color: Colors.black,
@@ -63,7 +80,7 @@ class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
                         color: PPaymobileColors.textfiedBorder,
                         width: 1.w,
                       ),
-                      borderRadius: BorderRadius.circular(6.r),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                   ),
                 ),
@@ -74,10 +91,10 @@ class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
                 child: Pinput(
                   length: 6,
                   keyboardType: TextInputType.number,
-                  separatorBuilder: (index) => 18.horizontalSpace,
+                  separatorBuilder: (index) => 12.horizontalSpace,
                   defaultPinTheme: PinTheme(
-                    width: 52.w,
-                    height: 49.h,
+                    width: 56.6.w,
+                    height: 56.h,
                     textStyle: TextStyle(
                       fontSize: 20.sp,
                       color: Colors.black,
@@ -88,7 +105,7 @@ class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
                         color: PPaymobileColors.redTextfield,
                         width: 1.w,
                       ),
-                      borderRadius: BorderRadius.circular(6.r),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                   ),
                 ),
@@ -125,7 +142,7 @@ class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
                           fontFamily: 'InstrumentSans',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
-                          color: PPaymobileColors.highlightTextColor,
+                          color: PPaymobileColors.buttonColor,
                         ),
                       ),
                     ],
@@ -133,55 +150,65 @@ class _VerifyforgotScreenState extends State<VerifyForgotScreen> {
                 ],
               ),
               170.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PasswordresetScreen(),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Verify',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPasswordResetScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Verify',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
-              6.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    height: 16.h,
-                    width: 12.w,
-                    'assets/icon/arrow_back.svg',
-                  ),
-                  10.horizontalSpace,
-                  Text(
-                    'Back to Login',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                      color: PPaymobileColors.svgIconColor,
+              21.verticalSpace,
+              TouchOpacity(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      height: 16.h,
+                      width: 12.w,
+                      'assets/icon/arrow_back.svg',
                     ),
-                  ),
-                ],
+                    8.horizontalSpace,
+                    Text(
+                      'Back to Login',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        color: PPaymobileColors.svgIconColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -7,6 +7,7 @@ import 'package:ppay_mobile/screens/widgets/carousel_item.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/item_carousel.dart';
 import 'package:ppay_mobile/screens/widgets/shoping_packages_carousel.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ShoppingScreen extends StatefulWidget {
   const ShoppingScreen({super.key});
@@ -38,14 +39,14 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),

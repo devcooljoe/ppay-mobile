@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/views/features_subscreen/cloths_details_scre
 import 'package:ppay_mobile/screens/views/features_subscreen/watchlist_screen.dart';
 import 'package:ppay_mobile/screens/widgets/cloths_filter_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ClothsScreen extends StatefulWidget {
   const ClothsScreen({super.key});
@@ -33,15 +34,14 @@ class _ClothsScreenState extends State<ClothsScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            splashRadius: 20.r,
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -128,7 +128,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                     ),
                   ),
                   11.horizontalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () async {
                       await showModalBottomSheet(
                         context: context,
@@ -262,7 +262,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,

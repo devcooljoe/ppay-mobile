@@ -4,6 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/screens/views/created_pin_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
+import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class CreatePinScreen extends StatefulWidget {
   const CreatePinScreen({super.key});
@@ -49,13 +52,16 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
+              height: 24.h,
+              width: 24.w,
+              child: SvgPicture.asset(
+                'assets/icon/arrow_back.svg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ),
         ),
@@ -112,10 +118,10 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                     length: 4,
                     keyboardType:
                         TextInputType.none, // 🚫 disable system keyboard
-                    separatorBuilder: (index) => 18.horizontalSpace,
+                    separatorBuilder: (index) => 15.horizontalSpace,
                     defaultPinTheme: PinTheme(
-                      width: 52.w,
-                      height: 49.h,
+                      width: 75.w,
+                      height: 63.h,
                       textStyle: TextStyle(
                         fontSize: 20.sp,
                         color: Colors.black,
@@ -130,35 +136,25 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                       ),
                     ),
                   ),
-                  12.verticalSpace,
+                  20.verticalSpace,
                   Text(
                     'Please keep pin secure. Pin will be required before performing any transaction',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 13.sp, color: Colors.black),
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
                   ),
                   29.verticalSpace,
-                  GridView.count(
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 40.w),
-                    mainAxisSpacing: 24.h,
-                    crossAxisSpacing: 24.w,
-                    children: [
-                      _key('1', onTap: () => _onKeyTap('1')),
-                      _key('2', onTap: () => _onKeyTap('2')),
-                      _key('3', onTap: () => _onKeyTap('3')),
-                      _key('4', onTap: () => _onKeyTap('4')),
-                      _key('5', onTap: () => _onKeyTap('5')),
-                      _key('6', onTap: () => _onKeyTap('6')),
-                      _key('7', onTap: () => _onKeyTap('7')),
-                      _key('8', onTap: () => _onKeyTap('8')),
-                      _key('9', onTap: () => _onKeyTap('9')),
-                      const SizedBox(), // empty left
-                      _key('0', onTap: () => _onKeyTap('0')),
-                      _deleteKey(onTap: _onDelete),
-                    ],
+                  KeyboardContainer(
+                    child: CustomKeyboard(
+                      onKeyTap: _onKeyTap,
+                      onDelete: _onDelete,
+                    ),
                   ),
+                  // this shows after inputting the pin and clicking outside the container...
                   24.verticalSpace,
                   SizedBox(
                     width: double.infinity,
@@ -167,7 +163,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: PPaymobileColors.backgroundColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
+                          borderRadius: BorderRadius.circular(42.r),
                         ),
                       ),
                       onPressed: () {
@@ -180,7 +176,6 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                           ),
                         );
                       },
-
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -214,31 +209,4 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
       ),
     );
   }
-}
-
-Widget _key(String text, {VoidCallback? onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      alignment: Alignment.center,
-      height: 64.h,
-      width: 64.w,
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
-      ),
-    ),
-  );
-}
-
-Widget _deleteKey({required VoidCallback onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      alignment: Alignment.center,
-      height: 64.h,
-      width: 64.w,
-      child: Icon(Icons.backspace_outlined, size: 22.sp),
-    ),
-  );
 }

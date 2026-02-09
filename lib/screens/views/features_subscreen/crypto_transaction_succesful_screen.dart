@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/crypto_sell_receipt.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/sell_crypto.dart';
-import 'package:ppay_mobile/screens/views/home_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/buy_crypto.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/crypto_receipt_screen.dart';
+import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
-class CryptoSellSucessful extends StatefulWidget {
-  const CryptoSellSucessful({super.key});
+class CryptoTransactionSuccesfulScreen extends StatefulWidget {
+  const CryptoTransactionSuccesfulScreen({super.key});
 
   @override
-  State<CryptoSellSucessful> createState() => _CryptoSellSucessfulState();
+  State<CryptoTransactionSuccesfulScreen> createState() =>
+      _CryptoTransactionSuccesfulScreenState();
 }
 
-class _CryptoSellSucessfulState extends State<CryptoSellSucessful> {
+class _CryptoTransactionSuccesfulScreenState
+    extends State<CryptoTransactionSuccesfulScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +48,7 @@ class _CryptoSellSucessfulState extends State<CryptoSellSucessful> {
                   ),
                   4.verticalSpace,
                   Text(
-                    'You successfully sold 0.000013 worth of BTC',
+                    'Your Purchase of 0.000023BTC was successful',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
@@ -76,7 +78,7 @@ class _CryptoSellSucessfulState extends State<CryptoSellSucessful> {
                   ),
                   4.verticalSpace,
                   Text(
-                    'Your sale of 0.000023BTC was not successful. Please try again',
+                    'Your Purchase of 0.000023BTC was not successful. Please try again',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
@@ -140,7 +142,7 @@ class _CryptoSellSucessfulState extends State<CryptoSellSucessful> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SellCrypto()),
+                          MaterialPageRoute(builder: (context) => BuyCrypto()),
                           // (route) => false(),
                         );
                       },
@@ -169,10 +171,11 @@ class _CryptoSellSucessfulState extends State<CryptoSellSucessful> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (route) => false,
+                          MaterialPageRoute(
+                            builder: (context) => RouteScreen(),
+                          ),
                         );
                       },
                       child: Text(
@@ -199,7 +202,14 @@ class _CryptoSellSucessfulState extends State<CryptoSellSucessful> {
                           side: BorderSide.none,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RouteScreen(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Try Again',
                         style: TextStyle(
@@ -229,7 +239,7 @@ class _CryptoSellSucessfulState extends State<CryptoSellSucessful> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CryptoSellReceipt(),
+                            builder: (context) => CryptoReceiptScreen(),
                           ),
                         );
                       },

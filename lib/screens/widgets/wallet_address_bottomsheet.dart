@@ -225,6 +225,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(42),
                         ),
+                        elevation: 0,
                       ),
                       onPressed: () async {},
                       child: Row(
@@ -266,13 +267,14 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
                             width: 1.w,
                           ),
                         ),
+                        elevation: 0,
                       ),
                       onPressed: () async {},
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Copy Address',
+                            'Share',
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w600,

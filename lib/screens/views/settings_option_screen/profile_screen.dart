@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/edit_profile.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -32,14 +33,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),

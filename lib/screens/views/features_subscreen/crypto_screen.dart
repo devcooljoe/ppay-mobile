@@ -5,18 +5,19 @@ import 'package:ppay_mobile/model/crypto_transactions_model.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/assets_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/buy_crypto.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/crypto_transactions_history.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/receive_crypto.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/receive_crypto_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/sell_crypto.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
-class Crypto extends StatefulWidget {
-  const Crypto({super.key});
+class CryptoScreen extends StatefulWidget {
+  const CryptoScreen({super.key});
 
   @override
-  State<Crypto> createState() => _CryptoState();
+  State<CryptoScreen> createState() => _CryptoScreenState();
 }
 
-class _CryptoState extends State<Crypto> {
+class _CryptoScreenState extends State<CryptoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +38,14 @@ class _CryptoState extends State<Crypto> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -117,7 +118,7 @@ class _CryptoState extends State<Crypto> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          GestureDetector(
+                          TouchOpacity(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -208,7 +209,7 @@ class _CryptoState extends State<Crypto> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => ReceiveCrypto(),
+                                  builder: (_) => ReceiveCryptoScreen(),
                                 ),
                               );
                             },

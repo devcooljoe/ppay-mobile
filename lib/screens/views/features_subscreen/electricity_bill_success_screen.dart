@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/electricity_receipt_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ElectricityBillSuccessScreen extends StatefulWidget {
   const ElectricityBillSuccessScreen({super.key});
@@ -99,7 +100,7 @@ class _ElectricityBillSuccessScreenState
               //   ),
               // ),
               120.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,

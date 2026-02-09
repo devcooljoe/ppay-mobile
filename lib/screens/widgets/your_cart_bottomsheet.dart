@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/check_out_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/remove_from_cart_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class YourCartBottomsheet extends StatefulWidget {
   const YourCartBottomsheet({super.key});
@@ -453,7 +454,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                 ),
                               ],
                             ),
-                            GestureDetector(
+                            TouchOpacity(
                               onTap: () {
                                 Navigator.push(
                                   context,

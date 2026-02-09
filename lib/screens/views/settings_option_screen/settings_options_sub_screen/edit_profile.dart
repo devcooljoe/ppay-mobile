@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/settings_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_date_picker.dart';
 import 'package:ppay_mobile/screens/widgets/gender_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -37,14 +37,14 @@ class _EditProfileState extends State<EditProfile> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -168,6 +168,13 @@ class _EditProfileState extends State<EditProfile> {
                                 width: 1.w,
                               ),
                             ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.r),
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfiedBorder,
+                                width: 1.w,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -220,6 +227,13 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                           ),
                           border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6.r),
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfiedBorder,
+                              width: 1.w,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.r),
                             borderSide: BorderSide(
                               color: PPaymobileColors.textfiedBorder,
@@ -291,6 +305,13 @@ class _EditProfileState extends State<EditProfile> {
                                 width: 1.w,
                               ),
                             ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.r),
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfiedBorder,
+                                width: 1.w,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -299,34 +320,24 @@ class _EditProfileState extends State<EditProfile> {
                 ],
               ),
               77.verticalSpace,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42),
-                      ),
+              SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PPaymobileColors.backgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(42),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SettingsScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Save Changes',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                      ),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'Save Changes',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                      color: Colors.white,
                     ),
                   ),
                 ),

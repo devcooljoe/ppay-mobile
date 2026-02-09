@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/views/features_subscreen/confirm_gift_card_s
 import 'package:ppay_mobile/screens/widgets/card_category_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/card_type_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class SellGiftCardFeaturesScreen extends StatefulWidget {
   const SellGiftCardFeaturesScreen({super.key});
@@ -38,14 +39,14 @@ class _SellGiftCardFeaturesScreenState
             ),
             leading: Padding(
               padding: EdgeInsets.only(left: 20.w),
-              child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: SizedBox(
+              child: TouchOpacity(
+                onTap: () => Navigator.pop(context),
+                child: SizedBox(
                   height: 24.h,
                   width: 24.w,
                   child: SvgPicture.asset(
                     'assets/icon/arrow_back_white.svg',
-                    fit: BoxFit.contain,
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
               ),
@@ -208,7 +209,7 @@ class _SellGiftCardFeaturesScreenState
                           ),
                         ),
                         // hintText: 'Enter Receiver Name',
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfieldGrey,
                             width: 1.w,
@@ -281,7 +282,7 @@ class _SellGiftCardFeaturesScreenState
                             fit: BoxFit.scaleDown,
                           ),
                         ),
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfieldGrey,
                             width: 1.w,
@@ -346,7 +347,7 @@ class _SellGiftCardFeaturesScreenState
                           ),
                         ),
                         // hintText: 'Enter Receiver Name',
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfieldGrey,
                             width: 1.w,
@@ -458,7 +459,7 @@ class _SellGiftCardFeaturesScreenState
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfieldGrey,
                             width: 1.w,
@@ -693,7 +694,7 @@ class _SellGiftCardFeaturesScreenState
                     ],
                   ),
                   20.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,

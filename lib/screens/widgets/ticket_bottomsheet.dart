@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_switch.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 void showSupportTicketSheet(BuildContext context) {
   showModalBottomSheet(
@@ -129,7 +130,7 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                           vertical: 14.h,
                         ),
 
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfiedBorder,
@@ -166,7 +167,7 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                           fontSize: 16.sp,
                           color: PPaymobileColors.svgIconColor,
                         ),
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfiedBorder,
@@ -204,7 +205,7 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                           fontSize: 16.sp,
                           color: PPaymobileColors.svgIconColor,
                         ),
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfiedBorder,
@@ -230,7 +231,7 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                       ),
                       27.horizontalSpace,
                       SizedBox(
-                        width: 34.w,
+                        width: 37.w,
                         height: 20.h,
                         child: CustomSwitch(
                           value: isEnabled,
@@ -244,24 +245,27 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                     ],
                   ),
                   89.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Submit Ticket',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.white,
+                        onPressed: () {},
+                        child: Text(
+                          'Submit Ticket',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

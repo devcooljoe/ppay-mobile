@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/airtime_receipt_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class AirtimeSuccessScreen extends StatefulWidget {
   const AirtimeSuccessScreen({super.key});
@@ -108,7 +109,7 @@ class _AirtimeSuccessScreenState extends State<AirtimeSuccessScreen> {
                 ),
               ),
               14.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,

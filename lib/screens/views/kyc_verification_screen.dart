@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/document_bottom_sheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class KycVerificationScreen extends StatefulWidget {
   const KycVerificationScreen({super.key});
@@ -21,14 +22,16 @@ class _KycVerificationScreenState extends State<KycVerificationScreen> {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
+              height: 24.h,
+              width: 24.w,
+              child: SvgPicture.asset(
+                'assets/icon/arrow_back.svg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ),
         ),
@@ -81,9 +84,8 @@ class _KycVerificationScreenState extends State<KycVerificationScreen> {
                       onTap: () {
                         showModalBottomSheet(
                           context: context,
-                          isScrollControlled: true, // ✅ allows custom height
-                          backgroundColor:
-                              Colors.transparent, // for rounded corners
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
                           builder: (context) {
                             return DocumentBottomSheet();
                           },
@@ -112,7 +114,14 @@ class _KycVerificationScreenState extends State<KycVerificationScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                     ),
@@ -120,24 +129,27 @@ class _KycVerificationScreenState extends State<KycVerificationScreen> {
                 ),
               ),
               356.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.textfiedBorder,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.textfiedBorder,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
+                      elevation: 0,
                     ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
+                    onPressed: () {},
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
                 ),

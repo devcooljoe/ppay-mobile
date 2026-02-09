@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/veriify_password_details.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -32,14 +33,14 @@ class _ChangePasswordState extends State<ChangePassword> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -99,7 +100,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       fontStyle: FontStyle.italic,
                       color: PPaymobileColors.svgIconColor,
                     ),
-                    border: OutlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
                         color: PPaymobileColors.textfiedBorder,
@@ -110,31 +111,34 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
               ),
               170.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VeriifyPasswordDetails(),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42),
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
+                      elevation: 0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VeriifyPasswordDetails(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class OneWayTripScreen extends StatefulWidget {
   const OneWayTripScreen({super.key});
@@ -201,7 +202,14 @@ class _OneWayTripScreenState extends State<OneWayTripScreen> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(9.r),
                 borderSide: BorderSide(
-                  color: PPaymobileColors.filterBorderColor,
+                  color: PPaymobileColors.lightGrey,
+                  width: 1.w,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(9.r),
+                borderSide: BorderSide(
+                  color: PPaymobileColors.lightGrey,
                   width: 1.w,
                 ),
               ),
@@ -248,7 +256,14 @@ class _OneWayTripScreenState extends State<OneWayTripScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(9.r),
                     borderSide: BorderSide(
-                      color: PPaymobileColors.filterBorderColor,
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(9.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
                       width: 1.w,
                     ),
                   ),
@@ -291,7 +306,14 @@ class _OneWayTripScreenState extends State<OneWayTripScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(9.r),
                     borderSide: BorderSide(
-                      color: PPaymobileColors.filterBorderColor,
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(9.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
                       width: 1.w,
                     ),
                   ),
@@ -301,10 +323,12 @@ class _OneWayTripScreenState extends State<OneWayTripScreen> {
           ],
         ),
         27.verticalSpace,
-        SizedBox(
-          height: 52.h,
-          width: 376.w,
-          child: Image.asset('assets/images/sfl.png', fit: BoxFit.contain),
+        TouchOpacity(
+          child: SizedBox(
+            height: 52.h,
+            width: 376.w,
+            child: Image.asset('assets/images/sfl.png', fit: BoxFit.contain),
+          ),
         ),
         // SizedBox(
         //   height: 44.h,

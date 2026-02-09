@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/screens/views/home_screen.dart';
 import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/create_pin_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class KycVerificationCompleteScreen extends StatefulWidget {
   const KycVerificationCompleteScreen({super.key});
@@ -57,75 +57,84 @@ class _KycVerificationCompleteScreenState
                   ),
                 ),
                 48.verticalSpace,
-                SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42),
+                TouchOpacity(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: PPaymobileColors.backgroundColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(42.r),
+                        ),
+                        elevation: 0,
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (_) => const HomeScreen()),
-                        (route) => false,
-                      );
-
-                      // 🔥 wait for navigation, then show bottom sheet
-                      Future.delayed(const Duration(milliseconds: 300), () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (_) => const CreatePinBottomsheet(),
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RouteScreen(),
+                          ),
+                          (route) => false,
                         );
-                      });
-                    },
 
-                    child: Text(
-                      'Set Up Biometric',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.white,
+                        // 🔥 wait for navigation, then show bottom sheet
+                        Future.delayed(const Duration(milliseconds: 300), () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (_) => const CreatePinBottomsheet(),
+                          );
+                        });
+                      },
+
+                      child: Text(
+                        'Set Up Biometric',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                 ),
                 20.verticalSpace,
-                SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: PPaymobileColors.mainScreenBackground,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42),
-                        side: BorderSide(
-                          width: 1.w,
-                          color: PPaymobileColors.textfiedBorder,
+                TouchOpacity(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        backgroundColor: PPaymobileColors.mainScreenBackground,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(42),
+                          side: BorderSide(
+                            width: 1.w,
+                            color: PPaymobileColors.textfiedBorder,
+                          ),
                         ),
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => RouteScreen()),
-                        (route) => false,
-                      );
-                    },
-                    child: Text(
-                      'Go To Dashboard',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.black,
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RouteScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      },
+                      child: Text(
+                        'Go To Dashboard',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:ppay_mobile/model/onboard_item_model.dart';
 import 'package:ppay_mobile/screens/views/login_screen.dart';
 import 'package:ppay_mobile/screens/views/signup_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardScreen extends StatefulWidget {
@@ -217,7 +218,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   ),
                 ),
                 5.horizontalSpace,
-                GestureDetector(
+                TouchOpacity(
                   onTap: () {
                     Navigator.push(
                       context,

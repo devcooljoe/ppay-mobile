@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/bills_screen.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/crypto.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/crypto_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/flight_book_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/giftcard_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/shopping_screen.dart';
@@ -213,7 +213,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => Crypto()),
+                            MaterialPageRoute(builder: (_) => CryptoScreen()),
                           );
                         },
                         child: Container(
@@ -242,7 +242,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => Crypto()),
+                            MaterialPageRoute(builder: (_) => CryptoScreen()),
                           );
                         },
                         child: Text(

@@ -6,6 +6,7 @@ import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/screens/widgets/select_bet_provider_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class BetScreen extends StatefulWidget {
   const BetScreen({super.key});
@@ -70,14 +71,14 @@ class _BetScreenState extends State<BetScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -346,7 +347,7 @@ class _BetScreenState extends State<BetScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -410,7 +411,7 @@ class _BetScreenState extends State<BetScreen> {
                                 ],
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -655,7 +656,7 @@ class _BetScreenState extends State<BetScreen> {
                       ),
                     ),
                     89.verticalSpace,
-                    GestureDetector(
+                    TouchOpacity(
                       onTap: () {
                         Navigator.push(
                           context,

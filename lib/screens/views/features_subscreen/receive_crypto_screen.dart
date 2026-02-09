@@ -4,16 +4,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/network_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/screens/widgets/wallet_address_bottomsheet.dart';
 
-class ReceiveCrypto extends StatefulWidget {
-  const ReceiveCrypto({super.key});
+class ReceiveCryptoScreen extends StatefulWidget {
+  const ReceiveCryptoScreen({super.key});
 
   @override
-  State<ReceiveCrypto> createState() => _ReceiveCryptoState();
+  State<ReceiveCryptoScreen> createState() => _ReceiveCryptoScreenState();
 }
 
-class _ReceiveCryptoState extends State<ReceiveCrypto> {
+class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +35,14 @@ class _ReceiveCryptoState extends State<ReceiveCrypto> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -137,7 +138,7 @@ class _ReceiveCryptoState extends State<ReceiveCrypto> {
                         ),
                       ),
                     ),
-                    border: OutlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 1.w,
                         color: PPaymobileColors.textfiedBorder,
@@ -189,7 +190,7 @@ class _ReceiveCryptoState extends State<ReceiveCrypto> {
                         ),
                       ),
                     ),
-                    border: OutlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 1.w,
                         color: PPaymobileColors.textfiedBorder,
@@ -220,6 +221,7 @@ class _ReceiveCryptoState extends State<ReceiveCrypto> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(42),
                     ),
+                    elevation: 0,
                   ),
                   onPressed: () async {
                     await showModalBottomSheet(

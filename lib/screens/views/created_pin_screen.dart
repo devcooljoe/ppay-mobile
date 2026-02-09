@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/set_up_fingerprint.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class CreatedPinScreen extends StatefulWidget {
   const CreatedPinScreen({super.key});
@@ -21,13 +22,16 @@ class _CreatedPinScreenState extends State<CreatedPinScreen> {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
+              height: 24.h,
+              width: 24.w,
+              child: SvgPicture.asset(
+                'assets/icon/arrow_back.svg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ),
         ),
@@ -51,12 +55,12 @@ class _CreatedPinScreenState extends State<CreatedPinScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Security Pin',
+                    'Transaction Pin Created',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.buttonColorandText,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   4.verticalSpace,
@@ -71,48 +75,51 @@ class _CreatedPinScreenState extends State<CreatedPinScreen> {
                     ),
                   ),
                   76.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
                         ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return SetUpFingerprint();
-                            },
-                          ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Go To Dashboard',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SetUpFingerprint();
+                              },
                             ),
-                          ),
-                          7.horizontalSpace,
-                          SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forwardw.svg',
-                              fit: BoxFit.contain,
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go To Dashboard',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                        ],
+                            7.horizontalSpace,
+                            SizedBox(
+                              height: 24.h,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/arrow_forwardw.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/buy_crypto.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/crypto_receipt.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/crypto_sell_receipt.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/sell_crypto.dart';
 import 'package:ppay_mobile/screens/views/home_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 
-class CryptoTransactionSuccesful extends StatefulWidget {
-  const CryptoTransactionSuccesful({super.key});
+class CryptoSellSucessfulScreen extends StatefulWidget {
+  const CryptoSellSucessfulScreen({super.key});
 
   @override
-  State<CryptoTransactionSuccesful> createState() =>
-      _CryptoTransactionSuccesfulState();
+  State<CryptoSellSucessfulScreen> createState() =>
+      _CryptoSellSucessfulScreenState();
 }
 
-class _CryptoTransactionSuccesfulState
-    extends State<CryptoTransactionSuccesful> {
+class _CryptoSellSucessfulScreenState extends State<CryptoSellSucessfulScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +47,7 @@ class _CryptoTransactionSuccesfulState
                   ),
                   4.verticalSpace,
                   Text(
-                    'Your Purchase of 0.000023BTC was successful',
+                    'You successfully sold 0.000013 worth of BTC',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
@@ -78,7 +77,7 @@ class _CryptoTransactionSuccesfulState
                   ),
                   4.verticalSpace,
                   Text(
-                    'Your Purchase of 0.000023BTC was not successful. Please try again',
+                    'Your sale of 0.000023BTC was not successful. Please try again',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
@@ -142,7 +141,7 @@ class _CryptoTransactionSuccesfulState
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BuyCrypto()),
+                          MaterialPageRoute(builder: (context) => SellCrypto()),
                           // (route) => false(),
                         );
                       },
@@ -201,13 +200,7 @@ class _CryptoTransactionSuccesfulState
                           side: BorderSide.none,
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (route) => false,
-                        );
-                      },
+                      onPressed: () {},
                       child: Text(
                         'Try Again',
                         style: TextStyle(
@@ -237,7 +230,7 @@ class _CryptoTransactionSuccesfulState
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CryptoReceipt(),
+                            builder: (context) => CryptoSellReceipt(),
                           ),
                         );
                       },

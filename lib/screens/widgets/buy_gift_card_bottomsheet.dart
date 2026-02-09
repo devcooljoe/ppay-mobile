@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/giftcard_pin_botomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class BuyGiftCardBottomsheet extends StatefulWidget {
   const BuyGiftCardBottomsheet({super.key});
@@ -231,7 +232,7 @@ class _BuyGiftCardBottomsheetState extends State<BuyGiftCardBottomsheet> {
                     ],
                   ),
                   36.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () async {
                       Navigator.pop(context);
                       await Future.delayed(const Duration(milliseconds: 200));

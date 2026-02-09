@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/payment_pin_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/remove_from_cart_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -44,14 +45,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -578,7 +579,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ],
               ),
               61.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: _openPaymentPinBottomSheet,
                 child: SizedBox(
                   height: 54.h,

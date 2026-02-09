@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/home_screen.dart';
 import 'package:ppay_mobile/screens/views/receipt_screen.dart';
+import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/views/transfer_funds_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class TransactionSuccessfulScreen extends StatefulWidget {
   const TransactionSuccessfulScreen({super.key});
@@ -149,230 +151,254 @@ class _TransactionSuccessfulScreenState
                     ),
                   ),
                   161.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ReceiptScreen(),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
                           ),
-                        );
-                      },
-                      child: Text(
-                        'View Receipt',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: PPaymobileColors.mainScreenBackground,
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReceiptScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'View Receipt',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: PPaymobileColors.mainScreenBackground,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   22.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: PPaymobileColors.mainScreenBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                          side: BorderSide(
-                            width: 1.w,
-                            color: PPaymobileColors.textfiedBorder,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              PPaymobileColors.mainScreenBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                            side: BorderSide(
+                              width: 1.w,
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
                           ),
                         ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (route) => false,
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Go Home',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.black,
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RouteScreen(),
                             ),
-                          ),
-                          7.horizontalSpace,
-                          SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
+                            (route) => false,
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go Home',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                            7.horizontalSpace,
+                            SizedBox(
+                              height: 24.h,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/arrow_forward.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   10.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Try Again',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: PPaymobileColors.mainScreenBackground,
+                        onPressed: () {},
+                        child: Text(
+                          'Try Again',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: PPaymobileColors.mainScreenBackground,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   22.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: PPaymobileColors.mainScreenBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                          side: BorderSide(
-                            width: 1.w,
-                            color: PPaymobileColors.textfiedBorder,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              PPaymobileColors.mainScreenBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                            side: BorderSide(
+                              width: 1.w,
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
                           ),
                         ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (route) => false,
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Go Home',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.black,
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
                             ),
-                          ),
-                          7.horizontalSpace,
-                          SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
+                            (route) => false,
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go Home',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                            7.horizontalSpace,
+                            SizedBox(
+                              height: 24.h,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/arrow_forward.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   10.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TransferFundsScreen(),
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
                           ),
-                          // (route) => false(),
-                        );
-                      },
-                      child: Text(
-                        'Make Another Transaction',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: PPaymobileColors.mainScreenBackground,
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TransferFundsScreen(),
+                            ),
+                            // (route) => false(),
+                          );
+                        },
+                        child: Text(
+                          'Make Another Transaction',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: PPaymobileColors.mainScreenBackground,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   22.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: PPaymobileColors.mainScreenBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                          side: BorderSide(
-                            width: 1.w,
-                            color: PPaymobileColors.textfiedBorder,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              PPaymobileColors.mainScreenBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                            side: BorderSide(
+                              width: 1.w,
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
                           ),
                         ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (route) => false,
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Go Home',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.black,
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
                             ),
-                          ),
-                          7.horizontalSpace,
-                          SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
+                            (route) => false,
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go Home',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                            7.horizontalSpace,
+                            SizedBox(
+                              height: 24.h,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/arrow_forward.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

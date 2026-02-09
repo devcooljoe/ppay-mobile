@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/screens/views/login_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
-class PinResetComplete extends StatefulWidget {
-  const PinResetComplete({super.key});
+class LoginPasswordChangedScreen extends StatefulWidget {
+  const LoginPasswordChangedScreen({super.key});
 
   @override
-  State<PinResetComplete> createState() => _PinResetCompleteState();
+  State<LoginPasswordChangedScreen> createState() =>
+      _LoginPasswordChangedScreenState();
 }
 
-class _PinResetCompleteState extends State<PinResetComplete> {
+class _LoginPasswordChangedScreenState
+    extends State<LoginPasswordChangedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,16 +24,20 @@ class _PinResetCompleteState extends State<PinResetComplete> {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.h,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
+          padding: EdgeInsets.only(left: 16.w),
+          child: IconButton(
+            style: ButtonStyle(
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100.r),
+                ),
               ),
+            ),
+            onPressed: () => Navigator.pop(context),
+            icon: SvgPicture.asset(
+              'assets/icon/arrow_back.svg',
+              height: 16.h,
+              width: 12.w,
             ),
           ),
         ),
@@ -58,7 +65,7 @@ class _PinResetCompleteState extends State<PinResetComplete> {
                         ),
                         60.verticalSpace,
                         Text(
-                          'New Pin Created',
+                          'Password Changed',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
@@ -69,48 +76,45 @@ class _PinResetCompleteState extends State<PinResetComplete> {
                         6.verticalSpace,
                         Text(
                           textAlign: TextAlign.center,
-                          'You have successfully created a new transaction pin. Please keep your pin safe',
+                          'You have successfully changed your password. Please go back to login',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
-                            color: Colors.black,
+                            color: PPaymobileColors.svgIconColor,
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         76.verticalSpace,
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50.h,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: PPaymobileColors.backgroundColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(42),
+                        TouchOpacity(
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 50.h,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                backgroundColor:
+                                    PPaymobileColors.backgroundColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(42.r),
+                                ),
                               ),
-                            ),
-                            onPressed: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Back to Settings',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16.sp,
-                                    color: Colors.white,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
                                   ),
+                                );
+                              },
+                              child: Text(
+                                'Back to Login',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                  color: Colors.white,
                                 ),
-                                10.horizontalSpace,
-                                SizedBox(
-                                  height: 24.h,
-                                  width: 24.w,
-                                  child: SvgPicture.asset(
-                                    'assets/icon/arrow_forwardw.svg',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),

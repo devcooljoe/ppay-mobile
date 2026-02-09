@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/views/features_subscreen/tv_cable_confirm_sc
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class TvCableScreen extends StatefulWidget {
   const TvCableScreen({super.key});
@@ -69,14 +70,14 @@ class _TvCableScreenState extends State<TvCableScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -320,7 +321,7 @@ class _TvCableScreenState extends State<TvCableScreen> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -384,7 +385,7 @@ class _TvCableScreenState extends State<TvCableScreen> {
                                 ],
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -739,6 +740,7 @@ class _TvCableScreenState extends State<TvCableScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(55.r),
                             ),
+                            elevation: 0,
                           ),
                           onPressed: () {
                             Navigator.push(

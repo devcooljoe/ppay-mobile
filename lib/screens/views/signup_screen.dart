@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/views/login_screen.dart';
 import 'package:ppay_mobile/screens/views/verify_code.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/textfield.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -26,7 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: ListView(
           children: [
-            48.verticalSpace,
+            40.verticalSpace,
             Row(
               children: [
                 Text(
@@ -185,37 +186,37 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ),
             101.verticalSpace,
-            SizedBox(
-              width: double.infinity,
-              height: 50.h,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: PPaymobileColors.backgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(42),
+            TouchOpacity(
+              child: SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: PPaymobileColors.backgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(42.r),
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => VerifyCode()),
-                  );
-                },
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                    color: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => VerifyCode()),
+                    );
+                  },
+                  child: Text(
+                    'Get Started',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
             ),
-            6.verticalSpace,
-
-            /// Sign in
+            8.verticalSpace,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -242,7 +243,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
-                      color: PPaymobileColors.highlightTextColor,
+                      color: PPaymobileColors.buttonColor,
                     ),
                   ),
                 ),
