@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/screens/views/features_screen.dart';
 import 'package:ppay_mobile/screens/views/home_screen.dart';
@@ -57,7 +58,7 @@ class _RouteScreenState extends State<RouteScreen> {
           BottomNavigationBarItem(
             icon: navSvgIcon(
               activeIcon: 'assets/icon/features2.svg',
-              inactiveIcon: 'assets/images/features_2.png',
+              inactiveIcon: 'assets/icon/features_1.svg',
               index: 2,
             ),
             label: 'Features',
@@ -86,7 +87,7 @@ class _RouteScreenState extends State<RouteScreen> {
     );
   }
 
-  Widget navSvgIcon({
+  SvgPicture navSvgIcon({
     required String activeIcon,
     required String inactiveIcon,
     required int index,
@@ -95,10 +96,10 @@ class _RouteScreenState extends State<RouteScreen> {
 
     return SvgPicture.asset(
       isActive ? activeIcon : inactiveIcon,
-      width: 24,
-      height: 24,
+      width: 24.w,
+      height: 24.w,
       colorFilter: ColorFilter.mode(
-        isActive ? PPaymobileColors.buttonColor : PPaymobileColors.svgIconColor,
+        isActive ? PPaymobileColors.buttonColor : Color(0xff9C9C9C),
         BlendMode.srcIn,
       ),
     );

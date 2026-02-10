@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
           child: Container(
-            height: 53.h,
+            height: 53.w,
             width: 53.w,
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -108,17 +108,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
               child: Container(
-                height: 47.h,
+                height: 47.w,
                 width: 47.w,
                 decoration: BoxDecoration(
-                  color: PPaymobileColors.textfiedBorder,
+                  color: Color.fromRGBO(239, 245, 242, 0.62),
                   borderRadius: BorderRadius.circular(23.r),
                 ),
                 child: Stack(
                   children: [
                     Center(
                       child: SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/notif.svg',
@@ -127,10 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Positioned(
-                      top: 12,
-                      left: 25,
+                      top: 9.h,
+                      left: 26.w,
                       child: SizedBox(
-                        height: 9.h,
+                        height: 9.w,
                         width: 9.w,
                         child: SvgPicture.asset(
                           'assets/icon/newnotif.svg',
@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           showModalBottomSheet(
                             context: context,
@@ -725,133 +725,69 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     26.verticalSpace,
-                    Container(
-                      height: 49.h,
-                      width: double.infinity,
-                      color: PPaymobileColors.mainScreenBackground,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 49.h,
-                                width: 49.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24.5.r),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/dash_apple.png',
-                                    ),
-                                    fit: BoxFit.contain,
+                    TouchOpacity(
+                      child: Container(
+                        height: 49.h,
+                        width: double.infinity,
+                        color: PPaymobileColors.mainScreenBackground,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 49.w,
+                                  width: 49.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100.r),
+                                  ),
+                                  clipBehavior: Clip.hardEdge,
+                                  child: Image.asset(
+                                    'assets/images/dash_apple.png',
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
-                              12.horizontalSpace,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Apple',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
+                                12.horizontalSpace,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Apple',
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Pay with Dollar Card',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: PPaymobileColors.textfiedBorder,
+                                    4.verticalSpace,
+                                    Text(
+                                      'Pay with Dollar Card',
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff9C9C9C),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Text(
-                            '-₦60,000.00',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: PPaymobileColors.redTextfield,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    28.verticalSpace,
-                    Container(
-                      height: 49.h,
-                      width: double.infinity,
-                      color: PPaymobileColors.mainScreenBackground,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 49.h,
-                                width: 49.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24.5.r),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/dash_spotify.png',
-                                    ),
-                                    fit: BoxFit.contain,
-                                  ),
+                                  ],
                                 ),
-                              ),
-                              12.horizontalSpace,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Spotify Subscription',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Pay with Dollar Card',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: PPaymobileColors.textfiedBorder,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Text(
-                            '-₦60,000.00',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: PPaymobileColors.redTextfield,
+                              ],
                             ),
-                          ),
-                        ],
+                            Text(
+                              '-₦60,000.00',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: PPaymobileColors.redTextfield,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     28.verticalSpace,

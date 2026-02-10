@@ -13,14 +13,12 @@ class KycBottomsheet extends StatefulWidget {
   State<KycBottomsheet> createState() => _KycBottomsheetState();
 }
 
-List kycVerificationReq = [
+List<KycVerificationModel> kycVerificationReq = [
   KycVerificationModel(
     leadingImage: 'assets/icon/key_1.svg',
     titleText: 'Bank Verification Number',
     subtitleText: 'Verify your BVN and face ID to confirm your identity',
     trailingIcon: 'assets/icon/check.svg',
-    titleColor: PPaymobileColors.textfiedBorder,
-    subtitleColor: PPaymobileColors.textfiedBorder,
   ),
   KycVerificationModel(
     leadingImage: 'assets/icon/userid.svg',
@@ -28,8 +26,6 @@ List kycVerificationReq = [
     subtitleText:
         'To confirm your personal information with your issued country ID',
     trailingIcon: 'assets/icon/arrow_forward.svg',
-    titleColor: Colors.black,
-    subtitleColor: PPaymobileColors.svgIconColor,
   ),
 ];
 
@@ -37,16 +33,16 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      heightFactor: 0.90,
+      heightFactor: 0.85,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           Transform.translate(
             offset: const Offset(0, 0),
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -57,7 +53,7 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                   width: 18.h,
                   child: SvgPicture.asset(
                     'assets/icon/cancel.svg',
-                    fit: BoxFit.contain,
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
               ),
@@ -118,49 +114,61 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                       separatorBuilder: (context, index) =>
                           Column(children: [17.verticalSpace]),
                       itemBuilder: (context, index) {
+                        final opacity = index == 0 ? 0.5 : 1.0;
                         return IntrinsicHeight(
                           child: Column(
                             children: [
-                              ListTile(
-                                contentPadding: EdgeInsets.zero,
-
-                                leading: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 24.h,
-                                      width: 24.h,
-                                      child: SvgPicture.asset(
-                                        kycVerificationReq[index].leadingImage,
-                                        fit: BoxFit.contain,
+                              TouchOpacity(
+                                onTap: () {},
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Opacity(
+                                        opacity: opacity,
+                                        child: SizedBox(
+                                          height: 24.h,
+                                          width: 24.h,
+                                          child: SvgPicture.asset(
+                                            kycVerificationReq[index]
+                                                .leadingImage,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  title: Opacity(
+                                    opacity: opacity,
+                                    child: Text(
+                                      kycVerificationReq[index].titleText,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
                                       ),
                                     ),
-                                  ],
-                                ),
-                                title: Text(
-                                  kycVerificationReq[index].titleText,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kycVerificationReq[index].titleColor,
                                   ),
-                                ),
-                                subtitle: Text(
-                                  kycVerificationReq[index].subtitleText,
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    fontSize: 13.sp,
-                                    color:
-                                        kycVerificationReq[index].subtitleColor,
+                                  subtitle: Opacity(
+                                    opacity: opacity,
+                                    child: Text(
+                                      kycVerificationReq[index].subtitleText,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontSize: 13.sp,
+                                        color: Color(0xff5B5B5B),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                trailing: SizedBox(
-                                  height: 28.h,
-                                  width: 28.w,
-                                  child: SvgPicture.asset(
-                                    kycVerificationReq[index].trailingIcon,
+                                  trailing: SizedBox(
+                                    height: 28.h,
+                                    width: 28.w,
+                                    child: SvgPicture.asset(
+                                      kycVerificationReq[index].trailingIcon,
+                                    ),
                                   ),
                                 ),
                               ),
