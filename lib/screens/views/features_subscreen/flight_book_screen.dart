@@ -128,7 +128,10 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      233.verticalSpace,
+                      // 233.verticalSpace,
+                      SizedBox(
+                        height: (_scrollOffset < searchCardTop) ? 233.h : 16.h,
+                      ),
                       Text(
                         'Upcoming Flights',
                         style: TextStyle(
