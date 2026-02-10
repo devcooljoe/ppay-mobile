@@ -79,7 +79,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
                     height: 68.h,
                     padding: EdgeInsets.all(18).r,
                     decoration: BoxDecoration(
-                      color: PPaymobileColors.textfiedBorder,
+                      color: PPaymobileColors.selfieOptionbgColor,
                       borderRadius: BorderRadius.circular(31).r,
                     ),
                     child: SizedBox(
@@ -126,7 +126,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
                     height: 68.h,
                     padding: EdgeInsets.all(18).r,
                     decoration: BoxDecoration(
-                      color: PPaymobileColors.textfiedBorder,
+                      color: PPaymobileColors.selfieOptionbgColor,
                       borderRadius: BorderRadius.circular(31).r,
                     ),
                     child: SizedBox(

@@ -83,74 +83,163 @@ class _FlightCardScreenState extends State<FlightCardScreen> {
             ),
           ),
           20.verticalSpace,
-
-          // 16.verticalSpace,
-
-          // // Time & route
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     _timeColumn('12:00AM', 'Lagos (Nigeria)'),
-          //     Icon(Icons.arrow_forward),
-          //     _timeColumn('12:00PM', 'Jos (Nigeria)'),
-          //   ],
-          // ),
-
-          // 16.verticalSpace,
-
-          // // Bottom row
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           '₦154,670.09',
-          //           style: TextStyle(
-          //             fontWeight: FontWeight.w600,
-          //             color: Color(0xFF0B6B61),
-          //           ),
-          //         ),
-          //         4.verticalSpace,
-          //         Text(
-          //           '4 Seats Available',
-          //           style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-          //         ),
-          //       ],
-          //     ),
-
-          //     SizedBox(
-          //       height: 36.h,
-          //       child: ElevatedButton(
-          //         style: ElevatedButton.styleFrom(
-          //           backgroundColor: Color(0xFF0B6B61),
-          //           shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(20.r),
-          //           ),
-          //         ),
-          //         onPressed: () {},
-          //         child: const Text('Pick Flight'),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '12:00 AM',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                '12:00 PM',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          17.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 24.h,
+                    width: 24.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/takeoff_2.svg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  15.horizontalSpace,
+                  RichText(
+                    text: TextSpan(
+                      text: 'Lagos',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: ' (Nigeria)',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.svgIconColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    height: 24.h,
+                    width: 24.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/touchdown.svg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  15.horizontalSpace,
+                  RichText(
+                    text: TextSpan(
+                      text: 'Jos',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: ' (Nigeria)',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.svgIconColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          28.verticalSpace,
+          Divider(color: PPaymobileColors.buttonColor, height: 1.h),
+          17.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '₦154,670.09',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.buttonColor,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 20.h,
+                        width: 20.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/seat.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      10.horizontalSpace,
+                      Text(
+                        '14 seats available',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 46.h,
+                width: 121.w,
+                child: Image.asset(
+                  'assets/images/pfl.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
-
-  // Widget _timeColumn(String time, String location) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(time, style: TextStyle(fontWeight: FontWeight.w600)),
-  //       4.verticalSpace,
-  //       Text(
-  //         location,
-  //         style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-  //       ),
-  //     ],
-  //   );
-  // }
 }

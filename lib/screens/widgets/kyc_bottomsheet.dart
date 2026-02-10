@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/model/kyc_verification_model.dart';
 import 'package:ppay_mobile/screens/views/kyc_verification_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class KycBottomsheet extends StatefulWidget {
   const KycBottomsheet({super.key});
@@ -14,10 +15,12 @@ class KycBottomsheet extends StatefulWidget {
 
 List kycVerificationReq = [
   KycVerificationModel(
-    leadingImage: 'assets/icon/key.svg',
+    leadingImage: 'assets/icon/key_1.svg',
     titleText: 'Bank Verification Number',
     subtitleText: 'Verify your BVN and face ID to confirm your identity',
     trailingIcon: 'assets/icon/check.svg',
+    titleColor: PPaymobileColors.textfiedBorder,
+    subtitleColor: PPaymobileColors.textfiedBorder,
   ),
   KycVerificationModel(
     leadingImage: 'assets/icon/userid.svg',
@@ -25,6 +28,8 @@ List kycVerificationReq = [
     subtitleText:
         'To confirm your personal information with your issued country ID',
     trailingIcon: 'assets/icon/arrow_forward.svg',
+    titleColor: Colors.black,
+    subtitleColor: PPaymobileColors.svgIconColor,
   ),
 ];
 
@@ -107,9 +112,8 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                       vertical: 22.h,
                     ),
                     child: ListView.separated(
-                      shrinkWrap: true, // ✅ critical
-                      physics:
-                          const NeverScrollableScrollPhysics(), // ✅ critical
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: kycVerificationReq.length,
                       separatorBuilder: (context, index) =>
                           Column(children: [17.verticalSpace]),
@@ -139,7 +143,7 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                                     fontFamily: 'InstrumentSans',
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.black,
+                                    color: kycVerificationReq[index].titleColor,
                                   ),
                                 ),
                                 subtitle: Text(
@@ -148,7 +152,8 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
                                     fontSize: 13.sp,
-                                    color: PPaymobileColors.textfiedBorder,
+                                    color:
+                                        kycVerificationReq[index].subtitleColor,
                                   ),
                                 ),
                                 trailing: SizedBox(
@@ -191,12 +196,12 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                         Expanded(
                           child: Text(
                             'Your data will be encrypted and stored securely',
-                            textAlign: TextAlign.center, // or start/end
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'Gilroy',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
-                              color: PPaymobileColors.textfiedBorder,
+                              color: PPaymobileColors.svgIconColor,
                             ),
                           ),
                         ),
@@ -204,34 +209,37 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                     ),
                   ),
                   12.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return KycVerificationScreen();
-                            },
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
                           ),
-                        );
-                      },
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return KycVerificationScreen();
+                              },
+                            ),
+                          );
+                        },
 
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.white,
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
-class CryptoReceipt extends StatefulWidget {
-  const CryptoReceipt({super.key});
+class CryptoReceiptScreen extends StatefulWidget {
+  const CryptoReceiptScreen({super.key});
 
   @override
-  State<CryptoReceipt> createState() => _CryptoReceiptState();
+  State<CryptoReceiptScreen> createState() => _CryptoReceiptScreenState();
 }
 
-class _CryptoReceiptState extends State<CryptoReceipt> {
+class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,15 +31,15 @@ class _CryptoReceiptState extends State<CryptoReceipt> {
         ),
         centerTitle: true,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/flight_card_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/search_card_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FlightBookScreen extends StatefulWidget {
   const FlightBookScreen({super.key});
@@ -44,6 +45,17 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                 pinned: true,
                 floating: true,
                 expandedHeight: flexibleHeight,
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  background: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/flight_bg.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
                 backgroundColor: PPaymobileColors.backgroundColor,
                 toolbarHeight: 56,
                 leadingWidth: 56.w,
@@ -59,12 +71,15 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                 ),
                 leading: Padding(
                   padding: EdgeInsets.only(left: 20.w),
-                  child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: SvgPicture.asset(
-                      'assets/icon/arrow_back_white.svg',
+                  child: TouchOpacity(
+                    onTap: () => Navigator.pop(context),
+                    child: SizedBox(
                       height: 24.h,
                       width: 24.w,
+                      child: SvgPicture.asset(
+                        'assets/icon/arrow_back_white.svg',
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
                   ),
                 ),
@@ -101,21 +116,11 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                     ),
                   ),
                 ],
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/flight_bg.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
               ),
-              // Spacer so content doesn’t hide under search card
-              SliverToBoxAdapter(
-                child: SizedBox(height: searchCardTop + 100.h),
-              ),
+              // // Spacer so content doesn’t hide under search card
+              // SliverToBoxAdapter(
+              //   child: SizedBox(height: searchCardTop + 100.h),
+              // ),
               // Main content
               SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -123,6 +128,10 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // 233.verticalSpace,
+                      SizedBox(
+                        height: (_scrollOffset < searchCardTop) ? 233.h : 16.h,
+                      ),
                       Text(
                         'Upcoming Flights',
                         style: TextStyle(
@@ -132,6 +141,8 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+                      20.verticalSpace,
+                      FlightCardScreen(),
                       20.verticalSpace,
                       FlightCardScreen(),
                     ],

@@ -87,7 +87,7 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
     // );
 
     return FractionallySizedBox(
-      heightFactor: 0.680,
+      heightFactor: 0.750,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -144,24 +144,40 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
                       color: PPaymobileColors.svgIconColor,
                     ),
                   ),
-                  20.verticalSpace,
-                  Pinput(
-                    controller: _displayController,
-                    length: 4,
-                    readOnly: true,
-                    showCursor: false,
+                  18.verticalSpace,
+                  SizedBox(
+                    height: 51.h,
+                    width: 256.w,
+                    child: Pinput(
+                      controller: _displayController,
+                      length: 4,
+                      readOnly: true,
+                      showCursor: false,
 
-                    defaultPinTheme: emptyPinTheme,
-                    focusedPinTheme: emptyPinTheme,
-                    submittedPinTheme: filledPinTheme,
+                      defaultPinTheme: emptyPinTheme,
+                      focusedPinTheme: emptyPinTheme,
+                      submittedPinTheme: filledPinTheme,
 
-                    separatorBuilder: (_) => SizedBox(width: 24.w),
+                      separatorBuilder: (_) => 24.horizontalSpace,
+                    ),
                   ),
-
-                  48.verticalSpace,
-
-                  /// CUSTOM KEYPAD
-                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+                  Text(
+                    'Incorrect Transaction Pin. Try again',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: PPaymobileColors.redTextfield,
+                    ),
+                  ),
+                  // CUSTOM KEYPAD
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.0.h),
+                    child: PinCustomKeyboard(
+                      onKeyTap: _onKeyTap,
+                      onDelete: _onDelete,
+                    ),
+                  ),
                 ],
               ),
             ),

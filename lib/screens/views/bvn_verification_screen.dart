@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/views/bvn_face_recog_screen.dart';
 import 'package:ppay_mobile/screens/widgets/bvn_reason_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_date_picker.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class BvnVerificationScreen extends StatefulWidget {
   const BvnVerificationScreen({super.key});
@@ -36,14 +37,14 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -127,7 +128,14 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                     ),
@@ -169,31 +177,24 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                         fit: BoxFit.scaleDown,
                       ),
                     ),
-                    // suffixIcon: Row(
-                    //   children: [
-                    //     SizedBox(
-                    //       height: 24.h,
-                    //       width: 24.w,
-                    //       child: SvgPicture.asset(
-                    //         'assets/icon/error.svg',
-                    //         fit: BoxFit.scaleDown,
-                    //       ),
-                    //     ),
-                    //     2.horizontalSpace,
-                    //     SizedBox(
-                    //       height: 24.h,
-                    //       width: 24.w,
-                    //       child: SvgPicture.asset(
-                    //         'assets/icon/tick_pass.svg',
-                    //         fit: BoxFit.scaleDown,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.redTextfield,
                         width: 1.w,
                       ),
                     ),
@@ -211,56 +212,60 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                 ),
               ),
               160.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 54.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffE0EBE5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42).r,
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 54.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.anotherButtonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42).r,
+                      ),
+                      elevation: 0,
                     ),
-                    elevation: 0,
-                  ),
-                  onPressed: () async {},
-                  child: Text(
-                    'Proceed',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
+                    onPressed: () async {},
+                    child: Text(
+                      'Proceed',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
                 ),
               ),
               10.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 54.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42).r,
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BvnFaceRecogScreen(),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 54.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42).r,
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Proceed',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
+                      elevation: 0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BvnFaceRecogScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Proceed',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
                 ),

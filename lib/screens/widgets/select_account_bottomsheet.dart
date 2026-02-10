@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/confirm_transaction_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class SelectAccountBottomsheet extends StatefulWidget {
   const SelectAccountBottomsheet({super.key});
@@ -93,7 +94,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                     width: double.infinity,
                     padding: EdgeInsets.only(bottom: 13.h),
                     decoration: BoxDecoration(
-                      color: PPaymobileColors.deepBackgroundColor,
+                      color: PPaymobileColors.mainScreenBackground,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +106,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                           padding: EdgeInsets.all(10).r,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2).r,
-                            color: PPaymobileColors.doneColor,
+                            color: PPaymobileColors.anotherbuttonbgColor,
                           ),
                           child: SizedBox(
                             height: 30.h,
@@ -169,7 +170,8 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                                   ),
                                 ],
                               ),
-                              GestureDetector(
+                              // i used this button to go to the next page but that is not the function
+                              TouchOpacity(
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -181,7 +183,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                                 },
                                 child: Container(
                                   height: 36.h,
-                                  width: 80.w,
+                                  width: 97.w,
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 7.w,
                                     vertical: 6.h,
@@ -216,7 +218,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                     width: double.infinity,
                     padding: EdgeInsets.only(bottom: 13.h),
                     decoration: BoxDecoration(
-                      color: PPaymobileColors.deepBackgroundColor,
+                      color: PPaymobileColors.mainScreenBackground,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -228,7 +230,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                           padding: EdgeInsets.all(10).r,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2).r,
-                            color: PPaymobileColors.doneColor,
+                            color: PPaymobileColors.anotherbuttonbgColor,
                           ),
                           child: SizedBox(
                             height: 30.h,
@@ -302,26 +304,28 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                                     ),
                                   );
                                 },
-                                child: Container(
-                                  height: 36.h,
-                                  width: 80.w,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 7.w,
-                                    vertical: 6.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4).r,
-                                    color: PPaymobileColors.backgroundColor,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Transfer",
-                                      style: TextStyle(
-                                        color: PPaymobileColors
-                                            .mainScreenBackground,
-                                        fontSize: 14.sp,
-                                        fontFamily: 'InstrumentSans',
-                                        fontWeight: FontWeight.w500,
+                                child: TouchOpacity(
+                                  child: Container(
+                                    height: 36.h,
+                                    width: 97.w,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 7.w,
+                                      vertical: 6.h,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4).r,
+                                      color: PPaymobileColors.backgroundColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Transfer",
+                                        style: TextStyle(
+                                          color: PPaymobileColors
+                                              .mainScreenBackground,
+                                          fontSize: 14.sp,
+                                          fontFamily: 'InstrumentSans',
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ),

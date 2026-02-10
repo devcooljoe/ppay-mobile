@@ -7,6 +7,7 @@ import 'package:ppay_mobile/screens/views/features_subscreen/fund_card_screen.da
 import 'package:ppay_mobile/screens/widgets/card_details_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_switch.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -241,14 +242,14 @@ class _CardScreenState extends State<CardScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -657,7 +658,7 @@ class _CardScreenState extends State<CardScreen> {
                 ),
               ),
               27.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,

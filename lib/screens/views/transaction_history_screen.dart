@@ -35,8 +35,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
               42.verticalSpace,
               Row(
@@ -92,12 +91,12 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(6).r,
-                        bottomLeft: Radius.circular(6).r,
+                        topRight: Radius.circular(6).r,
+                        bottomRight: Radius.circular(6).r,
                       ),
                       border: Border.all(
                         width: 1.w,
-                        color: PPaymobileColors.deepBackgroundColor,
+                        color: PPaymobileColors.filterBorderColor,
                       ),
                       color: PPaymobileColors.mainScreenBackground,
                     ),
@@ -132,6 +131,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               //28.verticalSpace,
               Expanded(
                 child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: transactionGroups.length,
                   itemBuilder: (context, groupIndex) {
                     final group = transactionGroups[groupIndex];

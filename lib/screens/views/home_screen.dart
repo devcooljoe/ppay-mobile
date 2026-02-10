@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/transaction_history_model.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/bills_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/crypto_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/giftcard_screen.dart';
 import 'package:ppay_mobile/screens/views/fund_wallet_screen.dart';
 import 'package:ppay_mobile/screens/views/notification_screen.dart';
 import 'package:ppay_mobile/screens/views/review_document_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/kyc_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/screens/widgets/withdrawal_bottomsheet.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,127 +42,113 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: PPaymobileColors.mainScreenBackground,
+        toolbarHeight: 80.h,
+        leadingWidth: 64.w,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Hello',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
+                ),
+                3.horizontalSpace,
+                SizedBox(
+                  height: 17.h,
+                  width: 17.w,
+                  child: Image.asset(
+                    'assets/images/thumbs.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              'Mary Evans',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20.w),
+          child: Container(
+            height: 53.h,
+            width: 53.w,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/profilepic.png'),
+              ),
+              borderRadius: BorderRadius.circular(27.r),
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20.w),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationScreen()),
+                );
+              },
+              child: Container(
+                height: 47.h,
+                width: 47.w,
+                decoration: BoxDecoration(
+                  color: PPaymobileColors.textfiedBorder,
+                  borderRadius: BorderRadius.circular(23.r),
+                ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        height: 24.h,
+                        width: 24.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/notif.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 12,
+                      left: 25,
+                      child: SizedBox(
+                        height: 9.h,
+                        width: 9.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/newnotif.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: 83.h,
-                width: double.infinity,
-                padding: EdgeInsets.only(
-                  left: 20.w,
-                  right: 20.w,
-                  bottom: 13.h,
-                  top: 17.h,
-                ),
-                color: PPaymobileColors.mainScreenBackground,
-                child: SizedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 53.h,
-                            width: 53.w,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/profilepic.png',
-                                ),
-                              ),
-                              borderRadius: BorderRadius.circular(27.r),
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Hello',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  3.horizontalSpace,
-                                  SizedBox(
-                                    height: 17.h,
-                                    width: 17.w,
-                                    child: Image.asset(
-                                      'assets/images/thumbs.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                'Mary Evans',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NotificationScreen(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: 47.h,
-                          width: 47.w,
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.textfiedBorder,
-                            borderRadius: BorderRadius.circular(23.r),
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: SizedBox(
-                                  height: 24.h,
-                                  width: 24.w,
-                                  child: SvgPicture.asset(
-                                    'assets/icon/notif.svg',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 12,
-                                left: 25,
-                                child: SizedBox(
-                                  height: 9.h,
-                                  width: 9.w,
-                                  child: SvgPicture.asset(
-                                    'assets/icon/newnotif.svg',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               19.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0.w),
@@ -558,15 +548,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Column(
                           children: [
-                            Container(
-                              height: 66.h,
-                              width: 78.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
-                                color: PPaymobileColors.deepBackgroundColor,
-                              ),
-                              child: Center(
-                                child: SvgPicture.asset('assets/icon/bill.svg'),
+                            TouchOpacity(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BillsScreen(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 66.h,
+                                width: 78.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  color: PPaymobileColors.deepBackgroundColor,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    'assets/icon/bill.svg',
+                                  ),
+                                ),
                               ),
                             ),
                             12.verticalSpace,
@@ -583,15 +585,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Column(
                           children: [
-                            Container(
-                              height: 66.h,
-                              width: 78.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
-                                color: PPaymobileColors.deepBackgroundColor,
-                              ),
-                              child: Center(
-                                child: SvgPicture.asset('assets/icon/gift.svg'),
+                            TouchOpacity(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => GiftcardScreen(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 66.h,
+                                width: 78.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  color: PPaymobileColors.deepBackgroundColor,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    'assets/icon/gift.svg',
+                                  ),
+                                ),
                               ),
                             ),
                             12.verticalSpace,
@@ -608,16 +622,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Column(
                           children: [
-                            Container(
-                              height: 66.h,
-                              width: 78.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
-                                color: PPaymobileColors.deepBackgroundColor,
-                              ),
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  'assets/icon/crypto.svg',
+                            TouchOpacity(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CryptoScreen(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 66.h,
+                                width: 78.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  color: PPaymobileColors.deepBackgroundColor,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    'assets/icon/crypto.svg',
+                                  ),
                                 ),
                               ),
                             ),
@@ -635,15 +659,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Column(
                           children: [
-                            Container(
-                              height: 66.h,
-                              width: 78.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
-                                color: PPaymobileColors.deepBackgroundColor,
-                              ),
-                              child: Center(
-                                child: SvgPicture.asset('assets/icon/more.svg'),
+                            TouchOpacity(
+                              onTap: () {},
+                              child: Container(
+                                height: 66.h,
+                                width: 78.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  color: PPaymobileColors.deepBackgroundColor,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    'assets/icon/more.svg',
+                                  ),
+                                ),
                               ),
                             ),
                             12.verticalSpace,

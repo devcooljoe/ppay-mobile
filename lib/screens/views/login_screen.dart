@@ -6,6 +6,7 @@ import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/views/signup_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/textfield.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -89,7 +90,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                     ),
@@ -164,9 +172,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       'Forgot Password',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                        decorationColor: PPaymobileColors.highlightTextColor,
+                        decorationColor: PPaymobileColors.buttonColor,
                         fontFamily: 'Montserrat',
-                        color: PPaymobileColors.highlightTextColor,
+                        color: PPaymobileColors.buttonColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
                       ),
@@ -177,35 +185,40 @@ class _LoginScreenState extends State<LoginScreen> {
               71.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42),
+                child: TouchOpacity(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: PPaymobileColors.backgroundColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(42.r),
+                        ),
+                        elevation: 0,
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RouteScreen()),
-                      );
-                    },
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.white,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RouteScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              6.verticalSpace,
+              16.verticalSpace,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -224,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 60.w,
                     height: 60.h,
                     child: Image.asset(
-                      'assets/images/fingerprint.png',
+                      'assets/images/fingerprint_2.png',
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -257,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
-                        color: PPaymobileColors.highlightTextColor,
+                        color: PPaymobileColors.buttonColor,
                       ),
                     ),
                   ),

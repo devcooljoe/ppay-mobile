@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/crypto_transaction_succesful.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/crypto_transaction_succesful_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/screens/widgets/pin_custom_keyboard.dart';
 
 class CryptoPinBottomsheet extends StatefulWidget {
@@ -23,7 +24,7 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
-      color: Colors.transparent, // 👈 empty is transparent
+      color: Colors.transparent,
     ),
   );
 
@@ -32,7 +33,7 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
     height: 18.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
-      color: Color(0xFF0B3A3A), // 👈 filled color
+      color: Color(0xFF0B3A3A),
     ),
   );
 
@@ -52,7 +53,9 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const CryptoTransactionSuccesful()),
+          MaterialPageRoute(
+            builder: (_) => const CryptoTransactionSuccesfulScreen(),
+          ),
         );
       });
     }
@@ -114,11 +117,11 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
           8.verticalSpace,
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 20.w, top: 29.h, right: 20.w),
+              padding: EdgeInsets.only(left: 20.w, top: 25.h, right: 20.w),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -142,7 +145,7 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
                       color: PPaymobileColors.svgIconColor,
                     ),
                   ),
-                  20.verticalSpace,
+                  10.verticalSpace,
                   Pinput(
                     controller: _displayController,
                     length: 4,
@@ -156,10 +159,16 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
                     separatorBuilder: (_) => SizedBox(width: 24.w),
                   ),
 
-                  48.verticalSpace,
-
-                  /// CUSTOM KEYPAD
-                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+                  //CUSTOM KEYPAD
+                  Padding(
+                    padding: EdgeInsets.all(11.0.r),
+                    child: KeyboardContainer(
+                      child: PinCustomKeyboard(
+                        onKeyTap: _onKeyTap,
+                        onDelete: _onDelete,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

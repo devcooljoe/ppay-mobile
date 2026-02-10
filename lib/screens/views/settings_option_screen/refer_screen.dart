@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
-class Referral extends StatefulWidget {
-  const Referral({super.key});
+class ReferScreen extends StatefulWidget {
+  const ReferScreen({super.key});
 
   @override
-  State<Referral> createState() => _ReferralState();
+  State<ReferScreen> createState() => _ReferScreenState();
 }
 
-class _ReferralState extends State<Referral> {
+class _ReferScreenState extends State<ReferScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,14 +32,14 @@ class _ReferralState extends State<Referral> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),

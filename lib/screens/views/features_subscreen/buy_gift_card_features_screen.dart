@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/widgets/buy_gift_card_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/card_type_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/select_region_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class BuyGiftCardFeaturesScreen extends StatefulWidget {
   const BuyGiftCardFeaturesScreen({super.key});
@@ -344,14 +345,14 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
             ),
             leading: Padding(
               padding: EdgeInsets.only(left: 20.w),
-              child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: SizedBox(
+              child: TouchOpacity(
+                onTap: () => Navigator.pop(context),
+                child: SizedBox(
                   height: 24.h,
                   width: 24.w,
                   child: SvgPicture.asset(
                     'assets/icon/arrow_back_white.svg',
-                    fit: BoxFit.contain,
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
               ),
@@ -514,7 +515,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                           ),
                         ),
                         // hintText: 'Enter Receiver Name',
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfieldGrey,
                             width: 1.w,
@@ -588,7 +589,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                           ),
                         ),
                         // hintText: 'Enter Receiver Name',
-                        border: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfieldGrey,
                             width: 1.w,
@@ -652,7 +653,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                               ),
                             ),
                             // hintText: 'Enter Receiver Name',
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -674,12 +675,14 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              height: 38.h,
-                              width: 38.w,
-                              child: Image.asset(
-                                'assets/images/remove_green.png',
-                                fit: BoxFit.contain,
+                            TouchOpacity(
+                              child: SizedBox(
+                                height: 38.h,
+                                width: 38.w,
+                                child: Image.asset(
+                                  'assets/images/remove_green.png',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                             Text(
@@ -691,12 +694,14 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(
-                              height: 38.h,
-                              width: 38.w,
-                              child: Image.asset(
-                                'assets/images/add_green.png',
-                                fit: BoxFit.contain,
+                            TouchOpacity(
+                              child: SizedBox(
+                                height: 38.h,
+                                width: 38.w,
+                                child: Image.asset(
+                                  'assets/images/add_green.png',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                           ],
@@ -765,7 +770,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                     ],
                   ),
                   20.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       showModalBottomSheet(
                         context: context,

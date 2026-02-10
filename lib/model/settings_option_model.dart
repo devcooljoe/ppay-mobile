@@ -5,7 +5,7 @@ import 'package:ppay_mobile/screens/views/settings_option_screen/help_and_suppor
 import 'package:ppay_mobile/screens/views/settings_option_screen/notification.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/profile_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/privacy_screen.dart';
-import 'package:ppay_mobile/screens/views/settings_option_screen/refer.dart';
+import 'package:ppay_mobile/screens/views/settings_option_screen/refer_screen.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/change_password.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/settings_options_sub_screen/pin_reset.dart';
 import 'package:ppay_mobile/screens/views/settings_option_screen/terms_and_conditions.dart';
@@ -93,7 +93,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/multiple_person.svg',
         optionTitle: 'Refer & Earn',
-        optionScreen: Referral(),
+        optionScreen: ReferScreen(),
       ),
     ],
   ),

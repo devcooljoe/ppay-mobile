@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/pin_bottom_sheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ConfirmTransactionScreen extends StatefulWidget {
   const ConfirmTransactionScreen({super.key});
@@ -13,17 +14,6 @@ class ConfirmTransactionScreen extends StatefulWidget {
 }
 
 class _ConfirmTransactionScreenState extends State<ConfirmTransactionScreen> {
-  void _openChangeBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true, // ✅ allows custom height
-      backgroundColor: Colors.transparent, // for rounded corners
-      builder: (context) {
-        return PinBottomSheet();
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,15 +33,15 @@ class _ConfirmTransactionScreenState extends State<ConfirmTransactionScreen> {
         ),
         centerTitle: true,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -288,7 +278,16 @@ class _ConfirmTransactionScreenState extends State<ConfirmTransactionScreen> {
                           borderRadius: BorderRadius.circular(42),
                         ),
                       ),
-                      onPressed: _openChangeBottomSheet,
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) {
+                            return PinBottomSheet();
+                          },
+                        );
+                      },
                       child: Text(
                         'Confirm Payment',
                         style: TextStyle(

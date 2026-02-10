@@ -7,6 +7,7 @@ import 'package:ppay_mobile/screens/views/features_subscreen/data_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/electricity_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/tv_cable_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class BillsScreen extends StatefulWidget {
   const BillsScreen({super.key});
@@ -36,14 +37,14 @@ class _BillsScreenState extends State<BillsScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),

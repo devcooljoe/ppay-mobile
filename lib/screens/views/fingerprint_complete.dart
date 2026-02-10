@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/home_screen.dart';
+import 'package:ppay_mobile/screens/views/route_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FingerprintComplete extends StatefulWidget {
   const FingerprintComplete({super.key});
@@ -26,7 +27,7 @@ class _FingerprintCompleteState extends State<FingerprintComplete> {
               height: 223.h,
               width: 314.w,
               child: Image.asset(
-                'assets/iamges/fingerprint_complete.png',
+                'assets/images/fingerprint_complete.png',
                 fit: BoxFit.contain,
               ),
             ),
@@ -46,55 +47,58 @@ class _FingerprintCompleteState extends State<FingerprintComplete> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'InstrumentSans',
-                color: Colors.black,
+                color: PPaymobileColors.svgIconColor,
                 fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
               ),
             ),
             91.verticalSpace,
-            SizedBox(
-              width: double.infinity,
-              height: 50.h,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: PPaymobileColors.backgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(42),
+            TouchOpacity(
+              child: SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PPaymobileColors.backgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(42.r),
+                    ),
+                    elevation: 0,
                   ),
-                ),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomeScreen();
-                      },
-                    ),
-                    (route) => false,
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Go To App',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.white,
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return RouteScreen();
+                        },
                       ),
-                    ),
-                    7.horizontalSpace,
-                    SizedBox(
-                      height: 24.h,
-                      width: 24.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_forwardw.svg',
-                        fit: BoxFit.contain,
+                      (route) => false,
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Go To App',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                      7.horizontalSpace,
+                      SizedBox(
+                        height: 24.h,
+                        width: 24.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/arrow_forwardw.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

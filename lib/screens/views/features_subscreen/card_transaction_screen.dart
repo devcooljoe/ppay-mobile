@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/transaction_details_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/filter_transactions_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class CardTransactionScreen extends StatefulWidget {
   const CardTransactionScreen({super.key});
@@ -33,14 +34,14 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -97,7 +98,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                     ),
                   ),
                   14.horizontalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () async {
                       await showModalBottomSheet(
                         context: context,

@@ -7,6 +7,7 @@ import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/screens/widgets/select_beneficiary_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/select_meter_type_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ElectricityScreen extends StatefulWidget {
   const ElectricityScreen({super.key});
@@ -71,14 +72,14 @@ class _ElectricityScreenState extends State<ElectricityScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -177,7 +178,7 @@ class _ElectricityScreenState extends State<ElectricityScreen> {
                               ),
                             ),
                             // hintText: 'Enter Receiver Name',
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -221,7 +222,7 @@ class _ElectricityScreenState extends State<ElectricityScreen> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -500,7 +501,7 @@ class _ElectricityScreenState extends State<ElectricityScreen> {
                                 ],
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -515,7 +516,7 @@ class _ElectricityScreenState extends State<ElectricityScreen> {
                         ),
                       ),
                       72.verticalSpace,
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,

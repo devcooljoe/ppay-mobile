@@ -6,6 +6,7 @@ import 'package:ppay_mobile/screens/widgets/crypto_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/crypto_puurchase_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class BuyCrypto extends StatefulWidget {
   const BuyCrypto({super.key});
@@ -70,14 +71,14 @@ class _BuyCryptoState extends State<BuyCrypto> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -315,7 +316,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
                                   ),
                                 ),
                               ),
-                              border: OutlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   width: 1.w,
                                   color: PPaymobileColors.textfiedBorder,
@@ -397,6 +398,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(42),
                             ),
+                            elevation: 0,
                           ),
                           onPressed: () async {
                             showModalBottomSheet(

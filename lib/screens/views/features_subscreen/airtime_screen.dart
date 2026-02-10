@@ -6,6 +6,7 @@ import 'package:ppay_mobile/screens/widgets/airtime_beneficiary_bottomsheet.dart
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class AirtimeScreen extends StatefulWidget {
   const AirtimeScreen({super.key});
@@ -70,14 +71,14 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -362,7 +363,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                                 ],
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -426,7 +427,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                                 ],
                               ),
                             ),
-                            border: OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -671,7 +672,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                       ),
                     ),
                     89.verticalSpace,
-                    GestureDetector(
+                    TouchOpacity(
                       onTap: () {
                         Navigator.push(
                           context,

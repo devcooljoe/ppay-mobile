@@ -5,6 +5,7 @@ import 'package:ppay_mobile/model/bank_model.dart';
 import 'package:ppay_mobile/screens/views/amount_and_info_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/select_bank_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class TransferFundsScreen extends StatefulWidget {
   const TransferFundsScreen({super.key});
@@ -42,15 +43,15 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
         ),
         centerTitle: true,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -106,11 +107,13 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
                         ? null
                         : Padding(
                             padding: EdgeInsets.all(12.w),
-                            child: Image.asset(
-                              _selectedBank!.bankImage,
-                              width: 24.w,
-                              height: 24.h,
-                              fit: BoxFit.contain,
+                            child: SizedBox(
+                              width: 26.w,
+                              height: 22.h,
+                              child: Image.asset(
+                                _selectedBank!.bankImage,
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
 
@@ -151,11 +154,17 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
                       horizontal: 12.w,
                       vertical: 14.h,
                     ),
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                     ),
@@ -195,7 +204,14 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                     ),
@@ -239,7 +255,7 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
                       height: 22.h,
                       width: 22.w,
                       child: SvgPicture.asset(
-                        'assets/icon/check.svg',
+                        'assets/icon/checkmark.svg',
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -257,114 +273,126 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
                 ),
               ),
               223.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.textfiedBorder,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.filterBorderColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
+                      elevation: 0,
                     ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                  ),
-                ),
-              ),
-              20.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Add Bank',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
+                    onPressed: () {},
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
                 ),
               ),
               20.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Add Bank',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Bank Added',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: PPaymobileColors.mainScreenBackground,
+                ),
+              ),
+              20.verticalSpace,
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Bank Added',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: PPaymobileColors.mainScreenBackground,
+                          ),
                         ),
-                      ),
-                      10.horizontalSpace,
-                      SizedBox(
-                        height: 22.h,
-                        width: 22.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/check_white.svg',
-                          fit: BoxFit.contain,
+                        10.horizontalSpace,
+                        SizedBox(
+                          height: 22.h,
+                          width: 22.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/check_white.svg',
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
               20.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AmountAndInfoScreen(),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Transfer to Account',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
+                      elevation: 0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AmountAndInfoScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Transfer to Account',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
                 ),

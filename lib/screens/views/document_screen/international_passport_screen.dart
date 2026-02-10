@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/kyc_face_verification_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/document_bottom_sheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class InternationalPassportScreen extends StatefulWidget {
   final String selectedDocument;
@@ -28,14 +29,16 @@ class _InternationalPassportScreenState
         toolbarHeight: 56,
         leadingWidth: 56.w,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
+              height: 24.h,
+              width: 24.w,
+              child: SvgPicture.asset(
+                'assets/icon/arrow_back.svg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ),
         ),
@@ -87,24 +90,25 @@ class _InternationalPassportScreenState
                     text: widget.selectedDocument,
                   ),
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true, // ✅ allows custom height
-                          backgroundColor:
-                              Colors.transparent, // for rounded corners
-                          builder: (context) {
-                            return DocumentBottomSheet();
-                          },
-                        );
-                      },
-                      child: SizedBox(
-                        height: 13.h,
-                        width: 7.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/arrow_down.svg',
-                          fit: BoxFit.scaleDown,
+                    suffixIcon: TouchOpacity(
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) {
+                              return DocumentBottomSheet();
+                            },
+                          );
+                        },
+                        child: SizedBox(
+                          height: 13.h,
+                          width: 7.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/arrow_down.svg',
+                            fit: BoxFit.scaleDown,
+                          ),
                         ),
                       ),
                     ),
@@ -122,7 +126,14 @@ class _InternationalPassportScreenState
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                     ),
@@ -162,7 +173,14 @@ class _InternationalPassportScreenState
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                     ),
@@ -197,54 +215,60 @@ class _InternationalPassportScreenState
                 ],
               ),
               178.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.textfiedBorder,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => KycFaceVerificationScreen(),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.textfiedBorder,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
+                      elevation: 0,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
                 ),
               ),
               10.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
+                      elevation: 0,
                     ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => KycFaceVerificationScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
                     ),
                   ),
                 ),

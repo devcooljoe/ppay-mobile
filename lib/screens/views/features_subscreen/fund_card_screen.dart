@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/confirm_fund_card_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FundCardScreen extends StatefulWidget {
   const FundCardScreen({super.key});
@@ -59,14 +60,14 @@ class _FundCardScreenState extends State<FundCardScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -253,9 +254,12 @@ class _FundCardScreenState extends State<FundCardScreen> {
                 ],
               ),
             ),
-            38.verticalSpace,
-            KeyboardContainer(
-              child: CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+            20.verticalSpace,
+            Padding(
+              padding: EdgeInsets.only(bottom: 20.0.h),
+              child: KeyboardContainer(
+                child: CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+              ),
             ),
           ],
         ),

@@ -44,7 +44,7 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
           10.verticalSpace,
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 20.w, top: 40.h, right: 20.w),
+              padding: EdgeInsets.only(left: 20.w, top: 29.h, right: 20.w),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
@@ -54,7 +54,7 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Add Account',
+                    'Select Bank',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontSize: 20.sp,

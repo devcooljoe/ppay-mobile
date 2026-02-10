@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_switch.dart';
 import 'package:ppay_mobile/screens/widgets/sell_giftcard_pin_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class ConfirmGiftCardSellScreen extends StatefulWidget {
   const ConfirmGiftCardSellScreen({super.key});
@@ -34,15 +35,15 @@ class _ConfirmGiftCardSellScreenState extends State<ConfirmGiftCardSellScreen> {
         ),
         centerTitle: true,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -432,7 +433,7 @@ class _ConfirmGiftCardSellScreenState extends State<ConfirmGiftCardSellScreen> {
                 ),
               ),
               78.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   showModalBottomSheet(
                     context: context,

@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/views/features_subscreen/order_receipt_scree
 import 'package:ppay_mobile/screens/views/features_subscreen/shopping_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/your_order_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class OrderSuccessfulScreen extends StatefulWidget {
   const OrderSuccessfulScreen({super.key});
@@ -24,14 +25,14 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
         leadingWidth: 56.w,
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -92,12 +93,11 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
                 ),
               ),
               18.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
-                  Navigator.pushAndRemoveUntil(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ShoppingScreen()),
-                    (route) => false,
                   );
                 },
                 child: SizedBox(
@@ -111,7 +111,7 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
               ),
               10.verticalSpace,
               // adding it but it is not in the UI and i dont know how to access the receipt screen unless i do this
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,

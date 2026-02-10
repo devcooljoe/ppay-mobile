@@ -5,6 +5,7 @@ import 'package:ppay_mobile/screens/views/features_subscreen/watchlist_screen.da
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/product_detail_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/review_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/screens/widgets/your_cart_bottomsheet.dart';
 
 class ClothsDetailsScreen extends StatefulWidget {
@@ -37,14 +38,14 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -718,7 +719,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                         ),
                       ],
                     ),
-                    GestureDetector(
+                    TouchOpacity(
                       onTap: () async {
                         await showModalBottomSheet(
                           context: context,

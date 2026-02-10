@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
+import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/screens/widgets/select_account_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class AmountAndInfoScreen extends StatefulWidget {
   const AmountAndInfoScreen({super.key});
@@ -32,17 +34,6 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
     }
   }
 
-  void _openChangeBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true, // ✅ allows custom height
-      backgroundColor: Colors.transparent, // for rounded corners
-      builder: (context) {
-        return SelectAccountBottomsheet();
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,15 +53,15 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
         ),
         centerTitle: true,
         leading: Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          padding: EdgeInsets.only(left: 20.w),
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -211,7 +202,7 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
                                 padding: EdgeInsets.all(10).r,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(2).r,
-                                  color: PPaymobileColors.doneColor,
+                                  color: PPaymobileColors.anotherbuttonbgColor,
                                 ),
                                 child: SizedBox(
                                   height: 30.h,
@@ -279,26 +270,37 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
                                         ),
                                       ],
                                     ),
-                                    Container(
-                                      height: 35.h,
-                                      width: 80.w,
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 8.w,
-                                        vertical: 7.h,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          4,
-                                        ).r,
-                                        border: Border.all(
-                                          width: 1.w,
-                                          color:
-                                              PPaymobileColors.textfiedBorder,
+                                    GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (context) {
+                                            return SelectAccountBottomsheet();
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        height: 35.h,
+                                        width: 80.w,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 8.w,
+                                          vertical: 7.h,
                                         ),
-                                      ),
-                                      child: Center(
-                                        child: GestureDetector(
-                                          onTap: _openChangeBottomSheet,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ).r,
+                                          color: PPaymobileColors
+                                              .mainScreenBackground,
+                                          border: Border.all(
+                                            width: 1.w,
+                                            color:
+                                                PPaymobileColors.textfiedBorder,
+                                          ),
+                                        ),
+                                        child: Center(
                                           child: Text(
                                             "Change",
                                             style: TextStyle(
@@ -321,10 +323,14 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
                       ],
                     ),
                   ),
-                  16.verticalSpace,
-                  // Custom Keyboard
-                  CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
                 ],
+              ),
+            ),
+            // Custom Keyboard
+            KeyboardContainer(
+              child: Padding(
+                padding: EdgeInsets.all(30).r,
+                child: CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
               ),
             ),
           ],
