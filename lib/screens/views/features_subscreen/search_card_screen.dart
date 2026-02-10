@@ -26,6 +26,13 @@ class _SearchCardScreenState extends State<SearchCardScreen> {
             width: 1.w,
             color: PPaymobileColors.textfiedBorder,
           ),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 4),
+              blurRadius: 5.4.r,
+              color: Color(0xff919191).withValues(alpha: 0.25),
+            ),
+          ],
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
