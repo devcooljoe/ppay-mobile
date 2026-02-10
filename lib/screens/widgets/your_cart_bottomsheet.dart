@@ -90,7 +90,6 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                   children: [
                                     SizedBox(
                                       width: 157.w,
-
                                       child: Text(
                                         'Female Black Gown',
                                         style: TextStyle(
