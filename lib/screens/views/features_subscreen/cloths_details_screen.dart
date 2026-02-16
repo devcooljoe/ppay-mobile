@@ -728,12 +728,40 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                           builder: (_) => const YourCartBottomsheet(),
                         );
                       },
-                      child: SizedBox(
-                        height: 54.h,
+                      child: Container(
+                        height: 50.h,
                         width: 244.w,
-                        child: Image.asset(
-                          'assets/images/cart_button.png',
-                          fit: BoxFit.contain,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 10.h,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(56).r,
+                          color: PPaymobileColors.buttonColorandText,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Add to Cart',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            6.horizontalSpace,
+
+                            SizedBox(
+                              height: 24.h,
+                              width: 24.h,
+                              child: SvgPicture.asset(
+                                'assets/icon/cart_!.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

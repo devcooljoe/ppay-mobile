@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/track_order_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class YourOrderScreen extends StatefulWidget {
   const YourOrderScreen({super.key});
@@ -32,14 +33,14 @@ class _YourOrderScreenState extends State<YourOrderScreen> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -196,12 +197,30 @@ class _YourOrderScreenState extends State<YourOrderScreen> {
                                   ),
                                 );
                               },
-                              child: SizedBox(
-                                height: 36.h,
+                              child: Container(
+                                height: 35.h,
                                 width: 67.w,
-                                child: Image.asset(
-                                  'assets/images/review.png',
-                                  fit: BoxFit.contain,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8.w,
+                                  vertical: 8.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4).r,
+                                  color: PPaymobileColors.buttonColorandText,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Review',
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        color: Colors.white,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -269,12 +288,30 @@ class _YourOrderScreenState extends State<YourOrderScreen> {
                               ),
                             ),
                             42.horizontalSpace,
-                            SizedBox(
-                              height: 36.h,
+                            Container(
+                              height: 35.h,
                               width: 67.w,
-                              child: Image.asset(
-                                'assets/images/review.png',
-                                fit: BoxFit.contain,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.w,
+                                vertical: 8.h,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4).r,
+                                color: PPaymobileColors.buttonColorandText,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Review',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.white,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

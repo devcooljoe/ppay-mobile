@@ -83,12 +83,30 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
                     MaterialPageRoute(builder: (context) => YourOrderScreen()),
                   );
                 },
-                child: SizedBox(
-                  height: 51.h,
+                child: Container(
+                  height: 50.h,
                   width: double.infinity,
-                  child: Image.asset(
-                    'assets/images/track.png', // for pending use 'assets/images/back_home.png', and for failed use 'assets/images/try_again.png',
-                    fit: BoxFit.contain,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(56).r,
+                    color: PPaymobileColors.buttonColorandText,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Track Order', // replaced by 'Back to Home' for pending and 'Try Again' for failed
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -100,12 +118,34 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
                     MaterialPageRoute(builder: (context) => ShoppingScreen()),
                   );
                 },
-                child: SizedBox(
-                  height: 51.h,
+                child: Container(
+                  height: 50.h,
                   width: double.infinity,
-                  child: Image.asset(
-                    'assets/images/place_another.png', // for failed use 'assets/images/back_home_1.png',
-                    fit: BoxFit.contain,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(56).r,
+                    color: PPaymobileColors.mainScreenBackground,
+                    border: Border.all(
+                      color: PPaymobileColors.textfiedBorder,
+                      width: 1.w,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Place Another Order', // 'Back to Home' for failed
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -145,35 +145,42 @@ class _BuyCryptoState extends State<BuyCrypto> {
                       ),
                       20.verticalSpace,
                       Center(
-                        child: RichText(
-                          text: TextSpan(
-                            text: '₦',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500,
+                        child: TouchOpacity(
+                          onTap: () {
+                            setState(() {
+                              _showKeyboard = true;
+                            });
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              text: '₦',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: '0',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 48.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '.00',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
                             ),
-                            children: [
-                              TextSpan(
-                                text: '0',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 48.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '.00',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                       ),
@@ -213,116 +220,111 @@ class _BuyCryptoState extends State<BuyCrypto> {
                         ),
                       ),
                       4.verticalSpace,
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _showKeyboard = true;
-                          });
-                        },
-                        child: SizedBox(
-                          height: 68.h,
-                          width: double.infinity,
-                          child: TextFormField(
-                            controller: _controller,
-                            readOnly: true,
-                            showCursor: true,
-                            onTap: () {
-                              setState(() {
-                                _showKeyboard = true;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              prefixIcon: Padding(
+                      SizedBox(
+                        height: 68.h,
+                        width: double.infinity,
+                        child: TextFormField(
+                          controller: _controller,
+                          readOnly: true,
+                          showCursor: true,
+
+                          decoration: InputDecoration(
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.0.w,
+                                vertical: 12.h,
+                              ),
+                              child: Container(
+                                height: 44.h,
+                                width: 95.w,
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 16.0.w,
-                                  vertical: 12.h,
+                                  horizontal: 12.w,
+                                  vertical: 4.h,
                                 ),
-                                child: Container(
-                                  height: 44.h,
-                                  width: 95.w,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w,
-                                    vertical: 4.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(37).r,
-                                    color: PPaymobileColors.deepBackgroundColor,
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        height: 36.h,
-                                        width: 36.w,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                              'assets/images/bitcoin.png',
-                                            ),
-                                            fit: BoxFit.contain,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(37).r,
+                                  color: PPaymobileColors.deepBackgroundColor,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 36.h,
+                                      width: 36.w,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                            'assets/images/bitcoin.png',
                                           ),
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
-                                      11.horizontalSpace,
-                                      GestureDetector(
-                                        onTap: () async {
-                                          showModalBottomSheet(
-                                            context: context,
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            builder: (_) =>
-                                                const CryptoBottomsheet(),
-                                          );
-                                        },
-                                        child: SizedBox(
-                                          height: 12.h,
-                                          width: 24.w,
-                                          child: SvgPicture.asset(
-                                            'assets/icon/arrow_down.svg',
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              hintText: '0.0000',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Gilroy',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16.sp,
-                                color: PPaymobileColors.svgIconColor,
-                              ),
-                              suffixIcon: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8.0.w,
-                                  vertical: 20.h,
-                                ),
-                                child: SizedBox(
-                                  height: 26.h,
-                                  width: 36.w,
-                                  child: Text(
-                                    'BTC',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: Colors.black,
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w500,
                                     ),
+                                    11.horizontalSpace,
+                                    GestureDetector(
+                                      onTap: () async {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (_) =>
+                                              const CryptoBottomsheet(),
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        height: 12.h,
+                                        width: 24.w,
+                                        child: SvgPicture.asset(
+                                          'assets/icon/arrow_down.svg',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            hintText: '0.0000',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Gilroy',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.sp,
+                              color: PPaymobileColors.svgIconColor,
+                            ),
+                            suffixIcon: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.0.w,
+                                vertical: 20.h,
+                              ),
+                              child: SizedBox(
+                                height: 26.h,
+                                width: 36.w,
+                                child: Text(
+                                  'BTC',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.w,
-                                  color: PPaymobileColors.textfiedBorder,
-                                ),
-                                borderRadius: BorderRadius.circular(6).r,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 1.w,
+                                color: PPaymobileColors.textfiedBorder,
                               ),
+                              borderRadius: BorderRadius.circular(6).r,
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 1.w,
+                                color: PPaymobileColors.textfiedBorder,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
                             ),
                           ),
                         ),

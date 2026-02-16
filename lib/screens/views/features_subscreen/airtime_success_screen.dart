@@ -118,22 +118,73 @@ class _AirtimeSuccessScreenState extends State<AirtimeSuccessScreen> {
                     ),
                   );
                 },
-                child: SizedBox(
+                child: Container(
                   height: 50.h,
                   width: double.infinity,
-                  child: Image.asset(
-                    'assets/images/view_receipt.png', // this is replaced by 'assets/images/go_to.png' for pending and 'assets/images/try_again.png' for failed
-                    fit: BoxFit.contain,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(56).r,
+                    color: PPaymobileColors.buttonColorandText,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'View Receipt', // replaced by 'Go To App' for pending and 'Try Again'
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      6.horizontalSpace,
+                      //this is when it is pending
+                      // SizedBox(
+                      //   height: 24.h,
+                      //   width: 24.h,
+                      //   child: SvgPicture.asset('assets/icon/arrow_forwardw.svg', fit: BoxFit.contain,),
+                      // )
+                    ],
                   ),
                 ),
               ),
               20.verticalSpace,
-              SizedBox(
+              Container(
                 height: 50.h,
                 width: double.infinity,
-                child: Image.asset(
-                  'assets/images/make_another.png', // this is not there in pending but replaced by 'assets/images/go_to_app.png' for failed
-                  fit: BoxFit.contain,
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(56).r,
+                  color: PPaymobileColors.mainScreenBackground,
+                  border: Border.all(
+                    color: PPaymobileColors.textfiedBorder,
+                    width: 1.w,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Make Another', //replaced by 'Go To App' for only failed. pending doesnt have any
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    6.horizontalSpace,
+                    //this is when it is failed
+                    // SizedBox(
+                    //   height: 24.h,
+                    //   width: 24.h,
+                    //   child: SvgPicture.asset('assets/icon/arrow_forward_1.svg', fit: BoxFit.contain,),
+                    // )
+                  ],
                 ),
               ),
             ],

@@ -444,12 +444,27 @@ class _ConfirmGiftCardSellScreenState extends State<ConfirmGiftCardSellScreen> {
                     },
                   );
                 },
-                child: SizedBox(
+                child: Container(
                   height: 50.h,
                   width: double.infinity,
-                  child: Image.asset(
-                    'assets/images/ptp.png',
-                    fit: BoxFit.contain,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(56).r,
+                    color: PPaymobileColors.buttonColorandText,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Proceed to Payment',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ),
