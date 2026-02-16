@@ -141,7 +141,7 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                     160.verticalSpace,
                     Center(
                       child: SizedBox(
-                        height: 500.h,
+                        height: 480.h,
                         width: 400.w,
                         child: SearchCardScreen(),
                       ),
@@ -157,6 +157,11 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                           fontFamily: 'InstrumentSans',
                         ),
                       ),
+                    ),
+                    20.verticalSpace,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: FlightCardScreen(),
                     ),
                     20.verticalSpace,
                     Padding(

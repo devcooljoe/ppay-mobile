@@ -85,7 +85,7 @@ class _DriverLicenseScreenState extends State<DriverLicenseScreen> {
                     text: widget.selectedDocument,
                   ),
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       onTap: () {
                         showModalBottomSheet(
                           context: context,

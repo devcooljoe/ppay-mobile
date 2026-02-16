@@ -22,7 +22,7 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10).r),
       backgroundColor: PPaymobileColors.mainScreenBackground,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16).r,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

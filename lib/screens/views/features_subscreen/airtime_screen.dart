@@ -683,12 +683,27 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                        child: SizedBox(
+                        child: Container(
+                          height: 50.h,
                           width: double.infinity,
-                          height: 54.h,
-                          child: Image.asset(
-                            'assets/images/bya.png',
-                            fit: BoxFit.contain,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 10.h,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(56).r,
+                            color: PPaymobileColors.buttonColorandText,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Buy Airtime',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
                       ),

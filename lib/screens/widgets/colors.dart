@@ -47,4 +47,15 @@ class PPaymobileColors {
   static const anotherbuttonbgColor = Color(0xffEFF5F2);
   static const buttonInactiveColor = Color(0xffE0EBE5);
   static const selfieOptionbgColor = Color(0x40D9D9D9);
+  static final anotherContainerbgColor = Color(
+    0xffF9F9F9,
+  ).withValues(alpha: 0.40);
+  static const anotherCtbgColor = Color(0xffF9F9F9);
+  static const navContainerbgColor = Color(0xff26585F);
+  static final anotheroptionbgColor = Color(0xffF9F9F9).withValues(alpha: 0.61);
+  static final flightContainerbgColor = Color(
+    0xffEFF5F2,
+  ).withValues(alpha: 0.50);
+  static const ticketbgColor = Color(0xffF0F0F0);
+  static const tabInactiveGrey = Color(0xffF4F4F4);
 }
