@@ -66,163 +66,139 @@ class _PinResetState extends State<PinReset> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: ListView(
-            children: [
-              24.verticalSpace,
-              Text(
-                'Security Pin',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.buttonColorandText,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+        child: ListView(
+          children: [
+            24.verticalSpace,
+            Text(
+              'Security Pin',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: PPaymobileColors.buttonColorandText,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w500,
               ),
-              4.verticalSpace,
-              Text(
-                'Enter unique security pin below',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.svgIconColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+            ),
+            4.verticalSpace,
+            Text(
+              'Enter unique security pin below',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: PPaymobileColors.svgIconColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
               ),
-              46.verticalSpace,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 76.h,
-                    width: 76.w,
-                    padding: EdgeInsets.all(13).r,
+            ),
+            46.verticalSpace,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 76.h,
+                  width: 76.w,
+                  padding: EdgeInsets.all(13).r,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(38).r,
+                    color: PPaymobileColors.doneColor,
+                  ),
+                  child: SizedBox(
+                    height: 42.h,
+                    width: 42.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/lock_green.svg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                40.verticalSpace,
+                Pinput(
+                  controller: _pinController,
+                  length: 4,
+                  keyboardType: TextInputType.none,
+                  separatorBuilder: (index) => 18.horizontalSpace,
+                  defaultPinTheme: PinTheme(
+                    width: 52.w,
+                    height: 49.h,
+                    textStyle: TextStyle(
+                      fontSize: 20.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(38).r,
-                      color: PPaymobileColors.doneColor,
-                    ),
-                    child: SizedBox(
-                      height: 42.h,
-                      width: 42.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/lock_green.svg',
-                        fit: BoxFit.contain,
+                      border: Border.all(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
                       ),
+                      borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
-                  40.verticalSpace,
-                  Pinput(
-                    controller: _pinController,
-                    length: 4,
-                    keyboardType: TextInputType.none,
-                    separatorBuilder: (index) => 18.horizontalSpace,
-                    defaultPinTheme: PinTheme(
-                      width: 52.w,
-                      height: 49.h,
-                      textStyle: TextStyle(
-                        fontSize: 20.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: PPaymobileColors.textfiedBorder,
-                          width: 1.w,
+                ),
+                12.verticalSpace,
+                Text(
+                  'Please remember to always keep pin secure',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 13.sp, color: Colors.black),
+                ),
+                29.verticalSpace,
+                KeyboardContainer(
+                  child: CustomKeyboard(
+                    onKeyTap: _onKeyTap,
+                    onDelete: _onDelete,
+                  ),
+                ),
+                24.verticalSpace,
+                TouchOpacity(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: PPaymobileColors.buttonColorandText,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(42),
                         ),
-                        borderRadius: BorderRadius.circular(6.r),
+                        elevation: 0,
                       ),
-                    ),
-                  ),
-                  12.verticalSpace,
-                  Text(
-                    'Please remember to always keep pin secure',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 13.sp, color: Colors.black),
-                  ),
-                  29.verticalSpace,
-                  KeyboardContainer(
-                    child: CustomKeyboard(
-                      onKeyTap: _onKeyTap,
-                      onDelete: _onDelete,
-                    ),
-                  ),
-                  // GridView.count(
-                  //   crossAxisCount: 3,
-                  //   shrinkWrap: true,
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   padding: EdgeInsets.symmetric(horizontal: 40.w),
-                  //   mainAxisSpacing: 24.h,
-                  //   crossAxisSpacing: 24.w,
-                  //   children: [
-                  //     _key('1', onTap: () => _onKeyTap('1')),
-                  //     _key('2', onTap: () => _onKeyTap('2')),
-                  //     _key('3', onTap: () => _onKeyTap('3')),
-                  //     _key('4', onTap: () => _onKeyTap('4')),
-                  //     _key('5', onTap: () => _onKeyTap('5')),
-                  //     _key('6', onTap: () => _onKeyTap('6')),
-                  //     _key('7', onTap: () => _onKeyTap('7')),
-                  //     _key('8', onTap: () => _onKeyTap('8')),
-                  //     _key('9', onTap: () => _onKeyTap('9')),
-                  //     const SizedBox(), // empty left
-                  //     _key('0', onTap: () => _onKeyTap('0')),
-                  //     _deleteKey(onTap: _onDelete),
-                  //   ],
-                  // ),
-                  24.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PinResetComplete();
+                            },
                           ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return PinResetComplete();
-                              },
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Next',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.sp,
+                              color: Colors.white,
                             ),
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Next',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.white,
-                              ),
+                          ),
+                          10.horizontalSpace,
+                          SizedBox(
+                            height: 24.h,
+                            width: 24.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_forwardw.svg',
+                              fit: BoxFit.contain,
                             ),
-                            10.horizontalSpace,
-                            SizedBox(
-                              height: 24.h,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/arrow_forwardw.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

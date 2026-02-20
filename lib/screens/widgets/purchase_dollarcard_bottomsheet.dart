@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/virtual_card_sucess_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class PurchaseDollarcardBottomsheet extends StatefulWidget {
   const PurchaseDollarcardBottomsheet({super.key});
@@ -205,7 +206,7 @@ class _PurchaseDollarcardBottomsheetState
                           ),
                         ],
                       ),
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,

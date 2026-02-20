@@ -228,12 +228,24 @@ class _FlightCardScreenState extends State<FlightCardScreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              Container(
                 height: 46.h,
                 width: 121.w,
-                child: Image.asset(
-                  'assets/images/pfl.png',
-                  fit: BoxFit.contain,
+                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(55).r,
+                  color: PPaymobileColors.buttonColorandText,
+                ),
+                child: Center(
+                  child: Text(
+                    'Pick Flight',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.mainScreenBackground,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ],

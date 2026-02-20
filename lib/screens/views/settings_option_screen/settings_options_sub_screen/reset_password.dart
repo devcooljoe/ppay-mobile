@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/screens/views/password_changed.dart';
+import 'package:ppay_mobile/screens/views/password_changed_two_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/textfield.dart';
 import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
@@ -220,19 +220,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                 height: 50.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
+                    backgroundColor: PPaymobileColors.buttonColorandText,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
+                      borderRadius: BorderRadius.circular(42.r),
                     ),
                     elevation: 0,
                   ),
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PasswordChanged(),
+                        builder: (context) => PasswordChangedTwoScreen(),
                       ),
-                      (route) => false,
                     );
                   },
                   child: Text(

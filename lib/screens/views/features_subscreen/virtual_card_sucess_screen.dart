@@ -101,7 +101,7 @@ class _VirtualCardSucessScreenState extends State<VirtualCardSucessScreen> {
                     height: 54.h,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
+                        backgroundColor: PPaymobileColors.buttonColorandText,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24).r,
                         ),

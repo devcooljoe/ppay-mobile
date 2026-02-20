@@ -244,12 +244,27 @@ class _BuyGiftCardBottomsheetState extends State<BuyGiftCardBottomsheet> {
                       );
                     },
 
-                    child: SizedBox(
-                      height: 52.h,
+                    child: Container(
+                      height: 50.h,
                       width: double.infinity,
-                      child: Image.asset(
-                        'assets/images/confirm_pay.png',
-                        fit: BoxFit.contain,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 10.h,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(56).r,
+                        color: PPaymobileColors.buttonColorandText,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Confirm Payment',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
                   ),

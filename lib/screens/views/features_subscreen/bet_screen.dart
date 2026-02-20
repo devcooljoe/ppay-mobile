@@ -287,7 +287,7 @@ class _BetScreenState extends State<BetScreen> {
                       ),
                     ),
                     8.verticalSpace,
-                    GestureDetector(
+                    TouchOpacity(
                       onTap: () {
                         showModalBottomSheet(
                           context: context,
@@ -332,9 +332,10 @@ class _BetScreenState extends State<BetScreen> {
                         width: double.infinity,
                         child: TextFormField(
                           showCursor: true,
+                          keyboardType: TextInputType.number,
                           onTap: () {
                             setState(() {
-                              _showKeyboard = true;
+                              _showKeyboard = false;
                             });
                           },
                           decoration: InputDecoration(
@@ -348,6 +349,13 @@ class _BetScreenState extends State<BetScreen> {
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfieldGrey,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
+                            ),
+                            border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -383,6 +391,7 @@ class _BetScreenState extends State<BetScreen> {
                         width: double.infinity,
                         child: TextFormField(
                           showCursor: true,
+                          readOnly: true,
                           onTap: () {
                             setState(() {
                               _showKeyboard = true;
@@ -412,6 +421,13 @@ class _BetScreenState extends State<BetScreen> {
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfieldGrey,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
+                            ),
+                            border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,

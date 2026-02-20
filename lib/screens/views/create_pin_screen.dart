@@ -66,145 +66,143 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: ListView(
-            children: [
-              24.verticalSpace,
-              Text(
-                'Security Pin',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.buttonColorandText,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+        child: ListView(
+          children: [
+            24.verticalSpace,
+            Text(
+              'Security Pin',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: PPaymobileColors.buttonColorandText,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w500,
               ),
-              4.verticalSpace,
-              Text(
-                'Enter unique security pin below',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.svgIconColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+            ),
+            4.verticalSpace,
+            Text(
+              'Enter unique security pin below',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: PPaymobileColors.svgIconColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
               ),
-              46.verticalSpace,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 76.h,
-                    width: 76.w,
-                    padding: EdgeInsets.all(13).r,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(38).r,
-                      color: PPaymobileColors.doneColor,
-                    ),
-                    child: SizedBox(
-                      height: 42.h,
-                      width: 42.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/padlock.svg',
-                        fit: BoxFit.contain,
-                      ),
+            ),
+            46.verticalSpace,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 76.h,
+                  width: 76.w,
+                  padding: EdgeInsets.all(13).r,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(38).r,
+                    color: PPaymobileColors.doneColor,
+                  ),
+                  child: SizedBox(
+                    height: 42.h,
+                    width: 42.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/padlock.svg',
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  40.verticalSpace,
-                  Pinput(
-                    controller: _pinController,
-                    length: 4,
-                    keyboardType:
-                        TextInputType.none, // 🚫 disable system keyboard
-                    separatorBuilder: (index) => 15.horizontalSpace,
-                    defaultPinTheme: PinTheme(
-                      width: 75.w,
-                      height: 63.h,
-                      textStyle: TextStyle(
-                        fontSize: 20.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: PPaymobileColors.textfiedBorder,
-                          width: 1.w,
-                        ),
-                        borderRadius: BorderRadius.circular(6.r),
-                      ),
-                    ),
-                  ),
-                  20.verticalSpace,
-                  Text(
-                    'Please keep pin secure. Pin will be required before performing any transaction',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
+                ),
+                40.verticalSpace,
+                Pinput(
+                  controller: _pinController,
+                  length: 4,
+                  keyboardType: TextInputType.none,
+                  separatorBuilder: (index) => 15.horizontalSpace,
+                  defaultPinTheme: PinTheme(
+                    width: 75.w,
+                    height: 63.h,
+                    textStyle: TextStyle(
+                      fontSize: 20.sp,
                       color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'InstrumentSans',
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
+                      ),
+                      borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
-                  29.verticalSpace,
-                  KeyboardContainer(
-                    child: CustomKeyboard(
-                      onKeyTap: _onKeyTap,
-                      onDelete: _onDelete,
-                    ),
+                ),
+                20.verticalSpace,
+                Text(
+                  'Please keep pin secure. Pin will be required before performing any transaction',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
                   ),
-                  // this shows after inputting the pin and clicking outside the container...
-                  24.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42.r),
+                ),
+                29.verticalSpace,
+                KeyboardContainer(
+                  child: CustomKeyboard(
+                    onKeyTap: _onKeyTap,
+                    onDelete: _onDelete,
+                  ),
+                ),
+                // this shows after inputting the pin and clicking outside the container...
+                24.verticalSpace,
+                SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CreatedPinScreen();
+                          },
                         ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CreatedPinScreen();
-                            },
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Next',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                            color: Colors.white,
                           ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Next',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.white,
-                            ),
+                        ),
+                        7.horizontalSpace,
+                        SizedBox(
+                          height: 24.h,
+                          width: 24.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/arrow_forwardw.svg',
+                            fit: BoxFit.contain,
                           ),
-                          7.horizontalSpace,
-                          SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forwardw.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

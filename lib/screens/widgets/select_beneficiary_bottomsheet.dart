@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class SelectBeneficiaryBottomsheet extends StatefulWidget {
   const SelectBeneficiaryBottomsheet({super.key});
@@ -127,26 +128,28 @@ class _SelectBeneficiaryBottomsheetState
                                 ),
                               ],
                             ),
-                            Container(
-                              height: 36.h,
-                              width: 80.w,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 7.w,
-                                vertical: 6.h,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Pay Bill",
-                                  style: TextStyle(
-                                    color:
-                                        PPaymobileColors.mainScreenBackground,
-                                    fontSize: 14.sp,
-                                    fontFamily: 'InstrumentSans',
-                                    fontWeight: FontWeight.w500,
+                            TouchOpacity(
+                              child: Container(
+                                height: 36.h,
+                                width: 80.w,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 7.w,
+                                  vertical: 6.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4).r,
+                                  color: PPaymobileColors.buttonColorandText,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Pay Bill",
+                                    style: TextStyle(
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 14.sp,
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -223,26 +226,28 @@ class _SelectBeneficiaryBottomsheetState
                                 ),
                               ],
                             ),
-                            Container(
-                              height: 36.h,
-                              width: 80.w,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 7.w,
-                                vertical: 6.h,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Pay Bill",
-                                  style: TextStyle(
-                                    color:
-                                        PPaymobileColors.mainScreenBackground,
-                                    fontSize: 14.sp,
-                                    fontFamily: 'InstrumentSans',
-                                    fontWeight: FontWeight.w500,
+                            TouchOpacity(
+                              child: Container(
+                                height: 36.h,
+                                width: 80.w,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 7.w,
+                                  vertical: 6.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4).r,
+                                  color: PPaymobileColors.buttonColorandText,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Pay Bill",
+                                    style: TextStyle(
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 14.sp,
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -319,26 +324,28 @@ class _SelectBeneficiaryBottomsheetState
                                 ),
                               ],
                             ),
-                            Container(
-                              height: 36.h,
-                              width: 80.w,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 7.w,
-                                vertical: 6.h,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Pay Bill",
-                                  style: TextStyle(
-                                    color:
-                                        PPaymobileColors.mainScreenBackground,
-                                    fontSize: 14.sp,
-                                    fontFamily: 'InstrumentSans',
-                                    fontWeight: FontWeight.w500,
+                            TouchOpacity(
+                              child: Container(
+                                height: 36.h,
+                                width: 80.w,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 7.w,
+                                  vertical: 6.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4).r,
+                                  color: PPaymobileColors.buttonColorandText,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Pay Bill",
+                                    style: TextStyle(
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 14.sp,
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -415,26 +422,28 @@ class _SelectBeneficiaryBottomsheetState
                                 ),
                               ],
                             ),
-                            Container(
-                              height: 36.h,
-                              width: 80.w,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 7.w,
-                                vertical: 6.h,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Pay Bill",
-                                  style: TextStyle(
-                                    color:
-                                        PPaymobileColors.mainScreenBackground,
-                                    fontSize: 14.sp,
-                                    fontFamily: 'InstrumentSans',
-                                    fontWeight: FontWeight.w500,
+                            TouchOpacity(
+                              child: Container(
+                                height: 36.h,
+                                width: 80.w,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 7.w,
+                                  vertical: 6.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4).r,
+                                  color: PPaymobileColors.buttonColorandText,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Pay Bill",
+                                    style: TextStyle(
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 14.sp,
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),

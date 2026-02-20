@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -252,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   5.horizontalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,

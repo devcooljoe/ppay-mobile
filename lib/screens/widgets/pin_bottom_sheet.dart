@@ -18,8 +18,8 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
   String _realPin = '';
 
   final emptyPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
@@ -28,8 +28,8 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
   );
 
   final filledPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: Color(0xFF0B3A3A), // filled color
@@ -153,12 +153,13 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
                       length: 4,
                       readOnly: true,
                       showCursor: false,
-
+                      obscureText: true,
+                      obscuringCharacter: '.',
                       defaultPinTheme: emptyPinTheme,
                       focusedPinTheme: emptyPinTheme,
                       submittedPinTheme: filledPinTheme,
 
-                      separatorBuilder: (_) => 24.horizontalSpace,
+                      separatorBuilder: (_) => 50.horizontalSpace,
                     ),
                   ),
                   Text(

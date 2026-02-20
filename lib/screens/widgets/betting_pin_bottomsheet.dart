@@ -30,6 +30,7 @@ class _BettingPinBottomsheetState extends State<BettingPinBottomsheet> {
   final filledPinTheme = PinTheme(
     width: 11.w,
     height: 11.w,
+    textStyle: TextStyle(color: Colors.transparent),
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: PPaymobileColors.buttonColor,

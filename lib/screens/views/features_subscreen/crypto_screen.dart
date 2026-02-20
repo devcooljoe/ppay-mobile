@@ -161,7 +161,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          GestureDetector(
+                          TouchOpacity(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -204,7 +204,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          GestureDetector(
+                          TouchOpacity(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -268,7 +268,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,
@@ -603,7 +603,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,

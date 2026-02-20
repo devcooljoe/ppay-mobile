@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class WalletAddressBottomsheet extends StatefulWidget {
   const WalletAddressBottomsheet({super.key});
@@ -21,7 +22,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
         children: [
           Transform.translate(
             offset: const Offset(0, 0),
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.h,

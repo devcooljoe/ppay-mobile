@@ -127,10 +127,10 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                              height: 14.h,
-                              width: 14.w,
+                              height: 16.h,
+                              width: 16.h,
                               child: SvgPicture.asset(
-                                'assets/icon/filter.svg',
+                                'assets/icon/filter_2.svg',
                                 fit: BoxFit.contain,
                               ),
                             ),
@@ -165,7 +165,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                     ),
                   ),
                   20.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,

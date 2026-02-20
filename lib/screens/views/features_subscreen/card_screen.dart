@@ -60,7 +60,7 @@ class _CardScreenState extends State<CardScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () => Navigator.pop(context, false),
                         child: SizedBox(
                           height: 20.56.h,
@@ -85,32 +85,57 @@ class _CardScreenState extends State<CardScreen> {
                     ),
                   ),
                   66.verticalSpace,
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => Navigator.pop(context, true),
-                          child: SizedBox(
-                            height: 50.h,
-                            width: 172.w,
-                            child: Image.asset(
-                              'assets/images/yes.png',
-                              fit: BoxFit.contain,
+                      TouchOpacity(
+                        onTap: () => Navigator.pop(context, true),
+                        child: Container(
+                          height: 50.h,
+                          width: 172.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 10.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.buttonColorandText,
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Yes',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: PPaymobileColors.mainScreenBackground,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => Navigator.pop(context, false),
-                          child: SizedBox(
-                            height: 50.h,
-                            width: 172.w,
-                            child: Image.asset(
-                              'assets/images/cancel.png',
-                              fit: BoxFit.contain,
+                      TouchOpacity(
+                        onTap: () => Navigator.pop(context, false),
+                        child: Container(
+                          height: 50.h,
+                          width: 172.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 10.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ),
@@ -202,14 +227,29 @@ class _CardScreenState extends State<CardScreen> {
                     ),
                   ),
                   46.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () => Navigator.pop(context),
-                    child: SizedBox(
-                      height: 48.h,
-                      width: 147.w,
-                      child: Image.asset(
-                        'assets/images/go_back.png',
-                        fit: BoxFit.contain,
+                    child: Container(
+                      height: 50.h,
+                      width: 172.w,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 10.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: PPaymobileColors.deepBackgroundColor,
+                        borderRadius: BorderRadius.circular(6).r,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Go Back',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -255,291 +295,291 @@ class _CardScreenState extends State<CardScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: ListView(
-            children: [
-              40.verticalSpace,
-              Container(
-                height: 173.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/card_image.png'),
-                    fit: BoxFit.contain,
-                  ),
-                  color: PPaymobileColors.backgroundColor,
-                  borderRadius: BorderRadius.circular(20).r,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: ListView(
+          children: [
+            40.verticalSpace,
+            Container(
+              height: 173.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/card_image.png'),
+                  fit: BoxFit.contain,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0).r,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 50.h,
-                        width: double.infinity,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 34.43.h,
-                                  width: 36.w,
-                                  child: Image.asset(
-                                    'assets/images/pinnacle.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                16.horizontalSpace,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'PINNACLEPAY',
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: PPaymobileColors
-                                            .mainScreenBackground,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    2.verticalSpace,
-                                    Text(
-                                      'User Name',
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: PPaymobileColors
-                                            .mainScreenBackground,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 24.h,
-                              width: 103.w,
-                              child: Image.asset(
-                                'assets/images/activate.png', //for existing users, use this instead 'assets/images/active.png'
-                                fit: BoxFit
-                                    .contain, //for blocked cards, use this instead 'assets/images/blocked.png'
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      22.verticalSpace,
-                      SizedBox(
-                        height: 61.h,
-                        width: double.infinity,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Balance',
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: PPaymobileColors
-                                            .mainScreenBackground,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    // 6.verticalSpace,
-                                    Text(
-                                      '\$500.00',
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: PPaymobileColors
-                                            .mainScreenBackground,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Text(
-                              '****000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.mainScreenBackground,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                color: PPaymobileColors.backgroundColor,
+                borderRadius: BorderRadius.circular(20).r,
               ),
-              12.verticalSpace,
-              Container(
-                height: 66,
-                width: double.infinity,
-                color: PPaymobileColors.warningColor,
-                padding: EdgeInsets.symmetric(vertical: 9.0.h, horizontal: 8.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0).r,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 22.6.h,
-                      width: 26.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/alert.svg',
-                        fit: BoxFit.contain,
+                      height: 50.h,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 34.43.h,
+                                width: 36.w,
+                                child: Image.asset(
+                                  'assets/images/pinnacle.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              16.horizontalSpace,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'PINNACLEPAY',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  2.verticalSpace,
+                                  Text(
+                                    'User Name',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                            width: 103.w,
+                            child: Image.asset(
+                              'assets/images/activate.png', //for existing users, use this instead 'assets/images/active.png'
+                              fit: BoxFit
+                                  .contain, //for blocked cards, use this instead 'assets/images/blocked.png'
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      child: Text(
-                        "Your USD card has been created, to fully activate your card, click the activate or fund card button",
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.warningTextColor,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    22.verticalSpace,
+                    SizedBox(
+                      height: 61.h,
+                      width: double.infinity,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Balance',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  // 6.verticalSpace,
+                                  Text(
+                                    '\$500.00',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Text(
+                            '****000',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: PPaymobileColors.mainScreenBackground,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-              20.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            12.verticalSpace,
+            Container(
+              height: 66,
+              width: double.infinity,
+              color: PPaymobileColors.warningColor,
+              padding: EdgeInsets.symmetric(vertical: 9.0.h, horizontal: 8.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FundCardScreen(),
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      height: 40.h,
-                      width: 190.w,
-                      child: Image.asset(
-                        'assets/images/fund_card.png',
-                        fit: BoxFit.contain,
-                      ),
+                  SizedBox(
+                    height: 22.6.h,
+                    width: 26.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/alert.svg',
+                      fit: BoxFit.contain,
                     ),
-                  ), // for blocked card scenario, this is faded and the asset for this is 'assets/images/fund_faded.png',
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CardTransactionScreen(),
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      height: 40.h,
-                      width: 190.w,
-                      child: Image.asset(
-                        'assets/images/transact.png',
-                        fit: BoxFit.contain,
+                  ),
+                  Expanded(
+                    child: Text(
+                      "Your USD card has been created, to fully activate your card, click the activate or fund card button",
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: PPaymobileColors.warningTextColor,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ],
               ),
-              48.verticalSpace,
-              GestureDetector(
-                onTap: () async {
-                  await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (_) => const CardDetailsBottomsheet(),
-                  );
-                },
-                child: Container(
-                  height: 61.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
+            ),
+            20.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TouchOpacity(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FundCardScreen()),
+                    );
+                  },
+                  child: Container(
+                    height: 49.h,
+                    width: 190.w,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 10.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.anotherbuttonbgColor,
+                      borderRadius: BorderRadius.circular(6).r,
+                      border: Border.all(
+                        color: PPaymobileColors.onTapButtonColor,
                         width: 1.w,
                       ),
                     ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 20.h,
+                          width: 20.h,
+                          child: SvgPicture.asset(
+                            'assets/icon/fund_add.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        8.horizontalSpace,
+                        Text(
+                          'Fund',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Card Details',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  'Get and copy card information here',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                ), // for blocked card scenario, this is faded
+                TouchOpacity(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CardTransactionScreen(),
                       ),
-                      SizedBox(
-                        height: 24.h,
-                        width: 12.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/arrow_forward.svg',
-                          fit: BoxFit.contain,
-                        ),
+                    );
+                  },
+                  child: Container(
+                    height: 49.h,
+                    width: 190.w,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 10.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.anotherbuttonbgColor,
+                      borderRadius: BorderRadius.circular(6).r,
+                      border: Border.all(
+                        color: PPaymobileColors.onTapButtonColor,
+                        width: 1.w,
                       ),
-                    ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 20.h,
+                          width: 20.h,
+                          child: SvgPicture.asset(
+                            'assets/icon/transact_ic.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        8.horizontalSpace,
+                        Text(
+                          'Transactions',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              27.verticalSpace,
-              Container(
+              ],
+            ),
+            48.verticalSpace,
+            TouchOpacity(
+              onTap: () async {
+                await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (_) => const CardDetailsBottomsheet(),
+                );
+              },
+              child: Container(
                 height: 61.h,
                 width: double.infinity,
                 padding: EdgeInsets.only(bottom: 10.h),
@@ -563,7 +603,7 @@ class _CardScreenState extends State<CardScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Freeze Card',
+                                'Card Details',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   color: Colors.black,
@@ -572,7 +612,7 @@ class _CardScreenState extends State<CardScreen> {
                                 ),
                               ),
                               Text(
-                                'Click to pause all card activities',
+                                'Get and copy card information here',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   color: Colors.black,
@@ -586,147 +626,205 @@ class _CardScreenState extends State<CardScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 43.w,
-                      height: 25.h,
-                      child: CustomSwitch(
-                        value: isEnabled,
-                        onChanged: _onFreezeSwitchTapped,
+                      height: 24.h,
+                      width: 12.w,
+                      child: SvgPicture.asset(
+                        'assets/icon/arrow_forward.svg',
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ],
                 ),
               ),
-              27.verticalSpace,
-              GestureDetector(
-                onTap: _showBillingDialog,
-                child: Container(
-                  height: 61.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
-                        width: 1.w,
-                      ),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Billing Address',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  'Get your billing address info',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 24.h,
-                        width: 12.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/arrow_forward.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
+            ),
+            27.verticalSpace,
+            Container(
+              height: 61.h,
+              width: double.infinity,
+              padding: EdgeInsets.only(bottom: 10.h),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: PPaymobileColors.textfiedBorder,
+                    width: 1.w,
                   ),
                 ),
               ),
-              27.verticalSpace,
-              TouchOpacity(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CardLimitScreen(),
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 61.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
-                        width: 1.w,
-                      ),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Card Limit',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  'Review all limit on your card',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              'Freeze Card',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              'Click to pause all card activities',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 24.h,
-                        width: 12.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/arrow_forward.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 43.w,
+                    height: 25.h,
+                    child: CustomSwitch(
+                      value: isEnabled,
+                      onChanged: _onFreezeSwitchTapped,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            27.verticalSpace,
+            TouchOpacity(
+              onTap: _showBillingDialog,
+              child: Container(
+                height: 61.h,
+                width: double.infinity,
+                padding: EdgeInsets.only(bottom: 10.h),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: PPaymobileColors.textfiedBorder,
+                      width: 1.w,
+                    ),
                   ),
                 ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Billing Address',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                'Get your billing address info',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                      width: 12.w,
+                      child: SvgPicture.asset(
+                        'assets/icon/arrow_forward.svg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+            27.verticalSpace,
+            TouchOpacity(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CardLimitScreen(),
+                  ),
+                );
+              },
+              child: Container(
+                height: 61.h,
+                width: double.infinity,
+                padding: EdgeInsets.only(bottom: 10.h),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: PPaymobileColors.textfiedBorder,
+                      width: 1.w,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Card Limit',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                'Review all limit on your card',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                      width: 12.w,
+                      child: SvgPicture.asset(
+                        'assets/icon/arrow_forward.svg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

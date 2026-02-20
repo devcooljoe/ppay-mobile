@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20.w),
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () {
                 Navigator.push(
                   context,
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 47.w,
                 width: 47.w,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(239, 245, 242, 0.62),
+                  color: Color(0xffEFF5F2).withValues(alpha: 0.62),
                   borderRadius: BorderRadius.circular(23.r),
                 ),
                 child: Stack(
@@ -220,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                GestureDetector(
+                                TouchOpacity(
                                   onTap: () {
                                     Navigator.push(
                                       context,
@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                GestureDetector(
+                                TouchOpacity(
                                   onTap: () {
                                     showModalBottomSheet(
                                       context: context,
@@ -363,7 +363,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
                 color: PPaymobileColors.mainScreenBackground,
-                child: GestureDetector(
+                child: TouchOpacity(
                   onTap: () {
                     Navigator.push(
                       context,

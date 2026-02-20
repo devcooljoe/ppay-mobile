@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/all_token_screen_model.dart';
 import 'package:ppay_mobile/model/select_crypto_model.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/token_detail_screen.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class AllTokensScreen extends StatefulWidget {
   const AllTokensScreen({super.key});
@@ -27,7 +28,7 @@ class _AllTokensScreenState extends State<AllTokensScreen> {
             itemBuilder: (context, cryptoIndex) {
               final crypto = selectCrypto[cryptoIndex];
 
-              return GestureDetector(
+              return TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,

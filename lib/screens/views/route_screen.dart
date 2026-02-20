@@ -65,7 +65,7 @@ class _RouteScreenState extends State<RouteScreen> {
           ),
           BottomNavigationBarItem(
             icon: navSvgIcon(
-              activeIcon: 'assets/icon/settings2.svg',
+              activeIcon: 'assets/icon/settings_2.svg',
               inactiveIcon: 'assets/icon/settings.svg',
               index: 3,
             ),

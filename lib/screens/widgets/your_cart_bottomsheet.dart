@@ -24,7 +24,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
         children: [
           Transform.translate(
             offset: const Offset(0, 0),
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.h,
@@ -102,7 +102,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                       ),
                                     ),
                                     30.verticalSpace,
-                                    GestureDetector(
+                                    TouchOpacity(
                                       onTap: () async {
                                         await showModalBottomSheet(
                                           context: context,

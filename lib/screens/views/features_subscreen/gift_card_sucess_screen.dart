@@ -115,7 +115,6 @@ class _GiftCardSucessScreenState extends State<GiftCardSucessScreen> {
                       ),
                     ),
                     6.horizontalSpace,
-
                     SizedBox(
                       height: 24.h,
                       width: 24.h,
@@ -138,15 +137,31 @@ class _GiftCardSucessScreenState extends State<GiftCardSucessScreen> {
                     ),
                   );
                 },
-                child: Text(
-                  'View Receipt',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.underline,
+                child: Container(
+                  height: 50.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: PPaymobileColors.textfiedBorder,
+                      width: 1.w,
+                    ),
+                    borderRadius: BorderRadius.circular(56).r,
+                    color: PPaymobileColors.mainScreenBackground,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'View Receipt',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -266,7 +281,7 @@ class _GiftCardSucessScreenState extends State<GiftCardSucessScreen> {
                       'Go to App', //same for fail
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                       ),

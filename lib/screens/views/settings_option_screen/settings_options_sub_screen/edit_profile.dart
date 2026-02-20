@@ -254,62 +254,77 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                       4.verticalSpace,
-                      Container(
-                        height: 52.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6).r,
-                        ),
-                        child: TextFormField(
-                          controller: genderController,
-                          readOnly: true,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                              vertical: 14.h,
-                            ),
-                            hintText: 'Select',
-                            hintStyle: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.sp,
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                            suffixIcon: GestureDetector(
-                              onTap: () async {
-                                final result =
-                                    await showModalBottomSheet<String>(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      builder: (_) => const GenderBottomsheet(),
-                                    );
+                      TouchOpacity(
+                        onTap: () async {
+                          final result = await showModalBottomSheet<String>(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (_) => const GenderBottomsheet(),
+                          );
 
-                                if (result != null) {
-                                  genderController.text = result;
-                                }
-                              },
-                              child: SizedBox(
-                                height: 14.h,
-                                width: 8.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/arrow_down.svg',
-                                  fit: BoxFit.scaleDown,
+                          if (result != null) {
+                            genderController.text = result;
+                          }
+                        },
+                        child: Container(
+                          height: 52.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          child: TextFormField(
+                            controller: genderController,
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                                vertical: 14.h,
+                              ),
+                              hintText: 'Select',
+                              hintStyle: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: PPaymobileColors.textfiedBorder,
+                              ),
+                              suffixIcon: TouchOpacity(
+                                onTap: () async {
+                                  final result =
+                                      await showModalBottomSheet<String>(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        builder: (_) =>
+                                            const GenderBottomsheet(),
+                                      );
+
+                                  if (result != null) {
+                                    genderController.text = result;
+                                  }
+                                },
+                                child: SizedBox(
+                                  height: 14.h,
+                                  width: 8.w,
+                                  child: SvgPicture.asset(
+                                    'assets/icon/arrow_down.svg',
+                                    fit: BoxFit.scaleDown,
+                                  ),
                                 ),
                               ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfiedBorder,
-                                width: 1.w,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.r),
+                                borderSide: BorderSide(
+                                  color: PPaymobileColors.textfiedBorder,
+                                  width: 1.w,
+                                ),
                               ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfiedBorder,
-                                width: 1.w,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.r),
+                                borderSide: BorderSide(
+                                  color: PPaymobileColors.textfiedBorder,
+                                  width: 1.w,
+                                ),
                               ),
                             ),
                           ),

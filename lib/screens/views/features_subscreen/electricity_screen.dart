@@ -85,489 +85,515 @@ class _ElectricityScreenState extends State<ElectricityScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    setState(() {
-                      _showKeyboard = false;
-                    });
-                  },
-                  child: ListView(
-                    children: [
-                      36.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Meter Type',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Column(
+          children: [
+            Expanded(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  setState(() {
+                    _showKeyboard = false;
+                  });
+                },
+                child: ListView(
+                  children: [
+                    36.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Meter Type',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) {
-                                  return SelectBeneficiaryBottomsheet();
-                                },
-                              );
-                            },
-                            child: Text(
-                              'Beneficiaries',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.buttonColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                                decorationColor: PPaymobileColors.buttonColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      10.verticalSpace,
-                      SizedBox(
-                        height: 54.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          readOnly: true,
+                        ),
+                        TouchOpacity(
                           onTap: () {
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
                               builder: (context) {
-                                return SelectMeterTypeBottomsheet();
+                                return SelectBeneficiaryBottomsheet();
                               },
                             );
                           },
-                          decoration: InputDecoration(
-                            hint: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Prepaid',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            suffixIcon: SizedBox(
-                              height: 12.h,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/arrow_down.svg',
-                                fit: BoxFit.scaleDown,
-                              ),
-                            ),
-                            // hintText: 'Enter Receiver Name',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 14.h,
-                            ),
-                          ),
-                        ),
-                      ),
-                      32.verticalSpace,
-                      Text(
-                        'Enter Meter Number',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 54.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          showCursor: true,
-                          onTap: () {
-                            setState(() {
-                              _showKeyboard = true;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            hint: Text(
-                              'Enter Number',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.anotherGreyColor,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 14.h,
-                            ),
-                          ),
-                        ),
-                      ),
-                      32.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Amount',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            'Balance: ₦400,000',
+                          child: Text(
+                            'Beneficiaries',
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
                               color: PPaymobileColors.buttonColor,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.underline,
+                              decorationColor: PPaymobileColors.buttonColor,
                             ),
                           ),
-                        ],
-                      ),
-                      24.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦100',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦200',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦500',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦1000',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      10.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦100',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦200',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦500',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: PPaymobileColors.deepBackgroundColor,
-                              borderRadius: BorderRadius.circular(5).r,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦5000',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      24.verticalSpace,
-                      Text(
-                        'Amount',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
                         ),
-                      ),
-                      6.verticalSpace,
-                      SizedBox(
-                        height: 54.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          showCursor: true,
-                          decoration: InputDecoration(
-                            hint: RichText(
-                              text: TextSpan(
-                                text: '₦ ',
+                      ],
+                    ),
+                    10.verticalSpace,
+                    SizedBox(
+                      height: 54.h,
+                      width: double.infinity,
+                      child: TextFormField(
+                        readOnly: true,
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) {
+                              return SelectMeterTypeBottomsheet();
+                            },
+                          );
+                        },
+                        decoration: InputDecoration(
+                          hint: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Prepaid',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   color: Colors.black,
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Enter Amount',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: PPaymobileColors.anotherGreyColor,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
                               ),
+                            ],
+                          ),
+                          suffixIcon: SizedBox(
+                            height: 12.h,
+                            width: 24.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/arrow_down.svg',
+                              fit: BoxFit.scaleDown,
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          // hintText: 'Enter Receiver Name',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfieldGrey,
+                              width: 1.w,
                             ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 14.h,
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfieldGrey,
+                              width: 1.w,
                             ),
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 14.h,
                           ),
                         ),
                       ),
-                      72.verticalSpace,
-                      TouchOpacity(
+                    ),
+                    32.verticalSpace,
+                    Text(
+                      'Enter Meter Number',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 54.h,
+                      width: double.infinity,
+                      child: TextFormField(
+                        showCursor: true,
+                        keyboardType: TextInputType.number,
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ElectricityConfirmScreen(),
-                            ),
-                          );
+                          setState(() {
+                            _showKeyboard = false;
+                          });
                         },
-                        child: Container(
-                          height: 50.h,
-                          width: double.infinity,
+                        decoration: InputDecoration(
+                          hint: Text(
+                            'Enter Number',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: PPaymobileColors.anotherGreyColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfieldGrey,
+                              width: 1.w,
+                            ),
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfieldGrey,
+                              width: 1.w,
+                            ),
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 14.h,
+                          ),
+                        ),
+                      ),
+                    ),
+                    32.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Amount',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          'Balance: ₦400,000',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.buttonColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    24.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
                           padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
+                            horizontal: 8.w,
+                            vertical: 4.h,
                           ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(56).r,
-                            color: PPaymobileColors.buttonColorandText,
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
                           ),
                           child: Center(
                             child: Text(
-                              'Make Payment',
+                              '₦100',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
                         ),
+                        12.horizontalSpace,
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '₦200',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        12.horizontalSpace,
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '₦500',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        12.horizontalSpace,
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '₦1000',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    10.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '₦100',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        12.horizontalSpace,
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '₦200',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        12.horizontalSpace,
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '₦500',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        12.horizontalSpace,
+                        Container(
+                          height: 47.5.h,
+                          width: 91.w,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.deepBackgroundColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '₦5000',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    24.verticalSpace,
+                    Text(
+                      'Amount',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
                       ),
-                    ],
-                  ),
+                    ),
+                    6.verticalSpace,
+                    SizedBox(
+                      height: 54.h,
+                      width: double.infinity,
+                      child: TextFormField(
+                        showCursor: true,
+                        readOnly: true,
+                        onTap: () {
+                          setState(() {
+                            _showKeyboard = true;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hint: RichText(
+                            text: TextSpan(
+                              text: '₦ ',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'Enter Amount',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: PPaymobileColors.anotherGreyColor,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfieldGrey,
+                              width: 1.w,
+                            ),
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfieldGrey,
+                              width: 1.w,
+                            ),
+                            borderRadius: BorderRadius.circular(6).r,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 14.h,
+                          ),
+                        ),
+                      ),
+                    ),
+                    72.verticalSpace,
+                    TouchOpacity(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ElectricityConfirmScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 50.h,
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 10.h,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(56).r,
+                          color: PPaymobileColors.buttonColorandText,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Make Payment',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              20.verticalSpace,
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                height: _showKeyboard ? 424.h : 0,
-                child: _showKeyboard
-                    ? KeyboardContainer(
-                        child: CustomKeyboard(
-                          onKeyTap: _onKeyTap,
-                          onDelete: _onDelete,
-                        ),
-                      )
-                    : null,
-              ),
-            ],
-          ),
+            ),
+            20.verticalSpace,
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              height: _showKeyboard ? 424.h : 0,
+              child: _showKeyboard
+                  ? KeyboardContainer(
+                      child: CustomKeyboard(
+                        onKeyTap: _onKeyTap,
+                        onDelete: _onDelete,
+                      ),
+                    )
+                  : null,
+            ),
+          ],
         ),
       ),
     );

@@ -55,7 +55,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
             padding: EdgeInsets.only(right: 20.w),
             child: Row(
               children: [
-                GestureDetector(
+                TouchOpacity(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -74,7 +74,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                   ),
                 ),
                 14.horizontalSpace,
-                GestureDetector(
+                TouchOpacity(
                   onTap: () async {
                     await showModalBottomSheet(
                       context: context,
@@ -556,7 +556,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
               19.verticalSpace,
               Divider(color: PPaymobileColors.textfiedBorder, thickness: 1.h),
               29.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () async {
                   await showModalBottomSheet(
                     context: context,
@@ -624,7 +624,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                 ),
               ),
               19.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () async {
                   await showModalBottomSheet(
                     context: context,

@@ -30,6 +30,7 @@ class _DataPinBottomsheetState extends State<DataPinBottomsheet> {
   final filledPinTheme = PinTheme(
     width: 11.w,
     height: 11.w,
+    textStyle: TextStyle(color: Colors.transparent),
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: PPaymobileColors.buttonColor,

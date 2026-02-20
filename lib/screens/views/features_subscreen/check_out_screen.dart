@@ -197,6 +197,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                     ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.textfieldGrey,
+                        width: 1.w,
+                      ),
+                      borderRadius: BorderRadius.circular(6).r,
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: PPaymobileColors.textfieldGrey,
@@ -284,6 +291,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                               borderRadius: BorderRadius.circular(6).r,
                             ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfieldGrey,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
+                            ),
                             contentPadding: EdgeInsets.symmetric(
                               horizontal: 12.w,
                               vertical: 14.h,
@@ -347,6 +361,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                               borderRadius: BorderRadius.circular(6).r,
                             ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfieldGrey,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
+                            ),
                             contentPadding: EdgeInsets.symmetric(
                               horizontal: 12.w,
                               vertical: 14.h,
@@ -383,6 +404,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.textfieldGrey,
+                        width: 1.w,
+                      ),
+                      borderRadius: BorderRadius.circular(6).r,
+                    ),
+                    border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: PPaymobileColors.textfieldGrey,
                         width: 1.w,
@@ -427,6 +455,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                       borderRadius: BorderRadius.circular(6).r,
                     ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.textfieldGrey,
+                        width: 1.w,
+                      ),
+                      borderRadius: BorderRadius.circular(6).r,
+                    ),
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 12.w,
                       vertical: 14.h,
@@ -460,6 +495,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.textfieldGrey,
+                        width: 1.w,
+                      ),
+                      borderRadius: BorderRadius.circular(6).r,
+                    ),
+                    border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: PPaymobileColors.textfieldGrey,
                         width: 1.w,
@@ -516,7 +558,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),
                               ),
                             ),
-                            GestureDetector(
+                            TouchOpacity(
                               onTap: () async {
                                 await showModalBottomSheet(
                                   context: context,
@@ -619,7 +661,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),
                               ),
                             ),
-                            GestureDetector(
+                            TouchOpacity(
                               onTap: () async {
                                 await showModalBottomSheet(
                                   context: context,

@@ -230,7 +230,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 5.horizontalSpace,
-                GestureDetector(
+                TouchOpacity(
                   onTap: () {
                     Navigator.push(
                       context,

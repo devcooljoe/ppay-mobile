@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class RemoveAccountBottomsheet extends StatefulWidget {
   const RemoveAccountBottomsheet({super.key});
@@ -58,7 +59,7 @@ class _RemoveAccountBottomsheetState extends State<RemoveAccountBottomsheet> {
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
+                      fontSize: 20.sp,
                       color: Colors.black,
                     ),
                   ),
@@ -77,7 +78,7 @@ class _RemoveAccountBottomsheetState extends State<RemoveAccountBottomsheet> {
                       24.verticalSpace,
                       Text(
                         'Removing account details means permanent removal',
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
@@ -89,48 +90,53 @@ class _RemoveAccountBottomsheetState extends State<RemoveAccountBottomsheet> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 54.h,
-                            width: 183.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                              vertical: 14.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(74).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
+                          TouchOpacity(
+                            child: Container(
+                              height: 54.h,
+                              width: 183.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                                vertical: 14.h,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(74).r,
+                                color: PPaymobileColors.deepBackgroundColor,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                          Container(
-                            height: 54.h,
-                            width: 183.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                              vertical: 14.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(74).r,
-                              color: PPaymobileColors.backgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Remove',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.mainScreenBackground,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
+                          TouchOpacity(
+                            child: Container(
+                              height: 54.h,
+                              width: 183.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                                vertical: 14.h,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(74).r,
+                                color: PPaymobileColors.buttonColorandText,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Remove',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color:
+                                        PPaymobileColors.mainScreenBackground,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),

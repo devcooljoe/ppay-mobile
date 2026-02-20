@@ -76,7 +76,7 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
                 ),
               ),
               220.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,

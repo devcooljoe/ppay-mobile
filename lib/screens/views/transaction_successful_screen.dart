@@ -36,8 +36,8 @@ class _TransactionSuccessfulScreenState
                     width: 53.w,
                     child: CircularProgressIndicator(
                       color: PPaymobileColors.buttonColor,
-                      backgroundColor: PPaymobileColors.doneColor,
-                      strokeWidth: 6.0,
+                      backgroundColor: PPaymobileColors.flightContainerbgColor,
+                      strokeWidth: 8.0.w,
                     ),
                   ),
                   13.verticalSpace,

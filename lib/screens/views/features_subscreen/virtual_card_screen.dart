@@ -5,14 +5,14 @@ import 'package:ppay_mobile/screens/views/features_subscreen/create_virtual_card
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
-class VirtualCard extends StatefulWidget {
-  const VirtualCard({super.key});
+class VirtualCardScreen extends StatefulWidget {
+  const VirtualCardScreen({super.key});
 
   @override
-  State<VirtualCard> createState() => _VirtualCardState();
+  State<VirtualCardScreen> createState() => _VirtualCardScreenState();
 }
 
-class _VirtualCardState extends State<VirtualCard> {
+class _VirtualCardScreenState extends State<VirtualCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +105,7 @@ class _VirtualCardState extends State<VirtualCard> {
                 height: 54.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
+                    backgroundColor: PPaymobileColors.buttonColorandText,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24).r,
                     ),

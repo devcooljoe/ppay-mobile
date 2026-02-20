@@ -131,7 +131,7 @@ class _AirtimeBeneficiaryBottomsheetState
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
+                                color: PPaymobileColors.buttonColorandText,
                               ),
                               child: Center(
                                 child: Text(
@@ -222,7 +222,7 @@ class _AirtimeBeneficiaryBottomsheetState
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
+                                color: PPaymobileColors.buttonColorandText,
                               ),
                               child: Center(
                                 child: Text(
@@ -313,7 +313,7 @@ class _AirtimeBeneficiaryBottomsheetState
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
+                                color: PPaymobileColors.buttonColorandText,
                               ),
                               child: Center(
                                 child: Text(
@@ -404,7 +404,7 @@ class _AirtimeBeneficiaryBottomsheetState
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.backgroundColor,
+                                color: PPaymobileColors.buttonColorandText,
                               ),
                               child: Center(
                                 child: Text(

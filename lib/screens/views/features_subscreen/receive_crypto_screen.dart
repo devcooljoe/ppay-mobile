@@ -95,7 +95,7 @@ class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
                         horizontal: 16.0.w,
                         vertical: 12.h,
                       ),
-                      child: GestureDetector(
+                      child: TouchOpacity(
                         onTap: () async {
                           await showModalBottomSheet(
                             context: context,
@@ -145,6 +145,13 @@ class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
                       ),
                       borderRadius: BorderRadius.circular(6).r,
                     ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 1.w,
+                        color: PPaymobileColors.textfiedBorder,
+                      ),
+                      borderRadius: BorderRadius.circular(6).r,
+                    ),
                   ),
                 ),
               ),
@@ -172,7 +179,7 @@ class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                     ),
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       onTap: () async {
                         await showModalBottomSheet(
                           context: context,
@@ -191,6 +198,13 @@ class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 1.w,
+                        color: PPaymobileColors.textfiedBorder,
+                      ),
+                      borderRadius: BorderRadius.circular(6).r,
+                    ),
+                    border: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 1.w,
                         color: PPaymobileColors.textfiedBorder,
@@ -217,7 +231,7 @@ class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
                 height: 54.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
+                    backgroundColor: PPaymobileColors.buttonColorandText,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(42),
                     ),

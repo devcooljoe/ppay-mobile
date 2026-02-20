@@ -153,7 +153,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                       fontFamily: 'InstrumentSans',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
-                      color: PPaymobileColors.highlightTextColor,
+                      color: Color(0xff429E6E),
                     ),
                   ),
                 ],

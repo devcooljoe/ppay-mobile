@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/boarding_pass_screen.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/cancel_flight_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
@@ -471,29 +472,46 @@ class _ActiveFlightScreenState extends State<ActiveFlightScreen> {
                   ),
                 ),
                 8.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Cancel Flight',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.buyTradeContainerColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                TouchOpacity(
+                  onTap: () {
+                    showGeneralDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      barrierLabel: '',
+                      barrierColor: Colors.black.withValues(alpha: 0.20),
+                      transitionDuration: Duration(milliseconds: 250),
+                      pageBuilder: (_, __, ___) {
+                        return CancelFlightScreen();
+                      },
+                    );
+                  },
+                  child: SizedBox(
+                    height: 19.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Cancel Flight',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.buyTradeContainerColor,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        5.horizontalSpace,
+                        SizedBox(
+                          height: 19.h,
+                          width: 19.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/blue_arrow_right.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ],
                     ),
-                    5.horizontalSpace,
-                    SizedBox(
-                      height: 19.h,
-                      width: 19.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/blue_arrow_right.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),

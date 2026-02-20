@@ -78,7 +78,7 @@ class _BillsScreenState extends State<BillsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -96,7 +96,7 @@ class _BillsScreenState extends State<BillsScreen> {
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -120,7 +120,7 @@ class _BillsScreenState extends State<BillsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -138,7 +138,7 @@ class _BillsScreenState extends State<BillsScreen> {
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -159,7 +159,7 @@ class _BillsScreenState extends State<BillsScreen> {
               19.verticalSpace,
               Align(
                 alignment: Alignment.topLeft,
-                child: GestureDetector(
+                child: TouchOpacity(
                   onTap: () {
                     Navigator.push(
                       context,

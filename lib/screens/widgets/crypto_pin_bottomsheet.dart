@@ -19,8 +19,8 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
   String _realPin = '';
 
   final emptyPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
@@ -29,8 +29,9 @@ class _CryptoPinBottomsheetState extends State<CryptoPinBottomsheet> {
   );
 
   final filledPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
+    textStyle: TextStyle(color: Colors.transparent),
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: Color(0xFF0B3A3A),

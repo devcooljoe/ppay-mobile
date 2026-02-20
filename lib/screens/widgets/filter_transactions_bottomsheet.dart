@@ -101,6 +101,13 @@ class _FilterTransactionsBottomsheetState
                             width: 1.w,
                           ),
                         ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.r),
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfiedBorder,
+                            width: 1.w,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -358,7 +365,8 @@ class _FilterTransactionsBottomsheetState
                         height: 50.h,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: PPaymobileColors.backgroundColor,
+                            backgroundColor:
+                                PPaymobileColors.buttonColorandText,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(42),
                             ),

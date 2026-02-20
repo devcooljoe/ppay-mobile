@@ -51,7 +51,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
             padding: EdgeInsets.only(right: 20.w),
             child: Row(
               children: [
-                GestureDetector(
+                TouchOpacity(
                   onTap: () {
                     Navigator.push(
                       context,
