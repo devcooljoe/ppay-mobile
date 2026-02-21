@@ -57,8 +57,8 @@ class _RouteScreenState extends State<RouteScreen> {
           ),
           BottomNavigationBarItem(
             icon: navSvgIcon(
-              activeIcon: 'assets/icon/features2.svg',
-              inactiveIcon: 'assets/icon/features_1.svg',
+              activeIcon: 'assets/images/features_2.png',
+              inactiveIcon: 'assets/images/features.png',
               index: 2,
             ),
             label: 'Features',
@@ -87,21 +87,27 @@ class _RouteScreenState extends State<RouteScreen> {
     );
   }
 
-  SvgPicture navSvgIcon({
+  Widget navSvgIcon({
     required String activeIcon,
     required String inactiveIcon,
     required int index,
   }) {
     final bool isActive = selectedIndex == index;
 
-    return SvgPicture.asset(
-      isActive ? activeIcon : inactiveIcon,
-      width: 24.w,
-      height: 24.w,
-      colorFilter: ColorFilter.mode(
-        isActive ? PPaymobileColors.buttonColor : Color(0xff9C9C9C),
-        BlendMode.srcIn,
-      ),
-    );
+    return index == 2
+        ? Image.asset(
+            isActive ? activeIcon : inactiveIcon,
+            width: 24.w,
+            height: 24.w,
+          )
+        : SvgPicture.asset(
+            isActive ? activeIcon : inactiveIcon,
+            width: 24.w,
+            height: 24.w,
+            colorFilter: ColorFilter.mode(
+              isActive ? PPaymobileColors.buttonColor : Color(0xff9C9C9C),
+              BlendMode.srcIn,
+            ),
+          );
   }
 }
