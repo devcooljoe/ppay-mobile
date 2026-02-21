@@ -59,7 +59,7 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
@@ -72,7 +72,7 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
           Padding(
             padding: EdgeInsets.only(right: 20.w),
             child: Container(
-              height: 34.h,
+              height: 34.w,
               width: 34.w,
               decoration: BoxDecoration(
                 color: PPaymobileColors.flightbgColor,
@@ -83,7 +83,7 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                   Center(
                     child: SvgPicture.asset(
                       'assets/icon/takeoff.svg',
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                     ),
                   ),
@@ -92,7 +92,7 @@ class _FlightBookScreenState extends State<FlightBookScreen> {
                     right: 5.w,
                     child: SvgPicture.asset(
                       'assets/icon/newnotif.svg',
-                      height: 9.h,
+                      height: 9.w,
                       width: 9.w,
                     ),
                   ),

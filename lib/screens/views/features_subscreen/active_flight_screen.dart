@@ -55,7 +55,7 @@ class _ActiveFlightScreenState extends State<ActiveFlightScreen> {
                       children: [
                         4.horizontalSpace,
                         Container(
-                          height: 47.h,
+                          height: 47.w,
                           width: 47.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.r),
@@ -97,7 +97,7 @@ class _ActiveFlightScreenState extends State<ActiveFlightScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/distance.svg',
@@ -502,7 +502,7 @@ class _ActiveFlightScreenState extends State<ActiveFlightScreen> {
                         ),
                         5.horizontalSpace,
                         SizedBox(
-                          height: 19.h,
+                          height: 19.w,
                           width: 19.w,
                           child: SvgPicture.asset(
                             'assets/icon/blue_arrow_right.svg',
@@ -538,7 +538,7 @@ class _ActiveFlightScreenState extends State<ActiveFlightScreen> {
                       children: [
                         4.horizontalSpace,
                         Container(
-                          height: 47.h,
+                          height: 47.w,
                           width: 47.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.r),
@@ -580,7 +580,7 @@ class _ActiveFlightScreenState extends State<ActiveFlightScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/distance.svg',
@@ -983,7 +983,7 @@ class _ActiveFlightScreenState extends State<ActiveFlightScreen> {
                     ),
                     5.horizontalSpace,
                     SizedBox(
-                      height: 19.h,
+                      height: 19.w,
                       width: 19.w,
                       child: SvgPicture.asset(
                         'assets/icon/blue_arrow_right.svg',

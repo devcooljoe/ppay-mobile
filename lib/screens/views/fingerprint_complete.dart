@@ -90,7 +90,7 @@ class _FingerprintCompleteState extends State<FingerprintComplete> {
                       ),
                       7.horizontalSpace,
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/arrow_forwardw.svg',

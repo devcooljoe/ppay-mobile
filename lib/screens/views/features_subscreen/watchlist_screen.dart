@@ -35,7 +35,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -60,7 +60,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     prefixIcon: SizedBox(
-                      height: 19.h,
+                      height: 19.w,
                       width: 19.w,
                       child: SvgPicture.asset(
                         'assets/icon/bank_search.svg',

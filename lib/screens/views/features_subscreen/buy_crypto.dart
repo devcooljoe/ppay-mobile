@@ -74,7 +74,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -248,7 +248,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      height: 36.h,
+                                      height: 36.w,
                                       width: 36.w,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
@@ -345,7 +345,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
                               ),
                               6.horizontalSpace,
                               SizedBox(
-                                height: 17.h,
+                                height: 17.w,
                                 width: 17.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/swap.svg',

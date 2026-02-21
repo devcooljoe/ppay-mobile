@@ -28,7 +28,7 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -45,7 +45,7 @@ class _OrderSuccessfulScreenState extends State<OrderSuccessfulScreen> {
             children: [
               122.verticalSpace,
               SizedBox(
-                height: 120.h,
+                height: 120.w,
                 width: 120.w,
                 child: Image.asset(
                   'assets/images/success1.png', // for fail use 'assets/images/cancel_1.png' for pending use 'assets/images/failed_1.png'

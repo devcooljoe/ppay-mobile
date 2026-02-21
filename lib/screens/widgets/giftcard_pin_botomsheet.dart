@@ -94,7 +94,7 @@ class _GiftcardPinBotomsheetState extends State<GiftcardPinBotomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,

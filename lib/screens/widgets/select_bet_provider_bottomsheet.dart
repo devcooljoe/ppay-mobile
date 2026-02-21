@@ -25,7 +25,7 @@ class _SelectBetProviderBottomsheetState
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -77,7 +77,7 @@ class _SelectBetProviderBottomsheetState
                           child: TextFormField(
                             decoration: InputDecoration(
                               prefixIcon: SizedBox(
-                                height: 24.h,
+                                height: 24.w,
                                 width: 24.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/bank_search.svg',
@@ -114,7 +114,7 @@ class _SelectBetProviderBottomsheetState
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 30.h,
+                                  height: 30.w,
                                   width: 30.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -139,7 +139,7 @@ class _SelectBetProviderBottomsheetState
                               ],
                             ),
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/indicator.svg',
@@ -158,7 +158,7 @@ class _SelectBetProviderBottomsheetState
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 30.h,
+                                  height: 30.w,
                                   width: 30.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -183,7 +183,7 @@ class _SelectBetProviderBottomsheetState
                               ],
                             ),
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/check_circle.svg',

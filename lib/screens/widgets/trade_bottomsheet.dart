@@ -23,7 +23,7 @@ class _TradeBottomsheetState extends State<TradeBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -70,7 +70,7 @@ class _TradeBottomsheetState extends State<TradeBottomsheet> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          height: 49.h,
+                          height: 49.w,
                           width: 49.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -78,7 +78,7 @@ class _TradeBottomsheetState extends State<TradeBottomsheet> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 18.h,
+                              height: 18.w,
                               width: 18.w,
                               child: SvgPicture.asset(
                                 'assets/icon/add_white.svg',
@@ -134,7 +134,7 @@ class _TradeBottomsheetState extends State<TradeBottomsheet> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          height: 49.h,
+                          height: 49.w,
                           width: 49.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -142,7 +142,7 @@ class _TradeBottomsheetState extends State<TradeBottomsheet> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 18.h,
+                              height: 18.w,
                               width: 18.w,
                               child: SvgPicture.asset(
                                 'assets/icon/minus_white.svg',
@@ -198,7 +198,7 @@ class _TradeBottomsheetState extends State<TradeBottomsheet> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          height: 49.h,
+                          height: 49.w,
                           width: 49.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -206,7 +206,7 @@ class _TradeBottomsheetState extends State<TradeBottomsheet> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 18.h,
+                              height: 18.w,
                               width: 18.w,
                               child: SvgPicture.asset(
                                 'assets/icon/fund.svg',

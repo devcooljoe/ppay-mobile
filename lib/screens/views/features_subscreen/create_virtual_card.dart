@@ -36,7 +36,7 @@ class _CreateVirtualCardState extends State<CreateVirtualCard> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -106,7 +106,7 @@ class _CreateVirtualCardState extends State<CreateVirtualCard> {
                       ],
                     ),
                     SizedBox(
-                      height: 23.h,
+                      height: 23.w,
                       width: 23.w,
                       child: SvgPicture.asset(
                         'assets/icon/tick_pass.svg',
@@ -151,7 +151,7 @@ class _CreateVirtualCardState extends State<CreateVirtualCard> {
                       ],
                     ),
                     SizedBox(
-                      height: 23.h,
+                      height: 23.w,
                       width: 23.w,
                       child: SvgPicture.asset(
                         'assets/icon/tick_pass.svg',
@@ -222,7 +222,7 @@ class _CreateVirtualCardState extends State<CreateVirtualCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 16.h,
+                      height: 16.w,
                       width: 16.w,
                       child: SvgPicture.asset(
                         'assets/icon/warning.svg',

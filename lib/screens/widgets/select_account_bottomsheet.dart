@@ -26,7 +26,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -69,7 +69,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                         ),
                       ),
                       Container(
-                        height: 39.h,
+                        height: 39.w,
                         width: 39.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20).r,
@@ -77,7 +77,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                         ),
                         child: Center(
                           child: SizedBox(
-                            height: 14.h,
+                            height: 14.w,
                             width: 14.w,
                             child: SvgPicture.asset(
                               'assets/icon/add.svg',
@@ -149,7 +149,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                                       ),
                                       8.horizontalSpace,
                                       SizedBox(
-                                        height: 7.h,
+                                        height: 7.w,
                                         width: 7.w,
                                         child: SvgPicture.asset(
                                           'assets/icon/spacer.svg',
@@ -273,7 +273,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                                       ),
                                       8.horizontalSpace,
                                       SizedBox(
-                                        height: 7.h,
+                                        height: 7.w,
                                         width: 7.w,
                                         child: SvgPicture.asset(
                                           'assets/icon/spacer.svg',

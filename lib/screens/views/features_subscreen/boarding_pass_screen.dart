@@ -58,7 +58,7 @@ class _BoardingPassScreenState extends State<BoardingPassScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
@@ -139,7 +139,7 @@ class _BoardingPassScreenState extends State<BoardingPassScreen> {
                               left: -15.w,
                               top: 187.h,
                               child: Container(
-                                height: 32.h,
+                                height: 32.w,
                                 width: 32.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16.r),
@@ -163,7 +163,7 @@ class _BoardingPassScreenState extends State<BoardingPassScreen> {
                               right: -15.w,
                               top: 187.h,
                               child: Container(
-                                height: 32.h,
+                                height: 32.w,
                                 width: 32.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16.r),
@@ -187,7 +187,7 @@ class _BoardingPassScreenState extends State<BoardingPassScreen> {
                               left: -15.w,
                               top: 538.h,
                               child: Container(
-                                height: 32.h,
+                                height: 32.w,
                                 width: 32.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16.r),
@@ -211,7 +211,7 @@ class _BoardingPassScreenState extends State<BoardingPassScreen> {
                               right: -15.w,
                               top: 538.h,
                               child: Container(
-                                height: 32.h,
+                                height: 32.w,
                                 width: 32.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16.r),

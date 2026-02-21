@@ -25,7 +25,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
             child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -64,7 +64,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                height: 59.h,
+                                height: 59.w,
                                 width: 59.w,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
@@ -142,7 +142,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
                     ),
                     color: PPaymobileColors.deepBackgroundColor,
                     child: SizedBox(
-                      height: 165.h,
+                      height: 165.w,
                       width: 165.w,
                       child: Image.asset(
                         'assets/images/qrcode.png',
@@ -204,7 +204,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
                             ),
                             37.verticalSpace,
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste_black1.svg',
@@ -243,7 +243,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
                           ),
                           12.horizontalSpace,
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/paste_white.svg',
@@ -285,7 +285,7 @@ class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
                           ),
                           12.horizontalSpace,
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/share_black.svg',

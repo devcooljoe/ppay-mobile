@@ -36,7 +36,7 @@ class _TvCableConfirmScreenState extends State<TvCableConfirmScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -141,7 +141,7 @@ class _TvCableConfirmScreenState extends State<TvCableConfirmScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              height: 22.h,
+                              height: 22.w,
                               width: 22.w,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,

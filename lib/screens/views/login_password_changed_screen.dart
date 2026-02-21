@@ -56,7 +56,7 @@ class _LoginPasswordChangedScreenState
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 140.h,
+                          height: 140.w,
                           width: 140.w,
                           child: Image.asset(
                             'assets/images/password.png',

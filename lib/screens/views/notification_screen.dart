@@ -36,7 +36,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -51,7 +51,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: IconButton(
               onPressed: () => Navigator.pop(context),
               icon: SizedBox(
-                height: 24.h,
+                height: 24.w,
                 width: 24.w,
                 child: SvgPicture.asset(
                   'assets/icon/settings_black.svg',
@@ -77,7 +77,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     vertical: 14.w,
                   ),
                   prefixIcon: SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/bank_search.svg',
@@ -155,7 +155,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      height: 54.h,
+                                      height: 54.w,
                                       width: 54.w,
                                       decoration: BoxDecoration(
                                         color: option.containerColor,
@@ -164,7 +164,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       child: Center(
                                         child: SvgPicture.asset(
                                           option.notifIcon,
-                                          height: 24.h,
+                                          height: 24.w,
                                           width: 24.w,
                                           fit: BoxFit.contain,
                                         ),
@@ -217,7 +217,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 ),
                                 28.horizontalSpace,
                                 Container(
-                                  height: 11.h,
+                                  height: 11.w,
                                   width: 11.w,
                                   decoration: BoxDecoration(
                                     color: option.notifLabel,

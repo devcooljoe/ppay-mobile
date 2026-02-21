@@ -26,7 +26,7 @@ class _SelectBeneficiaryBottomsheetState
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -107,7 +107,7 @@ class _SelectBeneficiaryBottomsheetState
                                     ),
                                     5.horizontalSpace,
                                     SizedBox(
-                                      height: 7.h,
+                                      height: 7.w,
                                       width: 7.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/spacer.svg',
@@ -205,7 +205,7 @@ class _SelectBeneficiaryBottomsheetState
                                     ),
                                     5.horizontalSpace,
                                     SizedBox(
-                                      height: 7.h,
+                                      height: 7.w,
                                       width: 7.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/spacer.svg',
@@ -303,7 +303,7 @@ class _SelectBeneficiaryBottomsheetState
                                     ),
                                     5.horizontalSpace,
                                     SizedBox(
-                                      height: 7.h,
+                                      height: 7.w,
                                       width: 7.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/spacer.svg',
@@ -401,7 +401,7 @@ class _SelectBeneficiaryBottomsheetState
                                     ),
                                     5.horizontalSpace,
                                     SizedBox(
-                                      height: 7.h,
+                                      height: 7.w,
                                       width: 7.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/spacer.svg',

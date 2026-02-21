@@ -32,7 +32,7 @@ class _TransactionSuccessfulScreenState
                 children: [
                   100.verticalSpace,
                   SizedBox(
-                    height: 53.h,
+                    height: 53.w,
                     width: 53.w,
                     child: CircularProgressIndicator(
                       color: PPaymobileColors.buttonColor,
@@ -62,7 +62,7 @@ class _TransactionSuccessfulScreenState
                   ),
                   10.verticalSpace,
                   SizedBox(
-                    height: 120.h,
+                    height: 120.w,
                     width: 120.w,
                     child: Image.asset(
                       'assets/images/big_check.png',
@@ -92,7 +92,7 @@ class _TransactionSuccessfulScreenState
                   ),
                   10.verticalSpace,
                   SizedBox(
-                    height: 120.h,
+                    height: 120.w,
                     width: 120.w,
                     child: Image.asset(
                       'assets/images/big_fail.png',
@@ -122,7 +122,7 @@ class _TransactionSuccessfulScreenState
                   ),
                   10.verticalSpace,
                   SizedBox(
-                    height: 120.h,
+                    height: 120.w,
                     width: 120.w,
                     child: Image.asset(
                       'assets/images/big_pending.png',
@@ -224,7 +224,7 @@ class _TransactionSuccessfulScreenState
                             ),
                             7.horizontalSpace,
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/arrow_forward.svg',
@@ -303,7 +303,7 @@ class _TransactionSuccessfulScreenState
                             ),
                             7.horizontalSpace,
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/arrow_forward.svg',
@@ -390,7 +390,7 @@ class _TransactionSuccessfulScreenState
                             ),
                             7.horizontalSpace,
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/arrow_forward.svg',

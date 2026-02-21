@@ -52,7 +52,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         prefixIcon: SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/bank_search.svg',
@@ -105,7 +105,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                            height: 14.h,
+                            height: 14.w,
                             width: 14.w,
                             child: SvgPicture.asset(
                               'assets/icon/filter.svg',
@@ -161,7 +161,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                             return ListTile(
                               contentPadding: EdgeInsets.zero,
                               leading: Container(
-                                height: 50.h,
+                                height: 50.w,
                                 width: 50.w,
                                 padding: EdgeInsets.all(10).r,
                                 decoration: BoxDecoration(

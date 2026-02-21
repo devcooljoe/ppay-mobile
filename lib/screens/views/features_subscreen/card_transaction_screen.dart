@@ -37,7 +37,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -67,7 +67,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         prefixIcon: SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/bank_search.svg',
@@ -186,7 +186,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: 50.h,
+                                height: 50.w,
                                 width: 50.w,
                                 child: Image.asset(
                                   'assets/images/netflix1.png',
@@ -256,7 +256,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 50.h,
+                              height: 50.w,
                               width: 50.w,
                               child: Image.asset(
                                 'assets/images/logo1.png',
@@ -315,7 +315,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 50.h,
+                              height: 50.w,
                               width: 50.w,
                               child: Image.asset(
                                 'assets/images/apple1.png',
@@ -374,7 +374,7 @@ class _CardTransactionScreenState extends State<CardTransactionScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 50.h,
+                              height: 50.w,
                               width: 50.w,
                               child: Image.asset(
                                 'assets/images/amazon.png',

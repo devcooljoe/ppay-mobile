@@ -34,7 +34,7 @@ class _FlightCardScreenState extends State<FlightCardScreen> {
                   children: [
                     4.horizontalSpace,
                     Container(
-                      height: 47.h,
+                      height: 47.w,
                       width: 47.w,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -60,7 +60,7 @@ class _FlightCardScreenState extends State<FlightCardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                       child: SvgPicture.asset(
                         'assets/icon/time.svg',
@@ -114,7 +114,7 @@ class _FlightCardScreenState extends State<FlightCardScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/takeoff_2.svg',
@@ -150,7 +150,7 @@ class _FlightCardScreenState extends State<FlightCardScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/touchdown.svg',
@@ -207,7 +207,7 @@ class _FlightCardScreenState extends State<FlightCardScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 20.h,
+                        height: 20.w,
                         width: 20.w,
                         child: SvgPicture.asset(
                           'assets/icon/seat.svg',

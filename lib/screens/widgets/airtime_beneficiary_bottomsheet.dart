@@ -25,7 +25,7 @@ class _AirtimeBeneficiaryBottomsheetState
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -77,7 +77,7 @@ class _AirtimeBeneficiaryBottomsheetState
                         ),
                         child: Center(
                           child: Container(
-                            height: 31.h,
+                            height: 31.w,
                             width: 31.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -168,7 +168,7 @@ class _AirtimeBeneficiaryBottomsheetState
                         ),
                         child: Center(
                           child: Container(
-                            height: 31.h,
+                            height: 31.w,
                             width: 31.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -259,7 +259,7 @@ class _AirtimeBeneficiaryBottomsheetState
                         ),
                         child: Center(
                           child: Container(
-                            height: 31.h,
+                            height: 31.w,
                             width: 31.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -350,7 +350,7 @@ class _AirtimeBeneficiaryBottomsheetState
                         ),
                         child: Center(
                           child: Container(
-                            height: 31.h,
+                            height: 31.w,
                             width: 31.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,

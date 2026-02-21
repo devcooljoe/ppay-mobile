@@ -99,7 +99,7 @@ class _FlightTwoPinBottomsheetState extends State<FlightTwoPinBottomsheet> {
             child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,

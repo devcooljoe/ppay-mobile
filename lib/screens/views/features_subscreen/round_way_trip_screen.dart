@@ -68,7 +68,7 @@ class _RoundWayTripScreenState extends State<RoundWayTripScreen> {
                               children: [
                                 4.horizontalSpace,
                                 SizedBox(
-                                  height: 24.h,
+                                  height: 24.w,
                                   width: 24.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/takeoff_1.svg',
@@ -137,7 +137,7 @@ class _RoundWayTripScreenState extends State<RoundWayTripScreen> {
                               children: [
                                 4.horizontalSpace,
                                 SizedBox(
-                                  height: 24.h,
+                                  height: 24.w,
                                   width: 24.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/flight_down.svg',
@@ -257,7 +257,7 @@ class _RoundWayTripScreenState extends State<RoundWayTripScreen> {
                     children: [
                       SvgPicture.asset(
                         'assets/icon/calendar_1.svg',
-                        height: 18.h,
+                        height: 18.w,
                         width: 18.w,
                       ),
                       SizedBox(width: 8.w),

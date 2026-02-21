@@ -39,7 +39,7 @@ class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -66,7 +66,7 @@ class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       prefixIcon: SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/bank_search.svg',
@@ -123,7 +123,7 @@ class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 18.h,
+                          height: 18.w,
                           width: 18.w,
                           child: SvgPicture.asset(
                             'assets/icon/filter.svg',
@@ -195,7 +195,7 @@ class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      height: 45.h,
+                                      height: 45.w,
                                       width: 45.w,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,

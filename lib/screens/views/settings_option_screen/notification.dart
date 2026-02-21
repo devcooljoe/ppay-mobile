@@ -34,7 +34,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -101,7 +101,7 @@ Widget _notificationTile({
   return ListTile(
     contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
     leading: SizedBox(
-      height: 24.h,
+      height: 24.w,
       width: 24.w,
       child: SvgPicture.asset(svgImage, fit: BoxFit.contain),
     ),

@@ -28,7 +28,7 @@ class _CryptoSellSucessfulScreenState extends State<CryptoSellSucessfulScreen> {
                 children: [
                   122.verticalSpace,
                   SizedBox(
-                    height: 120.h,
+                    height: 120.w,
                     width: 120.w,
                     child: Image.asset(
                       'assets/images/big_check.png',
@@ -58,7 +58,7 @@ class _CryptoSellSucessfulScreenState extends State<CryptoSellSucessfulScreen> {
                   ),
                   10.verticalSpace,
                   SizedBox(
-                    height: 120.h,
+                    height: 120.w,
                     width: 120.w,
                     child: Image.asset(
                       'assets/images/big_fail.png',
@@ -88,7 +88,7 @@ class _CryptoSellSucessfulScreenState extends State<CryptoSellSucessfulScreen> {
                   ),
                   10.verticalSpace,
                   SizedBox(
-                    height: 120.h,
+                    height: 120.w,
                     width: 120.w,
                     child: Image.asset(
                       'assets/images/big_pending.png',

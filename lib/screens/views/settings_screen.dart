@@ -56,7 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: 68.h,
+                    height: 68.w,
                     width: 68.w,
                     color: Colors.transparent,
                     child: Stack(
@@ -85,7 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             radius: 8.r,
                             child: Center(
                               child: SizedBox(
-                                height: 12.h,
+                                height: 12.w,
                                 width: 12.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/edit.svg',
@@ -133,7 +133,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 19.h,
+                        height: 19.w,
                         width: 19.w,
                         child: Center(
                           child: Image.asset(
@@ -211,7 +211,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -271,7 +271,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -355,7 +355,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -440,7 +440,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -498,7 +498,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -549,7 +549,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                height: 38.h,
+                                height: 38.w,
                                 width: 38.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(19.r),
@@ -620,7 +620,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -705,7 +705,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -788,7 +788,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -873,7 +873,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -933,7 +933,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -993,7 +993,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 38.h,
+                                  height: 38.w,
                                   width: 38.w,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(19.r),
@@ -1069,7 +1069,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                height: 38.h,
+                                height: 38.w,
                                 width: 38.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(19.r),

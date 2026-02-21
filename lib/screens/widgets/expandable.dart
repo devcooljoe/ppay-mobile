@@ -46,7 +46,7 @@ class _SupportExpandableState extends State<SupportExpandable> {
           title: Row(
             children: [
               SizedBox(
-                height: 20.h,
+                height: 20.w,
                 width: 20.w,
                 child: SvgPicture.asset(widget.svgImage),
               ),
@@ -62,7 +62,7 @@ class _SupportExpandableState extends State<SupportExpandable> {
             ],
           ),
           trailing: SizedBox(
-            height: 20.h,
+            height: 20.w,
             width: 20.w,
             child: SvgPicture.asset(
               _isExpanded

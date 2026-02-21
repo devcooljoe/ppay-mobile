@@ -24,7 +24,7 @@ class _SelectRegionBottomsheetState extends State<SelectRegionBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -99,7 +99,7 @@ class _SelectRegionBottomsheetState extends State<SelectRegionBottomsheet> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 23.h,
+                                height: 23.w,
                                 width: 23.w,
                                 child: Image.asset(
                                   'assets/images/nigeria_flag.png',
@@ -119,7 +119,7 @@ class _SelectRegionBottomsheetState extends State<SelectRegionBottomsheet> {
                             ],
                           ),
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/indicator.svg',
@@ -138,7 +138,7 @@ class _SelectRegionBottomsheetState extends State<SelectRegionBottomsheet> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 23.h,
+                                height: 23.w,
                                 width: 23.w,
                                 child: Image.asset(
                                   'assets/images/nigeria_flag.png',
@@ -158,7 +158,7 @@ class _SelectRegionBottomsheetState extends State<SelectRegionBottomsheet> {
                             ],
                           ),
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/check_circle.svg',

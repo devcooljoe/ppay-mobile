@@ -80,7 +80,7 @@ class _TermsAndConditionsActionBarState
                     if (agreed) ...[
                       10.horizontalSpace,
                       SizedBox(
-                        height: 16.h,
+                        height: 16.w,
                         width: 16.w,
                         child: SvgPicture.asset(
                           'assets/icon/tick.svg',

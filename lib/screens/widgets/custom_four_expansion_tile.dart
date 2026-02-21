@@ -40,7 +40,7 @@ class _CustomFourExpansionTileState extends State<CustomFourExpansionTile> {
             ),
             trailing: _expanded
                 ? SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/minus.svg',
@@ -48,7 +48,7 @@ class _CustomFourExpansionTileState extends State<CustomFourExpansionTile> {
                     ),
                   )
                 : SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/add.svg',

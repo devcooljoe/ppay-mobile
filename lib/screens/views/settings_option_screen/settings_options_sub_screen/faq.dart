@@ -29,7 +29,7 @@ class _FaqTabState extends State<FaqTab> {
                 vertical: 14.w,
               ),
               prefixIcon: SizedBox(
-                height: 24.h,
+                height: 24.w,
                 width: 24.w,
                 child: SvgPicture.asset(
                   'assets/icon/bank_search.svg',

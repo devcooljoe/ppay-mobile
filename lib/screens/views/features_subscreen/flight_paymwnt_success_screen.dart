@@ -29,7 +29,7 @@ class _FlightPaymwntSuccessScreenState
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  height: 74.h,
+                  height: 74.w,
                   width: 74.w,
                   child: Image.asset(
                     'assets/images/big_check.png', // this is replaced with 'assets/images/big_pending.png' for pending and 'assets/images/big_fail.png' for failed

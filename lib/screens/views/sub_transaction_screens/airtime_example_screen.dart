@@ -35,7 +35,7 @@ class _AirtimeExampleScreenState extends State<AirtimeExampleScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -108,7 +108,7 @@ class _AirtimeExampleScreenState extends State<AirtimeExampleScreen> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: 16.h,
+                                        height: 16.w,
                                         width: 16.w,
                                         child: SvgPicture.asset(
                                           'assets/icon/pending.svg',
@@ -142,7 +142,7 @@ class _AirtimeExampleScreenState extends State<AirtimeExampleScreen> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: 16.h,
+                                        height: 16.w,
                                         width: 16.w,
                                         child: SvgPicture.asset(
                                           'assets/icon/reserved.svg',
@@ -175,7 +175,7 @@ class _AirtimeExampleScreenState extends State<AirtimeExampleScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: 16.h,
+                                    height: 16.w,
                                     width: 16.w,
                                     child: SvgPicture.asset(
                                       'assets/icon/danger.svg',
@@ -322,7 +322,7 @@ class _AirtimeExampleScreenState extends State<AirtimeExampleScreen> {
                             ),
                             6.horizontalSpace,
                             SizedBox(
-                              height: 20.h,
+                              height: 20.w,
                               width: 20.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste.svg',

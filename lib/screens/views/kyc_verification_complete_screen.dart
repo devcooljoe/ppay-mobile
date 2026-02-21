@@ -23,7 +23,7 @@ class _KycVerificationCompleteScreenState
         children: [
           91.verticalSpace,
           SizedBox(
-            height: 158.h,
+            height: 158.w,
             width: 158.w,
             child: Image.asset(
               'assets/images/complete.png',

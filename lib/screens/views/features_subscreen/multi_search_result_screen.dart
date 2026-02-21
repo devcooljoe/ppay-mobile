@@ -39,7 +39,7 @@ class _MultiSearchResultScreenState extends State<MultiSearchResultScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -642,7 +642,7 @@ class _MultiSearchResultScreenState extends State<MultiSearchResultScreen> {
                           children: [
                             4.horizontalSpace,
                             Container(
-                              height: 47.h,
+                              height: 47.w,
                               width: 47.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100.r),
@@ -1242,7 +1242,7 @@ class _MultiSearchResultScreenState extends State<MultiSearchResultScreen> {
                           children: [
                             4.horizontalSpace,
                             Container(
-                              height: 47.h,
+                              height: 47.w,
                               width: 47.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100.r),

@@ -39,7 +39,7 @@ class _CustomTwoExpansionTileState extends State<CustomTwoExpansionTile> {
             ),
             trailing: _expanded
                 ? SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/minus.svg',
@@ -47,7 +47,7 @@ class _CustomTwoExpansionTileState extends State<CustomTwoExpansionTile> {
                     ),
                   )
                 : SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/add.svg',

@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 3.horizontalSpace,
                 SizedBox(
-                  height: 17.h,
+                  height: 17.w,
                   width: 17.w,
                   child: Image.asset(
                     'assets/images/thumbs.png',
@@ -195,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               8.horizontalSpace,
                               SizedBox(
-                                height: 25.h,
+                                height: 25.w,
                                 width: 25.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/eye-slash.svg',
@@ -386,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/warning.svg',
@@ -432,7 +432,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/tick_pass.svg',
@@ -454,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         8.horizontalSpace,
                         SizedBox(
-                          height: 28.h,
+                          height: 28.w,
                           width: 28.w,
                           child: SvgPicture.asset(
                             'assets/icon/cancel.svg',
@@ -486,7 +486,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/danger.svg',
@@ -508,7 +508,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       8.horizontalSpace,
                       SizedBox(
-                        height: 28.h,
+                        height: 28.w,
                         width: 28.w,
                         child: SvgPicture.asset(
                           'assets/icon/cancel.svg',

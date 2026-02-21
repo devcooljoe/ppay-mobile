@@ -56,7 +56,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -95,7 +95,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: 76.h,
+                  height: 76.w,
                   width: 76.w,
                   padding: EdgeInsets.all(13).r,
                   decoration: BoxDecoration(
@@ -103,7 +103,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                     color: PPaymobileColors.doneColor,
                   ),
                   child: SizedBox(
-                    height: 42.h,
+                    height: 42.w,
                     width: 42.w,
                     child: SvgPicture.asset(
                       'assets/icon/padlock.svg',
@@ -189,7 +189,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                         ),
                         7.horizontalSpace,
                         SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/arrow_forwardw.svg',

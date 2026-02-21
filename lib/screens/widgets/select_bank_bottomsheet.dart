@@ -24,7 +24,7 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -72,7 +72,7 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         prefixIcon: SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/bank_search.svg',
@@ -114,7 +114,7 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
                           minLeadingWidth: 0,
 
                           leading: SizedBox(
-                            height: 28.h,
+                            height: 28.w,
                             width: 28.w,
                             child: Image.asset(
                               banksModel[index].bankImage,

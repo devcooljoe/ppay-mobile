@@ -23,7 +23,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -115,7 +115,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 20.h,
+                                  height: 20.w,
                                   width: 20.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/arrow_down.svg',
@@ -208,7 +208,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
                                             MainAxisAlignment.start,
                                         children: [
                                           SizedBox(
-                                            height: 24.h,
+                                            height: 24.w,
                                             width: 24.w,
                                             child: SvgPicture.asset(
                                               'assets/icon/like.svg',
@@ -234,7 +234,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
                                             MainAxisAlignment.start,
                                         children: [
                                           SizedBox(
-                                            height: 24.h,
+                                            height: 24.w,
                                             width: 24.w,
                                             child: SvgPicture.asset(
                                               'assets/icon/dislike.svg',
@@ -348,7 +348,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
                                             MainAxisAlignment.start,
                                         children: [
                                           SizedBox(
-                                            height: 24.h,
+                                            height: 24.w,
                                             width: 24.w,
                                             child: SvgPicture.asset(
                                               'assets/icon/like.svg',
@@ -374,7 +374,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
                                             MainAxisAlignment.start,
                                         children: [
                                           SizedBox(
-                                            height: 24.h,
+                                            height: 24.w,
                                             width: 24.w,
                                             child: SvgPicture.asset(
                                               'assets/icon/dislike.svg',
@@ -488,7 +488,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
                                             MainAxisAlignment.start,
                                         children: [
                                           SizedBox(
-                                            height: 24.h,
+                                            height: 24.w,
                                             width: 24.w,
                                             child: SvgPicture.asset(
                                               'assets/icon/like.svg',
@@ -514,7 +514,7 @@ class _ReviewBottomsheetState extends State<ReviewBottomsheet> {
                                             MainAxisAlignment.start,
                                         children: [
                                           SizedBox(
-                                            height: 24.h,
+                                            height: 24.w,
                                             width: 24.w,
                                             child: SvgPicture.asset(
                                               'assets/icon/dislike.svg',

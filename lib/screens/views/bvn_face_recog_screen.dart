@@ -36,7 +36,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
@@ -55,7 +55,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
               children: [
                 90.verticalSpace,
                 SizedBox(
-                  height: 333.h,
+                  height: 333.w,
                   width: 333.w,
                   child: Image.asset('assets/images/face_capture.png'),
                 ),
@@ -79,7 +79,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
                     ),
                   ),
                   child: SizedBox(
-                    height: 95.h,
+                    height: 95.w,
                     width: 95.w,
                     child: Image.asset(
                       'assets/images/twenty.png',
@@ -107,7 +107,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
                     ),
                   ),
                   child: SizedBox(
-                    height: 95.h,
+                    height: 95.w,
                     width: 95.w,
                     child: Image.asset(
                       'assets/images/sixty.png',
@@ -135,7 +135,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
                     ),
                   ),
                   child: SizedBox(
-                    height: 95.h,
+                    height: 95.w,
                     width: 95.w,
                     child: Image.asset(
                       'assets/images/ninety.png',
@@ -163,7 +163,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
                     ),
                   ),
                   child: SizedBox(
-                    height: 95.h,
+                    height: 95.w,
                     width: 95.w,
                     child: Image.asset(
                       'assets/images/hundred.png',
@@ -173,7 +173,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
                 ),
                 24.verticalSpace,
                 SizedBox(
-                  height: 333.h,
+                  height: 333.w,
                   width: 333.w,
                   child: Image.asset('assets/images/face_capture_error.png'),
                 ),
@@ -197,7 +197,7 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
                     ),
                   ),
                   child: SizedBox(
-                    height: 95.h,
+                    height: 95.w,
                     width: 95.w,
                     child: Image.asset(
                       'assets/images/redo.png',

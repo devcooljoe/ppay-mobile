@@ -27,7 +27,7 @@ class _PurchaseDollarcardBottomsheetState
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -99,7 +99,7 @@ class _PurchaseDollarcardBottomsheetState
                       ),
                       7.horizontalSpace,
                       SizedBox(
-                        height: 16.h,
+                        height: 16.w,
                         width: 16.w,
                         child: SvgPicture.asset(
                           'assets/icon/equiv.svg',
@@ -169,7 +169,7 @@ class _PurchaseDollarcardBottomsheetState
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            height: 59.h,
+                            height: 59.w,
                             width: 59.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,

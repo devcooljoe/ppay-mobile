@@ -37,7 +37,7 @@ class _BankAccountsState extends State<BankAccounts> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -103,7 +103,7 @@ class _BankAccountsState extends State<BankAccounts> {
                           borderRadius: BorderRadius.circular(2.r),
                         ),
                         child: SizedBox(
-                          height: 28.h,
+                          height: 28.w,
                           width: 28.w,
                           child: Image.asset(
                             bank.bankImage,

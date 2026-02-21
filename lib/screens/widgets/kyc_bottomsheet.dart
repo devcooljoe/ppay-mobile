@@ -164,7 +164,7 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                                     ),
                                   ),
                                   trailing: SizedBox(
-                                    height: 28.h,
+                                    height: 28.w,
                                     width: 28.w,
                                     child: SvgPicture.asset(
                                       kycVerificationReq[index].trailingIcon,
@@ -190,7 +190,7 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                     child: Row(
                       children: [
                         SizedBox(
-                          height: 17.h,
+                          height: 17.w,
                           width: 17.w,
                           child: SizedBox(
                             height: 14.h,

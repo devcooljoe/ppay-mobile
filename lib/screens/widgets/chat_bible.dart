@@ -55,7 +55,7 @@ class ChatBubble extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 19.h,
+                              height: 19.w,
                               width: 19.w,
                               child: SvgPicture.asset(
                                 'assets/icon/double_tick.svg',
@@ -89,7 +89,7 @@ class ChatBubble extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        height: 36.h,
+                        height: 36.w,
                         width: 36.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18).r,
@@ -97,7 +97,7 @@ class ChatBubble extends StatelessWidget {
                         ),
                         child: Center(
                           child: SizedBox(
-                            height: 20.h,
+                            height: 20.w,
                             width: 20.w,
                             child: SvgPicture.asset(
                               'assets/icon/support_white.svg',
@@ -150,7 +150,7 @@ class ChatBubble extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: 19.h,
+                        height: 19.w,
                         width: 19.w,
                         child: SvgPicture.asset(
                           'assets/icon/double_tick.svg',

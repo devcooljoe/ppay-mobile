@@ -36,7 +36,7 @@ class _PassengerDetailsScreenState extends State<PassengerDetailsScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -199,7 +199,7 @@ class _PassengerDetailsScreenState extends State<PassengerDetailsScreen> {
                             children: [
                               SvgPicture.asset(
                                 'assets/icon/calendar.svg',
-                                height: 18.h,
+                                height: 18.w,
                                 width: 18.w,
                               ),
                               SizedBox(width: 8.w),

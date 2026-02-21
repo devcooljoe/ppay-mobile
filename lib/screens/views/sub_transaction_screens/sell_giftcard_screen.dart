@@ -35,7 +35,7 @@ class _SellGiftcardScreenState extends State<SellGiftcardScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -168,7 +168,7 @@ class _SellGiftcardScreenState extends State<SellGiftcardScreen> {
                         Row(
                           children: [
                             SizedBox(
-                              height: 23.h,
+                              height: 23.w,
                               width: 23.w,
                               child: Image.asset(
                                 'assets/images/usa_flag.png',
@@ -215,7 +215,7 @@ class _SellGiftcardScreenState extends State<SellGiftcardScreen> {
                             ),
                             6.horizontalSpace,
                             SizedBox(
-                              height: 20.h,
+                              height: 20.w,
                               width: 20.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste.svg',

@@ -73,7 +73,7 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                     child: Row(
                       children: [
                         SizedBox(
-                          height: 14.h,
+                          height: 14.w,
                           width: 14.w,
                           child: SvgPicture.asset(
                             'assets/icon/calendar.svg',

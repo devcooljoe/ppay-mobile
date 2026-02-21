@@ -26,7 +26,7 @@ class _SettingUpFingerprintState extends State<SettingUpFingerprint> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
@@ -61,7 +61,7 @@ class _SettingUpFingerprintState extends State<SettingUpFingerprint> {
               left: -25.w,
               right: -25.w,
               child: SizedBox(
-                height: 490.h,
+                height: 490.w,
                 width: 490.w,
                 child: Image.asset(
                   'assets/images/fingerprint_line3.png',
@@ -74,7 +74,7 @@ class _SettingUpFingerprintState extends State<SettingUpFingerprint> {
               left: 51.w,
               right: 51.w,
               child: SizedBox(
-                height: 338.h,
+                height: 338.w,
                 width: 338.w,
                 child: Image.asset(
                   'assets/images/fingerprint_line2.png',
@@ -87,7 +87,7 @@ class _SettingUpFingerprintState extends State<SettingUpFingerprint> {
               left: 105.w,
               right: 105.w,
               child: SizedBox(
-                height: 230.h,
+                height: 230.w,
                 width: 230.w,
                 child: Image.asset(
                   'assets/images/fingerprint_line1.png',
@@ -100,7 +100,7 @@ class _SettingUpFingerprintState extends State<SettingUpFingerprint> {
               left: 158.w,
               right: 158.w,
               child: SizedBox(
-                height: 123.h,
+                height: 123.w,
                 width: 123.w,
                 child: Image.asset(
                   'assets/images/fingerprint_green.png',

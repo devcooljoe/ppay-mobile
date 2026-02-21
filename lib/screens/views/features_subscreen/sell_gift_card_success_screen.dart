@@ -27,7 +27,7 @@ class _SellGiftCardSuccessScreenState extends State<SellGiftCardSuccessScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -44,7 +44,7 @@ class _SellGiftCardSuccessScreenState extends State<SellGiftCardSuccessScreen> {
             children: [
               142.verticalSpace,
               SizedBox(
-                height: 120.h,
+                height: 120.w,
                 width: 120.w,
                 child: Image.asset(
                   'assets/images/big_check.png',
@@ -212,7 +212,7 @@ class _SellGiftCardSuccessScreenState extends State<SellGiftCardSuccessScreen> {
               // for other cases of transaction below
               15.verticalSpace,
               SizedBox(
-                height: 120.h,
+                height: 120.w,
                 width: 120.w,
                 child: Image.asset(
                   'assets/images/big_pending.png',

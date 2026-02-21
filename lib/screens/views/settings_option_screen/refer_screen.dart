@@ -35,7 +35,7 @@ class _ReferScreenState extends State<ReferScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
@@ -161,7 +161,7 @@ class _ReferScreenState extends State<ReferScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        height: 33.h,
+                        height: 33.w,
                         width: 33.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.5).r,
@@ -172,7 +172,7 @@ class _ReferScreenState extends State<ReferScreen> {
                         ),
                         child: Center(
                           child: SizedBox(
-                            height: 20.h,
+                            height: 20.w,
                             width: 20.w,
                             child: SvgPicture.asset(
                               'assets/icon/link.svg',
@@ -205,7 +205,7 @@ class _ReferScreenState extends State<ReferScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        height: 33.h,
+                        height: 33.w,
                         width: 33.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.5).r,
@@ -216,7 +216,7 @@ class _ReferScreenState extends State<ReferScreen> {
                         ),
                         child: Center(
                           child: SizedBox(
-                            height: 20.h,
+                            height: 20.w,
                             width: 20.w,
                             child: SvgPicture.asset(
                               'assets/icon/signin.svg',
@@ -249,7 +249,7 @@ class _ReferScreenState extends State<ReferScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        height: 33.h,
+                        height: 33.w,
                         width: 33.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.5).r,
@@ -260,7 +260,7 @@ class _ReferScreenState extends State<ReferScreen> {
                         ),
                         child: Center(
                           child: SizedBox(
-                            height: 20.h,
+                            height: 20.w,
                             width: 20.w,
                             child: SvgPicture.asset(
                               'assets/icon/money.svg',

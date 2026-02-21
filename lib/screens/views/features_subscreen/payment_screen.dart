@@ -48,7 +48,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -100,7 +100,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                             child: Center(
                               child: SizedBox(
-                                height: 23.h,
+                                height: 23.w,
                                 width: 23.w,
                                 child: Image.asset(
                                   'assets/images/flag.png',
@@ -182,7 +182,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 35.h,
+                        height: 35.w,
                         width: 35.w,
                         child: Image.asset(
                           'assets/images/location.png',
@@ -234,7 +234,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 16.h,
+                      height: 16.w,
                       width: 16.w,
                       child: SvgPicture.asset(
                         'assets/icon/box.svg',
@@ -308,7 +308,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 );
                               },
                               child: SizedBox(
-                                height: 24.h,
+                                height: 24.w,
                                 width: 24.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/cancel.svg',
@@ -334,7 +334,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           ),
                           9.horizontalSpace,
                           SizedBox(
-                            height: 7.h,
+                            height: 7.w,
                             width: 7.w,
                             child: SvgPicture.asset(
                               'assets/icon/indicator_1.svg',
@@ -411,7 +411,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 );
                               },
                               child: SizedBox(
-                                height: 24.h,
+                                height: 24.w,
                                 width: 24.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/cancel.svg',
@@ -437,7 +437,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           ),
                           9.horizontalSpace,
                           SizedBox(
-                            height: 7.h,
+                            height: 7.w,
                             width: 7.w,
                             child: SvgPicture.asset(
                               'assets/icon/indicator_1.svg',

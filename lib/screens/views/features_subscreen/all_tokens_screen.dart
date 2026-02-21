@@ -48,7 +48,7 @@ class _AllTokensScreenState extends State<AllTokensScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            height: 45.h,
+                            height: 45.w,
                             width: 45.w,
                             decoration: BoxDecoration(shape: BoxShape.circle),
                             child: Image.asset(
@@ -100,7 +100,7 @@ class _AllTokensScreenState extends State<AllTokensScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               SizedBox(
-                                height: 13.h,
+                                height: 13.w,
                                 width: 13.w,
                                 child: SvgPicture.asset(
                                   crypto.cryptoStatusIcon,

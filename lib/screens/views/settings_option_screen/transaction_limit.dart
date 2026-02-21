@@ -35,7 +35,7 @@ class _TransactionLimitState extends State<TransactionLimit> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -96,7 +96,7 @@ class _TransactionLimitState extends State<TransactionLimit> {
                             ),
                             12.horizontalSpace,
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/copy_black.svg',
@@ -120,7 +120,7 @@ class _TransactionLimitState extends State<TransactionLimit> {
                             ),
                             7.horizontalSpace,
                             SizedBox(
-                              height: 11.h,
+                              height: 11.w,
                               width: 11.w,
                               child: SvgPicture.asset(
                                 'assets/icon/big_dot.svg',
@@ -145,7 +145,7 @@ class _TransactionLimitState extends State<TransactionLimit> {
                   Column(
                     children: [
                       SizedBox(
-                        height: 57.h,
+                        height: 57.w,
                         width: 57.w,
                         child: Image.asset(
                           'assets/images/tier_award.png',

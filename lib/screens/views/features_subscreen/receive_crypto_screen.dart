@@ -38,7 +38,7 @@ class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -111,7 +111,7 @@ class _ReceiveCryptoScreenState extends State<ReceiveCryptoScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                height: 36.h,
+                                height: 36.w,
                                 width: 36.w,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,

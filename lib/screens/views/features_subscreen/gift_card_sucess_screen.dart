@@ -24,7 +24,7 @@ class _GiftCardSucessScreenState extends State<GiftCardSucessScreen> {
             children: [
               142.verticalSpace,
               SizedBox(
-                height: 120.h,
+                height: 120.w,
                 width: 120.w,
                 child: Image.asset(
                   'assets/images/big_check.png',
@@ -168,7 +168,7 @@ class _GiftCardSucessScreenState extends State<GiftCardSucessScreen> {
               // for other cases of transaction below
               15.verticalSpace,
               SizedBox(
-                height: 120.h,
+                height: 120.w,
                 width: 120.w,
                 child: Image.asset(
                   'assets/images/big_pending.png',

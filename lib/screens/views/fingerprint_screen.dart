@@ -23,7 +23,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               top: 50.h,
               left: 20.w,
               child: SizedBox(
-                height: 24.h,
+                height: 24.w,
                 width: 24.w,
                 child: TouchOpacity(
                   onTap: () {
@@ -41,7 +41,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               left: -25.w,
               right: -25.w,
               child: SizedBox(
-                height: 490.h,
+                height: 490.w,
                 width: 490.w,
                 child: Image.asset(
                   'assets/images/line_3.png',
@@ -54,7 +54,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               left: 51.w,
               right: 51.w,
               child: SizedBox(
-                height: 338.h,
+                height: 338.w,
                 width: 338.w,
                 child: Image.asset(
                   'assets/images/line_2.png',
@@ -67,7 +67,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               left: 105.w,
               right: 105.w,
               child: SizedBox(
-                height: 230.h,
+                height: 230.w,
                 width: 230.w,
                 child: Image.asset(
                   'assets/images/line_1.png',
@@ -80,7 +80,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               left: 158.w,
               right: 158.w,
               child: SizedBox(
-                height: 130.h,
+                height: 130.w,
                 width: 130.w,
                 child: Image.asset(
                   'assets/images/big_fingerprint.png',

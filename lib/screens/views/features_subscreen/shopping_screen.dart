@@ -42,7 +42,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -66,7 +66,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                     );
                   },
                   child: SizedBox(
-                    height: 40.h,
+                    height: 40.w,
                     width: 40.w,
                     child: Image.asset(
                       'assets/images/favorite.png',
@@ -76,7 +76,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                 ),
                 14.horizontalSpace,
                 SizedBox(
-                  height: 40.h,
+                  height: 40.w,
                   width: 40.w,
                   child: Image.asset(
                     'assets/images/cart.png',
@@ -103,7 +103,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     prefixIcon: SizedBox(
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                       child: SvgPicture.asset(
                         'assets/icon/bank_search.svg',
@@ -187,7 +187,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                 (index) => AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   margin: EdgeInsets.symmetric(horizontal: 11.w),
-                  height: 13.h,
+                  height: 13.w,
                   width: 13.w,
                   decoration: BoxDecoration(
                     color: _currentIndex == index
@@ -326,7 +326,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 15.w,
                                   width: 15.w,
                                   child: Image.asset(
                                     'assets/images/star.png',
@@ -380,7 +380,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 15.w,
                                   width: 15.w,
                                   child: Image.asset(
                                     'assets/images/star.png',
@@ -443,7 +443,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 15.w,
                                   width: 15.w,
                                   child: Image.asset(
                                     'assets/images/star.png',
@@ -497,7 +497,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 15.w,
                                   width: 15.w,
                                   child: Image.asset(
                                     'assets/images/star.png',

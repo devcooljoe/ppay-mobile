@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   45.verticalSpace,
                   Container(
-                    height: 68.h,
+                    height: 68.w,
                     width: 68.w,
                     color: Colors.transparent,
                     child: Stack(
@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             radius: 8.r,
                             child: Center(
                               child: SizedBox(
-                                height: 12.h,
+                                height: 12.w,
                                 width: 12.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/edit.svg',
@@ -148,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         children: [
                           SizedBox(
-                            height: 19.h,
+                            height: 19.w,
                             width: 19.w,
                             child: Image.asset(
                               'assets/images/award.png',
@@ -203,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Row(
                           children: [
                             SizedBox(
-                              height: 12.h,
+                              height: 12.w,
                               width: 12.w,
                               child: SvgPicture.asset(
                                 'assets/icon/check.svg',
@@ -339,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           6.horizontalSpace,
                           SizedBox(
-                            height: 20.h,
+                            height: 20.w,
                             width: 20.w,
                             child: SvgPicture.asset(
                               'assets/icon/paste.svg',

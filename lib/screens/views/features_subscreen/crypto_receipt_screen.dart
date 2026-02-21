@@ -35,7 +35,7 @@ class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -55,12 +55,12 @@ class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 83.h,
+                    height: 83.w,
                     width: 83.w,
                     child: Stack(
                       children: [
                         Container(
-                          height: 82.h,
+                          height: 82.w,
                           width: 82.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -74,7 +74,7 @@ class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
                           top: 57.h,
                           left: 56.5.w,
                           child: SizedBox(
-                            height: 26.h,
+                            height: 26.w,
                             width: 26.w,
                             child: Image.asset(
                               'assets/images/cryptostatus.png',
@@ -217,7 +217,7 @@ class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
                           ),
                           16.horizontalSpace,
                           SizedBox(
-                            height: 20.h,
+                            height: 20.w,
                             width: 20.w,
                             child: SvgPicture.asset(
                               'assets/icon/paste_black1.svg',
@@ -278,7 +278,7 @@ class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
                           ),
                           6.horizontalSpace,
                           SizedBox(
-                            height: 17.h,
+                            height: 17.w,
                             width: 17.w,
                             child: SvgPicture.asset(
                               'assets/icon/swap.svg',
@@ -315,7 +315,7 @@ class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/share_fill.svg',
@@ -356,7 +356,7 @@ class _CryptoReceiptScreenState extends State<CryptoReceiptScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/download.svg',

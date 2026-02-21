@@ -39,7 +39,7 @@ class _ConfirmGiftCardSellScreenState extends State<ConfirmGiftCardSellScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -240,7 +240,7 @@ class _ConfirmGiftCardSellScreenState extends State<ConfirmGiftCardSellScreen> {
                                 ),
                                 6.horizontalSpace,
                                 SizedBox(
-                                  height: 16.h,
+                                  height: 16.w,
                                   width: 16.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/equiv.svg',
@@ -354,7 +354,7 @@ class _ConfirmGiftCardSellScreenState extends State<ConfirmGiftCardSellScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 19.h,
+                      height: 19.w,
                       width: 19.w,
                       child: SvgPicture.asset(
                         'assets/icon/warning.svg',
@@ -474,7 +474,7 @@ class _ConfirmGiftCardSellScreenState extends State<ConfirmGiftCardSellScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
-                    height: 20.h,
+                    height: 20.w,
                     width: 20.w,
                     child: SvgPicture.asset(
                       'assets/icon/padlock_1.svg',

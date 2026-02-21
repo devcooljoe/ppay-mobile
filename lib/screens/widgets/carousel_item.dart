@@ -93,7 +93,7 @@ class _CarouselItemState extends State<CarouselItem> {
                     ),
                     7.horizontalSpace,
                     SizedBox(
-                      height: 19.h,
+                      height: 19.w,
                       width: 19.w,
                       child: SvgPicture.asset(widget.containerSvg),
                     ),

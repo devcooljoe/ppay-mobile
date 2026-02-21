@@ -26,7 +26,7 @@ class _PasswordChangedState extends State<PasswordChanged> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -50,7 +50,7 @@ class _PasswordChangedState extends State<PasswordChanged> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 140.h,
+                          height: 140.w,
                           width: 140.w,
                           child: Image.asset(
                             'assets/images/password.png',

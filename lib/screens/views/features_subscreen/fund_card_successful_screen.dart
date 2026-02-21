@@ -30,7 +30,7 @@ class _FundCardSuccessfulScreenState extends State<FundCardSuccessfulScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 120.h,
+                    height: 120.w,
                     width: 120.w,
                     child: Image.asset(
                       'assets/images/success1.png',
@@ -103,7 +103,7 @@ class _FundCardSuccessfulScreenState extends State<FundCardSuccessfulScreen> {
                           ),
                           7.horizontalSpace,
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/arrow_forwardw.svg',

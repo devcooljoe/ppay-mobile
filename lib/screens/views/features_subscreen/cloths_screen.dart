@@ -37,7 +37,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -61,7 +61,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                     );
                   },
                   child: SizedBox(
-                    height: 40.h,
+                    height: 40.w,
                     width: 40.w,
                     child: Image.asset(
                       'assets/images/favorite.png',
@@ -71,7 +71,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                 ),
                 14.horizontalSpace,
                 SizedBox(
-                  height: 40.h,
+                  height: 40.w,
                   width: 40.w,
                   child: Image.asset(
                     'assets/images/cart.png',
@@ -100,7 +100,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         prefixIcon: SizedBox(
-                          height: 19.h,
+                          height: 19.w,
                           width: 19.w,
                           child: SvgPicture.asset(
                             'assets/icon/bank_search.svg',
@@ -157,7 +157,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                              height: 14.h,
+                              height: 14.w,
                               width: 14.w,
                               child: SvgPicture.asset(
                                 'assets/icon/filter.svg',
@@ -216,7 +216,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 15.w,
                                   width: 15.w,
                                   child: Image.asset(
                                     'assets/images/star.png',
@@ -302,7 +302,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: 15.h,
+                                    height: 15.w,
                                     width: 15.w,
                                     child: Image.asset(
                                       'assets/images/star.png',
@@ -386,7 +386,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 15.w,
                                   width: 15.w,
                                   child: Image.asset(
                                     'assets/images/star.png',
@@ -463,7 +463,7 @@ class _ClothsScreenState extends State<ClothsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 15.w,
                                   width: 15.w,
                                   child: Image.asset(
                                     'assets/images/star.png',

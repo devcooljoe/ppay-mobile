@@ -36,7 +36,7 @@ class _ElectricityReceiptScreenState extends State<ElectricityReceiptScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -111,7 +111,7 @@ class _ElectricityReceiptScreenState extends State<ElectricityReceiptScreen> {
                       left: 166.w,
                       right: 166.w,
                       child: SizedBox(
-                        height: 67.h,
+                        height: 67.w,
                         width: 67.w,
                         child: Image.asset(
                           'assets/images/aedc_1.png',
@@ -248,7 +248,7 @@ class _ElectricityReceiptScreenState extends State<ElectricityReceiptScreen> {
                             ),
                             7.horizontalSpace,
                             SizedBox(
-                              height: 21.h,
+                              height: 21.w,
                               width: 21.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste_black1.svg',
@@ -353,7 +353,7 @@ class _ElectricityReceiptScreenState extends State<ElectricityReceiptScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                       child: SvgPicture.asset('assets/icon/share_white.svg'),
                     ),

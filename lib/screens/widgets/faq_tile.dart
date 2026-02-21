@@ -37,7 +37,7 @@ class _FaqTileState extends State<FaqTile> {
             });
           },
           trailing: SizedBox(
-            height: 20.h,
+            height: 20.w,
             width: 20.w,
             child: SvgPicture.asset(
               _isExpanded ? 'assets/icon/minus.svg' : 'assets/icon/add.svg',

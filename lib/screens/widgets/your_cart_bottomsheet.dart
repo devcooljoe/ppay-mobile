@@ -27,7 +27,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
             child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -113,7 +113,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                         );
                                       },
                                       child: SizedBox(
-                                        height: 24.h,
+                                        height: 24.w,
                                         width: 24.w,
                                         child: SvgPicture.asset(
                                           'assets/icon/cancel.svg',
@@ -148,7 +148,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                   ),
                                   42.horizontalSpace,
                                   Container(
-                                    height: 25.h,
+                                    height: 25.w,
                                     width: 25.w,
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
@@ -180,7 +180,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                   ),
                                   11.horizontalSpace,
                                   Container(
-                                    height: 25.h,
+                                    height: 25.w,
                                     width: 25.w,
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
@@ -192,7 +192,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                       ),
                                     ),
                                     child: SizedBox(
-                                      height: 9.h,
+                                      height: 9.w,
                                       width: 9.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/add.svg',
@@ -242,7 +242,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                     ),
                                     30.verticalSpace,
                                     SizedBox(
-                                      height: 24.h,
+                                      height: 24.w,
                                       width: 24.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/cancel.svg',
@@ -276,7 +276,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                   ),
                                   42.horizontalSpace,
                                   Container(
-                                    height: 25.h,
+                                    height: 25.w,
                                     width: 25.w,
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
@@ -308,7 +308,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                   ),
                                   11.horizontalSpace,
                                   Container(
-                                    height: 25.h,
+                                    height: 25.w,
                                     width: 25.w,
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
@@ -320,7 +320,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                       ),
                                     ),
                                     child: SizedBox(
-                                      height: 9.h,
+                                      height: 9.w,
                                       width: 9.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/add.svg',

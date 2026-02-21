@@ -40,7 +40,7 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -118,7 +118,7 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                     suffixIcon: SizedBox(
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                       child: SvgPicture.asset(
                         'assets/icon/calendar.svg',
@@ -170,7 +170,7 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon: SizedBox(
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                       child: SvgPicture.asset(
                         'assets/icon/face_scan.svg',
@@ -285,7 +285,7 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/info.svg',

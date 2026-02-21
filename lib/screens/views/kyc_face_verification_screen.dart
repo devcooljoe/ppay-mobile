@@ -37,7 +37,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
@@ -55,7 +55,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
             children: [
               90.verticalSpace,
               SizedBox(
-                height: 333.h,
+                height: 333.w,
                 width: 333.w,
                 child: Image.asset('assets/images/face_capture.png'),
               ),
@@ -84,7 +84,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
                       borderRadius: BorderRadius.circular(31).r,
                     ),
                     child: SizedBox(
-                      height: 31.h,
+                      height: 31.w,
                       width: 31.w,
                       child: SvgPicture.asset(
                         'assets/icon/rotate_camera.svg',
@@ -100,7 +100,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
                       ),
                     ),
                     child: Container(
-                      height: 97.h,
+                      height: 97.w,
                       width: 97.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(48.5).r,
@@ -112,7 +112,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0).r,
                         child: SizedBox(
-                          height: 73.h,
+                          height: 73.w,
                           width: 73.w,
                           child: SvgPicture.asset(
                             'assets/icon/capture_camera.svg',
@@ -131,7 +131,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
                       borderRadius: BorderRadius.circular(31).r,
                     ),
                     child: SizedBox(
-                      height: 31.h,
+                      height: 31.w,
                       width: 31.w,
                       child: SvgPicture.asset(
                         'assets/icon/flashlight_off.svg',

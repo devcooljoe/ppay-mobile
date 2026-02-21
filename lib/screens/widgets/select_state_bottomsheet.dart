@@ -23,7 +23,7 @@ class _SelectStateBottomsheetState extends State<SelectStateBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -80,7 +80,7 @@ class _SelectStateBottomsheetState extends State<SelectStateBottomsheet> {
                               ),
                             ),
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/indicator.svg',
@@ -104,7 +104,7 @@ class _SelectStateBottomsheetState extends State<SelectStateBottomsheet> {
                               ),
                             ),
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/check_circle.svg',

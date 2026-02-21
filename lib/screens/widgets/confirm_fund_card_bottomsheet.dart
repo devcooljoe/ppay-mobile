@@ -41,7 +41,7 @@ class _ConfirmFundCardBottomsheetState
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -98,7 +98,7 @@ class _ConfirmFundCardBottomsheetState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 16.h,
+                          height: 16.w,
                           width: 16.w,
                           child: SvgPicture.asset(
                             'assets/icon/info_blue.svg',
@@ -133,7 +133,7 @@ class _ConfirmFundCardBottomsheetState
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: Image.asset(
                           'assets/images/nigeria_flag.png',

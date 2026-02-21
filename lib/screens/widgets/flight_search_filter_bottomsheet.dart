@@ -26,7 +26,7 @@ class _FlightSearchFilterBottomsheetState
             child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -98,7 +98,7 @@ class _FlightSearchFilterBottomsheetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 22.h,
+                          height: 22.w,
                           width: 22.w,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -147,7 +147,7 @@ class _FlightSearchFilterBottomsheetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 22.h,
+                          height: 22.w,
                           width: 22.w,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -196,7 +196,7 @@ class _FlightSearchFilterBottomsheetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 22.h,
+                          height: 22.w,
                           width: 22.w,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -261,7 +261,7 @@ class _FlightSearchFilterBottomsheetState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 22.h,
+                        height: 22.w,
                         width: 22.w,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -291,7 +291,7 @@ class _FlightSearchFilterBottomsheetState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 22.h,
+                        height: 22.w,
                         width: 22.w,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -499,7 +499,7 @@ class _FlightSearchFilterBottomsheetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 22.h,
+                          height: 22.w,
                           width: 22.w,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -548,7 +548,7 @@ class _FlightSearchFilterBottomsheetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 22.h,
+                          height: 22.w,
                           width: 22.w,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -597,7 +597,7 @@ class _FlightSearchFilterBottomsheetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 22.h,
+                          height: 22.w,
                           width: 22.w,
                           decoration: BoxDecoration(
                             color: Colors.transparent,

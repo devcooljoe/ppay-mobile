@@ -25,7 +25,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
             child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -79,7 +79,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                         ),
                       ),
                       Container(
-                        height: 39.h,
+                        height: 39.w,
                         width: 39.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20).r,
@@ -87,7 +87,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                         ),
                         child: Center(
                           child: SizedBox(
-                            height: 14.h,
+                            height: 14.w,
                             width: 14.w,
                             child: SvgPicture.asset(
                               'assets/icon/add.svg',
@@ -132,7 +132,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                             ),
                             child: Center(
                               child: SizedBox(
-                                height: 27.h,
+                                height: 27.w,
                                 width: 27.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/bank_black.svg',
@@ -217,7 +217,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                                       ),
                                       8.horizontalSpace,
                                       SizedBox(
-                                        height: 7.h,
+                                        height: 7.w,
                                         width: 7.w,
                                         child: SvgPicture.asset(
                                           'assets/icon/spacer.svg',

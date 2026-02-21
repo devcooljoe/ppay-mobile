@@ -41,7 +41,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back_white.svg',
@@ -92,7 +92,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 13.h,
+                        height: 13.w,
                         width: 13.w,
                         child: SvgPicture.asset(
                           'assets/icon/colored_arrow_up.svg',
@@ -126,7 +126,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               );
                             },
                             child: Container(
-                              height: 68.h,
+                              height: 68.w,
                               width: 68.w,
                               padding: EdgeInsets.all(15.54).r,
                               decoration: BoxDecoration(
@@ -135,7 +135,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 18.h,
+                                  height: 18.w,
                                   width: 18.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/add_white.svg',
@@ -169,7 +169,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               );
                             },
                             child: Container(
-                              height: 68.h,
+                              height: 68.w,
                               width: 68.w,
                               padding: EdgeInsets.all(15.54).r,
                               decoration: BoxDecoration(
@@ -178,7 +178,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 18.h,
+                                  height: 18.w,
                                   width: 18.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/minus_white.svg',
@@ -214,7 +214,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               );
                             },
                             child: Container(
-                              height: 68.h,
+                              height: 68.w,
                               width: 68.w,
                               padding: EdgeInsets.all(15.54).r,
                               decoration: BoxDecoration(
@@ -223,7 +223,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 18.h,
+                                  height: 18.w,
                                   width: 18.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/fund.svg',
@@ -310,7 +310,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 34.h,
+                                  height: 34.w,
                                   width: 34.w,
                                   child: Image.asset(
                                     'assets/images/bitcoin.png',
@@ -370,7 +370,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 13.h,
+                                  height: 13.w,
                                   width: 13.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/colored_arrow_green_up.svg',
@@ -408,7 +408,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 34.h,
+                                  height: 34.w,
                                   width: 34.w,
                                   child: Image.asset(
                                     'assets/images/ethereum.png',
@@ -468,7 +468,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 13.h,
+                                  height: 13.w,
                                   width: 13.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/colored_arrow_down.svg',
@@ -506,7 +506,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 34.h,
+                                  height: 34.w,
                                   width: 34.w,
                                   child: Image.asset(
                                     'assets/images/solana.png',
@@ -566,7 +566,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 13.h,
+                                  height: 13.w,
                                   width: 13.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/colored_arrow_down.svg',
@@ -643,7 +643,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 45.h,
+                                  height: 45.w,
                                   width: 45.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,

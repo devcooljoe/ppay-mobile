@@ -37,7 +37,7 @@ class _YourAssetsScreenState extends State<YourAssetsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            height: 45.h,
+                            height: 45.w,
                             width: 45.w,
                             decoration: BoxDecoration(shape: BoxShape.circle),
                             child: Image.asset(

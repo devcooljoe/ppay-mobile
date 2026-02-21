@@ -33,7 +33,7 @@ class _LiveChatSheetState extends State<LiveChatSheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -75,7 +75,7 @@ class _LiveChatSheetState extends State<LiveChatSheet> {
                         ),
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/chat_black.svg',
@@ -141,7 +141,7 @@ class _LiveChatSheetState extends State<LiveChatSheet> {
                         filled: true,
                         fillColor: PPaymobileColors.deepBackgroundColor,
                         prefixIcon: SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/link_black.svg',
@@ -156,7 +156,7 @@ class _LiveChatSheetState extends State<LiveChatSheet> {
                           color: PPaymobileColors.svgIconColor,
                         ),
                         suffixIcon: SizedBox(
-                          height: 26.h,
+                          height: 26.w,
                           width: 26.w,
                           child: SvgPicture.asset(
                             'assets/icon/sent.svg',

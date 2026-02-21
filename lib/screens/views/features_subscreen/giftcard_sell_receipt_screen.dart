@@ -36,7 +36,7 @@ class _GiftcardSellReceiptScreenState extends State<GiftcardSellReceiptScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -61,7 +61,7 @@ class _GiftcardSellReceiptScreenState extends State<GiftcardSellReceiptScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 84.h,
+                      height: 84.w,
                       width: 84.w,
                       child: Image.asset(
                         'assets/images/amazon_2.png',
@@ -159,7 +159,7 @@ class _GiftcardSellReceiptScreenState extends State<GiftcardSellReceiptScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 23.h,
+                              height: 23.w,
                               width: 23.w,
                               child: Image.asset(
                                 'assets/images/nigeria_flag.png',
@@ -207,7 +207,7 @@ class _GiftcardSellReceiptScreenState extends State<GiftcardSellReceiptScreen> {
                             ),
                             7.horizontalSpace,
                             SizedBox(
-                              height: 21.h,
+                              height: 21.w,
                               width: 21.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste_black1.svg',

@@ -36,7 +36,7 @@ class _FlightDetailsScreenState extends State<FlightDetailsScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -108,7 +108,7 @@ class _FlightDetailsScreenState extends State<FlightDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 42.h,
+                              height: 42.w,
                               width: 42.w,
                               child: Image.asset(
                                 'assets/images/air_peace.png',

@@ -31,7 +31,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                 child: TouchOpacity(
                   onTap: () => Navigator.pop(context),
                   child: Container(
-                    height: 60.h,
+                    height: 60.w,
                     width: 60.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30).r,
@@ -348,7 +348,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
               child: TouchOpacity(
                 onTap: () => Navigator.pop(context),
                 child: SizedBox(
-                  height: 24.h,
+                  height: 24.w,
                   width: 24.w,
                   child: SvgPicture.asset(
                     'assets/icon/arrow_back_white.svg',
@@ -456,7 +456,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                                             ),
                                             child: Center(
                                               child: SizedBox(
-                                                height: 23.h,
+                                                height: 23.w,
                                                 width: 23.w,
                                                 child: Image.asset(
                                                   'assets/images/flag.png',
@@ -502,7 +502,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                             ],
                           ),
                           SizedBox(
-                            height: 19.h,
+                            height: 19.w,
                             width: 19.w,
                             child: SvgPicture.asset(
                               'assets/icon/checkmark.svg',
@@ -576,7 +576,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 23.h,
+                              height: 23.w,
                               width: 23.w,
                               child: Image.asset(
                                 'assets/images/nigeria_flag.png',
@@ -787,7 +787,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                           children: [
                             TouchOpacity(
                               child: SizedBox(
-                                height: 38.h,
+                                height: 38.w,
                                 width: 38.w,
                                 child: Image.asset(
                                   'assets/images/remove_green.png',
@@ -806,7 +806,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                             ),
                             TouchOpacity(
                               child: SizedBox(
-                                height: 38.h,
+                                height: 38.w,
                                 width: 38.w,
                                 child: Image.asset(
                                   'assets/images/add_green.png',
@@ -847,7 +847,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/checkmark_square.svg',

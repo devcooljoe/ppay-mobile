@@ -62,7 +62,7 @@ class _FundCardScreenState extends State<FundCardScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -197,7 +197,7 @@ class _FundCardScreenState extends State<FundCardScreen> {
                         ),
                         16.horizontalSpace,
                         SizedBox(
-                          height: 8.h,
+                          height: 8.w,
                           width: 8.w,
                           child: SvgPicture.asset(
                             'assets/icon/big_dot.svg',

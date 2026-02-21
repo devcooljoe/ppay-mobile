@@ -58,7 +58,7 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -248,7 +248,7 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
                                           ),
                                           8.horizontalSpace,
                                           SizedBox(
-                                            height: 7.h,
+                                            height: 7.w,
                                             width: 7.w,
                                             child: SvgPicture.asset(
                                               'assets/icon/spacer.svg',
@@ -367,7 +367,7 @@ class _AmountAndInfoScreenState extends State<AmountAndInfoScreen> {
                           ),
                           7.horizontalSpace,
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/arrow_forwardw.svg',

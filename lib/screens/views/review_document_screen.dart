@@ -35,7 +35,7 @@ class _ReviewDocumentScreenState extends State<ReviewDocumentScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -95,7 +95,7 @@ class _ReviewDocumentScreenState extends State<ReviewDocumentScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                       child: SvgPicture.asset(
                         'assets/icon/warning.svg',
@@ -152,7 +152,7 @@ class _ReviewDocumentScreenState extends State<ReviewDocumentScreen> {
                               ),
                               10.horizontalSpace,
                               SizedBox(
-                                height: 24.h,
+                                height: 24.w,
                                 width: 24.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/arrow_forward_1.svg',

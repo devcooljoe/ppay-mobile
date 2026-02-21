@@ -35,7 +35,7 @@ class _BettingReceiptScreenState extends State<BettingReceiptScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -110,7 +110,7 @@ class _BettingReceiptScreenState extends State<BettingReceiptScreen> {
                       left: 166.w,
                       right: 166.w,
                       child: Container(
-                        height: 67.h,
+                        height: 67.w,
                         width: 67.w,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -212,7 +212,7 @@ class _BettingReceiptScreenState extends State<BettingReceiptScreen> {
                             ),
                             7.horizontalSpace,
                             SizedBox(
-                              height: 21.h,
+                              height: 21.w,
                               width: 21.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste_black1.svg',
@@ -317,7 +317,7 @@ class _BettingReceiptScreenState extends State<BettingReceiptScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 24.h,
+                      height: 24.w,
                       width: 24.w,
                       child: SvgPicture.asset('assets/icon/share_white.svg'),
                     ),

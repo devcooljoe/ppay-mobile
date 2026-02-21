@@ -30,7 +30,7 @@ class _ContactTabState extends State<ContactTab> {
                 vertical: 14.w,
               ),
               prefixIcon: SizedBox(
-                height: 24.h,
+                height: 24.w,
                 width: 24.w,
                 child: SvgPicture.asset(
                   'assets/icon/bank_search.svg',
@@ -103,7 +103,7 @@ class _ContactTabState extends State<ContactTab> {
           Row(
             children: [
               SizedBox(
-                height: 20.h,
+                height: 20.w,
                 width: 20.w,
                 child: SvgPicture.asset(image, fit: BoxFit.contain),
               ),
@@ -136,7 +136,7 @@ class _ContactTabState extends State<ContactTab> {
     return Row(
       children: [
         SizedBox(
-          height: 16.h,
+          height: 16.w,
           width: 16.w,
           child: SvgPicture.asset(
             'assets/icon/indicator.svg',

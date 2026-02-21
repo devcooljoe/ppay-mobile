@@ -35,7 +35,7 @@ class _FlightBookingScreenState extends State<FlightBookingScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -109,7 +109,7 @@ class _FlightBookingScreenState extends State<FlightBookingScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: 16.h,
+                                height: 16.w,
                                 width: 16.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/danger.svg',
@@ -359,7 +359,7 @@ class _FlightBookingScreenState extends State<FlightBookingScreen> {
                             ),
                             6.horizontalSpace,
                             SizedBox(
-                              height: 14.h,
+                              height: 14.w,
                               width: 14.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste.svg',

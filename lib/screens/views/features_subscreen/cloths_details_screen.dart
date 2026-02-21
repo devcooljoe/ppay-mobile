@@ -41,7 +41,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -65,7 +65,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                     );
                   },
                   child: SizedBox(
-                    height: 40.h,
+                    height: 40.w,
                     width: 40.w,
                     child: Image.asset(
                       'assets/images/favorite.png',
@@ -84,7 +84,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                     );
                   },
                   child: SizedBox(
-                    height: 40.h,
+                    height: 40.w,
                     width: 40.w,
                     child: Image.asset(
                       'assets/images/cart.png',
@@ -146,7 +146,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                           (index) => AnimatedContainer(
                             duration: const Duration(milliseconds: 200),
                             margin: EdgeInsets.symmetric(horizontal: 8.9.w),
-                            height: 13.h,
+                            height: 13.w,
                             width: 13.w,
                             decoration: BoxDecoration(
                               color: _currentIndex == index
@@ -164,7 +164,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                       child: Row(
                         children: [
                           SizedBox(
-                            height: 40.h,
+                            height: 40.w,
                             width: 40.w,
                             child: Image.asset(
                               'assets/images/share_1.png',
@@ -173,7 +173,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                           ),
                           14.horizontalSpace,
                           SizedBox(
-                            height: 40.h,
+                            height: 40.w,
                             width: 40.w,
                             child: Image.asset(
                               'assets/images/favorite_1.png',
@@ -218,7 +218,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: Image.asset(
                             'assets/images/star.png',
@@ -257,7 +257,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: Image.asset(
                             'assets/images/heart.png',
@@ -336,7 +336,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    height: 44.h,
+                    height: 44.w,
                     width: 44.w,
                     padding: EdgeInsets.all(10).r,
                     decoration: BoxDecoration(
@@ -349,7 +349,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                     ),
                     child: Center(
                       child: SizedBox(
-                        height: 20.h,
+                        height: 20.w,
                         width: 20.w,
                         child: SvgPicture.asset(
                           'assets/icon/minus.svg',
@@ -370,7 +370,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                   ),
                   20.horizontalSpace,
                   Container(
-                    height: 44.h,
+                    height: 44.w,
                     width: 44.w,
                     padding: EdgeInsets.all(10).r,
                     decoration: BoxDecoration(
@@ -383,7 +383,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                     ),
                     child: Center(
                       child: SizedBox(
-                        height: 20.h,
+                        height: 20.w,
                         width: 20.w,
                         child: SvgPicture.asset(
                           'assets/icon/add.svg',
@@ -534,7 +534,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 24.h,
+                    height: 24.w,
                     width: 24.w,
                     child: SvgPicture.asset(
                       'assets/icon/stock.svg',
@@ -590,7 +590,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: 24.h,
+                                height: 24.w,
                                 width: 24.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/detail.svg',
@@ -612,7 +612,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/arrow_forward.svg',
@@ -655,7 +655,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 24.h,
+                            height: 24.w,
                             width: 24.w,
                             child: SvgPicture.asset(
                               'assets/icon/review.svg',
@@ -675,7 +675,7 @@ class _ClothsDetailsScreenState extends State<ClothsDetailsScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/arrow_forward.svg',

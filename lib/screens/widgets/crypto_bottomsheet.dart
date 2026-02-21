@@ -24,7 +24,7 @@ class _CryptoBottomsheetState extends State<CryptoBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -72,7 +72,7 @@ class _CryptoBottomsheetState extends State<CryptoBottomsheet> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         prefixIcon: SizedBox(
-                          height: 24.h,
+                          height: 24.w,
                           width: 24.w,
                           child: SvgPicture.asset(
                             'assets/icon/bank_search.svg',
@@ -118,7 +118,7 @@ class _CryptoBottomsheetState extends State<CryptoBottomsheet> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 45.h,
+                                  height: 45.w,
                                   width: 45.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -173,7 +173,7 @@ class _CryptoBottomsheetState extends State<CryptoBottomsheet> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     SizedBox(
-                                      height: 13.h,
+                                      height: 13.w,
                                       width: 13.w,
                                       child: SvgPicture.asset(
                                         crypto.cryptoStatusIcon,

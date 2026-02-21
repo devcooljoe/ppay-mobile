@@ -27,7 +27,7 @@ class _BettingSuccessScreenState extends State<BettingSuccessScreen> {
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  height: 120.h,
+                  height: 120.w,
                   width: 120.w,
                   child: Image.asset(
                     'assets/images/big_check.png', // this is replaced with 'assets/images/big_pending.png' for pending and 'assets/images/big_fail.png' for failed

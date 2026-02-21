@@ -47,7 +47,7 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -222,7 +222,7 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 24.h,
+                  height: 24.w,
                   width: 24.w,
                   child: SvgPicture.asset(
                     'assets/icon/loading.svg',
@@ -251,7 +251,7 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 22.h,
+                    height: 22.w,
                     width: 22.w,
                     child: SvgPicture.asset(
                       'assets/icon/checkmark.svg',
@@ -351,7 +351,7 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
                       ),
                       10.horizontalSpace,
                       SizedBox(
-                        height: 22.h,
+                        height: 22.w,
                         width: 22.w,
                         child: SvgPicture.asset(
                           'assets/icon/check_white.svg',

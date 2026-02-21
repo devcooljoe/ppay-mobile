@@ -35,7 +35,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -256,7 +256,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                                 ),
                                 6.horizontalSpace,
                                 SizedBox(
-                                  height: 20.h,
+                                  height: 20.w,
                                   width: 20.w,
                                   child: SvgPicture.asset(
                                     'assets/icon/paste_black1.svg',
@@ -365,7 +365,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 24.h,
+                              height: 24.w,
                               width: 24.w,
                               child: SvgPicture.asset(
                                 'assets/icon/share_white.svg',

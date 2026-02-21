@@ -38,7 +38,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -642,7 +642,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                           children: [
                             4.horizontalSpace,
                             Container(
-                              height: 47.h,
+                              height: 47.w,
                               width: 47.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100.r),
@@ -934,7 +934,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                           children: [
                             4.horizontalSpace,
                             Container(
-                              height: 47.h,
+                              height: 47.w,
                               width: 47.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100.r),

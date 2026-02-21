@@ -42,7 +42,7 @@ class _SellGiftCardFeaturesScreenState
               child: TouchOpacity(
                 onTap: () => Navigator.pop(context),
                 child: SizedBox(
-                  height: 24.h,
+                  height: 24.w,
                   width: 24.w,
                   child: SvgPicture.asset(
                     'assets/icon/arrow_back_white.svg',
@@ -150,7 +150,7 @@ class _SellGiftCardFeaturesScreenState
                                             ),
                                             child: Center(
                                               child: SizedBox(
-                                                height: 23.h,
+                                                height: 23.w,
                                                 width: 23.w,
                                                 child: Image.asset(
                                                   'assets/images/flag.png',
@@ -188,7 +188,7 @@ class _SellGiftCardFeaturesScreenState
                             ],
                           ),
                           SizedBox(
-                            height: 19.h,
+                            height: 19.w,
                             width: 19.w,
                             child: SvgPicture.asset(
                               'assets/icon/checkmark.svg',
@@ -262,7 +262,7 @@ class _SellGiftCardFeaturesScreenState
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 23.h,
+                              height: 23.w,
                               width: 23.w,
                               child: Image.asset(
                                 'assets/images/amazon_1.png',
@@ -636,7 +636,7 @@ class _SellGiftCardFeaturesScreenState
                         ],
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/delete_1.svg',
@@ -762,7 +762,7 @@ class _SellGiftCardFeaturesScreenState
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/checkmark_square.svg',

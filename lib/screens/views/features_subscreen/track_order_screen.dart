@@ -34,7 +34,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -100,7 +100,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                           ),
                           9.horizontalSpace,
                           SizedBox(
-                            height: 7.h,
+                            height: 7.w,
                             width: 7.w,
                             child: SvgPicture.asset(
                               'assets/icon/indicator_1.svg',
@@ -211,7 +211,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 35.h,
+                    height: 35.w,
                     width: 35.w,
                     child: Image.asset(
                       'assets/images/location.png',
@@ -270,7 +270,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 36.h,
+                            height: 36.w,
                             width: 36.w,
                             child: Image.asset(
                               'assets/images/big_check.png',
@@ -305,7 +305,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/package.svg',
@@ -332,7 +332,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 36.h,
+                            height: 36.w,
                             width: 36.w,
                             child: Image.asset(
                               'assets/images/big_check.png',
@@ -367,7 +367,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/process.svg',
@@ -394,7 +394,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 36.h,
+                            height: 36.w,
                             width: 36.w,
                             child: Image.asset(
                               'assets/images/big_check_1.png',
@@ -429,7 +429,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/delivery_truck_1.svg', // for completed use 'assets/icon/delivery_truck.svg'
@@ -456,7 +456,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 36.h,
+                            height: 36.w,
                             width: 36.w,
                             child: Image.asset(
                               'assets/images/big_check_1.png',
@@ -491,7 +491,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 24.h,
+                        height: 24.w,
                         width: 24.w,
                         child: SvgPicture.asset(
                           'assets/icon/delivered_1.svg', // for completed use 'assets/icon/delivered.svg'

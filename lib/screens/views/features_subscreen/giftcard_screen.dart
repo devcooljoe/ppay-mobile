@@ -37,7 +37,7 @@ class _GiftcardScreenState extends State<GiftcardScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -110,7 +110,7 @@ class _GiftcardScreenState extends State<GiftcardScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      height: 18.h,
+                                      height: 18.w,
                                       width: 18.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/check.svg',
@@ -195,7 +195,7 @@ class _GiftcardScreenState extends State<GiftcardScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      height: 18.h,
+                                      height: 18.w,
                                       width: 18.w,
                                       child: SvgPicture.asset(
                                         'assets/icon/check.svg',

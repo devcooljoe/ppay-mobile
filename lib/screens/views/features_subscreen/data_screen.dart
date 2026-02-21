@@ -76,7 +76,7 @@ class _DataScreenState extends State<DataScreen> {
             child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: SizedBox(
-                height: 24.h,
+                height: 24.w,
                 width: 24.w,
                 child: SvgPicture.asset(
                   'assets/icon/arrow_back.svg',
@@ -163,7 +163,7 @@ class _DataScreenState extends State<DataScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                    height: 56.h,
+                                    height: 56.w,
                                     width: 56.w,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
@@ -205,7 +205,7 @@ class _DataScreenState extends State<DataScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 56.h,
+                                  height: 56.w,
                                   width: 56.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -246,7 +246,7 @@ class _DataScreenState extends State<DataScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 56.h,
+                                  height: 56.w,
                                   width: 56.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -287,7 +287,7 @@ class _DataScreenState extends State<DataScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 56.h,
+                                  height: 56.w,
                                   width: 56.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,

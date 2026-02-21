@@ -89,7 +89,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 52.h,
+                              height: 52.w,
                               width: 52.w,
                               child: SvgPicture.asset(
                                 'assets/icon/gift_card_green.svg',
@@ -135,7 +135,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 52.h,
+                              height: 52.w,
                               width: 52.w,
                               child: SvgPicture.asset(
                                 'assets/icon/bills_green.svg',
@@ -181,7 +181,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 52.h,
+                              height: 52.w,
                               width: 52.w,
                               child: SvgPicture.asset(
                                 'assets/icon/virtual_card.svg',
@@ -230,7 +230,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 52.h,
+                              height: 52.w,
                               width: 52.w,
                               child: SvgPicture.asset(
                                 'assets/icon/crypto.svg',
@@ -284,7 +284,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 52.h,
+                              height: 52.w,
                               width: 52.w,
                               child: SvgPicture.asset(
                                 'assets/icon/airplane_green.svg',
@@ -328,7 +328,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 52.h,
+                              height: 52.w,
                               width: 52.w,
                               child: SvgPicture.asset(
                                 'assets/icon/cart_green.svg',

@@ -35,7 +35,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -104,7 +104,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                       children: [
                         12.verticalSpace,
                         SizedBox(
-                          height: 16.h,
+                          height: 16.w,
                           width: 16.w,
                           child: SvgPicture.asset(
                             'assets/icon/bank_black.svg',
@@ -136,7 +136,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                             ),
                             30.horizontalSpace,
                             SizedBox(
-                              height: 23.h,
+                              height: 23.w,
                               width: 23.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste.svg',
@@ -286,7 +286,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 20.h,
+                              height: 20.w,
                               width: 20.w,
                               child: SvgPicture.asset(
                                 'assets/icon/paste_white.svg',
@@ -327,7 +327,7 @@ class _FundWalletScreenState extends State<FundWalletScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 20.h,
+                              height: 20.w,
                               width: 20.w,
                               child: SvgPicture.asset(
                                 'assets/icon/share.svg',

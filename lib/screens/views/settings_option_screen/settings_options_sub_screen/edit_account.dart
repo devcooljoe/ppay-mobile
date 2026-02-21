@@ -58,7 +58,7 @@ class _EditAccountState extends State<EditAccount> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -305,7 +305,7 @@ class _EditAccountState extends State<EditAccount> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 16.h,
+                          height: 16.w,
                           width: 16.w,
                           child: SvgPicture.asset(
                             'assets/icon/dustbin.svg',

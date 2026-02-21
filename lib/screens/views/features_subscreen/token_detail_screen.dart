@@ -38,7 +38,7 @@ class _TokenDetailScreenState extends State<TokenDetailScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -59,7 +59,7 @@ class _TokenDetailScreenState extends State<TokenDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 42.h,
+                      height: 42.w,
                       width: 42.w,
                       child: Image.asset(
                         widget.token.tokenImage,
@@ -84,11 +84,11 @@ class _TokenDetailScreenState extends State<TokenDetailScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(
-                                height: 13.h,
+                                height: 13.w,
                                 width: 13.w,
                                 child: SvgPicture.asset(
                                   widget.token.increaseSvgIcon,
-                                  height: 14.h,
+                                  height: 14.w,
                                   width: 14.w,
                                   fit: BoxFit.contain,
                                 ),
@@ -142,7 +142,7 @@ class _TokenDetailScreenState extends State<TokenDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 42.h,
+                            height: 42.w,
                             width: 42.w,
                             child: Image.asset(
                               widget.token.tokenImage,
@@ -248,7 +248,7 @@ class _TokenDetailScreenState extends State<TokenDetailScreen> {
                               child: Row(
                                 children: [
                                   Container(
-                                    height: 45.h,
+                                    height: 45.w,
                                     width: 45.w,
                                     decoration: BoxDecoration(
                                       color: tx.leadingIconBg,
@@ -256,7 +256,7 @@ class _TokenDetailScreenState extends State<TokenDetailScreen> {
                                     ),
                                     child: Center(
                                       child: SizedBox(
-                                        height: 24.h,
+                                        height: 24.w,
                                         width: 24.w,
                                         child: SvgPicture.asset(
                                           tx.leadingIcon,

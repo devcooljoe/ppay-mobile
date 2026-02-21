@@ -26,7 +26,7 @@ class _CryptoPuurchaseBottomsheetState
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -62,7 +62,7 @@ class _CryptoPuurchaseBottomsheetState
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            height: 59.h,
+                            height: 59.w,
                             width: 59.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -232,7 +232,7 @@ class _CryptoPuurchaseBottomsheetState
                           ),
                           6.horizontalSpace,
                           SizedBox(
-                            height: 17.h,
+                            height: 17.w,
                             width: 17.w,
                             child: SvgPicture.asset(
                               'assets/icon/swap.svg',

@@ -42,7 +42,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 35.h,
+                        height: 35.w,
                         width: 35.w,
                         child: Image.asset(
                           'assets/images/location.png',
@@ -81,7 +81,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 35.h,
+                        height: 35.w,
                         width: 35.w,
                         child: Image.asset(
                           'assets/images/location.png',
@@ -146,7 +146,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: SizedBox(
-              height: 24.h,
+              height: 24.w,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
@@ -256,7 +256,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 23.h,
+                                  height: 23.w,
                                   width: 23.w,
                                   child: Image.asset(
                                     'assets/images/nigeria_flag.png',
@@ -569,7 +569,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 );
                               },
                               child: SizedBox(
-                                height: 24.h,
+                                height: 24.w,
                                 width: 24.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/cancel.svg',
@@ -595,7 +595,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                           9.horizontalSpace,
                           SizedBox(
-                            height: 7.h,
+                            height: 7.w,
                             width: 7.w,
                             child: SvgPicture.asset(
                               'assets/icon/indicator_1.svg',
@@ -672,7 +672,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 );
                               },
                               child: SizedBox(
-                                height: 24.h,
+                                height: 24.w,
                                 width: 24.w,
                                 child: SvgPicture.asset(
                                   'assets/icon/cancel.svg',
@@ -698,7 +698,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                           9.horizontalSpace,
                           SizedBox(
-                            height: 7.h,
+                            height: 7.w,
                             width: 7.w,
                             child: SvgPicture.asset(
                               'assets/icon/indicator_1.svg',

@@ -25,7 +25,7 @@ class _CancelFlightSuccessfulScreenState
             children: [
               122.verticalSpace,
               SizedBox(
-                height: 74.h,
+                height: 74.w,
                 width: 74.w,
                 child: Image.asset(
                   'assets/images/success1.png',

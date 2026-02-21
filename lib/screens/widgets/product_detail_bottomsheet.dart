@@ -24,7 +24,7 @@ class _ProductDetailBottomsheetState extends State<ProductDetailBottomsheet> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
-                height: 60.h,
+                height: 60.w,
                 width: 60.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30).r,
@@ -108,7 +108,7 @@ class _ProductDetailBottomsheetState extends State<ProductDetailBottomsheet> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 11.h,
+                        height: 11.w,
                         width: 11.w,
                         child: Image.asset(
                           'assets/images/rectangle.png',
@@ -133,7 +133,7 @@ class _ProductDetailBottomsheetState extends State<ProductDetailBottomsheet> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 11.h,
+                        height: 11.w,
                         width: 11.w,
                         child: Image.asset(
                           'assets/images/rectangle.png',
@@ -158,7 +158,7 @@ class _ProductDetailBottomsheetState extends State<ProductDetailBottomsheet> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 11.h,
+                        height: 11.w,
                         width: 11.w,
                         child: Image.asset(
                           'assets/images/rectangle.png',
@@ -183,7 +183,7 @@ class _ProductDetailBottomsheetState extends State<ProductDetailBottomsheet> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 11.h,
+                        height: 11.w,
                         width: 11.w,
                         child: Image.asset(
                           'assets/images/rectangle.png',
@@ -208,7 +208,7 @@ class _ProductDetailBottomsheetState extends State<ProductDetailBottomsheet> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 11.h,
+                        height: 11.w,
                         width: 11.w,
                         child: Image.asset(
                           'assets/images/rectangle.png',
@@ -233,7 +233,7 @@ class _ProductDetailBottomsheetState extends State<ProductDetailBottomsheet> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 11.h,
+                        height: 11.w,
                         width: 11.w,
                         child: Image.asset(
                           'assets/images/rectangle.png',
