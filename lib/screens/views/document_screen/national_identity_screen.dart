@@ -85,7 +85,7 @@ class _NationalIdentityScreenState extends State<NationalIdentityScreen> {
                     text: widget.selectedDocument,
                   ),
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       onTap: () {
                         showModalBottomSheet(
                           context: context,

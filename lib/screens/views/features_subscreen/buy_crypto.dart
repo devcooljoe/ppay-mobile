@@ -226,8 +226,6 @@ class _BuyCryptoState extends State<BuyCrypto> {
                         child: TextFormField(
                           controller: _controller,
                           readOnly: true,
-                          showCursor: true,
-
                           decoration: InputDecoration(
                             prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(
@@ -263,7 +261,7 @@ class _BuyCryptoState extends State<BuyCrypto> {
                                       ),
                                     ),
                                     11.horizontalSpace,
-                                    GestureDetector(
+                                    TouchOpacity(
                                       onTap: () async {
                                         showModalBottomSheet(
                                           context: context,
@@ -396,9 +394,10 @@ class _BuyCryptoState extends State<BuyCrypto> {
                         height: 54.h,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: PPaymobileColors.backgroundColor,
+                            backgroundColor:
+                                PPaymobileColors.buttonColorandText,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(42),
+                              borderRadius: BorderRadius.circular(42.r),
                             ),
                             elevation: 0,
                           ),

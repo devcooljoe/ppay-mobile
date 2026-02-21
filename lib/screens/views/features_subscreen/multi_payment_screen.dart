@@ -379,7 +379,7 @@ class _MultiPaymentScreenState extends State<MultiPaymentScreen> {
                                 width: 37.w,
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 7.w,
-                                  vertical: 9.h,
+                                  vertical: 8.h,
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4).r,
@@ -389,7 +389,7 @@ class _MultiPaymentScreenState extends State<MultiPaymentScreen> {
                                   child: SizedBox(
                                     height: 23.h,
                                     width: 23.w,
-                                    child: SvgPicture.asset(
+                                    child: Image.asset(
                                       'assets/images/flag.png',
                                       fit: BoxFit.contain,
                                     ),

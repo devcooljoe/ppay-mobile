@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/model/crypto_all_transaction_model.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/crypto_transactions_detail_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/filter_transactions_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
@@ -48,134 +49,143 @@ class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: ListView(
-            children: [
-              37.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 51.h,
-                    width: 296.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4).r,
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: SizedBox(
-                          height: 24.h,
-                          width: 24.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/bank_search.svg',
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                        hintText: 'Search',
-                        hintStyle: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.textfiedBorder,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        filled: true,
-                        fillColor: PPaymobileColors.deepBackgroundColor,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 14.h,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(4).r,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: ListView(
+          children: [
+            37.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: 51.h,
+                  width: 296.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4).r,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      prefixIcon: SizedBox(
+                        height: 24.h,
+                        width: 24.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/bank_search.svg',
+                          fit: BoxFit.scaleDown,
                         ),
                       ),
-                    ),
-                  ),
-                  12.horizontalSpace,
-                  GestureDetector(
-                    onTap: () async {
-                      await showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (_) => const FilterTransactionsBottomsheet(),
-                      );
-                    },
-                    child: Container(
-                      height: 51.h,
-                      width: 92.w,
-                      padding: EdgeInsets.symmetric(
+                      hintText: 'Search',
+                      hintStyle: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: PPaymobileColors.textfiedBorder,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      filled: true,
+                      fillColor: PPaymobileColors.deepBackgroundColor,
+                      contentPadding: EdgeInsets.symmetric(
                         horizontal: 12.w,
-                        vertical: 10.h,
+                        vertical: 14.h,
                       ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1.w,
-                          color: PPaymobileColors.textfiedBorder,
-                        ),
-                        borderRadius: BorderRadius.circular(6).r,
-                        color: PPaymobileColors.mainScreenBackground,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 18.h,
-                            width: 18.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/filter.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          6.horizontalSpace,
-                          Text(
-                            'Filter',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(4).r,
                       ),
                     ),
                   ),
-                ],
-              ),
-              36.verticalSpace,
-              ListView.separated(
-                itemCount: cryptoTransactionDay.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (_, __) => 16.verticalSpace,
-                itemBuilder: (context, groupIndex) {
-                  final group = cryptoTransactionDay[groupIndex];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        group.transactionDay,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
+                ),
+                12.horizontalSpace,
+                TouchOpacity(
+                  onTap: () async {
+                    await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) => const FilterTransactionsBottomsheet(),
+                    );
+                  },
+                  child: Container(
+                    height: 51.h,
+                    width: 92.w,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 10.h,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1.w,
+                        color: PPaymobileColors.textfiedBorder,
                       ),
-                      15.verticalSpace,
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        separatorBuilder: (_, _) => 24.verticalSpace,
-                        itemCount: group.tDay.length,
-                        itemBuilder: (context, cryptoIndex) {
-                          final crypto = group.tDay[cryptoIndex];
+                      borderRadius: BorderRadius.circular(6).r,
+                      color: PPaymobileColors.mainScreenBackground,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 18.h,
+                          width: 18.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/filter.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        6.horizontalSpace,
+                        Text(
+                          'Filter',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            36.verticalSpace,
+            ListView.separated(
+              itemCount: cryptoTransactionDay.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (_, __) => 16.verticalSpace,
+              itemBuilder: (context, groupIndex) {
+                final group = cryptoTransactionDay[groupIndex];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      group.transactionDay,
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    15.verticalSpace,
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      separatorBuilder: (_, _) => 24.verticalSpace,
+                      itemCount: group.tDay.length,
+                      itemBuilder: (context, cryptoIndex) {
+                        final crypto = group.tDay[cryptoIndex];
 
-                          return SizedBox(
+                        return TouchOpacity(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CryptoTransactionsDetailScreen(),
+                              ),
+                            );
+                          },
+                          child: SizedBox(
                             width: double.infinity,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -251,15 +261,15 @@ class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
                                 ),
                               ],
                             ),
-                          );
-                        },
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
-          ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

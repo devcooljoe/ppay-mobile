@@ -80,7 +80,7 @@ class _KycVerificationScreenState extends State<KycVerificationScreen> {
                 ),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       onTap: () {
                         showModalBottomSheet(
                           context: context,

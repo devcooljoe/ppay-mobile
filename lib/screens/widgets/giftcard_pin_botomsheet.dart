@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/gift_card_sucess_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/pin_custom_keyboard.dart';
 
 class GiftcardPinBotomsheet extends StatefulWidget {
   const GiftcardPinBotomsheet({super.key});
@@ -17,8 +18,8 @@ class _GiftcardPinBotomsheetState extends State<GiftcardPinBotomsheet> {
   String _realPin = '';
 
   final emptyPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
@@ -27,8 +28,8 @@ class _GiftcardPinBotomsheetState extends State<GiftcardPinBotomsheet> {
   );
 
   final filledPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: Color(0xFF0B3A3A), // filled color
@@ -57,37 +58,13 @@ class _GiftcardPinBotomsheetState extends State<GiftcardPinBotomsheet> {
     }
   }
 
-  Widget _key(String value, {VoidCallback? onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 82.w,
-        alignment: Alignment.center,
-        child: Text(
-          value,
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 32.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
+  void _onDelete() {
+    if (_realPin.isEmpty) return;
 
-  Widget _deleteKey({VoidCallback? onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        height: 33.h,
-        width: 33.w,
-        child: SvgPicture.asset(
-          'assets/icon/eraser.svg',
-          fit: BoxFit.scaleDown,
-        ),
-      ),
-    );
+    setState(() {
+      _realPin = _realPin.substring(0, _realPin.length - 1);
+      _displayController.text = _realPin;
+    });
   }
 
   @override
@@ -108,7 +85,7 @@ class _GiftcardPinBotomsheetState extends State<GiftcardPinBotomsheet> {
     // );
 
     return FractionallySizedBox(
-      heightFactor: 0.680,
+      heightFactor: 0.750,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -165,20 +142,24 @@ class _GiftcardPinBotomsheetState extends State<GiftcardPinBotomsheet> {
                       color: PPaymobileColors.svgIconColor,
                     ),
                   ),
-                  20.verticalSpace,
-                  Pinput(
-                    controller: _displayController,
-                    length: 4,
-                    readOnly: true,
-                    showCursor: false,
+                  18.verticalSpace,
+                  SizedBox(
+                    height: 51.h,
+                    width: 256.w,
+                    child: Pinput(
+                      controller: _displayController,
+                      length: 4,
+                      readOnly: true,
+                      showCursor: false,
+                      obscureText: true,
+                      obscuringCharacter: '.',
+                      defaultPinTheme: emptyPinTheme,
+                      focusedPinTheme: emptyPinTheme,
+                      submittedPinTheme: filledPinTheme,
 
-                    defaultPinTheme: emptyPinTheme,
-                    focusedPinTheme: emptyPinTheme,
-                    submittedPinTheme: filledPinTheme,
-
-                    separatorBuilder: (_) => SizedBox(width: 24.w),
+                      separatorBuilder: (_) => 50.horizontalSpace,
+                    ),
                   ),
-                  14.verticalSpace,
                   Text(
                     'Incorrect Transaction Pin. Try again',
                     style: TextStyle(
@@ -188,94 +169,13 @@ class _GiftcardPinBotomsheetState extends State<GiftcardPinBotomsheet> {
                       color: PPaymobileColors.redTextfield,
                     ),
                   ),
-                  14.verticalSpace,
-                  GridView.count(
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 40.w),
-                    mainAxisSpacing: 24.h,
-                    crossAxisSpacing: 48.w,
-                    children: [
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('1', onTap: () => _onKeyTap('1')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('2', onTap: () => _onKeyTap('2')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('3', onTap: () => _onKeyTap('3')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('4', onTap: () => _onKeyTap('4')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('5', onTap: () => _onKeyTap('5')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('6', onTap: () => _onKeyTap('6')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('7', onTap: () => _onKeyTap('7')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('8', onTap: () => _onKeyTap('8')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('9', onTap: () => _onKeyTap('9')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('.', onTap: () => _onKeyTap('.')),
-                      ),
-                      Container(
-                        height: 68.h,
-                        width: 82.w,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w),
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: _key('0', onTap: () => _onKeyTap('0')),
-                      ),
-                      _deleteKey(onTap: () {}),
-                    ],
+                  // CUSTOM KEYPAD
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.0.h),
+                    child: PinCustomKeyboard(
+                      onKeyTap: _onKeyTap,
+                      onDelete: _onDelete,
+                    ),
                   ),
                 ],
               ),

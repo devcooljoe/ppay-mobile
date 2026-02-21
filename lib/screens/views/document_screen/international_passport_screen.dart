@@ -91,24 +91,22 @@ class _InternationalPassportScreenState
                   ),
                   decoration: InputDecoration(
                     suffixIcon: TouchOpacity(
-                      child: GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) {
-                              return DocumentBottomSheet();
-                            },
-                          );
-                        },
-                        child: SizedBox(
-                          height: 13.h,
-                          width: 7.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/arrow_down.svg',
-                            fit: BoxFit.scaleDown,
-                          ),
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) {
+                            return DocumentBottomSheet();
+                          },
+                        );
+                      },
+                      child: SizedBox(
+                        height: 13.h,
+                        width: 7.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/arrow_down.svg',
+                          fit: BoxFit.scaleDown,
                         ),
                       ),
                     ),

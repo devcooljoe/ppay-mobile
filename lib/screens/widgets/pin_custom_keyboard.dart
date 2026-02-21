@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/fingerprint_screen.dart';
-import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class PinCustomKeyboard extends StatefulWidget {
   final Function(String) onKeyTap;
@@ -36,17 +36,20 @@ Widget _faceIdKey({VoidCallback? onTap}) {
 
 class _PinCustomKeyboardState extends State<PinCustomKeyboard> {
   Widget _key(String value, {VoidCallback? onTap}) {
-    return GestureDetector(
+    return TouchOpacity(
       onTap: onTap,
       child: Container(
+        width: 82.w,
+        height: 68.h,
+        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 10.h),
         alignment: Alignment.center,
         child: Text(
           value,
           style: TextStyle(
             fontFamily: 'InstrumentSans',
-            fontSize: 32.sp,
-            fontWeight: FontWeight.w600,
             color: Colors.black,
+            fontSize: 32.sp,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -69,109 +72,34 @@ class _PinCustomKeyboardState extends State<PinCustomKeyboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 450.h,
-      width: double.infinity,
-      padding: EdgeInsets.only(
-        top: 18.h,
-        left: 10.w,
-        right: 10.w,
-        bottom: 17.h,
-      ),
-      child: GridView.count(
-        crossAxisCount: 3,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.only(
-          top: 15.h,
-          bottom: 37.h,
-          left: 10.w,
-          right: 8.w,
+    return GridView.count(
+      crossAxisCount: 3,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 25.w),
+      mainAxisSpacing: 24.h,
+      crossAxisSpacing: 48.w,
+      children: [
+        _key('1', onTap: () => widget.onKeyTap('1')),
+        _key('2', onTap: () => widget.onKeyTap('2')),
+        _key('3', onTap: () => widget.onKeyTap('3')),
+        _key('4', onTap: () => widget.onKeyTap('4')),
+        _key('5', onTap: () => widget.onKeyTap('5')),
+        _key('6', onTap: () => widget.onKeyTap('6')),
+        _key('7', onTap: () => widget.onKeyTap('7')),
+        _key('8', onTap: () => widget.onKeyTap('8')),
+        _key('9', onTap: () => widget.onKeyTap('9')),
+        _faceIdKey(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FingerprintScreen()),
+            );
+          },
         ),
-        mainAxisSpacing: 24.h,
-        crossAxisSpacing: 52.w,
-        children: [
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('1', onTap: () => widget.onKeyTap('1')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            // padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('2', onTap: () => widget.onKeyTap('2')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('3', onTap: () => widget.onKeyTap('3')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('4', onTap: () => widget.onKeyTap('4')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('5', onTap: () => widget.onKeyTap('5')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('6', onTap: () => widget.onKeyTap('6')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('7', onTap: () => widget.onKeyTap('7')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('8', onTap: () => widget.onKeyTap('8')),
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('9', onTap: () => widget.onKeyTap('9')),
-          ),
-          _faceIdKey(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FingerprintScreen()),
-              );
-            },
-          ),
-          Container(
-            height: 62.h,
-            width: 88.w,
-            color: PPaymobileColors.mainScreenBackground,
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: _key('0', onTap: () => widget.onKeyTap('0')),
-          ),
-          _deleteKey(onTap: widget.onDelete),
-        ],
-      ),
+        _key('0', onTap: () => widget.onKeyTap('0')),
+        _deleteKey(onTap: widget.onDelete),
+      ],
     );
   }
 }

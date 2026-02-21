@@ -154,7 +154,7 @@ class _VeriifyPasswordDetailsState extends State<VeriifyPasswordDetails> {
                           fontFamily: 'InstrumentSans',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
-                          color: PPaymobileColors.highlightTextColor,
+                          color: PPaymobileColors.buttonColor,
                         ),
                       ),
                     ],
@@ -168,9 +168,9 @@ class _VeriifyPasswordDetailsState extends State<VeriifyPasswordDetails> {
                   height: 50.h,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
+                      backgroundColor: PPaymobileColors.buttonColorandText,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42),
+                        borderRadius: BorderRadius.circular(42.r),
                       ),
                       elevation: 0,
                     ),

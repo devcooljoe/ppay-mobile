@@ -85,7 +85,7 @@ class _VoterCardScreenState extends State<VoterCardScreen> {
                     text: widget.selectedDocument,
                   ),
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       onTap: () {
                         showModalBottomSheet(
                           context: context,

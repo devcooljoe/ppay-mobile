@@ -14,6 +14,7 @@ class PPaymobileColors {
   static const warningColor = Color(0xFFFFF3E6);
   static const doneColor = Color(0xFFEBFFE5);
   static const dangerColor = Color(0xFFFFF4F4);
+  static const anotherdangerColor = Color(0xFFFFF2F2);
   static const warningTextColor = Color(0xFF996300);
   static const doneTextColor = Color(0xFF146600);
   static const dangerTextColor = Color(0xFF990003);

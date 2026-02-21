@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FingerprintScreen extends StatefulWidget {
   const FingerprintScreen({super.key});
@@ -24,7 +25,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               child: SizedBox(
                 height: 24.h,
                 width: 24.w,
-                child: GestureDetector(
+                child: TouchOpacity(
                   onTap: () {
                     Navigator.pop(context);
                   },

@@ -138,6 +138,7 @@ class _CryptoTransactionSuccesfulScreenState
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(42),
                         ),
+                        elevation: 0,
                       ),
                       onPressed: () {
                         Navigator.push(

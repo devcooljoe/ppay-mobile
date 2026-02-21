@@ -63,7 +63,7 @@ class _GiftcardScreenState extends State<GiftcardScreen> {
                 ),
               ),
               33.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -148,7 +148,7 @@ class _GiftcardScreenState extends State<GiftcardScreen> {
                 ),
               ),
               36.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Navigator.push(
                     context,

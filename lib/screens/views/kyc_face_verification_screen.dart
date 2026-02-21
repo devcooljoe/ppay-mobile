@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/kyc_verification_complete_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class KycFaceVerificationScreen extends StatefulWidget {
   const KycFaceVerificationScreen({super.key});
@@ -91,7 +92,7 @@ class _KycFaceVerificationScreenState extends State<KycFaceVerificationScreen> {
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(

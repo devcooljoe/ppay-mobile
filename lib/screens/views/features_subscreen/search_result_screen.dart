@@ -1166,6 +1166,14 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     ),
                     32.verticalSpace,
                     TouchOpacity(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FlightDetailsScreen(),
+                          ),
+                        );
+                      },
                       child: Container(
                         height: 46.h,
                         width: double.infinity,

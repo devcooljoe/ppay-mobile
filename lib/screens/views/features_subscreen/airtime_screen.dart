@@ -112,7 +112,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          GestureDetector(
+                          TouchOpacity(
                             onTap: () {
                               showModalBottomSheet(
                                 context: context,
@@ -176,7 +176,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                                   ),
                                   10.verticalSpace,
                                   Text(
-                                    'DSTV',
+                                    'MTN',
                                     style: TextStyle(
                                       fontFamily: 'InstrumentSans',
                                       color: Colors.black,
@@ -218,7 +218,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                                 ),
                                 10.verticalSpace,
                                 Text(
-                                  'DSTV',
+                                  'Airtel',
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
                                     color: Colors.black,
@@ -259,7 +259,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                                 ),
                                 10.verticalSpace,
                                 Text(
-                                  'DSTV',
+                                  '9mobile',
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
                                     color: Colors.black,
@@ -300,7 +300,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                                 ),
                                 10.verticalSpace,
                                 Text(
-                                  'DSTV',
+                                  'Glo',
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
                                     color: Colors.black,
@@ -335,9 +335,10 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                         width: double.infinity,
                         child: TextFormField(
                           showCursor: true,
+                          keyboardType: TextInputType.number,
                           onTap: () {
                             setState(() {
-                              _showKeyboard = true;
+                              _showKeyboard = false;
                             });
                           },
                           decoration: InputDecoration(
@@ -364,6 +365,13 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfieldGrey,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
+                            ),
+                            border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -399,6 +407,7 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                         width: double.infinity,
                         child: TextFormField(
                           showCursor: true,
+                          readOnly: true,
                           onTap: () {
                             setState(() {
                               _showKeyboard = true;
@@ -426,6 +435,13 @@ class _AirtimeScreenState extends State<AirtimeScreen> {
                                   ),
                                 ],
                               ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfieldGrey,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(

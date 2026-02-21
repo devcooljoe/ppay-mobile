@@ -130,7 +130,7 @@ class _MultiPassengersDetailsScreenState
                 ),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       child: SizedBox(
                         height: 13.h,
                         width: 7.w,
@@ -251,7 +251,7 @@ class _MultiPassengersDetailsScreenState
                         ),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            suffixIcon: GestureDetector(
+                            suffixIcon: TouchOpacity(
                               child: SizedBox(
                                 height: 13.h,
                                 width: 7.w,
@@ -514,7 +514,7 @@ class _MultiPassengersDetailsScreenState
                 ),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       child: SizedBox(
                         height: 13.h,
                         width: 7.w,
@@ -635,7 +635,7 @@ class _MultiPassengersDetailsScreenState
                         ),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            suffixIcon: GestureDetector(
+                            suffixIcon: TouchOpacity(
                               child: SizedBox(
                                 height: 13.h,
                                 width: 7.w,
@@ -898,7 +898,7 @@ class _MultiPassengersDetailsScreenState
                 ),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
+                    suffixIcon: TouchOpacity(
                       child: SizedBox(
                         height: 13.h,
                         width: 7.w,
@@ -1019,7 +1019,7 @@ class _MultiPassengersDetailsScreenState
                         ),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            suffixIcon: GestureDetector(
+                            suffixIcon: TouchOpacity(
                               child: SizedBox(
                                 height: 13.h,
                                 width: 7.w,

@@ -271,7 +271,7 @@ class _BvnVerificationScreenState extends State<BvnVerificationScreen> {
                 ),
               ),
               15.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () async {
                   await showModalBottomSheet(
                     context: context,

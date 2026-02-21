@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/fund_card_receipt_screen.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/virtual_card.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/virtual_card_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FundCardSuccessfulScreen extends StatefulWidget {
   const FundCardSuccessfulScreen({super.key});
@@ -72,8 +73,7 @@ class _FundCardSuccessfulScreenState extends State<FundCardSuccessfulScreen> {
                     height: 54.h,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors
-                            .backgroundColor, //after price input, the color changes to .backgroundColor
+                        backgroundColor: PPaymobileColors.buttonColorandText,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24).r,
                         ),
@@ -84,7 +84,7 @@ class _FundCardSuccessfulScreenState extends State<FundCardSuccessfulScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return const VirtualCard();
+                              return const VirtualCardScreen();
                             },
                           ),
                         );
@@ -115,7 +115,7 @@ class _FundCardSuccessfulScreenState extends State<FundCardSuccessfulScreen> {
                     ),
                   ),
                   18.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,

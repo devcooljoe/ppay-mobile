@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/option_picker.dart';
 
 class CardTypeBottomsheet extends StatefulWidget {
   const CardTypeBottomsheet({super.key});
@@ -11,6 +12,7 @@ class CardTypeBottomsheet extends StatefulWidget {
 }
 
 class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -117,13 +119,11 @@ class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/indicator.svg',
-                              fit: BoxFit.contain,
-                            ),
+                          OptionPicker(
+                            selected: selectedIndex == 1,
+                            onSelected: () => setState(() {
+                              selectedIndex = 1;
+                            }),
                           ),
                         ],
                       ),
@@ -156,13 +156,11 @@ class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/check_circle.svg',
-                              fit: BoxFit.contain,
-                            ),
+                          OptionPicker(
+                            selected: selectedIndex == 2,
+                            onSelected: () => setState(() {
+                              selectedIndex = 2;
+                            }),
                           ),
                         ],
                       ),

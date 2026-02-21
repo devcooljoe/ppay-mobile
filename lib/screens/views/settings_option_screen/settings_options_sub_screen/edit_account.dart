@@ -5,6 +5,7 @@ import 'package:ppay_mobile/model/bank_model.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/remove_account_bottomsheet.dart';
 import 'package:ppay_mobile/screens/widgets/select_bank_bottomsheet.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class EditAccount extends StatefulWidget {
   const EditAccount({super.key});
@@ -26,8 +27,8 @@ class _EditAccountState extends State<EditAccount> {
   void _openChangeBottomSheet() {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // ✅ allows custom height
-      backgroundColor: Colors.transparent, // for rounded corners
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) {
         return RemoveAccountBottomsheet();
       },
@@ -54,205 +55,242 @@ class _EditAccountState extends State<EditAccount> {
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SizedBox(
+          child: TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: SizedBox(
               height: 24.h,
               width: 24.w,
               child: SvgPicture.asset(
                 'assets/icon/arrow_back.svg',
-                fit: BoxFit.contain,
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              32.verticalSpace,
-              Text(
-                'Edit Account',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: ListView(
+          children: [
+            32.verticalSpace,
+            Text(
+              'Edit Account',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w500,
               ),
-              8.verticalSpace,
-              Text(
-                'Fill he fields below to edit account details',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.svgIconColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+            ),
+            8.verticalSpace,
+            Text(
+              'Fill he fields below to edit account details',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: PPaymobileColors.svgIconColor,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
               ),
-              44.verticalSpace,
-              Text(
-                'Select Bank',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+            ),
+            44.verticalSpace,
+            Text(
+              'Select Bank',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
               ),
-              4.verticalSpace,
-              Container(
-                height: 54.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6).r,
-                ),
-                child: TextFormField(
-                  controller: _bankController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    prefixIcon: _selectedBank == null
-                        ? null
-                        : Padding(
-                            padding: EdgeInsets.all(12.w),
-                            child: Image.asset(
-                              _selectedBank!.bankImage,
-                              width: 24.w,
-                              height: 24.h,
-                              fit: BoxFit.contain,
-                            ),
+            ),
+            4.verticalSpace,
+            Container(
+              height: 54.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6).r,
+              ),
+              child: TextFormField(
+                controller: _bankController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  prefixIcon: _selectedBank == null
+                      ? null
+                      : Padding(
+                          padding: EdgeInsets.all(12.w),
+                          child: Image.asset(
+                            _selectedBank!.bankImage,
+                            width: 24.w,
+                            height: 24.h,
+                            fit: BoxFit.contain,
                           ),
-
-                    suffixIcon: GestureDetector(
-                      onTap: () async {
-                        final bank = await showModalBottomSheet<BankModel>(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (_) => const SelectBankBottomsheet(),
-                        );
-
-                        if (bank != null) {
-                          setState(() {
-                            _selectedBank = bank;
-                            _bankController.text = bank.bankName;
-                          });
-                        }
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(12.w),
-                        child: SvgPicture.asset(
-                          'assets/icon/arrow_down.svg',
-                          fit: BoxFit.scaleDown,
                         ),
+
+                  suffixIcon: TouchOpacity(
+                    onTap: () async {
+                      final bank = await showModalBottomSheet<BankModel>(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (_) => const SelectBankBottomsheet(),
+                      );
+
+                      if (bank != null) {
+                        setState(() {
+                          _selectedBank = bank;
+                          _bankController.text = bank.bankName;
+                        });
+                      }
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(12.w),
+                      child: SvgPicture.asset(
+                        'assets/icon/arrow_down.svg',
+                        fit: BoxFit.scaleDown,
                       ),
                     ),
+                  ),
 
-                    hintText: 'Select',
-                    hintStyle: TextStyle(
-                      fontFamily: 'InstrumentSans',
+                  hintText: 'Select',
+                  hintStyle: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.textfiedBorder,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 14.h,
+                  ),
+
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
                       color: PPaymobileColors.textfiedBorder,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
+                      width: 1.w,
                     ),
-
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 14.h,
-                    ),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
-                        width: 1.w,
-                      ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.textfiedBorder,
+                      width: 1.w,
                     ),
                   ),
                 ),
               ),
-              38.verticalSpace,
-              Text(
-                'Recipient Account No',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+            ),
+            38.verticalSpace,
+            Text(
+              'Recipient Account No',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
               ),
-              4.verticalSpace,
-              Container(
-                height: 54.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6).r,
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'e.g. 0000000000',
-                    hintStyle: TextStyle(
-                      fontFamily: 'InstrumentSans',
+            ),
+            4.verticalSpace,
+            Container(
+              height: 54.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6).r,
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'e.g. 0000000000',
+                  hintStyle: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.textfiedBorder,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 14.h,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
                       color: PPaymobileColors.textfiedBorder,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
+                      width: 1.w,
                     ),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 14.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.textfiedBorder,
-                        width: 1.w,
-                      ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.textfiedBorder,
+                      width: 1.w,
                     ),
                   ),
                 ),
               ),
-              38.verticalSpace,
-              Container(
-                height: 78.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5).r,
-                  color: PPaymobileColors.deepBackgroundColor,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Recipient Name',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
+            ),
+            38.verticalSpace,
+            Container(
+              height: 78.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5).r,
+                color: PPaymobileColors.deepBackgroundColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recipient Name',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
                     ),
-                    Text(
-                      'Adebami Samuel',
+                  ),
+                  Text(
+                    'Adebami Samuel',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            113.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 50.h,
+                  width: 188.w,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 12.h,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(42).r,
+                    color: PPaymobileColors.buttonInactiveColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Update',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
-                        color: Colors.black,
+                        color: PPaymobileColors.mainScreenBackground,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              113.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
+                TouchOpacity(
+                  onTap: _openChangeBottomSheet,
+                  child: Container(
                     height: 50.h,
                     width: 188.w,
                     padding: EdgeInsets.symmetric(
@@ -261,62 +299,36 @@ class _EditAccountState extends State<EditAccount> {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(42).r,
-                      color: PPaymobileColors.doneColor,
+                      color: PPaymobileColors.anotherdangerColor,
                     ),
-                    child: Center(
-                      child: Text(
-                        'Update',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.mainScreenBackground,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 16.h,
+                          width: 16.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/dustbin.svg',
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                      ),
+                        10.horizontalSpace,
+                        Text(
+                          'Remove',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.transactRed,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: _openChangeBottomSheet,
-                    child: Container(
-                      height: 50.h,
-                      width: 188.w,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                        vertical: 12.h,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(42).r,
-                        color: PPaymobileColors.dangerColor,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 16.h,
-                            width: 16.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/dustbin.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          10.horizontalSpace,
-                          Text(
-                            'Remove',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: PPaymobileColors.dangerTextColor,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

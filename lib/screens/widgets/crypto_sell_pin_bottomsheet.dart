@@ -20,8 +20,8 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
   String _realPin = '';
 
   final emptyPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
@@ -30,8 +30,9 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
   );
 
   final filledPinTheme = PinTheme(
-    width: 18.w,
-    height: 18.w,
+    width: 11.w,
+    height: 11.w,
+    textStyle: TextStyle(color: Colors.transparent),
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: Color(0xFF0B3A3A),
@@ -155,7 +156,7 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
                     focusedPinTheme: emptyPinTheme,
                     submittedPinTheme: filledPinTheme,
 
-                    separatorBuilder: (_) => SizedBox(width: 24.w),
+                    separatorBuilder: (_) => 24.horizontalSpace,
                   ),
 
                   //CUSTOM KEYPAD

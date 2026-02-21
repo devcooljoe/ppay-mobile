@@ -117,9 +117,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                   height: 50.h,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
+                      backgroundColor: PPaymobileColors.buttonColorandText,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42),
+                        borderRadius: BorderRadius.circular(42.r),
                       ),
                       elevation: 0,
                     ),

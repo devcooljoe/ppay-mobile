@@ -6,8 +6,9 @@ import 'package:ppay_mobile/screens/views/features_subscreen/crypto_screen.dart'
 import 'package:ppay_mobile/screens/views/features_subscreen/flight_book_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/giftcard_screen.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/shopping_screen.dart';
-import 'package:ppay_mobile/screens/views/features_subscreen/virtual_card.dart';
+import 'package:ppay_mobile/screens/views/features_subscreen/virtual_card_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FeaturesScreen extends StatefulWidget {
   const FeaturesScreen({super.key});
@@ -68,7 +69,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,
@@ -114,7 +115,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,
@@ -160,11 +161,13 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => VirtualCard()),
+                            MaterialPageRoute(
+                              builder: (_) => VirtualCardScreen(),
+                            ),
                           );
                         },
                         child: Container(
@@ -209,7 +212,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,
@@ -238,7 +241,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                         ),
                       ),
                       8.verticalSpace,
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,
@@ -261,7 +264,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,
@@ -307,7 +310,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      TouchOpacity(
                         onTap: () {
                           Navigator.push(
                             context,

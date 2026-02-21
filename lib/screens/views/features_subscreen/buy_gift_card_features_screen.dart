@@ -28,7 +28,7 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
             children: [
               Transform.translate(
                 offset: const Offset(0, 0),
-                child: GestureDetector(
+                child: TouchOpacity(
                   onTap: () => Navigator.pop(context),
                   child: Container(
                     height: 60.h,
@@ -385,11 +385,100 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                               SizedBox(
                                 height: 32.h,
                                 width: 79.w,
-                                child: Image.asset(
-                                  'assets/images/buy_naija.png',
-                                  fit: BoxFit.contain,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      top: 5.h,
+                                      left: 23.w,
+                                      child: Container(
+                                        height: 23.h,
+                                        width: 56.w,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(19.r),
+                                            bottomRight: Radius.circular(19.r),
+                                          ),
+                                          color: Color(
+                                            0xFF429E6E,
+                                          ).withValues(alpha: 0.30),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'NGN',
+                                            style: TextStyle(
+                                              fontFamily: 'InstrumentSans',
+                                              color: PPaymobileColors
+                                                  .mainScreenBackground,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 0.h,
+                                      left: 0,
+                                      child: Container(
+                                        height: 32.h,
+                                        width: 32.h,
+                                        padding: EdgeInsets.all(5).r,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ).r,
+                                          color: Color(
+                                            0xff9EB9AB,
+                                          ).withValues(alpha: 0.54),
+                                        ),
+                                        child: Center(
+                                          child: Container(
+                                            height: 22.h,
+                                            width: 22.h,
+                                            padding: EdgeInsets.all(2).r,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(11).r,
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  PPaymobileColors
+                                                      .mainScreenBackground,
+                                                  Color(0xffD2D2D2),
+                                                ],
+                                                begin:
+                                                    AlignmentGeometry.topLeft,
+                                                end: AlignmentGeometry
+                                                    .bottomRight,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: SizedBox(
+                                                height: 23.h,
+                                                width: 23.w,
+                                                child: Image.asset(
+                                                  'assets/images/flag.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                              // SizedBox(
+                              //   height: 32.h,
+                              //   width: 79.w,
+                              //   child: Image.asset(
+                              //     'assets/images/buy_naija.png',
+                              //     fit: BoxFit.contain,
+                              //   ),
+                              // ),
                               16.verticalSpace,
                               Text(
                                 'Wallet Balance',
@@ -522,6 +611,13 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                           ),
                           borderRadius: BorderRadius.circular(6).r,
                         ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfieldGrey,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 12.w,
                           vertical: 14.h,
@@ -596,6 +692,13 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                           ),
                           borderRadius: BorderRadius.circular(6).r,
                         ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfieldGrey,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 12.w,
                           vertical: 14.h,
@@ -654,6 +757,13 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                             ),
                             // hintText: 'Enter Receiver Name',
                             enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfieldGrey,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(6).r,
+                            ),
+                            border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: PPaymobileColors.textfieldGrey,
                                 width: 1.w,
@@ -771,6 +881,33 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                   ),
                   20.verticalSpace,
                   TouchOpacity(
+                    onTap: () {},
+                    child: Container(
+                      height: 50.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 10.h,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(56).r,
+                        color: PPaymobileColors.filterBorderColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Proceed to Pay',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  10.verticalSpace,
+                  TouchOpacity(
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
@@ -817,16 +954,29 @@ class _BuyGiftCardFeaturesScreenState extends State<BuyGiftCardFeaturesScreen> {
                       borderRadius: BorderRadius.circular(56).r,
                       color: PPaymobileColors.buttonColorandText,
                     ),
-                    child: Center(
-                      child: Text(
-                        'Processing',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Processing',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
+                        10.horizontalSpace,
+                        SizedBox(
+                          height: 24.h,
+                          width: 24.h,
+                          child: CircularProgressIndicator(
+                            backgroundColor: PPaymobileColors.anotherGreyColor,
+                            color: PPaymobileColors.mainScreenBackground,
+                            strokeWidth: 4.w,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   10.verticalSpace,

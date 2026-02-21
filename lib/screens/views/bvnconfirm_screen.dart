@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class BvnconfirmScreen extends StatefulWidget {
   const BvnconfirmScreen({super.key});
@@ -25,7 +26,7 @@ class _BvnconfirmScreenState extends State<BvnconfirmScreen> {
               29.verticalSpace,
               Row(
                 children: [
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () => Navigator.pop(context),
                     child: SvgPicture.asset(
                       height: 16.h,
@@ -99,7 +100,7 @@ class _BvnconfirmScreenState extends State<BvnconfirmScreen> {
                   //   fontWeight: FontWeight.w500,
                   //   color: Colors.black87,
                   // ),
-                  suffix: GestureDetector(
+                  suffix: TouchOpacity(
                     onTap: () {
                       _selectDate(context);
                     },

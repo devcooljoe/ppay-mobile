@@ -158,7 +158,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                           separatorBuilder: (_, __) => 28.verticalSpace,
                           itemBuilder: (context, index) {
                             final transaction = group.transactions[index];
-
                             return ListTile(
                               contentPadding: EdgeInsets.zero,
                               leading: Container(

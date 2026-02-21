@@ -288,7 +288,7 @@ class _CryptoConfirmSellBottomsheetState
                     height: 54.h,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
+                        backgroundColor: PPaymobileColors.buttonColorandText,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(42),
                         ),

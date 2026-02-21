@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/screens/views/features_subscreen/flight_two_payment_success_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/pin_custom_keyboard.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class FlightTwoPinBottomsheet extends StatefulWidget {
   const FlightTwoPinBottomsheet({super.key});
@@ -31,6 +32,7 @@ class _FlightTwoPinBottomsheetState extends State<FlightTwoPinBottomsheet> {
   final filledPinTheme = PinTheme(
     width: 11.w,
     height: 11.w,
+    textStyle: TextStyle(color: Colors.transparent),
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: PPaymobileColors.buttonColor,
@@ -94,7 +96,7 @@ class _FlightTwoPinBottomsheetState extends State<FlightTwoPinBottomsheet> {
         children: [
           Transform.translate(
             offset: const Offset(0, 0),
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.h,

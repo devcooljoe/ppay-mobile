@@ -14,6 +14,7 @@ import 'package:ppay_mobile/screens/views/settings_option_screen/terms_and_condi
 import 'package:ppay_mobile/screens/views/settings_option_screen/transaction_limit.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_switch.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -188,7 +189,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   18.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -248,7 +249,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   12.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -334,7 +335,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   12.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -417,7 +418,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   18.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -477,7 +478,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   12.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -597,7 +598,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   12.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -682,7 +683,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   18.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -767,7 +768,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   18.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -850,7 +851,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   18.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -910,7 +911,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   12.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -970,7 +971,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   12.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -1085,7 +1086,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 'Logout',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.redTextfield,
+                                  color: PPaymobileColors.transactRed,
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
                                 ),

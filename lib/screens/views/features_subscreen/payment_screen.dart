@@ -17,8 +17,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void _openPaymentPinBottomSheet() {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // ✅ allows custom height
-      backgroundColor: Colors.transparent, // for rounded corners
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) {
         return PaymentPinBottomsheet();
       },

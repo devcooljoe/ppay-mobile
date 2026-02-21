@@ -46,170 +46,168 @@ class _BvnFaceRecogScreenState extends State<BvnFaceRecogScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: ListView(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  90.verticalSpace,
-                  SizedBox(
-                    height: 333.h,
-                    width: 333.w,
-                    child: Image.asset('assets/images/face_capture.png'),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+        child: ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                90.verticalSpace,
+                SizedBox(
+                  height: 333.h,
+                  width: 333.w,
+                  child: Image.asset('assets/images/face_capture.png'),
+                ),
+                91.verticalSpace,
+                Text(
+                  'Look directly at your front Camera',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.mainScreenBackground,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
                   ),
-                  91.verticalSpace,
-                  Text(
-                    'Look directly at your front Camera',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  52.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => KycVerificationCompleteScreen(),
-                      ),
-                    ),
-                    child: SizedBox(
-                      height: 95.h,
-                      width: 95.w,
-                      child: Image.asset(
-                        'assets/images/twenty.png',
-                        fit: BoxFit.contain,
-                      ),
+                ),
+                52.verticalSpace,
+                TouchOpacity(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KycVerificationCompleteScreen(),
                     ),
                   ),
-                  16.verticalSpace,
-                  Text(
-                    'Turn your head Left',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
+                  child: SizedBox(
+                    height: 95.h,
+                    width: 95.w,
+                    child: Image.asset(
+                      'assets/images/twenty.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  52.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => KycVerificationCompleteScreen(),
-                      ),
-                    ),
-                    child: SizedBox(
-                      height: 95.h,
-                      width: 95.w,
-                      child: Image.asset(
-                        'assets/images/sixty.png',
-                        fit: BoxFit.contain,
-                      ),
+                ),
+                16.verticalSpace,
+                Text(
+                  'Turn your head Left',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.mainScreenBackground,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                52.verticalSpace,
+                TouchOpacity(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KycVerificationCompleteScreen(),
                     ),
                   ),
-                  16.verticalSpace,
-                  Text(
-                    'Blink your eye',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
+                  child: SizedBox(
+                    height: 95.h,
+                    width: 95.w,
+                    child: Image.asset(
+                      'assets/images/sixty.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  52.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => KycVerificationCompleteScreen(),
-                      ),
-                    ),
-                    child: SizedBox(
-                      height: 95.h,
-                      width: 95.w,
-                      child: Image.asset(
-                        'assets/images/ninety.png',
-                        fit: BoxFit.contain,
-                      ),
+                ),
+                16.verticalSpace,
+                Text(
+                  'Blink your eye',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.mainScreenBackground,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                52.verticalSpace,
+                TouchOpacity(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KycVerificationCompleteScreen(),
                     ),
                   ),
-                  16.verticalSpace,
-                  Text(
-                    'You’re all good',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
+                  child: SizedBox(
+                    height: 95.h,
+                    width: 95.w,
+                    child: Image.asset(
+                      'assets/images/ninety.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  52.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => KycVerificationCompleteScreen(),
-                      ),
-                    ),
-                    child: SizedBox(
-                      height: 95.h,
-                      width: 95.w,
-                      child: Image.asset(
-                        'assets/images/hundred.png',
-                        fit: BoxFit.contain,
-                      ),
+                ),
+                16.verticalSpace,
+                Text(
+                  'You’re all good',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.mainScreenBackground,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                52.verticalSpace,
+                TouchOpacity(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KycVerificationCompleteScreen(),
                     ),
                   ),
-                  24.verticalSpace,
-                  SizedBox(
-                    height: 333.h,
-                    width: 333.w,
-                    child: Image.asset('assets/images/face_capture_error.png'),
-                  ),
-                  91.verticalSpace,
-                  Text(
-                    'Error occurred. Please try again',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
+                  child: SizedBox(
+                    height: 95.h,
+                    width: 95.w,
+                    child: Image.asset(
+                      'assets/images/hundred.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  52.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => KycVerificationCompleteScreen(),
-                      ),
-                    ),
-                    child: SizedBox(
-                      height: 95.h,
-                      width: 95.w,
-                      child: Image.asset(
-                        'assets/images/redo.png',
-                        fit: BoxFit.contain,
-                      ),
+                ),
+                24.verticalSpace,
+                SizedBox(
+                  height: 333.h,
+                  width: 333.w,
+                  child: Image.asset('assets/images/face_capture_error.png'),
+                ),
+                91.verticalSpace,
+                Text(
+                  'Error occurred. Please try again',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.mainScreenBackground,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                52.verticalSpace,
+                TouchOpacity(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => KycVerificationCompleteScreen(),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                  child: SizedBox(
+                    height: 95.h,
+                    width: 95.w,
+                    child: Image.asset(
+                      'assets/images/redo.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

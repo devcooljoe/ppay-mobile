@@ -79,9 +79,90 @@ class _SellGiftCardFeaturesScreenState
                               SizedBox(
                                 height: 32.h,
                                 width: 79.w,
-                                child: Image.asset(
-                                  'assets/images/buy_naija.png',
-                                  fit: BoxFit.contain,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      top: 5.h,
+                                      left: 23.w,
+                                      child: Container(
+                                        height: 23.h,
+                                        width: 56.w,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(19.r),
+                                            bottomRight: Radius.circular(19.r),
+                                          ),
+                                          color: Color(
+                                            0xFF429E6E,
+                                          ).withValues(alpha: 0.30),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'NGN',
+                                            style: TextStyle(
+                                              fontFamily: 'InstrumentSans',
+                                              color: PPaymobileColors
+                                                  .mainScreenBackground,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 0.h,
+                                      left: 0,
+                                      child: Container(
+                                        height: 32.h,
+                                        width: 32.h,
+                                        padding: EdgeInsets.all(5).r,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ).r,
+                                          color: Color(
+                                            0xff9EB9AB,
+                                          ).withValues(alpha: 0.54),
+                                        ),
+                                        child: Center(
+                                          child: Container(
+                                            height: 22.h,
+                                            width: 22.h,
+                                            padding: EdgeInsets.all(2).r,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(11).r,
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  PPaymobileColors
+                                                      .mainScreenBackground,
+                                                  Color(0xffD2D2D2),
+                                                ],
+                                                begin:
+                                                    AlignmentGeometry.topLeft,
+                                                end: AlignmentGeometry
+                                                    .bottomRight,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: SizedBox(
+                                                height: 23.h,
+                                                width: 23.w,
+                                                child: Image.asset(
+                                                  'assets/images/flag.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               16.verticalSpace,
@@ -216,6 +297,13 @@ class _SellGiftCardFeaturesScreenState
                           ),
                           borderRadius: BorderRadius.circular(6).r,
                         ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfieldGrey,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 12.w,
                           vertical: 14.h,
@@ -289,6 +377,13 @@ class _SellGiftCardFeaturesScreenState
                           ),
                           borderRadius: BorderRadius.circular(6).r,
                         ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfieldGrey,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 12.w,
                           vertical: 14.h,
@@ -312,17 +407,7 @@ class _SellGiftCardFeaturesScreenState
                     width: double.infinity,
                     child: TextFormField(
                       showCursor: true,
-                      // onTap: _selectValueDialog,
-                      // onTap: () {
-                      //   showModalBottomSheet(
-                      //     context: context,
-                      //     isScrollControlled: true,
-                      //     backgroundColor: Colors.transparent,
-                      //     builder: (context) {
-                      //       return CardTypeBottomsheet();
-                      //     },
-                      //   );
-                      // },
+
                       decoration: InputDecoration(
                         hint: RichText(
                           text: TextSpan(
@@ -348,6 +433,13 @@ class _SellGiftCardFeaturesScreenState
                         ),
                         // hintText: 'Enter Receiver Name',
                         enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfieldGrey,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
+                        border: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfieldGrey,
                             width: 1.w,
@@ -466,6 +558,13 @@ class _SellGiftCardFeaturesScreenState
                           ),
                           borderRadius: BorderRadius.circular(6).r,
                         ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfieldGrey,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 12.w,
                           vertical: 14.h,
@@ -484,24 +583,26 @@ class _SellGiftCardFeaturesScreenState
                     ),
                   ),
                   4.verticalSpace,
-                  Container(
-                    height: 109.h,
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 19.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: PPaymobileColors.deepBackgroundColor,
-                      borderRadius: BorderRadius.circular(4).r,
-                    ),
-                    child: Center(
-                      child: SizedBox(
-                        height: 71.h,
-                        width: 283.w,
-                        child: Image.asset(
-                          'assets/images/add_image.png',
-                          fit: BoxFit.contain,
+                  TouchOpacity(
+                    child: Container(
+                      height: 109.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 19.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: PPaymobileColors.deepBackgroundColor,
+                        borderRadius: BorderRadius.circular(4).r,
+                      ),
+                      child: Center(
+                        child: SizedBox(
+                          height: 71.h,
+                          width: 283.w,
+                          child: Image.asset(
+                            'assets/images/add_image.png',
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                     ),

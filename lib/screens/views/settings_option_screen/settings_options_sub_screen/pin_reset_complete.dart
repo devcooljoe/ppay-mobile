@@ -83,7 +83,8 @@ class _PinResetCompleteState extends State<PinResetComplete> {
                           height: 50.h,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: PPaymobileColors.backgroundColor,
+                              backgroundColor:
+                                  PPaymobileColors.buttonColorandText,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(42),
                               ),

@@ -62,16 +62,15 @@ class _GenderBottomsheetState extends State<GenderBottomsheet> {
                     'Select Gender',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
-                      fontSize: 16.sp,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),
                   ),
                   29.verticalSpace,
-
-                  /// Options
+                  // Options
                   _optionTile('Male'),
-                  21.verticalSpace,
+                  45.verticalSpace,
                   _optionTile('Female'),
                 ],
               ),
@@ -98,7 +97,7 @@ class _GenderBottomsheetState extends State<GenderBottomsheet> {
               value,
               style: TextStyle(
                 fontFamily: 'InstrumentSans',
-                fontSize: 14.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),

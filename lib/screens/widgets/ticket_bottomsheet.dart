@@ -129,7 +129,13 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                           horizontal: 12.w,
                           vertical: 14.h,
                         ),
-
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.r),
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfiedBorder,
+                            width: 1.w,
+                          ),
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(
@@ -174,6 +180,13 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                             width: 1.w,
                           ),
                         ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.r),
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfiedBorder,
+                            width: 1.w,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -206,6 +219,13 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                           color: PPaymobileColors.svgIconColor,
                         ),
                         enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.r),
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfiedBorder,
+                            width: 1.w,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(
                             color: PPaymobileColors.textfiedBorder,
@@ -251,7 +271,7 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                       height: 50.h,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.backgroundColor,
+                          backgroundColor: PPaymobileColors.buttonColorandText,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(42.r),
                           ),
