@@ -15,7 +15,7 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      heightFactor: 0.600,
+      heightFactor: 0.800,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -99,20 +99,17 @@ class _SelectBankBottomsheetState extends State<SelectBankBottomsheet> {
                       ),
                     ),
                   ),
-                  30.verticalSpace,
-                  SizedBox(
-                    height: 235.h,
-                    width: double.infinity,
+                  10.verticalSpace,
+                  Expanded(
                     child: ListView.separated(
                       itemCount: banksModel.length,
-                      separatorBuilder: (context, index) =>
-                          Column(children: [24.verticalSpace]),
+                      separatorBuilder: (context, index) => 24.verticalSpace,
                       itemBuilder: (context, index) {
                         return ListTile(
                           contentPadding: EdgeInsets.zero,
-                          horizontalTitleGap: 12.w,
                           minLeadingWidth: 0,
-
+                          dense: true,
+                          visualDensity: VisualDensity.compact,
                           leading: SizedBox(
                             height: 28.w,
                             width: 28.w,

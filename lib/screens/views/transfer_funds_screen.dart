@@ -92,79 +92,74 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
               ),
             ),
             4.verticalSpace,
-            Container(
-              height: 54.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6).r,
-              ),
-              child: TextFormField(
-                controller: _bankController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  prefixIcon: _selectedBank == null
-                      ? null
-                      : Padding(
-                          padding: EdgeInsets.all(12.w),
-                          child: SizedBox(
-                            width: 26.w,
-                            height: 22.h,
-                            child: Image.asset(
-                              _selectedBank!.bankImage,
-                              fit: BoxFit.contain,
+            GestureDetector(
+              onTap: () async {
+                final bank = await showModalBottomSheet<BankModel>(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (_) => const SelectBankBottomsheet(),
+                );
+
+                if (bank != null) {
+                  setState(() {
+                    _selectedBank = bank;
+                    _bankController.text = bank.bankName;
+                  });
+                }
+              },
+              child: AbsorbPointer(
+                child: TextFormField(
+                  controller: _bankController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    prefixIcon: _selectedBank == null
+                        ? null
+                        : Padding(
+                            padding: EdgeInsets.all(12.w),
+                            child: SizedBox(
+                              width: 26.w,
+                              height: 22.h,
+                              child: Image.asset(
+                                _selectedBank!.bankImage,
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
-                        ),
 
-                  suffixIcon: TouchOpacity(
-                    onTap: () async {
-                      final bank = await showModalBottomSheet<BankModel>(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (_) => const SelectBankBottomsheet(),
-                      );
-
-                      if (bank != null) {
-                        setState(() {
-                          _selectedBank = bank;
-                          _bankController.text = bank.bankName;
-                        });
-                      }
-                    },
-                    child: Padding(
+                    suffixIcon: Padding(
                       padding: EdgeInsets.all(12.w),
                       child: SvgPicture.asset(
                         'assets/icon/arrow_down.svg',
                         fit: BoxFit.scaleDown,
                       ),
                     ),
-                  ),
 
-                  hintText: 'Select',
-                  hintStyle: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: PPaymobileColors.textfiedBorder,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 12.w,
-                    vertical: 14.h,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.r),
-                    borderSide: BorderSide(
-                      color: PPaymobileColors.lightGrey,
-                      width: 1.w,
+                    hintText: 'Select',
+                    hintStyle: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.textfiedBorder,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.r),
-                    borderSide: BorderSide(
-                      color: PPaymobileColors.lightGrey,
-                      width: 1.w,
+
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 14.h,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
                     ),
                   ),
                 ),
@@ -181,38 +176,31 @@ class _TransferFundsScreenState extends State<TransferFundsScreen> {
               ),
             ),
             4.verticalSpace,
-            Container(
-              height: 54.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6).r,
-              ),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'e.g. 0000000000',
-                  hintStyle: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: PPaymobileColors.textfiedBorder,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+            TextFormField(
+              decoration: InputDecoration(
+                hintText: 'e.g. 0000000000',
+                hintStyle: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.textfiedBorder,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 12.w,
+                  vertical: 14.h,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6.r),
+                  borderSide: BorderSide(
+                    color: PPaymobileColors.lightGrey,
+                    width: 1.w,
                   ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 12.w,
-                    vertical: 14.h,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.r),
-                    borderSide: BorderSide(
-                      color: PPaymobileColors.lightGrey,
-                      width: 1.w,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.r),
-                    borderSide: BorderSide(
-                      color: PPaymobileColors.lightGrey,
-                      width: 1.w,
-                    ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6.r),
+                  borderSide: BorderSide(
+                    color: PPaymobileColors.lightGrey,
+                    width: 1.w,
                   ),
                 ),
               ),

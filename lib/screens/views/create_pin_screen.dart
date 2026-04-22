@@ -5,7 +5,6 @@ import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/screens/views/created_pin_screen.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
 import 'package:ppay_mobile/screens/widgets/custom_keyboard.dart';
-import 'package:ppay_mobile/screens/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class CreatePinScreen extends StatefulWidget {
@@ -70,7 +69,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: ListView(
           children: [
-            24.verticalSpace,
+            10.verticalSpace,
             Text(
               'Security Pin',
               style: TextStyle(
@@ -90,7 +89,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            46.verticalSpace,
+            30.verticalSpace,
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -100,18 +99,20 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                   padding: EdgeInsets.all(13).r,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(38).r,
-                    color: PPaymobileColors.doneColor,
+                    color: Color(0xffEFF5F2),
                   ),
                   child: SizedBox(
-                    height: 42.w,
-                    width: 42.w,
-                    child: SvgPicture.asset(
-                      'assets/icon/padlock.svg',
-                      fit: BoxFit.contain,
+                    height: 28.w,
+                    width: 28.w,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        'assets/icon/padlock.svg',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
-                40.verticalSpace,
+                30.verticalSpace,
                 Pinput(
                   controller: _pinController,
                   length: 4,
@@ -135,7 +136,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                     ),
                   ),
                 ),
-                20.verticalSpace,
+                10.verticalSpace,
                 Text(
                   'Please keep pin secure. Pin will be required before performing any transaction',
                   textAlign: TextAlign.center,
@@ -146,15 +147,10 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                     color: Colors.black,
                   ),
                 ),
-                29.verticalSpace,
-                KeyboardContainer(
-                  child: CustomKeyboard(
-                    onKeyTap: _onKeyTap,
-                    onDelete: _onDelete,
-                  ),
-                ),
+                10.verticalSpace,
+                CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
                 // this shows after inputting the pin and clicking outside the container...
-                24.verticalSpace,
+                14.verticalSpace,
                 SizedBox(
                   width: double.infinity,
                   height: 50.h,
@@ -189,8 +185,8 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                         ),
                         7.horizontalSpace,
                         SizedBox(
-                          height: 24.w,
-                          width: 24.w,
+                          height: 20.w,
+                          width: 20.w,
                           child: SvgPicture.asset(
                             'assets/icon/arrow_forwardw.svg',
                             fit: BoxFit.contain,

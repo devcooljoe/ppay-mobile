@@ -55,7 +55,7 @@ class CustomKeyboard extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       padding: EdgeInsets.symmetric(horizontal: 25.w),
-      mainAxisSpacing: 24.h,
+      mainAxisSpacing: 14.h,
       crossAxisSpacing: 48.w,
       children: [
         _key('1', onTap: () => onKeyTap('1')),

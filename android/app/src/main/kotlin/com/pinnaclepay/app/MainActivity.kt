@@ -1,4 +1,4 @@
-package com.example.ppay_mobile
+package com.pinnaclepay.app
 
 import io.flutter.embedding.android.FlutterActivity
 

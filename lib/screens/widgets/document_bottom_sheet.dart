@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/screens/widgets/colors.dart';
+import 'package:ppay_mobile/screens/widgets/touch_opacity.dart';
 
 class DocumentBottomSheet extends StatefulWidget {
   const DocumentBottomSheet({super.key});
@@ -71,38 +72,43 @@ class _DocumentBottomSheetState extends State<DocumentBottomSheet> {
                   21.verticalSpace,
                   Expanded(
                     child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: documents.length,
                       itemBuilder: (context, index) {
                         final document = documents[index];
                         return Padding(
                           padding: EdgeInsets.only(bottom: 8.h),
-                          child: Container(
-                            height: 66.h,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 20.h,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  document,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.sp,
-                                    color: Colors.black,
+                          child: TouchOpacity(
+                            onTap: () {},
+                            child: Container(
+                              height: 66.h,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 20.h,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    document,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 20.w,
-                                  width: 20.w,
-                                  child: SvgPicture.asset(
-                                    'assets/icon/check_circle.svg',
-                                    fit: BoxFit.contain,
+                                  SizedBox(
+                                    height: 20.w,
+                                    width: 20.w,
+                                    child: SvgPicture.asset(
+                                      'assets/icon/check_circle.svg',
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );
