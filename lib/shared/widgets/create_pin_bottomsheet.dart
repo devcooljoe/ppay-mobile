@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ppay_mobile/module/auth/create_pin_screen.dart';
+import 'package:ppay_mobile/module/auth/create_pin_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -101,7 +101,7 @@ class _CreatePinBottomsheetState extends State<CreatePinBottomsheet> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return CreatePinScreen();
+                                return CreatePinPage();
                               },
                             ),
                           );

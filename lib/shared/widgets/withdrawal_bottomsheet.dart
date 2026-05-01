@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/transaction/transfer_funds_screen.dart';
+import 'package:ppay_mobile/module/transaction/transfer_funds_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -104,7 +104,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TransferFundsScreen(),
+                          builder: (context) => TransferFundsPage(),
                         ),
                       );
                     },
@@ -244,7 +244,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => TransferFundsScreen(),
+                                      builder: (_) => TransferFundsPage(),
                                     ),
                                   );
                                 },

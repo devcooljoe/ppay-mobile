@@ -1,39 +1,45 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/models/transaction_history_model.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/module/bills/bills_page.dart';
+import 'package:ppay_mobile/module/crypto/crypto_page.dart';
+import 'package:ppay_mobile/module/gift_card/giftcard_page.dart';
+import 'package:ppay_mobile/module/transaction/fund_wallet_page.dart';
+import 'package:ppay_mobile/module/dashboard/notification_page.dart';
+import 'package:ppay_mobile/module/kyc/review_document_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/withdrawal_bottomsheet.dart';
 
+List transactionHistroy = [
+  TransactionHistoryModel(
+    leadingImage: 'assets/images/apple.png',
+    titleText: 'Apple',
+    subtitleText: 'Paid with Dollar Card',
+    trailingText: '-₦60,000.00',
+    trailingColor: PPaymobileColors.cryptoNumbersColor,
+  ),
+  TransactionHistoryModel(
+    leadingImage: 'assets/images/spotify.png',
+    titleText: 'Spotify',
+    subtitleText: 'Paid with Dollar Card',
+    trailingText: '-₦60,000.00',
+    trailingColor: PPaymobileColors.cryptoNumbersColor,
+  ),
+];
+
 @RoutePage()
-class HomePage extends HookWidget {
+class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final transactionHistory = useMemoized(() => [
-      TransactionHistoryModel(
-        leadingImage: 'assets/images/apple.png',
-        titleText: 'Apple',
-        subtitleText: 'Paid with Dollar Card',
-        trailingText: '-₦60,000.00',
-        trailingColor: PPaymobileColors.cryptoNumbersColor,
-      ),
-      TransactionHistoryModel(
-        leadingImage: 'assets/images/spotify.png',
-        titleText: 'Spotify',
-        subtitleText: 'Paid with Dollar Card',
-        trailingText: '-₦60,000.00',
-        trailingColor: PPaymobileColors.cryptoNumbersColor,
-      ),
-    ]);
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
       appBar: AppBar(
@@ -95,7 +101,10 @@ class HomePage extends HookWidget {
           Padding(
             padding: EdgeInsets.only(right: 20.w),
             child: TouchOpacity(
-              onTap: () => context.router.push(NotificationRoute()),
+              onTap: () {
+                context.router.push(NotificationRoute());
+  }
+},
               child: Container(
                 height: 47.w,
                 width: 47.w,
@@ -210,7 +219,14 @@ class HomePage extends HookWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TouchOpacity(
-                                  onTap: () => context.router.push(FundWalletRoute()),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => FundWalletPage(),
+                                      ),
+
+                                  },
                                   child: SizedBox(
                                     width: 172.5.w,
                                     height: 46.h,
@@ -226,8 +242,10 @@ class HomePage extends HookWidget {
                                       context: context,
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
-                                      builder: (context) => WithdrawalBottomsheet(),
-                                    );
+                                      builder: (context) {
+                                        return WithdrawalBottomsheet();
+                                      },
+
                                   },
                                   child: SizedBox(
                                     width: 172.5.w,
@@ -301,10 +319,13 @@ class HomePage extends HookWidget {
                         onTap: () {
                           showModalBottomSheet(
                             context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) => KycBottomsheet(),
-                          );
+                            isScrollControlled: true, // ✅ allows custom height
+                            backgroundColor:
+                                Colors.transparent, // for rounded corners
+                            builder: (context) {
+                              return KycBottomsheet();
+                            },
+
                         },
                         child: Container(
                           height: 36.h,
@@ -341,7 +362,14 @@ class HomePage extends HookWidget {
                 padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
                 color: PPaymobileColors.mainScreenBackground,
                 child: TouchOpacity(
-                  onTap: () => context.router.push(ReviewDocumentRoute()),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReviewDocumentPage(),
+                      ),
+
+                  },
                   child: Container(
                     height: 56.h,
                     width: double.infinity,
@@ -366,7 +394,7 @@ class HomePage extends HookWidget {
                         8.horizontalSpace,
                         Expanded(
                           child: Text(
-                            'Documents currently being reviewed. Please this won\'t take long. Click to view status',
+                            'Documents currently being reviewed. Please this won’t take long. Click to view status',
                             softWrap: true,
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
@@ -519,7 +547,14 @@ class HomePage extends HookWidget {
                         Column(
                           children: [
                             TouchOpacity(
-                              onTap: () => context.router.push(BillsRoute()),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BillsPage(),
+                                  ),
+
+                              },
                               child: Container(
                                 height: 66.h,
                                 width: 78.w,
@@ -549,7 +584,14 @@ class HomePage extends HookWidget {
                         Column(
                           children: [
                             TouchOpacity(
-                              onTap: () => context.router.push(GiftcardRoute()),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => GiftcardPage(),
+                                  ),
+
+                              },
                               child: Container(
                                 height: 66.h,
                                 width: 78.w,
@@ -579,7 +621,14 @@ class HomePage extends HookWidget {
                         Column(
                           children: [
                             TouchOpacity(
-                              onTap: () => context.router.push(CryptoRoute()),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CryptoPage(),
+                                  ),
+
+                              },
                               child: Container(
                                 height: 66.h,
                                 width: 78.w,
@@ -768,7 +817,6 @@ class HomePage extends HookWidget {
             ],
           ),
         ),
+              ),
       ),
-    );
-  }
-}
+    );  }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/module/kyc/review_document_screen.dart';
+import 'package:ppay_mobile/module/kyc/review_document_page.dart';
 import 'package:ppay_mobile/module/settings/bank_accounts.dart';
 import 'package:ppay_mobile/module/settings/help_and_support.dart';
 import 'package:ppay_mobile/module/settings/notification.dart';
-import 'package:ppay_mobile/module/settings/profile_screen.dart';
-import 'package:ppay_mobile/module/settings/privacy_screen.dart';
-import 'package:ppay_mobile/module/settings/refer_screen.dart';
+import 'package:ppay_mobile/module/settings/profile_page.dart';
+import 'package:ppay_mobile/module/settings/privacy_page.dart';
+import 'package:ppay_mobile/module/settings/refer_page.dart';
 import 'package:ppay_mobile/module/settings/change_password.dart';
 import 'package:ppay_mobile/module/settings/pin_reset.dart';
 import 'package:ppay_mobile/module/settings/terms_and_conditions.dart';
@@ -39,12 +39,12 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/person.svg',
         optionTitle: 'Profile',
-        optionScreen: ProfileScreen(),
+        optionScreen: ProfilePage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/id.svg',
         optionTitle: 'Kyc Verification',
-        optionScreen: ReviewDocumentScreen(),
+        optionScreen: ReviewDocumentPage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/bank_black.svg',
@@ -73,7 +73,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/notif.svg',
         optionTitle: 'Notification Settings',
-        optionScreen: NotificationScreen(),
+        optionScreen: NotificationPage(),
       ),
     ],
   ),
@@ -93,7 +93,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/multiple_person.svg',
         optionTitle: 'Refer & Earn',
-        optionScreen: ReferScreen(),
+        optionScreen: ReferPage(),
       ),
     ],
   ),
@@ -108,12 +108,12 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/privacy.svg',
         optionTitle: 'Privacy Policy',
-        optionScreen: PrivacyScreen(),
+        optionScreen: PrivacyPage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/help.svg',
         optionTitle: 'Help & Support',
-        optionScreen: HelpSupportScreen(),
+        optionScreen: HelpSupportPage(),
       ),
     ],
   ),

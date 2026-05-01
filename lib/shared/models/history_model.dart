@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/module/dashboard/route_screen.dart';
-import 'package:ppay_mobile/module/bills/airtime_example_screen.dart';
-import 'package:ppay_mobile/module/gift_card/buy_giftcard_screen.dart';
-import 'package:ppay_mobile/module/flight/flight_booking_screen.dart';
-import 'package:ppay_mobile/module/gift_card/sell_giftcard_screen.dart';
+import 'package:ppay_mobile/module/dashboard/route_page.dart';
+import 'package:ppay_mobile/module/bills/airtime_example_page.dart';
+import 'package:ppay_mobile/module/gift_card/buy_giftcard_page.dart';
+import 'package:ppay_mobile/module/flight/flight_booking_page.dart';
+import 'package:ppay_mobile/module/gift_card/sell_giftcard_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 class TransactionModel {
@@ -45,7 +45,7 @@ final List<TransactionDayGroup> transactionGroups = [
         imageAsset: 'assets/images/apple.png',
         containerColor: PPaymobileColors.deepBackgroundColor,
         screen:
-            const RouteScreen(), //same thing as sell and buy gift card, the only change is that it is dollar card not gift card
+            const RoutePage(), //same thing as sell and buy gift card, the only change is that it is dollar card not gift card
       ),
       TransactionModel(
         title: 'Spotify Subscription',
@@ -54,7 +54,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.redTextfield,
         imageAsset: 'assets/images/spotify.png',
         containerColor: PPaymobileColors.deepBackgroundColor,
-        screen: const RouteScreen(),
+        screen: const RoutePage(),
       ),
       TransactionModel(
         title: 'Deposit to Wallet',
@@ -63,7 +63,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.buttonColor,
         imageAsset: 'assets/images/logo.png',
         containerColor: PPaymobileColors.backgroundColor,
-        screen: const BuyGiftcardScreen(),
+        screen: const BuyGiftcardPage(),
       ),
     ],
   ),
@@ -78,7 +78,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.buttonColor,
         imageAsset: 'assets/images/netflix.png',
         containerColor: PPaymobileColors.netflixContainerColor,
-        screen: const RouteScreen(),
+        screen: const RoutePage(),
       ),
       TransactionModel(
         title: 'MTN',
@@ -87,7 +87,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.buttonColor,
         imageAsset: 'assets/images/mtn.png',
         containerColor: Colors.yellow.shade600,
-        screen: const AirtimeExampleScreen(),
+        screen: const AirtimeExamplePage(),
       ),
       TransactionModel(
         title: 'Airpeace',
@@ -96,7 +96,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.buttonColor,
         imageAsset: 'assets/images/flight_ticket.png',
         containerColor: PPaymobileColors.deepBackgroundColor,
-        screen: FlightBookingScreen(),
+        screen: FlightBookingPage(),
       ),
       TransactionModel(
         title: 'Sold Gift Card',
@@ -105,7 +105,7 @@ final List<TransactionDayGroup> transactionGroups = [
         amountColor: PPaymobileColors.buttonColor,
         imageAsset: 'assets/images/logo.png',
         containerColor: PPaymobileColors.backgroundColor,
-        screen: SellGiftcardScreen(),
+        screen: SellGiftcardPage(),
       ),
     ],
   ),

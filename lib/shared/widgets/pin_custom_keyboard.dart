@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/onboarding/fingerprint_screen.dart';
+import 'package:ppay_mobile/module/onboarding/fingerprint_page.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class PinCustomKeyboard extends StatefulWidget {
@@ -93,7 +93,7 @@ class _PinCustomKeyboardState extends State<PinCustomKeyboard> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FingerprintScreen()),
+              MaterialPageRoute(builder: (context) => FingerprintPage()),
             );
           },
         ),

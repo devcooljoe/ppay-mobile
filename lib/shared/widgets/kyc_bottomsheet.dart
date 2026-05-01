@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/shared/models/kyc_verification_model.dart';
-import 'package:ppay_mobile/module/kyc/kyc_verification_screen.dart';
+import 'package:ppay_mobile/module/kyc/kyc_verification_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -234,7 +234,7 @@ class _KycBottomsheetState extends State<KycBottomsheet> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return KycVerificationScreen();
+                                return KycVerificationPage();
                               },
                             ),
                           );

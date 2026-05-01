@@ -1,85 +1,44 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/shared/models/onboard_item_model.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/module/auth/login_page.dart';
+import 'package:ppay_mobile/module/auth/signup_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 @RoutePage()
-class OnboardPage extends HookWidget {
+class OnboardPage extends HookConsumerWidget {
   const OnboardPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final pageController = usePageController();
-    final currentIndex = useState(0);
-
-    final pages = useMemoized(() => [
-      OnboardItem(
-        title: 'Fund',
-        highlight: '& Pay Easily',
-        image: 'assets/images/first.png',
-        description:
-            'Top up your NGN wallet instantly and pay for bills, airtime, data, and more all in one place.',
-        imagePath: 'assets/images/WRAPPER1.png',
-        imageHeight: 228,
-        space1: 278,
-        space2: 115,
-      ),
-      OnboardItem(
-        title: 'Trade',
-        highlight: 'Crypto & Giftcards',
-        image: 'assets/images/second.png',
-        description:
-            'Buy, sell, and receive crypto, plus trade giftcards at the best rates with fast approvals.',
-        imagePath: 'assets/images/WRAPPER2.png',
-        imageHeight: 82,
-        space1: 235,
-        space2: 268,
-      ),
-      OnboardItem(
-        title: 'Shop',
-        highlight: '& Send Gifts',
-        image: 'assets/images/third.png',
-        description:
-            'Purchase items from our Shopper store and send gifts to friends or family anywhere',
-        imagePath: 'assets/images/WRAPPER3.png',
-        imageHeight: 108,
-        space1: 28,
-        space2: 73,
-      ),
-      OnboardItem(
-        title: 'Book',
-        highlight: 'Flight & Use Card',
-        image: 'assets/images/fourth.png',
-        description:
-            'Book local or international flights and enjoy a secure virtual dollar card for your Payment',
-        imagePath: 'assets/images/WRAPPER4.png',
-        imageHeight: 129,
-        space1: 262,
-        space2: 133,
-      ),
-    ]);
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
+            /// PageView
             Expanded(
               child: PageView.builder(
-                controller: pageController,
+                controller: _pageController,
                 itemCount: pages.length,
-                onPageChanged: (index) => currentIndex.value = index,
+                onPageChanged: (index) {
+                  currentIndex.value = index;
+  }
+},
                 itemBuilder: (context, index) {
                   final item = pages[index];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       35.verticalSpace,
+
+                      /// Title
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -105,6 +64,8 @@ class OnboardPage extends HookWidget {
                         ],
                       ),
                       16.verticalSpace,
+
+                      /// Image
                       Stack(
                         children: [
                           SizedBox(
@@ -125,12 +86,14 @@ class OnboardPage extends HookWidget {
                         ],
                       ),
                     ],
-                  );
+
                 },
               ),
             ),
+
+            /// Smooth Indicator
             SmoothPageIndicator(
-              controller: pageController,
+              controller: _pageController,
               count: pages.length,
               effect: ExpandingDotsEffect(
                 activeDotColor: PPaymobileColors.highlightTextColor,
@@ -141,11 +104,12 @@ class OnboardPage extends HookWidget {
                 spacing: 9.0.w,
               ),
             ),
+
             29.verticalSpace,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                pages[currentIndex.value].description,
+                pages[currentIndex].description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
@@ -156,6 +120,8 @@ class OnboardPage extends HookWidget {
               ),
             ),
             37.verticalSpace,
+
+            /// Get Started Button
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: SizedBox(
@@ -168,7 +134,9 @@ class OnboardPage extends HookWidget {
                       borderRadius: BorderRadius.circular(42),
                     ),
                   ),
-                  onPressed: () => context.router.push(SignupRoute()),
+                  onPressed: () {
+                    context.router.push(SignupRoute());
+                  },
                   child: Text(
                     'Get Started',
                     style: TextStyle(
@@ -181,7 +149,10 @@ class OnboardPage extends HookWidget {
                 ),
               ),
             ),
+
             23.verticalSpace,
+
+            /// Sign in
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -196,7 +167,9 @@ class OnboardPage extends HookWidget {
                 ),
                 5.horizontalSpace,
                 TouchOpacity(
-                  onTap: () => context.router.push(LoginRoute()),
+                  onTap: () {
+                    context.router.push(LoginRoute());
+                  },
                   child: Text(
                     'Sign In',
                     style: TextStyle(
@@ -209,10 +182,10 @@ class OnboardPage extends HookWidget {
                 ),
               ],
             ),
+
             85.verticalSpace,
           ],
         ),
+              ),
       ),
-    );
-  }
-}
+    );  }

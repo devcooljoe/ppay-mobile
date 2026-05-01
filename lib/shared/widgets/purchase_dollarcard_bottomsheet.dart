@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/virtual_card/virtual_card_sucess_screen.dart';
+import 'package:ppay_mobile/module/virtual_card/virtual_card_sucess_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -211,7 +211,7 @@ class _PurchaseDollarcardBottomsheetState
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => VirtualCardSucessScreen(),
+                              builder: (_) => VirtualCardSucessPage(),
                             ),
                           );
                         },

@@ -1,19 +1,23 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/module/auth/forgot_password_page.dart';
+import 'package:ppay_mobile/module/dashboard/route_page.dart';
+import 'package:ppay_mobile/module/auth/signup_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/textfield.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class LoginPage extends HookWidget {
+class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: SafeArea(
@@ -156,7 +160,15 @@ class LoginPage extends HookWidget {
                     ],
                   ),
                   TouchOpacity(
-                    onTap: () => context.router.push(ForgotPasswordRoute()),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPasswordPage(),
+                        ),
+
+  }
+},
                     child: Text(
                       'Forgot Password',
                       style: TextStyle(
@@ -184,7 +196,9 @@ class LoginPage extends HookWidget {
                       ),
                       elevation: 0,
                     ),
-                    onPressed: () => context.router.push(RouteRoute()),
+                    onPressed: () {
+                      context.router.push(RouteRoute());
+                    },
                     child: Text(
                       'Sign In',
                       style: TextStyle(
@@ -237,7 +251,9 @@ class LoginPage extends HookWidget {
                   ),
                   5.horizontalSpace,
                   TouchOpacity(
-                    onTap: () => context.router.push(SignupRoute()),
+                    onTap: () {
+                      context.router.push(SignupRoute());
+                    },
                     child: Text(
                       'Sign Up',
                       style: TextStyle(
@@ -253,7 +269,6 @@ class LoginPage extends HookWidget {
             ],
           ),
         ),
+              ),
       ),
-    );
-  }
-}
+    );  }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/module/shopping/order_successful_screen.dart';
+import 'package:ppay_mobile/module/shopping/order_successful_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
@@ -53,7 +53,7 @@ class _PaymentPinBottomsheetState extends State<PaymentPinBottomsheet> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const OrderSuccessfulScreen()),
+          MaterialPageRoute(builder: (_) => const OrderSuccessfulPage()),
         );
       });
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/transaction/confirm_transaction_screen.dart';
+import 'package:ppay_mobile/module/transaction/confirm_transaction_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -177,7 +177,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (_) =>
-                                          ConfirmTransactionScreen(),
+                                          ConfirmTransactionPage(),
                                     ),
                                   );
                                 },
@@ -300,7 +300,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (_) =>
-                                          ConfirmTransactionScreen(),
+                                          ConfirmTransactionPage(),
                                     ),
                                   );
                                 },

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/flight/multi_trip_screen.dart';
-import 'package:ppay_mobile/module/flight/one_way_trip_screen.dart';
-import 'package:ppay_mobile/module/flight/round_way_trip_screen.dart';
+import 'package:ppay_mobile/module/flight/multi_trip_page.dart';
+import 'package:ppay_mobile/module/flight/one_way_trip_page.dart';
+import 'package:ppay_mobile/module/flight/round_way_trip_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -99,9 +99,9 @@ class _UpdateFlightSearchCardState extends State<UpdateFlightSearchCard> {
             Expanded(
               child: TabBarView(
                 children: [
-                  OneWayTripScreen(),
-                  RoundWayTripScreen(),
-                  MultiTripScreen(),
+                  OneWayTripPage(),
+                  RoundWayTripPage(),
+                  MultiTripPage(),
                 ],
               ),
             ),

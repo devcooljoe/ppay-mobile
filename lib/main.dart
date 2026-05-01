@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/module/onboarding/splash_screen.dart';
+import 'package:ppay_mobile/module/onboarding/splash_page.dart';
 import 'package:ppay_mobile/firebase_options.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.light(primary: PPaymobileColors.buttonColor),
         ),
-        home: SplashScreen(),
+        home: SplashPage(),
       ),
       designSize: const Size(440, 920),
       minTextAdapt: true,
