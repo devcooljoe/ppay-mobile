@@ -1,0 +1,391 @@
+import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/transaction/transfer_funds_page.dart';
+import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+
+@RoutePage()
+class TransactionSuccessfulPage extends StatefulWidget {
+  const TransactionSuccessfulPage({super.key});
+
+  @override
+  State<TransactionSuccessfulPage> createState() =>
+      _TransactionSuccessfulPageState();
+}
+
+class _TransactionSuccessfulPageState
+    extends State<TransactionSuccessfulPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: PPaymobileColors.mainScreenBackground,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+          child: ListView(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  100.verticalSpace,
+                  SizedBox(
+                    height: 53.w,
+                    width: 53.w,
+                    child: CircularProgressIndicator(
+                      color: PPaymobileColors.buttonColor,
+                      backgroundColor: PPaymobileColors.flightContainerbgColor,
+                      strokeWidth: 8.0.w,
+                    ),
+                  ),
+                  13.verticalSpace,
+                  Text(
+                    'Processing payment...',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  4.verticalSpace,
+                  Text(
+                    'Please hold as we process your payment',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.svgIconColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  10.verticalSpace,
+                  SizedBox(
+                    height: 120.w,
+                    width: 120.w,
+                    child: Image.asset(
+                      'assets/images/big_check.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  25.verticalSpace,
+                  Text(
+                    'Transaction Sucessful',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  4.verticalSpace,
+                  Text(
+                    '₦45,000 has been deducted from your wallet. See details of transaction below ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.svgIconColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  10.verticalSpace,
+                  SizedBox(
+                    height: 120.w,
+                    width: 120.w,
+                    child: Image.asset(
+                      'assets/images/big_fail.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  25.verticalSpace,
+                  Text(
+                    'Transfer Failed',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  4.verticalSpace,
+                  Text(
+                    'Your transaction was not successful. Please click the button below to try again',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.svgIconColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  10.verticalSpace,
+                  SizedBox(
+                    height: 120.w,
+                    width: 120.w,
+                    child: Image.asset(
+                      'assets/images/big_pending.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  25.verticalSpace,
+                  Text(
+                    'Transfer Pending',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  4.verticalSpace,
+                  Text(
+                    'Your transaction is currently being processed. Please be patient as we process it ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.svgIconColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  161.verticalSpace,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          context.router.push(ReceiptRoute());
+                        },
+                        child: Text(
+                          'View Receipt',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: PPaymobileColors.mainScreenBackground,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  22.verticalSpace,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              PPaymobileColors.mainScreenBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                            side: BorderSide(
+                              width: 1.w,
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          context.router.pushAndPopUntil(ExploreRoute(), predicate: (route) => false);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go Home',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                            7.horizontalSpace,
+                            SizedBox(
+                              height: 24.w,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/arrow_forward.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  10.verticalSpace,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'Try Again',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: PPaymobileColors.mainScreenBackground,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  22.verticalSpace,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              PPaymobileColors.mainScreenBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                            side: BorderSide(
+                              width: 1.w,
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          context.router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go Home',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                            7.horizontalSpace,
+                            SizedBox(
+                              height: 24.w,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/arrow_forward.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  10.verticalSpace,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TransferFundsPage(),
+                            ),
+                            // (route) => false(),
+                          );
+                        },
+                        child: Text(
+                          'Make Another Transaction',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: PPaymobileColors.mainScreenBackground,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  22.verticalSpace,
+                  TouchOpacity(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              PPaymobileColors.mainScreenBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(42.r),
+                            side: BorderSide(
+                              width: 1.w,
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          context.router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go Home',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                            7.horizontalSpace,
+                            SizedBox(
+                              height: 24.w,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/arrow_forward.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

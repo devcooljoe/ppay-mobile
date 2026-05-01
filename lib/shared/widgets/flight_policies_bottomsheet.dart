@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/flight/baggage_screen.dart';
-import 'package:ppay_mobile/module/flight/booking_policies_screen.dart';
-import 'package:ppay_mobile/module/flight/refund_policy_screen.dart';
+import 'package:ppay_mobile/module/flight/baggage_page.dart';
+import 'package:ppay_mobile/module/flight/booking_policies_page.dart';
+import 'package:ppay_mobile/module/flight/refund_policy_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 class FlightPoliciesBottomsheet extends StatefulWidget {
@@ -100,9 +100,9 @@ class _FlightPoliciesBottomsheetState extends State<FlightPoliciesBottomsheet> {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          BookingPoliciesScreen(),
-                          BaggageScreen(),
-                          RefundPolicyScreen(),
+                          BookingPoliciesPage(),
+                          BaggagePage(),
+                          RefundPolicyPage(),
                         ],
                       ),
                     ),

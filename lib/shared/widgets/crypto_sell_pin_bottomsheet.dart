@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/module/crypto/crypto_sell_sucessful_screen.dart';
+import 'package:ppay_mobile/module/crypto/crypto_sell_sucessful_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
@@ -55,7 +55,7 @@ class _CryptoSellPinBottomsheetState extends State<CryptoSellPinBottomsheet> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const CryptoSellSucessfulScreen()),
+          MaterialPageRoute(builder: (_) => const CryptoSellSucessfulPage()),
         );
       });
     }

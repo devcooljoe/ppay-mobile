@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/transaction/confirm_transaction_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -173,13 +174,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                               // i used this button to go to the next page but that is not the function
                               TouchOpacity(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          ConfirmTransactionScreen(),
-                                    ),
-                                  );
+                                  context.router.push(ConfirmTransactionRoute());
                                 },
                                 child: Container(
                                   height: 36.h,
@@ -296,13 +291,7 @@ class _SelectAccountBottomsheetState extends State<SelectAccountBottomsheet> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          ConfirmTransactionScreen(),
-                                    ),
-                                  );
+                                  context.router.push(ConfirmTransactionRoute());
                                 },
                                 child: TouchOpacity(
                                   child: Container(

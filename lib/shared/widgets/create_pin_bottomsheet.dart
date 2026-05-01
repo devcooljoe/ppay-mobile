@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ppay_mobile/module/auth/create_pin_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -97,14 +98,7 @@ class _CreatePinBottomsheetState extends State<CreatePinBottomsheet> {
                           elevation: 0,
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return CreatePinScreen();
-                              },
-                            ),
-                          );
+                          context.router.push(CreatePinRoute());
                         },
                         child: Text(
                           'Create Pin',

@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/transaction/transfer_funds_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -101,12 +102,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                   21.verticalSpace,
                   TouchOpacity(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TransferFundsScreen(),
-                        ),
-                      );
+                      context.router.push(TransferFundsRoute());
                     },
                     child: Container(
                       height: 72.h,
@@ -241,12 +237,7 @@ class _WithdrawalBottomsheetState extends State<WithdrawalBottomsheet> {
                               // i used this button to go to the next page but that is not the function
                               TouchOpacity(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => TransferFundsScreen(),
-                                    ),
-                                  );
+                                  context.router.push(TransferFundsRoute());
                                 },
                                 child: Container(
                                   height: 36.h,

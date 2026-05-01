@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/virtual_card/virtual_card_success_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -208,12 +209,7 @@ class _PurchaseDollarcardBottomsheetState
                       ),
                       TouchOpacity(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => VirtualCardSuccessScreen(),
-                            ),
-                          );
+                          context.router.push(VirtualCardSuccessRoute());
                         },
                         child: Container(
                           height: 44.h,

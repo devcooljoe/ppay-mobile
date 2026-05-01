@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/module/kyc/review_document_screen.dart';
-import 'package:ppay_mobile/module/settings/bank_account_screen.dart';
-import 'package:ppay_mobile/module/settings/change_password_screen.dart';
-import 'package:ppay_mobile/module/settings/help_and_support_screen.dart';
-import 'package:ppay_mobile/module/settings/notification_screen.dart';
-import 'package:ppay_mobile/module/settings/pin_reset_screen.dart';
-import 'package:ppay_mobile/module/settings/privacy_screen.dart';
-import 'package:ppay_mobile/module/settings/profile_screen.dart';
-import 'package:ppay_mobile/module/settings/refer_screen.dart';
-import 'package:ppay_mobile/module/settings/terms_and_condition_screen.dart';
-import 'package:ppay_mobile/module/settings/transaction_limit_screen.dart';
+import 'package:ppay_mobile/module/kyc/review_document_page.dart';
+import 'package:ppay_mobile/module/settings/bank_account_page.dart';
+import 'package:ppay_mobile/module/settings/change_password_page.dart';
+import 'package:ppay_mobile/module/settings/help_and_support_page.dart';
+import 'package:ppay_mobile/module/settings/notification_page.dart';
+import 'package:ppay_mobile/module/settings/pin_reset_page.dart';
+import 'package:ppay_mobile/module/settings/privacy_page.dart';
+import 'package:ppay_mobile/module/settings/profile_page.dart';
+import 'package:ppay_mobile/module/settings/refer_page.dart';
+import 'package:ppay_mobile/module/settings/terms_and_condition_page.dart';
+import 'package:ppay_mobile/module/settings/transaction_limit_page.dart';
 
 class SettingsOptionModel {
   final String optionIcon;
@@ -39,17 +39,17 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/person.svg',
         optionTitle: 'Profile',
-        optionScreen: ProfileScreen(),
+        optionScreen: ProfilePage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/id.svg',
         optionTitle: 'Kyc Verification',
-        optionScreen: ReviewDocumentScreen(),
+        optionScreen: ReviewDocumentPage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/bank_black.svg',
         optionTitle: 'Saved Bank Accounts',
-        optionScreen: BankAccountScreen(),
+        optionScreen: BankAccountPage(),
       ),
     ],
   ),
@@ -59,12 +59,12 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/lock.svg',
         optionTitle: 'Change Password',
-        optionScreen: ChangePasswordScreen(),
+        optionScreen: ChangePasswordPage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/key_black.svg',
         optionTitle: 'Change Transaction Pin',
-        optionScreen: PinResetScreen(),
+        optionScreen: PinResetPage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/biometric_finger.svg',
@@ -73,7 +73,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/notif.svg',
         optionTitle: 'Notification Settings',
-        optionScreen: NotificationScreen(),
+        optionScreen: NotificationPage(),
       ),
     ],
   ),
@@ -83,7 +83,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/transaction.svg',
         optionTitle: 'Transaction Limit',
-        optionScreen: TransactionLimitScreen(),
+        optionScreen: TransactionLimitPage(),
       ),
     ],
   ),
@@ -93,7 +93,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/multiple_person.svg',
         optionTitle: 'Refer & Earn',
-        optionScreen: ReferScreen(),
+        optionScreen: ReferPage(),
       ),
     ],
   ),
@@ -103,17 +103,17 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/terms.svg',
         optionTitle: 'Terms & Conditions',
-        optionScreen: TermsAndConditionScreen(),
+        optionScreen: TermsAndConditionPage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/privacy.svg',
         optionTitle: 'Privacy Policy',
-        optionScreen: PrivacyScreen(),
+        optionScreen: PrivacyPage(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/help.svg',
         optionTitle: 'Help & Support',
-        optionScreen: HelpAndSupportScreen(),
+        optionScreen: HelpAndSupportPage(),
       ),
     ],
   ),
