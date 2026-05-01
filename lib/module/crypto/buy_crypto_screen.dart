@@ -8,14 +8,14 @@ import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class BuyCrypto extends StatefulWidget {
-  const BuyCrypto({super.key});
+class BuyCryptoScreen extends StatefulWidget {
+  const BuyCryptoScreen({super.key});
 
   @override
-  State<BuyCrypto> createState() => _BuyCryptoState();
+  State<BuyCryptoScreen> createState() => _BuyCryptoScreenState();
 }
 
-class _BuyCryptoState extends State<BuyCrypto> {
+class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
   final FocusNode _focusNode = FocusNode(canRequestFocus: false);
 
   final TextEditingController _controller = TextEditingController();

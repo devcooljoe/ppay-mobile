@@ -3,15 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/dashboard/notification_screen.dart';
 import 'package:ppay_mobile/module/kyc/review_document_screen.dart';
-import 'package:ppay_mobile/module/settings/bank_accounts.dart';
-import 'package:ppay_mobile/module/settings/help_and_support.dart';
+import 'package:ppay_mobile/module/settings/bank_account_screen.dart';
+import 'package:ppay_mobile/module/settings/change_password_screen.dart';
+import 'package:ppay_mobile/module/settings/help_and_support_screen.dart';
+import 'package:ppay_mobile/module/settings/pin_reset_screen.dart';
 import 'package:ppay_mobile/module/settings/privacy_screen.dart';
 import 'package:ppay_mobile/module/settings/profile_screen.dart';
 import 'package:ppay_mobile/module/settings/refer_screen.dart';
-import 'package:ppay_mobile/module/settings/change_password.dart';
-import 'package:ppay_mobile/module/settings/pin_reset.dart';
-import 'package:ppay_mobile/module/settings/terms_and_conditions.dart';
-import 'package:ppay_mobile/module/settings/transaction_limit.dart';
+import 'package:ppay_mobile/module/settings/terms_and_condition_screen.dart';
+import 'package:ppay_mobile/module/settings/transaction_limit_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
@@ -339,7 +339,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BankAccounts()),
+                        MaterialPageRoute(
+                          builder: (context) => BankAccountScreen(),
+                        ),
                       );
                     },
                     child: Container(
@@ -423,7 +425,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChangePassword(),
+                          builder: (context) => ChangePasswordScreen(),
                         ),
                       );
                     },
@@ -482,7 +484,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PinReset()),
+                        MaterialPageRoute(
+                          builder: (context) => PinResetScreen(),
+                        ),
                       );
                     },
                     child: Container(
@@ -688,7 +692,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TransactionLimit(),
+                          builder: (context) => TransactionLimitScreen(),
                         ),
                       );
                     },
@@ -856,7 +860,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TermsAndConditions(),
+                          builder: (context) => TermsAndConditionScreen(),
                         ),
                       );
                     },
@@ -976,7 +980,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HelpSupportScreen(),
+                          builder: (context) => HelpAndSupportScreen(),
                         ),
                       );
                     },

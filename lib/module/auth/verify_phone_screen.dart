@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/module/auth/verify_phone.dart';
+import 'package:ppay_mobile/module/auth/create_password_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class VerifyCode extends StatefulWidget {
-  const VerifyCode({super.key});
+class VerifyPhoneScreen extends StatefulWidget {
+  const VerifyPhoneScreen({super.key});
 
   @override
-  State<VerifyCode> createState() => _VerifyCodeState();
+  State<VerifyPhoneScreen> createState() => _VerifyPhoneScreenState();
 }
 
-class _VerifyCodeState extends State<VerifyCode> {
+class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +44,7 @@ class _VerifyCodeState extends State<VerifyCode> {
             children: [
               20.verticalSpace,
               Text(
-                'Verify Email',
+                'Verify Phone No',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: PPaymobileColors.buttonColorandText,
@@ -53,14 +53,27 @@ class _VerifyCodeState extends State<VerifyCode> {
                 ),
               ),
               8.verticalSpace,
-              Text(
-                'Please enter 6-digit code sent to joh***@gmail.com. Please enter below  ',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                children: [
+                  Text(
+                    'Please enter 6-digit code sent to ',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    '+234 8045679345',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
               ),
               38.verticalSpace,
               SizedBox(
@@ -152,7 +165,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                   fontFamily: 'InstrumentSans',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xff5B5B5B),
+                  color: PPaymobileColors.svgIconColor,
                 ),
               ),
               76.verticalSpace,
@@ -197,7 +210,9 @@ class _VerifyCodeState extends State<VerifyCode> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => VerifyPhone()),
+                        MaterialPageRoute(
+                          builder: (context) => CreatePasswordScreen(),
+                        ),
                       );
                     },
                     child: Text(

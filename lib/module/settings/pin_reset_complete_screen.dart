@@ -4,14 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class PinResetComplete extends StatefulWidget {
-  const PinResetComplete({super.key});
+class PinResetCompleteScreen extends StatefulWidget {
+  const PinResetCompleteScreen({super.key});
 
   @override
-  State<PinResetComplete> createState() => _PinResetCompleteState();
+  State<PinResetCompleteScreen> createState() => _PinResetCompleteScreenState();
 }
 
-class _PinResetCompleteState extends State<PinResetComplete> {
+class _PinResetCompleteScreenState extends State<PinResetCompleteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

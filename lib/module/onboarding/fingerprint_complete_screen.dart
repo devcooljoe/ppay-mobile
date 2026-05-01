@@ -5,14 +5,15 @@ import 'package:ppay_mobile/module/dashboard/route_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class FingerprintComplete extends StatefulWidget {
-  const FingerprintComplete({super.key});
+class FingerprintCompleteScreen extends StatefulWidget {
+  const FingerprintCompleteScreen({super.key});
 
   @override
-  State<FingerprintComplete> createState() => _FingerprintCompleteState();
+  State<FingerprintCompleteScreen> createState() =>
+      _FingerprintCompleteScreenState();
 }
 
-class _FingerprintCompleteState extends State<FingerprintComplete> {
+class _FingerprintCompleteScreenState extends State<FingerprintCompleteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

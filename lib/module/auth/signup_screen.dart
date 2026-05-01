@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/module/auth/login_screen.dart';
-import 'package:ppay_mobile/module/auth/verify_code.dart';
+import 'package:ppay_mobile/module/auth/verify_code_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/textfield.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
@@ -201,7 +201,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => VerifyCode()),
+                      MaterialPageRoute(
+                        builder: (context) => VerifyCodeScreen(),
+                      ),
                     );
                   },
                   child: Text(

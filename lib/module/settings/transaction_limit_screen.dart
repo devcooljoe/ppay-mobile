@@ -4,14 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class TransactionLimit extends StatefulWidget {
-  const TransactionLimit({super.key});
+class TransactionLimitScreen extends StatefulWidget {
+  const TransactionLimitScreen({super.key});
 
   @override
-  State<TransactionLimit> createState() => _TransactionLimitState();
+  State<TransactionLimitScreen> createState() => _TransactionLimitScreenState();
 }
 
-class _TransactionLimitState extends State<TransactionLimit> {
+class _TransactionLimitScreenState extends State<TransactionLimitScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

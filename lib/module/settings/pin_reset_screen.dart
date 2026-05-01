@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/module/settings/pin_reset_complete.dart';
+import 'package:ppay_mobile/module/settings/pin_reset_complete_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class PinReset extends StatefulWidget {
-  const PinReset({super.key});
+class PinResetScreen extends StatefulWidget {
+  const PinResetScreen({super.key});
 
   @override
-  State<PinReset> createState() => _PinResetState();
+  State<PinResetScreen> createState() => _PinResetScreenState();
 }
 
-class _PinResetState extends State<PinReset> {
+class _PinResetScreenState extends State<PinResetScreen> {
   final TextEditingController _pinController = TextEditingController();
 
   void _onKeyTap(String value) {
@@ -165,7 +165,7 @@ class _PinResetState extends State<PinReset> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return PinResetComplete();
+                              return PinResetCompleteScreen();
                             },
                           ),
                         );

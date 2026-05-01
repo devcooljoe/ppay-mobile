@@ -7,14 +7,14 @@ import 'package:ppay_mobile/shared/widgets/remove_account_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/select_bank_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class EditAccount extends StatefulWidget {
-  const EditAccount({super.key});
+class EditAccountScreen extends StatefulWidget {
+  const EditAccountScreen({super.key});
 
   @override
-  State<EditAccount> createState() => _EditAccountState();
+  State<EditAccountScreen> createState() => _EditAccountScreenState();
 }
 
-class _EditAccountState extends State<EditAccount> {
+class _EditAccountScreenState extends State<EditAccountScreen> {
   final TextEditingController _bankController = TextEditingController();
   BankModel? _selectedBank;
 

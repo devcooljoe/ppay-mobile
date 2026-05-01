@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/settings/edit_account_screen.dart';
 import 'package:ppay_mobile/shared/models/bank_accounts_model.dart';
-import 'package:ppay_mobile/module/settings/edit_account.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class BankAccounts extends StatefulWidget {
-  const BankAccounts({super.key});
+class BankAccountScreen extends StatefulWidget {
+  const BankAccountScreen({super.key});
 
   @override
-  State<BankAccounts> createState() => _BankAccountsState();
+  State<BankAccountScreen> createState() => _BankAccountScreenState();
 }
 
-class _BankAccountsState extends State<BankAccounts> {
+class _BankAccountScreenState extends State<BankAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

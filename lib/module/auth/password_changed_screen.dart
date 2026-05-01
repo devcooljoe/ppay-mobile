@@ -5,14 +5,14 @@ import 'package:ppay_mobile/module/kyc/bvn_verification_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class PasswordChanged extends StatefulWidget {
-  const PasswordChanged({super.key});
+class PasswordChangedScreen extends StatefulWidget {
+  const PasswordChangedScreen({super.key});
 
   @override
-  State<PasswordChanged> createState() => _PasswordChangedState();
+  State<PasswordChangedScreen> createState() => _PasswordChangedScreenState();
 }
 
-class _PasswordChangedState extends State<PasswordChanged> {
+class _PasswordChangedScreenState extends State<PasswordChangedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

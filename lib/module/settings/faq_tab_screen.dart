@@ -4,14 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/faq_tile.dart';
 
-class FaqTab extends StatefulWidget {
-  const FaqTab({super.key});
+class FaqTabScreen extends StatefulWidget {
+  const FaqTabScreen({super.key});
 
   @override
-  State<FaqTab> createState() => _FaqTabState();
+  State<FaqTabScreen> createState() => _FaqTabScreenState();
 }
 
-class _FaqTabState extends State<FaqTab> {
+class _FaqTabScreenState extends State<FaqTabScreen> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {

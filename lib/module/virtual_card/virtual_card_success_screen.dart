@@ -5,15 +5,15 @@ import 'package:ppay_mobile/module/virtual_card/card_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class VirtualCardSucessScreen extends StatefulWidget {
-  const VirtualCardSucessScreen({super.key});
+class VirtualCardSuccessScreen extends StatefulWidget {
+  const VirtualCardSuccessScreen({super.key});
 
   @override
-  State<VirtualCardSucessScreen> createState() =>
-      _VirtualCardSucessScreenState();
+  State<VirtualCardSuccessScreen> createState() =>
+      _VirtualCardSuccessScreenState();
 }
 
-class _VirtualCardSucessScreenState extends State<VirtualCardSucessScreen> {
+class _VirtualCardSuccessScreenState extends State<VirtualCardSuccessScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

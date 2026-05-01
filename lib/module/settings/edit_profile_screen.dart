@@ -6,14 +6,14 @@ import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
 import 'package:ppay_mobile/shared/widgets/gender_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
 

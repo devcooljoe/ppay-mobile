@@ -6,14 +6,14 @@ import 'package:ppay_mobile/shared/widgets/expandable.dart';
 import 'package:ppay_mobile/shared/widgets/live_chat_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/ticket_bottomsheet.dart';
 
-class ContactTab extends StatefulWidget {
-  const ContactTab({super.key});
+class ContactTabScreen extends StatefulWidget {
+  const ContactTabScreen({super.key});
 
   @override
-  State<ContactTab> createState() => _ContactTabState();
+  State<ContactTabScreen> createState() => _ContactTabScreenState();
 }
 
-class _ContactTabState extends State<ContactTab> {
+class _ContactTabScreenState extends State<ContactTabScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(

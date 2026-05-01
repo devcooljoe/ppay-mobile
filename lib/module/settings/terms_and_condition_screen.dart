@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/shared/widgets/bullet_text.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/terms_and_conditions_action_bar.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
-import 'package:ppay_mobile/shared/widgets/bullet_text.dart';
 
-class TermsAndConditions extends StatefulWidget {
-  const TermsAndConditions({super.key});
+class TermsAndConditionScreen extends StatefulWidget {
+  const TermsAndConditionScreen({super.key});
 
   @override
-  State<TermsAndConditions> createState() => _TermsAndConditionsState();
+  State<TermsAndConditionScreen> createState() =>
+      _TermsAndConditionScreenState();
 }
 
-class _TermsAndConditionsState extends State<TermsAndConditions> {
+class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/module/crypto/buy_crypto.dart';
+import 'package:ppay_mobile/module/crypto/buy_crypto_screen.dart';
 import 'package:ppay_mobile/module/crypto/crypto_receipt_screen.dart';
 import 'package:ppay_mobile/module/dashboard/route_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -143,7 +143,9 @@ class _CryptoTransactionSuccesfulScreenState
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BuyCrypto()),
+                          MaterialPageRoute(
+                            builder: (context) => BuyCryptoScreen(),
+                          ),
                           // (route) => false(),
                         );
                       },

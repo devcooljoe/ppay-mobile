@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/module/kyc/review_document_screen.dart';
-import 'package:ppay_mobile/module/settings/bank_accounts.dart';
-import 'package:ppay_mobile/module/settings/help_and_support.dart';
-import 'package:ppay_mobile/module/settings/notification.dart';
-import 'package:ppay_mobile/module/settings/profile_screen.dart';
+import 'package:ppay_mobile/module/settings/bank_account_screen.dart';
+import 'package:ppay_mobile/module/settings/change_password_screen.dart';
+import 'package:ppay_mobile/module/settings/help_and_support_screen.dart';
+import 'package:ppay_mobile/module/settings/notification_screen.dart';
+import 'package:ppay_mobile/module/settings/pin_reset_screen.dart';
 import 'package:ppay_mobile/module/settings/privacy_screen.dart';
+import 'package:ppay_mobile/module/settings/profile_screen.dart';
 import 'package:ppay_mobile/module/settings/refer_screen.dart';
-import 'package:ppay_mobile/module/settings/change_password.dart';
-import 'package:ppay_mobile/module/settings/pin_reset.dart';
-import 'package:ppay_mobile/module/settings/terms_and_conditions.dart';
-import 'package:ppay_mobile/module/settings/transaction_limit.dart';
+import 'package:ppay_mobile/module/settings/terms_and_condition_screen.dart';
+import 'package:ppay_mobile/module/settings/transaction_limit_screen.dart';
 
 class SettingsOptionModel {
   final String optionIcon;
@@ -49,7 +49,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/bank_black.svg',
         optionTitle: 'Saved Bank Accounts',
-        optionScreen: BankAccounts(),
+        optionScreen: BankAccountScreen(),
       ),
     ],
   ),
@@ -59,12 +59,12 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/lock.svg',
         optionTitle: 'Change Password',
-        optionScreen: ChangePassword(),
+        optionScreen: ChangePasswordScreen(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/key_black.svg',
         optionTitle: 'Change Transaction Pin',
-        optionScreen: PinReset(),
+        optionScreen: PinResetScreen(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/biometric_finger.svg',
@@ -83,7 +83,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/transaction.svg',
         optionTitle: 'Transaction Limit',
-        optionScreen: TransactionLimit(),
+        optionScreen: TransactionLimitScreen(),
       ),
     ],
   ),
@@ -103,7 +103,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/terms.svg',
         optionTitle: 'Terms & Conditions',
-        optionScreen: TermsAndConditions(),
+        optionScreen: TermsAndConditionScreen(),
       ),
       SettingsOptionModel(
         optionIcon: 'assets/icon/privacy.svg',
@@ -113,7 +113,7 @@ final List<SettingsOptionGroup> settingsGroup = [
       SettingsOptionModel(
         optionIcon: 'assets/icon/help.svg',
         optionTitle: 'Help & Support',
-        optionScreen: HelpSupportScreen(),
+        optionScreen: HelpAndSupportScreen(),
       ),
     ],
   ),

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/settings/veriify_password_details.dart';
+import 'package:ppay_mobile/module/settings/veriify_password_detail_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class ChangePassword extends StatefulWidget {
-  const ChangePassword({super.key});
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({super.key});
 
   @override
-  State<ChangePassword> createState() => _ChangePasswordState();
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,7 +127,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => VeriifyPasswordDetails(),
+                          builder: (context) => VeriifyPasswordDetailScreen(),
                         ),
                       );
                     },

@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/module/settings/reset_password.dart';
+import 'package:ppay_mobile/module/auth/verify_phone_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class VeriifyPasswordDetails extends StatefulWidget {
-  const VeriifyPasswordDetails({super.key});
+class VerifyCodeScreen extends StatefulWidget {
+  const VerifyCodeScreen({super.key});
 
   @override
-  State<VeriifyPasswordDetails> createState() => _VeriifyPasswordDetailsState();
+  State<VerifyCodeScreen> createState() => _VerifyCodeScreenState();
 }
 
-class _VeriifyPasswordDetailsState extends State<VeriifyPasswordDetails> {
+class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +22,6 @@ class _VeriifyPasswordDetailsState extends State<VeriifyPasswordDetails> {
         backgroundColor: PPaymobileColors.mainScreenBackground,
         toolbarHeight: 56,
         leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Verification',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
           child: TouchOpacity(
@@ -52,27 +42,27 @@ class _VeriifyPasswordDetailsState extends State<VeriifyPasswordDetails> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
           child: ListView(
             children: [
-              32.verticalSpace,
+              20.verticalSpace,
               Text(
-                'Verify Code',
+                'Verify Email',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: PPaymobileColors.buttonColorandText,
-                  fontSize: 24.sp,
+                  fontSize: 32.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               8.verticalSpace,
               Text(
-                'We sent a 6-digit code to john****@gmail.com. Please enter code below',
+                'Please enter 6-digit code sent to joh***@gmail.com. Please enter below  ',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.kyccontainerColor,
+                  color: Colors.black,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              60.verticalSpace,
+              38.verticalSpace,
               SizedBox(
                 width: double.infinity,
                 child: Pinput(
@@ -89,7 +79,7 @@ class _VeriifyPasswordDetailsState extends State<VeriifyPasswordDetails> {
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: PPaymobileColors.textfiedBorder,
+                        color: PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                       borderRadius: BorderRadius.circular(6.r),
@@ -123,67 +113,97 @@ class _VeriifyPasswordDetailsState extends State<VeriifyPasswordDetails> {
                 ),
               ),
               6.verticalSpace,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Text(
+                'Incorrect code entered.',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: PPaymobileColors.redTextfield,
+                ),
+              ),
+              6.verticalSpace,
+              Row(
                 children: [
                   Text(
-                    'Incorrect code. Please enter correct code',
+                    'Didn’t Get the code? ',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
-                      color: PPaymobileColors.redTextfield,
+                      color: Colors.black,
                     ),
                   ),
-                  6.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Didn’t Get the code? ',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        'Click to Resend',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: PPaymobileColors.buttonColor,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Resend code',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff429E6E),
+                    ),
                   ),
                 ],
               ),
-              170.verticalSpace,
+              16.verticalSpace,
+              Text(
+                'Time Left: 02:48',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff5B5B5B),
+                ),
+              ),
+              76.verticalSpace,
               TouchOpacity(
                 child: SizedBox(
                   width: double.infinity,
                   height: 50.h,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.buttonColorandText,
+                      elevation: 0,
+                      backgroundColor: PPaymobileColors.buttonInactiveColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(42.r),
                       ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Verify',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              16.verticalSpace,
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       elevation: 0,
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ResetPassword(),
+                          builder: (context) => VerifyPhoneScreen(),
                         ),
                       );
                     },
                     child: Text(
-                      'Verify Code',
+                      'Verify',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600,

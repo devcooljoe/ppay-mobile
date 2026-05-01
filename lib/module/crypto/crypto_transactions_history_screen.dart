@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/shared/models/crypto_all_transaction_model.dart';
 import 'package:ppay_mobile/module/crypto/crypto_transactions_detail_screen.dart';
+import 'package:ppay_mobile/shared/models/crypto_all_transaction_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/filter_transactions_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class CryptoTransactionsHistory extends StatefulWidget {
-  const CryptoTransactionsHistory({super.key});
+class CryptoTransactionsHistoryScreen extends StatefulWidget {
+  const CryptoTransactionsHistoryScreen({super.key});
 
   @override
-  State<CryptoTransactionsHistory> createState() =>
-      _CryptoTransactionsHistoryState();
+  State<CryptoTransactionsHistoryScreen> createState() =>
+      _CryptoTransactionsHistoryScreenState();
 }
 
-class _CryptoTransactionsHistoryState extends State<CryptoTransactionsHistory> {
+class _CryptoTransactionsHistoryScreenState
+    extends State<CryptoTransactionsHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

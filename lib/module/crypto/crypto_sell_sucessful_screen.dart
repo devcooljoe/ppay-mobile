@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ppay_mobile/module/crypto/crypto_sell_receipt.dart';
-import 'package:ppay_mobile/module/crypto/sell_crypto.dart';
+import 'package:ppay_mobile/module/crypto/crypto_sell_receipt_screen.dart';
+import 'package:ppay_mobile/module/crypto/sell_crypto_screen.dart';
 import 'package:ppay_mobile/module/dashboard/home_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
@@ -141,7 +141,9 @@ class _CryptoSellSucessfulScreenState extends State<CryptoSellSucessfulScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SellCrypto()),
+                          MaterialPageRoute(
+                            builder: (context) => SellCryptoScreen(),
+                          ),
                           // (route) => false(),
                         );
                       },
@@ -230,7 +232,7 @@ class _CryptoSellSucessfulScreenState extends State<CryptoSellSucessfulScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CryptoSellReceipt(),
+                            builder: (context) => CryptoSellReceiptScreen(),
                           ),
                         );
                       },

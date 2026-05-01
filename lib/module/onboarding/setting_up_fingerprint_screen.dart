@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart' show SvgPicture;
-import 'package:ppay_mobile/module/onboarding/setting_up_fingerprint.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/onboarding/fingerprint_complete_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class SetUpFingerprint extends StatefulWidget {
-  const SetUpFingerprint({super.key});
+class SettingUpFingerprintScreen extends StatefulWidget {
+  const SettingUpFingerprintScreen({super.key});
 
   @override
-  State<SetUpFingerprint> createState() => _SetUpFingerprintState();
+  State<SettingUpFingerprintScreen> createState() =>
+      _SettingUpFingerprintScreenState();
 }
 
-class _SetUpFingerprintState extends State<SetUpFingerprint> {
+class _SettingUpFingerprintScreenState
+    extends State<SettingUpFingerprintScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,24 +111,13 @@ class _SetUpFingerprintState extends State<SetUpFingerprint> {
               ),
             ),
             Positioned(
-              top: 451.h,
+              top: 501.h,
               left: 20.w,
               right: 20.w,
               child: Column(
                 children: [
                   Text(
-                    textAlign: TextAlign.center,
-                    'Use Biometric to Authorize Transactions and Sign in',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  18.verticalSpace,
-                  Text(
-                    'Activate touch ID so you don’t have to confirm your PIN for every transaction',
+                    'Place your thumb on your phone sensor to activate your biometric',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
@@ -136,6 +127,7 @@ class _SetUpFingerprintState extends State<SetUpFingerprint> {
                     ),
                   ),
                   107.verticalSpace,
+                  //this is here because of setting up the fingerprint is done by you so i just use this button to navigate to next page
                   TouchOpacity(
                     child: SizedBox(
                       width: double.infinity,
@@ -153,7 +145,7 @@ class _SetUpFingerprintState extends State<SetUpFingerprint> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return SettingUpFingerprint();
+                                return FingerprintCompleteScreen();
                               },
                             ),
                           );
@@ -162,12 +154,12 @@ class _SetUpFingerprintState extends State<SetUpFingerprint> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Activate',
+                              'Finish',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16.sp,
-                                color: PPaymobileColors.mainScreenBackground,
+                                color: Colors.white,
                               ),
                             ),
                           ],

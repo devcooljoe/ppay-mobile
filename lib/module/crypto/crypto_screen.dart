@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/shared/models/crypto_transactions_model.dart';
 import 'package:ppay_mobile/module/crypto/assets_screen.dart';
-import 'package:ppay_mobile/module/crypto/buy_crypto.dart';
-import 'package:ppay_mobile/module/crypto/crypto_transactions_history.dart';
+import 'package:ppay_mobile/module/crypto/buy_crypto_screen.dart';
+import 'package:ppay_mobile/module/crypto/crypto_transactions_history_screen.dart';
 import 'package:ppay_mobile/module/crypto/receive_crypto_screen.dart';
-import 'package:ppay_mobile/module/crypto/sell_crypto.dart';
+import 'package:ppay_mobile/module/crypto/sell_crypto_screen.dart';
+import 'package:ppay_mobile/shared/models/crypto_transactions_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -122,7 +122,9 @@ class _CryptoScreenState extends State<CryptoScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (_) => BuyCrypto()),
+                                MaterialPageRoute(
+                                  builder: (_) => BuyCryptoScreen(),
+                                ),
                               );
                             },
                             child: Container(
@@ -165,7 +167,9 @@ class _CryptoScreenState extends State<CryptoScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (_) => SellCrypto()),
+                                MaterialPageRoute(
+                                  builder: (_) => SellCryptoScreen(),
+                                ),
                               );
                             },
                             child: Container(
@@ -608,7 +612,7 @@ class _CryptoScreenState extends State<CryptoScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => CryptoTransactionsHistory(),
+                              builder: (_) => CryptoTransactionsHistoryScreen(),
                             ),
                           );
                         },

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/settings/contact.dart';
-import 'package:ppay_mobile/module/settings/faq.dart';
+import 'package:ppay_mobile/module/settings/contact_tab_screen.dart';
+import 'package:ppay_mobile/module/settings/faq_tab_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class HelpSupportScreen extends StatefulWidget {
-  const HelpSupportScreen({super.key});
+class HelpAndSupportScreen extends StatefulWidget {
+  const HelpAndSupportScreen({super.key});
 
   @override
-  State<HelpSupportScreen> createState() => _HelpSupportScreenState();
+  State<HelpAndSupportScreen> createState() => _HelpAndSupportScreenState();
 }
 
-class _HelpSupportScreenState extends State<HelpSupportScreen> {
+class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -74,7 +74,7 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
             ],
           ),
         ),
-        body: TabBarView(children: [FaqTab(), ContactTab()]),
+        body: TabBarView(children: [FaqTabScreen(), ContactTabScreen()]),
       ),
     );
   }

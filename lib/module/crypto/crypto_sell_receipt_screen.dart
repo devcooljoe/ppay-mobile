@@ -4,14 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class CryptoSellReceipt extends StatefulWidget {
-  const CryptoSellReceipt({super.key});
+class CryptoSellReceiptScreen extends StatefulWidget {
+  const CryptoSellReceiptScreen({super.key});
 
   @override
-  State<CryptoSellReceipt> createState() => _CryptoSellReceiptState();
+  State<CryptoSellReceiptScreen> createState() =>
+      _CryptoSellReceiptScreenState();
 }
 
-class _CryptoSellReceiptState extends State<CryptoSellReceipt> {
+class _CryptoSellReceiptScreenState extends State<CryptoSellReceiptScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

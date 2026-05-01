@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/auth/password_changed.dart';
+import 'package:ppay_mobile/module/auth/login_screen.dart';
+import 'package:ppay_mobile/module/auth/password_changed_screen.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/textfield.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class PasswordresetScreen extends StatefulWidget {
-  const PasswordresetScreen({super.key});
+class CreatePasswordScreen extends StatefulWidget {
+  const CreatePasswordScreen({super.key});
 
   @override
-  State<PasswordresetScreen> createState() => _PasswordresetScreenState();
+  State<CreatePasswordScreen> createState() => _CreatePasswordScreenState();
 }
 
-class _PasswordresetScreenState extends State<PasswordresetScreen> {
+class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: PPaymobileColors.mainScreenBackground,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
-              102.verticalSpace,
+              40.verticalSpace,
               Text(
-                'Password Reset',
+                'Create Password',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: PPaymobileColors.buttonColorandText,
@@ -34,7 +39,7 @@ class _PasswordresetScreenState extends State<PasswordresetScreen> {
                 ),
               ),
               Text(
-                'Please enter new password below to set new password',
+                'Please enter password below to secure your account',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: Colors.black,
@@ -176,56 +181,93 @@ class _PasswordresetScreenState extends State<PasswordresetScreen> {
                   ),
                 ],
               ),
-              91.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
+              80.verticalSpace,
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.anotherButtonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Reset Password',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PasswordChanged(),
+                ),
+              ),
+              10.verticalSpace,
+              TouchOpacity(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: PPaymobileColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(42.r),
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Reset Password',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
+                      elevation: 0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PasswordChanged(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Reset Password',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
               21.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    height: 16.h,
-                    width: 12.w,
-                    'assets/icon/arrow_back.svg',
-                  ),
-                  5.horizontalSpace,
-                  Text(
-                    'Back to Login',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp,
-                      color: PPaymobileColors.svgIconColor,
+              TouchOpacity(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      height: 16.h,
+                      width: 12.w,
+                      'assets/icon/arrow_back.svg',
                     ),
-                  ),
-                ],
+                    5.horizontalSpace,
+                    Text(
+                      'Back to Login',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        color: PPaymobileColors.svgIconColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
