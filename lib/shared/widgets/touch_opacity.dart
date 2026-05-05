@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class TouchOpacity extends StatefulWidget {
+class TouchOpacity extends HookWidget {
   final Widget child;
   final double opacity;
   final Duration duration;
@@ -17,31 +18,19 @@ class TouchOpacity extends StatefulWidget {
   });
 
   @override
-  State<TouchOpacity> createState() => _TouchOpacityState();
-}
-
-class _TouchOpacityState extends State<TouchOpacity> {
-  double opacityValue = 1.0;
-
-  @override
   Widget build(BuildContext context) {
+    final opacityValue = useState(1.0);
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: widget.onTap,
-      onLongPress: widget.onLongPress,
-      onTapDown: (_) => setState(() {
-        opacityValue = widget.opacity;
-      }),
-      onTapUp: (_) => setState(() {
-        opacityValue = 1.0;
-      }),
-      onTapCancel: () => setState(() {
-        opacityValue = 1.0;
-      }),
+      onTap: onTap,
+      onLongPress: onLongPress,
+      onTapDown: (_) => opacityValue.value = opacity,
+      onTapUp: (_) => opacityValue.value = 1.0,
+      onTapCancel: () => opacityValue.value = 1.0,
       child: AnimatedOpacity(
-        duration: widget.duration,
-        opacity: opacityValue,
-        child: widget.child,
+        duration: duration,
+        opacity: opacityValue.value,
+        child: child,
       ),
     );
   }

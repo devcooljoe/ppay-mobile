@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class BvnReasonBottomsheet extends StatefulWidget {
+class BvnReasonBottomsheet extends HookConsumerWidget {
   const BvnReasonBottomsheet({super.key});
 
   @override
-  State<BvnReasonBottomsheet> createState() => _BvnReasonBottomsheetState();
-}
-
-class _BvnReasonBottomsheetState extends State<BvnReasonBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.630,
       child: Column(

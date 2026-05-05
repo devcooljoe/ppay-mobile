@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class PPTextfield extends StatefulWidget {
+class PPTextfield extends HookWidget {
   final Widget prefixI;
   final String hintT;
   final TextStyle hintS;
@@ -15,19 +16,14 @@ class PPTextfield extends StatefulWidget {
   });
 
   @override
-  State<PPTextfield> createState() => _PPTextfieldState();
-}
-
-class _PPTextfieldState extends State<PPTextfield> {
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 15.h),
-        prefixIcon: widget.prefixI,
-        suffixIcon: widget.suffixI,
-        hintText: widget.hintT,
-        hintStyle: widget.hintS,
+        prefixIcon: prefixI,
+        suffixIcon: suffixI,
+        hintText: hintT,
+        hintStyle: hintS,
         // prefixIcon: SvgPicture.asset(
         //   'assets/icon/message_icon.svg',
         //   height: 24.h,

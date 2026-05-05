@@ -2,90 +2,67 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/transaction/transaction_successful_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
-class PinBottomSheet extends StatefulWidget {
+class PinBottomSheet extends HookConsumerWidget {
   const PinBottomSheet({super.key});
 
   @override
-  State<PinBottomSheet> createState() => _PinBottomSheetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final displayController = useTextEditingController();
+    final realPin = useState('');
 
-class _PinBottomSheetState extends State<PinBottomSheet> {
-  final TextEditingController _displayController = TextEditingController();
-  String _realPin = '';
+    final emptyPinTheme = useMemoized(() => PinTheme(
+      width: 11.w,
+      height: 11.w,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
+        color: Colors.transparent,
+      ),
+    ));
 
-  final emptyPinTheme = PinTheme(
-    width: 11.w,
-    height: 11.w,
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
-      color: Colors.transparent, //  empty is transparent
-    ),
-  );
+    final filledPinTheme = useMemoized(() => PinTheme(
+      width: 11.w,
+      height: 11.w,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Color(0xFF0B3A3A),
+      ),
+    ));
 
-  final filledPinTheme = PinTheme(
-    width: 11.w,
-    height: 11.w,
-    decoration: const BoxDecoration(
-      shape: BoxShape.circle,
-      color: Color(0xFF0B3A3A), // filled color
-    ),
-  );
+    void onKeyTap(String value) {
+      if (realPin.value.length >= 4) return;
 
-  void _onKeyTap(String value) {
-    if (_realPin.length >= 4) return;
+      realPin.value += value;
+      displayController.text = realPin.value;
 
-    setState(() {
-      _realPin += value;
-      _displayController.text = _realPin;
-    });
+      if (realPin.value.length == 4) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          if (!context.mounted) return;
 
-    if (_realPin.length == 4) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        if (!mounted) return;
+          Navigator.pop(context);
 
-        Navigator.pop(context);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const TransactionSuccessfulPage(),
-          ),
-        );
-      });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const TransactionSuccessfulPage(),
+            ),
+          );
+        });
+      }
     }
-  }
 
-  void _onDelete() {
-    if (_realPin.isEmpty) return;
+    void onDelete() {
+      if (realPin.value.isEmpty) return;
 
-    setState(() {
-      _realPin = _realPin.substring(0, _realPin.length - 1);
-      _displayController.text = _realPin;
-    });
-  }
-
-  @override
-  void dispose() {
-    _displayController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // final defaultPinTheme = PinTheme(
-    //   width: 12.w,
-    //   height: 12.w,
-    //   decoration: BoxDecoration(
-    //     color: const Color(0xFF0B3A3A), // dot color
-    //     shape: BoxShape.circle,
-    //   ),
-    // );
-
+      realPin.value = realPin.value.substring(0, realPin.value.length - 1);
+      displayController.text = realPin.value;
+    }
     return FractionallySizedBox(
       heightFactor: 0.750,
       child: Column(
@@ -149,7 +126,7 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
                     height: 51.h,
                     width: 256.w,
                     child: Pinput(
-                      controller: _displayController,
+                      controller: displayController,
                       length: 4,
                       readOnly: true,
                       showCursor: false,
@@ -175,8 +152,8 @@ class _PinBottomSheetState extends State<PinBottomSheet> {
                   Padding(
                     padding: EdgeInsets.only(top: 1.0.h),
                     child: PinCustomKeyboard(
-                      onKeyTap: _onKeyTap,
-                      onDelete: _onDelete,
+                      onKeyTap: onKeyTap,
+                      onDelete: onDelete,
                     ),
                   ),
                 ],

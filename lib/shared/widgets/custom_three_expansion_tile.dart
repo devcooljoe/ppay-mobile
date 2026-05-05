@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class CustomThreeExpansionTile extends StatefulWidget {
+class CustomThreeExpansionTile extends HookConsumerWidget {
   const CustomThreeExpansionTile({super.key});
 
   @override
-  State<CustomThreeExpansionTile> createState() =>
-      _CustomThreeExpansionTileState();
-}
-
-class _CustomThreeExpansionTileState extends State<CustomThreeExpansionTile> {
-  bool _expanded = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final expanded = useState(false);
     return Column(
       children: [
         Theme(
@@ -24,9 +19,7 @@ class _CustomThreeExpansionTileState extends State<CustomThreeExpansionTile> {
           child: ExpansionTile(
             tilePadding: EdgeInsets.zero,
             childrenPadding: EdgeInsets.only(bottom: 13.h),
-            onExpansionChanged: (value) {
-              setState(() => _expanded = value);
-            },
+            onExpansionChanged: (value) => expanded.value = value,
             title: Text(
               'Color',
               textAlign: TextAlign.start,
@@ -37,7 +30,7 @@ class _CustomThreeExpansionTileState extends State<CustomThreeExpansionTile> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            trailing: _expanded
+            trailing: expanded.value
                 ? SizedBox(
                     height: 24.w,
                     width: 24.w,

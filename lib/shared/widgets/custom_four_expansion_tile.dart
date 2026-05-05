@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class CustomFourExpansionTile extends StatefulWidget {
+class CustomFourExpansionTile extends HookConsumerWidget {
   const CustomFourExpansionTile({super.key});
 
   @override
-  State<CustomFourExpansionTile> createState() =>
-      _CustomFourExpansionTileState();
-}
-
-class _CustomFourExpansionTileState extends State<CustomFourExpansionTile> {
-  bool _expanded = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final expanded = useState(false);
     return Column(
       children: [
         Theme(
@@ -25,9 +20,7 @@ class _CustomFourExpansionTileState extends State<CustomFourExpansionTile> {
           child: ExpansionTile(
             tilePadding: EdgeInsets.zero,
             childrenPadding: EdgeInsets.only(bottom: 13.h),
-            onExpansionChanged: (value) {
-              setState(() => _expanded = value);
-            },
+            onExpansionChanged: (value) => expanded.value = value,
             title: Text(
               'Size',
               textAlign: TextAlign.start,
@@ -38,7 +31,7 @@ class _CustomFourExpansionTileState extends State<CustomFourExpansionTile> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            trailing: _expanded
+            trailing: expanded.value
                 ? SizedBox(
                     height: 24.w,
                     width: 24.w,

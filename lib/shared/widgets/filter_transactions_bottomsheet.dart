@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
 
-class FilterTransactionsBottomsheet extends StatefulWidget {
+class FilterTransactionsBottomsheet extends HookConsumerWidget {
   const FilterTransactionsBottomsheet({super.key});
 
   @override
-  State<FilterTransactionsBottomsheet> createState() =>
-      _FilterTransactionsBottomsheetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateController = useTextEditingController();
 
-class _FilterTransactionsBottomsheetState
-    extends State<FilterTransactionsBottomsheet> {
-  bool isEnabled = false;
-  final TextEditingController _dateController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
     return FractionallySizedBox(
       heightFactor: 0.920,
       child: Column(
@@ -188,17 +182,16 @@ class _FilterTransactionsBottomsheetState
                             height: 50.h,
                             width: 158.w,
                             child: TextFormField(
-                              controller: _dateController,
+                              controller: dateController,
                               readOnly: true,
                               onTap: () async {
-                                /// 👉 THIS is where the dialog is called
                                 final selectedDate = await showDialog<DateTime>(
                                   context: context,
                                   builder: (_) =>
                                       const CustomDatePickerDialog(),
                                 );
                                 if (selectedDate != null) {
-                                  _dateController.text =
+                                  dateController.text =
                                       "${selectedDate.day.toString().padLeft(2, '0')}/"
                                       "${selectedDate.month.toString().padLeft(2, '0')}/"
                                       "${selectedDate.year}";
@@ -261,17 +254,16 @@ class _FilterTransactionsBottomsheetState
                             height: 50.h,
                             width: 158.w,
                             child: TextFormField(
-                              controller: _dateController,
+                              controller: dateController,
                               readOnly: true,
                               onTap: () async {
-                                /// 👉 THIS is where the dialog is called
                                 final selectedDate = await showDialog<DateTime>(
                                   context: context,
                                   builder: (_) =>
                                       const CustomDatePickerDialog(),
                                 );
                                 if (selectedDate != null) {
-                                  _dateController.text =
+                                  dateController.text =
                                       "${selectedDate.day.toString().padLeft(2, '0')}/"
                                       "${selectedDate.month.toString().padLeft(2, '0')}/"
                                       "${selectedDate.year}";
@@ -331,8 +323,8 @@ class _FilterTransactionsBottomsheetState
                   ),
                   24.verticalSpace,
                   Wrap(
-                    spacing: 37.w, // horizontal space
-                    runSpacing: 24.h, // vertical space between lines
+                    spacing: 37.w,
+                    runSpacing: 24.h,
                     children: [
                       _status(
                         'All',

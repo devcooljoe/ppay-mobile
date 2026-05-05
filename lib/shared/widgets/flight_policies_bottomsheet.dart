@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/flight/baggage_page.dart';
 import 'package:ppay_mobile/module/flight/booking_policies_page.dart';
 import 'package:ppay_mobile/module/flight/refund_policy_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class FlightPoliciesBottomsheet extends StatefulWidget {
+class FlightPoliciesBottomsheet extends HookConsumerWidget {
   const FlightPoliciesBottomsheet({super.key});
 
   @override
-  State<FlightPoliciesBottomsheet> createState() =>
-      _FlightPoliciesBottomsheetState();
-}
-
-class _FlightPoliciesBottomsheetState extends State<FlightPoliciesBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.640,
       child: Column(

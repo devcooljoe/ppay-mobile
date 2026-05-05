@@ -1,36 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class CustomSwitch extends StatefulWidget {
+class CustomSwitch extends HookConsumerWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
 
   const CustomSwitch({super.key, required this.value, required this.onChanged});
 
   @override
-  State<CustomSwitch> createState() => _CustomSwitchState();
-}
-
-class _CustomSwitchState extends State<CustomSwitch> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () => widget.onChanged(!widget.value),
+      onTap: () => onChanged(!value),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         width: 16.w,
         height: 16.h, // smaller track
         padding: EdgeInsets.symmetric(horizontal: 3.w),
         decoration: BoxDecoration(
-          color: widget.value
+          color: value
               ? PPaymobileColors
                     .doneColor // active track
               : PPaymobileColors.deepBackgroundColor, // inactive track
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Align(
-          alignment: widget.value
+          alignment: value
               ? Alignment.centerRight
               : Alignment.centerLeft,
           child: AnimatedContainer(
@@ -38,7 +34,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
             width: 20.w, // bigger thumb
             height: 20.w,
             decoration: BoxDecoration(
-              color: widget.value
+              color: value
                   ? PPaymobileColors
                         .buttonColor // active thumb
                   : PPaymobileColors.textfiedBorder, // inactive thumb

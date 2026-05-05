@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/giftcard_pin_botomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class BuyGiftCardBottomsheet extends StatefulWidget {
+class BuyGiftCardBottomsheet extends HookConsumerWidget {
   const BuyGiftCardBottomsheet({super.key});
 
   @override
-  State<BuyGiftCardBottomsheet> createState() => _BuyGiftCardBottomsheetState();
-}
-
-class _BuyGiftCardBottomsheetState extends State<BuyGiftCardBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.650,
       child: Column(
@@ -234,10 +230,10 @@ class _BuyGiftCardBottomsheetState extends State<BuyGiftCardBottomsheet> {
                   36.verticalSpace,
                   TouchOpacity(
                     onTap: () async {
-                      if (!mounted) return;
+                      if (!context.mounted) return;
                       Navigator.pop(context);
                       await Future.delayed(const Duration(milliseconds: 200));
-                      if (!mounted) return;
+                      if (!context.mounted) return;
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,

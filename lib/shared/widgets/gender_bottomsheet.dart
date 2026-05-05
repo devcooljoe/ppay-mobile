@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class GenderBottomsheet extends StatefulWidget {
+class GenderBottomsheet extends HookConsumerWidget {
   const GenderBottomsheet({super.key});
 
   @override
-  State<GenderBottomsheet> createState() => _GenderBottomsheetState();
-}
-
-class _GenderBottomsheetState extends State<GenderBottomsheet> {
-  String selectedValue = 'Male';
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedValue = useState('Male');
     return FractionallySizedBox(
       heightFactor: 0.45,
       child: Column(
@@ -69,9 +65,9 @@ class _GenderBottomsheetState extends State<GenderBottomsheet> {
                   ),
                   29.verticalSpace,
                   // Options
-                  _optionTile('Male'),
+                  _optionTile('Male', selectedValue, context),
                   45.verticalSpace,
-                  _optionTile('Female'),
+                  _optionTile('Female', selectedValue, context),
                 ],
               ),
             ),
@@ -81,13 +77,13 @@ class _GenderBottomsheetState extends State<GenderBottomsheet> {
     );
   }
 
-  Widget _optionTile(String value) {
-    final isSelected = selectedValue == value;
+  Widget _optionTile(String value, ValueNotifier<String> selectedValue, BuildContext context) {
+    final isSelected = selectedValue.value == value;
 
     return SizedBox(
       child: GestureDetector(
         onTap: () {
-          setState(() => selectedValue = value);
+          selectedValue.value = value;
           Navigator.pop(context, value);
         },
         child: Row(

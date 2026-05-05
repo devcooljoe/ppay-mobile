@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/shared/widgets/chat_bible.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/shared/widgets/chat_bubble.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 void showLiveChatSheet(BuildContext context) {
@@ -13,16 +14,11 @@ void showLiveChatSheet(BuildContext context) {
   );
 }
 
-class LiveChatSheet extends StatefulWidget {
+class LiveChatSheet extends HookConsumerWidget {
   const LiveChatSheet({super.key});
 
   @override
-  State<LiveChatSheet> createState() => _LiveChatSheetState();
-}
-
-class _LiveChatSheetState extends State<LiveChatSheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.840,
       child: Column(

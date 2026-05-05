@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/utils/date_utils.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CustomDatePickerDialog extends StatefulWidget {
+class CustomDatePickerDialog extends HookConsumerWidget {
   const CustomDatePickerDialog({super.key});
 
   @override
-  State<CustomDatePickerDialog> createState() => _CustomDatePickerDialogState();
-}
-
-class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
-  DateTime focusedDay = DateTime.now();
-  DateTime? selectedDay;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final focusedDay = useState(DateTime.now());
+    final selectedDay = useState<DateTime?>(null);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10).r),
       backgroundColor: PPaymobileColors.mainScreenBackground,
@@ -27,26 +23,20 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             _Header(
-              focusedDay: focusedDay,
-              onPrev: () => setState(() {
-                focusedDay = DateTime(focusedDay.year, focusedDay.month - 1);
-              }),
-              onNext: () => setState(() {
-                focusedDay = DateTime(focusedDay.year, focusedDay.month + 1);
-              }),
+              focusedDay: focusedDay.value,
+              onPrev: () => focusedDay.value = DateTime(focusedDay.value.year, focusedDay.value.month - 1),
+              onNext: () => focusedDay.value = DateTime(focusedDay.value.year, focusedDay.value.month + 1),
             ),
             25.verticalSpace,
             TableCalendar(
-              focusedDay: focusedDay,
+              focusedDay: focusedDay.value,
               firstDay: DateTime(2000),
               lastDay: DateTime(2100),
               headerVisible: false,
-              selectedDayPredicate: (day) => isSameDay(day, selectedDay),
+              selectedDayPredicate: (day) => isSameDay(day, selectedDay.value),
               onDaySelected: (selected, focused) {
-                setState(() {
-                  selectedDay = selected;
-                  focusedDay = focused;
-                });
+                selectedDay.value = selected;
+                focusedDay.value = focused;
               },
             ),
             24.verticalSpace,
@@ -55,9 +45,7 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
               children: [
                 InkWell(
                   borderRadius: BorderRadius.circular(5).r,
-                  onTap: () {
-                    // Optional: you can handle tap here if needed
-                  },
+                  onTap: () {},
                   child: Container(
                     height: 39.h,
                     width: 126.w,
@@ -82,9 +70,9 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                         ),
                         8.horizontalSpace,
                         Text(
-                          selectedDay == null
+                          selectedDay.value == null
                               ? 'Select date'
-                              : "${selectedDay!.day}/${selectedDay!.month}/${selectedDay!.year}",
+                              : "${selectedDay.value!.day}/${selectedDay.value!.month}/${selectedDay.value!.year}",
                           style: TextStyle(
                             fontFamily: 'Gilroy',
                             fontSize: 14.sp,
@@ -97,10 +85,10 @@ class _CustomDatePickerDialogState extends State<CustomDatePickerDialog> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: selectedDay == null
+                  onTap: selectedDay.value == null
                       ? null
                       : () {
-                          Navigator.pop(context, selectedDay);
+                          Navigator.pop(context, selectedDay.value);
                         },
                   child: Container(
                     height: 37.h,

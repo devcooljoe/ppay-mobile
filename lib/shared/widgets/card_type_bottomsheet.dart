@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/option_picker.dart';
 
-class CardTypeBottomsheet extends StatefulWidget {
+class CardTypeBottomsheet extends HookConsumerWidget {
   const CardTypeBottomsheet({super.key});
 
   @override
-  State<CardTypeBottomsheet> createState() => _CardTypeBottomsheetState();
-}
-
-class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = useState(0);
     return FractionallySizedBox(
       heightFactor: 0.950,
       child: Column(
@@ -120,10 +117,8 @@ class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
                             ],
                           ),
                           OptionPicker(
-                            selected: selectedIndex == 1,
-                            onSelected: () => setState(() {
-                              selectedIndex = 1;
-                            }),
+                            selected: selectedIndex.value == 1,
+                            onSelected: () => selectedIndex.value = 1,
                           ),
                         ],
                       ),
@@ -157,10 +152,8 @@ class _CardTypeBottomsheetState extends State<CardTypeBottomsheet> {
                             ],
                           ),
                           OptionPicker(
-                            selected: selectedIndex == 2,
-                            onSelected: () => setState(() {
-                              selectedIndex = 2;
-                            }),
+                            selected: selectedIndex.value == 2,
+                            onSelected: () => selectedIndex.value = 2,
                           ),
                         ],
                       ),

@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class RefundPolicyBottomsheet extends StatefulWidget {
+class RefundPolicyBottomsheet extends HookConsumerWidget {
   const RefundPolicyBottomsheet({super.key});
 
   @override
-  State<RefundPolicyBottomsheet> createState() =>
-      _RefundPolicyBottomsheetState();
-}
-
-class _RefundPolicyBottomsheetState extends State<RefundPolicyBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.990,
       child: Column(

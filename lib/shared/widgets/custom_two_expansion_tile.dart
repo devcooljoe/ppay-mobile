@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class CustomTwoExpansionTile extends StatefulWidget {
+class CustomTwoExpansionTile extends HookConsumerWidget {
   const CustomTwoExpansionTile({super.key});
 
   @override
-  State<CustomTwoExpansionTile> createState() => _CustomTwoExpansionTileState();
-}
-
-class _CustomTwoExpansionTileState extends State<CustomTwoExpansionTile> {
-  bool _expanded = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final expanded = useState(false);
     return Column(
       children: [
         Theme(
@@ -24,9 +20,7 @@ class _CustomTwoExpansionTileState extends State<CustomTwoExpansionTile> {
           child: ExpansionTile(
             tilePadding: EdgeInsets.zero,
             childrenPadding: EdgeInsets.only(bottom: 13.h),
-            onExpansionChanged: (value) {
-              setState(() => _expanded = value);
-            },
+            onExpansionChanged: (value) => expanded.value = value,
             title: Text(
               'Price',
               textAlign: TextAlign.start,
@@ -37,7 +31,7 @@ class _CustomTwoExpansionTileState extends State<CustomTwoExpansionTile> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            trailing: _expanded
+            trailing: expanded.value
                 ? SizedBox(
                     height: 24.w,
                     width: 24.w,

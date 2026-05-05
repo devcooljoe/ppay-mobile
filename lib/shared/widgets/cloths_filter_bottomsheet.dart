@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_expansion_tile.dart';
 import 'package:ppay_mobile/shared/widgets/custom_four_expansion_tile.dart';
 import 'package:ppay_mobile/shared/widgets/custom_three_expansion_tile.dart';
 import 'package:ppay_mobile/shared/widgets/custom_two_expansion_tile.dart';
 
-class ClothsFilterBottomsheet extends StatefulWidget {
+class ClothsFilterBottomsheet extends HookConsumerWidget {
   const ClothsFilterBottomsheet({super.key});
 
   @override
-  State<ClothsFilterBottomsheet> createState() =>
-      _ClothsFilterBottomsheetState();
-}
-
-class _ClothsFilterBottomsheetState extends State<ClothsFilterBottomsheet> {
-  bool isEnabled = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.950,
       child: Column(

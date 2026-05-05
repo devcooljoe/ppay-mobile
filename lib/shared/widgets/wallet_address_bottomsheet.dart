@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class WalletAddressBottomsheet extends StatefulWidget {
+class WalletAddressBottomsheet extends HookConsumerWidget {
   const WalletAddressBottomsheet({super.key});
 
   @override
-  State<WalletAddressBottomsheet> createState() =>
-      _WalletAddressBottomsheetState();
-}
-
-class _WalletAddressBottomsheetState extends State<WalletAddressBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.850,
       child: Column(

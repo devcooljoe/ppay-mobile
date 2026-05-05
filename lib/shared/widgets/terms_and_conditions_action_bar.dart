@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class TermsAndConditionsActionBar extends StatefulWidget {
+class TermsAndConditionsActionBar extends HookConsumerWidget {
   const TermsAndConditionsActionBar({super.key});
 
   @override
-  State<TermsAndConditionsActionBar> createState() =>
-      _TermsAndConditionsActionBarState();
-}
-
-class _TermsAndConditionsActionBarState
-    extends State<TermsAndConditionsActionBar> {
-  bool agreed = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final agreed = useState(false);
     return Container(
       height: 88.h,
       width: double.infinity,
@@ -27,9 +21,7 @@ class _TermsAndConditionsActionBarState
           // Disagree
           Expanded(
             child: GestureDetector(
-              onTap: () {
-                setState(() => agreed = false);
-              },
+              onTap: () => agreed.value = false,
               child: Container(
                 height: 54.h,
                 width: 188.w,
@@ -55,9 +47,7 @@ class _TermsAndConditionsActionBarState
           // Agree / Agreed
           Expanded(
             child: GestureDetector(
-              onTap: () {
-                setState(() => agreed = true);
-              },
+              onTap: () => agreed.value = true,
               child: Container(
                 height: 54.h,
                 width: 188.w,
@@ -69,7 +59,7 @@ class _TermsAndConditionsActionBarState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      agreed ? 'Agreed' : 'Agree to Terms',
+                      agreed.value ? 'Agreed' : 'Agree to Terms',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         fontSize: 16.sp,
@@ -77,7 +67,7 @@ class _TermsAndConditionsActionBarState
                         color: PPaymobileColors.mainScreenBackground,
                       ),
                     ),
-                    if (agreed) ...[
+                    if (agreed.value) ...[
                       10.horizontalSpace,
                       SizedBox(
                         height: 16.w,

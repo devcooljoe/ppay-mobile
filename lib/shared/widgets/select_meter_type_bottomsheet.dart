@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class SelectMeterTypeBottomsheet extends StatefulWidget {
+class SelectMeterTypeBottomsheet extends HookConsumerWidget {
   const SelectMeterTypeBottomsheet({super.key});
 
   @override
-  State<SelectMeterTypeBottomsheet> createState() =>
-      _SelectMeterTypeBottomsheetState();
-}
-
-class _SelectMeterTypeBottomsheetState
-    extends State<SelectMeterTypeBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.380,
       child: Column(

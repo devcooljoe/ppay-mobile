@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class FaqTile extends StatefulWidget {
+class FaqTile extends HookConsumerWidget {
   final String question;
   final String answer;
 
   const FaqTile({super.key, required this.question, required this.answer});
 
   @override
-  State<FaqTile> createState() => _FaqTileState();
-}
-
-class _FaqTileState extends State<FaqTile> {
-  bool _isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isExpanded = useState(false);
     return Container(
       margin: EdgeInsets.only(bottom: 18.h),
       decoration: BoxDecoration(
@@ -31,21 +27,17 @@ class _FaqTileState extends State<FaqTile> {
         child: ExpansionTile(
           tilePadding: EdgeInsets.symmetric(horizontal: 16.w),
           childrenPadding: EdgeInsets.all(16).r,
-          onExpansionChanged: (expanded) {
-            setState(() {
-              _isExpanded = expanded;
-            });
-          },
+          onExpansionChanged: (expanded) => isExpanded.value = expanded,
           trailing: SizedBox(
             height: 20.w,
             width: 20.w,
             child: SvgPicture.asset(
-              _isExpanded ? 'assets/icon/minus.svg' : 'assets/icon/add.svg',
+              isExpanded.value ? 'assets/icon/minus.svg' : 'assets/icon/add.svg',
               fit: BoxFit.contain,
             ),
           ),
           title: Text(
-            widget.question,
+            question,
             textAlign: TextAlign.start,
             style: TextStyle(
               fontFamily: 'InstrumentSans',
@@ -55,7 +47,7 @@ class _FaqTileState extends State<FaqTile> {
           ),
           children: [
             Text(
-              widget.answer,
+              answer,
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontFamily: 'InstrumentSans',

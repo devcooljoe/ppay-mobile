@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class TradeBottomsheet extends StatefulWidget {
+class TradeBottomsheet extends HookConsumerWidget {
   const TradeBottomsheet({super.key});
 
   @override
-  State<TradeBottomsheet> createState() => _TradeBottomsheetState();
-}
-
-class _TradeBottomsheetState extends State<TradeBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.500,
       child: Column(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
@@ -14,17 +16,12 @@ void showSupportTicketSheet(BuildContext context) {
   );
 }
 
-class SupportTicketSheet extends StatefulWidget {
+class SupportTicketSheet extends HookConsumerWidget {
   const SupportTicketSheet({super.key});
 
   @override
-  State<SupportTicketSheet> createState() => _SupportTicketSheetState();
-}
-
-class _SupportTicketSheetState extends State<SupportTicketSheet> {
-  bool isEnabled = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isEnabled = useState(false);
     return FractionallySizedBox(
       heightFactor: 0.840,
       child: Column(
@@ -254,12 +251,8 @@ class _SupportTicketSheetState extends State<SupportTicketSheet> {
                         width: 37.w,
                         height: 20.h,
                         child: CustomSwitch(
-                          value: isEnabled,
-                          onChanged: (val) {
-                            setState(() {
-                              isEnabled = val;
-                            });
-                          },
+                          value: isEnabled.value,
+                          onChanged: (val) => isEnabled.value = val,
                         ),
                       ),
                     ],

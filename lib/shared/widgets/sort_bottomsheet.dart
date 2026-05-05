@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/option_picker.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class SortBottomsheet extends StatefulWidget {
+class SortBottomsheet extends HookConsumerWidget {
   const SortBottomsheet({super.key});
 
   @override
-  State<SortBottomsheet> createState() => _SortBottomsheetState();
-}
-
-class _SortBottomsheetState extends State<SortBottomsheet> {
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = useState(0);
     return FractionallySizedBox(
       heightFactor: 0.580,
       child: Column(
@@ -81,10 +78,8 @@ class _SortBottomsheetState extends State<SortBottomsheet> {
                           ),
                         ),
                         OptionPicker(
-                          selected: selectedIndex == 1,
-                          onSelected: () => setState(() {
-                            selectedIndex = 1;
-                          }),
+                          selected: selectedIndex.value == 1,
+                          onSelected: () => selectedIndex.value = 1,
                         ),
                       ],
                     ),
@@ -107,10 +102,8 @@ class _SortBottomsheetState extends State<SortBottomsheet> {
                           ),
                         ),
                         OptionPicker(
-                          selected: selectedIndex == 2,
-                          onSelected: () => setState(() {
-                            selectedIndex = 2;
-                          }),
+                          selected: selectedIndex.value == 2,
+                          onSelected: () => selectedIndex.value = 2,
                         ),
                       ],
                     ),
@@ -133,10 +126,8 @@ class _SortBottomsheetState extends State<SortBottomsheet> {
                           ),
                         ),
                         OptionPicker(
-                          selected: selectedIndex == 3,
-                          onSelected: () => setState(() {
-                            selectedIndex = 3;
-                          }),
+                          selected: selectedIndex.value == 3,
+                          onSelected: () => selectedIndex.value = 3,
                         ),
                       ],
                     ),
@@ -159,10 +150,8 @@ class _SortBottomsheetState extends State<SortBottomsheet> {
                           ),
                         ),
                         OptionPicker(
-                          selected: selectedIndex == 4,
-                          onSelected: () => setState(() {
-                            selectedIndex = 4;
-                          }),
+                          selected: selectedIndex.value == 4,
+                          onSelected: () => selectedIndex.value = 4,
                         ),
                       ],
                     ),
@@ -185,10 +174,8 @@ class _SortBottomsheetState extends State<SortBottomsheet> {
                           ),
                         ),
                         OptionPicker(
-                          selected: selectedIndex == 5,
-                          onSelected: () => setState(() {
-                            selectedIndex = 5;
-                          }),
+                          selected: selectedIndex.value == 5,
+                          onSelected: () => selectedIndex.value = 5,
                         ),
                       ],
                     ),

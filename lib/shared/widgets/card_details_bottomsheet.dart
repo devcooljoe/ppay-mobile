@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class CardDetailsBottomsheet extends StatefulWidget {
+class CardDetailsBottomsheet extends HookConsumerWidget {
   const CardDetailsBottomsheet({super.key});
 
   @override
-  State<CardDetailsBottomsheet> createState() => _CardDetailsBottomsheetState();
-}
-
-class _CardDetailsBottomsheetState extends State<CardDetailsBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.970,
       child: Column(

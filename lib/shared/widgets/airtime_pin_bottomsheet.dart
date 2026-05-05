@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
@@ -6,84 +7,67 @@ import 'package:ppay_mobile/module/bills/airtime_success_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
-class AirtimePinBottomsheet extends StatefulWidget {
+class AirtimePinBottomsheet extends HookWidget {
   const AirtimePinBottomsheet({super.key});
 
   @override
-  State<AirtimePinBottomsheet> createState() => _AirtimePinBottomsheetState();
-}
-
-class _AirtimePinBottomsheetState extends State<AirtimePinBottomsheet> {
-  final TextEditingController _displayController = TextEditingController();
-  String _realPin = '';
-
-  final emptyPinTheme = PinTheme(
-    width: 11.w,
-    height: 11.w,
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
-      color: Colors.transparent,
-    ),
-  );
-
-  final filledPinTheme = PinTheme(
-    width: 11.w,
-    height: 11.w,
-    textStyle: TextStyle(color: Colors.transparent),
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      color: PPaymobileColors.buttonColor,
-    ),
-  );
-
-  void _onKeyTap(String value) {
-    if (_realPin.length >= 4) return;
-
-    setState(() {
-      _realPin += value;
-      _displayController.text = _realPin;
-    });
-
-    if (_realPin.length == 4) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        if (!mounted) return;
-
-        Navigator.pop(context);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const AirtimeSuccessPage()),
-        );
-      });
-    }
-  }
-
-  void _onDelete() {
-    if (_realPin.isEmpty) return;
-
-    setState(() {
-      _realPin = _realPin.substring(0, _realPin.length - 1);
-      _displayController.text = _realPin;
-    });
-  }
-
-  @override
-  void dispose() {
-    _displayController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // final defaultPinTheme = PinTheme(
-    //   width: 12.w,
-    //   height: 12.w,
-    //   decoration: BoxDecoration(
-    //     color: const Color(0xFF0B3A3A), // dot color
-    //     shape: BoxShape.circle,
-    //   ),
-    // );
+    final displayController = useTextEditingController();
+    final realPin = useState('');
+
+    final emptyPinTheme = useMemoized(
+      () => PinTheme(
+        width: 11.w,
+        height: 11.w,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: PPaymobileColors.textfiedBorder,
+            width: 1.5,
+          ),
+          color: Colors.transparent,
+        ),
+      ),
+    );
+
+    final filledPinTheme = useMemoized(
+      () => PinTheme(
+        width: 11.w,
+        height: 11.w,
+        textStyle: TextStyle(color: Colors.transparent),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: PPaymobileColors.buttonColor,
+        ),
+      ),
+    );
+
+    void onKeyTap(String value) {
+      if (realPin.value.length >= 4) return;
+
+      realPin.value += value;
+      displayController.text = realPin.value;
+
+      if (realPin.value.length == 4) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          if (!context.mounted) return;
+
+          Navigator.pop(context);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const AirtimeSuccessPage()),
+          );
+        });
+      }
+    }
+
+    void onDelete() {
+      if (realPin.value.isEmpty) return;
+
+      realPin.value = realPin.value.substring(0, realPin.value.length - 1);
+      displayController.text = realPin.value;
+    }
 
     return FractionallySizedBox(
       heightFactor: 0.740,
@@ -145,7 +129,7 @@ class _AirtimePinBottomsheetState extends State<AirtimePinBottomsheet> {
                   ),
                   20.verticalSpace,
                   Pinput(
-                    controller: _displayController,
+                    controller: displayController,
                     length: 4,
                     readOnly: true,
                     showCursor: false,
@@ -166,7 +150,7 @@ class _AirtimePinBottomsheetState extends State<AirtimePinBottomsheet> {
                   ),
                   14.verticalSpace,
                   // CUSTOM KEYPAD
-                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+                  PinCustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
                 ],
               ),
             ),

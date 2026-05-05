@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CarouselItem extends StatefulWidget {
+class CarouselItem extends HookConsumerWidget {
   final String backgroundImage;
   final String title;
   final String description;
@@ -23,19 +24,14 @@ class CarouselItem extends StatefulWidget {
   });
 
   @override
-  State<CarouselItem> createState() => _CarouselItemState();
-}
-
-class _CarouselItemState extends State<CarouselItem> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.only(left: 6.0, right: 6.w),
       child: Container(
         height: 184.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(widget.backgroundImage)),
+          image: DecorationImage(image: AssetImage(backgroundImage)),
         ),
         child: Padding(
           padding: EdgeInsets.only(
@@ -52,19 +48,19 @@ class _CarouselItemState extends State<CarouselItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.title,
+                    title,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
-                      color: widget.textColor,
+                      color: textColor,
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    widget.description,
+                    description,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
-                      color: widget.textColor,
+                      color: textColor,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),
@@ -77,7 +73,7 @@ class _CarouselItemState extends State<CarouselItem> {
                 padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 5.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(55).r,
-                  color: widget.containerColor,
+                  color: containerColor,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -86,7 +82,7 @@ class _CarouselItemState extends State<CarouselItem> {
                       'Shop Now',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
-                        color: widget.containerTextColor,
+                        color: containerTextColor,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -95,7 +91,7 @@ class _CarouselItemState extends State<CarouselItem> {
                     SizedBox(
                       height: 19.w,
                       width: 19.w,
-                      child: SvgPicture.asset(widget.containerSvg),
+                      child: SvgPicture.asset(containerSvg),
                     ),
                   ],
                 ),

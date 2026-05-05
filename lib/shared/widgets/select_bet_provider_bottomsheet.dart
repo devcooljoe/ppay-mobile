@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class SelectBetProviderBottomsheet extends StatefulWidget {
+class SelectBetProviderBottomsheet extends HookConsumerWidget {
   const SelectBetProviderBottomsheet({super.key});
 
   @override
-  State<SelectBetProviderBottomsheet> createState() =>
-      _SelectBetProviderBottomsheetState();
-}
-
-class _SelectBetProviderBottomsheetState
-    extends State<SelectBetProviderBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.665,
       child: Column(

@@ -1,23 +1,18 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/remove_from_cart_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class YourCartBottomsheet extends StatefulWidget {
+class YourCartBottomsheet extends HookConsumerWidget {
   const YourCartBottomsheet({super.key});
 
   @override
-  State<YourCartBottomsheet> createState() => _YourCartBottomsheetState();
-}
-
-class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
-  final bool _onTap = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.880,
       child: Column(
@@ -154,9 +149,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: _onTap
-                                            ? PPaymobileColors.buttonColor
-                                            : PPaymobileColors.textfiedBorder,
+                                        color: PPaymobileColors.textfiedBorder,
                                         width: 1.w,
                                       ),
                                     ),
@@ -186,9 +179,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: _onTap
-                                            ? PPaymobileColors.buttonColor
-                                            : PPaymobileColors.textfiedBorder,
+                                        color: PPaymobileColors.textfiedBorder,
                                         width: 1.w,
                                       ),
                                     ),
@@ -282,9 +273,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: _onTap
-                                            ? PPaymobileColors.buttonColor
-                                            : PPaymobileColors.textfiedBorder,
+                                        color: PPaymobileColors.textfiedBorder,
                                         width: 1.w,
                                       ),
                                     ),
@@ -314,9 +303,7 @@ class _YourCartBottomsheetState extends State<YourCartBottomsheet> {
                                     padding: EdgeInsets.all(4).r,
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: _onTap
-                                            ? PPaymobileColors.buttonColor
-                                            : PPaymobileColors.textfiedBorder,
+                                        color: PPaymobileColors.textfiedBorder,
                                         width: 1.w,
                                       ),
                                     ),

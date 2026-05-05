@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class OptionPicker extends StatefulWidget {
+class OptionPicker extends HookWidget {
   final bool selected;
   final VoidCallback onSelected;
   const OptionPicker({
@@ -13,14 +14,9 @@ class OptionPicker extends StatefulWidget {
   });
 
   @override
-  State<OptionPicker> createState() => _OptionPickerState();
-}
-
-class _OptionPickerState extends State<OptionPicker> {
-  @override
   Widget build(BuildContext context) {
     return TouchOpacity(
-      onTap: widget.onSelected,
+      onTap: onSelected,
       child: Container(
         height: 20.h,
         width: 20.h,
@@ -28,7 +24,7 @@ class _OptionPickerState extends State<OptionPicker> {
           borderRadius: BorderRadius.circular(10).r,
           border: Border.all(width: 1.5.w, color: PPaymobileColors.buttonColor),
         ),
-        child: widget.selected
+        child: selected
             ? Center(
                 child: Container(
                   height: 12.h,

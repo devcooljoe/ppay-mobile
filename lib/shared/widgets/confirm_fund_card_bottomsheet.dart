@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/fund_card_pin_bottomsheet.dart';
 
-class ConfirmFundCardBottomsheet extends StatefulWidget {
+class ConfirmFundCardBottomsheet extends HookConsumerWidget {
   const ConfirmFundCardBottomsheet({super.key});
 
-  @override
-  State<ConfirmFundCardBottomsheet> createState() =>
-      _ConfirmFundCardBottomsheetState();
-}
-
-class _ConfirmFundCardBottomsheetState
-    extends State<ConfirmFundCardBottomsheet> {
-  void _openFundCardPinSheet() {
-    // Close current bottom sheet
+  void _openFundCardPinSheet(BuildContext context) {
     Navigator.pop(context);
 
-    // Wait for pop animation to finish
     Future.delayed(const Duration(milliseconds: 200), () {
-      if (mounted) {
+      if (context.mounted) {
         showModalBottomSheet(
           context: context,
           isScrollControlled: true,
@@ -32,7 +24,7 @@ class _ConfirmFundCardBottomsheetState
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.880,
       child: Column(
@@ -316,7 +308,7 @@ class _ConfirmFundCardBottomsheetState
                         ),
                         elevation: 0,
                       ),
-                      onPressed: _openFundCardPinSheet,
+                      onPressed: () => _openFundCardPinSheet(context),
                       child: Text(
                         'Confirm Payment',
                         style: TextStyle(

@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:ppay_mobile/shared/models/transaction_history_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
@@ -16,23 +15,6 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final transactionHistroy = [
-  TransactionHistoryModel(
-    leadingImage: 'assets/images/apple.png',
-    titleText: 'Apple',
-    subtitleText: 'Paid with Dollar Card',
-    trailingText: '-₦60,000.00',
-    trailingColor: PPaymobileColors.cryptoNumbersColor,
-  ),
-  TransactionHistoryModel(
-    leadingImage: 'assets/images/spotify.png',
-    titleText: 'Spotify',
-    subtitleText: 'Paid with Dollar Card',
-    trailingText: '-₦60,000.00',
-    trailingColor: PPaymobileColors.cryptoNumbersColor,
-  ),
-    ];
-
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
       appBar: AppBar(

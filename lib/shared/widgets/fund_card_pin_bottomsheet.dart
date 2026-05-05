@@ -1,81 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/module/virtual_card/fund_card_successful_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
-class FundCardPinBottomsheet extends StatefulWidget {
+class FundCardPinBottomsheet extends HookConsumerWidget {
   const FundCardPinBottomsheet({super.key});
 
   @override
-  State<FundCardPinBottomsheet> createState() => _FundCardPinBottomsheetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final displayController = useTextEditingController();
+    final realPin = useState('');
 
-class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
-  final TextEditingController _displayController = TextEditingController();
-  String _realPin = '';
+    final emptyPinTheme = useMemoized(
+      () => PinTheme(
+        width: 11.w,
+        height: 11.w,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
+          color: Colors.transparent,
+        ),
+      ),
+    );
 
-  final emptyPinTheme = PinTheme(
-    width: 11.w,
-    height: 11.w,
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.5),
-      color: Colors.transparent,
-    ),
-  );
+    final filledPinTheme = useMemoized(
+      () => PinTheme(
+        width: 11.w,
+        height: 11.w,
+        textStyle: const TextStyle(color: Colors.transparent),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: PPaymobileColors.backgroundColor,
+        ),
+      ),
+    );
 
-  final filledPinTheme = PinTheme(
-    width: 11.w,
-    height: 11.w,
-    textStyle: TextStyle(color: Colors.transparent),
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      color: PPaymobileColors.backgroundColor,
-    ),
-  );
+    void onKeyTap(String value) {
+      if (realPin.value.length >= 4) return;
 
-  void _onKeyTap(String value) {
-    if (_realPin.length >= 4) return;
+      realPin.value += value;
+      displayController.text = realPin.value;
 
-    setState(() {
-      _realPin += value;
-      _displayController.text = _realPin;
-    });
+      if (realPin.value.length == 4) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          if (!context.mounted) return;
 
-    if (_realPin.length == 4) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        if (!mounted) return;
+          Navigator.pop(context);
 
-        Navigator.pop(context);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const FundCardSuccessfulPage()),
-        );
-      });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const FundCardSuccessfulPage()),
+          );
+        });
+      }
     }
-  }
 
-  void _onDelete() {
-    if (_realPin.isEmpty) return;
+    void onDelete() {
+      if (realPin.value.isEmpty) return;
 
-    setState(() {
-      _realPin = _realPin.substring(0, _realPin.length - 1);
-      _displayController.text = _realPin;
-    });
-  }
-
-  @override
-  void dispose() {
-    _displayController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+      realPin.value = realPin.value.substring(0, realPin.value.length - 1);
+      displayController.text = realPin.value;
+    }
     // final defaultPinTheme = PinTheme(
     //   width: 12.w,
     //   height: 12.w,
@@ -145,7 +135,7 @@ class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
                   ),
                   20.verticalSpace,
                   Pinput(
-                    controller: _displayController,
+                    controller: displayController,
                     length: 4,
                     readOnly: true,
                     showCursor: false,
@@ -166,7 +156,7 @@ class _FundCardPinBottomsheetState extends State<FundCardPinBottomsheet> {
                   ),
                   14.verticalSpace,
                   // CUSTOM KEYPAD
-                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+                  PinCustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
                 ],
               ),
             ),

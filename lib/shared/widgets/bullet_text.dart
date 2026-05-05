@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BulletText extends StatelessWidget {
+class BulletText extends HookWidget {
   final String text;
 
   const BulletText({super.key, required this.text});

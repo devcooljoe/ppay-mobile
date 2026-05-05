@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class RemoveFromCartBottomsheet extends StatefulWidget {
+class RemoveFromCartBottomsheet extends HookConsumerWidget {
   const RemoveFromCartBottomsheet({super.key});
 
   @override
-  State<RemoveFromCartBottomsheet> createState() =>
-      _RemoveFromCartBottomsheetState();
-}
-
-class _RemoveFromCartBottomsheetState extends State<RemoveFromCartBottomsheet> {
-  final bool _onTap = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.490,
       child: Column(
@@ -125,10 +119,8 @@ class _RemoveFromCartBottomsheetState extends State<RemoveFromCartBottomsheet> {
                                           padding: EdgeInsets.all(4).r,
                                           decoration: BoxDecoration(
                                             border: Border.all(
-                                              color: _onTap
-                                                  ? PPaymobileColors.buttonColor
-                                                  : PPaymobileColors
-                                                        .textfiedBorder,
+                                              color: PPaymobileColors
+                                                  .textfiedBorder,
                                               width: 1.w,
                                             ),
                                           ),
@@ -159,10 +151,8 @@ class _RemoveFromCartBottomsheetState extends State<RemoveFromCartBottomsheet> {
                                           padding: EdgeInsets.all(4).r,
                                           decoration: BoxDecoration(
                                             border: Border.all(
-                                              color: _onTap
-                                                  ? PPaymobileColors.buttonColor
-                                                  : PPaymobileColors
-                                                        .textfiedBorder,
+                                              color: PPaymobileColors
+                                                  .textfiedBorder,
                                               width: 1.w,
                                             ),
                                           ),

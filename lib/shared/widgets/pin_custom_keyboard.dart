@@ -3,9 +3,10 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class PinCustomKeyboard extends StatefulWidget {
+class PinCustomKeyboard extends HookWidget {
   final Function(String) onKeyTap;
   final VoidCallback onDelete;
 
@@ -16,63 +17,57 @@ class PinCustomKeyboard extends StatefulWidget {
   });
 
   @override
-  State<PinCustomKeyboard> createState() => _PinCustomKeyboardState();
-}
-
-Widget _faceIdKey({VoidCallback? onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Center(
-      child: SizedBox(
-        height: 46.h,
-        width: 44.w,
-        child: Image.asset(
-          'assets/images/fingerprint_1.png',
-          fit: BoxFit.contain,
-        ),
-      ),
-    ),
-  );
-}
-
-class _PinCustomKeyboardState extends State<PinCustomKeyboard> {
-  Widget _key(String value, {VoidCallback? onTap}) {
-    return TouchOpacity(
-      onTap: onTap,
-      child: Container(
-        width: 82.w,
-        height: 68.h,
-        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 10.h),
-        alignment: Alignment.center,
-        child: Text(
-          value,
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 32.sp,
-            fontWeight: FontWeight.w500,
+  Widget build(BuildContext context) {
+    Widget key(String value, {VoidCallback? onTap}) {
+      return TouchOpacity(
+        onTap: onTap,
+        child: Container(
+          width: 82.w,
+          height: 68.h,
+          padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 10.h),
+          alignment: Alignment.center,
+          child: Text(
+            value,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 32.sp,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
-  Widget _deleteKey({VoidCallback? onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        height: 22.h,
-        width: 28.w,
-        child: SvgPicture.asset(
-          'assets/icon/delete.svg',
-          fit: BoxFit.scaleDown,
+    Widget deleteKey({VoidCallback? onTap}) {
+      return GestureDetector(
+        onTap: onTap,
+        child: SizedBox(
+          height: 22.h,
+          width: 28.w,
+          child: SvgPicture.asset(
+            'assets/icon/delete.svg',
+            fit: BoxFit.scaleDown,
+          ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
-  @override
-  Widget build(BuildContext context) {
+    Widget faceIdKey({VoidCallback? onTap}) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Center(
+          child: SizedBox(
+            height: 46.h,
+            width: 44.w,
+            child: Image.asset(
+              'assets/images/fingerprint_1.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      );
+    }
     return GridView.count(
       crossAxisCount: 3,
       shrinkWrap: true,
@@ -81,22 +76,22 @@ class _PinCustomKeyboardState extends State<PinCustomKeyboard> {
       mainAxisSpacing: 24.h,
       crossAxisSpacing: 48.w,
       children: [
-        _key('1', onTap: () => widget.onKeyTap('1')),
-        _key('2', onTap: () => widget.onKeyTap('2')),
-        _key('3', onTap: () => widget.onKeyTap('3')),
-        _key('4', onTap: () => widget.onKeyTap('4')),
-        _key('5', onTap: () => widget.onKeyTap('5')),
-        _key('6', onTap: () => widget.onKeyTap('6')),
-        _key('7', onTap: () => widget.onKeyTap('7')),
-        _key('8', onTap: () => widget.onKeyTap('8')),
-        _key('9', onTap: () => widget.onKeyTap('9')),
-        _faceIdKey(
+        key('1', onTap: () => onKeyTap('1')),
+        key('2', onTap: () => onKeyTap('2')),
+        key('3', onTap: () => onKeyTap('3')),
+        key('4', onTap: () => onKeyTap('4')),
+        key('5', onTap: () => onKeyTap('5')),
+        key('6', onTap: () => onKeyTap('6')),
+        key('7', onTap: () => onKeyTap('7')),
+        key('8', onTap: () => onKeyTap('8')),
+        key('9', onTap: () => onKeyTap('9')),
+        faceIdKey(
           onTap: () {
             context.router.push(FingerprintRoute());
           },
         ),
-        _key('0', onTap: () => widget.onKeyTap('0')),
-        _deleteKey(onTap: widget.onDelete),
+        key('0', onTap: () => onKeyTap('0')),
+        deleteKey(onTap: onDelete),
       ],
     );
   }

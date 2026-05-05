@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
-class SupportExpandable extends StatefulWidget {
+class SupportExpandable extends HookConsumerWidget {
   final String svgImage;
   final String title;
   final Widget child;
@@ -16,13 +18,8 @@ class SupportExpandable extends StatefulWidget {
   });
 
   @override
-  State<SupportExpandable> createState() => _SupportExpandableState();
-}
-
-class _SupportExpandableState extends State<SupportExpandable> {
-  bool _isExpanded = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isExpanded = useState(false);
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: 24.h),
@@ -38,21 +35,17 @@ class _SupportExpandableState extends State<SupportExpandable> {
           childrenPadding: EdgeInsets.zero,
           visualDensity: VisualDensity.compact,
           dense: true,
-          onExpansionChanged: (expanded) {
-            setState(() {
-              _isExpanded = expanded;
-            });
-          },
+          onExpansionChanged: (expanded) => isExpanded.value = expanded,
           title: Row(
             children: [
               SizedBox(
                 height: 20.w,
                 width: 20.w,
-                child: SvgPicture.asset(widget.svgImage),
+                child: SvgPicture.asset(svgImage),
               ),
               10.horizontalSpace,
               Text(
-                widget.title,
+                title,
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   fontSize: 16.sp,
@@ -65,7 +58,7 @@ class _SupportExpandableState extends State<SupportExpandable> {
             height: 20.w,
             width: 20.w,
             child: SvgPicture.asset(
-              _isExpanded
+              isExpanded.value
                   ? 'assets/icon/arrow_down.svg'
                   : 'assets/icon/arrow_forward.svg',
               fit: BoxFit.contain,
@@ -82,7 +75,7 @@ class _SupportExpandableState extends State<SupportExpandable> {
                 21.verticalSpace,
               ],
             ),
-            widget.child,
+            child,
           ],
         ),
       ),

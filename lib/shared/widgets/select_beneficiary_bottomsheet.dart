@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class SelectBeneficiaryBottomsheet extends StatefulWidget {
+class SelectBeneficiaryBottomsheet extends HookConsumerWidget {
   const SelectBeneficiaryBottomsheet({super.key});
 
   @override
-  State<SelectBeneficiaryBottomsheet> createState() =>
-      _SelectBeneficiaryBottomsheetState();
-}
-
-class _SelectBeneficiaryBottomsheetState
-    extends State<SelectBeneficiaryBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.560,
       child: Column(

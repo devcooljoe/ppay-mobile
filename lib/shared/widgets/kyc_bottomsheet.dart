@@ -3,36 +3,32 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/models/kyc_verification_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class KycBottomsheet extends StatefulWidget {
+class KycBottomsheet extends HookConsumerWidget {
   const KycBottomsheet({super.key});
 
   @override
-  State<KycBottomsheet> createState() => _KycBottomsheetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final kycVerificationReq = [
+      KycVerificationModel(
+        leadingImage: 'assets/icon/key_1.svg',
+        titleText: 'Bank Verification Number',
+        subtitleText: 'Verify your BVN and face ID to confirm your identity',
+        trailingIcon: 'assets/icon/check.svg',
+      ),
+      KycVerificationModel(
+        leadingImage: 'assets/icon/userid.svg',
+        titleText: 'KYC Verification',
+        subtitleText:
+            'To confirm your personal information with your issued country ID',
+        trailingIcon: 'assets/icon/arrow_forward.svg',
+      ),
+    ];
 
-List<KycVerificationModel> kycVerificationReq = [
-  KycVerificationModel(
-    leadingImage: 'assets/icon/key_1.svg',
-    titleText: 'Bank Verification Number',
-    subtitleText: 'Verify your BVN and face ID to confirm your identity',
-    trailingIcon: 'assets/icon/check.svg',
-  ),
-  KycVerificationModel(
-    leadingImage: 'assets/icon/userid.svg',
-    titleText: 'KYC Verification',
-    subtitleText:
-        'To confirm your personal information with your issued country ID',
-    trailingIcon: 'assets/icon/arrow_forward.svg',
-  ),
-];
-
-class _KycBottomsheetState extends State<KycBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
     return FractionallySizedBox(
       heightFactor: 0.85,
       child: Column(

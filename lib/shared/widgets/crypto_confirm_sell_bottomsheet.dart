@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/crypto_sell_pin_bottomsheet.dart';
 
-class CryptoConfirmSellBottomsheet extends StatefulWidget {
+class CryptoConfirmSellBottomsheet extends HookConsumerWidget {
   const CryptoConfirmSellBottomsheet({super.key});
 
   @override
-  State<CryptoConfirmSellBottomsheet> createState() =>
-      _CryptoConfirmSellBottomsheetState();
-}
-
-class _CryptoConfirmSellBottomsheetState
-    extends State<CryptoConfirmSellBottomsheet> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FractionallySizedBox(
       heightFactor: 0.650,
       child: Column(
