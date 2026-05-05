@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/bullet_text.dart';
@@ -9,17 +10,11 @@ import 'package:ppay_mobile/shared/widgets/terms_and_conditions_action_bar.dart'
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class TermsAndConditionPage extends StatefulWidget {
+class TermsAndConditionPage extends HookConsumerWidget {
   const TermsAndConditionPage({super.key});
 
   @override
-  State<TermsAndConditionPage> createState() =>
-      _TermsAndConditionPageState();
-}
-
-class _TermsAndConditionPageState extends State<TermsAndConditionPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(

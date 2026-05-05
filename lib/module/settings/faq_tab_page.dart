@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/faq_tile.dart';
 
 @RoutePage()
-class FaqTabPage extends StatefulWidget {
+class FaqTabPage extends HookConsumerWidget {
   const FaqTabPage({super.key});
 
   @override
-  State<FaqTabPage> createState() => _FaqTabPageState();
-}
-
-class _FaqTabPageState extends State<FaqTabPage> {
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = useState(0);
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 20).w,
       children: [
@@ -62,39 +58,23 @@ class _FaqTabPageState extends State<FaqTabPage> {
             children: [
               _FaqChip(
                 label: 'All',
-                selected: selectedIndex == 0,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 0;
-                  });
-                },
+                selected: selectedIndex.value == 0,
+                onTap: () => selectedIndex.value = 0,
               ),
               _FaqChip(
                 label: 'Crypto',
-                selected: selectedIndex == 1,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 1;
-                  });
-                },
+                selected: selectedIndex.value == 1,
+                onTap: () => selectedIndex.value = 1,
               ),
               _FaqChip(
                 label: 'Shopping',
-                selected: selectedIndex == 2,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 2;
-                  });
-                },
+                selected: selectedIndex.value == 2,
+                onTap: () => selectedIndex.value = 2,
               ),
               _FaqChip(
                 label: 'Gift Cards',
-                selected: selectedIndex == 3,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 3;
-                  });
-                },
+                selected: selectedIndex.value == 3,
+                onTap: () => selectedIndex.value = 3,
               ),
             ],
           ),
@@ -120,7 +100,7 @@ class _FaqTabPageState extends State<FaqTabPage> {
   }
 }
 
-class _FaqChip extends StatelessWidget {
+class _FaqChip extends HookWidget {
   final String label;
   final bool selected;
   final VoidCallback? onTap;

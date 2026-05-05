@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
@@ -8,22 +10,41 @@ import 'package:ppay_mobile/shared/widgets/textfield.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class LoginPage extends StatefulWidget {
+class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = useMemoized(() => GlobalKey<FormState>());
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final isLoading = useState(false);
 
-class _LoginPageState extends State<LoginPage> {
-  @override
-  Widget build(BuildContext context) {
+    Future<void> handleSignIn() async {
+      if (formKey.currentState?.validate() ?? false) {
+        isLoading.value = true;
+        await Future.delayed(const Duration(seconds: 4));
+        isLoading.value = false;
+        
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Service not available'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: ListView(
+          child: Form(
+            key: formKey,
+            child: ListView(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,6 +95,13 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 56.h,
                 child: TextFormField(
+                  controller: emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter email or phone number';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 12.w,
@@ -115,22 +143,53 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               4.verticalSpace,
-              PPTextfield(
-                prefixI: Padding(
-                  padding: const EdgeInsets.all(14.0).r,
-                  child: SvgPicture.asset('assets/icon/lock.svg'),
-                ),
-                hintT: 'johndoe@gmail.com',
-                hintS: TextStyle(
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                  fontStyle: FontStyle.italic,
-                  color: PPaymobileColors.svgIconColor,
-                ),
-                suffixI: Padding(
-                  padding: const EdgeInsets.all(14.0).r,
-                  child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+              SizedBox(
+                height: 56.h,
+                child: TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter password';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 15.h,
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(14.0).r,
+                      child: SvgPicture.asset('assets/icon/lock.svg'),
+                    ),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.all(14.0).r,
+                      child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+                    ),
+                    hintText: 'Enter Password',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Gilroy',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16.sp,
+                      fontStyle: FontStyle.italic,
+                      color: PPaymobileColors.svgIconColor,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.r),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               6.verticalSpace,
@@ -178,31 +237,29 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               71.verticalSpace,
-              TouchOpacity(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42.r),
-                      ),
-                      elevation: 0,
+              SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PPaymobileColors.backgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(42.r),
                     ),
-                    onPressed: () {
-                      context.router.push(ExploreRoute());
-                    },
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                      ),
-                    ),
+                    elevation: 0,
                   ),
+                  onPressed: isLoading.value ? null : handleSignIn,
+                  child: isLoading.value
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : Text(
+                          'Sign In',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
               16.verticalSpace,
@@ -261,6 +318,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ],
+            ),
           ),
         ),
       ),

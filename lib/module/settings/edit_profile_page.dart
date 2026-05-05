@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -9,19 +10,13 @@ import 'package:ppay_mobile/shared/widgets/gender_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class EditProfilePage extends StatefulWidget {
+class EditProfilePage extends HookConsumerWidget {
   const EditProfilePage({super.key});
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
-}
-
-class _EditProfilePageState extends State<EditProfilePage> {
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateController = useTextEditingController();
+    final genderController = useTextEditingController();
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -194,7 +189,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                       4.verticalSpace,
                       TextFormField(
-                        controller: _dateController,
+                        controller: dateController,
                         readOnly: true,
                         onTap: () async {
                           /// 👉 THIS is where the dialog is called
@@ -203,7 +198,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             builder: (_) => const CustomDatePickerDialog(),
                           );
                           if (selectedDate != null) {
-                            _dateController.text =
+                            dateController.text =
                                 "${selectedDate.day.toString().padLeft(2, '0')}/"
                                 "${selectedDate.month.toString().padLeft(2, '0')}/"
                                 "${selectedDate.year}";

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
@@ -6,16 +8,13 @@ import 'package:ppay_mobile/module/bills/tv_cable_success_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
-class TvCablePinBottomsheet extends StatefulWidget {
+class TvCablePinBottomsheet extends HookConsumerWidget {
   const TvCablePinBottomsheet({super.key});
 
   @override
-  State<TvCablePinBottomsheet> createState() => _TvCablePinBottomsheetState();
-}
-
-class _TvCablePinBottomsheetState extends State<TvCablePinBottomsheet> {
-  final TextEditingController _displayController = TextEditingController();
-  String _realPin = '';
+  Widget build(BuildContext context, WidgetRef ref) {
+    final displayController = useTextEditingController();
+    final realPin = useState('');
 
   final emptyPinTheme = PinTheme(
     width: 11.w,
@@ -37,45 +36,32 @@ class _TvCablePinBottomsheetState extends State<TvCablePinBottomsheet> {
     ),
   );
 
-  void _onKeyTap(String value) {
-    if (_realPin.length >= 4) return;
+    void onKeyTap(String value) {
+      if (realPin.value.length >= 4) return;
 
-    setState(() {
-      _realPin += value;
-      _displayController.text = _realPin;
-    });
+      realPin.value += value;
+      displayController.text = realPin.value;
 
-    if (_realPin.length == 4) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        if (!mounted) return;
+      if (realPin.value.length == 4) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          if (!context.mounted) return;
 
-        Navigator.pop(context);
+          Navigator.pop(context);
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const TvCableSuccessPage()),
-        );
-      });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const TvCableSuccessPage()),
+          );
+        });
+      }
     }
-  }
 
-  void _onDelete() {
-    if (_realPin.isEmpty) return;
+    void onDelete() {
+      if (realPin.value.isEmpty) return;
 
-    setState(() {
-      _realPin = _realPin.substring(0, _realPin.length - 1);
-      _displayController.text = _realPin;
-    });
-  }
-
-  @override
-  void dispose() {
-    _displayController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+      realPin.value = realPin.value.substring(0, realPin.value.length - 1);
+      displayController.text = realPin.value;
+    }
     // final defaultPinTheme = PinTheme(
     //   width: 12.w,
     //   height: 12.w,
@@ -145,7 +131,7 @@ class _TvCablePinBottomsheetState extends State<TvCablePinBottomsheet> {
                   ),
                   20.verticalSpace,
                   Pinput(
-                    controller: _displayController,
+                    controller: displayController,
                     length: 4,
                     readOnly: true,
                     showCursor: false,
@@ -166,7 +152,7 @@ class _TvCablePinBottomsheetState extends State<TvCablePinBottomsheet> {
                   ),
                   14.verticalSpace,
                   // CUSTOM KEYPAD
-                  PinCustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+                  PinCustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
                 ],
               ),
             ),

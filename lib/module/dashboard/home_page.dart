@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
@@ -10,14 +11,12 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/withdrawal_bottomsheet.dart';
 
 @RoutePage()
-class HomePage extends StatefulWidget {
+class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-List transactionHistroy = [
+  Widget build(BuildContext context, WidgetRef ref) {
+    final transactionHistroy = [
   TransactionHistoryModel(
     leadingImage: 'assets/images/apple.png',
     titleText: 'Apple',
@@ -32,11 +31,8 @@ List transactionHistroy = [
     trailingText: '-₦60,000.00',
     trailingColor: PPaymobileColors.cryptoNumbersColor,
   ),
-];
+    ];
 
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
       appBar: AppBar(

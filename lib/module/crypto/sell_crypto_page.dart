@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,51 +13,25 @@ import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class SellCryptoPage extends StatefulWidget {
+class SellCryptoPage extends HookConsumerWidget {
   const SellCryptoPage({super.key});
 
   @override
-  State<SellCryptoPage> createState() => _SellCryptoPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = useTextEditingController();
+    final showKeyboard = useState(false);
 
-class _SellCryptoPageState extends State<SellCryptoPage> {
-  final FocusNode _focusNode = FocusNode(canRequestFocus: false);
+    void onKeyTap(String value) {
+      if (value == '.' && controller.text.contains('.')) return;
+      if (value == '.' && controller.text.isEmpty) return;
+      controller.text += value;
+    }
 
-  final TextEditingController _controller = TextEditingController();
-  bool _showKeyboard = false;
-
-  void _onKeyTap(String value) {
-    setState(() {
-      // Prevent multiple dots
-      if (value == '.' && _controller.text.contains('.')) return;
-      // Prevent dot at start
-      if (value == '.' && _controller.text.isEmpty) return;
-
-      _controller.text += value;
-    });
-  }
-
-  // Handle delete key
-  void _onDelete() {
-    setState(() {
-      if (_controller.text.isNotEmpty) {
-        _controller.text = _controller.text.substring(
-          0,
-          _controller.text.length - 1,
-        );
+    void onDelete() {
+      if (controller.text.isNotEmpty) {
+        controller.text = controller.text.substring(0, controller.text.length - 1);
       }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -96,9 +72,7 @@ class _SellCryptoPageState extends State<SellCryptoPage> {
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    setState(() {
-                      _showKeyboard = false;
-                    });
+                    showKeyboard.value = false;
                   },
                   child: ListView(
                     keyboardDismissBehavior:
@@ -157,9 +131,7 @@ class _SellCryptoPageState extends State<SellCryptoPage> {
                       Center(
                         child: TouchOpacity(
                           onTap: () {
-                            setState(() {
-                              _showKeyboard = true;
-                            });
+                            showKeyboard.value = true;
                           },
                           child: RichText(
                             text: TextSpan(
@@ -234,7 +206,7 @@ class _SellCryptoPageState extends State<SellCryptoPage> {
                         height: 68.h,
                         width: double.infinity,
                         child: TextFormField(
-                          controller: _controller,
+                          controller: controller,
                           readOnly: true,
                           showCursor: true,
 
@@ -451,12 +423,12 @@ class _SellCryptoPageState extends State<SellCryptoPage> {
             ),
             AnimatedContainer(
               duration: const Duration(milliseconds: 250),
-              height: _showKeyboard ? 424.h : 0,
-              child: _showKeyboard
+              height: showKeyboard.value ? 424.h : 0,
+              child: showKeyboard.value
                   ? KeyboardContainer(
                       child: CustomKeyboard(
-                        onKeyTap: _onKeyTap,
-                        onDelete: _onDelete,
+                        onKeyTap: onKeyTap,
+                        onDelete: onDelete,
                       ),
                     )
                   : null,

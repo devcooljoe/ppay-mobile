@@ -1,23 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/crypto/buy_crypto_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()
-class CryptoTransactionSuccesfulPage extends StatefulWidget {
+class CryptoTransactionSuccesfulPage extends HookConsumerWidget {
   const CryptoTransactionSuccesfulPage({super.key});
 
   @override
-  State<CryptoTransactionSuccesfulPage> createState() =>
-      _CryptoTransactionSuccesfulPageState();
-}
-
-class _CryptoTransactionSuccesfulPageState
-    extends State<CryptoTransactionSuccesfulPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: SafeArea(

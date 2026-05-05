@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
@@ -11,43 +12,27 @@ import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class PinResetPage extends StatefulWidget {
+class PinResetPage extends HookConsumerWidget {
   const PinResetPage({super.key});
 
   @override
-  State<PinResetPage> createState() => _PinResetPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pinController = useTextEditingController();
 
-class _PinResetPageState extends State<PinResetPage> {
-  final TextEditingController _pinController = TextEditingController();
-
-  void _onKeyTap(String value) {
-    if (_pinController.text.length < 6) {
-      setState(() {
-        _pinController.text += value;
-      });
+    void onKeyTap(String value) {
+      if (pinController.text.length < 6) {
+        pinController.text += value;
+      }
     }
-  }
 
-  void _onDelete() {
-    if (_pinController.text.isNotEmpty) {
-      setState(() {
-        _pinController.text = _pinController.text.substring(
+    void onDelete() {
+      if (pinController.text.isNotEmpty) {
+        pinController.text = pinController.text.substring(
           0,
-          _pinController.text.length - 1,
+          pinController.text.length - 1,
         );
-      });
+      }
     }
-  }
-
-  @override
-  void dispose() {
-    _pinController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -116,7 +101,7 @@ class _PinResetPageState extends State<PinResetPage> {
                 ),
                 40.verticalSpace,
                 Pinput(
-                  controller: _pinController,
+                  controller: pinController,
                   length: 4,
                   keyboardType: TextInputType.none,
                   separatorBuilder: (index) => 18.horizontalSpace,
@@ -146,8 +131,8 @@ class _PinResetPageState extends State<PinResetPage> {
                 29.verticalSpace,
                 KeyboardContainer(
                   child: CustomKeyboard(
-                    onKeyTap: _onKeyTap,
-                    onDelete: _onDelete,
+                    onKeyTap: onKeyTap,
+                    onDelete: onDelete,
                   ),
                 ),
                 24.verticalSpace,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/models/bank_model.dart';
@@ -10,25 +11,13 @@ import 'package:ppay_mobile/shared/widgets/select_bank_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class TransferFundsPage extends StatefulWidget {
+class TransferFundsPage extends HookConsumerWidget {
   const TransferFundsPage({super.key});
 
   @override
-  State<TransferFundsPage> createState() => _TransferFundsPageState();
-}
-
-class _TransferFundsPageState extends State<TransferFundsPage> {
-  final TextEditingController _bankController = TextEditingController();
-  BankModel? _selectedBank;
-
-  @override
-  void dispose() {
-    _bankController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bankController = useTextEditingController();
+    final selectedBank = useState<BankModel?>(null);
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -105,18 +94,16 @@ class _TransferFundsPageState extends State<TransferFundsPage> {
                 );
 
                 if (bank != null) {
-                  setState(() {
-                    _selectedBank = bank;
-                    _bankController.text = bank.bankName;
-                  });
+                  selectedBank.value = bank;
+                  bankController.text = bank.bankName;
                 }
               },
               child: AbsorbPointer(
                 child: TextFormField(
-                  controller: _bankController,
+                  controller: bankController,
                   readOnly: true,
                   decoration: InputDecoration(
-                    prefixIcon: _selectedBank == null
+                    prefixIcon: selectedBank.value == null
                         ? null
                         : Padding(
                             padding: EdgeInsets.all(12.w),
@@ -124,7 +111,7 @@ class _TransferFundsPageState extends State<TransferFundsPage> {
                               width: 26.w,
                               height: 22.h,
                               child: Image.asset(
-                                _selectedBank!.bankImage,
+                                selectedBank.value!.bankImage,
                                 fit: BoxFit.contain,
                               ),
                             ),

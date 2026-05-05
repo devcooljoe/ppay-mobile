@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/create_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class KycVerificationCompletePage extends StatefulWidget {
+class KycVerificationCompletePage extends HookConsumerWidget {
   const KycVerificationCompletePage({super.key});
 
   @override
-  State<KycVerificationCompletePage> createState() =>
-      _KycVerificationCompletePageState();
-}
-
-class _KycVerificationCompletePageState
-    extends State<KycVerificationCompletePage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: ListView(
@@ -80,9 +73,9 @@ class _KycVerificationCompletePageState
                         );
 
                         // 🔥 wait for navigation, then show bottom sheet
-                        if (mounted) {
+                        if (context.mounted) {
                           Future.delayed(const Duration(milliseconds: 300), () {
-                            if (mounted) {
+                            if (context.mounted) {
                               showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,

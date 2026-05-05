@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/virtual_card/card_limit_page.dart';
@@ -10,262 +11,254 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
+Future<bool?> _showFreezeDialog(BuildContext context) {
+  return showDialog<bool>(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return Dialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(11.r),
+        ),
+        child: SizedBox(
+          height: 282.h,
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 28.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Freeze Card',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    TouchOpacity(
+                      onTap: () => Navigator.pop(context, false),
+                      child: SizedBox(
+                        height: 20.56.h,
+                        width: 20.56.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/cancel1.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                20.verticalSpace,
+                Text(
+                  'Are you sure you want to freeze card. All transactions will be put on hold.',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                66.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TouchOpacity(
+                      onTap: () => Navigator.pop(context, true),
+                      child: Container(
+                        height: 50.h,
+                        width: 172.w,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 10.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: PPaymobileColors.buttonColorandText,
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Yes',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                              color: PPaymobileColors.mainScreenBackground,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    TouchOpacity(
+                      onTap: () => Navigator.pop(context, false),
+                      child: Container(
+                        height: 50.h,
+                        width: 172.w,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 10.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: PPaymobileColors.deepBackgroundColor,
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+void _showBillingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return Dialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(9.r),
+        ),
+        child: SizedBox(
+          height: 434.h,
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Below is your billing address details',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                45.verticalSpace,
+                Text(
+                  'Address Information',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                18.verticalSpace,
+                Text(
+                  'Billing Address',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  '1234 Market Street, San Francisco, CA 94103, United States',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                37.verticalSpace,
+                Text(
+                  'Postal Code',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  '111010',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                46.verticalSpace,
+                TouchOpacity(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    height: 50.h,
+                    width: 172.w,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 10.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.deepBackgroundColor,
+                      borderRadius: BorderRadius.circular(6).r,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Go Back',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.sp,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
 @RoutePage()
-class CardPage extends StatefulWidget {
+class CardPage extends HookConsumerWidget {
   const CardPage({super.key});
 
   @override
-  State<CardPage> createState() => _CardPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isEnabled = useState(false);
 
-class _CardPageState extends State<CardPage> {
-  void _onFreezeSwitchTapped(bool newValue) async {
-    if (newValue) {
-      final confirmed = await _showFreezeDialog();
-      if (confirmed != true) return;
+    Future<void> onFreezeSwitchTapped(bool newValue) async {
+      if (newValue) {
+        final confirmed = await _showFreezeDialog(context);
+        if (confirmed != true) return;
+      }
+      isEnabled.value = newValue;
     }
-    setState(() {
-      isEnabled = newValue;
-    });
-  }
-
-  bool isEnabled = false;
-
-  Future<bool?> _showFreezeDialog() {
-    return showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return Dialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(11.r),
-          ),
-          child: SizedBox(
-            height: 282.h,
-            width: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 28.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Freeze Card',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      TouchOpacity(
-                        onTap: () => Navigator.pop(context, false),
-                        child: SizedBox(
-                          height: 20.56.h,
-                          width: 20.56.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/cancel1.svg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  20.verticalSpace,
-                  Text(
-                    'Are you sure you want to freeze card. All transactions will be put on hold.',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  66.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TouchOpacity(
-                        onTap: () => Navigator.pop(context, true),
-                        child: Container(
-                          height: 50.h,
-                          width: 172.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.buttonColorandText,
-                            borderRadius: BorderRadius.circular(6).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Yes',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
-                                color: PPaymobileColors.mainScreenBackground,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      TouchOpacity(
-                        onTap: () => Navigator.pop(context, false),
-                        child: Container(
-                          height: 50.h,
-                          width: 172.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(6).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _showBillingDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return Dialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(9.r),
-          ),
-          child: SizedBox(
-            height: 434.h,
-            width: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Below is your billing address details',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  45.verticalSpace,
-                  Text(
-                    'Address Information',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  18.verticalSpace,
-                  Text(
-                    'Billing Address',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Text(
-                    '1234 Market Street, San Francisco, CA 94103, United States',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  37.verticalSpace,
-                  Text(
-                    'Postal Code',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Text(
-                    '111010',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  46.verticalSpace,
-                  TouchOpacity(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      height: 50.h,
-                      width: 172.w,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                        vertical: 10.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: PPaymobileColors.deepBackgroundColor,
-                        borderRadius: BorderRadius.circular(6).r,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Go Back',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -682,8 +675,8 @@ class _CardPageState extends State<CardPage> {
                     width: 43.w,
                     height: 25.h,
                     child: CustomSwitch(
-                      value: isEnabled,
-                      onChanged: _onFreezeSwitchTapped,
+                      value: isEnabled.value,
+                      onChanged: onFreezeSwitchTapped,
                     ),
                   ),
                 ],
@@ -691,7 +684,7 @@ class _CardPageState extends State<CardPage> {
             ),
             27.verticalSpace,
             TouchOpacity(
-              onTap: _showBillingDialog,
+              onTap: () => _showBillingDialog(context),
               child: Container(
                 height: 61.h,
                 width: double.infinity,

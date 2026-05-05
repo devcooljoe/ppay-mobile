@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/shared/models/your_asset_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()
-class YourAssetsPage extends StatefulWidget {
+class YourAssetsPage extends HookConsumerWidget {
   const YourAssetsPage({super.key});
 
   @override
-  State<YourAssetsPage> createState() => _YourAssetsPageState();
-}
-
-class _YourAssetsPageState extends State<YourAssetsPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.only(left: 10.0).w,
       child: Column(

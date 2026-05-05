@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/shared/models/onboard_item_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -9,18 +10,15 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 @RoutePage()
-class OnboardPage extends StatefulWidget {
+class OnboardPage extends HookConsumerWidget {
   const OnboardPage({super.key});
 
   @override
-  State<OnboardPage> createState() => _OnboardPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pageController = usePageController();
+    final currentIndex = useState(0);
 
-class _OnboardPageState extends State<OnboardPage> {
-  final PageController _pageController = PageController();
-  int currentIndex = 0;
-
-  final List<OnboardItem> pages = [
+    final pages = [
     OnboardItem(
       title: 'Fund',
       highlight: '& Pay Easily',
@@ -67,8 +65,6 @@ class _OnboardPageState extends State<OnboardPage> {
     ),
   ];
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PPaymobileColors.backgroundColor,
       body: SafeArea(
@@ -77,10 +73,10 @@ class _OnboardPageState extends State<OnboardPage> {
             /// PageView
             Expanded(
               child: PageView.builder(
-                controller: _pageController,
+                controller: pageController,
                 itemCount: pages.length,
                 onPageChanged: (index) {
-                  setState(() => currentIndex = index);
+                  currentIndex.value = index;
                 },
                 itemBuilder: (context, index) {
                   final item = pages[index];
@@ -144,7 +140,7 @@ class _OnboardPageState extends State<OnboardPage> {
 
             /// Smooth Indicator
             SmoothPageIndicator(
-              controller: _pageController,
+              controller: pageController,
               count: pages.length,
               effect: ExpandingDotsEffect(
                 activeDotColor: PPaymobileColors.highlightTextColor,
@@ -160,7 +156,7 @@ class _OnboardPageState extends State<OnboardPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                pages[currentIndex].description,
+                pages[currentIndex.value].description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Montserrat',

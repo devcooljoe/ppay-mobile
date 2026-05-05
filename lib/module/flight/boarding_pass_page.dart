@@ -1,49 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/flight/boardinng_pass_details_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class BoardingPassPage extends StatefulWidget {
+class BoardingPassPage extends HookConsumerWidget {
   const BoardingPassPage({super.key});
 
   @override
-  State<BoardingPassPage> createState() => _BoardingPassPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scrollController = useScrollController();
+    final isOpaque = useState(false);
 
-class _BoardingPassPageState extends State<BoardingPassPage> {
-  final scrollController = ScrollController();
-
-  bool isOpaque = false;
-
-  @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(() {
-      if (scrollController.offset >= 30) {
-        setState(() {
-          isOpaque = true;
-        });
-      } else {
-        setState(() {
-          isOpaque = false;
-        });
+    useEffect(() {
+      void listener() {
+        if (scrollController.offset >= 30) {
+          isOpaque.value = true;
+        } else {
+          isOpaque.value = false;
+        }
       }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+      scrollController.addListener(listener);
+      return () => scrollController.removeListener(listener);
+    }, [scrollController]);
     return Scaffold(
       backgroundColor: PPaymobileColors.buttonColorandText,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         animateColor: true,
-        backgroundColor: isOpaque
+        backgroundColor: isOpaque.value
             ? PPaymobileColors.buttonColorandText
             : Colors.transparent,
         centerTitle: true,

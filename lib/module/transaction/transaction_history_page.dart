@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/models/history_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()
-class TransactionHistoryPage extends StatefulWidget {
+class TransactionHistoryPage extends HookConsumerWidget {
   const TransactionHistoryPage({super.key});
 
   @override
-  State<TransactionHistoryPage> createState() =>
-      _TransactionHistoryPageState();
-}
-
-class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(

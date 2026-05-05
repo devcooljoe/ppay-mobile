@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()
-class BaggagePage extends StatefulWidget {
+class BaggagePage extends HookConsumerWidget {
   const BaggagePage({super.key});
 
   @override
-  State<BaggagePage> createState() => _BaggagePageState();
-}
-
-class _BaggagePageState extends State<BaggagePage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.only(left: 5.0.w),
       child: Expanded(

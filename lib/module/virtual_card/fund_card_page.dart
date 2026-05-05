@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -9,41 +10,30 @@ import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class FundCardPage extends StatefulWidget {
+class FundCardPage extends HookConsumerWidget {
   const FundCardPage({super.key});
 
   @override
-  State<FundCardPage> createState() => _FundCardPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = useTextEditingController();
 
-class _FundCardPageState extends State<FundCardPage> {
-  final TextEditingController _controller = TextEditingController();
-
-  void _onKeyTap(String value) {
-    setState(() {
+    void onKeyTap(String value) {
       // Prevent multiple dots
-      if (value == '.' && _controller.text.contains('.')) return;
+      if (value == '.' && controller.text.contains('.')) return;
       // Prevent dot at start
-      if (value == '.' && _controller.text.isEmpty) return;
+      if (value == '.' && controller.text.isEmpty) return;
 
-      _controller.text += value;
-    });
-  }
+      controller.text += value;
+    }
 
-  // Handle delete key
-  void _onDelete() {
-    setState(() {
-      if (_controller.text.isNotEmpty) {
-        _controller.text = _controller.text.substring(
+    void onDelete() {
+      if (controller.text.isNotEmpty) {
+        controller.text = controller.text.substring(
           0,
-          _controller.text.length - 1,
+          controller.text.length - 1,
         );
       }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -154,9 +144,9 @@ class _FundCardPageState extends State<FundCardPage> {
                         ),
                         children: [
                           TextSpan(
-                            text: _controller.text.isEmpty
+                            text: controller.text.isEmpty
                                 ? "0"
-                                : _controller.text,
+                                : controller.text,
                             style: TextStyle(
                               fontFamily: 'Gilroy',
                               color: Colors.black,
@@ -259,7 +249,7 @@ class _FundCardPageState extends State<FundCardPage> {
           20.verticalSpace,
           Padding(
             padding: EdgeInsets.only(bottom: 20.0.h),
-            child: CustomKeyboard(onKeyTap: _onKeyTap, onDelete: _onDelete),
+            child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
           ),
         ],
       ),

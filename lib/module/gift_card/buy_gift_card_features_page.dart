@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,16 +11,10 @@ import 'package:ppay_mobile/shared/widgets/select_region_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class BuyGiftCardFeaturesPage extends StatefulWidget {
+class BuyGiftCardFeaturesPage extends HookConsumerWidget {
   const BuyGiftCardFeaturesPage({super.key});
 
-  @override
-  State<BuyGiftCardFeaturesPage> createState() =>
-      _BuyGiftCardFeaturesPageState();
-}
-
-class _BuyGiftCardFeaturesPageState extends State<BuyGiftCardFeaturesPage> {
-  void _selectValueDialog() {
+  void selectValueDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -327,7 +322,7 @@ class _BuyGiftCardFeaturesPageState extends State<BuyGiftCardFeaturesPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: CustomScrollView(
@@ -729,7 +724,7 @@ class _BuyGiftCardFeaturesPageState extends State<BuyGiftCardFeaturesPage> {
                         child: TextFormField(
                           showCursor: true,
                           readOnly: true,
-                          onTap: _selectValueDialog,
+                          onTap: () => selectValueDialog(context),
                           // onTap: () {
                           //   showModalBottomSheet(
                           //     context: context,

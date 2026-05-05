@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -9,88 +10,8 @@ import 'package:ppay_mobile/shared/widgets/live_chat_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/ticket_bottomsheet.dart';
 
 @RoutePage()
-class ContactTabPage extends StatefulWidget {
+class ContactTabPage extends HookConsumerWidget {
   const ContactTabPage({super.key});
-
-  @override
-  State<ContactTabPage> createState() => _ContactTabPageState();
-}
-
-class _ContactTabPageState extends State<ContactTabPage> {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      children: [
-        32.verticalSpace,
-        SizedBox(
-          height: 54.h,
-          width: double.infinity,
-          child: TextFormField(
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10.h,
-                vertical: 14.w,
-              ),
-              prefixIcon: SizedBox(
-                height: 24.w,
-                width: 24.w,
-                child: SvgPicture.asset(
-                  'assets/icon/bank_search.svg',
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
-              hintText: 'Search',
-              hintStyle: TextStyle(
-                fontFamily: 'InstrumentSans',
-                color: PPaymobileColors.textfiedBorder,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-              ),
-              filled: true,
-              fillColor: PPaymobileColors.deepBackgroundColor,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4).r,
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ),
-        35.verticalSpace,
-        Text(
-          'Reach us for any Support',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        32.verticalSpace,
-        InkWell(
-          onTap: () => showLiveChatSheet(context),
-          child: contactTile('assets/icon/chat.svg', 'Live Chat'),
-        ),
-
-        SupportExpandable(
-          svgImage: 'assets/icon/whatsapp.svg',
-          title: 'Whatsapp',
-          child: contactAction('(234) 803 4693 028', 'Chat on Whatsapp'),
-        ),
-
-        InkWell(
-          onTap: () => showSupportTicketSheet(context),
-          child: contactTile('assets/icon/message.svg', 'Support Ticket'),
-        ),
-
-        SupportExpandable(
-          svgImage: 'assets/icon/call.svg',
-          title: 'Call Support',
-          child: contactAction('(234) 803 4693 028', 'Copy'),
-        ),
-      ],
-    );
-  }
 
   Widget contactTile(String image, String title) {
     return Container(
@@ -179,6 +100,81 @@ class _ContactTabPageState extends State<ContactTabPage> {
               ),
             ),
           ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      children: [
+        32.verticalSpace,
+        SizedBox(
+          height: 54.h,
+          width: double.infinity,
+          child: TextFormField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 10.h,
+                vertical: 14.w,
+              ),
+              prefixIcon: SizedBox(
+                height: 24.w,
+                width: 24.w,
+                child: SvgPicture.asset(
+                  'assets/icon/bank_search.svg',
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
+              hintText: 'Search',
+              hintStyle: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: PPaymobileColors.textfiedBorder,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              filled: true,
+              fillColor: PPaymobileColors.deepBackgroundColor,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4).r,
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+        ),
+        35.verticalSpace,
+        Text(
+          'Reach us for any Support',
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        32.verticalSpace,
+        InkWell(
+          onTap: () => showLiveChatSheet(context),
+          child: contactTile('assets/icon/chat.svg', 'Live Chat'),
+        ),
+
+        SupportExpandable(
+          svgImage: 'assets/icon/whatsapp.svg',
+          title: 'Whatsapp',
+          child: contactAction('(234) 803 4693 028', 'Chat on Whatsapp'),
+        ),
+
+        InkWell(
+          onTap: () => showSupportTicketSheet(context),
+          child: contactTile('assets/icon/message.svg', 'Support Ticket'),
+        ),
+
+        SupportExpandable(
+          svgImage: 'assets/icon/call.svg',
+          title: 'Call Support',
+          child: contactAction('(234) 803 4693 028', 'Copy'),
         ),
       ],
     );

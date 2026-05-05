@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class BvnconfirmPage extends StatefulWidget {
+class BvnconfirmPage extends HookConsumerWidget {
   const BvnconfirmPage({super.key});
 
   @override
-  State<BvnconfirmPage> createState() => _BvnconfirmPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateController = useTextEditingController();
 
-class _BvnconfirmPageState extends State<BvnconfirmPage> {
-  final TextEditingController _dateController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
+    Future<void> selectDate(BuildContext context) async {
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900, 1),
+        lastDate: DateTime.now(),
+      );
+      if (picked != null) {
+        dateController.text =
+            '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
+      }
+    }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: SafeArea(
@@ -83,7 +92,7 @@ class _BvnconfirmPageState extends State<BvnconfirmPage> {
               ),
               4.verticalSpace,
               TextFormField(
-                controller: _dateController,
+                controller: dateController,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 12.w,
@@ -105,7 +114,7 @@ class _BvnconfirmPageState extends State<BvnconfirmPage> {
                   // ),
                   suffix: TouchOpacity(
                     onTap: () {
-                      _selectDate(context);
+                      selectDate(context);
                     },
 
                     child: SvgPicture.asset('assets/icon/calendar.svg'),
@@ -162,21 +171,5 @@ class _BvnconfirmPageState extends State<BvnconfirmPage> {
         ),
       ),
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900, 1),
-      lastDate: DateTime.now(),
-    );
-    if (picked != null) {
-      setState(() {
-        // _selectedDate = picked;
-        _dateController.text =
-            '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
-      });
-    }
   }
 }

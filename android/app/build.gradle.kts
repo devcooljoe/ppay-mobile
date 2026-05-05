@@ -20,11 +20,12 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.pinnaclepay.app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -40,6 +41,14 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.core:core:1.12.0")
+            force("androidx.core:core-ktx:1.12.0")
+            force("androidx.activity:activity:1.8.2")
+        }
     }
 
     signingConfigs {
@@ -62,4 +71,8 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

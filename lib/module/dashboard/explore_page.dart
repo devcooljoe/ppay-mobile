@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/module/dashboard/features_page.dart';
@@ -9,26 +11,18 @@ import 'package:ppay_mobile/module/transaction/transaction_history_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()
-class ExplorePage extends StatefulWidget {
+class ExplorePage extends HookConsumerWidget {
   const ExplorePage({super.key});
 
   @override
-  State<ExplorePage> createState() => _ExplorePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = useState(0);
+    final pageController = usePageController();
 
-class _ExplorePageState extends State<ExplorePage> {
-  int selectedIndex = 0;
-  PageController pageController = PageController();
-
-  void onTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-    pageController.jumpToPage(index);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    void onTapped(int index) {
+      selectedIndex.value = index;
+      pageController.jumpToPage(index);
+    }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       bottomNavigationBar: BottomNavigationBar(
@@ -36,7 +30,7 @@ class _ExplorePageState extends State<ExplorePage> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: PPaymobileColors.mainScreenBackground,
         elevation: 1,
-        currentIndex: selectedIndex > 3 ? 0 : selectedIndex,
+        currentIndex: selectedIndex.value > 3 ? 0 : selectedIndex.value,
         onTap: onTapped,
         selectedItemColor: PPaymobileColors.buttonColor,
         unselectedItemColor: PPaymobileColors.svgIconColor,
@@ -46,6 +40,7 @@ class _ExplorePageState extends State<ExplorePage> {
               activeIcon: 'assets/icon/home.svg',
               inactiveIcon: 'assets/icon/home2.svg',
               index: 0,
+              currentIndex: selectedIndex.value,
             ),
             label: 'Home',
           ),
@@ -54,6 +49,7 @@ class _ExplorePageState extends State<ExplorePage> {
               activeIcon: 'assets/icon/history.svg',
               inactiveIcon: 'assets/icon/history.svg',
               index: 1,
+              currentIndex: selectedIndex.value,
             ),
             label: 'History',
           ),
@@ -62,6 +58,7 @@ class _ExplorePageState extends State<ExplorePage> {
               activeIcon: 'assets/images/features_2.png',
               inactiveIcon: 'assets/images/features.png',
               index: 2,
+              currentIndex: selectedIndex.value,
             ),
             label: 'Features',
           ),
@@ -70,6 +67,7 @@ class _ExplorePageState extends State<ExplorePage> {
               activeIcon: 'assets/icon/settings_2.svg',
               inactiveIcon: 'assets/icon/settings.svg',
               index: 3,
+              currentIndex: selectedIndex.value,
             ),
             label: 'Settings',
           ),
@@ -93,8 +91,9 @@ class _ExplorePageState extends State<ExplorePage> {
     required String activeIcon,
     required String inactiveIcon,
     required int index,
+    required int currentIndex,
   }) {
-    final bool isActive = selectedIndex == index;
+    final bool isActive = currentIndex == index;
 
     return index == 2
         ? Image.asset(

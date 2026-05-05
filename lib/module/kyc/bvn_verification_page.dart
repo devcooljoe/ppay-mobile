@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/bvn_reason_bottomsheet.dart';
@@ -10,18 +11,12 @@ import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class BvnVerificationPage extends StatefulWidget {
+class BvnVerificationPage extends HookConsumerWidget {
   const BvnVerificationPage({super.key});
 
   @override
-  State<BvnVerificationPage> createState() => _BvnVerificationPageState();
-}
-
-class _BvnVerificationPageState extends State<BvnVerificationPage> {
-  final TextEditingController _dateController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateController = useTextEditingController();
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -93,7 +88,7 @@ class _BvnVerificationPageState extends State<BvnVerificationPage> {
                 height: 54.h,
                 width: double.infinity,
                 child: TextFormField(
-                  controller: _dateController,
+                  controller: dateController,
                   readOnly: true,
                   onTap: () async {
                     /// 👉 THIS is where the dialog is called
@@ -102,7 +97,7 @@ class _BvnVerificationPageState extends State<BvnVerificationPage> {
                       builder: (_) => const CustomDatePickerDialog(),
                     );
                     if (selectedDate != null) {
-                      _dateController.text =
+                      dateController.text =
                           "${selectedDate.day.toString().padLeft(2, '0')}/"
                           "${selectedDate.month.toString().padLeft(2, '0')}/"
                           "${selectedDate.year}";

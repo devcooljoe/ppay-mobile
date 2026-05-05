@@ -1,24 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/flight/cancel_flight_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class ActiveFlightPage extends StatefulWidget {
+class ActiveFlightPage extends HookConsumerWidget {
   const ActiveFlightPage({super.key});
 
   @override
-  State<ActiveFlightPage> createState() => _ActiveFlightPageState();
-}
-
-class _ActiveFlightPageState extends State<ActiveFlightPage> {
-  bool isExpanded = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isExpanded = useState(false);
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -277,9 +274,7 @@ class _ActiveFlightPageState extends State<ActiveFlightPage> {
                 18.verticalSpace,
                 TouchOpacity(
                   onTap: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
+                    isExpanded.value = !isExpanded.value;
                   },
                   child: SizedBox(
                     child: Row(
@@ -299,7 +294,7 @@ class _ActiveFlightPageState extends State<ActiveFlightPage> {
                         SizedBox(
                           height: 12.h,
                           width: 24.w,
-                          child: isExpanded
+                          child: isExpanded.value
                               ? SvgPicture.asset(
                                   'assets/icon/arrow_up.svg',
                                   fit: BoxFit.contain,
@@ -318,7 +313,7 @@ class _ActiveFlightPageState extends State<ActiveFlightPage> {
                   duration: Duration(milliseconds: 200),
                   curve: Curves.bounceOut,
                   child: ClipRect(
-                    child: isExpanded
+                    child: isExpanded.value
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -760,9 +755,7 @@ class _ActiveFlightPageState extends State<ActiveFlightPage> {
                 18.verticalSpace,
                 TouchOpacity(
                   onTap: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
+                    isExpanded.value = !isExpanded.value;
                   },
                   child: SizedBox(
                     child: Row(
@@ -782,7 +775,7 @@ class _ActiveFlightPageState extends State<ActiveFlightPage> {
                         SizedBox(
                           height: 12.h,
                           width: 24.w,
-                          child: isExpanded
+                          child: isExpanded.value
                               ? SvgPicture.asset(
                                   'assets/icon/arrow_up.svg',
                                   fit: BoxFit.contain,
@@ -801,7 +794,7 @@ class _ActiveFlightPageState extends State<ActiveFlightPage> {
                   duration: Duration(milliseconds: 200),
                   curve: Curves.bounceOut,
                   child: ClipRect(
-                    child: isExpanded
+                    child: isExpanded.value
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

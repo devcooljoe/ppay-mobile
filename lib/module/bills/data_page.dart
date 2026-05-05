@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/airtime_beneficiary_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -10,51 +12,25 @@ import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class DataPage extends StatefulWidget {
+class DataPage extends HookConsumerWidget {
   const DataPage({super.key});
 
   @override
-  State<DataPage> createState() => _DataPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = useTextEditingController();
+    final showKeyboard = useState(false);
 
-class _DataPageState extends State<DataPage> {
-  final FocusNode _focusNode = FocusNode(canRequestFocus: false);
+    void onKeyTap(String value) {
+      if (value == '.' && controller.text.contains('.')) return;
+      if (value == '.' && controller.text.isEmpty) return;
+      controller.text += value;
+    }
 
-  final TextEditingController _controller = TextEditingController();
-  bool _showKeyboard = false;
-
-  void _onKeyTap(String value) {
-    setState(() {
-      // Prevent multiple dots
-      if (value == '.' && _controller.text.contains('.')) return;
-      // Prevent dot at start
-      if (value == '.' && _controller.text.isEmpty) return;
-
-      _controller.text += value;
-    });
-  }
-
-  // Handle delete key
-  void _onDelete() {
-    setState(() {
-      if (_controller.text.isNotEmpty) {
-        _controller.text = _controller.text.substring(
-          0,
-          _controller.text.length - 1,
-        );
+    void onDelete() {
+      if (controller.text.isNotEmpty) {
+        controller.text = controller.text.substring(0, controller.text.length - 1);
       }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    }
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -94,9 +70,7 @@ class _DataPageState extends State<DataPage> {
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  setState(() {
-                    _showKeyboard = false;
-                  });
+                  showKeyboard.value = false;
                 },
                 child: ListView(
                   children: [
@@ -752,12 +726,12 @@ class _DataPageState extends State<DataPage> {
             10.verticalSpace,
             AnimatedContainer(
               duration: const Duration(milliseconds: 250),
-              height: _showKeyboard ? 424.h : 0,
-              child: _showKeyboard
+              height: showKeyboard.value ? 424.h : 0,
+              child: showKeyboard.value
                   ? KeyboardContainer(
                       child: CustomKeyboard(
-                        onKeyTap: _onKeyTap,
-                        onDelete: _onDelete,
+                        onKeyTap: onKeyTap,
+                        onDelete: onDelete,
                       ),
                     )
                   : null,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,18 +10,13 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/trade_bottomsheet.dart';
 
 @RoutePage()
-class TokenDetailPage extends StatefulWidget {
+class TokenDetailPage extends HookConsumerWidget {
   final TokenDetailModel token;
 
   const TokenDetailPage({super.key, required this.token});
 
   @override
-  State<TokenDetailPage> createState() => _TokenDetailPageState();
-}
-
-class _TokenDetailPageState extends State<TokenDetailPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: PPaymobileColors.mainScreenBackground,
@@ -28,7 +24,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
         leadingWidth: 56.w,
         centerTitle: true,
         title: Text(
-          widget.token.tokenName,
+          token.tokenName,
           style: TextStyle(
             fontFamily: 'InstrumentSans',
             color: Colors.black,
@@ -65,7 +61,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                       height: 42.w,
                       width: 42.w,
                       child: Image.asset(
-                        widget.token.tokenImage,
+                        token.tokenImage,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -75,7 +71,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.token.totalAmount,
+                          token.totalAmount,
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -90,7 +86,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                                 height: 13.w,
                                 width: 13.w,
                                 child: SvgPicture.asset(
-                                  widget.token.increaseSvgIcon,
+                                  token.increaseSvgIcon,
                                   height: 14.w,
                                   width: 14.w,
                                   fit: BoxFit.contain,
@@ -98,7 +94,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                               ),
                               6.horizontalSpace,
                               Text(
-                                widget.token.increaseAmount,
+                                token.increaseAmount,
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   color: PPaymobileColors.buttonColor,
@@ -108,7 +104,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                               ),
                               4.horizontalSpace,
                               Text(
-                                '(${widget.token.increasePercent})',
+                                '(${token.increasePercent})',
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   color: PPaymobileColors.buttonColor,
@@ -148,7 +144,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                             height: 42.w,
                             width: 42.w,
                             child: Image.asset(
-                              widget.token.tokenImage,
+                              token.tokenImage,
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -158,7 +154,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                widget.token.tokenName,
+                                token.tokenName,
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   color: PPaymobileColors.kyccontainerColor,
@@ -184,7 +180,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.token.availableBalance,
+                            token.availableBalance,
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
                               color: PPaymobileColors.kyccontainerColor,
@@ -193,7 +189,7 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                             ),
                           ),
                           Text(
-                            widget.token.availableCrypto,
+                            token.availableCrypto,
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
                               color: Colors.black,
@@ -220,10 +216,10 @@ class _TokenDetailPageState extends State<TokenDetailPage> {
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.token.transactionGroups.length,
+                  itemCount: token.transactionGroups.length,
                   separatorBuilder: (_, __) => 24.verticalSpace,
                   itemBuilder: (context, groupIndex) {
-                    final group = widget.token.transactionGroups[groupIndex];
+                    final group = token.transactionGroups[groupIndex];
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

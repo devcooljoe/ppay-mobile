@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
@@ -8,16 +9,11 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class VerifyCodePage extends StatefulWidget {
+class VerifyCodePage extends HookConsumerWidget {
   const VerifyCodePage({super.key});
 
   @override
-  State<VerifyCodePage> createState() => _VerifyCodePageState();
-}
-
-class _VerifyCodePageState extends State<VerifyCodePage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(

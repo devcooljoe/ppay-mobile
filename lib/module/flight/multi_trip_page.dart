@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/class_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -12,16 +14,11 @@ import 'package:ppay_mobile/shared/widgets/passengers_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class MultiTripPage extends StatefulWidget {
+class MultiTripPage extends HookConsumerWidget {
   const MultiTripPage({super.key});
 
   @override
-  State<MultiTripPage> createState() => _MultiTripPageState();
-}
-
-class _MultiTripPageState extends State<MultiTripPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.0.w),
       child: Column(

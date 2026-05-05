@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
@@ -8,16 +10,34 @@ import 'package:ppay_mobile/shared/widgets/textfield.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class SignupPage extends StatefulWidget {
+class SignupPage extends HookConsumerWidget {
   const SignupPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = useMemoized(() => GlobalKey<FormState>());
+    final nameController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final phoneController = useTextEditingController();
+    final isLoading = useState(false);
 
-class _SignupPageState extends State<SignupPage> {
-  @override
-  Widget build(BuildContext context) {
+    Future<void> handleSignUp() async {
+      if (formKey.currentState?.validate() ?? false) {
+        isLoading.value = true;
+        await Future.delayed(const Duration(seconds: 4));
+        isLoading.value = false;
+        
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Service not available'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -26,7 +46,9 @@ class _SignupPageState extends State<SignupPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-        child: ListView(
+        child: Form(
+          key: formKey,
+          child: ListView(
           children: [
             40.verticalSpace,
             Row(
@@ -76,18 +98,45 @@ class _SignupPageState extends State<SignupPage> {
             6.verticalSpace,
             SizedBox(
               height: 56.h,
-              child: PPTextfield(
-                prefixI: Padding(
-                  padding: const EdgeInsets.all(14.0).r,
-                  child: SvgPicture.asset('assets/icon/person_icon.svg'),
-                ),
-                hintT: 'e.g John Doe',
-                hintS: TextStyle(
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                  fontStyle: FontStyle.italic,
-                  color: PPaymobileColors.svgIconColor,
+              child: TextFormField(
+                controller: nameController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your full name';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 15.h,
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(14.0).r,
+                    child: SvgPicture.asset('assets/icon/person_icon.svg'),
+                  ),
+                  hintText: 'e.g John Doe',
+                  hintStyle: TextStyle(
+                    fontFamily: 'Gilroy',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16.sp,
+                    fontStyle: FontStyle.italic,
+                    color: PPaymobileColors.svgIconColor,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -104,18 +153,48 @@ class _SignupPageState extends State<SignupPage> {
             6.verticalSpace,
             SizedBox(
               height: 56.h,
-              child: PPTextfield(
-                prefixI: Padding(
-                  padding: const EdgeInsets.all(14.0).r,
-                  child: SvgPicture.asset('assets/icon/message_icon.svg'),
-                ),
-                hintT: 'e.g johndoegmail.com',
-                hintS: TextStyle(
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                  fontStyle: FontStyle.italic,
-                  color: PPaymobileColors.svgIconColor,
+              child: TextFormField(
+                controller: emailController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email address';
+                  }
+                  if (!value.contains('@')) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 15.h,
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(14.0).r,
+                    child: SvgPicture.asset('assets/icon/message_icon.svg'),
+                  ),
+                  hintText: 'e.g johndoegmail.com',
+                  hintStyle: TextStyle(
+                    fontFamily: 'Gilroy',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16.sp,
+                    fontStyle: FontStyle.italic,
+                    color: PPaymobileColors.svgIconColor,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -132,17 +211,44 @@ class _SignupPageState extends State<SignupPage> {
             6.verticalSpace,
             SizedBox(
               height: 56.h,
-              child: PPTextfield(
-                prefixI: Padding(
-                  padding: const EdgeInsets.all(17.0).r,
-                  child: Image.asset('assets/images/flag_1.png'),
-                ),
-                hintT: '+234',
-                hintS: TextStyle(
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                  color: Colors.black,
+              child: TextFormField(
+                controller: phoneController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your phone number';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 15.h,
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(17.0).r,
+                    child: Image.asset('assets/images/flag_1.png'),
+                  ),
+                  hintText: '+234',
+                  hintStyle: TextStyle(
+                    fontFamily: 'Gilroy',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16.sp,
+                    color: Colors.black,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                    borderSide: BorderSide(
+                      color: PPaymobileColors.lightGrey,
+                      width: 1.w,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -187,31 +293,29 @@ class _SignupPageState extends State<SignupPage> {
               ],
             ),
             101.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42.r),
-                    ),
-                  ),
-                  onPressed: () {
-                    context.router.push(VerifyCodeRoute());
-                  },
-                  child: Text(
-                    'Get Started',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
+            SizedBox(
+              width: double.infinity,
+              height: 50.h,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: PPaymobileColors.backgroundColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(42.r),
                   ),
                 ),
+                onPressed: isLoading.value ? null : handleSignUp,
+                child: isLoading.value
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : Text(
+                        'Get Started',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
+                      ),
               ),
             ),
             8.verticalSpace,
@@ -245,6 +349,7 @@ class _SignupPageState extends State<SignupPage> {
               ],
             ),
           ],
+          ),
         ),
       ),
     );

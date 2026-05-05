@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/airtime_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class AirtimeConfirmPage extends StatefulWidget {
+class AirtimeConfirmPage extends HookConsumerWidget {
   const AirtimeConfirmPage({super.key});
 
   @override
-  State<AirtimeConfirmPage> createState() => _AirtimeConfirmPageState();
-}
-
-class _AirtimeConfirmPageState extends State<AirtimeConfirmPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(

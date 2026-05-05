@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -11,35 +12,25 @@ import 'package:ppay_mobile/shared/widgets/select_account_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class AmountAndInfoPage extends StatefulWidget {
+class AmountAndInfoPage extends HookConsumerWidget {
   const AmountAndInfoPage({super.key});
 
   @override
-  State<AmountAndInfoPage> createState() => _AmountAndInfoPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final amountController = useTextEditingController();
 
-class _AmountAndInfoPageState extends State<AmountAndInfoPage> {
-  final TextEditingController _amountController = TextEditingController();
-
-  void _onKeyTap(String value) {
-    setState(() {
-      _amountController.text += value;
-    });
-  }
-
-  void _onDelete() {
-    if (_amountController.text.isNotEmpty) {
-      setState(() {
-        _amountController.text = _amountController.text.substring(
-          0,
-          _amountController.text.length - 1,
-        );
-      });
+    void onKeyTap(String value) {
+      amountController.text += value;
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
+    void onDelete() {
+      if (amountController.text.isNotEmpty) {
+        amountController.text = amountController.text.substring(
+          0,
+          amountController.text.length - 1,
+        );
+      }
+    }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -112,9 +103,9 @@ class _AmountAndInfoPageState extends State<AmountAndInfoPage> {
                       ),
                       40.verticalSpace,
                       Text(
-                        _amountController.text.isEmpty
+                        amountController.text.isEmpty
                             ? "₦0.00"
-                            : "₦${_amountController.text}.00",
+                            : "₦${amountController.text}.00",
                         style: TextStyle(
                           fontSize: 32.sp,
                           fontWeight: FontWeight.w600,
@@ -330,8 +321,8 @@ class _AmountAndInfoPageState extends State<AmountAndInfoPage> {
                   child: Padding(
                     padding: EdgeInsets.all(30).r,
                     child: CustomKeyboard(
-                      onKeyTap: _onKeyTap,
-                      onDelete: _onDelete,
+                      onKeyTap: onKeyTap,
+                      onDelete: onDelete,
                     ),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
@@ -12,7 +13,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SetUpFingerprintRoute.page),
     AutoRoute(page: SettingUpFingerprintRoute.page),
     AutoRoute(page: FingerprintCompleteRoute.page),
-    
+
     // Auth
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: SignupRoute.page),
@@ -28,13 +29,13 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PasswordChangedTwoRoute.page),
     AutoRoute(page: LoginPasswordResetRoute.page),
     AutoRoute(page: LoginPasswordChangedRoute.page),
-    
+
     // Dashboard
     AutoRoute(page: ExploreRoute.page),
     AutoRoute(page: HomeRoute.page),
     AutoRoute(page: FeaturesRoute.page),
     AutoRoute(page: NotificationRoute.page),
-    
+
     // KYC
     AutoRoute(page: KycVerificationRoute.page),
     AutoRoute(page: BvnVerificationRoute.page),
@@ -43,7 +44,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: KycFaceVerificationRoute.page),
     AutoRoute(page: ReviewDocumentRoute.page),
     AutoRoute(page: KycVerificationCompleteRoute.page),
-    
+
     // Transaction
     AutoRoute(page: TransactionHistoryRoute.page),
     AutoRoute(page: FundWalletRoute.page),
@@ -52,7 +53,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ConfirmTransactionRoute.page),
     AutoRoute(page: ReceiptRoute.page),
     AutoRoute(page: TransactionSuccessfulRoute.page),
-    
+
     // Bills
     AutoRoute(page: BillsRoute.page),
     AutoRoute(page: AirtimeRoute.page),
@@ -77,7 +78,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: TvCableReceiptRoute.page),
     AutoRoute(page: TvCableSuccessRoute.page),
     AutoRoute(page: PaymentRoute.page),
-    
+
     // Crypto
     AutoRoute(page: CryptoRoute.page),
     AutoRoute(page: AllTokensRoute.page),
@@ -94,7 +95,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ReceiveCryptoRoute.page),
     AutoRoute(page: CryptoTransactionsHistoryRoute.page),
     AutoRoute(page: CryptoTransactionsDetailRoute.page),
-    
+
     // Gift Card
     AutoRoute(page: GiftcardRoute.page),
     AutoRoute(page: BuyGiftcardRoute.page),
@@ -106,7 +107,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ConfirmGiftCardSellRoute.page),
     AutoRoute(page: GiftcardSellReceiptRoute.page),
     AutoRoute(page: SellGiftCardSuccessRoute.page),
-    
+
     // Virtual Card
     AutoRoute(page: VirtualCardRoute.page),
     AutoRoute(page: CardRoute.page),
@@ -119,7 +120,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: FundCardSuccessfulRoute.page),
     AutoRoute(page: CardLimitRoute.page),
     AutoRoute(page: SearchCardRoute.page),
-    
+
     // Flight
     AutoRoute(page: FlightBookingRoute.page),
     AutoRoute(page: OneWayTripRoute.page),
@@ -161,7 +162,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: RefundDetailsRoute.page),
     AutoRoute(page: CancelFlightRoute.page),
     AutoRoute(page: CancelFlightSuccessfulRoute.page),
-    
+
     // Shopping
     AutoRoute(page: ShoppingRoute.page),
     AutoRoute(page: ClothsRoute.page),
@@ -171,7 +172,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: OrderSuccessfulRoute.page),
     AutoRoute(page: YourOrderRoute.page),
     AutoRoute(page: TrackOrderRoute.page),
-    
+
     // Settings
     AutoRoute(page: SettingsRoute.page),
     AutoRoute(page: ProfileRoute.page),

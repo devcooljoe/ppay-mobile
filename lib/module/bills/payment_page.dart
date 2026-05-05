@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/payment_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/remove_from_cart_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class PaymentPage extends StatefulWidget {
+class PaymentPage extends HookConsumerWidget {
   const PaymentPage({super.key});
 
   @override
-  State<PaymentPage> createState() => _PaymentPageState();
-}
-
-class _PaymentPageState extends State<PaymentPage> {
-  void _openPaymentPinBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return PaymentPinBottomsheet();
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    void openPaymentPinBottomSheet() {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return PaymentPinBottomsheet();
+        },
+      );
+    }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -583,7 +577,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               61.verticalSpace,
               TouchOpacity(
-                onTap: _openPaymentPinBottomSheet,
+                onTap: openPaymentPinBottomSheet,
                 child: Container(
                   height: 50.h,
                   width: double.infinity,

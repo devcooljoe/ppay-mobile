@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/carousel_item.dart';
@@ -11,19 +12,13 @@ import 'package:ppay_mobile/shared/widgets/shoping_packages_carousel.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
-class ShoppingPage extends StatefulWidget {
+class ShoppingPage extends HookConsumerWidget {
   const ShoppingPage({super.key});
 
   @override
-  State<ShoppingPage> createState() => _ShoppingPageState();
-}
-
-class _ShoppingPageState extends State<ShoppingPage> {
-  int _currentIndex = 0;
-  final PageController _pageController = PageController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentIndex = useState(0);
+    final pageController = usePageController();
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -132,10 +127,8 @@ class _ShoppingPageState extends State<ShoppingPage> {
             SizedBox(
               height: 184.h,
               child: PageView(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() => _currentIndex = index);
-                },
+                controller: pageController,
+                onPageChanged: (index) => currentIndex.value = index,
                 children: [
                   CarouselItem(
                     title: 'iPhone 16 Pro Max Now ',
@@ -187,7 +180,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                   height: 13.w,
                   width: 13.w,
                   decoration: BoxDecoration(
-                    color: _currentIndex == index
+                    color: currentIndex.value == index
                         ? PPaymobileColors.buttonColor
                         : PPaymobileColors.deepBackgroundColor,
                     borderRadius: BorderRadius.circular(6.5.r),

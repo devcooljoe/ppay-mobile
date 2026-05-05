@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/models/bank_model.dart';
@@ -9,37 +10,25 @@ import 'package:ppay_mobile/shared/widgets/remove_account_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/select_bank_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
+void _openChangeBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return RemoveAccountBottomsheet();
+    },
+  );
+}
+
 @RoutePage()
-class EditAccountPage extends StatefulWidget {
+class EditAccountPage extends HookConsumerWidget {
   const EditAccountPage({super.key});
 
   @override
-  State<EditAccountPage> createState() => _EditAccountPageState();
-}
-
-class _EditAccountPageState extends State<EditAccountPage> {
-  final TextEditingController _bankController = TextEditingController();
-  BankModel? _selectedBank;
-
-  @override
-  void dispose() {
-    _bankController.dispose();
-    super.dispose();
-  }
-
-  void _openChangeBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return RemoveAccountBottomsheet();
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bankController = useTextEditingController();
+    final selectedBank = useState<BankModel?>(null);
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -113,15 +102,15 @@ class _EditAccountPageState extends State<EditAccountPage> {
                 borderRadius: BorderRadius.circular(6).r,
               ),
               child: TextFormField(
-                controller: _bankController,
+                controller: bankController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  prefixIcon: _selectedBank == null
+                  prefixIcon: selectedBank.value == null
                       ? null
                       : Padding(
                           padding: EdgeInsets.all(12.w),
                           child: Image.asset(
-                            _selectedBank!.bankImage,
+                            selectedBank.value!.bankImage,
                             width: 24.w,
                             height: 24.h,
                             fit: BoxFit.contain,
@@ -138,10 +127,8 @@ class _EditAccountPageState extends State<EditAccountPage> {
                       );
 
                       if (bank != null) {
-                        setState(() {
-                          _selectedBank = bank;
-                          _bankController.text = bank.bankName;
-                        });
+                        selectedBank.value = bank;
+                        bankController.text = bank.bankName;
                       }
                     },
                     child: Padding(
@@ -292,7 +279,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
                   ),
                 ),
                 TouchOpacity(
-                  onTap: _openChangeBottomSheet,
+                  onTap: () => _openChangeBottomSheet(context),
                   child: Container(
                     height: 50.h,
                     width: 188.w,
