@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -78,7 +79,7 @@ class TvCablePinBottomsheet extends HookConsumerWidget {
         children: [
           Transform.translate(
             offset: const Offset(0, 0),
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,

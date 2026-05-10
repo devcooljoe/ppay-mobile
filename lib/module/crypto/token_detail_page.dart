@@ -6,8 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/models/all_token_screen_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/trade_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class TokenDetailPage extends HookConsumerWidget {
@@ -18,34 +19,8 @@ class TokenDetailPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          token.tokenName,
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: token.tokenName,
       ),
       body: Column(
         children: [
@@ -335,34 +310,16 @@ class TokenDetailPage extends HookConsumerWidget {
               top: 5.h,
               bottom: 20.h,
             ).r,
-            child: SizedBox(
-              width: double.infinity,
-              height: 54.h,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: PPaymobileColors.buttonColorandText,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(42),
-                  ),
-                ),
-                onPressed: () async {
-                  await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (_) => const TradeBottomsheet(),
-                  );
-                },
-                child: Text(
-                  'Trade',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                    color: PPaymobileColors.mainScreenBackground,
-                  ),
-                ),
-              ),
+            child: PPButton(
+              text: 'Trade',
+              onPressed: () async {
+                await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (_) => const TradeBottomsheet(),
+                );
+              },
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 
 @RoutePage()
 class LoginPage extends HookConsumerWidget {
@@ -80,116 +83,39 @@ class LoginPage extends HookConsumerWidget {
                 ],
               ),
               60.verticalSpace,
-              Text(
-                'Enter Email or Phone No',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              const PPLabel(text: 'Enter Email or Phone No'),
               4.verticalSpace,
-              SizedBox(
-                height: 56.h,
-                child: TextFormField(
-                  controller: emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter email or phone number';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 15.h,
-                    ),
-                    hintText: 'Enter Details',
-                    hintStyle: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16.sp,
-                      fontStyle: FontStyle.italic,
-                      color: PPaymobileColors.svgIconColor,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                  ),
-                ),
+              PPTextField(
+                controller: emailController,
+                hintText: 'Enter Details',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter email or phone number';
+                  }
+                  return null;
+                },
               ),
               29.verticalSpace,
-              Text(
-                'Enter Password',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              const PPLabel(text: 'Enter Password'),
               4.verticalSpace,
-              SizedBox(
-                height: 56.h,
-                child: TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter password';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 15.h,
-                    ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset('assets/icon/lock.svg'),
-                    ),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset('assets/icon/lock_eye.svg'),
-                    ),
-                    hintText: 'Enter Password',
-                    hintStyle: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16.sp,
-                      fontStyle: FontStyle.italic,
-                      color: PPaymobileColors.svgIconColor,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                  ),
+              PPTextField(
+                controller: passwordController,
+                hintText: 'Enter Password',
+                obscureText: true,
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(14.0).r,
+                  child: SvgPicture.asset('assets/icon/lock.svg'),
                 ),
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.all(14.0).r,
+                  child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password';
+                  }
+                  return null;
+                },
               ),
               6.verticalSpace,
               Row(
@@ -236,30 +162,10 @@ class LoginPage extends HookConsumerWidget {
                 ],
               ),
               71.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: isLoading.value ? null : handleSignIn,
-                  child: isLoading.value
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : Text(
-                          'Sign In',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                            color: Colors.white,
-                          ),
-                        ),
-                ),
+              PPButton(
+                text: 'Sign In',
+                onPressed: handleSignIn,
+                isLoading: isLoading.value,
               ),
               16.verticalSpace,
               Column(

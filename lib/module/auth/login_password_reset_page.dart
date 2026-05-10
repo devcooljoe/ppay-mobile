@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/textfield.dart';
+import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class LoginPasswordResetPage extends HookConsumerWidget {
@@ -41,65 +43,33 @@ class LoginPasswordResetPage extends HookConsumerWidget {
                 ),
               ),
               60.verticalSpace,
-              Text(
-                'Enter Password',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              PPLabel(text: 'Enter Password'),
               6.verticalSpace,
-              PPTextfield(
-                prefixI: Padding(
+              PPTextField(
+                hintText: 'johndoe@gmail.com',
+                obscureText: true,
+                prefixIcon: Padding(
                   padding: const EdgeInsets.all(14.0).r,
                   child: SvgPicture.asset('assets/icon/lock.svg'),
                 ),
-                hintT: 'johndoe@gmail.com',
-                hintS: TextStyle(
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                  fontStyle: FontStyle.italic,
-                  color: PPaymobileColors.svgIconColor,
-                ),
-                suffixI: Padding(
+                suffixIcon: Padding(
                   padding: const EdgeInsets.all(14.0).r,
                   child: SvgPicture.asset('assets/icon/lock_eye.svg'),
                 ),
               ),
               29.verticalSpace,
-              Text(
-                'Confirm Password',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              PPLabel(text: 'Confirm Password'),
               6.verticalSpace,
-              PPTextfield(
-                prefixI: Padding(
+              PPTextField(
+                hintText: 'johndoe@gmail.com',
+                obscureText: true,
+                prefixIcon: Padding(
                   padding: const EdgeInsets.all(14.0).r,
                   child: SvgPicture.asset('assets/icon/lock.svg'),
                 ),
-                hintT: 'johndoe@gmail.com',
-                hintS: TextStyle(
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                  fontStyle: FontStyle.italic,
-                  color: PPaymobileColors.svgIconColor,
-                ),
-                suffixI: Padding(
+                suffixIcon: Padding(
                   padding: const EdgeInsets.all(14.0).r,
-                  child: SvgPicture.asset(
-                    // height: 15.h,
-                    // width: 19.w,
-                    'assets/icon/lock_eye.svg',
-                  ),
+                  child: SvgPicture.asset('assets/icon/lock_eye.svg'),
                 ),
               ),
               24.verticalSpace,
@@ -175,29 +145,9 @@ class LoginPasswordResetPage extends HookConsumerWidget {
                 ],
               ),
               91.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {
-                    context.router.push(LoginPasswordChangedRoute());
-                  },
-                  child: Text(
-                    'Reset Password',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Reset Password',
+                onPressed: () => context.router.push(LoginPasswordChangedRoute()),
               ),
               21.verticalSpace,
               Row(

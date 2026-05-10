@@ -6,7 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/payment_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/remove_from_cart_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class PaymentPage extends HookConsumerWidget {
@@ -26,34 +27,8 @@ class PaymentPage extends HookConsumerWidget {
     }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Payment',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Payment',
       ),
       body: SafeArea(
         child: Padding(
@@ -576,34 +551,9 @@ class PaymentPage extends HookConsumerWidget {
                 ],
               ),
               61.verticalSpace,
-              TouchOpacity(
-                onTap: openPaymentPinBottomSheet,
-                child: Container(
-                  height: 50.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.buttonColorandText,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Place Order',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              PPButton(
+                text: 'Place Order',
+                onPressed: openPaymentPinBottomSheet,
               ),
             ],
           ),

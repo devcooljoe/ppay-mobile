@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -154,7 +155,7 @@ class ContactTabPage extends HookConsumerWidget {
           ),
         ),
         32.verticalSpace,
-        InkWell(
+        TouchOpacity(
           onTap: () => showLiveChatSheet(context),
           child: contactTile('assets/icon/chat.svg', 'Live Chat'),
         ),
@@ -165,7 +166,7 @@ class ContactTabPage extends HookConsumerWidget {
           child: contactAction('(234) 803 4693 028', 'Chat on Whatsapp'),
         ),
 
-        InkWell(
+        TouchOpacity(
           onTap: () => showSupportTicketSheet(context),
           child: contactTile('assets/icon/message.svg', 'Support Ticket'),
         ),

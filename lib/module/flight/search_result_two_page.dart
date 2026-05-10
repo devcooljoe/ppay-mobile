@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 
@@ -8,7 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/flight_search_filter_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/sort_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/update_flight_dialog.dart';
 
 @RoutePage()

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class MultiPaymentSuccessPage extends HookConsumerWidget {
@@ -55,66 +55,14 @@ class MultiPaymentSuccessPage extends HookConsumerWidget {
                 ),
               ),
               241.verticalSpace,
-              TouchOpacity(
-                onTap: () {
-                  context.router.push(MultiPaymentReceiptRoute());
-                },
-                child: Container(
-                  height: 46.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.mainScreenBackground,
-                    border: Border.all(
-                      color: PPaymobileColors.textfieldGrey,
-                      width: 1.w,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'View Receipt',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'View Receipt',
+                onPressed: () => context.router.push(MultiPaymentReceiptRoute()),
               ),
               20.verticalSpace,
-              TouchOpacity(
-                onTap: () {
-                  context.router.push(BookedFlightsRoute());
-                },
-                child: Container(
-                  height: 46.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.buttonColorandText,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Book Another Flight',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.mainScreenBackground,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Book Another Flight',
+                onPressed: () => context.router.push(BookedFlightsRoute()),
               ),
             ],
           ),

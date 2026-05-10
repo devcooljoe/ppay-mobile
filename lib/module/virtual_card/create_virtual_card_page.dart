@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/purchase_dollarcard_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class CreateVirtualCardPage extends HookConsumerWidget {
@@ -15,34 +16,9 @@ class CreateVirtualCardPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Virtual Card',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Virtual Card',
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: SafeArea(
         child: Padding(
@@ -242,59 +218,23 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                 ),
               ),
               24.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 54.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.anotherbuttonbgColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24).r,
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Pay \$XXX to activate card',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Pay \$XXX to activate card',
+                onPressed: () {},
+                backgroundColor: PPaymobileColors.anotherbuttonbgColor,
               ),
               10.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 54.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24).r,
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () async {
-                    await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) => const PurchaseDollarcardBottomsheet(),
-                    );
-                  },
-                  child: Text(
-                    'Pay \$XXX to activate card',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Pay \$XXX to activate card',
+                onPressed: () async {
+                  await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (_) => const PurchaseDollarcardBottomsheet(),
+                  );
+                },
+                backgroundColor: PPaymobileColors.backgroundColor,
               ),
               17.verticalSpace,
               Text.rich(

@@ -1,15 +1,19 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/shared/widgets/amount_package_button.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/provider_card.dart';
 import 'package:ppay_mobile/shared/widgets/select_bet_provider_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class BetPage extends HookConsumerWidget {
@@ -28,39 +32,18 @@ class BetPage extends HookConsumerWidget {
 
     void onDelete() {
       if (controller.text.isNotEmpty) {
-        controller.text = controller.text.substring(0, controller.text.length - 1);
+        controller.text = controller.text.substring(
+          0,
+          controller.text.length - 1,
+        );
       }
     }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Betting',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Betting',
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: SafeArea(
         child: Column(
@@ -76,15 +59,7 @@ class BetPage extends HookConsumerWidget {
                     36.verticalSpace,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Text(
-                        'Bet Providers',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: PPLabel(text: 'Bet Providers'),
                     ),
                     22.verticalSpace,
                     SizedBox(
@@ -94,170 +69,22 @@ class BetPage extends HookConsumerWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(left: 20.0.w),
-                            child: Container(
-                              height: 104.h,
-                              width: 108.w,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 19.w,
-                                vertical: 10.h,
-                              ),
-                              margin: EdgeInsets.only(right: 16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5).r,
-                                color: PPaymobileColors.deepBackgroundColor,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 56.w,
-                                    width: 56.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                          'assets/images/sporty.png',
-                                        ),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                  10.verticalSpace,
-                                  Text(
-                                    'Sporty',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: Colors.black,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            child: ProviderCard(
+                              imagePath: 'assets/images/sporty.png',
+                              name: 'Sporty',
                             ),
                           ),
-                          Container(
-                            height: 104.h,
-                            width: 108.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 19.w,
-                              vertical: 10.h,
-                            ),
-                            margin: EdgeInsets.only(right: 16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 56.w,
-                                  width: 56.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/sporty.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  'Sporty',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          ProviderCard(
+                            imagePath: 'assets/images/sporty.png',
+                            name: 'Sporty',
                           ),
-                          Container(
-                            height: 104.h,
-                            width: 108.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 19.w,
-                              vertical: 10.h,
-                            ),
-                            margin: EdgeInsets.only(right: 16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 56.w,
-                                  width: 56.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/sporty.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  'Sporty',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          ProviderCard(
+                            imagePath: 'assets/images/sporty.png',
+                            name: 'Sporty',
                           ),
-                          Container(
-                            height: 104.h,
-                            width: 108.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 19.w,
-                              vertical: 10.h,
-                            ),
-                            margin: EdgeInsets.only(right: 16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 56.w,
-                                  width: 56.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/sporty.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  'Sporty',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          ProviderCard(
+                            imagePath: 'assets/images/sporty.png',
+                            name: 'Sporty',
                           ),
                         ],
                       ),
@@ -290,15 +117,7 @@ class BetPage extends HookConsumerWidget {
                     48.verticalSpace,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Text(
-                        'User ID',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: PPLabel(text: 'User ID'),
                     ),
                     8.verticalSpace,
                     Padding(
@@ -347,15 +166,7 @@ class BetPage extends HookConsumerWidget {
                     32.verticalSpace,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Text(
-                        'Enter Amount',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: PPLabel(text: 'Enter Amount'),
                     ),
                     8.verticalSpace,
                     Padding(
@@ -420,15 +231,7 @@ class BetPage extends HookConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Select amount',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          PPLabel(text: 'Select amount'),
                           Text(
                             'Balance: ₦400,000',
                             style: TextStyle(
@@ -447,98 +250,10 @@ class BetPage extends HookConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦100',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦200',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦500',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦1000',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
+                          AmountPackageButton(amount: '₦100'),
+                          AmountPackageButton(amount: '₦200'),
+                          AmountPackageButton(amount: '₦500'),
+                          AmountPackageButton(amount: '₦1000'),
                         ],
                       ),
                     ),
@@ -548,131 +263,20 @@ class BetPage extends HookConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦100',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦200',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦500',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 47.5.h,
-                            width: 91.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '₦1000',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
+                          AmountPackageButton(amount: '₦100'),
+                          AmountPackageButton(amount: '₦200'),
+                          AmountPackageButton(amount: '₦500'),
+                          AmountPackageButton(amount: '₦1000'),
                         ],
                       ),
                     ),
                     89.verticalSpace,
-                    TouchOpacity(
-                      onTap: () {
-                        context.router.push(BetConfirmRoute());
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                        child: Container(
-                          height: 50.h,
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(56).r,
-                            color: PPaymobileColors.buttonColorandText,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Make Payment',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                      child: PPButton(
+                        text: 'Make Payment',
+                        onPressed: () => context.router.push(BetConfirmRoute()),
+                        backgroundColor: PPaymobileColors.buttonColorandText,
                       ),
                     ),
                   ],

@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class CancelFlightSuccessfulPage extends HookConsumerWidget {
@@ -51,68 +51,14 @@ class CancelFlightSuccessfulPage extends HookConsumerWidget {
                 ),
               ),
               241.verticalSpace,
-              TouchOpacity(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.buttonColorandText,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Book New Flight',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              PPButton(
+                text: 'Book New Flight',
+                onPressed: () {},
               ),
               18.verticalSpace,
-              TouchOpacity(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.mainScreenBackground,
-                    border: Border.all(
-                      color: PPaymobileColors.textfiedBorder,
-                      width: 1.w,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Go Back',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              PPButton(
+                text: 'Go Back',
+                onPressed: () {},
               ),
             ],
           ),

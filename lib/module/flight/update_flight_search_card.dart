@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +7,6 @@ import 'package:ppay_mobile/module/flight/multi_trip_page.dart';
 import 'package:ppay_mobile/module/flight/one_way_trip_page.dart';
 import 'package:ppay_mobile/module/flight/round_way_trip_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class UpdateFlightSearchCard extends HookConsumerWidget {
   const UpdateFlightSearchCard({super.key});

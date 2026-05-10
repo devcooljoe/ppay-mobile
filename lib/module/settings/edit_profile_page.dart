@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
 import 'package:ppay_mobile/shared/widgets/gender_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class EditProfilePage extends HookConsumerWidget {
@@ -19,34 +22,9 @@ class EditProfilePage extends HookConsumerWidget {
     final genderController = useTextEditingController();
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Profile',
+        onBackPressed: () => Navigator.pop(context),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20.w),
@@ -129,16 +107,7 @@ class EditProfilePage extends HookConsumerWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Full Name',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      PPLabel(text: 'Full Name'),
                       4.verticalSpace,
                       Container(
                         height: 52.h,
@@ -177,16 +146,7 @@ class EditProfilePage extends HookConsumerWidget {
                         ),
                       ),
                       24.verticalSpace,
-                      Text(
-                        'Date of Birth',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      PPLabel(text: 'Date of Birth'),
                       4.verticalSpace,
                       TextFormField(
                         controller: dateController,
@@ -241,16 +201,7 @@ class EditProfilePage extends HookConsumerWidget {
                         ),
                       ),
                       24.verticalSpace,
-                      Text(
-                        'Enter Gender',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      PPLabel(text: 'Enter Gender'),
                       4.verticalSpace,
                       TouchOpacity(
                         onTap: () async {
@@ -333,27 +284,9 @@ class EditProfilePage extends HookConsumerWidget {
                 ],
               ),
               77.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Save Changes',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Save Changes',
+                onPressed: () {},
               ),
             ],
           ),

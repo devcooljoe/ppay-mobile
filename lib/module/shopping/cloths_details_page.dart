@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,8 +9,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/product_detail_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/review_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/your_cart_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/quantity_selector.dart';
+import 'package:ppay_mobile/shared/widgets/size_selector_button.dart';
 
 @RoutePage()
 class ClothsDetailsPage extends HookConsumerWidget {
@@ -323,68 +325,7 @@ class ClothsDetailsPage extends HookConsumerWidget {
                 ),
               ),
               16.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 44.w,
-                    width: 44.w,
-                    padding: EdgeInsets.all(10).r,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: PPaymobileColors.svgIconColor,
-                        width: 1.w,
-                      ),
-                      borderRadius: BorderRadius.circular(7).r,
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                    child: Center(
-                      child: SizedBox(
-                        height: 20.w,
-                        width: 20.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/minus.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  20.horizontalSpace,
-                  Text(
-                    "2",
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      color: Colors.black,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  20.horizontalSpace,
-                  Container(
-                    height: 44.w,
-                    width: 44.w,
-                    padding: EdgeInsets.all(10).r,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: PPaymobileColors.svgIconColor,
-                        width: 1.w,
-                      ),
-                      borderRadius: BorderRadius.circular(7).r,
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                    child: Center(
-                      child: SizedBox(
-                        height: 20.w,
-                        width: 20.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/add.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              const QuantitySelector(quantity: 2),
               40.verticalSpace,
               Text(
                 'Size',
@@ -399,125 +340,15 @@ class ClothsDetailsPage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 42.h,
-                    width: 48.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 10.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4).r,
-                      color: PPaymobileColors.buttonColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'S',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          color: PPaymobileColors.mainScreenBackground,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizeSelectorButton(size: 'S', isSelected: true),
                   24.horizontalSpace,
-                  Container(
-                    height: 42.h,
-                    width: 48.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 10.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4).r,
-                      color: PPaymobileColors.deepBackgroundColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'M',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          color: Colors.black,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizeSelectorButton(size: 'M'),
                   24.horizontalSpace,
-                  Container(
-                    height: 42.h,
-                    width: 48.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 10.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4).r,
-                      color: PPaymobileColors.deepBackgroundColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'XL',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          color: Colors.black,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizeSelectorButton(size: 'XL'),
                   24.horizontalSpace,
-                  Container(
-                    height: 42.h,
-                    width: 48.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 10.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4).r,
-                      color: PPaymobileColors.deepBackgroundColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'XXL',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          color: Colors.black,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizeSelectorButton(size: 'XXL'),
                   24.horizontalSpace,
-                  Container(
-                    height: 42.h,
-                    width: 48.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 10.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4).r,
-                      color: PPaymobileColors.deepBackgroundColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        '3L',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          color: Colors.black,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizeSelectorButton(size: '3L'),
                 ],
               ),
               22.verticalSpace,

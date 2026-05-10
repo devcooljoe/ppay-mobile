@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +7,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class PassengerDetailsPage extends HookConsumerWidget {
@@ -16,33 +20,8 @@ class PassengerDetailsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        animateColor: true,
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        centerTitle: true,
-        title: Text(
-          'Passenger Details',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Passenger Details',
       ),
       body: SafeArea(
         child: Padding(
@@ -50,52 +29,10 @@ class PassengerDetailsPage extends HookConsumerWidget {
           child: ListView(
             children: [
               56.verticalSpace,
-              Text(
-                'Full Name',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              PPLabel(text: 'Full Name'),
               4.verticalSpace,
-              Container(
-                height: 54.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6).r,
-                ),
-                child: TextFormField(
-                  controller: TextEditingController(),
-                  decoration: InputDecoration(
-                    hintText: 'Enter Name',
-                    hintStyle: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.textfiedBorder,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 14.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                  ),
-                ),
+              PPTextField(
+                hintText: 'Enter Name',
               ),
               26.verticalSpace,
               Text(
@@ -424,34 +361,10 @@ class PassengerDetailsPage extends HookConsumerWidget {
                 ),
               ),
               46.verticalSpace,
-              TouchOpacity(
-                onTap: () {
-                  context.router.push(SelectSeatRoute());
-                },
-                child: Container(
-                  height: 46.h,
-                  width: 212.w,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors
-                        .filterBorderColor, //buttoncolorandtext when all the containers are filled up
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Select',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.mainScreenBackground,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Select',
+                onPressed: () => context.router.push(SelectSeatRoute()),
+                backgroundColor: PPaymobileColors.filterBorderColor,
               ),
             ],
           ),

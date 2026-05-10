@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/crypto/all_tokens_page.dart';
 import 'package:ppay_mobile/module/crypto/your_assets_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
 class AssetsPage extends HookConsumerWidget {
@@ -18,34 +18,8 @@ class AssetsPage extends HookConsumerWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: PPaymobileColors.mainScreenBackground,
-          toolbarHeight: 56,
-          leadingWidth: 56.w,
-          centerTitle: true,
-          title: Text(
-            'Tokens',
-            style: TextStyle(
-              fontFamily: 'InstrumentSans',
-              color: Colors.black,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          leading: Padding(
-            padding: EdgeInsets.only(left: 20.w),
-            child: TouchOpacity(
-              onTap: () => Navigator.pop(context),
-              child: SizedBox(
-                height: 24.w,
-                width: 24.w,
-                child: SvgPicture.asset(
-                  'assets/icon/arrow_back.svg',
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
-            ),
-          ),
+        appBar: PPAppBar(
+          title: 'Tokens',
         ),
         body: SafeArea(
           child: Padding(
@@ -58,7 +32,7 @@ class AssetsPage extends HookConsumerWidget {
                   height: 54.h,
                   child: TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: SvgPicture.asset(
+                      icon: SvgPicture.asset(
                         'assets/icon/bank_search.svg',
                         fit: BoxFit.scaleDown,
                       ),

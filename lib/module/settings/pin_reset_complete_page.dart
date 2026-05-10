@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class PinResetCompletePage extends HookConsumerWidget {
@@ -76,41 +77,12 @@ class PinResetCompletePage extends HookConsumerWidget {
                           ),
                         ),
                         76.verticalSpace,
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50.h,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  PPaymobileColors.buttonColorandText,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(42),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Back to Settings',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16.sp,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                SizedBox(
-                                  height: 24.w,
-                                  width: 24.w,
-                                  child: SvgPicture.asset(
-                                    'assets/icon/arrow_forwardw.svg',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ],
-                            ),
+                        PPButton(
+                          text: 'Back to Settings',
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            'assets/icon/arrow_forwardw.svg',
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ],

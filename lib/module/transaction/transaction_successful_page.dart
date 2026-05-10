@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/transaction/transfer_funds_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class TransactionSuccessfulPage extends HookConsumerWidget {
@@ -145,232 +145,61 @@ class TransactionSuccessfulPage extends HookConsumerWidget {
                     ),
                   ),
                   161.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {
-                          context.router.push(ReceiptRoute());
-                        },
-                        child: Text(
-                          'View Receipt',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                            color: PPaymobileColors.mainScreenBackground,
-                          ),
-                        ),
-                      ),
-                    ),
+                  PPButton(
+                    text: 'View Receipt',
+                    onPressed: () => context.router.push(ReceiptRoute()),
                   ),
                   22.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor:
-                              PPaymobileColors.mainScreenBackground,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                            side: BorderSide(
-                              width: 1.w,
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          context.router.pushAndPopUntil(ExploreRoute(), predicate: (route) => false);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Go Home',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                            7.horizontalSpace,
-                            SizedBox(
-                              height: 24.w,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/arrow_forward.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                  PPButton(
+                    text: 'Go Home',
+                    onPressed: () => context.router.pushAndPopUntil(ExploreRoute(), predicate: (route) => false),
+                    backgroundColor: PPaymobileColors.mainScreenBackground,
+                    icon: SvgPicture.asset(
+                      'assets/icon/arrow_forward.svg',
+                      height: 24.w,
+                      width: 24.w,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   10.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          'Try Again',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                            color: PPaymobileColors.mainScreenBackground,
-                          ),
-                        ),
-                      ),
-                    ),
+                  PPButton(
+                    text: 'Try Again',
+                    onPressed: () {},
                   ),
                   22.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor:
-                              PPaymobileColors.mainScreenBackground,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                            side: BorderSide(
-                              width: 1.w,
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          context.router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Go Home',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                            7.horizontalSpace,
-                            SizedBox(
-                              height: 24.w,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/arrow_forward.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                  PPButton(
+                    text: 'Go Home',
+                    onPressed: () => context.router.pushAndPopUntil(HomeRoute(), predicate: (route) => false),
+                    backgroundColor: PPaymobileColors.mainScreenBackground,
+                    icon: SvgPicture.asset(
+                      'assets/icon/arrow_forward.svg',
+                      height: 24.w,
+                      width: 24.w,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   10.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                          ),
-                          elevation: 0,
+                  PPButton(
+                    text: 'Make Another Transaction',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TransferFundsPage(),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TransferFundsPage(),
-                            ),
-                            // (route) => false(),
-                          );
-                        },
-                        child: Text(
-                          'Make Another Transaction',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                            color: PPaymobileColors.mainScreenBackground,
-                          ),
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                   22.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor:
-                              PPaymobileColors.mainScreenBackground,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                            side: BorderSide(
-                              width: 1.w,
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          context.router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Go Home',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                            7.horizontalSpace,
-                            SizedBox(
-                              height: 24.w,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/arrow_forward.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                  PPButton(
+                    text: 'Go Home',
+                    onPressed: () => context.router.pushAndPopUntil(HomeRoute(), predicate: (route) => false),
+                    backgroundColor: PPaymobileColors.mainScreenBackground,
+                    icon: SvgPicture.asset(
+                      'assets/icon/arrow_forward.svg',
+                      height: 24.w,
+                      width: 24.w,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ],

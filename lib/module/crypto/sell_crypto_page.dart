@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,7 +11,8 @@ import 'package:ppay_mobile/shared/widgets/crypto_confirm_sell_bottomsheet.dart'
 import 'package:ppay_mobile/shared/widgets/crypto_sell_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class SellCryptoPage extends HookConsumerWidget {
@@ -34,34 +36,9 @@ class SellCryptoPage extends HookConsumerWidget {
     }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Sell Crypto',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Sell Crypto',
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: SafeArea(
         child: Column(
@@ -384,37 +361,16 @@ class SellCryptoPage extends HookConsumerWidget {
                         ),
                       ),
                       12.verticalSpace,
-                      SizedBox(
-                        width: double.infinity,
-                        height: 54.h,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                PPaymobileColors.buttonColorandText,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(42.r),
-                            ),
-                            elevation: 0,
-                          ),
-                          onPressed: () async {
-                            await showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (_) =>
-                                  const CryptoConfirmSellBottomsheet(),
-                            );
-                          },
-                          child: Text(
-                            'Sell',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: PPaymobileColors.mainScreenBackground,
-                            ),
-                          ),
-                        ),
+                      PPButton(
+                        text: 'Sell',
+                        onPressed: () async {
+                          await showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (_) => const CryptoConfirmSellBottomsheet(),
+                          );
+                        },
                       ),
                     ],
                   ),

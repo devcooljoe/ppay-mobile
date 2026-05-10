@@ -5,7 +5,7 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class FingerprintCompletePage extends HookConsumerWidget {
@@ -51,48 +51,15 @@ class FingerprintCompletePage extends HookConsumerWidget {
               ),
             ),
             91.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {
-                    context.router.pushAndPopUntil(
-                      ExploreRoute(),
-                      predicate: (route) => false,
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Go To App',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      7.horizontalSpace,
-                      SizedBox(
-                        height: 24.w,
-                        width: 24.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/arrow_forwardw.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+            PPButton(
+              text: 'Go To App',
+              onPressed: () => context.router.pushAndPopUntil(
+                ExploreRoute(),
+                predicate: (route) => false,
+              ),
+              icon: SvgPicture.asset(
+                'assets/icon/arrow_forwardw.svg',
+                fit: BoxFit.contain,
               ),
             ),
           ],

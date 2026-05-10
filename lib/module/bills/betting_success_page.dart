@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class BettingSuccessPage extends HookConsumerWidget {
@@ -15,7 +15,11 @@ class BettingSuccessPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(automaticallyImplyLeading: false),
+      appBar: AppBar(
+        backgroundColor: PPaymobileColors.mainScreenBackground,
+        toolbarHeight: 56,
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -68,166 +72,50 @@ class BettingSuccessPage extends HookConsumerWidget {
                 ),
               ),
               14.verticalSpace,
-              TouchOpacity(
-                onTap: () {
+              PPButton(
+                text: 'View Receipt',
+                onPressed: () {
                   context.router.push(BettingReceiptRoute());
                 },
-                child: Container(
-                  height: 50.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.buttonColorandText,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'View Receipt',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
+              ),
+              10.verticalSpace,
+              PPButton(
+                text: 'Go To App',
+                onPressed: () {},
+                icon: SvgPicture.asset(
+                  'assets/icon/arrow_forwardw.svg',
+                  height: 24.h,
+                  width: 24.h,
+                  fit: BoxFit.contain,
                 ),
               ),
               10.verticalSpace,
-              // for pending
-              Container(
-                height: 50.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(56).r,
-                  color: PPaymobileColors.buttonColorandText,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Go To App',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    6.horizontalSpace,
-                    SizedBox(
-                      height: 24.h,
-                      width: 24.h,
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_forwardw.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              10.verticalSpace,
-              // for failed
-              Container(
-                height: 50.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(56).r,
-                  color: PPaymobileColors.buttonColorandText,
-                ),
-                child: Center(
-                  child: Text(
-                    'Try Again',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.white,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Try Again',
+                onPressed: () {},
               ),
               20.verticalSpace,
-              Container(
-                height: 50.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(56).r,
-                  color: PPaymobileColors.mainScreenBackground,
-                  border: Border.all(
-                    color: PPaymobileColors.textfiedBorder,
-                    width: 1.w,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Make another Payment',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    6.horizontalSpace,
-                    SizedBox(
-                      height: 24.h,
-                      width: 24.h,
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_forward_1.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
+              PPButton(
+                text: 'Make another Payment',
+                onPressed: () {},
+                backgroundColor: PPaymobileColors.mainScreenBackground,
+                icon: SvgPicture.asset(
+                  'assets/icon/arrow_forward_1.svg',
+                  height: 24.h,
+                  width: 24.h,
+                  fit: BoxFit.contain,
                 ),
               ),
-              // only for failed
               10.verticalSpace,
-              Container(
-                height: 50.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(56).r,
-                  color: PPaymobileColors.mainScreenBackground,
-                  border: Border.all(
-                    color: PPaymobileColors.textfiedBorder,
-                    width: 1.w,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Go to App',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    6.horizontalSpace,
-                    SizedBox(
-                      height: 24.h,
-                      width: 24.h,
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_forward_1.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
+              PPButton(
+                text: 'Go to App',
+                onPressed: () {},
+                backgroundColor: PPaymobileColors.mainScreenBackground,
+                icon: SvgPicture.asset(
+                  'assets/icon/arrow_forward_1.svg',
+                  height: 24.h,
+                  width: 24.h,
+                  fit: BoxFit.contain,
                 ),
               ),
             ],

@@ -1,11 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
 class ForgotPasswordPage extends HookConsumerWidget {
@@ -15,21 +19,7 @@ class ForgotPasswordPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        leadingWidth: 56.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
-            ),
-          ),
-        ),
-      ),
+      appBar: PPAppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
@@ -57,77 +47,17 @@ class ForgotPasswordPage extends HookConsumerWidget {
                 ),
               ),
               60.verticalSpace,
-              Text(
-                'Enter Email or Phone No',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              const PPLabel(text: 'Enter Email or Phone No'),
               4.verticalSpace,
-              SizedBox(
-                height: 56.h,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 15.h,
-                    ),
-                    hintText: 'Enter Details',
-                    hintStyle: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16.sp,
-                      fontStyle: FontStyle.italic,
-                      color: PPaymobileColors.lightGrey,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                  ),
-                ),
+              const PPTextField(
+                hintText: 'Enter Details',
               ),
               170.verticalSpace,
-              TouchOpacity(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42.r),
-                      ),
-                      elevation: 0,
-                    ),
-                    onPressed: () {
-                      context.router.push(VerifyForgotRoute());
-                    },
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Continue',
+                onPressed: () {
+                  context.router.push(VerifyForgotRoute());
+                },
               ),
               21.verticalSpace,
               TouchOpacity(

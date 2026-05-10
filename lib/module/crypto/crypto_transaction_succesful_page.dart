@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/crypto/buy_crypto_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class CryptoTransactionSuccesfulPage extends HookConsumerWidget {
@@ -124,118 +125,29 @@ class CryptoTransactionSuccesfulPage extends HookConsumerWidget {
                     ),
                   ),
                   14.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                        ),
-                        elevation: 0,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BuyCryptoPage(),
-                          ),
-                          // (route) => false(),
-                        );
-                      },
-                      child: Text(
-                        'Make another Trade',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: PPaymobileColors.mainScreenBackground,
-                        ),
+                  PPButton(
+                    text: 'Make another Trade',
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BuyCryptoPage(),
                       ),
                     ),
                   ),
                   8.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: PPaymobileColors.mainScreenBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                          side: BorderSide.none,
-                        ),
-                      ),
-                      onPressed: () {
-                        context.router.push(ExploreRoute());
-                      },
-                      child: Text(
-                        'View Asset',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                  PPButton(
+                    text: 'View Asset',
+                    onPressed: () => context.router.push(ExploreRoute()),
                   ),
                   8.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: PPaymobileColors.mainScreenBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                          side: BorderSide.none,
-                        ),
-                      ),
-                      onPressed: () {
-                        context.router.push(ExploreRoute());
-                      },
-                      child: Text(
-                        'Try Again',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                  PPButton(
+                    text: 'Try Again',
+                    onPressed: () => context.router.push(ExploreRoute()),
                   ),
                   12.verticalSpace,
-                  //this is not part of the ui, i added it to navigate to the receipt page...
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: PPaymobileColors.mainScreenBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                          side: BorderSide.none,
-                        ),
-                      ),
-                      onPressed: () {
-                        context.router.push(CryptoReceiptRoute());
-                      },
-                      child: Text(
-                        'View Receipt',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                  PPButton(
+                    text: 'View Receipt',
+                    onPressed: () => context.router.push(CryptoReceiptRoute()),
                   ),
                 ],
               ),

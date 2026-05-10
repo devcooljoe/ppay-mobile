@@ -1,15 +1,19 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/airtime_beneficiary_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/network_provider_card.dart';
+import 'package:ppay_mobile/shared/widgets/data_plan_card.dart';
 
 @RoutePage()
 class DataPage extends HookConsumerWidget {
@@ -35,35 +39,7 @@ class DataPage extends HookConsumerWidget {
       length: 4,
       child: Scaffold(
         backgroundColor: PPaymobileColors.mainScreenBackground,
-        appBar: AppBar(
-          backgroundColor: PPaymobileColors.mainScreenBackground,
-          toolbarHeight: 56,
-          leadingWidth: 56.w,
-          centerTitle: true,
-          title: Text(
-            'Data',
-            style: TextStyle(
-              fontFamily: 'InstrumentSans',
-              color: Colors.black,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          leading: Padding(
-            padding: EdgeInsets.only(left: 20.w),
-            child: TouchOpacity(
-              onTap: () => Navigator.pop(context),
-              child: SizedBox(
-                height: 24.w,
-                width: 24.w,
-                child: SvgPicture.asset(
-                  'assets/icon/arrow_back.svg',
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
-            ),
-          ),
-        ),
+        appBar: const PPAppBar(title: 'Data'),
         body: Column(
           children: [
             Expanded(
@@ -123,170 +99,22 @@ class DataPage extends HookConsumerWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(left: 20.0.w),
-                            child: Container(
-                              height: 104.h,
-                              width: 108.w,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 19.w,
-                                vertical: 10.h,
-                              ),
-                              margin: EdgeInsets.only(right: 16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5).r,
-                                color: PPaymobileColors.deepBackgroundColor,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 56.w,
-                                    width: 56.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                          'assets/images/mtn.png',
-                                        ),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                  10.verticalSpace,
-                                  Text(
-                                    'MTN',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: Colors.black,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            child: NetworkProviderCard(
+                              imagePath: 'assets/images/mtn.png',
+                              name: 'MTN',
                             ),
                           ),
-                          Container(
-                            height: 104.h,
-                            width: 108.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 19.w,
-                              vertical: 10.h,
-                            ),
-                            margin: EdgeInsets.only(right: 16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 56.w,
-                                  width: 56.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/airtel.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  'Airtel',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          NetworkProviderCard(
+                            imagePath: 'assets/images/airtel.png',
+                            name: 'Airtel',
                           ),
-                          Container(
-                            height: 104.h,
-                            width: 108.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 19.w,
-                              vertical: 10.h,
-                            ),
-                            margin: EdgeInsets.only(right: 16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 56.w,
-                                  width: 56.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/9mobile.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  '9mobile',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          NetworkProviderCard(
+                            imagePath: 'assets/images/9mobile.png',
+                            name: '9mobile',
                           ),
-                          Container(
-                            height: 104.h,
-                            width: 108.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 19.w,
-                              vertical: 10.h,
-                            ),
-                            margin: EdgeInsets.only(right: 16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 56.w,
-                                  width: 56.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/glo.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  'Glo',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          NetworkProviderCard(
+                            imagePath: 'assets/images/glo.png',
+                            name: 'Glo',
                           ),
                         ],
                       ),
@@ -294,15 +122,7 @@ class DataPage extends HookConsumerWidget {
                     56.verticalSpace,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Text(
-                        'Phone Number',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const PPLabel(text: 'Phone Number'),
                     ),
                     8.verticalSpace,
                     Padding(
@@ -425,117 +245,9 @@ class DataPage extends HookConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 65.h,
-                            width: 125.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '7 days',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                8.verticalSpace,
-                                Text(
-                                  '1GB @ ₦1000',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 65.h,
-                            width: 125.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '2 days',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                8.verticalSpace,
-                                Text(
-                                  '2GB @ ₦400',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 65.h,
-                            width: 125.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '7 days',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                8.verticalSpace,
-                                Text(
-                                  '5GB @ ₦1500',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          DataPlanCard(duration: '7 days', plan: '1GB @ ₦1000'),
+                          DataPlanCard(duration: '2 days', plan: '2GB @ ₦400'),
+                          DataPlanCard(duration: '7 days', plan: '5GB @ ₦1500'),
                         ],
                       ),
                     ),
@@ -545,178 +257,34 @@ class DataPage extends HookConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 65.h,
-                            width: 125.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '1 day',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                8.verticalSpace,
-                                Text(
-                                  '1GB @ ₦300',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 65.h,
-                            width: 125.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '3 days',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                8.verticalSpace,
-                                Text(
-                                  '4GB @ ₦3000',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 65.h,
-                            width: 125.w,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 4.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5).r,
-                              color: PPaymobileColors.deepBackgroundColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '7 days',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                8.verticalSpace,
-                                Text(
-                                  '20GB @ ₦15000',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          DataPlanCard(duration: '1 day', plan: '1GB @ ₦300'),
+                          DataPlanCard(duration: '3 days', plan: '4GB @ ₦3000'),
+                          DataPlanCard(duration: '7 days', plan: '20GB @ ₦15000'),
                         ],
                       ),
                     ),
                     89.verticalSpace,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 54.h,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: PPaymobileColors
-                                .onTapButtonColor, // color becomes backgroundColor when all text have been inputed
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(55.r),
-                            ),
-                            elevation: 0,
-                          ),
-                          onPressed: () {
-                            context.router.push(DataConfirmRoute());
-                          },
-                          child: Text(
-                            'Buy Data',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp,
-                              color: PPaymobileColors.mainScreenBackground,
-                            ),
-                          ),
-                        ),
+                      child: PPButton(
+                        text: 'Buy Data',
+                        backgroundColor: PPaymobileColors.onTapButtonColor,
+                        textColor: PPaymobileColors.mainScreenBackground,
+                        onPressed: () {
+                          context.router.push(DataConfirmRoute());
+                        },
                       ),
                     ),
                     15.verticalSpace,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 54.h,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                PPaymobileColors.buttonColorandText,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(55.r),
-                            ),
-                            elevation: 0,
-                          ),
-                          onPressed: () {
-                            context.router.push(DataConfirmRoute());
-                          },
-                          child: Text(
-                            'Buy Data',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp,
-                              color: PPaymobileColors.mainScreenBackground,
-                            ),
-                          ),
-                        ),
+                      child: PPButton(
+                        text: 'Buy Data',
+                        backgroundColor: PPaymobileColors.buttonColorandText,
+                        textColor: PPaymobileColors.mainScreenBackground,
+                        onPressed: () {
+                          context.router.push(DataConfirmRoute());
+                        },
                       ),
                     ),
                   ],

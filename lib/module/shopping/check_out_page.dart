@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,7 +9,8 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/remove_from_cart_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/select_country_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/select_state_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 void _showBillingDialog(BuildContext context) {
   showDialog(
@@ -125,34 +127,8 @@ class CheckOutPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Check Out',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Check Out',
       ),
       body: SafeArea(
         child: Padding(
@@ -761,32 +737,10 @@ class CheckOutPage extends HookConsumerWidget {
                       ],
                     ),
                     16.horizontalSpace,
-                    TouchOpacity(
-                      onTap: () {
-                        context.router.push(PaymentRoute());
-                      },
-                      child: Container(
-                        height: 50.h,
-                        width: 277.w,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.w,
-                          vertical: 10.h,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(56).r,
-                          color: PPaymobileColors.buttonColorandText,
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Confirm Payment',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                    Expanded(
+                      child: PPButton(
+                        text: 'Confirm Payment',
+                        onPressed: () => context.router.push(PaymentRoute()),
                       ),
                     ),
                   ],

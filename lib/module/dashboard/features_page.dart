@@ -2,10 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/feature_card.dart';
 
 @RoutePage()
 class FeaturesPage extends HookConsumerWidget {
@@ -59,127 +58,22 @@ class FeaturesPage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TouchOpacity(
-                        onTap: () {
-                          context.router.push(GiftcardRoute());
-                        },
-                        child: Container(
-                          height: 98.h,
-                          width: 122.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                            borderRadius: BorderRadius.circular(8).r,
-                          ),
-                          child: Center(
-                            child: SizedBox(
-                              height: 52.w,
-                              width: 52.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/gift_card_green.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        'Giftcard',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  FeatureCard(
+                    iconPath: 'assets/icon/gift_card_green.svg',
+                    label: 'Giftcard',
+                    onTap: () => context.router.push(GiftcardRoute()),
                   ),
                   16.horizontalSpace,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TouchOpacity(
-                        onTap: () {
-                          context.router.push(BillsRoute());
-                        },
-                        child: Container(
-                          height: 98.h,
-                          width: 122.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                            borderRadius: BorderRadius.circular(8).r,
-                          ),
-                          child: Center(
-                            child: SizedBox(
-                              height: 52.w,
-                              width: 52.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/bills_green.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        'Bills',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  FeatureCard(
+                    iconPath: 'assets/icon/bills_green.svg',
+                    label: 'Bills',
+                    onTap: () => context.router.push(BillsRoute()),
                   ),
                   16.horizontalSpace,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TouchOpacity(
-                        onTap: () {
-                          context.router.push(VirtualCardRoute());
-                        },
-                        child: Container(
-                          height: 98.h,
-                          width: 122.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                            borderRadius: BorderRadius.circular(8).r,
-                          ),
-                          child: Center(
-                            child: SizedBox(
-                              height: 52.w,
-                              width: 52.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/virtual_card.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        'Virtual Card',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  FeatureCard(
+                    iconPath: 'assets/icon/virtual_card.svg',
+                    label: 'Virtual Card',
+                    onTap: () => context.router.push(VirtualCardRoute()),
                   ),
                 ],
               ),
@@ -187,132 +81,22 @@ class FeaturesPage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TouchOpacity(
-                        onTap: () {
-                          context.router.push(CryptoRoute());
-                        },
-                        child: Container(
-                          height: 98.h,
-                          width: 122.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                            borderRadius: BorderRadius.circular(8).r,
-                          ),
-                          child: Center(
-                            child: SizedBox(
-                              height: 52.w,
-                              width: 52.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/crypto.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      8.verticalSpace,
-                      TouchOpacity(
-                        onTap: () {
-                          context.router.push(CryptoRoute());
-                        },
-                        child: Text(
-                          'Crypto',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
+                  FeatureCard(
+                    iconPath: 'assets/icon/crypto.svg',
+                    label: 'Crypto',
+                    onTap: () => context.router.push(CryptoRoute()),
                   ),
                   16.horizontalSpace,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TouchOpacity(
-                        onTap: () {
-                          context.router.push(FlightBookRoute());
-                        },
-                        child: Container(
-                          height: 98.h,
-                          width: 122.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                            borderRadius: BorderRadius.circular(8).r,
-                          ),
-                          child: Center(
-                            child: SizedBox(
-                              height: 52.w,
-                              width: 52.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/airplane_green.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        'Flight Booking',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  FeatureCard(
+                    iconPath: 'assets/icon/airplane_green.svg',
+                    label: 'Flight Booking',
+                    onTap: () => context.router.push(FlightBookRoute()),
                   ),
                   16.horizontalSpace,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TouchOpacity(
-                        onTap: () {
-                          context.router.push(ShoppingRoute());
-                        },
-                        child: Container(
-                          height: 98.h,
-                          width: 122.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: PPaymobileColors.textfiedBorder,
-                            ),
-                            borderRadius: BorderRadius.circular(8).r,
-                          ),
-                          child: Center(
-                            child: SizedBox(
-                              height: 52.w,
-                              width: 52.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/cart_green.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        'Shopping',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  FeatureCard(
+                    iconPath: 'assets/icon/cart_green.svg',
+                    label: 'Shopping',
+                    onTap: () => context.router.push(ShoppingRoute()),
                   ),
                 ],
               ),

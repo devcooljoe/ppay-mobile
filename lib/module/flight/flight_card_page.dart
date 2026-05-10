@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -226,22 +227,25 @@ class FlightCardPage extends HookConsumerWidget {
                   ),
                 ],
               ),
-              Container(
-                height: 46.h,
-                width: 121.w,
-                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(55).r,
-                  color: PPaymobileColors.buttonColorandText,
-                ),
-                child: Center(
-                  child: Text(
-                    'Pick Flight',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
+              TouchOpacity(
+                onTap: () {},
+                child: Container(
+                  height: 46.h,
+                  width: 121.w,
+                  padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(55).r,
+                    color: PPaymobileColors.buttonColorandText,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Pick Flight',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: PPaymobileColors.mainScreenBackground,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

@@ -1,14 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class CreatePinPage extends HookConsumerWidget {
@@ -32,27 +33,10 @@ class CreatePinPage extends HookConsumerWidget {
         );
       }
     }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: PPAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: ListView(
@@ -139,42 +123,14 @@ class CreatePinPage extends HookConsumerWidget {
                 CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
                 // this shows after inputting the pin and clicking outside the container...
                 14.verticalSpace,
-                SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42.r),
-                      ),
-                    ),
-                    onPressed: () {
-                      context.router.push(CreatedPinRoute());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Next',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                            color: Colors.white,
-                          ),
-                        ),
-                        7.horizontalSpace,
-                        SizedBox(
-                          height: 20.w,
-                          width: 20.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/arrow_forwardw.svg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ],
-                    ),
+                PPButton(
+                  text: 'Next',
+                  onPressed: () => context.router.push(CreatedPinRoute()),
+                  icon: SvgPicture.asset(
+                    'assets/icon/arrow_forwardw.svg',
+                    height: 20.w,
+                    width: 20.w,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ],

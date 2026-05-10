@@ -4,10 +4,10 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/settings_menu_item.dart';
+import 'package:flutter_svg/svg.dart';
 
 @RoutePage()
 class SettingsPage extends HookConsumerWidget {
@@ -178,195 +178,33 @@ class SettingsPage extends HookConsumerWidget {
                     ),
                   ),
                   18.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(ProfileRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/profile_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Profile',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/profile_set.png',
+                    title: 'Profile',
+                    onTap: () => context.router.push(ProfileRoute()),
+                  ),
+                  12.verticalSpace,
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/kyc_set.png',
+                    title: 'KYC Verification',
+                    onTap: () => context.router.push(ReviewDocumentRoute()),
+                    trailing: Container(
+                      height: 29.h,
+                      width: 59.w,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/verified.png'),
+                          fit: BoxFit.contain,
+                        ),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                     ),
                   ),
                   12.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(ReviewDocumentRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/kyc_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'KYC Verification',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                11.horizontalSpace,
-                                Container(
-                                  height: 29.h,
-                                  width: 59.w,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/pending.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                    borderRadius: BorderRadius.circular(4.r),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 29.h,
-                            width: 59.w,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/verified.png'),
-                                fit: BoxFit.contain,
-                              ),
-                              borderRadius: BorderRadius.circular(4.r),
-                            ),
-                          ),
-                          5.horizontalSpace,
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  12.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(BankAccountRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/saved_bank_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Saved Bank Account',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/saved_bank_set.png',
+                    title: 'Saved Bank Account',
+                    onTap: () => context.router.push(BankAccountRoute()),
                   ),
                 ],
               ),
@@ -394,227 +232,35 @@ class SettingsPage extends HookConsumerWidget {
                     ),
                   ),
                   18.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(ChangePasswordRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/change_pass_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Change Password',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/change_pass_set.png',
+                    title: 'Change Password',
+                    onTap: () => context.router.push(ChangePasswordRoute()),
+                  ),
+                  12.verticalSpace,
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/change_pin_set.png',
+                    title: 'Change Transaction Pin',
+                    onTap: () => context.router.push(PinResetRoute()),
+                  ),
+                  12.verticalSpace,
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/enable_biom_set.png',
+                    title: 'Enable Biometric',
+                    trailing: SizedBox(
+                      height: 20.h,
+                      width: 37.w,
+                      child: CustomSwitch(
+                        value: isEnabled.value,
+                        onChanged: (val) => isEnabled.value = val,
                       ),
                     ),
                   ),
                   12.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(PinResetRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/change_pin_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Change Transaction Pin',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  12.verticalSpace,
-                  Container(
-                    height: 56.h,
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 9.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 38.w,
-                                width: 38.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(19.r),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/enable_biom_set.png',
-                                    ),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              10.horizontalSpace,
-                              Text(
-                                'Enable Biometric',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                          width: 37.w,
-                          child: CustomSwitch(
-                            value: isEnabled.value,
-                            onChanged: (val) => isEnabled.value = val,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                          width: 12.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/arrow_forward.svg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  12.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(NotificationRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/notif_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Notification Settings',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/notif_set.png',
+                    title: 'Notification Settings',
+                    onTap: () => context.router.push(NotificationRoute()),
                   ),
                 ],
               ),
@@ -642,59 +288,10 @@ class SettingsPage extends HookConsumerWidget {
                     ),
                   ),
                   18.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(TransactionLimitRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/transc_lim_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Transactions Limit',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/transc_lim_set.png',
+                    title: 'Transactions Limit',
+                    onTap: () => context.router.push(TransactionLimitRoute()),
                   ),
                 ],
               ),
@@ -722,59 +319,10 @@ class SettingsPage extends HookConsumerWidget {
                     ),
                   ),
                   18.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(ReferRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/refer_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Refer & Earn',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/refer_set.png',
+                    title: 'Refer & Earn',
+                    onTap: () => context.router.push(ReferRoute()),
                   ),
                 ],
               ),
@@ -802,169 +350,22 @@ class SettingsPage extends HookConsumerWidget {
                     ),
                   ),
                   18.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(TermsAndConditionRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/terms_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Terms & Condition',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/terms_set.png',
+                    title: 'Terms & Condition',
+                    onTap: () => context.router.push(TermsAndConditionRoute()),
                   ),
                   12.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(PrivacyRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/privacy_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Privacy Policy',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/privacy_set.png',
+                    title: 'Privacy Policy',
+                    onTap: () => context.router.push(PrivacyRoute()),
                   ),
                   12.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(HelpAndSupportRoute());
-                    },
-                    child: Container(
-                      height: 56.h,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(vertical: 9.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 38.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(19.r),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/help_set.png',
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                Text(
-                                  'Help & Support',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                            width: 12.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forward.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/help_set.png',
+                    title: 'Help & Support',
+                    onTap: () => context.router.push(HelpAndSupportRoute()),
                   ),
                 ],
               ),
@@ -992,54 +393,10 @@ class SettingsPage extends HookConsumerWidget {
                     ),
                   ),
                   18.verticalSpace,
-                  Container(
-                    height: 56.h,
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 9.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 38.w,
-                                width: 38.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(19.r),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/logout_set.png',
-                                    ),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              10.horizontalSpace,
-                              Text(
-                                'Logout',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.transactRed,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                          width: 12.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/arrow_forward.svg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ],
-                    ),
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/logout_set.png',
+                    title: 'Logout',
+                    titleColor: PPaymobileColors.transactRed,
                   ),
                 ],
               ),

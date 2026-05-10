@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/cloths_filter_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/cloth_product_card.dart';
 
 @RoutePage()
 class ClothsPage extends HookConsumerWidget {
@@ -177,164 +178,18 @@ class ClothsPage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 249.h,
-                    width: 193.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 183.h,
-                          width: 193.w,
-                          child: Image.asset(
-                            'assets/images/cloths_1.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        8.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Man's Formal Shoe",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 15.w,
-                                  width: 15.w,
-                                  child: Image.asset(
-                                    'assets/images/star.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        7.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "₦ 56,000.00",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 27.h,
-                              width: 31.w,
-                              child: Image.asset(
-                                'assets/images/cart_cloth.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  ClothProductCard(
+                    imagePath: 'assets/images/cloths_1.png',
+                    title: "Man's Formal Shoe",
+                    rating: "4.5",
+                    price: "₦ 56,000.00",
                   ),
-                  TouchOpacity(
-                    onTap: () {
-                      context.router.push(ClothsDetailsRoute());
-                    },
-                    child: SizedBox(
-                      height: 249.h,
-                      width: 193.w,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 183.h,
-                            width: 193.w,
-                            child: Image.asset(
-                              'assets/images/cloths_2.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          8.verticalSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Man's Formal Shoe",
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 15.w,
-                                    width: 15.w,
-                                    child: Image.asset(
-                                      'assets/images/star.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                  Text(
-                                    "4.5",
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: Colors.black,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          7.verticalSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "₦ 56,000.00",
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 27.h,
-                                width: 31.w,
-                                child: Image.asset(
-                                  'assets/images/cart_cloth.png',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  ClothProductCard(
+                    imagePath: 'assets/images/cloths_2.png',
+                    title: "Man's Formal Shoe",
+                    rating: "4.5",
+                    price: "₦ 56,000.00",
+                    onTap: () => context.router.push(ClothsDetailsRoute()),
                   ),
                 ],
               ),
@@ -342,159 +197,17 @@ class ClothsPage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 249.h,
-                    width: 193.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 183.h,
-                          width: 193.w,
-                          child: Image.asset(
-                            'assets/images/cloths_3.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        8.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Man's Formal Shoe",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 15.w,
-                                  width: 15.w,
-                                  child: Image.asset(
-                                    'assets/images/star.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        7.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "₦ 56,000.00",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 27.h,
-                              width: 31.w,
-                              child: Image.asset(
-                                'assets/images/cart_cloth.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  ClothProductCard(
+                    imagePath: 'assets/images/cloths_3.png',
+                    title: "Man's Formal Shoe",
+                    rating: "4.5",
+                    price: "₦ 56,000.00",
                   ),
-                  SizedBox(
-                    height: 249.h,
-                    width: 193.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 183.h,
-                          width: 193.w,
-                          child: Image.asset(
-                            'assets/images/cloths_4.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        8.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Man's Formal Shoe",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 15.w,
-                                  width: 15.w,
-                                  child: Image.asset(
-                                    'assets/images/star.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        7.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "₦ 56,000.00",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 27.h,
-                              width: 31.w,
-                              child: Image.asset(
-                                'assets/images/cart_cloth.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  ClothProductCard(
+                    imagePath: 'assets/images/cloths_4.png',
+                    title: "Man's Formal Shoe",
+                    rating: "4.5",
+                    price: "₦ 56,000.00",
                   ),
                 ],
               ),

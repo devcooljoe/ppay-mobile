@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +10,8 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/select_account_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class AmountAndInfoPage extends HookConsumerWidget {
@@ -33,35 +35,7 @@ class AmountAndInfoPage extends HookConsumerWidget {
     }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        title: Text(
-          'Sending To',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Sending To'),
       body: Column(
         children: [
           Expanded(
@@ -329,43 +303,19 @@ class AmountAndInfoPage extends HookConsumerWidget {
                 24.verticalSpace,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42.r),
-                        ),
-                      ),
-                      onPressed: () {
-                        context.router.push(ConfirmTransactionRoute());
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Next',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: Colors.white,
-                            ),
-                          ),
-                          7.horizontalSpace,
-                          SizedBox(
-                            height: 24.w,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forwardw.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
+                  child: PPButton(
+                    text: 'Next',
+                    icon: SizedBox(
+                      height: 24.w,
+                      width: 24.w,
+                      child: SvgPicture.asset(
+                        'assets/icon/arrow_forwardw.svg',
+                        fit: BoxFit.contain,
                       ),
                     ),
+                    onPressed: () {
+                      context.router.push(ConfirmTransactionRoute());
+                    },
                   ),
                 ),
               ],

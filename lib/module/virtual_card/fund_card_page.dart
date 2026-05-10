@@ -7,7 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/confirm_fund_card_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class FundCardPage extends HookConsumerWidget {
@@ -36,34 +37,8 @@ class FundCardPage extends HookConsumerWidget {
     }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Fund Card',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Fund Card',
       ),
       body: ListView(
         children: [
@@ -210,36 +185,17 @@ class FundCardPage extends HookConsumerWidget {
                       ],
                     ),
                     29.verticalSpace,
-                    SizedBox(
-                      width: double.infinity,
-                      height: 54.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors
-                              .deepBackgroundColor, //after price input, the color changes to .backgroundColor
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24).r,
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () async {
-                          await showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (_) => const ConfirmFundCardBottomsheet(),
-                          );
-                        },
-                        child: Text(
-                          'Fund USD Card',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                            color: PPaymobileColors.mainScreenBackground,
-                          ),
-                        ),
-                      ),
+                    PPButton(
+                      text: 'Fund USD Card',
+                      onPressed: () async {
+                        await showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (_) => const ConfirmFundCardBottomsheet(),
+                        );
+                      },
+                      backgroundColor: PPaymobileColors.deepBackgroundColor,
                     ),
                   ],
                 ),

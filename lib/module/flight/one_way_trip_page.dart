@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +11,6 @@ import 'package:ppay_mobile/shared/widgets/date_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/depature_location_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/destination_location_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/passengers_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class OneWayTripPage extends HookConsumerWidget {

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
 class VerifyForgotPage extends HookConsumerWidget {
@@ -16,21 +18,7 @@ class VerifyForgotPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        leadingWidth: 56.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
-            ),
-          ),
-        ),
-      ),
+      appBar: PPAppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
@@ -147,31 +135,9 @@ class VerifyForgotPage extends HookConsumerWidget {
                 ],
               ),
               170.verticalSpace,
-              TouchOpacity(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PPaymobileColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(42.r),
-                      ),
-                    ),
-                    onPressed: () {
-                      context.router.push(LoginPasswordResetRoute());
-                    },
-                    child: Text(
-                      'Verify',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+              PPButton(
+                text: 'Verify',
+                onPressed: () => context.router.push(LoginPasswordResetRoute()),
               ),
               21.verticalSpace,
               TouchOpacity(

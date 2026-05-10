@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,7 +10,7 @@ import 'package:ppay_mobile/shared/widgets/carousel_item.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/item_carousel.dart';
 import 'package:ppay_mobile/shared/widgets/shoping_packages_carousel.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/product_card.dart';
 
 @RoutePage()
 class ShoppingPage extends HookConsumerWidget {
@@ -280,113 +281,15 @@ class ShoppingPage extends HookConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 170.h,
-                    width: 192.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 141.h,
-                          width: 192.w,
-                          child: Image.asset(
-                            'assets/images/more_1.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        6.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Man's Wear",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 15.w,
-                                  width: 15.w,
-                                  child: Image.asset(
-                                    'assets/images/star.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  ProductCard(
+                    imagePath: 'assets/images/more_1.png',
+                    title: "Man's Wear",
+                    rating: "4.5",
                   ),
-                  SizedBox(
-                    height: 170.h,
-                    width: 192.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 141.h,
-                          width: 192.w,
-                          child: Image.asset(
-                            'assets/images/more_2.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        6.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Necklace",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 15.w,
-                                  width: 15.w,
-                                  child: Image.asset(
-                                    'assets/images/star.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  ProductCard(
+                    imagePath: 'assets/images/more_2.png',
+                    title: "Necklace",
+                    rating: "4.5",
                   ),
                 ],
               ),
@@ -397,113 +300,15 @@ class ShoppingPage extends HookConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 170.h,
-                    width: 192.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 141.h,
-                          width: 192.w,
-                          child: Image.asset(
-                            'assets/images/more_3.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        6.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Man's Formal Shoe",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 15.w,
-                                  width: 15.w,
-                                  child: Image.asset(
-                                    'assets/images/star.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  ProductCard(
+                    imagePath: 'assets/images/more_3.png',
+                    title: "Man's Formal Shoe",
+                    rating: "4.5",
                   ),
-                  SizedBox(
-                    height: 170.h,
-                    width: 192.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 141.h,
-                          width: 192.w,
-                          child: Image.asset(
-                            'assets/images/more_4.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        6.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Relex Watch",
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 15.w,
-                                  width: 15.w,
-                                  child: Image.asset(
-                                    'assets/images/star.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  ProductCard(
+                    imagePath: 'assets/images/more_4.png',
+                    title: "Relex Watch",
+                    rating: "4.5",
                   ),
                 ],
               ),

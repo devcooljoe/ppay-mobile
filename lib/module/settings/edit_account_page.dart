@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,7 +9,8 @@ import 'package:ppay_mobile/shared/models/bank_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/remove_account_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/select_bank_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 void _openChangeBottomSheet(BuildContext context) {
   showModalBottomSheet(
@@ -31,34 +33,8 @@ class EditAccountPage extends HookConsumerWidget {
     final selectedBank = useState<BankModel?>(null);
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Bank Details',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Bank Details',
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -105,7 +81,7 @@ class EditAccountPage extends HookConsumerWidget {
                 controller: bankController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  prefixIcon: selectedBank.value == null
+                  icon: selectedBank.value == null
                       ? null
                       : Padding(
                           padding: EdgeInsets.all(12.w),
@@ -255,67 +231,30 @@ class EditAccountPage extends HookConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  height: 50.h,
-                  width: 188.w,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 12.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(42).r,
-                    color: PPaymobileColors.buttonInactiveColor,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Update',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.mainScreenBackground,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                Expanded(
+                child: PPButton(
+                  text: 'Update',
+                  onPressed: () {},
+                  backgroundColor: PPaymobileColors.buttonInactiveColor,
+                ),
+              ),
+              12.horizontalSpace,
+              Expanded(
+                child: PPButton(
+                  text: 'Remove',
+                  onPressed: () => _openChangeBottomSheet(context),
+                  backgroundColor: PPaymobileColors.anotherdangerColor,
+                  textColor: PPaymobileColors.transactRed,
+                  icon: SizedBox(
+                    height: 16.w,
+                    width: 16.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/dustbin.svg',
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
-                TouchOpacity(
-                  onTap: () => _openChangeBottomSheet(context),
-                  child: Container(
-                    height: 50.h,
-                    width: 188.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 12.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(42).r,
-                      color: PPaymobileColors.anotherdangerColor,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 16.w,
-                          width: 16.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/dustbin.svg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        10.horizontalSpace,
-                        Text(
-                          'Remove',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.transactRed,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              ),
               ],
             ),
           ],

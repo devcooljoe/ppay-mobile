@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class OrderSuccessfulPage extends HookConsumerWidget {
@@ -72,72 +73,14 @@ class OrderSuccessfulPage extends HookConsumerWidget {
                 ),
               ),
               220.verticalSpace,
-              TouchOpacity(
-                onTap: () {
-                  context.router.push(YourOrderRoute());
-                },
-                child: Container(
-                  height: 50.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.buttonColorandText,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Track Order', // replaced by 'Back to Home' for pending and 'Try Again' for failed
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              PPButton(
+                text: 'Track Order',
+                onPressed: () => context.router.push(YourOrderRoute()),
               ),
               18.verticalSpace,
-              TouchOpacity(
-                onTap: () {
-                  context.router.push(ShoppingRoute());
-                },
-                child: Container(
-                  height: 50.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(56).r,
-                    color: PPaymobileColors.mainScreenBackground,
-                    border: Border.all(
-                      color: PPaymobileColors.textfiedBorder,
-                      width: 1.w,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Place Another Order', // 'Back to Home' for failed
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              PPButton(
+                text: 'Place Another Order',
+                onPressed: () => context.router.push(ShoppingRoute()),
               ),
               10.verticalSpace,
               // adding it but it is not in the UI and i dont know how to access the receipt screen unless i do this

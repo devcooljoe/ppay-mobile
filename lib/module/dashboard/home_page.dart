@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,8 +7,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/withdrawal_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/pp_alert.dart';
+import 'package:ppay_mobile/shared/widgets/feature_icon_button.dart';
+import 'package:ppay_mobile/shared/widgets/transaction_list_item.dart';
+import 'package:ppay_mobile/shared/widgets/empty_state.dart';
+import 'package:ppay_mobile/shared/widgets/section_header.dart';
 
 @RoutePage()
 class HomePage extends HookConsumerWidget {
@@ -374,112 +379,16 @@ class HomePage extends HookConsumerWidget {
                 ),
               ),
               8.verticalSpace,
-              Container(
-                height: 76.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
-                color: PPaymobileColors.mainScreenBackground,
-                child: SizedBox(
-                  child: Container(
-                    height: 56.h,
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 11.w,
-                      vertical: 9.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: PPaymobileColors.doneColor,
-                      borderRadius: BorderRadius.circular(4.r),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 24.w,
-                          width: 24.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/tick_pass.svg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        8.horizontalSpace,
-                        Expanded(
-                          child: Text(
-                            'All documents are verified. You can activate your wallet by making your first deposit. Click here',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w500,
-                              color: PPaymobileColors.doneTextColor,
-                            ),
-                          ),
-                        ),
-                        8.horizontalSpace,
-                        SizedBox(
-                          height: 28.w,
-                          width: 28.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/cancel.svg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              const PPAlert(
+                type: PPAlertType.success,
+                message: 'All documents are verified. You can activate your wallet by making your first deposit. Click here',
+                showCloseButton: true,
               ),
               8.verticalSpace,
-              Container(
-                height: 76.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
-                color: PPaymobileColors.mainScreenBackground,
-                child: Container(
-                  height: 56.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 11.w,
-                    vertical: 9.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: PPaymobileColors.dangerColor,
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 24.w,
-                        width: 24.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/danger.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      8.horizontalSpace,
-                      Expanded(
-                        child: Text(
-                          'Documents not fully verified please click to see more details. Click here',
-                          softWrap: true,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w500,
-                            color: PPaymobileColors.dangerTextColor,
-                          ),
-                        ),
-                      ),
-                      8.horizontalSpace,
-                      SizedBox(
-                        height: 28.w,
-                        width: 28.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/cancel.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              const PPAlert(
+                type: PPAlertType.error,
+                message: 'Documents not fully verified please click to see more details. Click here',
+                showCloseButton: true,
               ),
               16.verticalSpace,
               Container(
@@ -508,131 +417,25 @@ class HomePage extends HookConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            TouchOpacity(
-                              onTap: () {
-                                context.router.push(BillsRoute());
-                              },
-                              child: Container(
-                                height: 66.h,
-                                width: 78.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6.r),
-                                  color: PPaymobileColors.deepBackgroundColor,
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    'assets/icon/bill.svg',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            12.verticalSpace,
-                            Text(
-                              'Bills',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
+                        FeatureIconButton(
+                          iconPath: 'assets/icon/bill.svg',
+                          label: 'Bills',
+                          onTap: () => context.router.push(BillsRoute()),
                         ),
-                        Column(
-                          children: [
-                            TouchOpacity(
-                              onTap: () {
-                                context.router.push(GiftcardRoute());
-                              },
-                              child: Container(
-                                height: 66.h,
-                                width: 78.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6.r),
-                                  color: PPaymobileColors.deepBackgroundColor,
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    'assets/icon/gift.svg',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            12.verticalSpace,
-                            Text(
-                              'Gift Cards',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
+                        FeatureIconButton(
+                          iconPath: 'assets/icon/gift.svg',
+                          label: 'Gift Cards',
+                          onTap: () => context.router.push(GiftcardRoute()),
                         ),
-                        Column(
-                          children: [
-                            TouchOpacity(
-                              onTap: () {
-                                context.router.push(CryptoRoute());
-                              },
-                              child: Container(
-                                height: 66.h,
-                                width: 78.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6.r),
-                                  color: PPaymobileColors.deepBackgroundColor,
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    'assets/icon/crypto.svg',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            12.verticalSpace,
-                            Text(
-                              'Crypto',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
+                        FeatureIconButton(
+                          iconPath: 'assets/icon/crypto.svg',
+                          label: 'Crypto',
+                          onTap: () => context.router.push(CryptoRoute()),
                         ),
-                        Column(
-                          children: [
-                            TouchOpacity(
-                              onTap: () {},
-                              child: Container(
-                                height: 66.h,
-                                width: 78.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6.r),
-                                  color: PPaymobileColors.deepBackgroundColor,
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    'assets/icon/more.svg',
-                                  ),
-                                ),
-                              ),
-                            ),
-                            12.verticalSpace,
-                            Text(
-                              'More',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
+                        FeatureIconButton(
+                          iconPath: 'assets/icon/more.svg',
+                          label: 'More',
+                          onTap: () {},
                         ),
                       ],
                     ),
@@ -648,117 +451,21 @@ class HomePage extends HookConsumerWidget {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Transaction History',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(
-                          'See all',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: PPaymobileColors.buttonColor,
-                          ),
-                        ),
-                      ],
+                    SectionHeader(
+                      title: 'Transaction History',
+                      actionText: 'See all',
                     ),
                     26.verticalSpace,
-                    TouchOpacity(
-                      child: Container(
-                        height: 49.h,
-                        width: double.infinity,
-                        color: PPaymobileColors.mainScreenBackground,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 49.w,
-                                  width: 49.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100.r),
-                                  ),
-                                  clipBehavior: Clip.hardEdge,
-                                  child: Image.asset(
-                                    'assets/images/dash_apple.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                12.horizontalSpace,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Apple',
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    4.verticalSpace,
-                                    Text(
-                                      'Pay with Dollar Card',
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xff9C9C9C),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Text(
-                              '-₦60,000.00',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: PPaymobileColors.redTextfield,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    TransactionListItem(
+                      imagePath: 'assets/images/dash_apple.png',
+                      title: 'Apple',
+                      subtitle: 'Pay with Dollar Card',
+                      amount: '-₦60,000.00',
                     ),
                     28.verticalSpace,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 138.h,
-                          width: 225.w,
-                          child: Image.asset(
-                            'assets/images/transactionimage.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        Text(
-                          'No Transaction Available',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: PPaymobileColors.textfiedBorder,
-                          ),
-                        ),
-                      ],
+                    EmptyState(
+                      imagePath: 'assets/images/transactionimage.png',
+                      message: 'No Transaction Available',
                     ),
                   ],
                 ),

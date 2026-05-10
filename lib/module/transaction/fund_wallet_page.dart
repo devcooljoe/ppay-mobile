@@ -4,7 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class FundWalletPage extends HookConsumerWidget {
@@ -14,34 +15,9 @@ class FundWalletPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        title: Text(
-          'Fund Wallet',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Fund Wallet',
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: SafeArea(
         child: Padding(
@@ -267,84 +243,26 @@ class FundWalletPage extends HookConsumerWidget {
                     ),
                   ),
                   92.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 20.w,
-                              width: 20.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/paste_white.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            12.horizontalSpace,
-                            Text(
-                              'Click to Copy',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                  PPButton(
+                    text: 'Click to Copy',
+                    onPressed: () {},
+                    icon: SvgPicture.asset(
+                      'assets/icon/paste_white.svg',
+                      height: 20.w,
+                      width: 20.w,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   16.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              PPaymobileColors.anotherbuttonbgColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 20.w,
-                              width: 20.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/share.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            12.horizontalSpace,
-                            Text(
-                              'Share',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                  PPButton(
+                    text: 'Share',
+                    onPressed: () {},
+                    backgroundColor: PPaymobileColors.anotherbuttonbgColor,
+                    icon: SvgPicture.asset(
+                      'assets/icon/share.svg',
+                      height: 20.w,
+                      width: 20.w,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ],

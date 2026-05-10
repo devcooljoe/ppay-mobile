@@ -17,6 +17,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
       appBar: AppBar(
         backgroundColor: PPaymobileColors.mainScreenBackground,
         toolbarHeight: 56,
+        centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text(
           'Transaction History',
@@ -27,7 +28,6 @@ class TransactionHistoryPage extends HookConsumerWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        centerTitle: true,
       ),
       body: SafeArea(
         child: Padding(

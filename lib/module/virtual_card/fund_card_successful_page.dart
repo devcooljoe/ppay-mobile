@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/virtual_card/fund_card_receipt_page.dart';
 import 'package:ppay_mobile/module/virtual_card/virtual_card_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class FundCardSuccessfulPage extends HookConsumerWidget {
@@ -16,7 +16,11 @@ class FundCardSuccessfulPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(automaticallyImplyLeading: false),
+      appBar: AppBar(
+        backgroundColor: PPaymobileColors.mainScreenBackground,
+        toolbarHeight: 56,
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -65,87 +69,35 @@ class FundCardSuccessfulPage extends HookConsumerWidget {
                     ),
                   ),
                   14.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 54.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.buttonColorandText,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24).r,
-                        ),
-                        elevation: 0,
-                      ),
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const VirtualCardPage();
-                            },
-                          ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'View Card',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
-                              color: PPaymobileColors.mainScreenBackground,
-                            ),
-                          ),
-                          7.horizontalSpace,
-                          SizedBox(
-                            height: 24.w,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/arrow_forwardw.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  18.verticalSpace,
-                  TouchOpacity(
-                    onTap: () {
+                  PPButton(
+                    text: 'View Card',
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) {
-                            return const FundCardReceiptPage();
-                          },
+                          builder: (context) => const VirtualCardPage(),
                         ),
                       );
                     },
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.h,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 21.w,
-                        vertical: 12.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: PPaymobileColors.mainScreenBackground,
-                        borderRadius: BorderRadius.circular(42.r),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'View Receipt',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
+                    icon: SvgPicture.asset(
+                      'assets/icon/arrow_forwardw.svg',
+                      height: 24.w,
+                      width: 24.w,
+                      fit: BoxFit.contain,
                     ),
+                  ),
+                  18.verticalSpace,
+                  PPButton(
+                    text: 'View Receipt',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FundCardReceiptPage(),
+                        ),
+                      );
+                    },
+                    backgroundColor: PPaymobileColors.mainScreenBackground,
                   ),
                 ],
               ),

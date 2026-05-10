@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class LoginPasswordChangedPage extends HookConsumerWidget {
@@ -15,29 +15,7 @@ class LoginPasswordChangedPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: IconButton(
-            style: ButtonStyle(
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.r),
-                ),
-              ),
-            ),
-            onPressed: () => Navigator.pop(context),
-            icon: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              height: 16.h,
-              width: 12.w,
-            ),
-          ),
-        ),
-      ),
+      appBar: PPAppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
@@ -81,33 +59,9 @@ class LoginPasswordChangedPage extends HookConsumerWidget {
                           ),
                         ),
                         76.verticalSpace,
-                        TouchOpacity(
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 50.h,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                backgroundColor:
-                                    PPaymobileColors.backgroundColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(42.r),
-                                ),
-                              ),
-                              onPressed: () {
-                                context.router.push(LoginRoute());
-                              },
-                              child: Text(
-                                'Back to Login',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16.sp,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
+                        PPButton(
+                          text: 'Back to Login',
+                          onPressed: () => context.router.push(LoginRoute()),
                         ),
                       ],
                     ),

@@ -5,7 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
 class CryptoSellReceiptPage extends HookConsumerWidget {
@@ -15,34 +16,8 @@ class CryptoSellReceiptPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        title: Text(
-          'Receipt',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Receipt',
       ),
       body: SafeArea(
         child: Padding(
@@ -299,81 +274,21 @@ class CryptoSellReceiptPage extends HookConsumerWidget {
                     ],
                   ),
                   90.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 24.w,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/share_fill.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          10.horizontalSpace,
-                          Text(
-                            'Share Receipt',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp,
-                              color: PPaymobileColors.mainScreenBackground,
-                            ),
-                          ),
-                        ],
-                      ),
+                  PPButton(
+                    text: 'Share Receipt',
+                    onPressed: () {},
+                    icon: SvgPicture.asset(
+                      'assets/icon/share_fill.svg',
+                      fit: BoxFit.contain,
                     ),
                   ),
                   19.verticalSpace,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PPaymobileColors.mainScreenBackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(42),
-                          side: BorderSide(
-                            color: PPaymobileColors.textfiedBorder,
-                            width: 1.w,
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 24.w,
-                            width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/download.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          10.horizontalSpace,
-                          Text(
-                            'Download',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
+                  PPButton(
+                    text: 'Download',
+                    onPressed: () {},
+                    icon: SvgPicture.asset(
+                      'assets/icon/download.svg',
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ],

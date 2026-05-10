@@ -8,7 +8,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/models/bank_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/select_bank_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class TransferFundsPage extends HookConsumerWidget {
@@ -20,35 +23,7 @@ class TransferFundsPage extends HookConsumerWidget {
     final selectedBank = useState<BankModel?>(null);
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        title: Text(
-          'Bank Details',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Bank Details'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: ListView(
@@ -74,15 +49,7 @@ class TransferFundsPage extends HookConsumerWidget {
               ),
             ),
             64.verticalSpace,
-            Text(
-              'Select Bank',
-              style: TextStyle(
-                fontFamily: 'InstrumentSans',
-                color: Colors.black,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            const PPLabel(text: 'Select Bank'),
             4.verticalSpace,
             GestureDetector(
               onTap: () async {
@@ -99,101 +66,38 @@ class TransferFundsPage extends HookConsumerWidget {
                 }
               },
               child: AbsorbPointer(
-                child: TextFormField(
+                child: PPTextField(
                   controller: bankController,
                   readOnly: true,
-                  decoration: InputDecoration(
-                    prefixIcon: selectedBank.value == null
-                        ? null
-                        : Padding(
-                            padding: EdgeInsets.all(12.w),
-                            child: SizedBox(
-                              width: 26.w,
-                              height: 22.h,
-                              child: Image.asset(
-                                selectedBank.value!.bankImage,
-                                fit: BoxFit.contain,
-                              ),
+                  hintText: 'Select',
+                  prefixIcon: selectedBank.value == null
+                      ? null
+                      : Padding(
+                          padding: EdgeInsets.all(12.w),
+                          child: SizedBox(
+                            width: 26.w,
+                            height: 22.h,
+                            child: Image.asset(
+                              selectedBank.value!.bankImage,
+                              fit: BoxFit.contain,
                             ),
                           ),
-
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.all(12.w),
-                      child: SvgPicture.asset(
-                        'assets/icon/arrow_down.svg',
-                        fit: BoxFit.scaleDown,
-                      ),
-                    ),
-
-                    hintText: 'Select',
-                    hintStyle: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.textfiedBorder,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 14.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6.r),
-                      borderSide: BorderSide(
-                        color: PPaymobileColors.lightGrey,
-                        width: 1.w,
-                      ),
+                        ),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.all(12.w),
+                    child: SvgPicture.asset(
+                      'assets/icon/arrow_down.svg',
+                      fit: BoxFit.scaleDown,
                     ),
                   ),
                 ),
               ),
             ),
             38.verticalSpace,
-            Text(
-              'Recipient Account No',
-              style: TextStyle(
-                fontFamily: 'InstrumentSans',
-                color: Colors.black,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            const PPLabel(text: 'Recipient Account No'),
             4.verticalSpace,
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'e.g. 0000000000',
-                hintStyle: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.textfiedBorder,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 12.w,
-                  vertical: 14.h,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6.r),
-                  borderSide: BorderSide(
-                    color: PPaymobileColors.lightGrey,
-                    width: 1.w,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6.r),
-                  borderSide: BorderSide(
-                    color: PPaymobileColors.lightGrey,
-                    width: 1.w,
-                  ),
-                ),
-              ),
+            const PPTextField(
+              hintText: 'e.g. 0000000000',
             ),
             20.verticalSpace,
             Row(
@@ -250,124 +154,35 @@ class TransferFundsPage extends HookConsumerWidget {
               ),
             ),
             223.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.filterBorderColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                  ),
-                ),
-              ),
+            PPButton(
+              text: 'Continue',
+              backgroundColor: PPaymobileColors.filterBorderColor,
+              onPressed: () {},
             ),
             20.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Add Bank',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                  ),
-                ),
-              ),
+            PPButton(
+              text: 'Add Bank',
+              onPressed: () {},
             ),
             20.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Bank Added',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: PPaymobileColors.mainScreenBackground,
-                        ),
-                      ),
-                      10.horizontalSpace,
-                      SizedBox(
-                        height: 22.w,
-                        width: 22.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/check_white.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
-                  ),
+            PPButton(
+              text: 'Bank Added',
+              icon: SizedBox(
+                height: 22.w,
+                width: 22.w,
+                child: SvgPicture.asset(
+                  'assets/icon/check_white.svg',
+                  fit: BoxFit.contain,
                 ),
               ),
+              onPressed: () {},
             ),
             20.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(42.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {
-                    context.router.push(AmountAndInfoRoute());
-                  },
-                  child: Text(
-                    'Transfer to Account',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                  ),
-                ),
-              ),
+            PPButton(
+              text: 'Transfer to Account',
+              onPressed: () {
+                context.router.push(AmountAndInfoRoute());
+              },
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,10 @@ import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/select_beneficiary_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/select_meter_type_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/amount_package_button.dart';
 
 @RoutePage()
 class ElectricityPage extends HookConsumerWidget {
@@ -34,34 +38,9 @@ class ElectricityPage extends HookConsumerWidget {
     }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Electricity Bill',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        title: 'Electricity Bill',
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -79,15 +58,7 @@ class ElectricityPage extends HookConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Meter Type',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        PPLabel(text: 'Meter Type'),
                         TouchOpacity(
                           onTap: () {
                             showModalBottomSheet(
@@ -175,15 +146,7 @@ class ElectricityPage extends HookConsumerWidget {
                       ),
                     ),
                     32.verticalSpace,
-                    Text(
-                      'Enter Meter Number',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    PPLabel(text: 'Enter Meter Number'),
                     SizedBox(
                       height: 54.h,
                       width: double.infinity,
@@ -228,15 +191,7 @@ class ElectricityPage extends HookConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Amount',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        PPLabel(text: 'Amount'),
                         Text(
                           'Balance: ₦400,000',
                           style: TextStyle(
@@ -252,214 +207,30 @@ class ElectricityPage extends HookConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦100',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦100'),
                         12.horizontalSpace,
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦200',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦200'),
                         12.horizontalSpace,
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦500',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦500'),
                         12.horizontalSpace,
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦1000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦1000'),
                       ],
                     ),
                     10.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦100',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦100'),
                         12.horizontalSpace,
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦200',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦200'),
                         12.horizontalSpace,
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦500',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦500'),
                         12.horizontalSpace,
-                        Container(
-                          height: 47.5.h,
-                          width: 91.w,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(5).r,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '₦5000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AmountPackageButton(amount: '₦5000'),
                       ],
                     ),
                     24.verticalSpace,
-                    Text(
-                      'Amount',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    PPLabel(text: 'Amount'),
                     6.verticalSpace,
                     SizedBox(
                       height: 54.h,
@@ -515,33 +286,10 @@ class ElectricityPage extends HookConsumerWidget {
                       ),
                     ),
                     72.verticalSpace,
-                    TouchOpacity(
-                      onTap: () {
-                        context.router.push(ElectricityConfirmRoute());
-                      },
-                      child: Container(
-                        height: 50.h,
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.w,
-                          vertical: 10.h,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(56).r,
-                          color: PPaymobileColors.buttonColorandText,
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Make Payment',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
+                    PPButton(
+                      text: 'Make Payment',
+                      onPressed: () => context.router.push(ElectricityConfirmRoute()),
+                      backgroundColor: PPaymobileColors.buttonColorandText,
                     ),
                   ],
                 ),

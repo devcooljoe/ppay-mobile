@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class SetUpFingerprintPage extends HookConsumerWidget {
@@ -134,37 +135,10 @@ class SetUpFingerprintPage extends HookConsumerWidget {
                     ),
                   ),
                   107.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.buttonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {
-                          context.router.push(SettingUpFingerprintRoute());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Activate',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: PPaymobileColors.mainScreenBackground,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  PPButton(
+                    text: 'Activate',
+                    onPressed: () => context.router.push(SettingUpFingerprintRoute()),
+                    backgroundColor: PPaymobileColors.buttonColor,
                   ),
                 ],
               ),
