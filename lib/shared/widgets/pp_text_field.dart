@@ -30,45 +30,33 @@ class PPTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 56.h,
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        readOnly: readOnly,
-        onTap: onTap,
-        validator: validator,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 12.w,
-            vertical: 15.h,
-          ),
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          hintText: hintText,
-          hint: hint,
-          hintStyle: TextStyle(
-            fontFamily: 'Gilroy',
-            fontWeight: FontWeight.w400,
-            fontSize: 16.sp,
-            fontStyle: FontStyle.italic,
-            color: PPaymobileColors.svgIconColor,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.r),
-            borderSide: BorderSide(
-              color: PPaymobileColors.lightGrey,
-              width: 1.w,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.r),
-            borderSide: BorderSide(
-              color: PPaymobileColors.lightGrey,
-              width: 1.w,
-            ),
-          ),
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      readOnly: readOnly,
+      onTap: onTap,
+      validator: validator,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 15.h),
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        hintText: hintText,
+        hint: hint,
+        hintStyle: TextStyle(
+          fontFamily: 'Gilroy',
+          fontWeight: FontWeight.w400,
+          fontSize: 16.sp,
+          fontStyle: FontStyle.italic,
+          color: PPaymobileColors.svgIconColor,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(color: PPaymobileColors.lightGrey, width: 1.w),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(color: PPaymobileColors.lightGrey, width: 1.w),
         ),
       ),
     );
