@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/module/flight/flight_paymwnt_success_page.dart';
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_paymwnt_success_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 

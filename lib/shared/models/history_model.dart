@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/module/dashboard/explore_page.dart';
-import 'package:ppay_mobile/module/bills/airtime_example_page.dart';
-import 'package:ppay_mobile/module/gift_card/buy_giftcard_page.dart';
-import 'package:ppay_mobile/module/flight/flight_booking_page.dart';
-import 'package:ppay_mobile/module/gift_card/sell_giftcard_page.dart';
+import 'package:ppay_mobile/module/bills/presentation/pages/airtime_example_page.dart';
+import 'package:ppay_mobile/module/giftcard/presentation/pages/buy_giftcard_page.dart';
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_booking_page.dart';
+import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_giftcard_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 class TransactionModel {

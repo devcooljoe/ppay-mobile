@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/module/crypto/crypto_sell_sucessful_page.dart';
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_sell_sucessful_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';

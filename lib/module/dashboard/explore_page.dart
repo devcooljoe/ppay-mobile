@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ppay_mobile/module/dashboard/features_page.dart';
 import 'package:ppay_mobile/module/dashboard/home_page.dart';
-import 'package:ppay_mobile/module/settings/settings_page.dart';
-import 'package:ppay_mobile/module/transaction/transaction_history_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/settings_page.dart';
+import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_history_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()

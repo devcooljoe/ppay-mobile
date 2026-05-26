@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ppay_mobile/module/flight/update_flight_search_card.dart';
+import 'package:ppay_mobile/module/flight/presentation/pages/update_flight_search_card.dart';
 
 class UpdateFlightDialog extends HookWidget {
   const UpdateFlightDialog({super.key});

@@ -1,0 +1,24 @@
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
+import 'package:ppay_mobile/core/error/failures.dart';
+import 'package:ppay_mobile/module/auth/domain/entities/auth_entity.dart';
+import 'package:ppay_mobile/module/auth/domain/repositories/user_repository.dart';
+
+@lazySingleton
+class RegisterUseCase {
+  final UserRepository _repository;
+
+  RegisterUseCase(this._repository);
+
+  Future<Either<Failure, AuthEntity>> call({
+    required String phoneNumber,
+    required String password,
+    required String confirmPassword,
+    String? deviceToken,
+  }) => _repository.register(
+    phoneNumber: phoneNumber,
+    password: password,
+    confirmPassword: confirmPassword,
+    deviceToken: deviceToken,
+  );
+}

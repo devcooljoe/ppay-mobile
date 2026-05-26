@@ -10,152 +10,227 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i162;
 import 'package:flutter/material.dart' as _i163;
-import 'package:ppay_mobile/module/auth/create_password_page.dart' as _i39;
-import 'package:ppay_mobile/module/auth/create_pin_page.dart' as _i40;
-import 'package:ppay_mobile/module/auth/created_pin_page.dart' as _i42;
-import 'package:ppay_mobile/module/auth/forgot_password_page.dart' as _i76;
-import 'package:ppay_mobile/module/auth/login_page.dart' as _i90;
-import 'package:ppay_mobile/module/auth/login_password_changed_page.dart'
+import 'package:ppay_mobile/module/auth/presentation/pages/create_password_page.dart'
+    as _i39;
+import 'package:ppay_mobile/module/auth/presentation/pages/create_pin_page.dart'
+    as _i40;
+import 'package:ppay_mobile/module/auth/presentation/pages/created_pin_page.dart'
+    as _i42;
+import 'package:ppay_mobile/module/auth/presentation/pages/forgot_password_page.dart'
+    as _i76;
+import 'package:ppay_mobile/module/auth/presentation/pages/login_page.dart'
+    as _i90;
+import 'package:ppay_mobile/module/auth/presentation/pages/login_password_changed_page.dart'
     as _i91;
-import 'package:ppay_mobile/module/auth/login_password_reset_page.dart' as _i92;
-import 'package:ppay_mobile/module/auth/password_changed_page.dart' as _i110;
-import 'package:ppay_mobile/module/auth/password_changed_two_page.dart'
+import 'package:ppay_mobile/module/auth/presentation/pages/login_password_reset_page.dart'
+    as _i92;
+import 'package:ppay_mobile/module/auth/presentation/pages/password_changed_page.dart'
+    as _i110;
+import 'package:ppay_mobile/module/auth/presentation/pages/password_changed_two_page.dart'
     as _i111;
-import 'package:ppay_mobile/module/auth/password_reset_page.dart' as _i112;
-import 'package:ppay_mobile/module/auth/signup_page.dart' as _i139;
-import 'package:ppay_mobile/module/auth/verify_code_page.dart' as _i153;
-import 'package:ppay_mobile/module/auth/verify_forgot_page.dart' as _i154;
-import 'package:ppay_mobile/module/auth/verify_phone_page.dart' as _i155;
-import 'package:ppay_mobile/module/bills/airtime_confirm_page.dart' as _i2;
-import 'package:ppay_mobile/module/bills/airtime_example_page.dart' as _i3;
-import 'package:ppay_mobile/module/bills/airtime_page.dart' as _i4;
-import 'package:ppay_mobile/module/bills/airtime_receipt_page.dart' as _i5;
-import 'package:ppay_mobile/module/bills/airtime_success_page.dart' as _i6;
-import 'package:ppay_mobile/module/bills/bet_confirm_page.dart' as _i12;
-import 'package:ppay_mobile/module/bills/bet_page.dart' as _i13;
-import 'package:ppay_mobile/module/bills/betting_receipt_page.dart' as _i14;
-import 'package:ppay_mobile/module/bills/betting_success_page.dart' as _i15;
-import 'package:ppay_mobile/module/bills/bills_page.dart' as _i16;
-import 'package:ppay_mobile/module/bills/data_confirm_page.dart' as _i50;
-import 'package:ppay_mobile/module/bills/data_page.dart' as _i51;
-import 'package:ppay_mobile/module/bills/data_receipt_page.dart' as _i52;
-import 'package:ppay_mobile/module/bills/data_success_page.dart' as _i53;
-import 'package:ppay_mobile/module/bills/electricity_bill_success_page.dart'
+import 'package:ppay_mobile/module/auth/presentation/pages/password_reset_page.dart'
+    as _i112;
+import 'package:ppay_mobile/module/auth/presentation/pages/signup_page.dart'
+    as _i139;
+import 'package:ppay_mobile/module/auth/presentation/pages/verify_code_page.dart'
+    as _i153;
+import 'package:ppay_mobile/module/auth/presentation/pages/verify_forgot_page.dart'
+    as _i154;
+import 'package:ppay_mobile/module/auth/presentation/pages/verify_phone_page.dart'
+    as _i155;
+import 'package:ppay_mobile/module/bills/presentation/pages/airtime_confirm_page.dart'
+    as _i2;
+import 'package:ppay_mobile/module/bills/presentation/pages/airtime_example_page.dart'
+    as _i3;
+import 'package:ppay_mobile/module/bills/presentation/pages/airtime_page.dart'
+    as _i4;
+import 'package:ppay_mobile/module/bills/presentation/pages/airtime_receipt_page.dart'
+    as _i5;
+import 'package:ppay_mobile/module/bills/presentation/pages/airtime_success_page.dart'
+    as _i6;
+import 'package:ppay_mobile/module/bills/presentation/pages/bet_confirm_page.dart'
+    as _i12;
+import 'package:ppay_mobile/module/bills/presentation/pages/bet_page.dart'
+    as _i13;
+import 'package:ppay_mobile/module/bills/presentation/pages/betting_receipt_page.dart'
+    as _i14;
+import 'package:ppay_mobile/module/bills/presentation/pages/betting_success_page.dart'
+    as _i15;
+import 'package:ppay_mobile/module/bills/presentation/pages/bills_page.dart'
+    as _i16;
+import 'package:ppay_mobile/module/bills/presentation/pages/data_confirm_page.dart'
+    as _i50;
+import 'package:ppay_mobile/module/bills/presentation/pages/data_page.dart'
+    as _i51;
+import 'package:ppay_mobile/module/bills/presentation/pages/data_receipt_page.dart'
+    as _i52;
+import 'package:ppay_mobile/module/bills/presentation/pages/data_success_page.dart'
+    as _i53;
+import 'package:ppay_mobile/module/bills/presentation/pages/electricity_bill_success_page.dart'
     as _i56;
-import 'package:ppay_mobile/module/bills/electricity_confirm_page.dart' as _i57;
-import 'package:ppay_mobile/module/bills/electricity_page.dart' as _i58;
-import 'package:ppay_mobile/module/bills/electricity_receipt_page.dart' as _i59;
-import 'package:ppay_mobile/module/bills/payment_page.dart' as _i113;
-import 'package:ppay_mobile/module/bills/tv_cable_confirm_page.dart' as _i149;
-import 'package:ppay_mobile/module/bills/tv_cable_page.dart' as _i150;
-import 'package:ppay_mobile/module/bills/tv_cable_receipt_page.dart' as _i151;
-import 'package:ppay_mobile/module/bills/tv_cable_success_page.dart' as _i152;
-import 'package:ppay_mobile/module/crypto/all_tokens_page.dart' as _i7;
-import 'package:ppay_mobile/module/crypto/assets_page.dart' as _i9;
-import 'package:ppay_mobile/module/crypto/buy_crypto_page.dart' as _i21;
-import 'package:ppay_mobile/module/crypto/crypto_page.dart' as _i43;
-import 'package:ppay_mobile/module/crypto/crypto_receipt_page.dart' as _i44;
-import 'package:ppay_mobile/module/crypto/crypto_sell_receipt_page.dart'
+import 'package:ppay_mobile/module/bills/presentation/pages/electricity_confirm_page.dart'
+    as _i57;
+import 'package:ppay_mobile/module/bills/presentation/pages/electricity_page.dart'
+    as _i58;
+import 'package:ppay_mobile/module/bills/presentation/pages/electricity_receipt_page.dart'
+    as _i59;
+import 'package:ppay_mobile/module/bills/presentation/pages/payment_page.dart'
+    as _i113;
+import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_confirm_page.dart'
+    as _i149;
+import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_page.dart'
+    as _i150;
+import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_receipt_page.dart'
+    as _i151;
+import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_success_page.dart'
+    as _i152;
+import 'package:ppay_mobile/module/crypto/presentation/pages/all_tokens_page.dart'
+    as _i7;
+import 'package:ppay_mobile/module/crypto/presentation/pages/assets_page.dart'
+    as _i9;
+import 'package:ppay_mobile/module/crypto/presentation/pages/buy_crypto_page.dart'
+    as _i21;
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_page.dart'
+    as _i43;
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_receipt_page.dart'
+    as _i44;
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_sell_receipt_page.dart'
     as _i45;
-import 'package:ppay_mobile/module/crypto/crypto_sell_sucessful_page.dart'
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_sell_sucessful_page.dart'
     as _i46;
-import 'package:ppay_mobile/module/crypto/crypto_transaction_succesful_page.dart'
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_transaction_succesful_page.dart'
     as _i47;
-import 'package:ppay_mobile/module/crypto/crypto_transactions_detail_page.dart'
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_transactions_detail_page.dart'
     as _i48;
-import 'package:ppay_mobile/module/crypto/crypto_transactions_history_page.dart'
+import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_transactions_history_page.dart'
     as _i49;
-import 'package:ppay_mobile/module/crypto/receive_crypto_page.dart' as _i119;
-import 'package:ppay_mobile/module/crypto/sell_crypto_page.dart' as _i131;
-import 'package:ppay_mobile/module/crypto/token_detail_page.dart' as _i142;
-import 'package:ppay_mobile/module/crypto/watchlist_page.dart' as _i159;
-import 'package:ppay_mobile/module/crypto/your_assets_page.dart' as _i160;
+import 'package:ppay_mobile/module/crypto/presentation/pages/receive_crypto_page.dart'
+    as _i119;
+import 'package:ppay_mobile/module/crypto/presentation/pages/sell_crypto_page.dart'
+    as _i131;
+import 'package:ppay_mobile/module/crypto/presentation/pages/token_detail_page.dart'
+    as _i142;
+import 'package:ppay_mobile/module/crypto/presentation/pages/watchlist_page.dart'
+    as _i159;
+import 'package:ppay_mobile/module/crypto/presentation/pages/your_assets_page.dart'
+    as _i160;
 import 'package:ppay_mobile/module/dashboard/explore_page.dart' as _i60;
 import 'package:ppay_mobile/module/dashboard/features_page.dart' as _i62;
 import 'package:ppay_mobile/module/dashboard/home_page.dart' as _i86;
-import 'package:ppay_mobile/module/dashboard/notification_page.dart' as _i103;
-import 'package:ppay_mobile/module/flight/active_flight_page.dart' as _i1;
-import 'package:ppay_mobile/module/flight/baggage_page.dart' as _i10;
-import 'package:ppay_mobile/module/flight/boarding_pass_page.dart' as _i17;
-import 'package:ppay_mobile/module/flight/boardinng_pass_details_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/active_flight_page.dart'
+    as _i1;
+import 'package:ppay_mobile/module/flight/presentation/pages/baggage_page.dart'
+    as _i10;
+import 'package:ppay_mobile/module/flight/presentation/pages/boarding_pass_page.dart'
+    as _i17;
+import 'package:ppay_mobile/module/flight/presentation/pages/boardinng_pass_details_page.dart'
     as _i18;
-import 'package:ppay_mobile/module/flight/booked_flights_page.dart' as _i19;
-import 'package:ppay_mobile/module/flight/booking_policies_page.dart' as _i20;
-import 'package:ppay_mobile/module/flight/cancel_flight_page.dart' as _i27;
-import 'package:ppay_mobile/module/flight/cancel_flight_successful_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/booked_flights_page.dart'
+    as _i19;
+import 'package:ppay_mobile/module/flight/presentation/pages/booking_policies_page.dart'
+    as _i20;
+import 'package:ppay_mobile/module/flight/presentation/pages/cancel_flight_page.dart'
+    as _i27;
+import 'package:ppay_mobile/module/flight/presentation/pages/cancel_flight_successful_page.dart'
     as _i28;
-import 'package:ppay_mobile/module/flight/flight_book_page.dart' as _i65;
-import 'package:ppay_mobile/module/flight/flight_booking_page.dart' as _i66;
-import 'package:ppay_mobile/module/flight/flight_card_page.dart' as _i67;
-import 'package:ppay_mobile/module/flight/flight_details_page.dart' as _i68;
-import 'package:ppay_mobile/module/flight/flight_details_two_page.dart' as _i69;
-import 'package:ppay_mobile/module/flight/flight_payment_page.dart' as _i70;
-import 'package:ppay_mobile/module/flight/flight_payment_receipt_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_book_page.dart'
+    as _i65;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_booking_page.dart'
+    as _i66;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_card_page.dart'
+    as _i67;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_details_page.dart'
+    as _i68;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_details_two_page.dart'
+    as _i69;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_payment_page.dart'
+    as _i70;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_payment_receipt_page.dart'
     as _i71;
-import 'package:ppay_mobile/module/flight/flight_paymwnt_success_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_paymwnt_success_page.dart'
     as _i72;
-import 'package:ppay_mobile/module/flight/flight_two_payment_page.dart' as _i73;
-import 'package:ppay_mobile/module/flight/flight_two_payment_receipt_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_page.dart'
+    as _i73;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_receipt_page.dart'
     as _i74;
-import 'package:ppay_mobile/module/flight/flight_two_payment_success_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_success_page.dart'
     as _i75;
-import 'package:ppay_mobile/module/flight/multi_flight_details_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_flight_details_page.dart'
     as _i93;
-import 'package:ppay_mobile/module/flight/multi_passengers_details_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_passengers_details_page.dart'
     as _i94;
-import 'package:ppay_mobile/module/flight/multi_payment_page.dart' as _i95;
-import 'package:ppay_mobile/module/flight/multi_payment_receipt_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_page.dart'
+    as _i95;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_receipt_page.dart'
     as _i96;
-import 'package:ppay_mobile/module/flight/multi_payment_success_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_success_page.dart'
     as _i97;
-import 'package:ppay_mobile/module/flight/multi_search_result_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_search_result_page.dart'
     as _i98;
-import 'package:ppay_mobile/module/flight/multi_select_seat_one_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_one_page.dart'
     as _i99;
-import 'package:ppay_mobile/module/flight/multi_select_seat_three_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_three_page.dart'
     as _i100;
-import 'package:ppay_mobile/module/flight/multi_select_seat_two_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_two_page.dart'
     as _i101;
-import 'package:ppay_mobile/module/flight/multi_trip_page.dart' as _i102;
-import 'package:ppay_mobile/module/flight/one_way_trip_page.dart' as _i105;
-import 'package:ppay_mobile/module/flight/passenger_details_page.dart' as _i108;
-import 'package:ppay_mobile/module/flight/passenger_details_two_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_trip_page.dart'
+    as _i102;
+import 'package:ppay_mobile/module/flight/presentation/pages/one_way_trip_page.dart'
+    as _i105;
+import 'package:ppay_mobile/module/flight/presentation/pages/passenger_details_page.dart'
+    as _i108;
+import 'package:ppay_mobile/module/flight/presentation/pages/passenger_details_two_page.dart'
     as _i109;
-import 'package:ppay_mobile/module/flight/refund_details_page.dart' as _i121;
-import 'package:ppay_mobile/module/flight/refund_policy_page.dart' as _i122;
-import 'package:ppay_mobile/module/flight/round_way_trip_page.dart' as _i124;
-import 'package:ppay_mobile/module/flight/search_result_page.dart' as _i126;
-import 'package:ppay_mobile/module/flight/search_result_two_page.dart' as _i127;
-import 'package:ppay_mobile/module/flight/select_inbound_seat_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/refund_details_page.dart'
+    as _i121;
+import 'package:ppay_mobile/module/flight/presentation/pages/refund_policy_page.dart'
+    as _i122;
+import 'package:ppay_mobile/module/flight/presentation/pages/round_way_trip_page.dart'
+    as _i124;
+import 'package:ppay_mobile/module/flight/presentation/pages/search_result_page.dart'
+    as _i126;
+import 'package:ppay_mobile/module/flight/presentation/pages/search_result_two_page.dart'
+    as _i127;
+import 'package:ppay_mobile/module/flight/presentation/pages/select_inbound_seat_page.dart'
     as _i128;
-import 'package:ppay_mobile/module/flight/select_outbound_seat_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/select_outbound_seat_page.dart'
     as _i129;
-import 'package:ppay_mobile/module/flight/select_seat_page.dart' as _i130;
-import 'package:ppay_mobile/module/gift_card/buy_gift_card_features_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/select_seat_page.dart'
+    as _i130;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/buy_gift_card_features_page.dart'
     as _i22;
-import 'package:ppay_mobile/module/gift_card/buy_giftcard_page.dart' as _i23;
-import 'package:ppay_mobile/module/gift_card/confirm_gift_card_sell_page.dart'
+import 'package:ppay_mobile/module/giftcard/presentation/pages/buy_giftcard_page.dart'
+    as _i23;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/confirm_gift_card_sell_page.dart'
     as _i36;
-import 'package:ppay_mobile/module/gift_card/gift_card_buy_receipt_page.dart'
+import 'package:ppay_mobile/module/giftcard/presentation/pages/gift_card_buy_receipt_page.dart'
     as _i81;
-import 'package:ppay_mobile/module/gift_card/gift_card_sucess_page.dart'
+import 'package:ppay_mobile/module/giftcard/presentation/pages/gift_card_sucess_page.dart'
     as _i82;
-import 'package:ppay_mobile/module/gift_card/giftcard_page.dart' as _i83;
-import 'package:ppay_mobile/module/gift_card/giftcard_sell_receipt_page.dart'
+import 'package:ppay_mobile/module/giftcard/presentation/pages/giftcard_page.dart'
+    as _i83;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/giftcard_sell_receipt_page.dart'
     as _i84;
-import 'package:ppay_mobile/module/gift_card/sell_gift_card_features_page.dart'
+import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_gift_card_features_page.dart'
     as _i132;
-import 'package:ppay_mobile/module/gift_card/sell_gift_card_success_page.dart'
+import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_gift_card_success_page.dart'
     as _i133;
-import 'package:ppay_mobile/module/gift_card/sell_giftcard_page.dart' as _i134;
-import 'package:ppay_mobile/module/kyc/bvn_face_recog_page.dart' as _i24;
-import 'package:ppay_mobile/module/kyc/bvn_verification_page.dart' as _i25;
-import 'package:ppay_mobile/module/kyc/bvnconfirm_page.dart' as _i26;
-import 'package:ppay_mobile/module/kyc/kyc_face_verification_page.dart' as _i87;
-import 'package:ppay_mobile/module/kyc/kyc_verification_complete_page.dart'
+import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_giftcard_page.dart'
+    as _i134;
+import 'package:ppay_mobile/module/kyc/presentation/pages/bvn_face_recog_page.dart'
+    as _i24;
+import 'package:ppay_mobile/module/kyc/presentation/pages/bvn_verification_page.dart'
+    as _i25;
+import 'package:ppay_mobile/module/kyc/presentation/pages/bvnconfirm_page.dart'
+    as _i26;
+import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_face_verification_page.dart'
+    as _i87;
+import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_verification_complete_page.dart'
     as _i88;
-import 'package:ppay_mobile/module/kyc/kyc_verification_page.dart' as _i89;
-import 'package:ppay_mobile/module/kyc/review_document_page.dart' as _i123;
+import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_verification_page.dart'
+    as _i89;
+import 'package:ppay_mobile/module/kyc/presentation/pages/review_document_page.dart'
+    as _i123;
 import 'package:ppay_mobile/module/onboarding/fingerprint_complete_page.dart'
     as _i63;
 import 'package:ppay_mobile/module/onboarding/fingerprint_page.dart' as _i64;
@@ -165,64 +240,91 @@ import 'package:ppay_mobile/module/onboarding/set_up_fingerprint_page.dart'
 import 'package:ppay_mobile/module/onboarding/setting_up_fingerprint_page.dart'
     as _i136;
 import 'package:ppay_mobile/module/onboarding/splash_page.dart' as _i140;
-import 'package:ppay_mobile/module/settings/bank_account_page.dart' as _i11;
-import 'package:ppay_mobile/module/settings/change_password_page.dart' as _i32;
-import 'package:ppay_mobile/module/settings/contact_tab_page.dart' as _i38;
-import 'package:ppay_mobile/module/settings/edit_account_page.dart' as _i54;
-import 'package:ppay_mobile/module/settings/edit_profile_page.dart' as _i55;
-import 'package:ppay_mobile/module/settings/faq_tab_page.dart' as _i61;
-import 'package:ppay_mobile/module/settings/help_and_support_page.dart' as _i85;
-import 'package:ppay_mobile/module/settings/pin_reset_complete_page.dart'
+import 'package:ppay_mobile/module/settings/presentation/pages/bank_account_page.dart'
+    as _i11;
+import 'package:ppay_mobile/module/settings/presentation/pages/change_password_page.dart'
+    as _i32;
+import 'package:ppay_mobile/module/settings/presentation/pages/contact_tab_page.dart'
+    as _i38;
+import 'package:ppay_mobile/module/settings/presentation/pages/edit_account_page.dart'
+    as _i54;
+import 'package:ppay_mobile/module/settings/presentation/pages/edit_profile_page.dart'
+    as _i55;
+import 'package:ppay_mobile/module/settings/presentation/pages/faq_tab_page.dart'
+    as _i61;
+import 'package:ppay_mobile/module/settings/presentation/pages/help_and_support_page.dart'
+    as _i85;
+import 'package:ppay_mobile/module/settings/presentation/pages/notification_page.dart'
+    as _i103;
+import 'package:ppay_mobile/module/settings/presentation/pages/pin_reset_complete_page.dart'
     as _i114;
-import 'package:ppay_mobile/module/settings/pin_reset_page.dart' as _i115;
-import 'package:ppay_mobile/module/settings/privacy_page.dart' as _i116;
-import 'package:ppay_mobile/module/settings/profile_page.dart' as _i117;
-import 'package:ppay_mobile/module/settings/refer_page.dart' as _i120;
-import 'package:ppay_mobile/module/settings/settings_page.dart' as _i137;
-import 'package:ppay_mobile/module/settings/terms_and_condition_page.dart'
+import 'package:ppay_mobile/module/settings/presentation/pages/pin_reset_page.dart'
+    as _i115;
+import 'package:ppay_mobile/module/settings/presentation/pages/privacy_page.dart'
+    as _i116;
+import 'package:ppay_mobile/module/settings/presentation/pages/profile_page.dart'
+    as _i117;
+import 'package:ppay_mobile/module/settings/presentation/pages/refer_page.dart'
+    as _i120;
+import 'package:ppay_mobile/module/settings/presentation/pages/settings_page.dart'
+    as _i137;
+import 'package:ppay_mobile/module/settings/presentation/pages/terms_and_condition_page.dart'
     as _i141;
-import 'package:ppay_mobile/module/settings/transaction_limit_page.dart'
+import 'package:ppay_mobile/module/settings/presentation/pages/transaction_limit_page.dart'
     as _i146;
-import 'package:ppay_mobile/module/settings/veriify_password_detail_page.dart'
+import 'package:ppay_mobile/module/settings/presentation/pages/veriify_password_detail_page.dart'
     as _i156;
-import 'package:ppay_mobile/module/shopping/check_out_page.dart' as _i33;
-import 'package:ppay_mobile/module/shopping/cloths_details_page.dart' as _i34;
-import 'package:ppay_mobile/module/shopping/cloths_page.dart' as _i35;
-import 'package:ppay_mobile/module/shopping/order_receipt_page.dart' as _i106;
-import 'package:ppay_mobile/module/shopping/order_successful_page.dart'
+import 'package:ppay_mobile/module/shopping/presentation/pages/check_out_page.dart'
+    as _i33;
+import 'package:ppay_mobile/module/shopping/presentation/pages/cloths_details_page.dart'
+    as _i34;
+import 'package:ppay_mobile/module/shopping/presentation/pages/cloths_page.dart'
+    as _i35;
+import 'package:ppay_mobile/module/shopping/presentation/pages/order_receipt_page.dart'
+    as _i106;
+import 'package:ppay_mobile/module/shopping/presentation/pages/order_successful_page.dart'
     as _i107;
-import 'package:ppay_mobile/module/shopping/shopping_page.dart' as _i138;
-import 'package:ppay_mobile/module/shopping/track_order_page.dart' as _i143;
-import 'package:ppay_mobile/module/shopping/your_order_page.dart' as _i161;
-import 'package:ppay_mobile/module/transaction/amount_and_info_page.dart'
+import 'package:ppay_mobile/module/shopping/presentation/pages/shopping_page.dart'
+    as _i138;
+import 'package:ppay_mobile/module/shopping/presentation/pages/track_order_page.dart'
+    as _i143;
+import 'package:ppay_mobile/module/shopping/presentation/pages/your_order_page.dart'
+    as _i161;
+import 'package:ppay_mobile/module/transaction/presentation/pages/amount_and_info_page.dart'
     as _i8;
-import 'package:ppay_mobile/module/transaction/confirm_transaction_page.dart'
+import 'package:ppay_mobile/module/transaction/presentation/pages/confirm_transaction_page.dart'
     as _i37;
-import 'package:ppay_mobile/module/transaction/fund_wallet_page.dart' as _i80;
-import 'package:ppay_mobile/module/transaction/receipt_page.dart' as _i118;
-import 'package:ppay_mobile/module/transaction/transaction_history_page.dart'
+import 'package:ppay_mobile/module/transaction/presentation/pages/fund_wallet_page.dart'
+    as _i80;
+import 'package:ppay_mobile/module/transaction/presentation/pages/receipt_page.dart'
+    as _i118;
+import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_history_page.dart'
     as _i145;
-import 'package:ppay_mobile/module/transaction/transaction_successful_page.dart'
+import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_successful_page.dart'
     as _i147;
-import 'package:ppay_mobile/module/transaction/transfer_funds_page.dart'
+import 'package:ppay_mobile/module/transaction/presentation/pages/transfer_funds_page.dart'
     as _i148;
-import 'package:ppay_mobile/module/virtual_card/card_limit_page.dart' as _i29;
-import 'package:ppay_mobile/module/virtual_card/card_page.dart' as _i30;
-import 'package:ppay_mobile/module/virtual_card/card_transaction_page.dart'
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/card_limit_page.dart'
+    as _i29;
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/card_page.dart'
+    as _i30;
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/card_transaction_page.dart'
     as _i31;
-import 'package:ppay_mobile/module/virtual_card/create_virtual_card_page.dart'
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/create_virtual_card_page.dart'
     as _i41;
-import 'package:ppay_mobile/module/virtual_card/fund_card_page.dart' as _i77;
-import 'package:ppay_mobile/module/virtual_card/fund_card_receipt_page.dart'
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/fund_card_page.dart'
+    as _i77;
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/fund_card_receipt_page.dart'
     as _i78;
-import 'package:ppay_mobile/module/virtual_card/fund_card_successful_page.dart'
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/fund_card_successful_page.dart'
     as _i79;
-import 'package:ppay_mobile/module/virtual_card/search_card_page.dart' as _i125;
-import 'package:ppay_mobile/module/virtual_card/transaction_details_page.dart'
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/search_card_page.dart'
+    as _i125;
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/transaction_details_page.dart'
     as _i144;
-import 'package:ppay_mobile/module/virtual_card/virtual_card_page.dart'
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/virtual_card_page.dart'
     as _i157;
-import 'package:ppay_mobile/module/virtual_card/virtual_card_success_page.dart'
+import 'package:ppay_mobile/module/virtual_card/presentation/pages/virtual_card_success_page.dart'
     as _i158;
 import 'package:ppay_mobile/shared/models/all_token_screen_model.dart' as _i164;
 

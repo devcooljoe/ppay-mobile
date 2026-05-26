@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/module/kyc/review_document_page.dart';
-import 'package:ppay_mobile/module/settings/bank_account_page.dart';
-import 'package:ppay_mobile/module/settings/change_password_page.dart';
-import 'package:ppay_mobile/module/settings/help_and_support_page.dart';
-import 'package:ppay_mobile/module/settings/notification_page.dart';
-import 'package:ppay_mobile/module/settings/pin_reset_page.dart';
-import 'package:ppay_mobile/module/settings/privacy_page.dart';
-import 'package:ppay_mobile/module/settings/profile_page.dart';
-import 'package:ppay_mobile/module/settings/refer_page.dart';
-import 'package:ppay_mobile/module/settings/terms_and_condition_page.dart';
-import 'package:ppay_mobile/module/settings/transaction_limit_page.dart';
+import 'package:ppay_mobile/module/kyc/presentation/pages/review_document_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/bank_account_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/change_password_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/help_and_support_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/notification_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/pin_reset_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/privacy_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/profile_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/refer_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/terms_and_condition_page.dart';
+import 'package:ppay_mobile/module/settings/presentation/pages/transaction_limit_page.dart';
 
 class SettingsOptionModel {
   final String optionIcon;

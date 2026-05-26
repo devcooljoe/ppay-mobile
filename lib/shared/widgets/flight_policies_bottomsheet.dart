@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ppay_mobile/module/flight/baggage_page.dart';
-import 'package:ppay_mobile/module/flight/booking_policies_page.dart';
-import 'package:ppay_mobile/module/flight/refund_policy_page.dart';
+import 'package:ppay_mobile/module/flight/presentation/pages/baggage_page.dart';
+import 'package:ppay_mobile/module/flight/presentation/pages/booking_policies_page.dart';
+import 'package:ppay_mobile/module/flight/presentation/pages/refund_policy_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 class FlightPoliciesBottomsheet extends HookConsumerWidget {
