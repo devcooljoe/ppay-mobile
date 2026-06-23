@@ -24,6 +24,8 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<Either<Failure, AuthEntity>> register({
+    required String fullName,
+    required String emailAddress,
     required String phoneNumber,
     required String password,
     required String confirmPassword,
@@ -32,6 +34,8 @@ class UserRepositoryImpl implements UserRepository {
     try {
       final result = await _remoteDataSource.register(
         RegisterRequest(
+          fullName: fullName,
+          emailAddress: emailAddress,
           phoneNumber: phoneNumber,
           password: password,
           confirmPassword: confirmPassword,

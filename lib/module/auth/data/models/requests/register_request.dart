@@ -6,6 +6,8 @@ part 'register_request.g.dart';
 @freezed
 class RegisterRequest with _$RegisterRequest {
   const factory RegisterRequest({
+    required String fullName,
+    required String emailAddress,
     required String phoneNumber,
     required String password,
     required String confirmPassword,

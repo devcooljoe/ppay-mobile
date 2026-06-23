@@ -11,11 +11,15 @@ class RegisterUseCase {
   RegisterUseCase(this._repository);
 
   Future<Either<Failure, AuthEntity>> call({
+    required String fullName,
+    required String emailAddress,
     required String phoneNumber,
     required String password,
     required String confirmPassword,
     String? deviceToken,
   }) => _repository.register(
+    fullName: fullName,
+    emailAddress: emailAddress,
     phoneNumber: phoneNumber,
     password: password,
     confirmPassword: confirmPassword,

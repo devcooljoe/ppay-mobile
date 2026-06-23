@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class SignupPage extends HookConsumerWidget {
@@ -20,24 +21,58 @@ class SignupPage extends HookConsumerWidget {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();
-    final phoneController = useTextEditingController();
-    final isLoading = useState(false);
+    final phoneController = useTextEditingController(text: '+234');
+    final agreedToTerms = useState(false);
 
-    Future<void> handleSignUp() async {
-      if (formKey.currentState?.validate() ?? false) {
-        isLoading.value = true;
-        await Future.delayed(const Duration(seconds: 4));
-        isLoading.value = false;
-
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Service not available'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
+    Future<void> handleNext() async {
+      if (!agreedToTerms.value) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Please agree to terms and conditions',
+        );
+        return;
       }
+
+      if (!(formKey.currentState?.validate() ?? false)) {
+        return;
+      }
+
+      final fullName = nameController.text.trim();
+      final emailAddress = emailController.text.trim();
+      final phoneNumber = phoneController.text.trim();
+
+      if (fullName.split(' ').length < 2) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Please enter your first and last name',
+        );
+        return;
+      }
+
+      if (!phoneNumber.startsWith('+234')) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Phone number must start with +234',
+        );
+        return;
+      }
+
+      final digitsOnly = phoneNumber.replaceAll(RegExp(r'[^0-9]'), '');
+      if (digitsOnly.length != 13) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Phone number must be 11 digits after +234',
+        );
+        return;
+      }
+
+      context.router.push(
+        CreatePasswordRoute(
+          fullName: fullName,
+          emailAddress: emailAddress,
+          phoneNumber: phoneNumber,
+        ),
+      );
     }
 
     return Scaffold(
@@ -102,6 +137,15 @@ class SignupPage extends HookConsumerWidget {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your full name';
                   }
+                  if (value.trim().split(' ').length < 2) {
+                    return 'Please enter your first and last name';
+                  }
+                  if (value.trim().length < 3) {
+                    return 'Full name must be at least 3 characters';
+                  }
+                  if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                    return 'Full name can only contain letters';
+                  }
                   return null;
                 },
               ),
@@ -110,7 +154,8 @@ class SignupPage extends HookConsumerWidget {
               6.verticalSpace,
               PPTextField(
                 controller: emailController,
-                hintText: 'e.g johndoegmail.com',
+                hintText: 'e.g johndoe@gmail.com',
+                keyboardType: TextInputType.emailAddress,
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(14.0).r,
                   child: SvgPicture.asset('assets/icon/message_icon.svg'),
@@ -119,7 +164,10 @@ class SignupPage extends HookConsumerWidget {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email address';
                   }
-                  if (!value.contains('@')) {
+                  final emailRegex = RegExp(
+                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                  );
+                  if (!emailRegex.hasMatch(value)) {
                     return 'Please enter a valid email address';
                   }
                   return null;
@@ -130,64 +178,84 @@ class SignupPage extends HookConsumerWidget {
               6.verticalSpace,
               PPTextField(
                 controller: phoneController,
-                hintText: '+234',
+                hintText: '+234 XXX XXX XXXX',
+                keyboardType: TextInputType.phone,
                 prefixIcon: Padding(
-                  padding: const EdgeInsets.all(17.0).r,
-                  child: Image.asset('assets/images/flag_1.png'),
+                  padding: const EdgeInsets.all(14.0).r,
+                  child: Image.asset('assets/images/flag_1.png', width: 20.w),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your phone number';
                   }
+                  if (!value.startsWith('+234')) {
+                    return 'Phone number must start with +234';
+                  }
+                  final digitsOnly = value.replaceAll(RegExp(r'[^0-9]'), '');
+                  if (digitsOnly.length != 13) {
+                    return 'Phone number must be 11 digits after +234';
+                  }
                   return null;
                 },
               ),
               24.verticalSpace,
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 18.0).r,
-                    child: SvgPicture.asset(
-                      'assets/icon/mark_icon.svg',
+              TouchOpacity(
+                onTap: () => agreedToTerms.value = !agreedToTerms.value,
+                child: Row(
+                  children: [
+                    Container(
                       width: 18.w,
                       height: 18.h,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: agreedToTerms.value
+                              ? const Color(0xff429E6E)
+                              : Colors.grey,
+                          width: 2.w,
+                        ),
+                        borderRadius: BorderRadius.circular(4.r),
+                        color: agreedToTerms.value
+                            ? const Color(0xff429E6E)
+                            : Colors.transparent,
+                      ),
+                      child: agreedToTerms.value
+                          ? Icon(Icons.check, size: 14.sp, color: Colors.white)
+                          : null,
                     ),
-                  ),
-                  9.horizontalSpace,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'By opening an account you agree to our ',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                        ),
+                    9.horizontalSpace,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'By opening an account you agree to our ',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                          3.verticalSpace,
+                          Text(
+                            'terms and conditions',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: const Color(0xff429E6E),
+                              fontFamily: 'Montserrat',
+                              color: const Color(0xff429E6E),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        ],
                       ),
-                      3.verticalSpace,
-                      Text(
-                        'terms and conditions',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: Color(0xff429E6E),
-                          fontFamily: 'Montserrat',
-                          color: Color(0xff429E6E),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
               101.verticalSpace,
-              PPButton(
-                text: 'Get Started',
-                onPressed: handleSignUp,
-                isLoading: isLoading.value,
-              ),
+              PPButton(text: 'Get Started', onPressed: handleNext),
               8.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

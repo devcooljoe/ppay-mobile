@@ -5,6 +5,8 @@ import 'package:ppay_mobile/module/auth/domain/entities/user_entity.dart';
 
 abstract class UserRepository {
   Future<Either<Failure, AuthEntity>> register({
+    required String fullName,
+    required String emailAddress,
     required String phoneNumber,
     required String password,
     required String confirmPassword,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
@@ -157,7 +156,7 @@ class VerifyPhonePage extends HookConsumerWidget {
               16.verticalSpace,
               PPButton(
                 text: 'Verify',
-                onPressed: () => context.router.push(CreatePasswordRoute()),
+                // onPressed: () => context.router.push(CreatePasswordRoute()),
               ),
             ],
           ),

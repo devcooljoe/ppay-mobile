@@ -26,6 +26,8 @@ class Register extends _$Register {
   AsyncValue<void> build() => const AsyncValue.data(null);
 
   Future<void> call({
+    required String fullName,
+    required String emailAddress,
     required String phoneNumber,
     required String password,
     required String confirmPassword,
@@ -33,6 +35,8 @@ class Register extends _$Register {
   }) async {
     state = const AsyncValue.loading();
     final result = await getIt<RegisterUseCase>()(
+      fullName: fullName,
+      emailAddress: emailAddress,
       phoneNumber: phoneNumber,
       password: password,
       confirmPassword: confirmPassword,

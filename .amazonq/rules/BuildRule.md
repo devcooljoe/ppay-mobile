@@ -25,3 +25,4 @@ VERY IMPORTANT:
 - Keep code modular and scalable
 - Do not generate pseudo-code
 - Generate real implementation-ready code
+- Act as a software engineer who understand UX too and understand how app is supposed to behave to the users.
