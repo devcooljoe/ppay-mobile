@@ -17,6 +17,7 @@ class RegisterUseCase {
     required String password,
     required String confirmPassword,
     String? deviceToken,
+    String? referralCode,
   }) => _repository.register(
     fullName: fullName,
     emailAddress: emailAddress,
@@ -24,5 +25,6 @@ class RegisterUseCase {
     password: password,
     confirmPassword: confirmPassword,
     deviceToken: deviceToken,
+    referralCode: referralCode,
   );
 }

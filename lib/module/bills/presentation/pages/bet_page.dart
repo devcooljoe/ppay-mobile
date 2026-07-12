@@ -108,6 +108,7 @@ class BetPage extends HookConsumerWidget {
               customerName: customerName,
               phoneNumber: phoneController.text.trim(),
               amount: selectedItem.value!.amount,
+              billerCategory: 'Betting',
             ),
           ),
         ),

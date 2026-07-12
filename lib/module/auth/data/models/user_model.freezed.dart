@@ -24,6 +24,8 @@ mixin _$UserModel {
   String get emailAddress => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   String? get picture => throw _privateConstructorUsedError;
+  String? get dob => throw _privateConstructorUsedError;
+  String? get referralCode => throw _privateConstructorUsedError;
   bool get isEmailVerified => throw _privateConstructorUsedError;
   bool get isPhoneNumberVerified => throw _privateConstructorUsedError;
   bool get isBvnVerified => throw _privateConstructorUsedError;
@@ -50,6 +52,8 @@ abstract class $UserModelCopyWith<$Res> {
       String emailAddress,
       String phoneNumber,
       String? picture,
+      String? dob,
+      String? referralCode,
       bool isEmailVerified,
       bool isPhoneNumberVerified,
       bool isBvnVerified,
@@ -78,6 +82,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? emailAddress = null,
     Object? phoneNumber = null,
     Object? picture = freezed,
+    Object? dob = freezed,
+    Object? referralCode = freezed,
     Object? isEmailVerified = null,
     Object? isPhoneNumberVerified = null,
     Object? isBvnVerified = null,
@@ -104,6 +110,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       picture: freezed == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dob: freezed == dob
+          ? _value.dob
+          : dob // ignore: cast_nullable_to_non_nullable
+              as String?,
+      referralCode: freezed == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
               as String?,
       isEmailVerified: null == isEmailVerified
           ? _value.isEmailVerified
@@ -158,6 +172,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String emailAddress,
       String phoneNumber,
       String? picture,
+      String? dob,
+      String? referralCode,
       bool isEmailVerified,
       bool isPhoneNumberVerified,
       bool isBvnVerified,
@@ -184,6 +200,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? emailAddress = null,
     Object? phoneNumber = null,
     Object? picture = freezed,
+    Object? dob = freezed,
+    Object? referralCode = freezed,
     Object? isEmailVerified = null,
     Object? isPhoneNumberVerified = null,
     Object? isBvnVerified = null,
@@ -210,6 +228,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
       picture: freezed == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dob: freezed == dob
+          ? _value.dob
+          : dob // ignore: cast_nullable_to_non_nullable
+              as String?,
+      referralCode: freezed == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
               as String?,
       isEmailVerified: null == isEmailVerified
           ? _value.isEmailVerified
@@ -259,6 +285,8 @@ class _$UserModelImpl extends _UserModel {
       required this.emailAddress,
       required this.phoneNumber,
       this.picture,
+      this.dob,
+      this.referralCode,
       required this.isEmailVerified,
       required this.isPhoneNumberVerified,
       required this.isBvnVerified,
@@ -282,6 +310,10 @@ class _$UserModelImpl extends _UserModel {
   @override
   final String? picture;
   @override
+  final String? dob;
+  @override
+  final String? referralCode;
+  @override
   final bool isEmailVerified;
   @override
   final bool isPhoneNumberVerified;
@@ -302,7 +334,7 @@ class _$UserModelImpl extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier)';
+    return 'UserModel(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, dob: $dob, referralCode: $referralCode, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier)';
   }
 
   @override
@@ -317,6 +349,9 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.picture, picture) || other.picture == picture) &&
+            (identical(other.dob, dob) || other.dob == dob) &&
+            (identical(other.referralCode, referralCode) ||
+                other.referralCode == referralCode) &&
             (identical(other.isEmailVerified, isEmailVerified) ||
                 other.isEmailVerified == isEmailVerified) &&
             (identical(other.isPhoneNumberVerified, isPhoneNumberVerified) ||
@@ -344,6 +379,8 @@ class _$UserModelImpl extends _UserModel {
       emailAddress,
       phoneNumber,
       picture,
+      dob,
+      referralCode,
       isEmailVerified,
       isPhoneNumberVerified,
       isBvnVerified,
@@ -374,6 +411,8 @@ abstract class _UserModel extends UserModel {
       required final String emailAddress,
       required final String phoneNumber,
       final String? picture,
+      final String? dob,
+      final String? referralCode,
       required final bool isEmailVerified,
       required final bool isPhoneNumberVerified,
       required final bool isBvnVerified,
@@ -396,6 +435,10 @@ abstract class _UserModel extends UserModel {
   String get phoneNumber;
   @override
   String? get picture;
+  @override
+  String? get dob;
+  @override
+  String? get referralCode;
   @override
   bool get isEmailVerified;
   @override

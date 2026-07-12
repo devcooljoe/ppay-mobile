@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
@@ -13,6 +15,34 @@ class ProfilePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authenticatedUserProvider).value;
+
+    final initials = useMemoized(() {
+      if (user == null) return '';
+      final parts = user.fullName.trim().split(' ');
+      if (parts.length >= 2) {
+        return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+      }
+      return user.fullName.isNotEmpty ? user.fullName[0].toUpperCase() : '';
+    }, [user?.fullName]);
+
+    final tierLabel = useMemoized(() {
+      if (user == null) return 'Tier 1';
+      return 'Tier ${user.tier}';
+    }, [user?.tier]);
+
+    final isVerified = user?.isKycVerified ?? false;
+
+    String _formatDob(String? dob) {
+      if (dob == null || dob.isEmpty) return 'Not set';
+      try {
+        final date = DateTime.parse(dob);
+        return '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
+      } catch (_) {
+        return dob;
+      }
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
       appBar: PPAppBar(
@@ -53,27 +83,31 @@ class ProfilePage extends HookConsumerWidget {
                     color: Colors.transparent,
                     child: Stack(
                       children: [
-                        CircleAvatar(
-                          radius: 31.5.r,
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          child: Center(
-                            child: Text(
-                              'AS',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.mainScreenBackground,
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w800,
+                        user?.picture != null
+                            ? CircleAvatar(
+                                radius: 31.5.r,
+                                backgroundImage: NetworkImage(user!.picture!),
+                              )
+                            : CircleAvatar(
+                                radius: 31.5.r,
+                                backgroundColor: PPaymobileColors.backgroundColor,
+                                child: Center(
+                                  child: Text(
+                                    initials,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: PPaymobileColors.mainScreenBackground,
+                                      fontSize: 24.sp,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                         Positioned(
                           right: 5.w,
                           bottom: 5.h,
                           child: CircleAvatar(
-                            backgroundColor:
-                                PPaymobileColors.deepBackgroundColor,
+                            backgroundColor: PPaymobileColors.deepBackgroundColor,
                             radius: 8.r,
                             child: Center(
                               child: SizedBox(
@@ -92,7 +126,7 @@ class ProfilePage extends HookConsumerWidget {
                   ),
                   4.verticalSpace,
                   Text(
-                    'Adebami',
+                    user?.fullName ?? '',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: Colors.black,
@@ -128,7 +162,7 @@ class ProfilePage extends HookConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Tier 3',
+                                tierLabel,
                                 style: TextStyle(
                                   fontFamily: 'InstrumentSans',
                                   color: PPaymobileColors.doneTextColor,
@@ -167,23 +201,29 @@ class ProfilePage extends HookConsumerWidget {
                         height: 24.h,
                         width: 80.w,
                         padding: EdgeInsets.symmetric(horizontal: 7.w),
-                        color: PPaymobileColors.doneColor,
+                        color: isVerified
+                            ? PPaymobileColors.doneColor
+                            : PPaymobileColors.deepBackgroundColor,
                         child: Row(
                           children: [
                             SizedBox(
                               height: 12.w,
                               width: 12.w,
                               child: SvgPicture.asset(
-                                'assets/icon/check.svg',
+                                isVerified
+                                    ? 'assets/icon/check.svg'
+                                    : 'assets/icon/cancel.svg',
                                 fit: BoxFit.contain,
                               ),
                             ),
                             6.horizontalSpace,
                             Text(
-                              'Verified',
+                              isVerified ? 'Verified' : 'Pending',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.highlightTextColor,
+                                color: isVerified
+                                    ? PPaymobileColors.highlightTextColor
+                                    : PPaymobileColors.svgIconColor,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -198,7 +238,6 @@ class ProfilePage extends HookConsumerWidget {
             ),
             16.verticalSpace,
             Container(
-              height: 264.h,
               width: double.infinity,
               padding: EdgeInsets.only(
                 left: 20.w,
@@ -210,77 +249,11 @@ class ProfilePage extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Full Name:',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'Adebami Samuel',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                  _ProfileRow(label: 'Full Name:', value: user?.fullName ?? '—'),
                   24.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Email Address:',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'adebamisam25@gmail.com',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                  _ProfileRow(label: 'Email Address:', value: user?.emailAddress ?? '—'),
                   24.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Date of Birth:',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        '09-11-2009',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                  _ProfileRow(label: 'Date of Birth:', value: _formatDob(user?.dob)),
                   24.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -297,7 +270,7 @@ class ProfilePage extends HookConsumerWidget {
                       Row(
                         children: [
                           Text(
-                            '+234 8166439876',
+                            user?.phoneNumber ?? '—',
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
                               color: Colors.black,
@@ -318,36 +291,46 @@ class ProfilePage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  24.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Gender:',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'None',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ProfileRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _ProfileRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: PPaymobileColors.svgIconColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }

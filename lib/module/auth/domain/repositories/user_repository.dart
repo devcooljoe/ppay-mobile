@@ -11,6 +11,7 @@ abstract class UserRepository {
     required String password,
     required String confirmPassword,
     String? deviceToken,
+    String? referralCode,
   });
 
   Future<Either<Failure, AuthEntity>> login({

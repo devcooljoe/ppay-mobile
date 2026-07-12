@@ -28,6 +28,12 @@ _$PurchaseBillRequestImpl _$$PurchaseBillRequestImplFromJson(
       phoneNumber: json['phoneNumber'] as String,
       amount: (json['amount'] as num).toDouble(),
       customerFirstName: json['customerFirstName'] as String,
+      billerName: json['billerName'] as String,
+      billerCategory: json['billerCategory'] as String,
+      meterNumber: json['meterNumber'] as String?,
+      plan: json['plan'] as String?,
+      provider: json['provider'] as String?,
+      logoUrl: json['logoUrl'] as String?,
     );
 
 Map<String, dynamic> _$$PurchaseBillRequestImplToJson(
@@ -38,4 +44,10 @@ Map<String, dynamic> _$$PurchaseBillRequestImplToJson(
       'phoneNumber': instance.phoneNumber,
       'amount': instance.amount,
       'customerFirstName': instance.customerFirstName,
+      'billerName': instance.billerName,
+      'billerCategory': instance.billerCategory,
+      if (instance.meterNumber != null) 'meterNumber': instance.meterNumber,
+      if (instance.plan != null) 'plan': instance.plan,
+      if (instance.provider != null) 'provider': instance.provider,
+      if (instance.logoUrl != null) 'logoUrl': instance.logoUrl,
     };

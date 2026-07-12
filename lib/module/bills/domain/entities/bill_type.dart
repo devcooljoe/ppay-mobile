@@ -67,6 +67,7 @@ class BillConfirmArgs {
   final String customerName;
   final String phoneNumber;
   final double amount;
+  final String billerCategory;
 
   const BillConfirmArgs({
     required this.billType,
@@ -76,5 +77,6 @@ class BillConfirmArgs {
     required this.customerName,
     required this.phoneNumber,
     required this.amount,
+    required this.billerCategory,
   });
 }

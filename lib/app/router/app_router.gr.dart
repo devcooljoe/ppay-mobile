@@ -302,6 +302,12 @@ import 'package:ppay_mobile/module/transaction/presentation/pages/receipt_page.d
     as _i118;
 import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_history_page.dart'
     as _i145;
+import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_history_detail_page.dart'
+    as _i166;
+import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart'
+    as _i167;
+import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart'
+    as _i168;
 import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_successful_page.dart'
     as _i147;
 import 'package:ppay_mobile/module/transaction/presentation/pages/transfer_funds_page.dart'
@@ -378,9 +384,10 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       );
     },
     AmountAndInfoRoute.name: (routeData) {
+      final args = routeData.argsAs<AmountAndInfoRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.AmountAndInfoPage(),
+        child: _i8.AmountAndInfoPage(account: args.account),
       );
     },
     AssetsRoute.name: (routeData) {
@@ -552,9 +559,13 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       );
     },
     ConfirmTransactionRoute.name: (routeData) {
+      final args = routeData.argsAs<ConfirmTransactionRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i37.ConfirmTransactionPage(),
+        child: _i37.ConfirmTransactionPage(
+          account: args.account,
+          amount: args.amount,
+        ),
       );
     },
     ContactTabRoute.name: (routeData) {
@@ -572,6 +583,7 @@ abstract class $AppRouter extends _i163.RootStackRouter {
           fullName: args.fullName,
           emailAddress: args.emailAddress,
           phoneNumber: args.phoneNumber,
+          referralCode: args.referralCode,
         ),
       );
     },
@@ -660,9 +672,12 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       );
     },
     EditAccountRoute.name: (routeData) {
+      final args = routeData.argsAs<EditAccountRouteArgs>(
+        orElse: () => const EditAccountRouteArgs(),
+      );
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i54.EditAccountPage(),
+        child: _i54.EditAccountPage(account: args.account),
       );
     },
     EditProfileRoute.name: (routeData) {
@@ -1219,6 +1234,13 @@ abstract class $AppRouter extends _i163.RootStackRouter {
         child: const _i145.TransactionHistoryPage(),
       );
     },
+    TransactionHistoryDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<TransactionHistoryDetailRouteArgs>();
+      return _i163.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i166.TransactionHistoryDetailPage(transaction: args.transaction),
+      );
+    },
     TransactionLimitRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -1226,9 +1248,13 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       );
     },
     TransactionSuccessfulRoute.name: (routeData) {
+      final args = routeData.argsAs<TransactionSuccessfulRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i147.TransactionSuccessfulPage(),
+        child: _i147.TransactionSuccessfulPage(
+          account: args.account,
+          amount: args.amount,
+        ),
       );
     },
     TransferFundsRoute.name: (routeData) {
@@ -1290,9 +1316,10 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       );
     },
     VeriifyPasswordDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<VeriifyPasswordDetailRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i157.VeriifyPasswordDetailPage(),
+        child: _i157.VeriifyPasswordDetailPage(emailAddress: args.emailAddress),
       );
     },
     VirtualCardRoute.name: (routeData) {
@@ -1428,16 +1455,32 @@ class AllTokensRoute extends _i163.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.AmountAndInfoPage]
-class AmountAndInfoRoute extends _i163.PageRouteInfo<void> {
-  const AmountAndInfoRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+class AmountAndInfoRoute
+    extends _i163.PageRouteInfo<AmountAndInfoRouteArgs> {
+  AmountAndInfoRoute({
+    required _i168.BankAccountEntity account,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           AmountAndInfoRoute.name,
+          args: AmountAndInfoRouteArgs(account: account),
           initialChildren: children,
         );
 
   static const String name = 'AmountAndInfoRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<AmountAndInfoRouteArgs> page =
+      _i163.PageInfo<AmountAndInfoRouteArgs>(name);
+}
+
+class AmountAndInfoRouteArgs {
+  const AmountAndInfoRouteArgs({required this.account});
+
+  final _i168.BankAccountEntity account;
+
+  @override
+  String toString() {
+    return 'AmountAndInfoRouteArgs{account: $account}';
+  }
 }
 
 /// generated route for
@@ -1834,16 +1877,40 @@ class ConfirmGiftCardSellRoute extends _i163.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i37.ConfirmTransactionPage]
-class ConfirmTransactionRoute extends _i163.PageRouteInfo<void> {
-  const ConfirmTransactionRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+class ConfirmTransactionRoute
+    extends _i163.PageRouteInfo<ConfirmTransactionRouteArgs> {
+  ConfirmTransactionRoute({
+    required _i168.BankAccountEntity account,
+    required double amount,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           ConfirmTransactionRoute.name,
+          args: ConfirmTransactionRouteArgs(
+            account: account,
+            amount: amount,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ConfirmTransactionRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<ConfirmTransactionRouteArgs> page =
+      _i163.PageInfo<ConfirmTransactionRouteArgs>(name);
+}
+
+class ConfirmTransactionRouteArgs {
+  const ConfirmTransactionRouteArgs({
+    required this.account,
+    required this.amount,
+  });
+
+  final _i168.BankAccountEntity account;
+  final double amount;
+
+  @override
+  String toString() {
+    return 'ConfirmTransactionRouteArgs{account: $account, amount: $amount}';
+  }
 }
 
 /// generated route for
@@ -1868,6 +1935,7 @@ class CreatePasswordRoute extends _i163.PageRouteInfo<CreatePasswordRouteArgs> {
     required String fullName,
     required String emailAddress,
     required String phoneNumber,
+    String? referralCode,
     List<_i163.PageRouteInfo>? children,
   }) : super(
           CreatePasswordRoute.name,
@@ -1876,6 +1944,7 @@ class CreatePasswordRoute extends _i163.PageRouteInfo<CreatePasswordRouteArgs> {
             fullName: fullName,
             emailAddress: emailAddress,
             phoneNumber: phoneNumber,
+            referralCode: referralCode,
           ),
           initialChildren: children,
         );
@@ -1892,6 +1961,7 @@ class CreatePasswordRouteArgs {
     required this.fullName,
     required this.emailAddress,
     required this.phoneNumber,
+    this.referralCode,
   });
 
   final _i164.Key? key;
@@ -1902,9 +1972,11 @@ class CreatePasswordRouteArgs {
 
   final String phoneNumber;
 
+  final String? referralCode;
+
   @override
   String toString() {
-    return 'CreatePasswordRouteArgs{key: $key, fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber}';
+    return 'CreatePasswordRouteArgs{key: $key, fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, referralCode: $referralCode}';
   }
 }
 
@@ -2106,16 +2178,27 @@ class DataSuccessRoute extends _i163.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i54.EditAccountPage]
-class EditAccountRoute extends _i163.PageRouteInfo<void> {
-  const EditAccountRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+class EditAccountRoute extends _i163.PageRouteInfo<EditAccountRouteArgs> {
+  EditAccountRoute({
+    _i168.BankAccountEntity? account,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           EditAccountRoute.name,
+          args: EditAccountRouteArgs(account: account),
           initialChildren: children,
         );
 
   static const String name = 'EditAccountRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<EditAccountRouteArgs> page =
+      _i163.PageInfo<EditAccountRouteArgs>(name);
+}
+
+class EditAccountRouteArgs {
+  const EditAccountRouteArgs({this.account});
+  final _i168.BankAccountEntity? account;
+  @override
+  String toString() => 'EditAccountRouteArgs{account: $account}';
 }
 
 /// generated route for
@@ -3442,6 +3525,32 @@ class TransactionHistoryRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [_i166.TransactionHistoryDetailPage]
+class TransactionHistoryDetailRoute
+    extends _i163.PageRouteInfo<TransactionHistoryDetailRouteArgs> {
+  TransactionHistoryDetailRoute({
+    required _i167.TransactionEntity transaction,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
+          TransactionHistoryDetailRoute.name,
+          args: TransactionHistoryDetailRouteArgs(transaction: transaction),
+          initialChildren: children,
+        );
+
+  static const String name = 'TransactionHistoryDetailRoute';
+
+  static const _i163.PageInfo<TransactionHistoryDetailRouteArgs> page =
+      _i163.PageInfo<TransactionHistoryDetailRouteArgs>(name);
+}
+
+class TransactionHistoryDetailRouteArgs {
+  const TransactionHistoryDetailRouteArgs({required this.transaction});
+  final _i167.TransactionEntity transaction;
+  @override
+  String toString() {
+    return 'TransactionHistoryDetailRouteArgs{transaction: $transaction}';
+  }
+}
 /// [_i146.TransactionLimitPage]
 class TransactionLimitRoute extends _i163.PageRouteInfo<void> {
   const TransactionLimitRoute({List<_i163.PageRouteInfo>? children})
@@ -3457,16 +3566,40 @@ class TransactionLimitRoute extends _i163.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i147.TransactionSuccessfulPage]
-class TransactionSuccessfulRoute extends _i163.PageRouteInfo<void> {
-  const TransactionSuccessfulRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+class TransactionSuccessfulRoute
+    extends _i163.PageRouteInfo<TransactionSuccessfulRouteArgs> {
+  TransactionSuccessfulRoute({
+    required _i168.BankAccountEntity account,
+    required double amount,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           TransactionSuccessfulRoute.name,
+          args: TransactionSuccessfulRouteArgs(
+            account: account,
+            amount: amount,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'TransactionSuccessfulRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<TransactionSuccessfulRouteArgs> page =
+      _i163.PageInfo<TransactionSuccessfulRouteArgs>(name);
+}
+
+class TransactionSuccessfulRouteArgs {
+  const TransactionSuccessfulRouteArgs({
+    required this.account,
+    required this.amount,
+  });
+
+  final _i168.BankAccountEntity account;
+  final double amount;
+
+  @override
+  String toString() {
+    return 'TransactionSuccessfulRouteArgs{account: $account, amount: $amount}';
+  }
 }
 
 /// generated route for
@@ -3621,16 +3754,28 @@ class VerifyPhoneRoute extends _i163.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i157.VeriifyPasswordDetailPage]
-class VeriifyPasswordDetailRoute extends _i163.PageRouteInfo<void> {
-  const VeriifyPasswordDetailRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+class VeriifyPasswordDetailRoute
+    extends _i163.PageRouteInfo<VeriifyPasswordDetailRouteArgs> {
+  VeriifyPasswordDetailRoute({
+    required String emailAddress,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           VeriifyPasswordDetailRoute.name,
+          args: VeriifyPasswordDetailRouteArgs(emailAddress: emailAddress),
           initialChildren: children,
         );
 
   static const String name = 'VeriifyPasswordDetailRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<VeriifyPasswordDetailRouteArgs> page =
+      _i163.PageInfo<VeriifyPasswordDetailRouteArgs>(name);
+}
+
+class VeriifyPasswordDetailRouteArgs {
+  const VeriifyPasswordDetailRouteArgs({required this.emailAddress});
+  final String emailAddress;
+  @override
+  String toString() => 'VeriifyPasswordDetailRouteArgs{emailAddress: $emailAddress}';
 }
 
 /// generated route for

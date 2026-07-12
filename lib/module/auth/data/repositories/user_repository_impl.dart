@@ -30,6 +30,7 @@ class UserRepositoryImpl implements UserRepository {
     required String password,
     required String confirmPassword,
     String? deviceToken,
+    String? referralCode,
   }) async {
     try {
       final result = await _remoteDataSource.register(
@@ -40,6 +41,7 @@ class UserRepositoryImpl implements UserRepository {
           password: password,
           confirmPassword: confirmPassword,
           deviceToken: deviceToken,
+          referralCode: referralCode,
         ),
       );
       return Right(result.toEntity());

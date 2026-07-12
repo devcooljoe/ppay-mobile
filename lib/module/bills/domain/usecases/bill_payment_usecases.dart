@@ -76,11 +76,23 @@ class PurchaseBillUseCase {
     required String phoneNumber,
     required double amount,
     required String customerFirstName,
+    required String billerName,
+    required String billerCategory,
+    String? meterNumber,
+    String? plan,
+    String? provider,
+    String? logoUrl,
   }) => _repository.purchaseBill(
     billItemIdentifier: billItemIdentifier,
     customerIdentifier: customerIdentifier,
     phoneNumber: phoneNumber,
     amount: amount,
     customerFirstName: customerFirstName,
+    billerName: billerName,
+    billerCategory: billerCategory,
+    meterNumber: meterNumber,
+    plan: plan,
+    provider: provider,
+    logoUrl: logoUrl,
   );
 }

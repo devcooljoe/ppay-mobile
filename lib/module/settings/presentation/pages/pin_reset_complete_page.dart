@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 
 @RoutePage()
 class PinResetCompletePage extends HookConsumerWidget {
@@ -79,7 +80,7 @@ class PinResetCompletePage extends HookConsumerWidget {
                         76.verticalSpace,
                         PPButton(
                           text: 'Back to Settings',
-                          onPressed: () {},
+                          onPressed: () => context.router.push(const SettingsRoute()),
                           icon: SvgPicture.asset(
                             'assets/icon/arrow_forwardw.svg',
                             fit: BoxFit.contain,

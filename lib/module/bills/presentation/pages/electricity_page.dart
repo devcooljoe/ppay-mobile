@@ -98,6 +98,7 @@ class ElectricityPage extends HookConsumerWidget {
               customerName: customerName,
               phoneNumber: phoneController.text.trim(),
               amount: amount,
+              billerCategory: 'Electricity',
             ),
           ),
         ),

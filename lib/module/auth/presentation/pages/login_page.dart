@@ -26,7 +26,7 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final emailController = useTextEditingController();
-    final passwordController = useTextEditingController(text: "Password@123");
+    final passwordController = useTextEditingController();
     final obscurePassword = useState(true);
     final rememberMe = useState(false);
     final isBiometricEnabled = useState(false);

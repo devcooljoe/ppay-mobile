@@ -18,5 +18,11 @@ abstract class BillPaymentRepository {
     required String phoneNumber,
     required double amount,
     required String customerFirstName,
+    required String billerName,
+    required String billerCategory,
+    String? meterNumber,
+    String? plan,
+    String? provider,
+    String? logoUrl,
   });
 }

@@ -4,6 +4,7 @@ import 'package:ppay_mobile/core/models/base_response.dart';
 import 'package:ppay_mobile/module/transaction/data/models/name_enquiry_model.dart';
 import 'package:ppay_mobile/module/transaction/data/models/requests/name_enquiry_request.dart';
 import 'package:ppay_mobile/module/transaction/data/models/requests/withdraw_request.dart';
+import 'package:ppay_mobile/module/transaction/data/models/transaction_model.dart';
 import 'package:ppay_mobile/module/transaction/data/models/wallet_model.dart';
 import 'package:ppay_mobile/module/transaction/data/sources/wallet_remote_datasource.dart';
 
@@ -37,5 +38,31 @@ class WalletRemoteDataSourceImpl implements WalletRemoteDataSource {
   @override
   Future<void> withdraw(WithdrawRequest request) async {
     await _dio.post('$_baseUrl/wallet/withdraw', data: request.toJson());
+  }
+
+  @override
+  Future<PaginatedTransactionsModel> getMyTransactions(int pageNumber, int pageSize) async {
+    final response = await _dio.get(
+      '$_baseUrl/transactions',
+      queryParameters: {'pageNumber': pageNumber, 'pageSize': pageSize},
+    );
+    final baseResponse = BaseResponse<PaginatedTransactionsModel>.fromJson(
+      response.data,
+      (data) => PaginatedTransactionsModel.fromJson(data as Map<String, dynamic>),
+    );
+    return baseResponse.data!;
+  }
+
+  @override
+  Future<double> calculateFee({
+    required String transactionType,
+    required double amount,
+  }) async {
+    final response = await _dio.post(
+      '$_baseUrl/wallet/calculate-fee',
+      data: {'transactionType': transactionType, 'amount': amount},
+    );
+    final data = response.data['data'] as Map<String, dynamic>;
+    return double.parse(data['fee'].toString());
   }
 }

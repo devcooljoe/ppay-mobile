@@ -202,5 +202,21 @@ final purchaseBillProvider = AutoDisposeNotifierProvider<PurchaseBill,
 );
 
 typedef _$PurchaseBill = AutoDisposeNotifier<AsyncValue<BillPurchaseEntity?>>;
+
+String _$calculateFeeHash() => r'bills_calculate_fee_hash';
+
+/// See also [CalculateFee].
+@ProviderFor(CalculateFee)
+final calculateFeeProvider =
+    AutoDisposeNotifierProvider<CalculateFee, AsyncValue<double?>>.internal(
+  CalculateFee.new,
+  name: r'calculateFeeProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$calculateFeeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CalculateFee = AutoDisposeNotifier<AsyncValue<double?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

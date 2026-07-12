@@ -9,6 +9,8 @@ class UserEntity with _$UserEntity {
     required String emailAddress,
     required String phoneNumber,
     String? picture,
+    String? dob,
+    String? referralCode,
     required bool isEmailVerified,
     required bool isPhoneNumberVerified,
     required bool isBvnVerified,

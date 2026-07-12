@@ -228,7 +228,9 @@ class WithdrawalBottomsheet extends HookConsumerWidget {
                             account: account,
                             onTransfer: () {
                               Navigator.pop(context);
-                              context.router.push(TransferFundsRoute());
+                              context.router.push(
+                                AmountAndInfoRoute(account: account),
+                              );
                             },
                           );
                         },

@@ -15,6 +15,7 @@ _$RegisterRequestImpl _$$RegisterRequestImplFromJson(
       password: json['password'] as String,
       confirmPassword: json['confirmPassword'] as String,
       deviceToken: json['deviceToken'] as String?,
+      referralCode: json['referralCode'] as String?,
     );
 
 Map<String, dynamic> _$$RegisterRequestImplToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$RegisterRequestImplToJson(
       'password': instance.password,
       'confirmPassword': instance.confirmPassword,
       'deviceToken': instance.deviceToken,
+      'referralCode': instance.referralCode,
     };

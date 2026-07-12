@@ -12,6 +12,7 @@ class RegisterRequest with _$RegisterRequest {
     required String password,
     required String confirmPassword,
     String? deviceToken,
+    String? referralCode,
   }) = _RegisterRequest;
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) => _$RegisterRequestFromJson(json);

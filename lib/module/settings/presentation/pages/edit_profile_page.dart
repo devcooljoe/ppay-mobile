@@ -5,6 +5,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/module/kyc/presentation/providers/kyc_providers.dart';
+import 'package:ppay_mobile/shared/widgets/app_image.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
 import 'package:ppay_mobile/shared/widgets/gender_bottomsheet.dart';
@@ -18,8 +24,67 @@ class EditProfilePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateController = useTextEditingController();
+    final user = ref.watch(authenticatedUserProvider).value;
+
+    final nameController = useTextEditingController(text: user?.fullName ?? '');
+    final dateController = useTextEditingController(
+      text: user?.dob != null ? _formatDobForDisplay(user!.dob!) : '',
+    );
     final genderController = useTextEditingController();
+    final selectedDob = useState<String?>(user?.dob);
+
+    ref.listen(updateProfileProvider, (_, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else {
+        AppLoader.hide(context);
+        if (next.hasError) {
+          MessageHandler.showErrorSnackBar(context, next.error.toString());
+        } else if (!next.isLoading) {
+          ref.read(authenticatedUserProvider.notifier).silentRefresh();
+          MessageHandler.showSuccessSnackBar(context, 'Profile updated successfully');
+          Navigator.pop(context);
+        }
+      }
+    });
+
+    ref.listen(uploadProfilePictureProvider, (_, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else {
+        AppLoader.hide(context);
+        if (next.hasError) {
+          MessageHandler.showErrorSnackBar(context, next.error.toString());
+        } else if (!next.isLoading) {
+          MessageHandler.showSuccessSnackBar(context, 'Profile picture updated');
+        }
+      }
+    });
+
+    Future<void> pickAndUploadImage() async {
+      final picker = ImagePicker();
+      final picked = await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+      if (picked != null) {
+        await ref.read(uploadProfilePictureProvider.notifier).call(picked.path);
+      }
+    }
+
+    void handleSave() {
+      final name = nameController.text.trim();
+      final dob = selectedDob.value;
+      if (name.isEmpty && dob == null) {
+        MessageHandler.showErrorSnackBar(context, 'Please update at least one field');
+        return;
+      }
+      ref.read(updateProfileProvider.notifier).call(
+            fullName: name.isNotEmpty ? name : null,
+            dob: dob,
+          );
+    }
+
+    final picture = user?.picture;
+    final initials = _initials(user?.fullName ?? '');
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: PPAppBar(
@@ -28,13 +93,20 @@ class EditProfilePage extends HookConsumerWidget {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20.w),
-            child: Text(
-              'Reset',
-              style: TextStyle(
-                fontFamily: 'InstrumentSans',
-                color: PPaymobileColors.doneTextColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
+            child: TouchOpacity(
+              onTap: () {
+                nameController.text = user?.fullName ?? '';
+                dateController.text = user?.dob != null ? _formatDobForDisplay(user!.dob!) : '';
+                selectedDob.value = user?.dob;
+              },
+              child: Text(
+                'Reset',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.doneTextColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -49,159 +121,168 @@ class EditProfilePage extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   51.verticalSpace,
-                  CircleAvatar(
-                    radius: 51.5.r,
-                    backgroundColor: PPaymobileColors.backgroundColor,
-                    child: Center(
-                      child: Text(
-                        'AS',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.mainScreenBackground,
-                          fontSize: 28.sp,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  ),
-                  8.verticalSpace,
-                  Container(
-                    height: 40.h,
-                    width: 134.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 19.w,
-                      vertical: 8.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6).r,
-                      border: Border.all(
-                        width: 1.w,
-                        color: PPaymobileColors.textfiedBorder,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                  GestureDetector(
+                    onTap: pickAndUploadImage,
+                    child: Stack(
                       children: [
-                        SizedBox(
-                          height: 14.h,
-                          width: 15.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/camera.svg',
-                            fit: BoxFit.contain,
-                          ),
+                        CircleAvatar(
+                          radius: 51.5.r,
+                          backgroundColor: PPaymobileColors.backgroundColor,
+                          child: picture != null && picture.isNotEmpty
+                              ? ClipOval(
+                                  child: AppImage(
+                                    imageUrl: picture,
+                                    width: 103.w,
+                                    height: 103.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : Text(
+                                  initials,
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: PPaymobileColors.mainScreenBackground,
+                                    fontSize: 28.sp,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
                         ),
-                        6.horizontalSpace,
-                        Text(
-                          'Add Image',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            height: 28.w,
+                            width: 28.w,
+                            decoration: BoxDecoration(
+                              color: PPaymobileColors.buttonColorandText,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'assets/icon/camera.svg',
+                                width: 14.w,
+                                height: 14.w,
+                                fit: BoxFit.contain,
+                                colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                              ),
+                            ),
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  8.verticalSpace,
+                  TouchOpacity(
+                    onTap: pickAndUploadImage,
+                    child: Container(
+                      height: 40.h,
+                      width: 134.w,
+                      padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 8.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6).r,
+                        border: Border.all(width: 1.w, color: PPaymobileColors.textfiedBorder),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 14.h,
+                            width: 15.w,
+                            child: SvgPicture.asset('assets/icon/camera.svg', fit: BoxFit.contain),
+                          ),
+                          6.horizontalSpace,
+                          Text(
+                            'Add Image',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   61.verticalSpace,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PPLabel(text: 'Full Name'),
+                      const PPLabel(text: 'Full Name'),
                       4.verticalSpace,
                       Container(
                         height: 52.h,
                         width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6).r,
-                        ),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6).r),
                         child: TextFormField(
+                          controller: nameController,
+                          textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                              vertical: 14.h,
-                            ),
-                            hintText: 'Adebami Samuel',
+                            contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+                            hintText: 'Full Name',
                             hintStyle: TextStyle(
                               fontFamily: 'InstrumentSans',
                               fontWeight: FontWeight.w500,
                               fontSize: 14.sp,
-                              color: Colors.black,
+                              color: PPaymobileColors.textfiedBorder,
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfiedBorder,
-                                width: 1.w,
-                              ),
+                              borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfiedBorder,
-                                width: 1.w,
-                              ),
+                              borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
                             ),
                           ),
                         ),
                       ),
                       24.verticalSpace,
-                      PPLabel(text: 'Date of Birth'),
+                      const PPLabel(text: 'Date of Birth'),
                       4.verticalSpace,
                       TextFormField(
                         controller: dateController,
                         readOnly: true,
                         onTap: () async {
-                          /// 👉 THIS is where the dialog is called
-                          final selectedDate = await showDialog<DateTime>(
+                          final picked = await showDialog<DateTime>(
                             context: context,
                             builder: (_) => const CustomDatePickerDialog(),
                           );
-                          if (selectedDate != null) {
+                          if (picked != null) {
                             dateController.text =
-                                "${selectedDate.day.toString().padLeft(2, '0')}/"
-                                "${selectedDate.month.toString().padLeft(2, '0')}/"
-                                "${selectedDate.year}";
+                                '${picked.day.toString().padLeft(2, '0')}/'
+                                '${picked.month.toString().padLeft(2, '0')}/'
+                                '${picked.year}';
+                            selectedDob.value =
+                                '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
                           }
                         },
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 14.h,
-                          ),
-                          hintText: '09/11/2009',
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+                          hintText: 'DD/MM/YYYY',
                           hintStyle: TextStyle(
                             fontFamily: 'InstrumentSans',
-                            color: Colors.black,
+                            color: PPaymobileColors.textfiedBorder,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
                           suffixIcon: SizedBox(
                             height: 24.w,
                             width: 24.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/calendar.svg',
-                              fit: BoxFit.scaleDown,
-                            ),
+                            child: SvgPicture.asset('assets/icon/calendar.svg', fit: BoxFit.scaleDown),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.r),
-                            borderSide: BorderSide(
-                              color: PPaymobileColors.textfiedBorder,
-                              width: 1.w,
-                            ),
+                            borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.r),
-                            borderSide: BorderSide(
-                              color: PPaymobileColors.textfiedBorder,
-                              width: 1.w,
-                            ),
+                            borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
                           ),
                         ),
                       ),
                       24.verticalSpace,
-                      PPLabel(text: 'Enter Gender'),
+                      const PPLabel(text: 'Gender'),
                       4.verticalSpace,
                       TouchOpacity(
                         onTap: () async {
@@ -211,25 +292,17 @@ class EditProfilePage extends HookConsumerWidget {
                             backgroundColor: Colors.transparent,
                             builder: (_) => const GenderBottomsheet(),
                           );
-
-                          if (result != null) {
-                            genderController.text = result;
-                          }
+                          if (result != null) genderController.text = result;
                         },
                         child: Container(
                           height: 52.h,
                           width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6).r,
-                          ),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6).r),
                           child: TextFormField(
                             controller: genderController,
                             readOnly: true,
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 10.w,
-                                vertical: 14.h,
-                              ),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
                               hintText: 'Select',
                               hintStyle: TextStyle(
                                 fontFamily: 'InstrumentSans',
@@ -239,41 +312,27 @@ class EditProfilePage extends HookConsumerWidget {
                               ),
                               suffixIcon: TouchOpacity(
                                 onTap: () async {
-                                  final result =
-                                      await showModalBottomSheet<String>(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        builder: (_) =>
-                                            const GenderBottomsheet(),
-                                      );
-
-                                  if (result != null) {
-                                    genderController.text = result;
-                                  }
+                                  final result = await showModalBottomSheet<String>(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (_) => const GenderBottomsheet(),
+                                  );
+                                  if (result != null) genderController.text = result;
                                 },
                                 child: SizedBox(
                                   height: 14.h,
                                   width: 8.w,
-                                  child: SvgPicture.asset(
-                                    'assets/icon/arrow_down.svg',
-                                    fit: BoxFit.scaleDown,
-                                  ),
+                                  child: SvgPicture.asset('assets/icon/arrow_down.svg', fit: BoxFit.scaleDown),
                                 ),
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(6.r),
-                                borderSide: BorderSide(
-                                  color: PPaymobileColors.textfiedBorder,
-                                  width: 1.w,
-                                ),
+                                borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(6.r),
-                                borderSide: BorderSide(
-                                  color: PPaymobileColors.textfiedBorder,
-                                  width: 1.w,
-                                ),
+                                borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
                               ),
                             ),
                           ),
@@ -284,14 +343,28 @@ class EditProfilePage extends HookConsumerWidget {
                 ],
               ),
               77.verticalSpace,
-              PPButton(
-                text: 'Save Changes',
-                onPressed: () {},
-              ),
+              PPButton(text: 'Save Changes', onPressed: handleSave),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _initials(String name) {
+    final parts = name.trim().split(' ');
+    if (parts.isEmpty) return '';
+    if (parts.length == 1) return parts[0].substring(0, 1).toUpperCase();
+    return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+  }
+
+  String _formatDobForDisplay(String dob) {
+    try {
+      final parts = dob.split('-');
+      if (parts.length != 3) return dob;
+      return '${parts[2]}/${parts[1]}/${parts[0]}';
+    } catch (_) {
+      return dob;
+    }
   }
 }

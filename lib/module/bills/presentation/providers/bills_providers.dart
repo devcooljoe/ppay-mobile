@@ -1,6 +1,7 @@
 import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_entity.dart';
 import 'package:ppay_mobile/module/bills/domain/usecases/bill_payment_usecases.dart';
+import 'package:ppay_mobile/module/transaction/domain/usecases/calculate_fee_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'bills_providers.g.dart';
@@ -145,6 +146,12 @@ class PurchaseBill extends _$PurchaseBill {
     required String phoneNumber,
     required double amount,
     required String customerFirstName,
+    required String billerName,
+    required String billerCategory,
+    String? meterNumber,
+    String? plan,
+    String? provider,
+    String? logoUrl,
   }) async {
     state = const AsyncValue.loading();
     final result = await getIt<PurchaseBillUseCase>()(
@@ -153,10 +160,37 @@ class PurchaseBill extends _$PurchaseBill {
       phoneNumber: phoneNumber,
       amount: amount,
       customerFirstName: customerFirstName,
+      billerName: billerName,
+      billerCategory: billerCategory,
+      meterNumber: meterNumber,
+      plan: plan,
+      provider: provider,
+      logoUrl: logoUrl,
     );
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (purchase) => AsyncValue.data(purchase),
+    );
+  }
+}
+
+@riverpod
+class CalculateFee extends _$CalculateFee {
+  @override
+  AsyncValue<double?> build() => const AsyncValue.data(null);
+
+  Future<void> call({
+    required String transactionType,
+    required double amount,
+  }) async {
+    state = const AsyncValue.loading();
+    final result = await getIt<CalculateFeeUseCase>()(
+      transactionType: transactionType,
+      amount: amount,
+    );
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (fee) => AsyncValue.data(fee),
     );
   }
 }

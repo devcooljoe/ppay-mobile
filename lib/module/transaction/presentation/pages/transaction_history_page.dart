@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/shared/models/history_model.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
+import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/empty_state.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
 class TransactionHistoryPage extends HookConsumerWidget {
@@ -12,6 +18,33 @@ class TransactionHistoryPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final searchController = useTextEditingController();
+    final searchQuery = useState('');
+    final transactionState = ref.watch(getMyTransactionsProvider);
+
+    useEffect(() {
+      Future.microtask(() => ref.read(getMyTransactionsProvider.notifier).call());
+      return null;
+    }, []);
+
+    useEffect(() {
+      void listener() => searchQuery.value = searchController.text.toLowerCase();
+      searchController.addListener(listener);
+      return () => searchController.removeListener(listener);
+    }, []);
+
+    final allTransactions = transactionState.value?.transactions ?? [];
+
+    final filtered = useMemoized(() {
+      if (searchQuery.value.isEmpty) return allTransactions;
+      return allTransactions.where((t) {
+        return t.title.toLowerCase().contains(searchQuery.value) ||
+            t.transactionId.toLowerCase().contains(searchQuery.value);
+      }).toList();
+    }, [allTransactions, searchQuery.value]);
+
+    final grouped = useMemoized(() => _groupByDate(filtered), [filtered]);
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -32,48 +65,50 @@ class TransactionHistoryPage extends HookConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: ListView(
+          child: Column(
             children: [
               42.verticalSpace,
               Row(
                 children: [
-                  Container(
-                    height: 54.h,
-                    width: 314.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4).r,
-                        bottomLeft: Radius.circular(4).r,
+                  Expanded(
+                    child: Container(
+                      height: 54.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4).r,
+                          bottomLeft: Radius.circular(4).r,
+                        ),
                       ),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: SizedBox(
-                          height: 24.w,
-                          width: 24.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/bank_search.svg',
-                            fit: BoxFit.scaleDown,
+                      child: TextFormField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                          prefixIcon: SizedBox(
+                            height: 24.w,
+                            width: 24.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/bank_search.svg',
+                              fit: BoxFit.scaleDown,
+                            ),
                           ),
-                        ),
-                        hintText: 'Search Transaction',
-                        hintStyle: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.textfiedBorder,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        filled: true,
-                        fillColor: PPaymobileColors.deepBackgroundColor,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 14.h,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(4).r,
-                            bottomLeft: Radius.circular(4).r,
+                          hintText: 'Search Transaction',
+                          hintStyle: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.textfiedBorder,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          filled: true,
+                          fillColor: PPaymobileColors.deepBackgroundColor,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 14.h,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(4).r,
+                              bottomLeft: Radius.circular(4).r,
+                            ),
                           ),
                         ),
                       ),
@@ -82,10 +117,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
                   Container(
                     height: 54.h,
                     width: 86.w,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 11.w,
-                      vertical: 12.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 12.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(6).r,
@@ -125,102 +157,283 @@ class TransactionHistoryPage extends HookConsumerWidget {
                   ),
                 ],
               ),
-              //28.verticalSpace,
+              16.verticalSpace,
               Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: transactionGroups.length,
-                  itemBuilder: (context, groupIndex) {
-                    final group = transactionGroups[groupIndex];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        38.verticalSpace,
-                        Text(
-                          group.dayLabel,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        32.verticalSpace,
-                        //transactions
-                        ListView.separated(
-                          itemCount: group.transactions.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          separatorBuilder: (_, __) => 28.verticalSpace,
-                          itemBuilder: (context, index) {
-                            final transaction = group.transactions[index];
-                            return ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                height: 50.w,
-                                width: 50.w,
-                                padding: EdgeInsets.all(10).r,
-                                decoration: BoxDecoration(
-                                  color: transaction.containerColor,
-                                  borderRadius: BorderRadius.circular(25).r,
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    transaction.imageAsset,
-                                    height: 26.h,
-                                    width: 22.w,
-                                    fit: BoxFit.contain,
+                child: transactionState.isLoading
+                    ? _buildSkeleton()
+                    : transactionState.hasError
+                        ? Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Failed to load transactions',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: PPaymobileColors.svgIconColor,
+                                    fontSize: 14.sp,
                                   ),
                                 ),
-                              ),
-                              title: Text(
-                                transaction.title,
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
+                                16.verticalSpace,
+                                TextButton(
+                                  onPressed: () => ref
+                                      .read(getMyTransactionsProvider.notifier)
+                                      .call(),
+                                  child: const Text('Retry'),
                                 ),
+                              ],
+                            ),
+                          )
+                        : filtered.isEmpty
+                            ? EmptyState(
+                                imagePath: 'assets/images/transactionimage.png',
+                                message: 'No Transactions Found',
+                              )
+                            : ListView.builder(
+                                itemCount: grouped.length,
+                                itemBuilder: (context, groupIndex) {
+                                  final group = grouped[groupIndex];
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      24.verticalSpace,
+                                      Text(
+                                        group.label,
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          color: Colors.black,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      20.verticalSpace,
+                                      ListView.separated(
+                                        itemCount: group.transactions.length,
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        separatorBuilder: (_, __) => 20.verticalSpace,
+                                        itemBuilder: (context, index) {
+                                          final tx = group.transactions[index];
+                                          return GestureDetector(
+                                            onTap: () => context.router.push(
+                                              TransactionHistoryDetailRoute(transaction: tx),
+                                            ),
+                                            child: _TransactionRow(transaction: tx),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
-                              subtitle: Text(
-                                transaction.subtitle,
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.svgIconColor,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              trailing: Text(
-                                transaction.amount,
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: transaction.amountColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => transaction.screen,
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildSkeleton() {
+    return ListView.builder(
+      itemCount: 6,
+      itemBuilder: (_, __) => Padding(
+        padding: EdgeInsets.only(bottom: 20.h),
+        child: Row(
+          children: [
+            SkeletonLoader(width: 49.w, height: 49.w, borderRadius: BorderRadius.circular(100.r)),
+            12.horizontalSpace,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SkeletonLoader(width: 140.w, height: 14.h),
+                  6.verticalSpace,
+                  SkeletonLoader(width: 100.w, height: 12.h),
+                ],
+              ),
+            ),
+            SkeletonLoader(width: 80.w, height: 14.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<_TransactionGroup> _groupByDate(List<TransactionEntity> transactions) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+
+    final Map<String, List<TransactionEntity>> groups = {};
+
+    for (final tx in transactions) {
+      final txDate = DateTime(tx.date.year, tx.date.month, tx.date.day);
+      String label;
+      if (txDate == today) {
+        label = 'Today';
+      } else if (txDate == yesterday) {
+        label = 'Yesterday';
+      } else {
+        label = '${_monthName(tx.date.month)} ${tx.date.day}, ${tx.date.year}';
+      }
+      groups.putIfAbsent(label, () => []).add(tx);
+    }
+
+    return groups.entries
+        .map((e) => _TransactionGroup(label: e.key, transactions: e.value))
+        .toList();
+  }
+
+  String _monthName(int month) {
+    const months = [
+      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    return months[month];
+  }
+}
+
+class _TransactionGroup {
+  final String label;
+  final List<TransactionEntity> transactions;
+  const _TransactionGroup({required this.label, required this.transactions});
+}
+
+class _TransactionRow extends StatelessWidget {
+  final TransactionEntity transaction;
+  const _TransactionRow({required this.transaction});
+
+  @override
+  Widget build(BuildContext context) {
+    final isCredit = transaction.type.isCredit;
+    final amountColor = _statusColor(transaction.status, isCredit);
+    final amountPrefix = isCredit ? '+' : '-';
+    final formattedAmount =
+        '$amountPrefix₦${AmountFormatter.formatBalance(transaction.amount)}';
+
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: Container(
+        height: 49.w,
+        width: 49.w,
+        decoration: BoxDecoration(
+          color: _iconBg(transaction.type),
+          borderRadius: BorderRadius.circular(100.r),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            _iconPath(transaction.type),
+            width: 22.w,
+            height: 22.w,
+            fit: BoxFit.contain,
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
+        ),
+      ),
+      title: Text(
+        transaction.title,
+        style: TextStyle(
+          fontFamily: 'InstrumentSans',
+          color: Colors.black,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      subtitle: Text(
+        _statusLabel(transaction.status),
+        style: TextStyle(
+          fontFamily: 'InstrumentSans',
+          color: _statusTextColor(transaction.status),
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      trailing: Text(
+        formattedAmount,
+        style: TextStyle(
+          fontFamily: 'InstrumentSans',
+          color: amountColor,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Color _iconBg(TransactionType type) {
+    switch (type) {
+      case TransactionType.walletFunding:
+      case TransactionType.cardFunding:
+        return PPaymobileColors.backgroundColor;
+      case TransactionType.walletWithdrawal:
+      case TransactionType.cardWithdrawal:
+        return PPaymobileColors.transactRed;
+      case TransactionType.billPayment:
+        return const Color(0xFF6B4EFF);
+      case TransactionType.cryptoPurchase:
+      case TransactionType.cryptoSale:
+      case TransactionType.cryptoDeposit:
+        return const Color(0xFFF7931A);
+      case TransactionType.giftcardPurchase:
+      case TransactionType.giftcardSale:
+        return const Color(0xFF00A86B);
+      case TransactionType.shopping:
+        return const Color(0xFF0066CC);
+      case TransactionType.flightBooking:
+        return const Color(0xFF1A1A2E);
+    }
+  }
+
+  String _iconPath(TransactionType type) {
+    switch (type) {
+      case TransactionType.walletFunding:
+      case TransactionType.cardFunding:
+        return 'assets/icon/money.svg';
+      case TransactionType.walletWithdrawal:
+      case TransactionType.cardWithdrawal:
+        return 'assets/icon/money.svg';
+      case TransactionType.billPayment:
+        return 'assets/icon/bill.svg';
+      case TransactionType.cryptoPurchase:
+      case TransactionType.cryptoSale:
+      case TransactionType.cryptoDeposit:
+        return 'assets/icon/crypto.svg';
+      case TransactionType.giftcardPurchase:
+      case TransactionType.giftcardSale:
+        return 'assets/icon/gift.svg';
+      case TransactionType.shopping:
+        return 'assets/icon/bill.svg';
+      case TransactionType.flightBooking:
+        return 'assets/icon/bill.svg';
+    }
+  }
+
+  Color _statusColor(TransactionStatus status, bool isCredit) {
+    if (status == TransactionStatus.failed) return PPaymobileColors.redTextfield;
+    if (status == TransactionStatus.pending) return PPaymobileColors.svgIconColor;
+    return isCredit ? PPaymobileColors.buttonColor : PPaymobileColors.redTextfield;
+  }
+
+  Color _statusTextColor(TransactionStatus status) {
+    switch (status) {
+      case TransactionStatus.successful:
+        return PPaymobileColors.buttonColor;
+      case TransactionStatus.failed:
+        return PPaymobileColors.redTextfield;
+      case TransactionStatus.pending:
+        return PPaymobileColors.svgIconColor;
+    }
+  }
+
+  String _statusLabel(TransactionStatus status) {
+    switch (status) {
+      case TransactionStatus.successful:
+        return 'Successful';
+      case TransactionStatus.failed:
+        return 'Failed';
+      case TransactionStatus.pending:
+        return 'Pending';
+    }
   }
 }

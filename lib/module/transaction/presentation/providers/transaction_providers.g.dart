@@ -51,5 +51,37 @@ final withdrawProvider =
 );
 
 typedef _$Withdraw = AutoDisposeNotifier<AsyncValue<void>>;
+
+String _$getMyTransactionsHash() => r'transaction_get_my_transactions_hash';
+
+/// See also [GetMyTransactions].
+@ProviderFor(GetMyTransactions)
+final getMyTransactionsProvider = AutoDisposeNotifierProvider<GetMyTransactions,
+    AsyncValue<PaginatedTransactionsEntity?>>.internal(
+  GetMyTransactions.new,
+  name: r'getMyTransactionsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$getMyTransactionsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$GetMyTransactions = AutoDisposeNotifier<AsyncValue<PaginatedTransactionsEntity?>>;
+
+String _$calculateFeeHash() => r'transaction_calculate_fee_hash';
+
+/// See also [CalculateFee].
+@ProviderFor(CalculateFee)
+final calculateFeeProvider =
+    AutoDisposeNotifierProvider<CalculateFee, AsyncValue<double?>>.internal(
+  CalculateFee.new,
+  name: r'calculateFeeProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$calculateFeeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CalculateFee = AutoDisposeNotifier<AsyncValue<double?>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

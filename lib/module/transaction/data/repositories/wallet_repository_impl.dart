@@ -63,4 +63,20 @@ class WalletRepositoryImpl implements WalletRepository {
       return Left(e.error as Failure);
     }
   }
+
+  @override
+  Future<Either<Failure, double>> calculateFee({
+    required String transactionType,
+    required double amount,
+  }) async {
+    try {
+      final fee = await _remoteDataSource.calculateFee(
+        transactionType: transactionType,
+        amount: amount,
+      );
+      return Right(fee);
+    } on DioException catch (e) {
+      return Left(e.error as Failure);
+    }
+  }
 }

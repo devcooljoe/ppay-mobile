@@ -8,6 +8,7 @@ class TransactionListItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final String amount;
+  final Color? amountColor;
   final VoidCallback? onTap;
 
   const TransactionListItem({
@@ -16,6 +17,7 @@ class TransactionListItem extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.amount,
+    this.amountColor,
     this.onTap,
   });
 
@@ -80,7 +82,7 @@ class TransactionListItem extends StatelessWidget {
                 fontFamily: 'InstrumentSans',
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
-                color: PPaymobileColors.redTextfield,
+                color: amountColor ?? PPaymobileColors.redTextfield,
               ),
             ),
           ],

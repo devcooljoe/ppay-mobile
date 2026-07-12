@@ -20,12 +20,14 @@ class CreatePasswordPage extends HookConsumerWidget {
   final String fullName;
   final String emailAddress;
   final String phoneNumber;
+  final String? referralCode;
 
   const CreatePasswordPage({
     super.key,
     required this.fullName,
     required this.emailAddress,
     required this.phoneNumber,
+    this.referralCode,
   });
 
   @override
@@ -94,6 +96,7 @@ class CreatePasswordPage extends HookConsumerWidget {
             password: password,
             confirmPassword: confirmPassword,
             deviceToken: deviceToken,
+            referralCode: referralCode,
           );
         } catch (_) {
           ref.read(registerProvider.notifier).call(
@@ -103,6 +106,7 @@ class CreatePasswordPage extends HookConsumerWidget {
             password: password,
             confirmPassword: confirmPassword,
             deviceToken: null,
+            referralCode: referralCode,
           );
         }
       }

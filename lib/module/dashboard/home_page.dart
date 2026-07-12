@@ -18,6 +18,9 @@ import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/section_header.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:ppay_mobile/shared/widgets/transaction_list_item.dart';
+import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
+import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 import 'package:ppay_mobile/shared/widgets/wallet_detail_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/withdrawal_bottomsheet.dart';
 
@@ -59,6 +62,13 @@ class HomePage extends HookConsumerWidget {
 
     final walletAsync = ref.watch(walletProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
+    final transactionAsync = ref.watch(getMyTransactionsProvider);
+
+    // Load recent transactions on first build
+    useEffect(() {
+      Future.microtask(() => ref.read(getMyTransactionsProvider.notifier).call());
+      return null;
+    }, []);
 
     final fullName = user?.fullName ?? 'User';
     final firstName = fullName.split(' ').first;
@@ -548,19 +558,10 @@ class HomePage extends HookConsumerWidget {
                     SectionHeader(
                       title: 'Transaction History',
                       actionText: 'See all',
+                      onActionTap: () => context.router.push(TransactionHistoryRoute()),
                     ),
                     26.verticalSpace,
-                    TransactionListItem(
-                      imagePath: 'assets/images/dash_apple.png',
-                      title: 'Apple',
-                      subtitle: 'Pay with Dollar Card',
-                      amount: '-₦60,000.00',
-                    ),
-                    28.verticalSpace,
-                    EmptyState(
-                      imagePath: 'assets/images/transactionimage.png',
-                      message: 'No Transaction Available',
-                    ),
+                    _buildRecentTransactions(context, transactionAsync),
                   ],
                 ),
               ),
@@ -569,5 +570,84 @@ class HomePage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildRecentTransactions(
+    BuildContext context,
+    AsyncValue<PaginatedTransactionsEntity?> state,
+  ) {
+    if (state.isLoading) {
+      return Column(
+        children: List.generate(
+          3,
+          (_) => Padding(
+            padding: EdgeInsets.only(bottom: 20.h),
+            child: Row(
+              children: [
+                SkeletonLoader(
+                  width: 49.w,
+                  height: 49.w,
+                  borderRadius: BorderRadius.circular(100.r),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SkeletonLoader(width: 140.w, height: 14.h),
+                      6.verticalSpace,
+                      SkeletonLoader(width: 100.w, height: 12.h),
+                    ],
+                  ),
+                ),
+                SkeletonLoader(width: 80.w, height: 14.h),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    final transactions = state.value?.transactions ?? [];
+    final recent = transactions.take(5).toList();
+
+    if (recent.isEmpty) {
+      return EmptyState(
+        imagePath: 'assets/images/transactionimage.png',
+        message: 'No Transaction Available',
+      );
+    }
+
+    return Column(
+      children: recent.map((tx) {
+        final isCredit = tx.type.isCredit;
+        final amountColor = tx.status == TransactionStatus.failed
+            ? PPaymobileColors.redTextfield
+            : isCredit
+                ? PPaymobileColors.buttonColor
+                : PPaymobileColors.redTextfield;
+        final prefix = isCredit ? '+' : '-';
+        final amount = '$prefix₦${AmountFormatter.formatBalance(tx.amount)}';
+
+        return Padding(
+          padding: EdgeInsets.only(bottom: 20.h),
+          child: TransactionListItem(
+            imagePath: 'assets/images/logo.png',
+            title: tx.title,
+            subtitle: _statusLabel(tx.status),
+            amount: amount,
+            amountColor: amountColor,
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  String _statusLabel(TransactionStatus status) {
+    switch (status) {
+      case TransactionStatus.successful: return 'Successful';
+      case TransactionStatus.failed: return 'Failed';
+      case TransactionStatus.pending: return 'Pending';
+    }
   }
 }

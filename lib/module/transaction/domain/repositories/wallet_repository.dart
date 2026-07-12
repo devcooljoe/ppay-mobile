@@ -16,4 +16,8 @@ abstract class WalletRepository {
     required String bankCode,
     required String bankName,
   });
+  Future<Either<Failure, double>> calculateFee({
+    required String transactionType,
+    required double amount,
+  });
 }

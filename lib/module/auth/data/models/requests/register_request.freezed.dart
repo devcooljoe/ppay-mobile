@@ -26,6 +26,7 @@ mixin _$RegisterRequest {
   String get password => throw _privateConstructorUsedError;
   String get confirmPassword => throw _privateConstructorUsedError;
   String? get deviceToken => throw _privateConstructorUsedError;
+  String? get referralCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $RegisterRequestCopyWith<$Res> {
       String phoneNumber,
       String password,
       String confirmPassword,
-      String? deviceToken});
+      String? deviceToken,
+      String? referralCode});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$RegisterRequestCopyWithImpl<$Res, $Val extends RegisterRequest>
     Object? password = null,
     Object? confirmPassword = null,
     Object? deviceToken = freezed,
+    Object? referralCode = freezed,
   }) {
     return _then(_value.copyWith(
       fullName: null == fullName
@@ -93,6 +96,10 @@ class _$RegisterRequestCopyWithImpl<$Res, $Val extends RegisterRequest>
           ? _value.deviceToken
           : deviceToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      referralCode: freezed == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$RegisterRequestImplCopyWith<$Res>
       String phoneNumber,
       String password,
       String confirmPassword,
-      String? deviceToken});
+      String? deviceToken,
+      String? referralCode});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$RegisterRequestImplCopyWithImpl<$Res>
     Object? password = null,
     Object? confirmPassword = null,
     Object? deviceToken = freezed,
+    Object? referralCode = freezed,
   }) {
     return _then(_$RegisterRequestImpl(
       fullName: null == fullName
@@ -157,6 +166,10 @@ class __$$RegisterRequestImplCopyWithImpl<$Res>
           ? _value.deviceToken
           : deviceToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      referralCode: freezed == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$RegisterRequestImpl implements _RegisterRequest {
       required this.phoneNumber,
       required this.password,
       required this.confirmPassword,
-      this.deviceToken});
+      this.deviceToken,
+      this.referralCode});
 
   factory _$RegisterRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegisterRequestImplFromJson(json);
@@ -187,10 +201,12 @@ class _$RegisterRequestImpl implements _RegisterRequest {
   final String confirmPassword;
   @override
   final String? deviceToken;
+  @override
+  final String? referralCode;
 
   @override
   String toString() {
-    return 'RegisterRequest(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, password: $password, confirmPassword: $confirmPassword, deviceToken: $deviceToken)';
+    return 'RegisterRequest(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, password: $password, confirmPassword: $confirmPassword, deviceToken: $deviceToken, referralCode: $referralCode)';
   }
 
   @override
@@ -209,13 +225,15 @@ class _$RegisterRequestImpl implements _RegisterRequest {
             (identical(other.confirmPassword, confirmPassword) ||
                 other.confirmPassword == confirmPassword) &&
             (identical(other.deviceToken, deviceToken) ||
-                other.deviceToken == deviceToken));
+                other.deviceToken == deviceToken) &&
+            (identical(other.referralCode, referralCode) ||
+                other.referralCode == referralCode));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, fullName, emailAddress,
-      phoneNumber, password, confirmPassword, deviceToken);
+      phoneNumber, password, confirmPassword, deviceToken, referralCode);
 
   @JsonKey(ignore: true)
   @override
@@ -239,7 +257,8 @@ abstract class _RegisterRequest implements RegisterRequest {
       required final String phoneNumber,
       required final String password,
       required final String confirmPassword,
-      final String? deviceToken}) = _$RegisterRequestImpl;
+      final String? deviceToken,
+      final String? referralCode}) = _$RegisterRequestImpl;
 
   factory _RegisterRequest.fromJson(Map<String, dynamic> json) =
       _$RegisterRequestImpl.fromJson;
@@ -256,6 +275,8 @@ abstract class _RegisterRequest implements RegisterRequest {
   String get confirmPassword;
   @override
   String? get deviceToken;
+  @override
+  String? get referralCode;
   @override
   @JsonKey(ignore: true)
   _$$RegisterRequestImplCopyWith<_$RegisterRequestImpl> get copyWith =>

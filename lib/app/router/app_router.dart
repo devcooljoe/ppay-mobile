@@ -47,6 +47,7 @@ class AppRouter extends $AppRouter {
 
     // Transaction
     AutoRoute(page: TransactionHistoryRoute.page),
+    AutoRoute(page: TransactionHistoryDetailRoute.page),
     AutoRoute(page: FundWalletRoute.page),
     AutoRoute(page: TransferFundsRoute.page),
     AutoRoute(page: AmountAndInfoRoute.page),

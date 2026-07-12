@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
@@ -166,13 +164,9 @@ class SelectAccountBottomsheet extends HookConsumerWidget {
                                   ),
                                 ],
                               ),
-                              // i used this button to go to the next page but that is not the function
+                              // This widget is superseded by WithdrawalBottomsheet
                               TouchOpacity(
-                                onTap: () {
-                                  context.router.push(
-                                    ConfirmTransactionRoute(),
-                                  );
-                                },
+                                onTap: () => Navigator.pop(context),
                                 child: Container(
                                   height: 36.h,
                                   width: 97.w,
@@ -287,11 +281,7 @@ class SelectAccountBottomsheet extends HookConsumerWidget {
                                 ],
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  context.router.push(
-                                    ConfirmTransactionRoute(),
-                                  );
-                                },
+                                onTap: () => Navigator.pop(context),
                                 child: TouchOpacity(
                                   child: Container(
                                     height: 36.h,

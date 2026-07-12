@@ -4,6 +4,12 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ppay_mobile/core/di/injection.dart';
+import 'package:ppay_mobile/core/services/token_service.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/module/settings/presentation/providers/biometric_provider.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
 import 'package:ppay_mobile/shared/widgets/settings_menu_item.dart';
@@ -15,7 +21,44 @@ class SettingsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isEnabled = useState(false);
+    final user = ref.watch(authenticatedUserProvider).value;
+    final biometricState = ref.watch(biometricStateProvider);
+    final isBiometricEnabled = biometricState.value ?? false;
+
+    final initials = useMemoized(() {
+      if (user == null) return '';
+      final parts = user.fullName.trim().split(' ');
+      if (parts.length >= 2) {
+        return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+      }
+      return user.fullName.isNotEmpty ? user.fullName[0].toUpperCase() : '';
+    }, [user?.fullName]);
+
+    final tierLabel = useMemoized(() {
+      if (user == null) return 'Account Tier 1';
+      return 'Account Tier ${user.tier}';
+    }, [user?.tier]);
+
+    Future<void> handleLogout() async {
+      AppLoader.show(context);
+      await getIt<TokenService>().clearToken();
+      ref.read(authenticatedUserProvider.notifier).updateUser(
+        ref.read(authenticatedUserProvider).value!.copyWith(),
+      );
+      if (!context.mounted) return;
+      AppLoader.hide(context);
+      context.router.replaceAll([const LoginRoute()]);
+    }
+
+    Future<void> handleBiometricToggle() async {
+      final toggled = await ref
+          .read(biometricStateProvider.notifier)
+          .toggleBiometric('Authenticate to ${isBiometricEnabled ? 'disable' : 'enable'} biometric login');
+      if (!toggled && context.mounted) {
+        MessageHandler.showErrorSnackBar(context, 'Biometric authentication failed');
+      }
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -50,27 +93,31 @@ class SettingsPage extends HookConsumerWidget {
                     color: Colors.transparent,
                     child: Stack(
                       children: [
-                        CircleAvatar(
-                          radius: 31.5.r,
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          child: Center(
-                            child: Text(
-                              'AS',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.mainScreenBackground,
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w800,
+                        user?.picture != null
+                            ? CircleAvatar(
+                                radius: 31.5.r,
+                                backgroundImage: NetworkImage(user!.picture!),
+                              )
+                            : CircleAvatar(
+                                radius: 31.5.r,
+                                backgroundColor: PPaymobileColors.backgroundColor,
+                                child: Center(
+                                  child: Text(
+                                    initials,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: PPaymobileColors.mainScreenBackground,
+                                      fontSize: 24.sp,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                         Positioned(
                           right: 5.w,
                           bottom: 5.h,
                           child: CircleAvatar(
-                            backgroundColor:
-                                PPaymobileColors.deepBackgroundColor,
+                            backgroundColor: PPaymobileColors.deepBackgroundColor,
                             radius: 8.r,
                             child: Center(
                               child: SizedBox(
@@ -89,7 +136,7 @@ class SettingsPage extends HookConsumerWidget {
                   ),
                   8.verticalSpace,
                   Text(
-                    'Adebami Samuel',
+                    user?.fullName ?? '',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: Colors.black,
@@ -99,7 +146,7 @@ class SettingsPage extends HookConsumerWidget {
                   ),
                   2.verticalSpace,
                   Text(
-                    'adebamisamuel45@gmail.com',
+                    user?.emailAddress ?? '',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: Colors.black,
@@ -141,7 +188,7 @@ class SettingsPage extends HookConsumerWidget {
                           color: PPaymobileColors.doneColor,
                         ),
                         child: Text(
-                          'Account Tier 3',
+                          tierLabel,
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: PPaymobileColors.doneTextColor,
@@ -251,8 +298,8 @@ class SettingsPage extends HookConsumerWidget {
                       height: 20.h,
                       width: 37.w,
                       child: CustomSwitch(
-                        value: isEnabled.value,
-                        onChanged: (val) => isEnabled.value = val,
+                        value: isBiometricEnabled,
+                        onChanged: (_) => handleBiometricToggle(),
                       ),
                     ),
                   ),
@@ -397,6 +444,7 @@ class SettingsPage extends HookConsumerWidget {
                     imagePath: 'assets/images/logout_set.png',
                     title: 'Logout',
                     titleColor: PPaymobileColors.transactRed,
+                    onTap: handleLogout,
                   ),
                 ],
               ),

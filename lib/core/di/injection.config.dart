@@ -33,6 +33,32 @@ import 'package:ppay_mobile/core/services/pin_verification_service.dart'
 import 'package:ppay_mobile/core/services/token_service.dart' as _i971;
 import 'package:ppay_mobile/module/auth/data/repositories/user_repository_impl.dart'
     as _i48;
+import 'package:ppay_mobile/module/referral/data/repositories/referral_repository_impl.dart'
+    as _i_ref_repo_impl;
+import 'package:ppay_mobile/module/transaction/data/repositories/transaction_repository_impl.dart'
+    as _i_tx_repo_impl;
+import 'package:ppay_mobile/module/transaction/domain/repositories/transaction_repository.dart'
+    as _i_tx_repo;
+import 'package:ppay_mobile/module/transaction/domain/usecases/get_my_transactions_usecase.dart'
+    as _i_tx_uc;
+import 'package:ppay_mobile/module/referral/data/sources/referral_remote_datasource.dart'
+    as _i_ref_ds;
+import 'package:ppay_mobile/module/referral/data/sources/referral_remote_datasource_impl.dart'
+    as _i_ref_ds_impl;
+import 'package:ppay_mobile/module/referral/domain/repositories/referral_repository.dart'
+    as _i_ref_repo;
+import 'package:ppay_mobile/module/referral/domain/usecases/get_my_referrals_usecase.dart'
+    as _i_ref_uc;
+import 'package:ppay_mobile/module/notification/data/sources/notification_remote_datasource.dart'
+    as _i_notif_ds;
+import 'package:ppay_mobile/module/notification/data/sources/notification_remote_datasource_impl.dart'
+    as _i_notif_ds_impl;
+import 'package:ppay_mobile/module/notification/data/repositories/notification_repository_impl.dart'
+    as _i_notif_repo_impl;
+import 'package:ppay_mobile/module/notification/domain/repositories/notification_repository.dart'
+    as _i_notif_repo;
+import 'package:ppay_mobile/module/notification/domain/usecases/get_my_notifications_usecase.dart'
+    as _i_notif_uc;
 import 'package:ppay_mobile/module/auth/data/sources/user_remote_datasource.dart'
     as _i73;
 import 'package:ppay_mobile/module/auth/data/sources/user_remote_datasource_impl.dart'
@@ -414,6 +440,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i907.BuyCryptoUseCase(gh<_i430.CryptoRepository>()));
     gh.lazySingleton<_i907.SellCryptoUseCase>(
         () => _i907.SellCryptoUseCase(gh<_i430.CryptoRepository>()));
+    gh.lazySingleton<_i_ref_ds.ReferralRemoteDataSource>(
+        () => _i_ref_ds_impl.ReferralRemoteDataSourceImpl(gh<_i361.Dio>()));
+    gh.lazySingleton<_i_ref_repo.ReferralRepository>(
+        () => _i_ref_repo_impl.ReferralRepositoryImpl(gh<_i_ref_ds.ReferralRemoteDataSource>()));
+    gh.lazySingleton<_i_ref_uc.GetMyReferralsUseCase>(
+        () => _i_ref_uc.GetMyReferralsUseCase(gh<_i_ref_repo.ReferralRepository>()));
+    gh.lazySingleton<_i_tx_repo.TransactionRepository>(
+        () => _i_tx_repo_impl.TransactionRepositoryImpl(gh<_i813.WalletRemoteDataSource>()));
+    gh.lazySingleton<_i_tx_uc.GetMyTransactionsUseCase>(
+        () => _i_tx_uc.GetMyTransactionsUseCase(gh<_i_tx_repo.TransactionRepository>()));
+    gh.lazySingleton<_i_notif_ds.NotificationRemoteDataSource>(
+        () => _i_notif_ds_impl.NotificationRemoteDataSourceImpl(gh<_i361.Dio>()));
+    gh.lazySingleton<_i_notif_repo.NotificationRepository>(
+        () => _i_notif_repo_impl.NotificationRepositoryImpl(gh<_i_notif_ds.NotificationRemoteDataSource>()));
+    gh.lazySingleton<_i_notif_uc.GetMyNotificationsUseCase>(
+        () => _i_notif_uc.GetMyNotificationsUseCase(gh<_i_notif_repo.NotificationRepository>()));
     return this;
   }
 }

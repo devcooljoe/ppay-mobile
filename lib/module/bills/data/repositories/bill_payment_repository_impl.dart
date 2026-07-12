@@ -88,6 +88,12 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
     required String phoneNumber,
     required double amount,
     required String customerFirstName,
+    required String billerName,
+    required String billerCategory,
+    String? meterNumber,
+    String? plan,
+    String? provider,
+    String? logoUrl,
   }) async {
     try {
       final result = await _remoteDataSource.purchaseBill(
@@ -97,6 +103,12 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
           phoneNumber: phoneNumber,
           amount: amount,
           customerFirstName: customerFirstName,
+          billerName: billerName,
+          billerCategory: billerCategory,
+          meterNumber: meterNumber,
+          plan: plan,
+          provider: provider,
+          logoUrl: logoUrl,
         ),
       );
       return Right(result.toEntity());

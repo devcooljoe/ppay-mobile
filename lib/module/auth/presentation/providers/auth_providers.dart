@@ -33,6 +33,7 @@ class Register extends _$Register {
     required String password,
     required String confirmPassword,
     String? deviceToken,
+    String? referralCode,
   }) async {
     state = const AsyncValue.loading();
     final result = await getIt<RegisterUseCase>()(
@@ -42,6 +43,7 @@ class Register extends _$Register {
       password: password,
       confirmPassword: confirmPassword,
       deviceToken: deviceToken,
+      referralCode: referralCode,
     );
     result.fold(
       (l) => state = AsyncValue.error(l.message, StackTrace.current),

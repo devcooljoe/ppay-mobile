@@ -6,33 +6,67 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart';
+import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
+import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
-import 'package:ppay_mobile/shared/widgets/select_account_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class AmountAndInfoPage extends HookConsumerWidget {
-  const AmountAndInfoPage({super.key});
+  final BankAccountEntity account;
+
+  const AmountAndInfoPage({super.key, required this.account});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final amountController = useTextEditingController();
+    final rawAmount = useState('');
+    final walletAsync = ref.watch(walletProvider);
+    final wallet = walletAsync.value;
 
     void onKeyTap(String value) {
-      amountController.text += value;
+      final current = rawAmount.value;
+      // Prevent multiple decimals
+      if (value == '.' && current.contains('.')) return;
+      // Prevent leading zeros
+      if (value != '.' && current == '0') {
+        rawAmount.value = value;
+        return;
+      }
+      // Limit to 2 decimal places
+      if (current.contains('.')) {
+        final parts = current.split('.');
+        if (parts[1].length >= 2) return;
+      }
+      rawAmount.value = current + value;
     }
 
     void onDelete() {
-      if (amountController.text.isNotEmpty) {
-        amountController.text = amountController.text.substring(
-          0,
-          amountController.text.length - 1,
-        );
+      if (rawAmount.value.isNotEmpty) {
+        rawAmount.value =
+            rawAmount.value.substring(0, rawAmount.value.length - 1);
       }
     }
+
+    final amount = double.tryParse(rawAmount.value) ?? 0.0;
+    final balance = double.tryParse(wallet?.balance ?? '0') ?? 0.0;
+    final hasAmount = amount > 0;
+    final hasEnoughBalance = amount <= balance;
+    final canProceed = hasAmount && hasEnoughBalance;
+
+    String displayAmount;
+    if (rawAmount.value.isEmpty) {
+      displayAmount = '₦0.00';
+    } else if (rawAmount.value.endsWith('.')) {
+      displayAmount = '₦${AmountFormatter.formatAmountWithCommas(amount)}.';
+    } else {
+      displayAmount = '₦${AmountFormatter.formatBalance(rawAmount.value)}';
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: const PPAppBar(title: 'Sending To'),
@@ -47,17 +81,29 @@ class AmountAndInfoPage extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      Container(
                         height: 44.h,
-                        width: 41.w,
-                        child: Image.asset(
-                          'assets/images/access_bank.png',
-                          fit: BoxFit.contain,
+                        width: 44.w,
+                        padding: EdgeInsets.all(8.r),
+                        decoration: BoxDecoration(
+                          color: PPaymobileColors.anotherbuttonbgColor,
+                          borderRadius: BorderRadius.circular(4.r),
                         ),
+                        child: account.bankLogo.isNotEmpty
+                            ? AppImage(
+                                imageUrl: account.bankLogo,
+                                width: 28.w,
+                                height: 28.h,
+                                fit: BoxFit.contain,
+                              )
+                            : SvgPicture.asset(
+                                'assets/icon/bank_black.svg',
+                                fit: BoxFit.contain,
+                              ),
                       ),
                       17.verticalSpace,
                       Text(
-                        'Adebami Samuel',
+                        account.accountName,
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
@@ -67,7 +113,7 @@ class AmountAndInfoPage extends HookConsumerWidget {
                       ),
                       2.verticalSpace,
                       Text(
-                        '9087976570',
+                        account.accountNumber,
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
@@ -77,20 +123,19 @@ class AmountAndInfoPage extends HookConsumerWidget {
                       ),
                       40.verticalSpace,
                       Text(
-                        amountController.text.isEmpty
-                            ? "₦0.00"
-                            : "₦${amountController.text}.00",
+                        displayAmount,
                         style: TextStyle(
                           fontSize: 32.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'InstrumentSans',
-                          color: Colors.black,
+                          color: !hasEnoughBalance && hasAmount
+                              ? PPaymobileColors.redTextfield
+                              : Colors.black,
                         ),
                       ),
                       11.verticalSpace,
                       Container(
                         height: 24.h,
-                        width: 210.w,
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(45).r,
@@ -100,7 +145,6 @@ class AmountAndInfoPage extends HookConsumerWidget {
                           ),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
@@ -112,9 +156,11 @@ class AmountAndInfoPage extends HookConsumerWidget {
                                 color: PPaymobileColors.svgIconColor,
                               ),
                             ),
-                            1.horizontalSpace,
+                            4.horizontalSpace,
                             Text(
-                              '₦250,000.00',
+                              wallet != null
+                                  ? '₦${AmountFormatter.formatBalance(wallet.balance)}'
+                                  : '₦••••',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
                                 fontWeight: FontWeight.w500,
@@ -125,33 +171,20 @@ class AmountAndInfoPage extends HookConsumerWidget {
                           ],
                         ),
                       ),
+                      if (!hasEnoughBalance && hasAmount) ...[
+                        8.verticalSpace,
+                        Text(
+                          'Insufficient balance',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            color: PPaymobileColors.redTextfield,
+                          ),
+                        ),
+                      ],
                       39.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Min: ₦20,000.00',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12.sp,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            'Max: ₦5,000,000.00',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12.sp,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                      2.verticalSpace,
                       Container(
-                        height: 60.h,
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(
                           horizontal: 8.w,
@@ -161,127 +194,108 @@ class AmountAndInfoPage extends HookConsumerWidget {
                           color: PPaymobileColors.deepBackgroundColor,
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                               height: 40.h,
                               width: 44.w,
-                              padding: EdgeInsets.all(10).r,
+                              padding: EdgeInsets.all(8.r),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2).r,
+                                borderRadius: BorderRadius.circular(2.r),
                                 color: PPaymobileColors.anotherbuttonbgColor,
                               ),
-                              child: SizedBox(
-                                height: 30.h,
-                                width: 28.w,
-                                child: Image.asset(
-                                  'assets/images/access_bank.png',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
+                              child: account.bankLogo.isNotEmpty
+                                  ? AppImage(
+                                      imageUrl: account.bankLogo,
+                                      width: 28.w,
+                                      height: 28.h,
+                                      fit: BoxFit.contain,
+                                    )
+                                  : SvgPicture.asset(
+                                      'assets/icon/bank_black.svg',
+                                      fit: BoxFit.contain,
+                                    ),
                             ),
                             14.horizontalSpace,
                             Expanded(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Text(
+                                    account.accountName,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  4.verticalSpace,
+                                  Row(
                                     children: [
                                       Text(
-                                        'Adebami Samuel',
+                                        account.accountNumber,
                                         style: TextStyle(
                                           fontFamily: 'InstrumentSans',
                                           fontWeight: FontWeight.w500,
-                                          fontSize: 14.sp,
-                                          color: Colors.black,
+                                          fontSize: 12.sp,
+                                          color: PPaymobileColors.svgIconColor,
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '9087976570',
-                                            style: TextStyle(
-                                              fontFamily: 'InstrumentSans',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12.sp,
-                                              color:
-                                                  PPaymobileColors.svgIconColor,
-                                            ),
+                                      8.horizontalSpace,
+                                      SizedBox(
+                                        height: 7.w,
+                                        width: 7.w,
+                                        child: SvgPicture.asset(
+                                          'assets/icon/spacer.svg',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      8.horizontalSpace,
+                                      Flexible(
+                                        child: Text(
+                                          account.bankName,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontFamily: 'InstrumentSans',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12.sp,
+                                            color: PPaymobileColors.svgIconColor,
                                           ),
-                                          8.horizontalSpace,
-                                          SizedBox(
-                                            height: 7.w,
-                                            width: 7.w,
-                                            child: SvgPicture.asset(
-                                              'assets/icon/spacer.svg',
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                          8.horizontalSpace,
-                                          Text(
-                                            'Access Bank',
-                                            style: TextStyle(
-                                              fontFamily: 'InstrumentSans',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12.sp,
-                                              color:
-                                                  PPaymobileColors.svgIconColor,
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  TouchOpacity(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        builder: (context) {
-                                          return SelectAccountBottomsheet();
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      height: 35.h,
-                                      width: 80.w,
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 8.w,
-                                        vertical: 7.h,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          4,
-                                        ).r,
-                                        color: PPaymobileColors
-                                            .mainScreenBackground,
-                                        border: Border.all(
-                                          width: 1.w,
-                                          color:
-                                              PPaymobileColors.textfiedBorder,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Change",
-                                          style: TextStyle(
-                                            color: PPaymobileColors.buttonColor,
-                                            fontSize: 12.sp,
-                                            fontFamily: 'InstrumentSans',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
+                                ],
+                              ),
+                            ),
+                            TouchOpacity(
+                              onTap: () => Navigator.pop(context),
+                              child: Container(
+                                height: 35.h,
+                                width: 80.w,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8.w,
+                                  vertical: 7.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4).r,
+                                  color: PPaymobileColors.mainScreenBackground,
+                                  border: Border.all(
+                                    width: 1.w,
+                                    color: PPaymobileColors.textfiedBorder,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Change',
+                                    style: TextStyle(
+                                      color: PPaymobileColors.buttonColor,
+                                      fontSize: 12.sp,
+                                      fontFamily: 'InstrumentSans',
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ],
@@ -290,7 +304,6 @@ class AmountAndInfoPage extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                // Custom Keyboard
                 KeyboardContainer(
                   child: Padding(
                     padding: EdgeInsets.all(30).r,
@@ -313,11 +326,20 @@ class AmountAndInfoPage extends HookConsumerWidget {
                         fit: BoxFit.contain,
                       ),
                     ),
-                    onPressed: () {
-                      context.router.push(ConfirmTransactionRoute());
-                    },
+                    onPressed: canProceed
+                        ? () => context.router.push(
+                              ConfirmTransactionRoute(
+                                account: account,
+                                amount: amount,
+                              ),
+                            )
+                        : null,
+                    backgroundColor: canProceed
+                        ? PPaymobileColors.backgroundColor
+                        : PPaymobileColors.buttonInactiveColor,
                   ),
                 ),
+                20.verticalSpace,
               ],
             ),
           ),

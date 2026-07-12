@@ -22,6 +22,7 @@ class SignupPage extends HookConsumerWidget {
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();
     final phoneController = useTextEditingController(text: '+234');
+    final referralController = useTextEditingController();
     final agreedToTerms = useState(false);
 
     Future<void> handleNext() async {
@@ -71,6 +72,9 @@ class SignupPage extends HookConsumerWidget {
           fullName: fullName,
           emailAddress: emailAddress,
           phoneNumber: phoneNumber,
+          referralCode: referralController.text.trim().isEmpty
+              ? null
+              : referralController.text.trim().toUpperCase(),
         ),
       );
     }
@@ -197,6 +201,17 @@ class SignupPage extends HookConsumerWidget {
                   }
                   return null;
                 },
+              ),
+              24.verticalSpace,
+              const PPLabel(text: 'Referral Code (Optional)'),
+              6.verticalSpace,
+              PPTextField(
+                controller: referralController,
+                hintText: 'Enter referral code',
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(14.0).r,
+                  child: SvgPicture.asset('assets/icon/link.svg'),
+                ),
               ),
               24.verticalSpace,
               TouchOpacity(

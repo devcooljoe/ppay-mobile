@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
 import 'package:ppay_mobile/module/bills/presentation/pages/bill_success_page.dart';
 import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
+import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 class BillConfirmPage extends HookConsumerWidget {
   final BillConfirmArgs args;
@@ -20,8 +23,23 @@ class BillConfirmPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final purchaseState = ref.watch(purchaseBillProvider);
+    final feeState = ref.watch(calculateFeeProvider);
     final formattedAmount =
         AmountFormatter.formatBalance(args.amount.toString());
+
+    // Fetch fee on mount
+    useEffect(() {
+      Future.microtask(() => ref.read(calculateFeeProvider.notifier).call(
+            transactionType: 'bill_payment',
+            amount: args.amount,
+          ));
+      return null;
+    }, []);
+
+    final fee = feeState.value ?? 0.0;
+    final total = args.amount + fee;
+    final formattedFee = AmountFormatter.formatBalance(fee.toString());
+    final formattedTotal = AmountFormatter.formatBalance(total.toString());
 
     Future<void> onConfirmTapped() async {
       final verified = await showSecurityPinBottomsheet(context);
@@ -29,14 +47,19 @@ class BillConfirmPage extends HookConsumerWidget {
       if (!context.mounted) return;
 
       await ref.read(purchaseBillProvider.notifier).call(
-        billItemIdentifier: args.billItem.kudaIdentifier,
-        customerIdentifier: args.customerIdentifier,
-        phoneNumber: args.phoneNumber,
-        amount: args.amount,
-        customerFirstName: args.customerName.isNotEmpty
-            ? args.customerName.split(' ').first
-            : args.phoneNumber,
-      );
+            billItemIdentifier: args.billItem.kudaIdentifier,
+            customerIdentifier: args.customerIdentifier,
+            phoneNumber: args.phoneNumber,
+            amount: args.amount,
+            customerFirstName: args.customerName.isNotEmpty
+                ? args.customerName.split(' ').first
+                : args.phoneNumber,
+            billerName: args.biller.name,
+            billerCategory: args.billerCategory,
+            logoUrl: args.biller.billerIconUrl.isNotEmpty
+                ? args.biller.billerIconUrl
+                : null,
+          );
 
       if (!context.mounted) return;
 
@@ -48,6 +71,9 @@ class BillConfirmPage extends HookConsumerWidget {
         );
         return;
       }
+
+      // Refresh wallet balance after successful purchase
+      ref.read(walletProvider.notifier).fetch();
 
       Navigator.pushReplacement(
         context,
@@ -161,20 +187,35 @@ class BillConfirmPage extends HookConsumerWidget {
                           label: 'Customer Name', value: args.customerName),
                     ],
                     20.verticalSpace,
-                    _DetailRow(
-                        label: 'Package', value: args.billItem.name),
+                    _DetailRow(label: 'Package', value: args.billItem.name),
+                    20.verticalSpace,
+                    _DetailRow(label: 'Amount', value: '₦$formattedAmount'),
                     20.verticalSpace,
                     _DetailRow(
-                        label: 'Amount', value: '₦$formattedAmount'),
-                    20.verticalSpace,
-                    _DetailRow(label: 'Charges', value: '₦0.00'),
+                      label: 'Charges',
+                      valueWidget: feeState.isLoading
+                          ? SkeletonLoader(
+                              width: 60.w,
+                              height: 14.h,
+                              borderRadius: BorderRadius.circular(4.r),
+                            )
+                          : null,
+                      value: feeState.isLoading ? null : '₦$formattedFee',
+                    ),
                     17.verticalSpace,
                     Divider(
                         color: PPaymobileColors.textfiedBorder, height: 1.h),
                     20.verticalSpace,
                     _DetailRow(
                       label: 'Total',
-                      value: '₦$formattedAmount',
+                      valueWidget: feeState.isLoading
+                          ? SkeletonLoader(
+                              width: 80.w,
+                              height: 18.h,
+                              borderRadius: BorderRadius.circular(4.r),
+                            )
+                          : null,
+                      value: feeState.isLoading ? null : '₦$formattedTotal',
                       isTotal: true,
                     ),
                   ],

@@ -104,6 +104,7 @@ class TvCablePage extends HookConsumerWidget {
                   : '',
               phoneNumber: phoneController.text.trim(),
               amount: selectedItem.value!.amount,
+              billerCategory: 'Cable Tv',
             ),
           ),
         ),

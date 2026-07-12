@@ -10,7 +10,8 @@ class VerifyBillCustomerRequest with _$VerifyBillCustomerRequest {
     required String customerIdentification,
   }) = _VerifyBillCustomerRequest;
 
-  factory VerifyBillCustomerRequest.fromJson(Map<String, dynamic> json) => _$VerifyBillCustomerRequestFromJson(json);
+  factory VerifyBillCustomerRequest.fromJson(Map<String, dynamic> json) =>
+      _$VerifyBillCustomerRequestFromJson(json);
 }
 
 @freezed
@@ -21,7 +22,14 @@ class PurchaseBillRequest with _$PurchaseBillRequest {
     required String phoneNumber,
     required double amount,
     required String customerFirstName,
+    required String billerName,
+    required String billerCategory,
+    String? meterNumber,
+    String? plan,
+    String? provider,
+    String? logoUrl,
   }) = _PurchaseBillRequest;
 
-  factory PurchaseBillRequest.fromJson(Map<String, dynamic> json) => _$PurchaseBillRequestFromJson(json);
+  factory PurchaseBillRequest.fromJson(Map<String, dynamic> json) =>
+      _$PurchaseBillRequestFromJson(json);
 }

@@ -55,6 +55,7 @@ class DataPage extends HookConsumerWidget {
               customerName: '',
               phoneNumber: phoneController.text.trim(),
               amount: selectedItem.value!.amount,
+              billerCategory: 'Internet Data',
             ),
           ),
         ),

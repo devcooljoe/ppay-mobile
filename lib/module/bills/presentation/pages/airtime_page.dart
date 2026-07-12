@@ -102,6 +102,7 @@ class AirtimePage extends HookConsumerWidget {
               customerName: '',
               phoneNumber: phoneController.text.trim(),
               amount: amount,
+              billerCategory: 'Airtime',
             ),
           ),
         ),

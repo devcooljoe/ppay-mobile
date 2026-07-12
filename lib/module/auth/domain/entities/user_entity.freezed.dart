@@ -20,6 +20,8 @@ mixin _$UserEntity {
   String get emailAddress => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   String? get picture => throw _privateConstructorUsedError;
+  String? get dob => throw _privateConstructorUsedError;
+  String? get referralCode => throw _privateConstructorUsedError;
   bool get isEmailVerified => throw _privateConstructorUsedError;
   bool get isPhoneNumberVerified => throw _privateConstructorUsedError;
   bool get isBvnVerified => throw _privateConstructorUsedError;
@@ -46,6 +48,8 @@ abstract class $UserEntityCopyWith<$Res> {
       String emailAddress,
       String phoneNumber,
       String? picture,
+      String? dob,
+      String? referralCode,
       bool isEmailVerified,
       bool isPhoneNumberVerified,
       bool isBvnVerified,
@@ -74,6 +78,8 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? emailAddress = null,
     Object? phoneNumber = null,
     Object? picture = freezed,
+    Object? dob = freezed,
+    Object? referralCode = freezed,
     Object? isEmailVerified = null,
     Object? isPhoneNumberVerified = null,
     Object? isBvnVerified = null,
@@ -100,6 +106,14 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
       picture: freezed == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dob: freezed == dob
+          ? _value.dob
+          : dob // ignore: cast_nullable_to_non_nullable
+              as String?,
+      referralCode: freezed == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
               as String?,
       isEmailVerified: null == isEmailVerified
           ? _value.isEmailVerified
@@ -154,6 +168,8 @@ abstract class _$$UserEntityImplCopyWith<$Res>
       String emailAddress,
       String phoneNumber,
       String? picture,
+      String? dob,
+      String? referralCode,
       bool isEmailVerified,
       bool isPhoneNumberVerified,
       bool isBvnVerified,
@@ -180,6 +196,8 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? emailAddress = null,
     Object? phoneNumber = null,
     Object? picture = freezed,
+    Object? dob = freezed,
+    Object? referralCode = freezed,
     Object? isEmailVerified = null,
     Object? isPhoneNumberVerified = null,
     Object? isBvnVerified = null,
@@ -206,6 +224,14 @@ class __$$UserEntityImplCopyWithImpl<$Res>
       picture: freezed == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dob: freezed == dob
+          ? _value.dob
+          : dob // ignore: cast_nullable_to_non_nullable
+              as String?,
+      referralCode: freezed == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
               as String?,
       isEmailVerified: null == isEmailVerified
           ? _value.isEmailVerified
@@ -255,6 +281,8 @@ class _$UserEntityImpl implements _UserEntity {
       required this.emailAddress,
       required this.phoneNumber,
       this.picture,
+      this.dob,
+      this.referralCode,
       required this.isEmailVerified,
       required this.isPhoneNumberVerified,
       required this.isBvnVerified,
@@ -273,6 +301,10 @@ class _$UserEntityImpl implements _UserEntity {
   final String phoneNumber;
   @override
   final String? picture;
+  @override
+  final String? dob;
+  @override
+  final String? referralCode;
   @override
   final bool isEmailVerified;
   @override
@@ -294,7 +326,7 @@ class _$UserEntityImpl implements _UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier)';
+    return 'UserEntity(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, dob: $dob, referralCode: $referralCode, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier)';
   }
 
   @override
@@ -309,6 +341,9 @@ class _$UserEntityImpl implements _UserEntity {
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.picture, picture) || other.picture == picture) &&
+            (identical(other.dob, dob) || other.dob == dob) &&
+            (identical(other.referralCode, referralCode) ||
+                other.referralCode == referralCode) &&
             (identical(other.isEmailVerified, isEmailVerified) ||
                 other.isEmailVerified == isEmailVerified) &&
             (identical(other.isPhoneNumberVerified, isPhoneNumberVerified) ||
@@ -335,6 +370,8 @@ class _$UserEntityImpl implements _UserEntity {
       emailAddress,
       phoneNumber,
       picture,
+      dob,
+      referralCode,
       isEmailVerified,
       isPhoneNumberVerified,
       isBvnVerified,
@@ -358,6 +395,8 @@ abstract class _UserEntity implements UserEntity {
       required final String emailAddress,
       required final String phoneNumber,
       final String? picture,
+      final String? dob,
+      final String? referralCode,
       required final bool isEmailVerified,
       required final bool isPhoneNumberVerified,
       required final bool isBvnVerified,
@@ -376,6 +415,10 @@ abstract class _UserEntity implements UserEntity {
   String get phoneNumber;
   @override
   String? get picture;
+  @override
+  String? get dob;
+  @override
+  String? get referralCode;
   @override
   bool get isEmailVerified;
   @override
