@@ -6,6 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
@@ -18,32 +21,96 @@ class CreatePinPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pinController = useTextEditingController();
+    final confirmPinController = useTextEditingController();
+    final isConfirming = useState(false);
+    final enteredPin = useState('');
 
     void onKeyTap(String value) {
-      if (pinController.text.length < 6) {
-        pinController.text += value;
+      final controller =
+          isConfirming.value ? confirmPinController : pinController;
+      if (controller.text.length < 4) {
+        controller.text += value;
       }
     }
 
     void onDelete() {
-      if (pinController.text.isNotEmpty) {
-        pinController.text = pinController.text.substring(
-          0,
-          pinController.text.length - 1,
-        );
+      final controller =
+          isConfirming.value ? confirmPinController : pinController;
+      if (controller.text.isNotEmpty) {
+        controller.text =
+            controller.text.substring(0, controller.text.length - 1);
       }
     }
 
+    ref.listen(setPinProvider, (previous, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else {
+        AppLoader.hide(context);
+        next.whenData((_) {
+          context.router.replace(const CreatedPinRoute());
+        });
+        if (next.hasError) {
+          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          isConfirming.value = false;
+          confirmPinController.clear();
+          pinController.clear();
+          enteredPin.value = '';
+        }
+      }
+    });
+
+    void handleNext() {
+      if (!isConfirming.value) {
+        if (pinController.text.length != 4) {
+          MessageHandler.showErrorSnackBar(
+            context,
+            'Please enter a 4-digit PIN',
+          );
+          return;
+        }
+        enteredPin.value = pinController.text;
+        isConfirming.value = true;
+      } else {
+        if (confirmPinController.text.length != 4) {
+          MessageHandler.showErrorSnackBar(
+            context,
+            'Please confirm your 4-digit PIN',
+          );
+          return;
+        }
+        if (confirmPinController.text != enteredPin.value) {
+          MessageHandler.showErrorSnackBar(context, 'PINs do not match');
+          confirmPinController.clear();
+          return;
+        }
+        ref.read(setPinProvider.notifier).call(
+              pin: enteredPin.value,
+              confirmPin: confirmPinController.text,
+            );
+      }
+    }
+
+    final activeController =
+        isConfirming.value ? confirmPinController : pinController;
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(),
+      appBar: PPAppBar(
+        onBackPressed: isConfirming.value
+            ? () {
+                isConfirming.value = false;
+                confirmPinController.clear();
+              }
+            : null,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: ListView(
           children: [
             10.verticalSpace,
             Text(
-              'Security Pin',
+              isConfirming.value ? 'Confirm PIN' : 'Security Pin',
               style: TextStyle(
                 fontFamily: 'InstrumentSans',
                 color: PPaymobileColors.buttonColorandText,
@@ -53,7 +120,9 @@ class CreatePinPage extends HookConsumerWidget {
             ),
             4.verticalSpace,
             Text(
-              'Enter unique security pin below',
+              isConfirming.value
+                  ? 'Re-enter your 4-digit PIN to confirm'
+                  : 'Enter a unique 4-digit security PIN',
               style: TextStyle(
                 fontFamily: 'InstrumentSans',
                 color: PPaymobileColors.svgIconColor,
@@ -68,10 +137,10 @@ class CreatePinPage extends HookConsumerWidget {
                 Container(
                   height: 76.w,
                   width: 76.w,
-                  padding: EdgeInsets.all(13).r,
+                  padding: const EdgeInsets.all(13).r,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(38).r,
-                    color: Color(0xffEFF5F2),
+                    color: const Color(0xffEFF5F2),
                   ),
                   child: SizedBox(
                     height: 28.w,
@@ -86,7 +155,7 @@ class CreatePinPage extends HookConsumerWidget {
                 ),
                 30.verticalSpace,
                 Pinput(
-                  controller: pinController,
+                  controller: activeController,
                   length: 4,
                   keyboardType: TextInputType.none,
                   separatorBuilder: (index) => 15.horizontalSpace,
@@ -107,10 +176,27 @@ class CreatePinPage extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
+                  focusedPinTheme: PinTheme(
+                    width: 75.w,
+                    height: 63.h,
+                    textStyle: TextStyle(
+                      fontSize: 20.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'InstrumentSans',
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: PPaymobileColors.buttonColor,
+                        width: 2.w,
+                      ),
+                      borderRadius: BorderRadius.circular(6.r),
+                    ),
+                  ),
                 ),
                 10.verticalSpace,
                 Text(
-                  'Please keep pin secure. Pin will be required before performing any transaction',
+                  'Please keep PIN secure. It will be required before performing any transaction.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'InstrumentSans',
@@ -121,11 +207,10 @@ class CreatePinPage extends HookConsumerWidget {
                 ),
                 10.verticalSpace,
                 CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
-                // this shows after inputting the pin and clicking outside the container...
                 14.verticalSpace,
                 PPButton(
-                  text: 'Next',
-                  onPressed: () => context.router.push(CreatedPinRoute()),
+                  text: isConfirming.value ? 'Confirm PIN' : 'Next',
+                  onPressed: handleNext,
                   icon: SvgPicture.asset(
                     'assets/icon/arrow_forwardw.svg',
                     height: 20.w,

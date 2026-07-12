@@ -25,7 +25,6 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: CreatedPinRoute.page),
     AutoRoute(page: ForgotPasswordRoute.page),
     AutoRoute(page: VerifyForgotRoute.page),
-    AutoRoute(page: PasswordResetRoute.page),
     AutoRoute(page: PasswordChangedRoute.page),
     AutoRoute(page: PasswordChangedTwoRoute.page),
     AutoRoute(page: LoginPasswordResetRoute.page),

@@ -64,6 +64,31 @@ class UpdateBankAccount extends _$UpdateBankAccount {
 }
 
 @riverpod
+class AddBankAccount extends _$AddBankAccount {
+  @override
+  AsyncValue<void> build() => const AsyncValue.data(null);
+
+  Future<void> call({
+    required String accountName,
+    required String accountNumber,
+    required String bankName,
+    required String bankCode,
+  }) async {
+    state = const AsyncValue.loading();
+    final result = await getIt<AddBankAccountUseCase>()(
+      accountName: accountName,
+      accountNumber: accountNumber,
+      bankName: bankName,
+      bankCode: bankCode,
+    );
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (_) => const AsyncValue.data(null),
+    );
+  }
+}
+
+@riverpod
 class DeleteBankAccount extends _$DeleteBankAccount {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);

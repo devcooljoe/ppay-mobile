@@ -5,6 +5,37 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'bills_providers.g.dart';
 
+// Auto-fetch providers — load billers as soon as their page mounts
+@riverpod
+Future<List<BillerEntity>> airtimeBillers(AirtimeBillersRef ref) async {
+  final result = await getIt<GetAirtimeBillersUseCase>()();
+  return result.fold((l) => throw l.message, (r) => r);
+}
+
+@riverpod
+Future<List<BillerEntity>> dataBillers(DataBillersRef ref) async {
+  final result = await getIt<GetDataBillersUseCase>()();
+  return result.fold((l) => throw l.message, (r) => r);
+}
+
+@riverpod
+Future<List<BillerEntity>> electricityBillers(ElectricityBillersRef ref) async {
+  final result = await getIt<GetElectricityBillersUseCase>()();
+  return result.fold((l) => throw l.message, (r) => r);
+}
+
+@riverpod
+Future<List<BillerEntity>> tvBillers(TvBillersRef ref) async {
+  final result = await getIt<GetTvBillersUseCase>()();
+  return result.fold((l) => throw l.message, (r) => r);
+}
+
+@riverpod
+Future<List<BillerEntity>> bettingBillers(BettingBillersRef ref) async {
+  final result = await getIt<GetBettingBillersUseCase>()();
+  return result.fold((l) => throw l.message, (r) => r);
+}
+
 @riverpod
 class GetAirtimeBillers extends _$GetAirtimeBillers {
   @override
@@ -84,6 +115,8 @@ class GetTvBillers extends _$GetTvBillers {
 class VerifyBillCustomer extends _$VerifyBillCustomer {
   @override
   AsyncValue<CustomerVerificationEntity?> build() => const AsyncValue.data(null);
+
+  void reset() => state = const AsyncValue.data(null);
 
   Future<void> call({
     required String kudaBillItemIdentifier,

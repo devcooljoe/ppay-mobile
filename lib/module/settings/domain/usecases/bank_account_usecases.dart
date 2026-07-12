@@ -24,6 +24,25 @@ class GetBankAccountsUseCase {
 }
 
 @lazySingleton
+class AddBankAccountUseCase {
+  final BankAccountRepository _repository;
+
+  AddBankAccountUseCase(this._repository);
+
+  Future<Either<Failure, void>> call({
+    required String accountName,
+    required String accountNumber,
+    required String bankName,
+    required String bankCode,
+  }) => _repository.addBankAccount(
+    accountName: accountName,
+    accountNumber: accountNumber,
+    bankName: bankName,
+    bankCode: bankCode,
+  );
+}
+
+@lazySingleton
 class UpdateBankAccountUseCase {
   final BankAccountRepository _repository;
 

@@ -32,6 +32,11 @@ class AmountFormatter extends TextInputFormatter {
     return formattedAmount;
   }
 
+  static String formatBalance(String rawBalance) {
+    final parsed = double.tryParse(rawBalance) ?? 0.0;
+    return NumberFormat('#,##0.00', 'en_US').format(parsed);
+  }
+
   String _formatWholeNumber(String wholeNumber) {
     if (wholeNumber.isEmpty) {
       return '';

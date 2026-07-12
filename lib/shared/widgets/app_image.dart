@@ -7,35 +7,48 @@ class AppImage extends HookWidget {
   final BoxFit? fit;
   final double? width;
   final double? height;
-  final String? fallbackUrl;
+  final String? fallbackAsset;
+
   const AppImage({
     super.key,
     required this.imageUrl,
     this.width,
     this.height,
     this.fit,
-    this.fallbackUrl,
+    this.fallbackAsset,
   });
 
   @override
   Widget build(BuildContext context) {
+    final asset = fallbackAsset ?? 'assets/images/profilepic.png';
+
+    if (imageUrl == null || imageUrl!.isEmpty) {
+      return Image.asset(
+        asset,
+        fit: fit ?? BoxFit.cover,
+        width: width,
+        height: height,
+      );
+    }
+
     return CachedNetworkImage(
-      imageUrl:
-          imageUrl ??
-          fallbackUrl ??
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
-      errorWidget: (context, url, error) {
-        return Image.network(
-          'assets/images/account-balance.png',
-          fit: fit,
-          width: width,
-          height: height,
-        );
-      },
-      errorListener: (value) {},
-      fit: fit,
+      imageUrl: imageUrl!,
+      fit: fit ?? BoxFit.cover,
       width: width,
       height: height,
+      errorListener: (value) {},
+      errorWidget: (context, url, error) => Image.asset(
+        asset,
+        fit: fit ?? BoxFit.cover,
+        width: width,
+        height: height,
+      ),
+      placeholder: (context, url) => Image.asset(
+        asset,
+        fit: fit ?? BoxFit.cover,
+        width: width,
+        height: height,
+      ),
     );
   }
 }

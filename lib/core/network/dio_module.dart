@@ -23,10 +23,13 @@ abstract class DioModule {
   ) {
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'https://app.eldaabank.com',
+        baseUrl: 'https://app.pinnaclepay.ng',
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
       ),
     );
 

@@ -1,45 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/module/kyc/domain/entities/kyc_document_type_entity.dart';
+import 'package:ppay_mobile/module/kyc/presentation/providers/kyc_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class DocumentBottomSheet extends HookConsumerWidget {
-  const DocumentBottomSheet({super.key});
+  final KycDocumentTypeEntity? selected;
+  final ValueChanged<KycDocumentTypeEntity> onSelected;
+
+  const DocumentBottomSheet({
+    super.key,
+    required this.onSelected,
+    this.selected,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final documents = [
-      'National Identity',
-      'International Passport',
-      'Driver\'s License',
-      'Voters Card',
-    ];
+    useEffect(() {
+      Future.microtask(() => ref.read(getKycDocumentTypesProvider.notifier).call());
+      return null;
+    }, []);
+
+    final state = ref.watch(getKycDocumentTypesProvider);
+
     return FractionallySizedBox(
-      heightFactor: 0.480,
+      heightFactor: 0.55,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                height: 60.w,
-                width: 60.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30).r,
-                  color: PPaymobileColors.mainScreenBackground,
-                ),
-                child: SizedBox(
-                  height: 18.h,
-                  width: 18.h,
-                  child: SvgPicture.asset(
-                    'assets/icon/cancel.svg',
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
+          TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: SvgPicture.asset(
+                'assets/icon/cancel.svg',
+                fit: BoxFit.scaleDown,
               ),
             ),
           ),
@@ -50,7 +54,8 @@ class DocumentBottomSheet extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(24)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,48 +71,93 @@ class DocumentBottomSheet extends HookConsumerWidget {
                   ),
                   21.verticalSpace,
                   Expanded(
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: documents.length,
-                      itemBuilder: (context, index) {
-                        final document = documents[index];
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 8.h),
-                          child: TouchOpacity(
-                            onTap: () {},
-                            child: Container(
-                              height: 66.h,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 12.w,
-                                vertical: 20.h,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    document,
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.w,
-                                    width: 20.w,
-                                    child: SvgPicture.asset(
-                                      'assets/icon/check_circle.svg',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ],
+                    child: state.when(
+                      data: (types) {
+                        if (types == null || types.isEmpty) {
+                          return Center(
+                            child: Text(
+                              'No document types available',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontSize: 14.sp,
+                                color: PPaymobileColors.svgIconColor,
                               ),
                             ),
-                          ),
+                          );
+                        }
+                        return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: types.length,
+                          itemBuilder: (context, index) {
+                            final doc = types[index];
+                            final isSelected = selected?.idType == doc.idType;
+                            return TouchOpacity(
+                              onTap: () {
+                                onSelected(doc);
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 4.h),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 12.w,
+                                  vertical: 18.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? PPaymobileColors.buttonColor
+                                          .withValues(alpha: 0.06)
+                                      : Colors.transparent,
+                                  border: isSelected
+                                      ? Border.all(
+                                          color: PPaymobileColors.buttonColor,
+                                          width: 1.w,
+                                        )
+                                      : null,
+                                  borderRadius: BorderRadius.circular(6.r),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      doc.name,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.sp,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    if (isSelected)
+                                      SizedBox(
+                                        height: 20.w,
+                                        width: 20.w,
+                                        child: SvgPicture.asset(
+                                          'assets/icon/check_circle.svg',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      error: (e, _) => Center(
+                        child: Text(
+                          'Failed to load documents. Tap to retry.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontSize: 14.sp,
+                            color: PPaymobileColors.svgIconColor,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   8.verticalSpace,

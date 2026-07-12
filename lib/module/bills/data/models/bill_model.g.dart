@@ -8,13 +8,13 @@ part of 'bill_model.dart';
 
 _$BillerModelImpl _$$BillerModelImplFromJson(Map<String, dynamic> json) =>
     _$BillerModelImpl(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String,
-      billerIconUrl: json['billerIconUrl'] as String,
-      billTypeId: json['billTypeId'] as String,
-      billItems: (json['billItems'] as List<dynamic>)
-          .map((e) => BillItemModel.fromJson(e as Map<String, dynamic>))
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      billerIconUrl: json['billerIconUrl'] as String?,
+      billTypeId: json['billTypeId'] as String?,
+      billItems: (json['billItems'] as List<dynamic>?)
+          ?.map((e) => BillItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -30,14 +30,15 @@ Map<String, dynamic> _$$BillerModelImplToJson(_$BillerModelImpl instance) =>
 
 _$BillItemModelImpl _$$BillItemModelImplFromJson(Map<String, dynamic> json) =>
     _$BillItemModelImpl(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String,
-      kudaIdentifier: json['kudaIdentifier'] as String,
-      amount: (json['amount'] as num).toDouble(),
-      isFixedPrice: json['isFixedPrice'] as bool,
-      billerId: json['billerId'] as String,
-      isActive: json['isActive'] as bool,
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      kudaIdentifier: json['kudaIdentifier'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+      isFixedPrice: json['isFixedPrice'] as bool?,
+      billerId: json['billerId'] as String?,
+      isActive: json['isActive'] as bool?,
+      vendingAggregator: json['vendingAggregator'] as String?,
     );
 
 Map<String, dynamic> _$$BillItemModelImplToJson(_$BillItemModelImpl instance) =>
@@ -50,12 +51,13 @@ Map<String, dynamic> _$$BillItemModelImplToJson(_$BillItemModelImpl instance) =>
       'isFixedPrice': instance.isFixedPrice,
       'billerId': instance.billerId,
       'isActive': instance.isActive,
+      'vendingAggregator': instance.vendingAggregator,
     };
 
 _$CustomerVerificationModelImpl _$$CustomerVerificationModelImplFromJson(
         Map<String, dynamic> json) =>
     _$CustomerVerificationModelImpl(
-      customerName: json['customerName'] as String,
+      customerName: json['customerName'] as String?,
     );
 
 Map<String, dynamic> _$$CustomerVerificationModelImplToJson(
@@ -67,7 +69,7 @@ Map<String, dynamic> _$$CustomerVerificationModelImplToJson(
 _$BillPurchaseModelImpl _$$BillPurchaseModelImplFromJson(
         Map<String, dynamic> json) =>
     _$BillPurchaseModelImpl(
-      reference: json['reference'] as String,
+      reference: json['reference'] as String?,
       pin: json['pin'] as String?,
     );
 

@@ -178,31 +178,38 @@ class __$$BankAccountModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BankAccountModelImpl extends _BankAccountModel {
   const _$BankAccountModelImpl(
-      {required this.id,
-      required this.accountName,
-      required this.accountNumber,
-      required this.bankName,
-      required this.bankCode,
-      required this.bankLogo,
-      required this.date})
+      {this.id = '',
+      this.accountName = '',
+      this.accountNumber = '',
+      this.bankName = '',
+      this.bankCode = '',
+      this.bankLogo = '',
+      this.date = ''})
       : super._();
 
   factory _$BankAccountModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BankAccountModelImplFromJson(json);
 
   @override
+  @JsonKey()
   final String id;
   @override
+  @JsonKey()
   final String accountName;
   @override
+  @JsonKey()
   final String accountNumber;
   @override
+  @JsonKey()
   final String bankName;
   @override
+  @JsonKey()
   final String bankCode;
   @override
+  @JsonKey()
   final String bankLogo;
   @override
+  @JsonKey()
   final String date;
 
   @override
@@ -251,13 +258,13 @@ class _$BankAccountModelImpl extends _BankAccountModel {
 
 abstract class _BankAccountModel extends BankAccountModel {
   const factory _BankAccountModel(
-      {required final String id,
-      required final String accountName,
-      required final String accountNumber,
-      required final String bankName,
-      required final String bankCode,
-      required final String bankLogo,
-      required final String date}) = _$BankAccountModelImpl;
+      {final String id,
+      final String accountName,
+      final String accountNumber,
+      final String bankName,
+      final String bankCode,
+      final String bankLogo,
+      final String date}) = _$BankAccountModelImpl;
   const _BankAccountModel._() : super._();
 
   factory _BankAccountModel.fromJson(Map<String, dynamic> json) =

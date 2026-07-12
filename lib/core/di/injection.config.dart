@@ -69,6 +69,8 @@ import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_pin_otp_us
     as _i509;
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_phone_otp_usecase.dart'
     as _i783;
+import 'package:ppay_mobile/module/auth/domain/usecases/verify_pin_usecase.dart'
+    as _i370;
 import 'package:ppay_mobile/module/bills/data/repositories/bill_payment_repository_impl.dart'
     as _i781;
 import 'package:ppay_mobile/module/bills/data/sources/bill_payment_remote_datasource.dart'
@@ -115,6 +117,16 @@ import 'package:ppay_mobile/module/kyc/domain/usecases/verify_bvn_usecase.dart'
     as _i702;
 import 'package:ppay_mobile/module/kyc/domain/usecases/verify_kyc_usecase.dart'
     as _i1046;
+import 'package:ppay_mobile/module/onboarding/data/repositories/onboarding_repository_impl.dart'
+    as _i966;
+import 'package:ppay_mobile/module/onboarding/data/sources/onboarding_local_data_source.dart'
+    as _i713;
+import 'package:ppay_mobile/module/onboarding/domain/repositories/onboarding_repository.dart'
+    as _i464;
+import 'package:ppay_mobile/module/onboarding/domain/usecases/has_seen_onboarding_usecase.dart'
+    as _i684;
+import 'package:ppay_mobile/module/onboarding/domain/usecases/set_onboarding_seen_usecase.dart'
+    as _i497;
 import 'package:ppay_mobile/module/settings/data/repositories/bank_account_repository_impl.dart'
     as _i1035;
 import 'package:ppay_mobile/module/settings/data/sources/bank_account_remote_datasource.dart'
@@ -174,21 +186,29 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseModule = _$FirebaseModule();
     final dioModule = _$DioModule();
     gh.singleton<_i389.HiveService>(() => _i389.HiveService());
+    gh.singleton<_i713.OnboardingLocalDataSource>(
+        () => _i713.OnboardingLocalDataSource());
     gh.lazySingleton<_i892.FirebaseMessaging>(
         () => firebaseModule.firebaseMessaging);
     gh.lazySingleton<_i403.UserAgentInterceptor>(
         () => _i403.UserAgentInterceptor());
     gh.lazySingleton<_i1017.EventBus>(() => dioModule.eventBus());
-    gh.lazySingleton<_i971.TokenService>(() => _i971.TokenService());
     gh.lazySingleton<_i615.PinVerificationService>(
         () => _i615.PinVerificationService());
+    gh.lazySingleton<_i1002.BiometricService>(() => _i1002.BiometricService());
+    gh.lazySingleton<_i971.TokenService>(() => _i971.TokenService());
+    gh.lazySingleton<_i668.InactivityService>(() => _i668.InactivityService());
     gh.lazySingleton<_i406.NotificationService>(
         () => _i406.NotificationService());
-    gh.lazySingleton<_i668.InactivityService>(() => _i668.InactivityService());
-    gh.lazySingleton<_i1002.BiometricService>(() => _i1002.BiometricService());
     gh.lazySingleton<_i637.AuthInterceptor>(
         () => _i637.AuthInterceptor(gh<_i971.TokenService>()));
+    gh.singleton<_i464.OnboardingRepository>(() =>
+        _i966.OnboardingRepositoryImpl(gh<_i713.OnboardingLocalDataSource>()));
     gh.lazySingleton<_i67.NetworkInfo>(() => _i67.NetworkInfoImpl());
+    gh.lazySingleton<_i497.SetOnboardingSeenUseCase>(
+        () => _i497.SetOnboardingSeenUseCase(gh<_i464.OnboardingRepository>()));
+    gh.lazySingleton<_i684.HasSeenOnboardingUseCase>(
+        () => _i684.HasSeenOnboardingUseCase(gh<_i464.OnboardingRepository>()));
     gh.lazySingleton<_i1013.ErrorInterceptor>(
         () => _i1013.ErrorInterceptor(gh<_i1017.EventBus>()));
     gh.lazySingleton<_i10.NetworkInterceptor>(
@@ -284,18 +304,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i798.SellGiftcardUseCase(gh<_i127.GiftcardRepository>()));
     gh.lazySingleton<_i86.BillPaymentRemoteDataSource>(
         () => _i358.BillPaymentRemoteDataSourceImpl(gh<_i361.Dio>()));
-    gh.lazySingleton<_i1016.GetUserUseCase>(
-        () => _i1016.GetUserUseCase(gh<_i505.KycRepository>()));
+    gh.lazySingleton<_i716.UpdateProfileUseCase>(
+        () => _i716.UpdateProfileUseCase(gh<_i505.KycRepository>()));
     gh.lazySingleton<_i142.GetKycDocumentTypesUseCase>(
         () => _i142.GetKycDocumentTypesUseCase(gh<_i505.KycRepository>()));
     gh.lazySingleton<_i702.VerifyBvnUseCase>(
         () => _i702.VerifyBvnUseCase(gh<_i505.KycRepository>()));
-    gh.lazySingleton<_i1046.VerifyKycUseCase>(
-        () => _i1046.VerifyKycUseCase(gh<_i505.KycRepository>()));
     gh.lazySingleton<_i869.UploadProfilePictureUseCase>(
         () => _i869.UploadProfilePictureUseCase(gh<_i505.KycRepository>()));
-    gh.lazySingleton<_i716.UpdateProfileUseCase>(
-        () => _i716.UpdateProfileUseCase(gh<_i505.KycRepository>()));
+    gh.lazySingleton<_i1046.VerifyKycUseCase>(
+        () => _i1046.VerifyKycUseCase(gh<_i505.KycRepository>()));
+    gh.lazySingleton<_i1016.GetUserUseCase>(
+        () => _i1016.GetUserUseCase(gh<_i505.KycRepository>()));
     gh.lazySingleton<_i430.CryptoRemoteDataSource>(
         () => _i430.CryptoRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i417.BillPaymentRepository>(() =>
@@ -324,46 +344,50 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i912.GetBanksUseCase(gh<_i629.BankAccountRepository>()));
     gh.lazySingleton<_i912.GetBankAccountsUseCase>(
         () => _i912.GetBankAccountsUseCase(gh<_i629.BankAccountRepository>()));
+    gh.lazySingleton<_i912.AddBankAccountUseCase>(
+        () => _i912.AddBankAccountUseCase(gh<_i629.BankAccountRepository>()));
     gh.lazySingleton<_i912.UpdateBankAccountUseCase>(() =>
         _i912.UpdateBankAccountUseCase(gh<_i629.BankAccountRepository>()));
     gh.lazySingleton<_i912.DeleteBankAccountUseCase>(() =>
         _i912.DeleteBankAccountUseCase(gh<_i629.BankAccountRepository>()));
-    gh.lazySingleton<_i1047.RegisterUseCase>(
-        () => _i1047.RegisterUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i615.LoginUseCase>(
-        () => _i615.LoginUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i882.VerifyEmailOtpUseCase>(
-        () => _i882.VerifyEmailOtpUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i783.VerifyPhoneOtpUseCase>(
-        () => _i783.VerifyPhoneOtpUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i232.ResendEmailOtpUseCase>(
-        () => _i232.ResendEmailOtpUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i125.ResendPhoneOtpUseCase>(
-        () => _i125.ResendPhoneOtpUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i1043.ForgotPasswordUseCase>(
-        () => _i1043.ForgotPasswordUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i739.VerifyForgotPasswordOtpUseCase>(
-        () => _i739.VerifyForgotPasswordOtpUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i734.ResetPasswordUseCase>(
-        () => _i734.ResetPasswordUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i789.SetPinUseCase>(
-        () => _i789.SetPinUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i470.ChangePasswordUseCase>(
-        () => _i470.ChangePasswordUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i700.ForgotPinUseCase>(
-        () => _i700.ForgotPinUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i509.VerifyForgotPinOtpUseCase>(
         () => _i509.VerifyForgotPinOtpUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i1043.ForgotPasswordUseCase>(
+        () => _i1043.ForgotPasswordUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i700.ForgotPinUseCase>(
+        () => _i700.ForgotPinUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i1047.RegisterUseCase>(
+        () => _i1047.RegisterUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i125.ResendPhoneOtpUseCase>(
+        () => _i125.ResendPhoneOtpUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i789.SetPinUseCase>(
+        () => _i789.SetPinUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i615.LoginUseCase>(
+        () => _i615.LoginUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i783.VerifyPhoneOtpUseCase>(
+        () => _i783.VerifyPhoneOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i938.ResetPinUseCase>(
         () => _i938.ResetPinUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i734.ResetPasswordUseCase>(
+        () => _i734.ResetPasswordUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i232.ResendEmailOtpUseCase>(
+        () => _i232.ResendEmailOtpUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i739.VerifyForgotPasswordOtpUseCase>(
+        () => _i739.VerifyForgotPasswordOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i849.GetUserUseCase>(
         () => _i849.GetUserUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i470.ChangePasswordUseCase>(
+        () => _i470.ChangePasswordUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i882.VerifyEmailOtpUseCase>(
+        () => _i882.VerifyEmailOtpUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i370.VerifyPinUseCase>(
+        () => _i370.VerifyPinUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i672.GetWalletUseCase>(
         () => _i672.GetWalletUseCase(gh<_i836.WalletRepository>()));
-    gh.lazySingleton<_i600.NameEnquiryUseCase>(
-        () => _i600.NameEnquiryUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i649.WithdrawUseCase>(
         () => _i649.WithdrawUseCase(gh<_i836.WalletRepository>()));
+    gh.lazySingleton<_i600.NameEnquiryUseCase>(
+        () => _i600.NameEnquiryUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i831.GetAirtimeBillersUseCase>(() =>
         _i831.GetAirtimeBillersUseCase(gh<_i417.BillPaymentRepository>()));
     gh.lazySingleton<_i831.GetDataBillersUseCase>(

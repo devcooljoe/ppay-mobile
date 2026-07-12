@@ -8,11 +8,11 @@ part of 'bank_model.dart';
 
 _$BankModelImpl _$$BankModelImplFromJson(Map<String, dynamic> json) =>
     _$BankModelImpl(
-      bankName: json['bankName'] as String,
-      bankCode: json['bankCode'] as String,
-      bankAvailability: json['bankAvailability'] as String,
-      bankStatus: json['bankStatus'] as String,
-      bankLogo: json['bankLogo'] as String,
+      bankName: json['bankName'] as String? ?? '',
+      bankCode: json['bankCode'] as String? ?? '',
+      bankAvailability: json['bankAvailability'] as String? ?? '',
+      bankStatus: json['bankStatus'] as String? ?? '',
+      bankLogo: json['bankLogo'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$BankModelImplToJson(_$BankModelImpl instance) =>

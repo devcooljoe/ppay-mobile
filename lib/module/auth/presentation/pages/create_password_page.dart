@@ -156,7 +156,11 @@ class CreatePasswordPage extends HookConsumerWidget {
                     onTap: () => obscurePassword.value = !obscurePassword.value,
                     child: Padding(
                       padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+                      child: SvgPicture.asset(
+                        obscurePassword.value
+                            ? 'assets/icon/eye-slash.svg'
+                            : 'assets/icon/lock_eye.svg',
+                      ),
                     ),
                   ),
                   validator: (value) {
@@ -184,7 +188,11 @@ class CreatePasswordPage extends HookConsumerWidget {
                     onTap: () => obscureConfirmPassword.value = !obscureConfirmPassword.value,
                     child: Padding(
                       padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+                      child: SvgPicture.asset(
+                        obscureConfirmPassword.value
+                            ? 'assets/icon/eye-slash.svg'
+                            : 'assets/icon/lock_eye.svg',
+                      ),
                     ),
                   ),
                   validator: (value) {

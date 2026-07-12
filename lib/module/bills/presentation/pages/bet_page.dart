@@ -1,19 +1,24 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:ppay_mobile/shared/widgets/amount_package_button.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/bills/domain/entities/bill_entity.dart';
+import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
+import 'package:ppay_mobile/module/bills/presentation/pages/bill_confirm_page.dart';
+import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_input_decoration.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_package_selector_widget.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_provider_selector_widget.dart';
+import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
-import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
-import 'package:ppay_mobile/shared/widgets/provider_card.dart';
-import 'package:ppay_mobile/shared/widgets/select_bet_provider_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class BetPage extends HookConsumerWidget {
@@ -21,281 +26,247 @@ class BetPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useTextEditingController();
-    final showKeyboard = useState(false);
+    final billersAsync = ref.watch(bettingBillersProvider);
+    final verifyState = ref.watch(verifyBillCustomerProvider);
 
-    void onKeyTap(String value) {
-      if (value == '.' && controller.text.contains('.')) return;
-      if (value == '.' && controller.text.isEmpty) return;
-      controller.text += value;
+    final selectedBiller = useState<BillerEntity?>(null);
+    final selectedItem = useState<BillItemEntity?>(null);
+    final userIdController = useTextEditingController();
+    final phoneController = useTextEditingController();
+
+    void selectBiller(BillerEntity biller) {
+      selectedBiller.value = biller;
+      selectedItem.value = null;
+      userIdController.clear();
+      ref.read(verifyBillCustomerProvider.notifier).reset();
     }
 
-    void onDelete() {
-      if (controller.text.isNotEmpty) {
-        controller.text = controller.text.substring(
-          0,
-          controller.text.length - 1,
-        );
+    Future<void> verifyUserId() async {
+      if (selectedBiller.value == null) {
+        MessageHandler.showErrorSnackBar(
+            context, 'Please select a provider first');
+        return;
       }
+      if (userIdController.text.trim().isEmpty) {
+        MessageHandler.showErrorSnackBar(
+            context, 'Please enter your user ID');
+        return;
+      }
+
+      final activeItems = selectedBiller.value!.billItems
+          .where((i) => i.isActive)
+          .toList();
+      if (activeItems.isEmpty) {
+        MessageHandler.showErrorSnackBar(
+            context, 'No active packages for this provider');
+        return;
+      }
+
+      await ref.read(verifyBillCustomerProvider.notifier).call(
+            kudaBillItemIdentifier: activeItems.first.kudaIdentifier,
+            customerIdentification: userIdController.text.trim(),
+          );
+    }
+
+    void proceed() {
+      if (selectedBiller.value == null) {
+        MessageHandler.showErrorSnackBar(
+            context, 'Please select a betting provider');
+        return;
+      }
+      if (userIdController.text.trim().isEmpty) {
+        MessageHandler.showErrorSnackBar(
+            context, 'Please enter your user ID');
+        return;
+      }
+      final customerName = verifyState.value?.customerName;
+      if (customerName == null || customerName.isEmpty) {
+        MessageHandler.showErrorSnackBar(
+            context, 'Please verify your user ID first');
+        return;
+      }
+      if (phoneController.text.trim().isEmpty) {
+        MessageHandler.showErrorSnackBar(
+            context, 'Please enter your phone number');
+        return;
+      }
+      if (selectedItem.value == null) {
+        MessageHandler.showErrorSnackBar(
+            context, 'Please select a package');
+        return;
+      }
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => BillConfirmPage(
+            args: BillConfirmArgs(
+              billType: BillType.betting,
+              biller: selectedBiller.value!,
+              billItem: selectedItem.value!,
+              customerIdentifier: userIdController.text.trim(),
+              customerName: customerName,
+              phoneNumber: phoneController.text.trim(),
+              amount: selectedItem.value!.amount,
+            ),
+          ),
+        ),
+      );
     }
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(
-        title: 'Betting',
-        onBackPressed: () => Navigator.pop(context),
-      ),
+      appBar: const PPAppBar(title: 'Betting'),
       body: SafeArea(
-        child: Column(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           children: [
-            Expanded(
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  showKeyboard.value = false;
-                },
-                child: ListView(
-                  children: [
-                    36.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: PPLabel(text: 'Bet Providers'),
+            36.verticalSpace,
+            const PPLabel(text: 'Select Provider'),
+            22.verticalSpace,
+
+            // Provider selector
+            billersAsync.when(
+              loading: () => const BillProviderSelectorSkeleton(),
+              error: (e, _) => Text(
+                'Failed to load providers',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.redTextfield,
+                  fontSize: 14.sp,
+                ),
+              ),
+              data: (billers) => BillProviderSelectorWidget(
+                billers: billers,
+                selectedBiller: selectedBiller.value,
+                fallbackAsset: 'assets/images/sporty.png',
+                onSelected: selectBiller,
+              ),
+            ),
+
+            32.verticalSpace,
+            const PPLabel(text: 'User ID'),
+            8.verticalSpace,
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: userIdController,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(
+                        fontFamily: 'InstrumentSans', fontSize: 16.sp),
+                    onChanged: (_) =>
+                        ref.read(verifyBillCustomerProvider.notifier).reset(),
+                    decoration: billInputDecoration(hint: 'Enter user ID'),
+                  ),
+                ),
+                12.horizontalSpace,
+                TouchOpacity(
+                  onTap: verifyUserId,
+                  child: Container(
+                    height: 54.h,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.buttonColorandText,
+                      borderRadius: BorderRadius.circular(6.r),
                     ),
-                    22.verticalSpace,
-                    SizedBox(
-                      height: 106.h,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 20.0.w),
-                            child: ProviderCard(
-                              imagePath: 'assets/images/sporty.png',
-                              name: 'Sporty',
-                            ),
-                          ),
-                          ProviderCard(
-                            imagePath: 'assets/images/sporty.png',
-                            name: 'Sporty',
-                          ),
-                          ProviderCard(
-                            imagePath: 'assets/images/sporty.png',
-                            name: 'Sporty',
-                          ),
-                          ProviderCard(
-                            imagePath: 'assets/images/sporty.png',
-                            name: 'Sporty',
-                          ),
-                        ],
-                      ),
-                    ),
-                    8.verticalSpace,
-                    TouchOpacity(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) {
-                            return SelectBetProviderBottomsheet();
-                          },
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20.0.w),
-                        child: Text(
-                          'See more',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.buttonColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                    48.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: PPLabel(text: 'User ID'),
-                    ),
-                    8.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: SizedBox(
-                        height: 54.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          showCursor: true,
-                          keyboardType: TextInputType.number,
-                          onTap: () {
-                            showKeyboard.value = false;
-                          },
-                          decoration: InputDecoration(
-                            hint: Text(
-                              'Enter ID',
+                    child: Center(
+                      child: verifyState.isLoading
+                          ? SizedBox(
+                              height: 18.w,
+                              width: 18.w,
+                              child: const CircularProgressIndicator(
+                                  strokeWidth: 2, color: Colors.white),
+                            )
+                          : Text(
+                              'Verify',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.anotherGreyColor,
-                                fontSize: 16.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
+                                color: Colors.white,
                               ),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 14.h,
-                            ),
-                          ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            if (verifyState.value != null &&
+                verifyState.value!.customerName.isNotEmpty) ...[
+              8.verticalSpace,
+              Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  color: PPaymobileColors.doneColor,
+                  borderRadius: BorderRadius.circular(6.r),
+                ),
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/icon/tick_circle.svg',
+                        height: 16.w, width: 16.w),
+                    8.horizontalSpace,
+                    Expanded(
+                      child: Text(
+                        verifyState.value!.customerName,
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: PPaymobileColors.doneTextColor,
                         ),
-                      ),
-                    ),
-                    32.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: PPLabel(text: 'Enter Amount'),
-                    ),
-                    8.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: SizedBox(
-                        height: 54.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          showCursor: true,
-                          readOnly: true,
-                          onTap: () {
-                            showKeyboard.value = true;
-                          },
-                          decoration: InputDecoration(
-                            hint: RichText(
-                              text: TextSpan(
-                                text: '₦ ',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Enter Amount',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: PPaymobileColors.anotherGreyColor,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 14.h,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    32.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          PPLabel(text: 'Select amount'),
-                          Text(
-                            'Balance: ₦400,000',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: PPaymobileColors.buttonColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    24.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AmountPackageButton(amount: '₦100'),
-                          AmountPackageButton(amount: '₦200'),
-                          AmountPackageButton(amount: '₦500'),
-                          AmountPackageButton(amount: '₦1000'),
-                        ],
-                      ),
-                    ),
-                    10.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AmountPackageButton(amount: '₦100'),
-                          AmountPackageButton(amount: '₦200'),
-                          AmountPackageButton(amount: '₦500'),
-                          AmountPackageButton(amount: '₦1000'),
-                        ],
-                      ),
-                    ),
-                    89.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: PPButton(
-                        text: 'Make Payment',
-                        onPressed: () => context.router.push(BetConfirmRoute()),
-                        backgroundColor: PPaymobileColors.buttonColorandText,
                       ),
                     ),
                   ],
                 ),
               ),
+            ] else if (verifyState.hasError) ...[
+              8.verticalSpace,
+              Text(
+                'User ID not found. Please check and try again',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.redTextfield,
+                ),
+              ),
+            ],
+
+            32.verticalSpace,
+            const PPLabel(text: 'Phone Number'),
+            8.verticalSpace,
+            TextFormField(
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              style:
+                  TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
+              decoration: billInputDecoration(hint: 'Enter phone number'),
             ),
-            10.verticalSpace,
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              height: showKeyboard.value ? 424.h : 0,
-              child: showKeyboard.value
-                  ? KeyboardContainer(
-                      child: CustomKeyboard(
-                        onKeyTap: onKeyTap,
-                        onDelete: onDelete,
-                      ),
-                    )
-                  : null,
+
+            if (selectedBiller.value != null) ...[
+              32.verticalSpace,
+              const PPLabel(text: 'Select Package'),
+              16.verticalSpace,
+              BillPackageSelectorWidget(
+                items: selectedBiller.value!.billItems,
+                billerName: selectedBiller.value!.name,
+              billType: BillType.betting,
+                selectedItem: selectedItem.value,
+                onSelected: (item) {
+                  selectedItem.value = item;
+                },
+              ),
+            ],
+
+            40.verticalSpace,
+            PPButton(
+              text: 'Make Payment',
+              backgroundColor: PPaymobileColors.buttonColorandText,
+              onPressed: proceed,
             ),
+            20.verticalSpace,
           ],
         ),
       ),

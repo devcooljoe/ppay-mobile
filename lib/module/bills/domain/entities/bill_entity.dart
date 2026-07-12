@@ -42,3 +42,12 @@ class BillPurchaseEntity with _$BillPurchaseEntity {
     String? pin,
   }) = _BillPurchaseEntity;
 }
+
+extension BillerEntityX on BillerEntity {
+  bool get requiresCustomerVerification {
+    final n = name.toUpperCase();
+    return n.contains('DSTV') ||
+        n.contains('GOTV') ||
+        n.contains('STARTIMES');
+  }
+}

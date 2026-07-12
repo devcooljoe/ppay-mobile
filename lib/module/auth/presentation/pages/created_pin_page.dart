@@ -59,7 +59,7 @@ class CreatedPinPage extends HookConsumerWidget {
                   PPButton(
                     text: 'Go To Dashboard',
                     onPressed: () =>
-                        context.router.push(SetUpFingerprintRoute()),
+                        context.router.replaceAll([const ExploreRoute()]),
                     icon: SvgPicture.asset(
                       'assets/icon/arrow_forwardw.svg',
                       height: 24.w,

@@ -1,11 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class VerifyPhonePage extends HookConsumerWidget {
@@ -13,13 +19,100 @@ class VerifyPhonePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final otpController = useTextEditingController();
+    final countdown = useState(60);
+    final canResend = useState(false);
+    final hasError = useState(false);
+
+    // Auto-send OTP to phone as soon as this page is opened
+    useEffect(() {
+      Future.microtask(() {
+        ref.read(resendPhoneOtpProvider.notifier).call();
+      });
+
+      final timer =
+          Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) {
+        if (countdown.value > 0) {
+          countdown.value--;
+        } else {
+          canResend.value = true;
+        }
+      });
+      return timer.cancel;
+    }, []);
+
+    ref.listen(resendPhoneOtpProvider, (previous, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else {
+        AppLoader.hide(context);
+        if (next.hasError) {
+          MessageHandler.showErrorSnackBar(context, next.error.toString());
+        } else {
+          next.whenData((_) {
+            countdown.value = 60;
+            canResend.value = false;
+          });
+        }
+      }
+    });
+
+    ref.listen(verifyPhoneOtpProvider, (previous, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else {
+        AppLoader.hide(context);
+        next.whenData((_) {
+          context.router.replaceAll([const ExploreRoute()]);
+        });
+        if (next.hasError) {
+          hasError.value = true;
+          otpController.clear();
+          MessageHandler.showErrorSnackBar(context, next.error.toString());
+        }
+      }
+    });
+
+    String formatTime(int seconds) {
+      final m = seconds ~/ 60;
+      final s = seconds % 60;
+      return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
+    }
+
+    void handleVerify() {
+      if (otpController.text.length != 6) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Please enter the 6-digit code',
+        );
+        return;
+      }
+      hasError.value = false;
+      ref
+          .read(verifyPhoneOtpProvider.notifier)
+          .call(otpCode: otpController.text);
+    }
+
+    void handleResend() {
+      if (!canResend.value) return;
+      otpController.clear();
+      hasError.value = false;
+      ref.read(resendPhoneOtpProvider.notifier).call();
+    }
+
+    final user = ref.watch(authenticatedUserProvider).value;
+    final maskedPhone = user != null
+        ? _maskPhone(user.phoneNumber)
+        : 'your phone number';
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(),
+      appBar: const PPAppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: ListView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               20.verticalSpace,
               Text(
@@ -32,32 +125,28 @@ class VerifyPhonePage extends HookConsumerWidget {
                 ),
               ),
               8.verticalSpace,
-              Row(
-                children: [
-                  Text(
-                    'Please enter 6-digit code sent to ',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
                   ),
-                  Text(
-                    '+234 8045679345',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w800,
+                  children: [
+                    const TextSpan(text: 'Please enter the 6-digit code sent to '),
+                    TextSpan(
+                      text: maskedPhone,
+                      style: const TextStyle(fontWeight: FontWeight.w800),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               38.verticalSpace,
               SizedBox(
                 width: double.infinity,
                 child: Pinput(
+                  controller: otpController,
                   length: 6,
                   keyboardType: TextInputType.number,
                   separatorBuilder: (index) => 18.horizontalSpace,
@@ -71,22 +160,15 @@ class VerifyPhonePage extends HookConsumerWidget {
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: PPaymobileColors.lightGrey,
+                        color: hasError.value
+                            ? PPaymobileColors.redTextfield
+                            : PPaymobileColors.lightGrey,
                         width: 1.w,
                       ),
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
-                ),
-              ),
-              10.verticalSpace,
-              SizedBox(
-                width: double.infinity,
-                child: Pinput(
-                  length: 6,
-                  keyboardType: TextInputType.number,
-                  separatorBuilder: (index) => 18.horizontalSpace,
-                  defaultPinTheme: PinTheme(
+                  focusedPinTheme: PinTheme(
                     width: 52.w,
                     height: 49.h,
                     textStyle: TextStyle(
@@ -96,29 +178,32 @@ class VerifyPhonePage extends HookConsumerWidget {
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: PPaymobileColors.redTextfield,
-                        width: 1.w,
+                        color: PPaymobileColors.buttonColor,
+                        width: 2.w,
                       ),
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
+                  onCompleted: (_) {},
                 ),
               ),
-              6.verticalSpace,
-              Text(
-                'Incorrect code entered.',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                  color: PPaymobileColors.redTextfield,
+              if (hasError.value) ...[
+                6.verticalSpace,
+                Text(
+                  'Incorrect code entered.',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: PPaymobileColors.redTextfield,
+                  ),
                 ),
-              ),
-              6.verticalSpace,
+              ],
+              16.verticalSpace,
               Row(
                 children: [
                   Text(
-                    'Didn’t Get the code? ',
+                    'Didn\'t get the code? ',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontSize: 14.sp,
@@ -126,42 +211,53 @@ class VerifyPhonePage extends HookConsumerWidget {
                       color: Colors.black,
                     ),
                   ),
-                  Text(
-                    'Resend code',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff429E6E),
+                  TouchOpacity(
+                    onTap: handleResend,
+                    child: Text(
+                      'Resend code',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: canResend.value
+                            ? const Color(0xff429E6E)
+                            : Colors.grey,
+                      ),
                     ),
                   ),
                 ],
               ),
               16.verticalSpace,
               Text(
-                'Time Left: 02:48',
+                canResend.value
+                    ? 'Code expired'
+                    : 'Time Left: ${formatTime(countdown.value)}',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: PPaymobileColors.svgIconColor,
+                  color: canResend.value
+                      ? PPaymobileColors.redTextfield
+                      : PPaymobileColors.svgIconColor,
                 ),
               ),
-              76.verticalSpace,
-              PPButton(
-                text: 'Verify',
-                onPressed: () {},
-                backgroundColor: PPaymobileColors.buttonInactiveColor,
-              ),
+              const Spacer(),
+              PPButton(text: 'Verify', onPressed: handleVerify),
               16.verticalSpace,
-              PPButton(
-                text: 'Verify',
-                // onPressed: () => context.router.push(CreatePasswordRoute()),
-              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _maskPhone(String phone) {
+    if (phone.length < 5) return phone;
+    final visible = phone.substring(phone.length - 4);
+    final masked = phone.substring(0, phone.length - 4).replaceAll(
+          RegExp(r'\d'),
+          '*',
+        );
+    return '$masked$visible';
   }
 }

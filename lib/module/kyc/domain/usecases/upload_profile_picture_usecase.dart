@@ -10,6 +10,7 @@ class UploadProfilePictureUseCase {
 
   UploadProfilePictureUseCase(this._repository);
 
-  Future<Either<Failure, ProfilePictureEntity>> call({required String filePath}) =>
-      _repository.uploadProfilePicture(filePath: filePath);
+  Future<Either<Failure, ProfilePictureEntity>> call({
+    required String filePath,
+  }) => _repository.uploadProfilePicture(filePath: filePath);
 }

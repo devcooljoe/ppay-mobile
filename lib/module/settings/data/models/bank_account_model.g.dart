@@ -9,13 +9,13 @@ part of 'bank_account_model.dart';
 _$BankAccountModelImpl _$$BankAccountModelImplFromJson(
         Map<String, dynamic> json) =>
     _$BankAccountModelImpl(
-      id: json['id'] as String,
-      accountName: json['accountName'] as String,
-      accountNumber: json['accountNumber'] as String,
-      bankName: json['bankName'] as String,
-      bankCode: json['bankCode'] as String,
-      bankLogo: json['bankLogo'] as String,
-      date: json['date'] as String,
+      id: json['id'] as String? ?? '',
+      accountName: json['accountName'] as String? ?? '',
+      accountNumber: json['accountNumber'] as String? ?? '',
+      bankName: json['bankName'] as String? ?? '',
+      bankCode: json['bankCode'] as String? ?? '',
+      bankLogo: json['bankLogo'] as String? ?? '',
+      date: json['date'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$BankAccountModelImplToJson(

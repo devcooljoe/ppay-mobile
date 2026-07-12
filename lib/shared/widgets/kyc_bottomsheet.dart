@@ -1,57 +1,77 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ppay_mobile/shared/models/kyc_verification_model.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/module/auth/domain/entities/user_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class KycBottomsheet extends HookConsumerWidget {
-  const KycBottomsheet({super.key});
+  final UserEntity? user;
+
+  const KycBottomsheet({super.key, this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final kycVerificationReq = [
-      KycVerificationModel(
-        leadingImage: 'assets/icon/key_1.svg',
-        titleText: 'Bank Verification Number',
-        subtitleText: 'Verify your BVN and face ID to confirm your identity',
-        trailingIcon: 'assets/icon/check.svg',
+    final bvnDone = (user?.isBvnVerified ?? false) || (user?.isBvnSubmitted ?? false);
+    final kycDone = (user?.isKycVerified ?? false) || (user?.isKycSubmitted ?? false);
+
+    // Auto-select the first item the user still needs to action.
+    // BVN is done if submitted or verified → land on KYC (index 1).
+    // If neither is done → land on BVN (index 0).
+    final initialIndex = bvnDone ? 1 : 0;
+    final selectedIndex = useState(initialIndex);
+
+    final items = [
+      _KycItem(
+        leadingIcon: 'assets/icon/key_1.svg',
+        title: 'Bank Verification Number',
+        subtitle: 'Verify your BVN and face ID to confirm your identity',
+        isVerified: user?.isBvnVerified ?? false,
+        isSubmitted: user?.isBvnSubmitted ?? false,
       ),
-      KycVerificationModel(
-        leadingImage: 'assets/icon/userid.svg',
-        titleText: 'KYC Verification',
-        subtitleText:
-            'To confirm your personal information with your issued country ID',
-        trailingIcon: 'assets/icon/arrow_forward.svg',
+      _KycItem(
+        leadingIcon: 'assets/icon/userid.svg',
+        title: 'KYC Verification',
+        subtitle:
+            'Confirm your personal information with your issued country ID',
+        isVerified: user?.isKycVerified ?? false,
+        isSubmitted: user?.isKycSubmitted ?? false,
       ),
     ];
+
+    void handleContinue() {
+      Navigator.pop(context);
+      if (selectedIndex.value == 0) {
+        context.router.push(const BvnVerificationRoute());
+      } else {
+        context.router.push(const KycVerificationRoute());
+      }
+    }
 
     return FractionallySizedBox(
       heightFactor: 0.85,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: TouchOpacity(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                height: 60.w,
-                width: 60.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30).r,
-                  color: PPaymobileColors.mainScreenBackground,
-                ),
-                child: SizedBox(
-                  height: 18.h,
-                  width: 18.h,
-                  child: SvgPicture.asset(
-                    'assets/icon/cancel.svg',
-                    fit: BoxFit.scaleDown,
-                  ),
+          TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: SizedBox(
+                height: 18.h,
+                width: 18.h,
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
                 ),
               ),
             ),
@@ -63,7 +83,8 @@ class KycBottomsheet extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(24)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,151 +118,162 @@ class KycBottomsheet extends HookConsumerWidget {
                     ),
                   ),
                   12.verticalSpace,
-                  Container(
-                    height: 267.h,
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 18.w,
-                      vertical: 22.h,
-                    ),
+                  Expanded(
                     child: ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: kycVerificationReq.length,
-                      separatorBuilder: (context, index) =>
-                          Column(children: [17.verticalSpace]),
+                      itemCount: items.length,
+                      separatorBuilder: (_, __) => 12.verticalSpace,
                       itemBuilder: (context, index) {
-                        final opacity = index == 0 ? 0.5 : 1.0;
-                        return IntrinsicHeight(
-                          child: Column(
-                            children: [
-                              TouchOpacity(
-                                onTap: () {},
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Opacity(
-                                        opacity: opacity,
-                                        child: SizedBox(
-                                          height: 24.h,
-                                          width: 24.h,
-                                          child: SvgPicture.asset(
-                                            kycVerificationReq[index]
-                                                .leadingImage,
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  title: Opacity(
-                                    opacity: opacity,
-                                    child: Text(
-                                      kycVerificationReq[index].titleText,
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  subtitle: Opacity(
-                                    opacity: opacity,
-                                    child: Text(
-                                      kycVerificationReq[index].subtitleText,
-                                      softWrap: true,
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        fontSize: 13.sp,
-                                        color: Color(0xff5B5B5B),
-                                      ),
-                                    ),
-                                  ),
-                                  trailing: SizedBox(
-                                    height: 28.w,
-                                    width: 28.w,
+                        final item = items[index];
+                        final isSelected = selectedIndex.value == index;
+                        final isDisabled = item.isVerified || item.isSubmitted;
+
+                        return TouchOpacity(
+                          onTap: isDisabled
+                              ? null
+                              : () => selectedIndex.value = index,
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 200),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 14.w,
+                              vertical: 14.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isSelected && !isDisabled
+                                  ? PPaymobileColors.buttonColor
+                                      .withValues(alpha: 0.06)
+                                  : Colors.transparent,
+                              border: Border.all(
+                                color: isDisabled
+                                    ? PPaymobileColors.lightGrey
+                                    : isSelected
+                                        ? PPaymobileColors.buttonColor
+                                        : PPaymobileColors.textfiedBorder,
+                                width: isSelected && !isDisabled ? 1.5.w : 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            child: Row(
+                              children: [
+                                Opacity(
+                                  opacity: isDisabled ? 0.4 : 1.0,
+                                  child: SizedBox(
+                                    height: 24.h,
+                                    width: 24.h,
                                     child: SvgPicture.asset(
-                                      kycVerificationReq[index].trailingIcon,
+                                      item.leadingIcon,
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
                                 ),
-                              ),
-                              Divider(
-                                thickness: 1.h,
-                                color: PPaymobileColors.textfiedBorder,
-                              ),
-                            ],
+                                12.horizontalSpace,
+                                Expanded(
+                                  child: Opacity(
+                                    opacity: isDisabled ? 0.4 : 1.0,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.title,
+                                          style: TextStyle(
+                                            fontFamily: 'InstrumentSans',
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        4.verticalSpace,
+                                        Text(
+                                          item.isVerified
+                                              ? 'Verified'
+                                              : item.isSubmitted
+                                                  ? 'Under review'
+                                                  : item.subtitle,
+                                          style: TextStyle(
+                                            fontFamily: 'InstrumentSans',
+                                            fontSize: 12.sp,
+                                            color: item.isVerified
+                                                ? PPaymobileColors.doneTextColor
+                                                : item.isSubmitted
+                                                    ? PPaymobileColors.warningTextColor
+                                                    : const Color(0xff5B5B5B),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                12.horizontalSpace,
+                                SizedBox(
+                                  height: 24.w,
+                                  width: 24.w,
+                                  child: SvgPicture.asset(
+                                    isDisabled
+                                        ? 'assets/icon/check.svg'
+                                        : isSelected
+                                            ? 'assets/icon/check_circle.svg'
+                                            : 'assets/icon/arrow_forward.svg',
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
                     ),
                   ),
-
-                  41.verticalSpace,
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 18.w),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 17.w,
-                          width: 17.w,
-                          child: SizedBox(
-                            height: 14.h,
-                            width: 11.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/filledlock.svg',
-                              fit: BoxFit.contain,
-                            ),
+                  16.verticalSpace,
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: 17.w,
+                        width: 17.w,
+                        child: SvgPicture.asset(
+                          'assets/icon/filledlock.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      8.horizontalSpace,
+                      Expanded(
+                        child: Text(
+                          'Your data will be encrypted and stored securely',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy',
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                            color: PPaymobileColors.svgIconColor,
                           ),
                         ),
-                        Expanded(
-                          child: Text(
-                            'Your data will be encrypted and stored securely',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: PPaymobileColors.svgIconColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   12.verticalSpace,
-                  TouchOpacity(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PPaymobileColors.backgroundColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(42.r),
-                          ),
-                          elevation: 0,
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: PPaymobileColors.backgroundColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(42.r),
                         ),
-                        onPressed: () {
-                          context.router.push(KycVerificationRoute());
-                        },
-
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                            color: Colors.white,
-                          ),
+                        elevation: 0,
+                      ),
+                      onPressed: handleContinue,
+                      child: Text(
+                        'Continue',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
+                  20.verticalSpace,
                 ],
               ),
             ),
@@ -250,4 +282,20 @@ class KycBottomsheet extends HookConsumerWidget {
       ),
     );
   }
+}
+
+class _KycItem {
+  final String leadingIcon;
+  final String title;
+  final String subtitle;
+  final bool isVerified;
+  final bool isSubmitted;
+
+  const _KycItem({
+    required this.leadingIcon,
+    required this.title,
+    required this.subtitle,
+    required this.isVerified,
+    required this.isSubmitted,
+  });
 }

@@ -94,7 +94,8 @@ class CreatePinBottomsheet extends HookConsumerWidget {
                           elevation: 0,
                         ),
                         onPressed: () {
-                          context.router.push(CreatePinRoute());
+                          Navigator.pop(context);
+                          context.router.push(const CreatePinRoute());
                         },
                         child: Text(
                           'Create Pin',

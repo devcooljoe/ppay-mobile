@@ -5,6 +5,7 @@ import 'package:ppay_mobile/module/settings/data/models/requests/update_bank_acc
 abstract class BankAccountRemoteDataSource {
   Future<List<BankModel>> getBanks();
   Future<List<BankAccountModel>> getBankAccounts();
+  Future<void> addBankAccount(UpdateBankAccountRequest request);
   Future<void> updateBankAccount(String id, UpdateBankAccountRequest request);
   Future<void> deleteBankAccount(String id);
 }

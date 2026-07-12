@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/shared/widgets/app_loader.dart';
@@ -19,10 +20,15 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final otpController = useTextEditingController();
-    final countdown = useState(180);
+    final countdown = useState(60);
     final canResend = useState(false);
 
     useEffect(() {
+      // Auto-send email OTP when page opens
+      Future.microtask(() {
+        ref.read(resendEmailOtpProvider.notifier).call();
+      });
+
       final timer =
           Stream.periodic(const Duration(seconds: 1), (count) => count).listen((
             _,
@@ -41,12 +47,15 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
         AppLoader.show(context);
       } else {
         AppLoader.hide(context);
-        next.whenData((_) {
-          MessageHandler.showSuccessSnackBar(
-            context,
-            'Email verified successfully',
-          );
-          context.router.popUntilRoot();
+        next.whenData((_) async {
+          await ref.read(authenticatedUserProvider.notifier).call();
+          if (!context.mounted) return;
+          final user = ref.read(authenticatedUserProvider).value;
+          if (user != null && !user.isPhoneNumberVerified) {
+            context.router.replace(const VerifyPhoneRoute());
+          } else {
+            context.router.replaceAll([const ExploreRoute()]);
+          }
         });
         if (next.hasError) {
           MessageHandler.showErrorSnackBar(context, next.error.toString());
@@ -61,7 +70,7 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
         AppLoader.hide(context);
         next.whenData((_) {
           MessageHandler.showSuccessSnackBar(context, 'OTP sent successfully');
-          countdown.value = 180;
+          countdown.value = 60;
           canResend.value = false;
         });
         if (next.hasError) {
@@ -164,7 +173,7 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
-                  onCompleted: (_) => handleVerify(),
+                  onCompleted: (value) {},
                 ),
               ),
               16.verticalSpace,

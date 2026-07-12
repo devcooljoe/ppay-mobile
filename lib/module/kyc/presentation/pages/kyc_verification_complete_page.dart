@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/settings/presentation/providers/biometric_provider.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/create_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
@@ -13,81 +15,91 @@ class KycVerificationCompletePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isSettingUpBiometric = useState(false);
+
+    Future<void> handleSetUpBiometric() async {
+      isSettingUpBiometric.value = true;
+      final success = await ref
+          .read(biometricStateProvider.notifier)
+          .toggleBiometric('Enable biometrics to sign in faster');
+      isSettingUpBiometric.value = false;
+
+      if (!context.mounted) return;
+
+      if (success) {
+        MessageHandler.showSuccessSnackBar(
+          context,
+          'Biometrics enabled successfully',
+        );
+      } else {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Biometric setup was cancelled or failed',
+        );
+      }
+
+      context.router.replaceAll([const ExploreRoute()]);
+    }
+
+    void handleGoToDashboard() {
+      context.router.replaceAll([const ExploreRoute()]);
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      body: ListView(
-        children: [
-          91.verticalSpace,
-          SizedBox(
-            height: 158.w,
-            width: 158.w,
-            child: Image.asset(
-              'assets/images/complete.png',
-              fit: BoxFit.contain,
-            ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            children: [
+              const Spacer(),
+              SizedBox(
+                height: 158.w,
+                width: 158.w,
+                child: Image.asset(
+                  'assets/images/complete.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              24.verticalSpace,
+              Text(
+                'Verification Complete',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              12.verticalSpace,
+              Text(
+                'You have successfully submitted your verification documents. A confirmation email will be sent once your documents are reviewed.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.svgIconColor,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const Spacer(),
+              PPButton(
+                text: isSettingUpBiometric.value
+                    ? 'Setting up...'
+                    : 'Set Up Biometrics',
+                onPressed:
+                    isSettingUpBiometric.value ? null : handleSetUpBiometric,
+              ),
+              16.verticalSpace,
+              PPButton(
+                text: 'Go To Dashboard',
+                onPressed: handleGoToDashboard,
+                backgroundColor: PPaymobileColors.anotherButtonColor,
+              ),
+              32.verticalSpace,
+            ],
           ),
-          15.verticalSpace,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0).w,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Verification Complete',
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: Colors.black,
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                4.verticalSpace,
-                Text(
-                  'You have successfully completed your account verification, a confirmation email will be sent to you once your documents are verified',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: PPaymobileColors.svgIconColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                48.verticalSpace,
-                PPButton(
-                  text: 'Set Up Biometric',
-                  onPressed: () async {
-                    await context.router.pushAndPopUntil(
-                      ExploreRoute(),
-                      predicate: (route) => false,
-                    );
-
-                    if (context.mounted) {
-                      Future.delayed(const Duration(milliseconds: 300), () {
-                        if (context.mounted) {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (_) => const CreatePinBottomsheet(),
-                          );
-                        }
-                      });
-                    }
-                  },
-                  backgroundColor: PPaymobileColors.backgroundColor,
-                ),
-                20.verticalSpace,
-                PPButton(
-                  text: 'Go To Dashboard',
-                  onPressed: () {
-                    context.router.pushAndPopUntil(ExploreRoute(), predicate: (route) => false);
-                  },
-                  backgroundColor: PPaymobileColors.mainScreenBackground,
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

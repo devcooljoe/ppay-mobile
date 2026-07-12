@@ -1,13 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
-import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class PasswordResetPage extends HookConsumerWidget {
@@ -15,6 +17,9 @@ class PasswordResetPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final obscurePassword = useState(true);
+    final obscureConfirm = useState(true);
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: SafeArea(
@@ -47,14 +52,22 @@ class PasswordResetPage extends HookConsumerWidget {
               6.verticalSpace,
               PPTextField(
                 hintText: 'johndoe@gmail.com',
-                obscureText: true,
+                obscureText: obscurePassword.value,
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(14.0).r,
                   child: SvgPicture.asset('assets/icon/lock.svg'),
                 ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(14.0).r,
-                  child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+                suffixIcon: TouchOpacity(
+                  onTap: () =>
+                      obscurePassword.value = !obscurePassword.value,
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0).r,
+                    child: SvgPicture.asset(
+                      obscurePassword.value
+                          ? 'assets/icon/eye-slash.svg'
+                          : 'assets/icon/lock_eye.svg',
+                    ),
+                  ),
                 ),
               ),
               29.verticalSpace,
@@ -62,14 +75,22 @@ class PasswordResetPage extends HookConsumerWidget {
               6.verticalSpace,
               PPTextField(
                 hintText: 'johndoe@gmail.com',
-                obscureText: true,
+                obscureText: obscureConfirm.value,
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(14.0).r,
                   child: SvgPicture.asset('assets/icon/lock.svg'),
                 ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(14.0).r,
-                  child: SvgPicture.asset('assets/icon/lock_eye.svg'),
+                suffixIcon: TouchOpacity(
+                  onTap: () =>
+                      obscureConfirm.value = !obscureConfirm.value,
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0).r,
+                    child: SvgPicture.asset(
+                      obscureConfirm.value
+                          ? 'assets/icon/eye-slash.svg'
+                          : 'assets/icon/lock_eye.svg',
+                    ),
+                  ),
                 ),
               ),
               24.verticalSpace,

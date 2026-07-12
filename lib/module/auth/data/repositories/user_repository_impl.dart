@@ -231,4 +231,14 @@ class UserRepositoryImpl implements UserRepository {
       return Left(e.error as Failure);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> verifyPin({required String pin}) async {
+    try {
+      await _remoteDataSource.verifyPin(pin);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(e.error as Failure);
+    }
+  }
 }

@@ -38,6 +38,11 @@ class BankAccountRemoteDataSourceImpl implements BankAccountRemoteDataSource {
   }
 
   @override
+  Future<void> addBankAccount(UpdateBankAccountRequest request) async {
+    await _dio.post('$_baseUrl/bank-accounts', data: request.toJson());
+  }
+
+  @override
   Future<void> updateBankAccount(String id, UpdateBankAccountRequest request) async {
     await _dio.put('$_baseUrl/bank-accounts/$id', data: request.toJson());
   }

@@ -888,9 +888,13 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       );
     },
     LoginPasswordResetRoute.name: (routeData) {
+      final args = routeData.argsAs<LoginPasswordResetRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i92.LoginPasswordResetPage(),
+        child: _i92.LoginPasswordResetPage(
+          key: args.key,
+          resetToken: args.resetToken,
+        ),
       );
     },
     MultiFlightDetailsRoute.name: (routeData) {
@@ -1270,9 +1274,13 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       );
     },
     VerifyForgotRoute.name: (routeData) {
+      final args = routeData.argsAs<VerifyForgotRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i155.VerifyForgotPage(),
+        child: _i155.VerifyForgotPage(
+          key: args.key,
+          email: args.email,
+        ),
       );
     },
     VerifyPhoneRoute.name: (routeData) {
@@ -2630,16 +2638,41 @@ class LoginPasswordChangedRoute extends _i163.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i92.LoginPasswordResetPage]
-class LoginPasswordResetRoute extends _i163.PageRouteInfo<void> {
-  const LoginPasswordResetRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+class LoginPasswordResetRoute
+    extends _i163.PageRouteInfo<LoginPasswordResetRouteArgs> {
+  LoginPasswordResetRoute({
+    _i164.Key? key,
+    required String resetToken,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           LoginPasswordResetRoute.name,
+          args: LoginPasswordResetRouteArgs(
+            key: key,
+            resetToken: resetToken,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'LoginPasswordResetRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<LoginPasswordResetRouteArgs> page =
+      _i163.PageInfo<LoginPasswordResetRouteArgs>(name);
+}
+
+class LoginPasswordResetRouteArgs {
+  const LoginPasswordResetRouteArgs({
+    this.key,
+    required this.resetToken,
+  });
+
+  final _i164.Key? key;
+
+  final String resetToken;
+
+  @override
+  String toString() {
+    return 'LoginPasswordResetRouteArgs{key: $key, resetToken: $resetToken}';
+  }
 }
 
 /// generated route for
@@ -3536,16 +3569,40 @@ class VerifyEmailOtpRoute extends _i163.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i155.VerifyForgotPage]
-class VerifyForgotRoute extends _i163.PageRouteInfo<void> {
-  const VerifyForgotRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+class VerifyForgotRoute extends _i163.PageRouteInfo<VerifyForgotRouteArgs> {
+  VerifyForgotRoute({
+    _i164.Key? key,
+    required String email,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           VerifyForgotRoute.name,
+          args: VerifyForgotRouteArgs(
+            key: key,
+            email: email,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'VerifyForgotRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<VerifyForgotRouteArgs> page =
+      _i163.PageInfo<VerifyForgotRouteArgs>(name);
+}
+
+class VerifyForgotRouteArgs {
+  const VerifyForgotRouteArgs({
+    this.key,
+    required this.email,
+  });
+
+  final _i164.Key? key;
+
+  final String email;
+
+  @override
+  String toString() {
+    return 'VerifyForgotRouteArgs{key: $key, email: $email}';
+  }
 }
 
 /// generated route for

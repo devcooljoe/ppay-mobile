@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
@@ -13,6 +14,9 @@ class PPTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final Widget? hint;
+  final ValueChanged<String>? onChanged;
+  final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
 
   const PPTextField({
     super.key,
@@ -26,6 +30,9 @@ class PPTextField extends StatelessWidget {
     this.validator,
     this.keyboardType,
     this.hint,
+    this.onChanged,
+    this.maxLength,
+    this.inputFormatters,
   });
 
   @override
@@ -35,14 +42,18 @@ class PPTextField extends StatelessWidget {
       obscureText: obscureText,
       readOnly: readOnly,
       onTap: onTap,
+      onChanged: onChanged,
       validator: validator,
       keyboardType: keyboardType,
+      maxLength: maxLength,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 15.h),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
         hint: hint,
+        counterText: '',
         hintStyle: TextStyle(
           fontFamily: 'Gilroy',
           fontWeight: FontWeight.w400,

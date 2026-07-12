@@ -21,7 +21,7 @@ final registerProvider =
 );
 
 typedef _$Register = AutoDisposeNotifier<AsyncValue<void>>;
-String _$loginHash() => r'ad5514aab6e89b92acf2e6221337b0efd5952d98';
+String _$loginHash() => r'c9b2e728803f121ef785a02ddff7416967b08e6b';
 
 /// See also [Login].
 @ProviderFor(Login)
@@ -243,5 +243,20 @@ final authenticatedUserProvider =
 );
 
 typedef _$AuthenticatedUser = Notifier<AsyncValue<UserEntity?>>;
+String _$verifyPinHash() => r'1195ccb864255ea9f534427f480b4e3585ce10d7';
+
+/// See also [VerifyPin].
+@ProviderFor(VerifyPin)
+final verifyPinProvider =
+    AutoDisposeNotifierProvider<VerifyPin, AsyncValue<void>>.internal(
+  VerifyPin.new,
+  name: r'verifyPinProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$verifyPinHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$VerifyPin = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

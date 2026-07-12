@@ -28,4 +28,5 @@ abstract class UserRemoteDataSource {
   Future<void> forgotPin();
   Future<ResetTokenModel> verifyForgotPinOtp(VerifyOtpRequest request);
   Future<void> resetPin(ResetPinRequest request);
+  Future<void> verifyPin(String pin);
 }

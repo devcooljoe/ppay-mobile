@@ -151,25 +151,30 @@ class __$$BankModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BankModelImpl extends _BankModel {
   const _$BankModelImpl(
-      {required this.bankName,
-      required this.bankCode,
-      required this.bankAvailability,
-      required this.bankStatus,
-      required this.bankLogo})
+      {this.bankName = '',
+      this.bankCode = '',
+      this.bankAvailability = '',
+      this.bankStatus = '',
+      this.bankLogo = ''})
       : super._();
 
   factory _$BankModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BankModelImplFromJson(json);
 
   @override
+  @JsonKey()
   final String bankName;
   @override
+  @JsonKey()
   final String bankCode;
   @override
+  @JsonKey()
   final String bankAvailability;
   @override
+  @JsonKey()
   final String bankStatus;
   @override
+  @JsonKey()
   final String bankLogo;
 
   @override
@@ -215,11 +220,11 @@ class _$BankModelImpl extends _BankModel {
 
 abstract class _BankModel extends BankModel {
   const factory _BankModel(
-      {required final String bankName,
-      required final String bankCode,
-      required final String bankAvailability,
-      required final String bankStatus,
-      required final String bankLogo}) = _$BankModelImpl;
+      {final String bankName,
+      final String bankCode,
+      final String bankAvailability,
+      final String bankStatus,
+      final String bankLogo}) = _$BankModelImpl;
   const _BankModel._() : super._();
 
   factory _BankModel.fromJson(Map<String, dynamic> json) =

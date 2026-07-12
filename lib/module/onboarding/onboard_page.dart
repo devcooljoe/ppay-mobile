@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ppay_mobile/module/onboarding/presentation/providers/onboarding_provider.dart';
 import 'package:ppay_mobile/shared/models/onboard_item_model.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 @RoutePage()
@@ -19,58 +20,64 @@ class OnboardPage extends HookConsumerWidget {
     final currentIndex = useState(0);
 
     final pages = [
-    OnboardItem(
-      title: 'Fund',
-      highlight: '& Pay Easily',
-      image: 'assets/images/first.png',
-      description:
-          'Top up your NGN wallet instantly and pay for bills, airtime, data, and more all in one place.',
-      imagePath: 'assets/images/WRAPPER1.png',
-      imageHeight: 228,
-      space1: 278,
-      space2: 115,
-    ),
-    OnboardItem(
-      title: 'Trade',
-      highlight: 'Crypto & Giftcards',
-      image: 'assets/images/second.png',
-      description:
-          'Buy, sell, and receive crypto, plus trade giftcards at the best rates with fast approvals.',
-      imagePath: 'assets/images/WRAPPER2.png',
-      imageHeight: 82,
-      space1: 235,
-      space2: 268,
-    ),
-    OnboardItem(
-      title: 'Shop',
-      highlight: '& Send Gifts',
-      image: 'assets/images/third.png',
-      description:
-          'Purchase items from our Shopper store and send gifts to friends or family anywhere',
-      imagePath: 'assets/images/WRAPPER3.png',
-      imageHeight: 108,
-      space1: 28,
-      space2: 73,
-    ),
-    OnboardItem(
-      title: 'Book',
-      highlight: 'Flight & Use Card',
-      image: 'assets/images/fourth.png',
-      description:
-          'Book local or international flights and enjoy a secure virtual dollar card for your Payment',
-      imagePath: 'assets/images/WRAPPER4.png',
-      imageHeight: 129,
-      space1: 262,
-      space2: 133,
-    ),
-  ];
+      OnboardItem(
+        title: 'Fund',
+        highlight: '& Pay Easily',
+        image: 'assets/images/first.png',
+        description:
+            'Top up your NGN wallet instantly and pay for bills, airtime, data, and more all in one place.',
+        imagePath: 'assets/images/WRAPPER1.png',
+        imageHeight: 228,
+        space1: 278,
+        space2: 115,
+      ),
+      OnboardItem(
+        title: 'Trade',
+        highlight: 'Crypto & Giftcards',
+        image: 'assets/images/second.png',
+        description:
+            'Buy, sell, and receive crypto, plus trade giftcards at the best rates with fast approvals.',
+        imagePath: 'assets/images/WRAPPER2.png',
+        imageHeight: 82,
+        space1: 235,
+        space2: 268,
+      ),
+      OnboardItem(
+        title: 'Shop',
+        highlight: '& Send Gifts',
+        image: 'assets/images/third.png',
+        description:
+            'Purchase items from our Shopper store and send gifts to friends or family anywhere',
+        imagePath: 'assets/images/WRAPPER3.png',
+        imageHeight: 108,
+        space1: 28,
+        space2: 73,
+      ),
+      OnboardItem(
+        title: 'Book',
+        highlight: 'Flight & Use Card',
+        image: 'assets/images/fourth.png',
+        description:
+            'Book local or international flights and enjoy a secure virtual dollar card for your Payment',
+        imagePath: 'assets/images/WRAPPER4.png',
+        imageHeight: 129,
+        space1: 262,
+        space2: 133,
+      ),
+    ];
+
+    Future<void> markSeenAndNavigate(PageRouteInfo route) async {
+      await ref.read(onboardingStatusProvider.notifier).markOnboardingSeen();
+      if (context.mounted) {
+        context.router.replace(route);
+      }
+    }
 
     return Scaffold(
       backgroundColor: PPaymobileColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            /// PageView
             Expanded(
               child: PageView.builder(
                 controller: pageController,
@@ -84,8 +91,6 @@ class OnboardPage extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       35.verticalSpace,
-
-                      /// Title
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -111,13 +116,12 @@ class OnboardPage extends HookConsumerWidget {
                         ],
                       ),
                       16.verticalSpace,
-
-                      /// Image
                       Stack(
                         children: [
                           SizedBox(
                             height: 361.h,
-                            child: Image.asset(item.image, fit: BoxFit.contain),
+                            child:
+                                Image.asset(item.image, fit: BoxFit.contain),
                           ),
                           Positioned(
                             left: item.space1.w,
@@ -137,21 +141,18 @@ class OnboardPage extends HookConsumerWidget {
                 },
               ),
             ),
-
-            /// Smooth Indicator
             SmoothPageIndicator(
               controller: pageController,
               count: pages.length,
               effect: ExpandingDotsEffect(
                 activeDotColor: PPaymobileColors.highlightTextColor,
-                dotColor: Color(0xffE6E6E6),
+                dotColor: const Color(0xffE6E6E6),
                 dotHeight: 8.h,
                 dotWidth: 18.w,
                 expansionFactor: 3,
                 spacing: 9.0.w,
               ),
             ),
-
             29.verticalSpace,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -167,8 +168,6 @@ class OnboardPage extends HookConsumerWidget {
               ),
             ),
             37.verticalSpace,
-
-            /// Get Started Button
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: SizedBox(
@@ -181,9 +180,7 @@ class OnboardPage extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(42),
                     ),
                   ),
-                  onPressed: () {
-                    context.router.push(SignupRoute());
-                  },
+                  onPressed: () => markSeenAndNavigate(const SignupRoute()),
                   child: Text(
                     'Get Started',
                     style: TextStyle(
@@ -196,10 +193,7 @@ class OnboardPage extends HookConsumerWidget {
                 ),
               ),
             ),
-
             23.verticalSpace,
-
-            /// Sign in
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -214,9 +208,7 @@ class OnboardPage extends HookConsumerWidget {
                 ),
                 5.horizontalSpace,
                 TouchOpacity(
-                  onTap: () {
-                    context.router.push(LoginRoute());
-                  },
+                  onTap: () => markSeenAndNavigate(const LoginRoute()),
                   child: Text(
                     'Sign In',
                     style: TextStyle(
@@ -229,7 +221,6 @@ class OnboardPage extends HookConsumerWidget {
                 ),
               ],
             ),
-
             85.verticalSpace,
           ],
         ),

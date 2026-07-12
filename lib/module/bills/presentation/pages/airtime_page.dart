@@ -1,19 +1,22 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:ppay_mobile/shared/widgets/airtime_beneficiary_bottomsheet.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/bills/domain/entities/bill_entity.dart';
+import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
+import 'package:ppay_mobile/module/bills/presentation/pages/bill_confirm_page.dart';
+import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_input_decoration.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_package_selector_widget.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_provider_selector_widget.dart';
+import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
-import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
-import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
-import 'package:ppay_mobile/shared/widgets/network_provider_card.dart';
-import 'package:ppay_mobile/shared/widgets/amount_package_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 
 @RoutePage()
 class AirtimePage extends HookConsumerWidget {
@@ -21,308 +24,169 @@ class AirtimePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useTextEditingController();
-    final showKeyboard = useState(false);
+    final billersAsync = ref.watch(airtimeBillersProvider);
+    final walletAsync = ref.watch(walletProvider);
 
-    void onKeyTap(String value) {
-      if (value == '.' && controller.text.contains('.')) return;
-      if (value == '.' && controller.text.isEmpty) return;
-      controller.text += value;
+    final selectedBiller = useState<BillerEntity?>(null);
+    final selectedItem = useState<BillItemEntity?>(null);
+    final phoneController = useTextEditingController();
+    final amountController = useTextEditingController();
+
+    final walletBalance = AmountFormatter.formatBalance(
+      walletAsync.value?.balance ?? '0.00',
+    );
+
+    void selectBiller(BillerEntity biller) {
+      selectedBiller.value = biller;
+      selectedItem.value = null;
+      amountController.text = '';
     }
 
-    void onDelete() {
-      if (controller.text.isNotEmpty) {
-        controller.text = controller.text.substring(0, controller.text.length - 1);
+    void selectItem(BillItemEntity item) {
+      selectedItem.value = item;
+      if (item.isFixedPrice) {
+        amountController.text = item.amount.toStringAsFixed(2);
+      } else {
+        amountController.text = '';
       }
     }
+
+    void proceed() {
+      if (selectedBiller.value == null) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Please select a network provider',
+        );
+        return;
+      }
+      if (phoneController.text.trim().isEmpty ||
+          phoneController.text.trim().length < 10) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Please enter a valid phone number',
+        );
+        return;
+      }
+      final amountText = amountController.text.trim().replaceAll(',', '');
+      final amount = double.tryParse(amountText) ?? 0;
+      if (amount <= 0) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Please enter a valid amount',
+        );
+        return;
+      }
+
+      final item =
+          selectedItem.value ??
+          BillItemEntity(
+            id: '',
+            name: 'Airtime',
+            description: '',
+            kudaIdentifier: selectedBiller.value!.billTypeId,
+            amount: amount,
+            isFixedPrice: false,
+            billerId: selectedBiller.value!.id,
+            isActive: true,
+          );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => BillConfirmPage(
+            args: BillConfirmArgs(
+              billType: BillType.airtime,
+              biller: selectedBiller.value!,
+              billItem: item,
+              customerIdentifier: phoneController.text.trim(),
+              customerName: '',
+              phoneNumber: phoneController.text.trim(),
+              amount: amount,
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: const PPAppBar(title: 'Airtime'),
       body: SafeArea(
-        child: Column(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           children: [
-            Expanded(
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  showKeyboard.value = false;
-                },
-                child: ListView(
-                  children: [
-                    36.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Select Network',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TouchOpacity(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) {
-                                  return AirtimeBeneficiaryBottomsheet();
-                                },
-                              );
-                            },
-                            child: Text(
-                              'Beneficiaries',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.buttonColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                                decorationColor: PPaymobileColors.buttonColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    22.verticalSpace,
-                    SizedBox(
-                      height: 106.h,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 20.0.w),
-                            child: NetworkProviderCard(
-                              imagePath: 'assets/images/mtn.png',
-                              name: 'MTN',
-                            ),
-                          ),
-                          NetworkProviderCard(
-                            imagePath: 'assets/images/airtel.png',
-                            name: 'Airtel',
-                          ),
-                          NetworkProviderCard(
-                            imagePath: 'assets/images/9mobile.png',
-                            name: '9mobile',
-                          ),
-                          NetworkProviderCard(
-                            imagePath: 'assets/images/glo.png',
-                            name: 'Glo',
-                          ),
-                        ],
-                      ),
-                    ),
-                    56.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: const PPLabel(text: 'Phone Number'),
-                    ),
-                    8.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: SizedBox(
-                        height: 54.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          showCursor: true,
-                          keyboardType: TextInputType.number,
-                          onTap: () {
-                            showKeyboard.value = false;
-                          },
-                          decoration: InputDecoration(
-                            hint: RichText(
-                              text: TextSpan(
-                                text: '+234 ',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Enter Number',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: PPaymobileColors.anotherGreyColor,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 14.h,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    32.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: const PPLabel(text: 'Enter Amount'),
-                    ),
-                    8.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: SizedBox(
-                        height: 54.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          showCursor: true,
-                          readOnly: true,
-                          onTap: () {
-                            showKeyboard.value = true;
-                          },
-                          decoration: InputDecoration(
-                            hint: RichText(
-                              text: TextSpan(
-                                text: '₦ ',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Enter Amount',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: PPaymobileColors.anotherGreyColor,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: PPaymobileColors.textfieldGrey,
-                                width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 14.h,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    32.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Packages',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            'Balance: ₦400,000',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: PPaymobileColors.buttonColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    24.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AmountPackageButton(amount: '₦100'),
-                          AmountPackageButton(amount: '₦200'),
-                          AmountPackageButton(amount: '₦500'),
-                          AmountPackageButton(amount: '₦1000'),
-                        ],
-                      ),
-                    ),
-                    10.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AmountPackageButton(amount: '₦100'),
-                          AmountPackageButton(amount: '₦200'),
-                          AmountPackageButton(amount: '₦500'),
-                          AmountPackageButton(amount: '₦1000'),
-                        ],
-                      ),
-                    ),
-                    89.verticalSpace,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: PPButton(
-                        text: 'Buy Airtime',
-                        backgroundColor: PPaymobileColors.buttonColorandText,
-                        onPressed: () {
-                          context.router.push(AirtimeConfirmRoute());
-                        },
-                      ),
-                    ),
-                  ],
+            36.verticalSpace,
+            const PPLabel(text: 'Select Network'),
+            22.verticalSpace,
+            billersAsync.when(
+              loading: () => const BillProviderSelectorSkeleton(),
+              error: (e, _) => Text(
+                'Failed to load providers',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.redTextfield,
+                  fontSize: 14.sp,
                 ),
               ),
+              data: (billers) => BillProviderSelectorWidget(
+                billers: billers,
+                selectedBiller: selectedBiller.value,
+                fallbackAsset: 'assets/images/mtn.png',
+                onSelected: selectBiller,
+              ),
             ),
-            10.verticalSpace,
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              height: showKeyboard.value ? 424.h : 0,
-              child: showKeyboard.value
-                  ? KeyboardContainer(
-                      child: CustomKeyboard(
-                        onKeyTap: onKeyTap,
-                        onDelete: onDelete,
-                      ),
-                    )
-                  : null,
+            32.verticalSpace,
+            const PPLabel(text: 'Phone Number'),
+            8.verticalSpace,
+            TextFormField(
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
+              decoration: billInputDecoration(hint: 'Enter phone number'),
             ),
+            32.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const PPLabel(text: 'Amount'),
+                Text(
+                  'Balance: ₦$walletBalance',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.buttonColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            8.verticalSpace,
+            TextFormField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
+              decoration: billInputDecoration(hint: '₦ Enter amount'),
+            ),
+            if (selectedBiller.value != null &&
+                selectedBiller.value!.billItems.isNotEmpty) ...[
+              24.verticalSpace,
+              const PPLabel(text: 'Quick Amounts'),
+              16.verticalSpace,
+              BillPackageSelectorWidget(
+                items: selectedBiller.value!.billItems,
+                billerName: selectedBiller.value!.name,
+                billType: BillType.airtime,
+                selectedItem: selectedItem.value,
+                onSelected: selectItem,
+              ),
+            ],
+            40.verticalSpace,
+            PPButton(
+              text: 'Buy Airtime',
+              backgroundColor: PPaymobileColors.buttonColorandText,
+              onPressed: proceed,
+            ),
+            20.verticalSpace,
           ],
         ),
       ),

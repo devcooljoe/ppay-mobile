@@ -54,6 +54,22 @@ final updateBankAccountProvider =
 );
 
 typedef _$UpdateBankAccount = AutoDisposeNotifier<AsyncValue<void>>;
+String _$addBankAccountHash() => r'08bee8f2738eb50686a6fb9ebadd47eb9fdc8c02';
+
+/// See also [AddBankAccount].
+@ProviderFor(AddBankAccount)
+final addBankAccountProvider =
+    AutoDisposeNotifierProvider<AddBankAccount, AsyncValue<void>>.internal(
+  AddBankAccount.new,
+  name: r'addBankAccountProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$addBankAccountHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AddBankAccount = AutoDisposeNotifier<AsyncValue<void>>;
 String _$deleteBankAccountHash() => r'2b95e08eeacd9e407cc36400d03d88050d3c3508';
 
 /// See also [DeleteBankAccount].

@@ -7,11 +7,11 @@ part 'bank_model.g.dart';
 @freezed
 class BankModel with _$BankModel {
   const factory BankModel({
-    required String bankName,
-    required String bankCode,
-    required String bankAvailability,
-    required String bankStatus,
-    required String bankLogo,
+    @Default('') String bankName,
+    @Default('') String bankCode,
+    @Default('') String bankAvailability,
+    @Default('') String bankStatus,
+    @Default('') String bankLogo,
   }) = _BankModel;
 
   const BankModel._();

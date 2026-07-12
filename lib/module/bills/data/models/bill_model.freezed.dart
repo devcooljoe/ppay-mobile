@@ -20,12 +20,12 @@ BillerModel _$BillerModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BillerModel {
-  String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get billerIconUrl => throw _privateConstructorUsedError;
-  String get billTypeId => throw _privateConstructorUsedError;
-  List<BillItemModel> get billItems => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get billerIconUrl => throw _privateConstructorUsedError;
+  String? get billTypeId => throw _privateConstructorUsedError;
+  List<BillItemModel>? get billItems => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,12 +40,12 @@ abstract class $BillerModelCopyWith<$Res> {
       _$BillerModelCopyWithImpl<$Res, BillerModel>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String billerIconUrl,
-      String billTypeId,
-      List<BillItemModel> billItems});
+      {String? id,
+      String? name,
+      String? description,
+      String? billerIconUrl,
+      String? billTypeId,
+      List<BillItemModel>? billItems});
 }
 
 /// @nodoc
@@ -61,38 +61,38 @@ class _$BillerModelCopyWithImpl<$Res, $Val extends BillerModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? billerIconUrl = null,
-    Object? billTypeId = null,
-    Object? billItems = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? billerIconUrl = freezed,
+    Object? billTypeId = freezed,
+    Object? billItems = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      billerIconUrl: null == billerIconUrl
+              as String?,
+      billerIconUrl: freezed == billerIconUrl
           ? _value.billerIconUrl
           : billerIconUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      billTypeId: null == billTypeId
+              as String?,
+      billTypeId: freezed == billTypeId
           ? _value.billTypeId
           : billTypeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      billItems: null == billItems
+              as String?,
+      billItems: freezed == billItems
           ? _value.billItems
           : billItems // ignore: cast_nullable_to_non_nullable
-              as List<BillItemModel>,
+              as List<BillItemModel>?,
     ) as $Val);
   }
 }
@@ -106,12 +106,12 @@ abstract class _$$BillerModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String billerIconUrl,
-      String billTypeId,
-      List<BillItemModel> billItems});
+      {String? id,
+      String? name,
+      String? description,
+      String? billerIconUrl,
+      String? billTypeId,
+      List<BillItemModel>? billItems});
 }
 
 /// @nodoc
@@ -125,38 +125,38 @@ class __$$BillerModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? billerIconUrl = null,
-    Object? billTypeId = null,
-    Object? billItems = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? billerIconUrl = freezed,
+    Object? billTypeId = freezed,
+    Object? billItems = freezed,
   }) {
     return _then(_$BillerModelImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      billerIconUrl: null == billerIconUrl
+              as String?,
+      billerIconUrl: freezed == billerIconUrl
           ? _value.billerIconUrl
           : billerIconUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      billTypeId: null == billTypeId
+              as String?,
+      billTypeId: freezed == billTypeId
           ? _value.billTypeId
           : billTypeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      billItems: null == billItems
+              as String?,
+      billItems: freezed == billItems
           ? _value._billItems
           : billItems // ignore: cast_nullable_to_non_nullable
-              as List<BillItemModel>,
+              as List<BillItemModel>?,
     ));
   }
 }
@@ -165,12 +165,12 @@ class __$$BillerModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BillerModelImpl extends _BillerModel {
   const _$BillerModelImpl(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.billerIconUrl,
-      required this.billTypeId,
-      required final List<BillItemModel> billItems})
+      {this.id,
+      this.name,
+      this.description,
+      this.billerIconUrl,
+      this.billTypeId,
+      final List<BillItemModel>? billItems})
       : _billItems = billItems,
         super._();
 
@@ -178,21 +178,23 @@ class _$BillerModelImpl extends _BillerModel {
       _$$BillerModelImplFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String description;
+  final String? description;
   @override
-  final String billerIconUrl;
+  final String? billerIconUrl;
   @override
-  final String billTypeId;
-  final List<BillItemModel> _billItems;
+  final String? billTypeId;
+  final List<BillItemModel>? _billItems;
   @override
-  List<BillItemModel> get billItems {
+  List<BillItemModel>? get billItems {
+    final value = _billItems;
+    if (value == null) return null;
     if (_billItems is EqualUnmodifiableListView) return _billItems;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_billItems);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -244,29 +246,29 @@ class _$BillerModelImpl extends _BillerModel {
 
 abstract class _BillerModel extends BillerModel {
   const factory _BillerModel(
-      {required final String id,
-      required final String name,
-      required final String description,
-      required final String billerIconUrl,
-      required final String billTypeId,
-      required final List<BillItemModel> billItems}) = _$BillerModelImpl;
+      {final String? id,
+      final String? name,
+      final String? description,
+      final String? billerIconUrl,
+      final String? billTypeId,
+      final List<BillItemModel>? billItems}) = _$BillerModelImpl;
   const _BillerModel._() : super._();
 
   factory _BillerModel.fromJson(Map<String, dynamic> json) =
       _$BillerModelImpl.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
-  String get name;
+  String? get name;
   @override
-  String get description;
+  String? get description;
   @override
-  String get billerIconUrl;
+  String? get billerIconUrl;
   @override
-  String get billTypeId;
+  String? get billTypeId;
   @override
-  List<BillItemModel> get billItems;
+  List<BillItemModel>? get billItems;
   @override
   @JsonKey(ignore: true)
   _$$BillerModelImplCopyWith<_$BillerModelImpl> get copyWith =>
@@ -279,14 +281,15 @@ BillItemModel _$BillItemModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BillItemModel {
-  String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get kudaIdentifier => throw _privateConstructorUsedError;
-  double get amount => throw _privateConstructorUsedError;
-  bool get isFixedPrice => throw _privateConstructorUsedError;
-  String get billerId => throw _privateConstructorUsedError;
-  bool get isActive => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get kudaIdentifier => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
+  bool? get isFixedPrice => throw _privateConstructorUsedError;
+  String? get billerId => throw _privateConstructorUsedError;
+  bool? get isActive => throw _privateConstructorUsedError;
+  String? get vendingAggregator => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -301,14 +304,15 @@ abstract class $BillItemModelCopyWith<$Res> {
       _$BillItemModelCopyWithImpl<$Res, BillItemModel>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String kudaIdentifier,
-      double amount,
-      bool isFixedPrice,
-      String billerId,
-      bool isActive});
+      {String? id,
+      String? name,
+      String? description,
+      String? kudaIdentifier,
+      double? amount,
+      bool? isFixedPrice,
+      String? billerId,
+      bool? isActive,
+      String? vendingAggregator});
 }
 
 /// @nodoc
@@ -324,48 +328,53 @@ class _$BillItemModelCopyWithImpl<$Res, $Val extends BillItemModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? kudaIdentifier = null,
-    Object? amount = null,
-    Object? isFixedPrice = null,
-    Object? billerId = null,
-    Object? isActive = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? kudaIdentifier = freezed,
+    Object? amount = freezed,
+    Object? isFixedPrice = freezed,
+    Object? billerId = freezed,
+    Object? isActive = freezed,
+    Object? vendingAggregator = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      kudaIdentifier: null == kudaIdentifier
+              as String?,
+      kudaIdentifier: freezed == kudaIdentifier
           ? _value.kudaIdentifier
           : kudaIdentifier // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount: null == amount
+              as String?,
+      amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as double,
-      isFixedPrice: null == isFixedPrice
+              as double?,
+      isFixedPrice: freezed == isFixedPrice
           ? _value.isFixedPrice
           : isFixedPrice // ignore: cast_nullable_to_non_nullable
-              as bool,
-      billerId: null == billerId
+              as bool?,
+      billerId: freezed == billerId
           ? _value.billerId
           : billerId // ignore: cast_nullable_to_non_nullable
-              as String,
-      isActive: null == isActive
+              as String?,
+      isActive: freezed == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
+      vendingAggregator: freezed == vendingAggregator
+          ? _value.vendingAggregator
+          : vendingAggregator // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -379,14 +388,15 @@ abstract class _$$BillItemModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String kudaIdentifier,
-      double amount,
-      bool isFixedPrice,
-      String billerId,
-      bool isActive});
+      {String? id,
+      String? name,
+      String? description,
+      String? kudaIdentifier,
+      double? amount,
+      bool? isFixedPrice,
+      String? billerId,
+      bool? isActive,
+      String? vendingAggregator});
 }
 
 /// @nodoc
@@ -400,48 +410,53 @@ class __$$BillItemModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? kudaIdentifier = null,
-    Object? amount = null,
-    Object? isFixedPrice = null,
-    Object? billerId = null,
-    Object? isActive = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? kudaIdentifier = freezed,
+    Object? amount = freezed,
+    Object? isFixedPrice = freezed,
+    Object? billerId = freezed,
+    Object? isActive = freezed,
+    Object? vendingAggregator = freezed,
   }) {
     return _then(_$BillItemModelImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      kudaIdentifier: null == kudaIdentifier
+              as String?,
+      kudaIdentifier: freezed == kudaIdentifier
           ? _value.kudaIdentifier
           : kudaIdentifier // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount: null == amount
+              as String?,
+      amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as double,
-      isFixedPrice: null == isFixedPrice
+              as double?,
+      isFixedPrice: freezed == isFixedPrice
           ? _value.isFixedPrice
           : isFixedPrice // ignore: cast_nullable_to_non_nullable
-              as bool,
-      billerId: null == billerId
+              as bool?,
+      billerId: freezed == billerId
           ? _value.billerId
           : billerId // ignore: cast_nullable_to_non_nullable
-              as String,
-      isActive: null == isActive
+              as String?,
+      isActive: freezed == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
+      vendingAggregator: freezed == vendingAggregator
+          ? _value.vendingAggregator
+          : vendingAggregator // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -450,39 +465,42 @@ class __$$BillItemModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BillItemModelImpl extends _BillItemModel {
   const _$BillItemModelImpl(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.kudaIdentifier,
-      required this.amount,
-      required this.isFixedPrice,
-      required this.billerId,
-      required this.isActive})
+      {this.id,
+      this.name,
+      this.description,
+      this.kudaIdentifier,
+      this.amount,
+      this.isFixedPrice,
+      this.billerId,
+      this.isActive,
+      this.vendingAggregator})
       : super._();
 
   factory _$BillItemModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BillItemModelImplFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String description;
+  final String? description;
   @override
-  final String kudaIdentifier;
+  final String? kudaIdentifier;
   @override
-  final double amount;
+  final double? amount;
   @override
-  final bool isFixedPrice;
+  final bool? isFixedPrice;
   @override
-  final String billerId;
+  final String? billerId;
   @override
-  final bool isActive;
+  final bool? isActive;
+  @override
+  final String? vendingAggregator;
 
   @override
   String toString() {
-    return 'BillItemModel(id: $id, name: $name, description: $description, kudaIdentifier: $kudaIdentifier, amount: $amount, isFixedPrice: $isFixedPrice, billerId: $billerId, isActive: $isActive)';
+    return 'BillItemModel(id: $id, name: $name, description: $description, kudaIdentifier: $kudaIdentifier, amount: $amount, isFixedPrice: $isFixedPrice, billerId: $billerId, isActive: $isActive, vendingAggregator: $vendingAggregator)';
   }
 
   @override
@@ -502,13 +520,24 @@ class _$BillItemModelImpl extends _BillItemModel {
             (identical(other.billerId, billerId) ||
                 other.billerId == billerId) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.vendingAggregator, vendingAggregator) ||
+                other.vendingAggregator == vendingAggregator));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description,
-      kudaIdentifier, amount, isFixedPrice, billerId, isActive);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      description,
+      kudaIdentifier,
+      amount,
+      isFixedPrice,
+      billerId,
+      isActive,
+      vendingAggregator);
 
   @JsonKey(ignore: true)
   @override
@@ -526,35 +555,38 @@ class _$BillItemModelImpl extends _BillItemModel {
 
 abstract class _BillItemModel extends BillItemModel {
   const factory _BillItemModel(
-      {required final String id,
-      required final String name,
-      required final String description,
-      required final String kudaIdentifier,
-      required final double amount,
-      required final bool isFixedPrice,
-      required final String billerId,
-      required final bool isActive}) = _$BillItemModelImpl;
+      {final String? id,
+      final String? name,
+      final String? description,
+      final String? kudaIdentifier,
+      final double? amount,
+      final bool? isFixedPrice,
+      final String? billerId,
+      final bool? isActive,
+      final String? vendingAggregator}) = _$BillItemModelImpl;
   const _BillItemModel._() : super._();
 
   factory _BillItemModel.fromJson(Map<String, dynamic> json) =
       _$BillItemModelImpl.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
-  String get name;
+  String? get name;
   @override
-  String get description;
+  String? get description;
   @override
-  String get kudaIdentifier;
+  String? get kudaIdentifier;
   @override
-  double get amount;
+  double? get amount;
   @override
-  bool get isFixedPrice;
+  bool? get isFixedPrice;
   @override
-  String get billerId;
+  String? get billerId;
   @override
-  bool get isActive;
+  bool? get isActive;
+  @override
+  String? get vendingAggregator;
   @override
   @JsonKey(ignore: true)
   _$$BillItemModelImplCopyWith<_$BillItemModelImpl> get copyWith =>
@@ -568,7 +600,7 @@ CustomerVerificationModel _$CustomerVerificationModelFromJson(
 
 /// @nodoc
 mixin _$CustomerVerificationModel {
-  String get customerName => throw _privateConstructorUsedError;
+  String? get customerName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -582,7 +614,7 @@ abstract class $CustomerVerificationModelCopyWith<$Res> {
           $Res Function(CustomerVerificationModel) then) =
       _$CustomerVerificationModelCopyWithImpl<$Res, CustomerVerificationModel>;
   @useResult
-  $Res call({String customerName});
+  $Res call({String? customerName});
 }
 
 /// @nodoc
@@ -599,13 +631,13 @@ class _$CustomerVerificationModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerName = null,
+    Object? customerName = freezed,
   }) {
     return _then(_value.copyWith(
-      customerName: null == customerName
+      customerName: freezed == customerName
           ? _value.customerName
           : customerName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -619,7 +651,7 @@ abstract class _$$CustomerVerificationModelImplCopyWith<$Res>
       __$$CustomerVerificationModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String customerName});
+  $Res call({String? customerName});
 }
 
 /// @nodoc
@@ -635,13 +667,13 @@ class __$$CustomerVerificationModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerName = null,
+    Object? customerName = freezed,
   }) {
     return _then(_$CustomerVerificationModelImpl(
-      customerName: null == customerName
+      customerName: freezed == customerName
           ? _value.customerName
           : customerName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -649,14 +681,13 @@ class __$$CustomerVerificationModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CustomerVerificationModelImpl extends _CustomerVerificationModel {
-  const _$CustomerVerificationModelImpl({required this.customerName})
-      : super._();
+  const _$CustomerVerificationModelImpl({this.customerName}) : super._();
 
   factory _$CustomerVerificationModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerVerificationModelImplFromJson(json);
 
   @override
-  final String customerName;
+  final String? customerName;
 
   @override
   String toString() {
@@ -692,15 +723,15 @@ class _$CustomerVerificationModelImpl extends _CustomerVerificationModel {
 }
 
 abstract class _CustomerVerificationModel extends CustomerVerificationModel {
-  const factory _CustomerVerificationModel(
-      {required final String customerName}) = _$CustomerVerificationModelImpl;
+  const factory _CustomerVerificationModel({final String? customerName}) =
+      _$CustomerVerificationModelImpl;
   const _CustomerVerificationModel._() : super._();
 
   factory _CustomerVerificationModel.fromJson(Map<String, dynamic> json) =
       _$CustomerVerificationModelImpl.fromJson;
 
   @override
-  String get customerName;
+  String? get customerName;
   @override
   @JsonKey(ignore: true)
   _$$CustomerVerificationModelImplCopyWith<_$CustomerVerificationModelImpl>
@@ -713,7 +744,7 @@ BillPurchaseModel _$BillPurchaseModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BillPurchaseModel {
-  String get reference => throw _privateConstructorUsedError;
+  String? get reference => throw _privateConstructorUsedError;
   String? get pin => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -728,7 +759,7 @@ abstract class $BillPurchaseModelCopyWith<$Res> {
           BillPurchaseModel value, $Res Function(BillPurchaseModel) then) =
       _$BillPurchaseModelCopyWithImpl<$Res, BillPurchaseModel>;
   @useResult
-  $Res call({String reference, String? pin});
+  $Res call({String? reference, String? pin});
 }
 
 /// @nodoc
@@ -744,14 +775,14 @@ class _$BillPurchaseModelCopyWithImpl<$Res, $Val extends BillPurchaseModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reference = null,
+    Object? reference = freezed,
     Object? pin = freezed,
   }) {
     return _then(_value.copyWith(
-      reference: null == reference
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       pin: freezed == pin
           ? _value.pin
           : pin // ignore: cast_nullable_to_non_nullable
@@ -768,7 +799,7 @@ abstract class _$$BillPurchaseModelImplCopyWith<$Res>
       __$$BillPurchaseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String reference, String? pin});
+  $Res call({String? reference, String? pin});
 }
 
 /// @nodoc
@@ -782,14 +813,14 @@ class __$$BillPurchaseModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reference = null,
+    Object? reference = freezed,
     Object? pin = freezed,
   }) {
     return _then(_$BillPurchaseModelImpl(
-      reference: null == reference
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       pin: freezed == pin
           ? _value.pin
           : pin // ignore: cast_nullable_to_non_nullable
@@ -801,14 +832,13 @@ class __$$BillPurchaseModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BillPurchaseModelImpl extends _BillPurchaseModel {
-  const _$BillPurchaseModelImpl({required this.reference, this.pin})
-      : super._();
+  const _$BillPurchaseModelImpl({this.reference, this.pin}) : super._();
 
   factory _$BillPurchaseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BillPurchaseModelImplFromJson(json);
 
   @override
-  final String reference;
+  final String? reference;
   @override
   final String? pin;
 
@@ -848,15 +878,14 @@ class _$BillPurchaseModelImpl extends _BillPurchaseModel {
 
 abstract class _BillPurchaseModel extends BillPurchaseModel {
   const factory _BillPurchaseModel(
-      {required final String reference,
-      final String? pin}) = _$BillPurchaseModelImpl;
+      {final String? reference, final String? pin}) = _$BillPurchaseModelImpl;
   const _BillPurchaseModel._() : super._();
 
   factory _BillPurchaseModel.fromJson(Map<String, dynamic> json) =
       _$BillPurchaseModelImpl.fromJson;
 
   @override
-  String get reference;
+  String? get reference;
   @override
   String? get pin;
   @override

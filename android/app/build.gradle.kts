@@ -20,7 +20,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.pinnaclepay.app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "28.2.13676358"
+    ndkVersion = "29.0.13599879"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -45,9 +45,9 @@ android {
 
     configurations.all {
         resolutionStrategy {
-            force("androidx.core:core:1.12.0")
-            force("androidx.core:core-ktx:1.12.0")
-            force("androidx.activity:activity:1.8.2")
+            force("androidx.core:core:1.16.0")
+            force("androidx.core:core-ktx:1.16.0")
+            force("androidx.activity:activity:1.10.1")
         }
     }
 

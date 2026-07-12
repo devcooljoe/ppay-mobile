@@ -16,6 +16,7 @@ import 'package:ppay_mobile/module/auth/domain/usecases/verify_email_otp_usecase
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_password_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_pin_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_phone_otp_usecase.dart';
+import 'package:ppay_mobile/module/auth/domain/usecases/verify_pin_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
@@ -64,6 +65,8 @@ class Login extends _$Login {
     String? deviceToken,
   }) async {
     state = const AsyncValue.loading();
+    final tokenService = getIt<TokenService>();
+
     final result = await getIt<LoginUseCase>()(
       emailAddress: emailAddress,
       password: password,
@@ -72,7 +75,8 @@ class Login extends _$Login {
     result.fold(
       (l) => state = AsyncValue.error(l.message, StackTrace.current),
       (authEntity) async {
-        await getIt<TokenService>().saveToken(authEntity.token);
+        await tokenService.saveToken(authEntity.token);
+        await tokenService.saveEmail(emailAddress);
         await ref.read(authenticatedUserProvider.notifier).call();
         state = const AsyncValue.data(null);
       },
@@ -313,5 +317,21 @@ class AuthenticatedUser extends _$AuthenticatedUser {
 
   void updateUser(UserEntity user) {
     state = AsyncValue.data(user);
+  }
+}
+
+@riverpod
+class VerifyPin extends _$VerifyPin {
+  @override
+  AsyncValue<void> build() => const AsyncValue.data(null);
+
+  Future<bool> call({required String pin}) async {
+    state = const AsyncValue.loading();
+    final result = await getIt<VerifyPinUseCase>()(pin: pin);
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (_) => const AsyncValue.data(null),
+    );
+    return result.isRight();
   }
 }

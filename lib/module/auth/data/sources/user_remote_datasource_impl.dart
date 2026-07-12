@@ -121,4 +121,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<void> resetPin(ResetPinRequest request) async {
     await _dio.post('$_baseUrl/users/reset-pin', data: request.toJson());
   }
+
+  @override
+  Future<void> verifyPin(String pin) async {
+    await _dio.post('$_baseUrl/users/verify-pin', data: {'pin': pin});
+  }
 }
