@@ -90,6 +90,29 @@ class GetMyTransactions extends _$GetMyTransactions {
       (data) => AsyncValue.data(data),
     );
   }
+
+  Future<void> loadMore(int nextPage, {int pageSize = 20}) async {
+    final current = state.value;
+    if (current == null) return;
+    final result = await getIt<GetMyTransactionsUseCase>()(
+      pageNumber: nextPage,
+      pageSize: pageSize,
+    );
+    result.fold(
+      (l) {},
+      (data) {
+        state = AsyncValue.data(
+          PaginatedTransactionsEntity(
+            transactions: [...current.transactions, ...data.transactions],
+            total: data.total,
+            pageNumber: data.pageNumber,
+            pageSize: data.pageSize,
+            totalPages: data.totalPages,
+          ),
+        );
+      },
+    );
+  }
 }
 
 @riverpod

@@ -33,32 +33,6 @@ import 'package:ppay_mobile/core/services/pin_verification_service.dart'
 import 'package:ppay_mobile/core/services/token_service.dart' as _i971;
 import 'package:ppay_mobile/module/auth/data/repositories/user_repository_impl.dart'
     as _i48;
-import 'package:ppay_mobile/module/referral/data/repositories/referral_repository_impl.dart'
-    as _i_ref_repo_impl;
-import 'package:ppay_mobile/module/transaction/data/repositories/transaction_repository_impl.dart'
-    as _i_tx_repo_impl;
-import 'package:ppay_mobile/module/transaction/domain/repositories/transaction_repository.dart'
-    as _i_tx_repo;
-import 'package:ppay_mobile/module/transaction/domain/usecases/get_my_transactions_usecase.dart'
-    as _i_tx_uc;
-import 'package:ppay_mobile/module/referral/data/sources/referral_remote_datasource.dart'
-    as _i_ref_ds;
-import 'package:ppay_mobile/module/referral/data/sources/referral_remote_datasource_impl.dart'
-    as _i_ref_ds_impl;
-import 'package:ppay_mobile/module/referral/domain/repositories/referral_repository.dart'
-    as _i_ref_repo;
-import 'package:ppay_mobile/module/referral/domain/usecases/get_my_referrals_usecase.dart'
-    as _i_ref_uc;
-import 'package:ppay_mobile/module/notification/data/sources/notification_remote_datasource.dart'
-    as _i_notif_ds;
-import 'package:ppay_mobile/module/notification/data/sources/notification_remote_datasource_impl.dart'
-    as _i_notif_ds_impl;
-import 'package:ppay_mobile/module/notification/data/repositories/notification_repository_impl.dart'
-    as _i_notif_repo_impl;
-import 'package:ppay_mobile/module/notification/domain/repositories/notification_repository.dart'
-    as _i_notif_repo;
-import 'package:ppay_mobile/module/notification/domain/usecases/get_my_notifications_usecase.dart'
-    as _i_notif_uc;
 import 'package:ppay_mobile/module/auth/data/sources/user_remote_datasource.dart'
     as _i73;
 import 'package:ppay_mobile/module/auth/data/sources/user_remote_datasource_impl.dart'
@@ -143,6 +117,16 @@ import 'package:ppay_mobile/module/kyc/domain/usecases/verify_bvn_usecase.dart'
     as _i702;
 import 'package:ppay_mobile/module/kyc/domain/usecases/verify_kyc_usecase.dart'
     as _i1046;
+import 'package:ppay_mobile/module/notification/data/repositories/notification_repository_impl.dart'
+    as _i818;
+import 'package:ppay_mobile/module/notification/data/sources/notification_remote_datasource.dart'
+    as _i91;
+import 'package:ppay_mobile/module/notification/data/sources/notification_remote_datasource_impl.dart'
+    as _i288;
+import 'package:ppay_mobile/module/notification/domain/repositories/notification_repository.dart'
+    as _i550;
+import 'package:ppay_mobile/module/notification/domain/usecases/get_my_notifications_usecase.dart'
+    as _i515;
 import 'package:ppay_mobile/module/onboarding/data/repositories/onboarding_repository_impl.dart'
     as _i966;
 import 'package:ppay_mobile/module/onboarding/data/sources/onboarding_local_data_source.dart'
@@ -153,6 +137,16 @@ import 'package:ppay_mobile/module/onboarding/domain/usecases/has_seen_onboardin
     as _i684;
 import 'package:ppay_mobile/module/onboarding/domain/usecases/set_onboarding_seen_usecase.dart'
     as _i497;
+import 'package:ppay_mobile/module/referral/data/repositories/referral_repository_impl.dart'
+    as _i477;
+import 'package:ppay_mobile/module/referral/data/sources/referral_remote_datasource.dart'
+    as _i216;
+import 'package:ppay_mobile/module/referral/data/sources/referral_remote_datasource_impl.dart'
+    as _i838;
+import 'package:ppay_mobile/module/referral/domain/repositories/referral_repository.dart'
+    as _i454;
+import 'package:ppay_mobile/module/referral/domain/usecases/get_my_referrals_usecase.dart'
+    as _i1052;
 import 'package:ppay_mobile/module/settings/data/repositories/bank_account_repository_impl.dart'
     as _i1035;
 import 'package:ppay_mobile/module/settings/data/sources/bank_account_remote_datasource.dart'
@@ -173,14 +167,22 @@ import 'package:ppay_mobile/module/shopping/domain/repositories/shopping_reposit
     as _i766;
 import 'package:ppay_mobile/module/shopping/domain/usecases/shopping_usecases.dart'
     as _i540;
+import 'package:ppay_mobile/module/transaction/data/repositories/transaction_repository_impl.dart'
+    as _i1025;
 import 'package:ppay_mobile/module/transaction/data/repositories/wallet_repository_impl.dart'
     as _i867;
 import 'package:ppay_mobile/module/transaction/data/sources/wallet_remote_datasource.dart'
     as _i813;
 import 'package:ppay_mobile/module/transaction/data/sources/wallet_remote_datasource_impl.dart'
     as _i1044;
+import 'package:ppay_mobile/module/transaction/domain/repositories/transaction_repository.dart'
+    as _i1002;
 import 'package:ppay_mobile/module/transaction/domain/repositories/wallet_repository.dart'
     as _i836;
+import 'package:ppay_mobile/module/transaction/domain/usecases/calculate_fee_usecase.dart'
+    as _i690;
+import 'package:ppay_mobile/module/transaction/domain/usecases/get_my_transactions_usecase.dart'
+    as _i201;
 import 'package:ppay_mobile/module/transaction/domain/usecases/get_wallet_usecase.dart'
     as _i672;
 import 'package:ppay_mobile/module/transaction/domain/usecases/name_enquiry_usecase.dart'
@@ -277,6 +279,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i273.ShoppingRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i127.GiftcardRepository>(() =>
         _i127.GiftcardRepositoryImpl(gh<_i127.GiftcardRemoteDataSource>()));
+    gh.lazySingleton<_i1002.TransactionRepository>(() =>
+        _i1025.TransactionRepositoryImpl(gh<_i813.WalletRemoteDataSource>()));
     gh.lazySingleton<_i629.BankAccountRepository>(() =>
         _i1035.BankAccountRepositoryImpl(
             gh<_i276.BankAccountRemoteDataSource>()));
@@ -330,6 +334,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i798.SellGiftcardUseCase(gh<_i127.GiftcardRepository>()));
     gh.lazySingleton<_i86.BillPaymentRemoteDataSource>(
         () => _i358.BillPaymentRemoteDataSourceImpl(gh<_i361.Dio>()));
+    gh.lazySingleton<_i91.NotificationRemoteDataSource>(
+        () => _i288.NotificationRemoteDataSourceImpl(gh<_i361.Dio>()));
+    gh.lazySingleton<_i216.ReferralRemoteDataSource>(
+        () => _i838.ReferralRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i716.UpdateProfileUseCase>(
         () => _i716.UpdateProfileUseCase(gh<_i505.KycRepository>()));
     gh.lazySingleton<_i142.GetKycDocumentTypesUseCase>(
@@ -366,6 +374,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i1066.TerminateDollarCardUseCase(gh<_i674.DollarCardRepository>()));
     gh.lazySingleton<_i117.UserRepository>(
         () => _i48.UserRepositoryImpl(gh<_i73.UserRemoteDataSource>()));
+    gh.lazySingleton<_i454.ReferralRepository>(() =>
+        _i477.ReferralRepositoryImpl(gh<_i216.ReferralRemoteDataSource>()));
     gh.lazySingleton<_i912.GetBanksUseCase>(
         () => _i912.GetBanksUseCase(gh<_i629.BankAccountRepository>()));
     gh.lazySingleton<_i912.GetBankAccountsUseCase>(
@@ -376,6 +386,10 @@ extension GetItInjectableX on _i174.GetIt {
         _i912.UpdateBankAccountUseCase(gh<_i629.BankAccountRepository>()));
     gh.lazySingleton<_i912.DeleteBankAccountUseCase>(() =>
         _i912.DeleteBankAccountUseCase(gh<_i629.BankAccountRepository>()));
+    gh.lazySingleton<_i201.GetMyTransactionsUseCase>(() =>
+        _i201.GetMyTransactionsUseCase(gh<_i1002.TransactionRepository>()));
+    gh.lazySingleton<_i1052.GetMyReferralsUseCase>(
+        () => _i1052.GetMyReferralsUseCase(gh<_i454.ReferralRepository>()));
     gh.lazySingleton<_i509.VerifyForgotPinOtpUseCase>(
         () => _i509.VerifyForgotPinOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i1043.ForgotPasswordUseCase>(
@@ -414,6 +428,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i649.WithdrawUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i600.NameEnquiryUseCase>(
         () => _i600.NameEnquiryUseCase(gh<_i836.WalletRepository>()));
+    gh.lazySingleton<_i690.CalculateFeeUseCase>(
+        () => _i690.CalculateFeeUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i831.GetAirtimeBillersUseCase>(() =>
         _i831.GetAirtimeBillersUseCase(gh<_i417.BillPaymentRepository>()));
     gh.lazySingleton<_i831.GetDataBillersUseCase>(
@@ -428,8 +444,13 @@ extension GetItInjectableX on _i174.GetIt {
         _i831.VerifyBillCustomerUseCase(gh<_i417.BillPaymentRepository>()));
     gh.lazySingleton<_i831.PurchaseBillUseCase>(
         () => _i831.PurchaseBillUseCase(gh<_i417.BillPaymentRepository>()));
+    gh.lazySingleton<_i550.NotificationRepository>(() =>
+        _i818.NotificationRepositoryImpl(
+            gh<_i91.NotificationRemoteDataSource>()));
     gh.lazySingleton<_i430.CryptoRepository>(
         () => _i430.CryptoRepositoryImpl(gh<_i430.CryptoRemoteDataSource>()));
+    gh.lazySingleton<_i515.GetMyNotificationsUseCase>(() =>
+        _i515.GetMyNotificationsUseCase(gh<_i550.NotificationRepository>()));
     gh.lazySingleton<_i907.GetCryptoRatesUseCase>(
         () => _i907.GetCryptoRatesUseCase(gh<_i430.CryptoRepository>()));
     gh.lazySingleton<_i907.GetEstimatedAssetValueUseCase>(() =>
@@ -440,22 +461,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i907.BuyCryptoUseCase(gh<_i430.CryptoRepository>()));
     gh.lazySingleton<_i907.SellCryptoUseCase>(
         () => _i907.SellCryptoUseCase(gh<_i430.CryptoRepository>()));
-    gh.lazySingleton<_i_ref_ds.ReferralRemoteDataSource>(
-        () => _i_ref_ds_impl.ReferralRemoteDataSourceImpl(gh<_i361.Dio>()));
-    gh.lazySingleton<_i_ref_repo.ReferralRepository>(
-        () => _i_ref_repo_impl.ReferralRepositoryImpl(gh<_i_ref_ds.ReferralRemoteDataSource>()));
-    gh.lazySingleton<_i_ref_uc.GetMyReferralsUseCase>(
-        () => _i_ref_uc.GetMyReferralsUseCase(gh<_i_ref_repo.ReferralRepository>()));
-    gh.lazySingleton<_i_tx_repo.TransactionRepository>(
-        () => _i_tx_repo_impl.TransactionRepositoryImpl(gh<_i813.WalletRemoteDataSource>()));
-    gh.lazySingleton<_i_tx_uc.GetMyTransactionsUseCase>(
-        () => _i_tx_uc.GetMyTransactionsUseCase(gh<_i_tx_repo.TransactionRepository>()));
-    gh.lazySingleton<_i_notif_ds.NotificationRemoteDataSource>(
-        () => _i_notif_ds_impl.NotificationRemoteDataSourceImpl(gh<_i361.Dio>()));
-    gh.lazySingleton<_i_notif_repo.NotificationRepository>(
-        () => _i_notif_repo_impl.NotificationRepositoryImpl(gh<_i_notif_ds.NotificationRemoteDataSource>()));
-    gh.lazySingleton<_i_notif_uc.GetMyNotificationsUseCase>(
-        () => _i_notif_uc.GetMyNotificationsUseCase(gh<_i_notif_repo.NotificationRepository>()));
     return this;
   }
 }

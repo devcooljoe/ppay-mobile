@@ -84,7 +84,7 @@ class GenderBottomsheet extends HookConsumerWidget {
       child: GestureDetector(
         onTap: () {
           selectedValue.value = value;
-          Navigator.pop(context, value);
+          Navigator.pop(context, value.toLowerCase());
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

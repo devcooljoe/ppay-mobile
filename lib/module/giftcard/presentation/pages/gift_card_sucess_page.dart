@@ -5,12 +5,20 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class GiftCardSucessPage extends HookConsumerWidget {
-  const GiftCardSucessPage({super.key});
+  final String cardType;
+  final double amountInNaira;
+
+  const GiftCardSucessPage({
+    super.key,
+    required this.cardType,
+    required this.amountInNaira,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,9 +27,10 @@ class GiftCardSucessPage extends HookConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: ListView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              142.verticalSpace,
+              const Spacer(),
               SizedBox(
                 height: 120.w,
                 width: 120.w,
@@ -43,7 +52,7 @@ class GiftCardSucessPage extends HookConsumerWidget {
               ),
               4.verticalSpace,
               Text(
-                'You have successfully purchased a gift card. An email will be sent to you recording the card details.',
+                'You have successfully purchased a $cardType gift card. An email will be sent to you with the card details.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
@@ -57,7 +66,6 @@ class GiftCardSucessPage extends HookConsumerWidget {
                 alignment: Alignment.center,
                 child: Container(
                   height: 30.h,
-                  width: 241.w,
                   padding: EdgeInsets.symmetric(
                     horizontal: 15.w,
                     vertical: 3.h,
@@ -78,7 +86,7 @@ class GiftCardSucessPage extends HookConsumerWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: '₦40,000.00',
+                            text: '₦${AmountFormatter.formatBalance(amountInNaira.toStringAsFixed(2))}',
                             style: TextStyle(
                               fontFamily: 'Gilroy',
                               color: Colors.black,
@@ -92,10 +100,10 @@ class GiftCardSucessPage extends HookConsumerWidget {
                   ),
                 ),
               ),
-              98.verticalSpace,
+              const Spacer(),
               PPButton(
                 text: 'Go To App',
-                onPressed: () {},
+                onPressed: () => context.router.replace(HomeRoute()),
                 icon: SvgPicture.asset(
                   'assets/icon/arrow_forwardw.svg',
                   fit: BoxFit.contain,
@@ -106,95 +114,7 @@ class GiftCardSucessPage extends HookConsumerWidget {
                 text: 'View Receipt',
                 onPressed: () => context.router.push(GiftCardBuyReceiptRoute()),
               ),
-              // for other cases of transaction below
-              15.verticalSpace,
-              SizedBox(
-                height: 120.w,
-                width: 120.w,
-                child: Image.asset(
-                  'assets/images/big_pending.png',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              25.verticalSpace,
-              Text(
-                'Transaction Pending', // it is Transaction Failed for failed transaction
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              4.verticalSpace,
-              Text(
-                'Your purchase of amazon gift card is processing. Please be patient as we process transaction.', // for transaction failed, it is is 'Your purchase of amazon gift card failed. Please try again.'
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.svgIconColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              31.verticalSpace,
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 30.h,
-                  width: 241.w,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.w,
-                    vertical: 3.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24).r,
-                    color: PPaymobileColors
-                        .warningColor, // for transaction failed it is PPaymobileColors.dangerColor,
-                  ),
-                  child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Amount Purchased: ',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors
-                              .black, // the text color is .dangerTextColor
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '₦40,000.00',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              color: Colors
-                                  .black, // the text color is .dangerTextColor
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              98.verticalSpace,
-              PPButton(
-                text: 'Try Again',
-                onPressed: () {},
-              ),
-              24.verticalSpace,
-              PPButton(
-                text: 'Go to App',
-                onPressed: () {},
-                icon: SvgPicture.asset(
-                  'assets/icon/arrow_forward_1.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
+              20.verticalSpace,
             ],
           ),
         ),

@@ -11,27 +11,27 @@
 import 'package:auto_route/auto_route.dart' as _i163;
 import 'package:flutter/material.dart' as _i164;
 import 'package:ppay_mobile/module/auth/presentation/pages/create_password_page.dart'
-    as _i39;
+    as _i38;
 import 'package:ppay_mobile/module/auth/presentation/pages/create_pin_page.dart'
-    as _i40;
+    as _i39;
 import 'package:ppay_mobile/module/auth/presentation/pages/created_pin_page.dart'
-    as _i42;
+    as _i41;
 import 'package:ppay_mobile/module/auth/presentation/pages/forgot_password_page.dart'
-    as _i76;
+    as _i75;
 import 'package:ppay_mobile/module/auth/presentation/pages/login_page.dart'
-    as _i90;
+    as _i89;
 import 'package:ppay_mobile/module/auth/presentation/pages/login_password_changed_page.dart'
-    as _i91;
+    as _i90;
 import 'package:ppay_mobile/module/auth/presentation/pages/login_password_reset_page.dart'
-    as _i92;
+    as _i91;
 import 'package:ppay_mobile/module/auth/presentation/pages/password_changed_page.dart'
-    as _i110;
+    as _i109;
 import 'package:ppay_mobile/module/auth/presentation/pages/password_changed_two_page.dart'
-    as _i111;
+    as _i110;
 import 'package:ppay_mobile/module/auth/presentation/pages/password_reset_page.dart'
-    as _i112;
+    as _i111;
 import 'package:ppay_mobile/module/auth/presentation/pages/signup_page.dart'
-    as _i139;
+    as _i138;
 import 'package:ppay_mobile/module/auth/presentation/pages/verify_code_page.dart'
     as _i153;
 import 'package:ppay_mobile/module/auth/presentation/pages/verify_email_otp_page.dart'
@@ -42,42 +42,40 @@ import 'package:ppay_mobile/module/auth/presentation/pages/verify_phone_page.dar
     as _i156;
 import 'package:ppay_mobile/module/bills/presentation/pages/airtime_confirm_page.dart'
     as _i2;
-import 'package:ppay_mobile/module/bills/presentation/pages/airtime_example_page.dart'
-    as _i3;
 import 'package:ppay_mobile/module/bills/presentation/pages/airtime_page.dart'
-    as _i4;
+    as _i3;
 import 'package:ppay_mobile/module/bills/presentation/pages/airtime_receipt_page.dart'
-    as _i5;
+    as _i4;
 import 'package:ppay_mobile/module/bills/presentation/pages/airtime_success_page.dart'
-    as _i6;
+    as _i5;
 import 'package:ppay_mobile/module/bills/presentation/pages/bet_confirm_page.dart'
-    as _i12;
+    as _i11;
 import 'package:ppay_mobile/module/bills/presentation/pages/bet_page.dart'
-    as _i13;
+    as _i12;
 import 'package:ppay_mobile/module/bills/presentation/pages/betting_receipt_page.dart'
-    as _i14;
+    as _i13;
 import 'package:ppay_mobile/module/bills/presentation/pages/betting_success_page.dart'
-    as _i15;
+    as _i14;
 import 'package:ppay_mobile/module/bills/presentation/pages/bills_page.dart'
-    as _i16;
+    as _i15;
 import 'package:ppay_mobile/module/bills/presentation/pages/data_confirm_page.dart'
-    as _i50;
+    as _i49;
 import 'package:ppay_mobile/module/bills/presentation/pages/data_page.dart'
-    as _i51;
+    as _i50;
 import 'package:ppay_mobile/module/bills/presentation/pages/data_receipt_page.dart'
-    as _i52;
+    as _i51;
 import 'package:ppay_mobile/module/bills/presentation/pages/data_success_page.dart'
-    as _i53;
+    as _i52;
 import 'package:ppay_mobile/module/bills/presentation/pages/electricity_bill_success_page.dart'
-    as _i56;
+    as _i55;
 import 'package:ppay_mobile/module/bills/presentation/pages/electricity_confirm_page.dart'
-    as _i57;
+    as _i56;
 import 'package:ppay_mobile/module/bills/presentation/pages/electricity_page.dart'
-    as _i58;
+    as _i57;
 import 'package:ppay_mobile/module/bills/presentation/pages/electricity_receipt_page.dart'
-    as _i59;
+    as _i58;
 import 'package:ppay_mobile/module/bills/presentation/pages/payment_page.dart'
-    as _i113;
+    as _i112;
 import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_confirm_page.dart'
     as _i149;
 import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_page.dart'
@@ -87,254 +85,256 @@ import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_receipt_pag
 import 'package:ppay_mobile/module/bills/presentation/pages/tv_cable_success_page.dart'
     as _i152;
 import 'package:ppay_mobile/module/crypto/presentation/pages/all_tokens_page.dart'
-    as _i7;
+    as _i6;
 import 'package:ppay_mobile/module/crypto/presentation/pages/assets_page.dart'
-    as _i9;
+    as _i8;
 import 'package:ppay_mobile/module/crypto/presentation/pages/buy_crypto_page.dart'
-    as _i21;
+    as _i20;
 import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_page.dart'
-    as _i43;
+    as _i42;
 import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_receipt_page.dart'
-    as _i44;
+    as _i43;
 import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_sell_receipt_page.dart'
-    as _i45;
+    as _i44;
 import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_sell_sucessful_page.dart'
-    as _i46;
+    as _i45;
 import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_transaction_succesful_page.dart'
-    as _i47;
+    as _i46;
 import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_transactions_detail_page.dart'
-    as _i48;
+    as _i47;
 import 'package:ppay_mobile/module/crypto/presentation/pages/crypto_transactions_history_page.dart'
-    as _i49;
+    as _i48;
 import 'package:ppay_mobile/module/crypto/presentation/pages/receive_crypto_page.dart'
-    as _i119;
+    as _i118;
 import 'package:ppay_mobile/module/crypto/presentation/pages/sell_crypto_page.dart'
-    as _i131;
+    as _i130;
 import 'package:ppay_mobile/module/crypto/presentation/pages/token_detail_page.dart'
-    as _i142;
+    as _i141;
 import 'package:ppay_mobile/module/crypto/presentation/pages/watchlist_page.dart'
     as _i160;
 import 'package:ppay_mobile/module/crypto/presentation/pages/your_assets_page.dart'
     as _i161;
-import 'package:ppay_mobile/module/dashboard/explore_page.dart' as _i60;
-import 'package:ppay_mobile/module/dashboard/features_page.dart' as _i62;
-import 'package:ppay_mobile/module/dashboard/home_page.dart' as _i86;
+import 'package:ppay_mobile/module/dashboard/explore_page.dart' as _i59;
+import 'package:ppay_mobile/module/dashboard/features_page.dart' as _i61;
+import 'package:ppay_mobile/module/dashboard/home_page.dart' as _i85;
 import 'package:ppay_mobile/module/flight/presentation/pages/active_flight_page.dart'
     as _i1;
 import 'package:ppay_mobile/module/flight/presentation/pages/baggage_page.dart'
-    as _i10;
+    as _i9;
 import 'package:ppay_mobile/module/flight/presentation/pages/boarding_pass_page.dart'
-    as _i17;
+    as _i16;
 import 'package:ppay_mobile/module/flight/presentation/pages/boardinng_pass_details_page.dart'
-    as _i18;
+    as _i17;
 import 'package:ppay_mobile/module/flight/presentation/pages/booked_flights_page.dart'
-    as _i19;
+    as _i18;
 import 'package:ppay_mobile/module/flight/presentation/pages/booking_policies_page.dart'
-    as _i20;
+    as _i19;
 import 'package:ppay_mobile/module/flight/presentation/pages/cancel_flight_page.dart'
-    as _i27;
-import 'package:ppay_mobile/module/flight/presentation/pages/cancel_flight_successful_page.dart'
-    as _i28;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_book_page.dart'
-    as _i65;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_booking_page.dart'
-    as _i66;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_card_page.dart'
-    as _i67;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_details_page.dart'
-    as _i68;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_details_two_page.dart'
-    as _i69;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_payment_page.dart'
-    as _i70;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_payment_receipt_page.dart'
-    as _i71;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_paymwnt_success_page.dart'
-    as _i72;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_page.dart'
-    as _i73;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_receipt_page.dart'
-    as _i74;
-import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_success_page.dart'
-    as _i75;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_flight_details_page.dart'
-    as _i93;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_passengers_details_page.dart'
-    as _i94;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_page.dart'
-    as _i95;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_receipt_page.dart'
-    as _i96;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_success_page.dart'
-    as _i97;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_search_result_page.dart'
-    as _i98;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_one_page.dart'
-    as _i99;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_three_page.dart'
-    as _i100;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_two_page.dart'
-    as _i101;
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_trip_page.dart'
-    as _i102;
-import 'package:ppay_mobile/module/flight/presentation/pages/one_way_trip_page.dart'
-    as _i105;
-import 'package:ppay_mobile/module/flight/presentation/pages/passenger_details_page.dart'
-    as _i108;
-import 'package:ppay_mobile/module/flight/presentation/pages/passenger_details_two_page.dart'
-    as _i109;
-import 'package:ppay_mobile/module/flight/presentation/pages/refund_details_page.dart'
-    as _i121;
-import 'package:ppay_mobile/module/flight/presentation/pages/refund_policy_page.dart'
-    as _i122;
-import 'package:ppay_mobile/module/flight/presentation/pages/round_way_trip_page.dart'
-    as _i124;
-import 'package:ppay_mobile/module/flight/presentation/pages/search_result_page.dart'
-    as _i126;
-import 'package:ppay_mobile/module/flight/presentation/pages/search_result_two_page.dart'
-    as _i127;
-import 'package:ppay_mobile/module/flight/presentation/pages/select_inbound_seat_page.dart'
-    as _i128;
-import 'package:ppay_mobile/module/flight/presentation/pages/select_outbound_seat_page.dart'
-    as _i129;
-import 'package:ppay_mobile/module/flight/presentation/pages/select_seat_page.dart'
-    as _i130;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/buy_gift_card_features_page.dart'
-    as _i22;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/buy_giftcard_page.dart'
-    as _i23;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/confirm_gift_card_sell_page.dart'
-    as _i36;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/gift_card_buy_receipt_page.dart'
-    as _i81;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/gift_card_sucess_page.dart'
-    as _i82;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/giftcard_page.dart'
-    as _i83;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/giftcard_sell_receipt_page.dart'
-    as _i84;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_gift_card_features_page.dart'
-    as _i132;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_gift_card_success_page.dart'
-    as _i133;
-import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_giftcard_page.dart'
-    as _i134;
-import 'package:ppay_mobile/module/kyc/presentation/pages/bvn_face_recog_page.dart'
-    as _i24;
-import 'package:ppay_mobile/module/kyc/presentation/pages/bvn_verification_page.dart'
-    as _i25;
-import 'package:ppay_mobile/module/kyc/presentation/pages/bvnconfirm_page.dart'
     as _i26;
-import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_face_verification_page.dart'
-    as _i87;
-import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_verification_complete_page.dart'
-    as _i88;
-import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_verification_page.dart'
-    as _i89;
-import 'package:ppay_mobile/module/kyc/presentation/pages/review_document_page.dart'
-    as _i123;
-import 'package:ppay_mobile/module/onboarding/fingerprint_complete_page.dart'
-    as _i63;
-import 'package:ppay_mobile/module/onboarding/fingerprint_page.dart' as _i64;
-import 'package:ppay_mobile/module/onboarding/onboard_page.dart' as _i104;
-import 'package:ppay_mobile/module/onboarding/set_up_fingerprint_page.dart'
-    as _i135;
-import 'package:ppay_mobile/module/onboarding/setting_up_fingerprint_page.dart'
-    as _i136;
-import 'package:ppay_mobile/module/onboarding/splash_page.dart' as _i140;
-import 'package:ppay_mobile/module/settings/presentation/pages/bank_account_page.dart'
-    as _i11;
-import 'package:ppay_mobile/module/settings/presentation/pages/change_password_page.dart'
-    as _i32;
-import 'package:ppay_mobile/module/settings/presentation/pages/contact_tab_page.dart'
-    as _i38;
-import 'package:ppay_mobile/module/settings/presentation/pages/edit_account_page.dart'
-    as _i54;
-import 'package:ppay_mobile/module/settings/presentation/pages/edit_profile_page.dart'
-    as _i55;
-import 'package:ppay_mobile/module/settings/presentation/pages/faq_tab_page.dart'
-    as _i61;
-import 'package:ppay_mobile/module/settings/presentation/pages/help_and_support_page.dart'
-    as _i85;
-import 'package:ppay_mobile/module/settings/presentation/pages/notification_page.dart'
-    as _i103;
-import 'package:ppay_mobile/module/settings/presentation/pages/pin_reset_complete_page.dart'
-    as _i114;
-import 'package:ppay_mobile/module/settings/presentation/pages/pin_reset_page.dart'
-    as _i115;
-import 'package:ppay_mobile/module/settings/presentation/pages/privacy_page.dart'
-    as _i116;
-import 'package:ppay_mobile/module/settings/presentation/pages/profile_page.dart'
-    as _i117;
-import 'package:ppay_mobile/module/settings/presentation/pages/refer_page.dart'
+import 'package:ppay_mobile/module/flight/presentation/pages/cancel_flight_successful_page.dart'
+    as _i27;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_book_page.dart'
+    as _i64;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_booking_page.dart'
+    as _i65;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_card_page.dart'
+    as _i66;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_details_page.dart'
+    as _i67;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_details_two_page.dart'
+    as _i68;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_payment_page.dart'
+    as _i69;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_payment_receipt_page.dart'
+    as _i70;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_paymwnt_success_page.dart'
+    as _i71;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_page.dart'
+    as _i72;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_receipt_page.dart'
+    as _i73;
+import 'package:ppay_mobile/module/flight/presentation/pages/flight_two_payment_success_page.dart'
+    as _i74;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_flight_details_page.dart'
+    as _i92;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_passengers_details_page.dart'
+    as _i93;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_page.dart'
+    as _i94;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_receipt_page.dart'
+    as _i95;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_payment_success_page.dart'
+    as _i96;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_search_result_page.dart'
+    as _i97;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_one_page.dart'
+    as _i98;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_three_page.dart'
+    as _i99;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_select_seat_two_page.dart'
+    as _i100;
+import 'package:ppay_mobile/module/flight/presentation/pages/multi_trip_page.dart'
+    as _i101;
+import 'package:ppay_mobile/module/flight/presentation/pages/one_way_trip_page.dart'
+    as _i104;
+import 'package:ppay_mobile/module/flight/presentation/pages/passenger_details_page.dart'
+    as _i107;
+import 'package:ppay_mobile/module/flight/presentation/pages/passenger_details_two_page.dart'
+    as _i108;
+import 'package:ppay_mobile/module/flight/presentation/pages/refund_details_page.dart'
     as _i120;
+import 'package:ppay_mobile/module/flight/presentation/pages/refund_policy_page.dart'
+    as _i121;
+import 'package:ppay_mobile/module/flight/presentation/pages/round_way_trip_page.dart'
+    as _i123;
+import 'package:ppay_mobile/module/flight/presentation/pages/search_result_page.dart'
+    as _i125;
+import 'package:ppay_mobile/module/flight/presentation/pages/search_result_two_page.dart'
+    as _i126;
+import 'package:ppay_mobile/module/flight/presentation/pages/select_inbound_seat_page.dart'
+    as _i127;
+import 'package:ppay_mobile/module/flight/presentation/pages/select_outbound_seat_page.dart'
+    as _i128;
+import 'package:ppay_mobile/module/flight/presentation/pages/select_seat_page.dart'
+    as _i129;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/buy_gift_card_features_page.dart'
+    as _i21;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/buy_giftcard_page.dart'
+    as _i22;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/confirm_gift_card_sell_page.dart'
+    as _i35;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/gift_card_buy_receipt_page.dart'
+    as _i80;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/gift_card_sucess_page.dart'
+    as _i81;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/giftcard_page.dart'
+    as _i82;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/giftcard_sell_receipt_page.dart'
+    as _i83;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_gift_card_features_page.dart'
+    as _i131;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_gift_card_success_page.dart'
+    as _i132;
+import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_giftcard_page.dart'
+    as _i133;
+import 'package:ppay_mobile/module/kyc/presentation/pages/bvn_face_recog_page.dart'
+    as _i23;
+import 'package:ppay_mobile/module/kyc/presentation/pages/bvn_verification_page.dart'
+    as _i24;
+import 'package:ppay_mobile/module/kyc/presentation/pages/bvnconfirm_page.dart'
+    as _i25;
+import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_face_verification_page.dart'
+    as _i86;
+import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_verification_complete_page.dart'
+    as _i87;
+import 'package:ppay_mobile/module/kyc/presentation/pages/kyc_verification_page.dart'
+    as _i88;
+import 'package:ppay_mobile/module/kyc/presentation/pages/review_document_page.dart'
+    as _i122;
+import 'package:ppay_mobile/module/onboarding/fingerprint_complete_page.dart'
+    as _i62;
+import 'package:ppay_mobile/module/onboarding/fingerprint_page.dart' as _i63;
+import 'package:ppay_mobile/module/onboarding/onboard_page.dart' as _i103;
+import 'package:ppay_mobile/module/onboarding/set_up_fingerprint_page.dart'
+    as _i134;
+import 'package:ppay_mobile/module/onboarding/setting_up_fingerprint_page.dart'
+    as _i135;
+import 'package:ppay_mobile/module/onboarding/splash_page.dart' as _i139;
+import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart'
+    as _i165;
+import 'package:ppay_mobile/module/settings/presentation/pages/bank_account_page.dart'
+    as _i10;
+import 'package:ppay_mobile/module/settings/presentation/pages/change_password_page.dart'
+    as _i31;
+import 'package:ppay_mobile/module/settings/presentation/pages/contact_tab_page.dart'
+    as _i37;
+import 'package:ppay_mobile/module/settings/presentation/pages/edit_account_page.dart'
+    as _i53;
+import 'package:ppay_mobile/module/settings/presentation/pages/edit_profile_page.dart'
+    as _i54;
+import 'package:ppay_mobile/module/settings/presentation/pages/faq_tab_page.dart'
+    as _i60;
+import 'package:ppay_mobile/module/settings/presentation/pages/help_and_support_page.dart'
+    as _i84;
+import 'package:ppay_mobile/module/settings/presentation/pages/notification_page.dart'
+    as _i102;
+import 'package:ppay_mobile/module/settings/presentation/pages/pin_reset_complete_page.dart'
+    as _i113;
+import 'package:ppay_mobile/module/settings/presentation/pages/pin_reset_page.dart'
+    as _i114;
+import 'package:ppay_mobile/module/settings/presentation/pages/privacy_page.dart'
+    as _i115;
+import 'package:ppay_mobile/module/settings/presentation/pages/profile_page.dart'
+    as _i116;
+import 'package:ppay_mobile/module/settings/presentation/pages/refer_page.dart'
+    as _i119;
 import 'package:ppay_mobile/module/settings/presentation/pages/settings_page.dart'
-    as _i137;
+    as _i136;
 import 'package:ppay_mobile/module/settings/presentation/pages/terms_and_condition_page.dart'
-    as _i141;
+    as _i140;
 import 'package:ppay_mobile/module/settings/presentation/pages/transaction_limit_page.dart'
     as _i146;
 import 'package:ppay_mobile/module/settings/presentation/pages/veriify_password_detail_page.dart'
     as _i157;
 import 'package:ppay_mobile/module/shopping/presentation/pages/check_out_page.dart'
-    as _i33;
+    as _i32;
 import 'package:ppay_mobile/module/shopping/presentation/pages/cloths_details_page.dart'
-    as _i34;
+    as _i33;
 import 'package:ppay_mobile/module/shopping/presentation/pages/cloths_page.dart'
-    as _i35;
+    as _i34;
 import 'package:ppay_mobile/module/shopping/presentation/pages/order_receipt_page.dart'
-    as _i106;
+    as _i105;
 import 'package:ppay_mobile/module/shopping/presentation/pages/order_successful_page.dart'
-    as _i107;
+    as _i106;
 import 'package:ppay_mobile/module/shopping/presentation/pages/shopping_page.dart'
-    as _i138;
+    as _i137;
 import 'package:ppay_mobile/module/shopping/presentation/pages/track_order_page.dart'
-    as _i143;
+    as _i142;
 import 'package:ppay_mobile/module/shopping/presentation/pages/your_order_page.dart'
     as _i162;
+import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart'
+    as _i168;
 import 'package:ppay_mobile/module/transaction/presentation/pages/amount_and_info_page.dart'
-    as _i8;
+    as _i7;
 import 'package:ppay_mobile/module/transaction/presentation/pages/confirm_transaction_page.dart'
-    as _i37;
+    as _i36;
 import 'package:ppay_mobile/module/transaction/presentation/pages/fund_wallet_page.dart'
-    as _i80;
+    as _i79;
 import 'package:ppay_mobile/module/transaction/presentation/pages/receipt_page.dart'
-    as _i118;
+    as _i117;
+import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_history_detail_page.dart'
+    as _i144;
 import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_history_page.dart'
     as _i145;
-import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_history_detail_page.dart'
-    as _i166;
-import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart'
-    as _i167;
-import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart'
-    as _i168;
 import 'package:ppay_mobile/module/transaction/presentation/pages/transaction_successful_page.dart'
     as _i147;
 import 'package:ppay_mobile/module/transaction/presentation/pages/transfer_funds_page.dart'
     as _i148;
+import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_transaction_entity.dart'
+    as _i167;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/card_limit_page.dart'
-    as _i29;
+    as _i28;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/card_page.dart'
-    as _i30;
+    as _i29;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/card_transaction_page.dart'
-    as _i31;
+    as _i30;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/create_virtual_card_page.dart'
-    as _i41;
+    as _i40;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/fund_card_page.dart'
-    as _i77;
+    as _i76;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/fund_card_receipt_page.dart'
-    as _i78;
+    as _i77;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/fund_card_successful_page.dart'
-    as _i79;
+    as _i78;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/search_card_page.dart'
-    as _i125;
+    as _i124;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/transaction_details_page.dart'
-    as _i144;
+    as _i143;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/virtual_card_page.dart'
     as _i158;
 import 'package:ppay_mobile/module/virtual_card/presentation/pages/virtual_card_success_page.dart'
     as _i159;
-import 'package:ppay_mobile/shared/models/all_token_screen_model.dart' as _i165;
+import 'package:ppay_mobile/shared/models/all_token_screen_model.dart' as _i166;
 
 abstract class $AppRouter extends _i163.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -353,216 +353,218 @@ abstract class $AppRouter extends _i163.RootStackRouter {
         child: const _i2.AirtimeConfirmPage(),
       );
     },
-    AirtimeExampleRoute.name: (routeData) {
-      return _i163.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i3.AirtimeExamplePage(),
-      );
-    },
     AirtimeRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.AirtimePage(),
+        child: const _i3.AirtimePage(),
       );
     },
     AirtimeReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.AirtimeReceiptPage(),
+        child: const _i4.AirtimeReceiptPage(),
       );
     },
     AirtimeSuccessRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.AirtimeSuccessPage(),
+        child: const _i5.AirtimeSuccessPage(),
       );
     },
     AllTokensRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.AllTokensPage(),
+        child: const _i6.AllTokensPage(),
       );
     },
     AmountAndInfoRoute.name: (routeData) {
       final args = routeData.argsAs<AmountAndInfoRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i8.AmountAndInfoPage(account: args.account),
+        child: _i7.AmountAndInfoPage(
+          key: args.key,
+          account: args.account,
+        ),
       );
     },
     AssetsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.AssetsPage(),
+        child: const _i8.AssetsPage(),
       );
     },
     BaggageRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.BaggagePage(),
+        child: const _i9.BaggagePage(),
       );
     },
     BankAccountRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.BankAccountPage(),
+        child: const _i10.BankAccountPage(),
       );
     },
     BetConfirmRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.BetConfirmPage(),
+        child: const _i11.BetConfirmPage(),
       );
     },
     BetRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i13.BetPage(),
+        child: const _i12.BetPage(),
       );
     },
     BettingReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.BettingReceiptPage(),
+        child: const _i13.BettingReceiptPage(),
       );
     },
     BettingSuccessRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i15.BettingSuccessPage(),
+        child: const _i14.BettingSuccessPage(),
       );
     },
     BillsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i16.BillsPage(),
+        child: const _i15.BillsPage(),
       );
     },
     BoardingPassRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.BoardingPassPage(),
+        child: const _i16.BoardingPassPage(),
       );
     },
     BoardinngPassDetailsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i18.BoardinngPassDetailsPage(),
+        child: const _i17.BoardinngPassDetailsPage(),
       );
     },
     BookedFlightsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i19.BookedFlightsPage(),
+        child: const _i18.BookedFlightsPage(),
       );
     },
     BookingPoliciesRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i20.BookingPoliciesPage(),
+        child: const _i19.BookingPoliciesPage(),
       );
     },
     BuyCryptoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i21.BuyCryptoPage(),
+        child: const _i20.BuyCryptoPage(),
       );
     },
     BuyGiftCardFeaturesRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i22.BuyGiftCardFeaturesPage(),
+        child: const _i21.BuyGiftCardFeaturesPage(),
       );
     },
     BuyGiftcardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i23.BuyGiftcardPage(),
+        child: const _i22.BuyGiftcardPage(),
       );
     },
     BvnFaceRecogRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i24.BvnFaceRecogPage(),
+        child: const _i23.BvnFaceRecogPage(),
       );
     },
     BvnVerificationRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i25.BvnVerificationPage(),
+        child: const _i24.BvnVerificationPage(),
       );
     },
     BvnconfirmRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i26.BvnconfirmPage(),
+        child: const _i25.BvnconfirmPage(),
       );
     },
     CancelFlightRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i27.CancelFlightPage(),
+        child: const _i26.CancelFlightPage(),
       );
     },
     CancelFlightSuccessfulRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i28.CancelFlightSuccessfulPage(),
+        child: const _i27.CancelFlightSuccessfulPage(),
       );
     },
     CardLimitRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i29.CardLimitPage(),
+        child: const _i28.CardLimitPage(),
       );
     },
     CardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i30.CardPage(),
+        child: const _i29.CardPage(),
       );
     },
     CardTransactionRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i31.CardTransactionPage(),
+        child: const _i30.CardTransactionPage(),
       );
     },
     ChangePasswordRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i32.ChangePasswordPage(),
+        child: const _i31.ChangePasswordPage(),
       );
     },
     CheckOutRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i33.CheckOutPage(),
+        child: const _i32.CheckOutPage(),
       );
     },
     ClothsDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<ClothsDetailsRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i34.ClothsDetailsPage(),
+        child: _i33.ClothsDetailsPage(
+          key: args.key,
+          productId: args.productId,
+        ),
       );
     },
     ClothsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i35.ClothsPage(),
+        child: const _i34.ClothsPage(),
       );
     },
     ConfirmGiftCardSellRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i36.ConfirmGiftCardSellPage(),
+        child: const _i35.ConfirmGiftCardSellPage(),
       );
     },
     ConfirmTransactionRoute.name: (routeData) {
       final args = routeData.argsAs<ConfirmTransactionRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i37.ConfirmTransactionPage(
+        child: _i36.ConfirmTransactionPage(
+          key: args.key,
           account: args.account,
           amount: args.amount,
         ),
@@ -571,14 +573,14 @@ abstract class $AppRouter extends _i163.RootStackRouter {
     ContactTabRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i38.ContactTabPage(),
+        child: const _i37.ContactTabPage(),
       );
     },
     CreatePasswordRoute.name: (routeData) {
       final args = routeData.argsAs<CreatePasswordRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i39.CreatePasswordPage(
+        child: _i38.CreatePasswordPage(
           key: args.key,
           fullName: args.fullName,
           emailAddress: args.emailAddress,
@@ -590,323 +592,335 @@ abstract class $AppRouter extends _i163.RootStackRouter {
     CreatePinRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i40.CreatePinPage(),
+        child: const _i39.CreatePinPage(),
       );
     },
     CreateVirtualCardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i41.CreateVirtualCardPage(),
+        child: const _i40.CreateVirtualCardPage(),
       );
     },
     CreatedPinRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i42.CreatedPinPage(),
+        child: const _i41.CreatedPinPage(),
       );
     },
     CryptoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i43.CryptoPage(),
+        child: const _i42.CryptoPage(),
       );
     },
     CryptoReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i44.CryptoReceiptPage(),
+        child: const _i43.CryptoReceiptPage(),
       );
     },
     CryptoSellReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i45.CryptoSellReceiptPage(),
+        child: const _i44.CryptoSellReceiptPage(),
       );
     },
     CryptoSellSucessfulRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i46.CryptoSellSucessfulPage(),
+        child: const _i45.CryptoSellSucessfulPage(),
       );
     },
     CryptoTransactionSuccesfulRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i47.CryptoTransactionSuccesfulPage(),
+        child: const _i46.CryptoTransactionSuccesfulPage(),
       );
     },
     CryptoTransactionsDetailRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i48.CryptoTransactionsDetailPage(),
+        child: const _i47.CryptoTransactionsDetailPage(),
       );
     },
     CryptoTransactionsHistoryRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i49.CryptoTransactionsHistoryPage(),
+        child: const _i48.CryptoTransactionsHistoryPage(),
       );
     },
     DataConfirmRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i50.DataConfirmPage(),
+        child: const _i49.DataConfirmPage(),
       );
     },
     DataRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i51.DataPage(),
+        child: const _i50.DataPage(),
       );
     },
     DataReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i52.DataReceiptPage(),
+        child: const _i51.DataReceiptPage(),
       );
     },
     DataSuccessRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i53.DataSuccessPage(),
+        child: const _i52.DataSuccessPage(),
       );
     },
     EditAccountRoute.name: (routeData) {
       final args = routeData.argsAs<EditAccountRouteArgs>(
-        orElse: () => const EditAccountRouteArgs(),
-      );
+          orElse: () => const EditAccountRouteArgs());
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i54.EditAccountPage(account: args.account),
+        child: _i53.EditAccountPage(
+          key: args.key,
+          account: args.account,
+        ),
       );
     },
     EditProfileRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i55.EditProfilePage(),
+        child: const _i54.EditProfilePage(),
       );
     },
     ElectricityBillSuccessRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i56.ElectricityBillSuccessPage(),
+        child: const _i55.ElectricityBillSuccessPage(),
       );
     },
     ElectricityConfirmRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i57.ElectricityConfirmPage(),
+        child: const _i56.ElectricityConfirmPage(),
       );
     },
     ElectricityRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i58.ElectricityPage(),
+        child: const _i57.ElectricityPage(),
       );
     },
     ElectricityReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i59.ElectricityReceiptPage(),
+        child: const _i58.ElectricityReceiptPage(),
       );
     },
     ExploreRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i60.ExplorePage(),
+        child: const _i59.ExplorePage(),
       );
     },
     FaqTabRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i61.FaqTabPage(),
+        child: const _i60.FaqTabPage(),
       );
     },
     FeaturesRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i62.FeaturesPage(),
+        child: const _i61.FeaturesPage(),
       );
     },
     FingerprintCompleteRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i63.FingerprintCompletePage(),
+        child: const _i62.FingerprintCompletePage(),
       );
     },
     FingerprintRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i64.FingerprintPage(),
+        child: const _i63.FingerprintPage(),
       );
     },
     FlightBookRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i65.FlightBookPage(),
+        child: const _i64.FlightBookPage(),
       );
     },
     FlightBookingRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i66.FlightBookingPage(),
+        child: const _i65.FlightBookingPage(),
       );
     },
     FlightCardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i67.FlightCardPage(),
+        child: const _i66.FlightCardPage(),
       );
     },
     FlightDetailsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i68.FlightDetailsPage(),
+        child: const _i67.FlightDetailsPage(),
       );
     },
     FlightDetailsTwoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i69.FlightDetailsTwoPage(),
+        child: const _i68.FlightDetailsTwoPage(),
       );
     },
     FlightPaymentRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i70.FlightPaymentPage(),
+        child: const _i69.FlightPaymentPage(),
       );
     },
     FlightPaymentReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i71.FlightPaymentReceiptPage(),
+        child: const _i70.FlightPaymentReceiptPage(),
       );
     },
     FlightPaymwntSuccessRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i72.FlightPaymwntSuccessPage(),
+        child: const _i71.FlightPaymwntSuccessPage(),
       );
     },
     FlightTwoPaymentRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i73.FlightTwoPaymentPage(),
+        child: const _i72.FlightTwoPaymentPage(),
       );
     },
     FlightTwoPaymentReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i74.FlightTwoPaymentReceiptPage(),
+        child: const _i73.FlightTwoPaymentReceiptPage(),
       );
     },
     FlightTwoPaymentSuccessRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i75.FlightTwoPaymentSuccessPage(),
+        child: const _i74.FlightTwoPaymentSuccessPage(),
       );
     },
     ForgotPasswordRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i76.ForgotPasswordPage(),
+        child: const _i75.ForgotPasswordPage(),
       );
     },
     FundCardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i77.FundCardPage(),
+        child: const _i76.FundCardPage(),
       );
     },
     FundCardReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i78.FundCardReceiptPage(),
+        child: const _i77.FundCardReceiptPage(),
       );
     },
     FundCardSuccessfulRoute.name: (routeData) {
+      final args = routeData.argsAs<FundCardSuccessfulRouteArgs>(
+          orElse: () => const FundCardSuccessfulRouteArgs());
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i79.FundCardSuccessfulPage(),
+        child: _i78.FundCardSuccessfulPage(
+          key: args.key,
+          amountUsd: args.amountUsd,
+        ),
       );
     },
     FundWalletRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i80.FundWalletPage(),
+        child: const _i79.FundWalletPage(),
       );
     },
     GiftCardBuyReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i81.GiftCardBuyReceiptPage(),
+        child: const _i80.GiftCardBuyReceiptPage(),
       );
     },
     GiftCardSucessRoute.name: (routeData) {
+      final args = routeData.argsAs<GiftCardSucessRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i82.GiftCardSucessPage(),
+        child: _i81.GiftCardSucessPage(
+          key: args.key,
+          cardType: args.cardType,
+          amountInNaira: args.amountInNaira,
+        ),
       );
     },
     GiftcardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i83.GiftcardPage(),
+        child: const _i82.GiftcardPage(),
       );
     },
     GiftcardSellReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i84.GiftcardSellReceiptPage(),
+        child: const _i83.GiftcardSellReceiptPage(),
       );
     },
     HelpAndSupportRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i85.HelpAndSupportPage(),
+        child: const _i84.HelpAndSupportPage(),
       );
     },
     HomeRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i86.HomePage(),
+        child: const _i85.HomePage(),
       );
     },
     KycFaceVerificationRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i87.KycFaceVerificationPage(),
+        child: const _i86.KycFaceVerificationPage(),
       );
     },
     KycVerificationCompleteRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i88.KycVerificationCompletePage(),
+        child: const _i87.KycVerificationCompletePage(),
       );
     },
     KycVerificationRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i89.KycVerificationPage(),
+        child: const _i88.KycVerificationPage(),
       );
     },
     LoginRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i90.LoginPage(),
+        child: const _i89.LoginPage(),
       );
     },
     LoginPasswordChangedRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i91.LoginPasswordChangedPage(),
+        child: const _i90.LoginPasswordChangedPage(),
       );
     },
     LoginPasswordResetRoute.name: (routeData) {
       final args = routeData.argsAs<LoginPasswordResetRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i92.LoginPasswordResetPage(
+        child: _i91.LoginPasswordResetPage(
           key: args.key,
           resetToken: args.resetToken,
         ),
@@ -915,302 +929,308 @@ abstract class $AppRouter extends _i163.RootStackRouter {
     MultiFlightDetailsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i93.MultiFlightDetailsPage(),
+        child: const _i92.MultiFlightDetailsPage(),
       );
     },
     MultiPassengersDetailsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i94.MultiPassengersDetailsPage(),
+        child: const _i93.MultiPassengersDetailsPage(),
       );
     },
     MultiPaymentRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i95.MultiPaymentPage(),
+        child: const _i94.MultiPaymentPage(),
       );
     },
     MultiPaymentReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i96.MultiPaymentReceiptPage(),
+        child: const _i95.MultiPaymentReceiptPage(),
       );
     },
     MultiPaymentSuccessRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i97.MultiPaymentSuccessPage(),
+        child: const _i96.MultiPaymentSuccessPage(),
       );
     },
     MultiSearchResultRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i98.MultiSearchResultPage(),
+        child: const _i97.MultiSearchResultPage(),
       );
     },
     MultiSelectSeatOneRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i99.MultiSelectSeatOnePage(),
+        child: const _i98.MultiSelectSeatOnePage(),
       );
     },
     MultiSelectSeatThreeRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i100.MultiSelectSeatThreePage(),
+        child: const _i99.MultiSelectSeatThreePage(),
       );
     },
     MultiSelectSeatTwoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i101.MultiSelectSeatTwoPage(),
+        child: const _i100.MultiSelectSeatTwoPage(),
       );
     },
     MultiTripRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i102.MultiTripPage(),
+        child: const _i101.MultiTripPage(),
       );
     },
     NotificationRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i103.NotificationPage(),
+        child: const _i102.NotificationPage(),
       );
     },
     OnboardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i104.OnboardPage(),
+        child: const _i103.OnboardPage(),
       );
     },
     OneWayTripRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i105.OneWayTripPage(),
+        child: const _i104.OneWayTripPage(),
       );
     },
     OrderReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i106.OrderReceiptPage(),
+        child: const _i105.OrderReceiptPage(),
       );
     },
     OrderSuccessfulRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i107.OrderSuccessfulPage(),
+        child: const _i106.OrderSuccessfulPage(),
       );
     },
     PassengerDetailsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i108.PassengerDetailsPage(),
+        child: const _i107.PassengerDetailsPage(),
       );
     },
     PassengerDetailsTwoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i109.PassengerDetailsTwoPage(),
+        child: const _i108.PassengerDetailsTwoPage(),
       );
     },
     PasswordChangedRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i110.PasswordChangedPage(),
+        child: const _i109.PasswordChangedPage(),
       );
     },
     PasswordChangedTwoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i111.PasswordChangedTwoPage(),
+        child: const _i110.PasswordChangedTwoPage(),
       );
     },
     PasswordResetRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i112.PasswordResetPage(),
+        child: const _i111.PasswordResetPage(),
       );
     },
     PaymentRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i113.PaymentPage(),
+        child: const _i112.PaymentPage(),
       );
     },
     PinResetCompleteRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i114.PinResetCompletePage(),
+        child: const _i113.PinResetCompletePage(),
       );
     },
     PinResetRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i115.PinResetPage(),
+        child: const _i114.PinResetPage(),
       );
     },
     PrivacyRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i116.PrivacyPage(),
+        child: const _i115.PrivacyPage(),
       );
     },
     ProfileRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i117.ProfilePage(),
+        child: const _i116.ProfilePage(),
       );
     },
     ReceiptRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i118.ReceiptPage(),
+        child: const _i117.ReceiptPage(),
       );
     },
     ReceiveCryptoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i119.ReceiveCryptoPage(),
+        child: const _i118.ReceiveCryptoPage(),
       );
     },
     ReferRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i120.ReferPage(),
+        child: const _i119.ReferPage(),
       );
     },
     RefundDetailsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i121.RefundDetailsPage(),
+        child: const _i120.RefundDetailsPage(),
       );
     },
     RefundPolicyRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i122.RefundPolicyPage(),
+        child: const _i121.RefundPolicyPage(),
       );
     },
     ReviewDocumentRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i123.ReviewDocumentPage(),
+        child: const _i122.ReviewDocumentPage(),
       );
     },
     RoundWayTripRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i124.RoundWayTripPage(),
+        child: const _i123.RoundWayTripPage(),
       );
     },
     SearchCardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i125.SearchCardPage(),
+        child: const _i124.SearchCardPage(),
       );
     },
     SearchResultRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i126.SearchResultPage(),
+        child: const _i125.SearchResultPage(),
       );
     },
     SearchResultTwoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i127.SearchResultTwoPage(),
+        child: const _i126.SearchResultTwoPage(),
       );
     },
     SelectInboundSeatRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i128.SelectInboundSeatPage(),
+        child: const _i127.SelectInboundSeatPage(),
       );
     },
     SelectOutboundSeatRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i129.SelectOutboundSeatPage(),
+        child: const _i128.SelectOutboundSeatPage(),
       );
     },
     SelectSeatRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i130.SelectSeatPage(),
+        child: const _i129.SelectSeatPage(),
       );
     },
     SellCryptoRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i131.SellCryptoPage(),
+        child: const _i130.SellCryptoPage(),
       );
     },
     SellGiftCardFeaturesRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i132.SellGiftCardFeaturesPage(),
+        child: const _i131.SellGiftCardFeaturesPage(),
       );
     },
     SellGiftCardSuccessRoute.name: (routeData) {
+      final args = routeData.argsAs<SellGiftCardSuccessRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i133.SellGiftCardSuccessPage(),
+        child: _i132.SellGiftCardSuccessPage(
+          key: args.key,
+          cardType: args.cardType,
+          amountInUSD: args.amountInUSD,
+          nairaEquivalent: args.nairaEquivalent,
+        ),
       );
     },
     SellGiftcardRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i134.SellGiftcardPage(),
+        child: const _i133.SellGiftcardPage(),
       );
     },
     SetUpFingerprintRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i135.SetUpFingerprintPage(),
+        child: const _i134.SetUpFingerprintPage(),
       );
     },
     SettingUpFingerprintRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i136.SettingUpFingerprintPage(),
+        child: const _i135.SettingUpFingerprintPage(),
       );
     },
     SettingsRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i137.SettingsPage(),
+        child: const _i136.SettingsPage(),
       );
     },
     ShoppingRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i138.ShoppingPage(),
+        child: const _i137.ShoppingPage(),
       );
     },
     SignupRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i139.SignupPage(),
+        child: const _i138.SignupPage(),
       );
     },
     SplashRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i140.SplashPage(),
+        child: const _i139.SplashPage(),
       );
     },
     TermsAndConditionRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i141.TermsAndConditionPage(),
+        child: const _i140.TermsAndConditionPage(),
       );
     },
     TokenDetailRoute.name: (routeData) {
       final args = routeData.argsAs<TokenDetailRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i142.TokenDetailPage(
+        child: _i141.TokenDetailPage(
           key: args.key,
           token: args.token,
         ),
@@ -1219,26 +1239,33 @@ abstract class $AppRouter extends _i163.RootStackRouter {
     TrackOrderRoute.name: (routeData) {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i143.TrackOrderPage(),
+        child: const _i142.TrackOrderPage(),
       );
     },
     TransactionDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<TransactionDetailsRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i144.TransactionDetailsPage(),
-      );
-    },
-    TransactionHistoryRoute.name: (routeData) {
-      return _i163.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i145.TransactionHistoryPage(),
+        child: _i143.TransactionDetailsPage(
+          key: args.key,
+          transaction: args.transaction,
+        ),
       );
     },
     TransactionHistoryDetailRoute.name: (routeData) {
       final args = routeData.argsAs<TransactionHistoryDetailRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i166.TransactionHistoryDetailPage(transaction: args.transaction),
+        child: _i144.TransactionHistoryDetailPage(
+          key: args.key,
+          transaction: args.transaction,
+        ),
+      );
+    },
+    TransactionHistoryRoute.name: (routeData) {
+      return _i163.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i145.TransactionHistoryPage(),
       );
     },
     TransactionLimitRoute.name: (routeData) {
@@ -1252,6 +1279,7 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i147.TransactionSuccessfulPage(
+          key: args.key,
           account: args.account,
           amount: args.amount,
         ),
@@ -1319,7 +1347,10 @@ abstract class $AppRouter extends _i163.RootStackRouter {
       final args = routeData.argsAs<VeriifyPasswordDetailRouteArgs>();
       return _i163.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i157.VeriifyPasswordDetailPage(emailAddress: args.emailAddress),
+        child: _i157.VeriifyPasswordDetailPage(
+          key: args.key,
+          emailAddress: args.emailAddress,
+        ),
       );
     },
     VirtualCardRoute.name: (routeData) {
@@ -1384,21 +1415,7 @@ class AirtimeConfirmRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.AirtimeExamplePage]
-class AirtimeExampleRoute extends _i163.PageRouteInfo<void> {
-  const AirtimeExampleRoute({List<_i163.PageRouteInfo>? children})
-      : super(
-          AirtimeExampleRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AirtimeExampleRoute';
-
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i4.AirtimePage]
+/// [_i3.AirtimePage]
 class AirtimeRoute extends _i163.PageRouteInfo<void> {
   const AirtimeRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1412,7 +1429,7 @@ class AirtimeRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.AirtimeReceiptPage]
+/// [_i4.AirtimeReceiptPage]
 class AirtimeReceiptRoute extends _i163.PageRouteInfo<void> {
   const AirtimeReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1426,7 +1443,7 @@ class AirtimeReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.AirtimeSuccessPage]
+/// [_i5.AirtimeSuccessPage]
 class AirtimeSuccessRoute extends _i163.PageRouteInfo<void> {
   const AirtimeSuccessRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1440,7 +1457,7 @@ class AirtimeSuccessRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.AllTokensPage]
+/// [_i6.AllTokensPage]
 class AllTokensRoute extends _i163.PageRouteInfo<void> {
   const AllTokensRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1454,15 +1471,18 @@ class AllTokensRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.AmountAndInfoPage]
-class AmountAndInfoRoute
-    extends _i163.PageRouteInfo<AmountAndInfoRouteArgs> {
+/// [_i7.AmountAndInfoPage]
+class AmountAndInfoRoute extends _i163.PageRouteInfo<AmountAndInfoRouteArgs> {
   AmountAndInfoRoute({
-    required _i168.BankAccountEntity account,
+    _i164.Key? key,
+    required _i165.BankAccountEntity account,
     List<_i163.PageRouteInfo>? children,
   }) : super(
           AmountAndInfoRoute.name,
-          args: AmountAndInfoRouteArgs(account: account),
+          args: AmountAndInfoRouteArgs(
+            key: key,
+            account: account,
+          ),
           initialChildren: children,
         );
 
@@ -1473,18 +1493,23 @@ class AmountAndInfoRoute
 }
 
 class AmountAndInfoRouteArgs {
-  const AmountAndInfoRouteArgs({required this.account});
+  const AmountAndInfoRouteArgs({
+    this.key,
+    required this.account,
+  });
 
-  final _i168.BankAccountEntity account;
+  final _i164.Key? key;
+
+  final _i165.BankAccountEntity account;
 
   @override
   String toString() {
-    return 'AmountAndInfoRouteArgs{account: $account}';
+    return 'AmountAndInfoRouteArgs{key: $key, account: $account}';
   }
 }
 
 /// generated route for
-/// [_i9.AssetsPage]
+/// [_i8.AssetsPage]
 class AssetsRoute extends _i163.PageRouteInfo<void> {
   const AssetsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1498,7 +1523,7 @@ class AssetsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.BaggagePage]
+/// [_i9.BaggagePage]
 class BaggageRoute extends _i163.PageRouteInfo<void> {
   const BaggageRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1512,7 +1537,7 @@ class BaggageRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.BankAccountPage]
+/// [_i10.BankAccountPage]
 class BankAccountRoute extends _i163.PageRouteInfo<void> {
   const BankAccountRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1526,7 +1551,7 @@ class BankAccountRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.BetConfirmPage]
+/// [_i11.BetConfirmPage]
 class BetConfirmRoute extends _i163.PageRouteInfo<void> {
   const BetConfirmRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1540,7 +1565,7 @@ class BetConfirmRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.BetPage]
+/// [_i12.BetPage]
 class BetRoute extends _i163.PageRouteInfo<void> {
   const BetRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1554,7 +1579,7 @@ class BetRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.BettingReceiptPage]
+/// [_i13.BettingReceiptPage]
 class BettingReceiptRoute extends _i163.PageRouteInfo<void> {
   const BettingReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1568,7 +1593,7 @@ class BettingReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.BettingSuccessPage]
+/// [_i14.BettingSuccessPage]
 class BettingSuccessRoute extends _i163.PageRouteInfo<void> {
   const BettingSuccessRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1582,7 +1607,7 @@ class BettingSuccessRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.BillsPage]
+/// [_i15.BillsPage]
 class BillsRoute extends _i163.PageRouteInfo<void> {
   const BillsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1596,7 +1621,7 @@ class BillsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.BoardingPassPage]
+/// [_i16.BoardingPassPage]
 class BoardingPassRoute extends _i163.PageRouteInfo<void> {
   const BoardingPassRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1610,7 +1635,7 @@ class BoardingPassRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.BoardinngPassDetailsPage]
+/// [_i17.BoardinngPassDetailsPage]
 class BoardinngPassDetailsRoute extends _i163.PageRouteInfo<void> {
   const BoardinngPassDetailsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1624,7 +1649,7 @@ class BoardinngPassDetailsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.BookedFlightsPage]
+/// [_i18.BookedFlightsPage]
 class BookedFlightsRoute extends _i163.PageRouteInfo<void> {
   const BookedFlightsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1638,7 +1663,7 @@ class BookedFlightsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i20.BookingPoliciesPage]
+/// [_i19.BookingPoliciesPage]
 class BookingPoliciesRoute extends _i163.PageRouteInfo<void> {
   const BookingPoliciesRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1652,7 +1677,7 @@ class BookingPoliciesRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i21.BuyCryptoPage]
+/// [_i20.BuyCryptoPage]
 class BuyCryptoRoute extends _i163.PageRouteInfo<void> {
   const BuyCryptoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1666,7 +1691,7 @@ class BuyCryptoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i22.BuyGiftCardFeaturesPage]
+/// [_i21.BuyGiftCardFeaturesPage]
 class BuyGiftCardFeaturesRoute extends _i163.PageRouteInfo<void> {
   const BuyGiftCardFeaturesRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1680,7 +1705,7 @@ class BuyGiftCardFeaturesRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i23.BuyGiftcardPage]
+/// [_i22.BuyGiftcardPage]
 class BuyGiftcardRoute extends _i163.PageRouteInfo<void> {
   const BuyGiftcardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1694,7 +1719,7 @@ class BuyGiftcardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i24.BvnFaceRecogPage]
+/// [_i23.BvnFaceRecogPage]
 class BvnFaceRecogRoute extends _i163.PageRouteInfo<void> {
   const BvnFaceRecogRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1708,7 +1733,7 @@ class BvnFaceRecogRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i25.BvnVerificationPage]
+/// [_i24.BvnVerificationPage]
 class BvnVerificationRoute extends _i163.PageRouteInfo<void> {
   const BvnVerificationRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1722,7 +1747,7 @@ class BvnVerificationRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i26.BvnconfirmPage]
+/// [_i25.BvnconfirmPage]
 class BvnconfirmRoute extends _i163.PageRouteInfo<void> {
   const BvnconfirmRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1736,7 +1761,7 @@ class BvnconfirmRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i27.CancelFlightPage]
+/// [_i26.CancelFlightPage]
 class CancelFlightRoute extends _i163.PageRouteInfo<void> {
   const CancelFlightRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1750,7 +1775,7 @@ class CancelFlightRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i28.CancelFlightSuccessfulPage]
+/// [_i27.CancelFlightSuccessfulPage]
 class CancelFlightSuccessfulRoute extends _i163.PageRouteInfo<void> {
   const CancelFlightSuccessfulRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1764,7 +1789,7 @@ class CancelFlightSuccessfulRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i29.CardLimitPage]
+/// [_i28.CardLimitPage]
 class CardLimitRoute extends _i163.PageRouteInfo<void> {
   const CardLimitRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1778,7 +1803,7 @@ class CardLimitRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i30.CardPage]
+/// [_i29.CardPage]
 class CardRoute extends _i163.PageRouteInfo<void> {
   const CardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1792,7 +1817,7 @@ class CardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i31.CardTransactionPage]
+/// [_i30.CardTransactionPage]
 class CardTransactionRoute extends _i163.PageRouteInfo<void> {
   const CardTransactionRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1806,7 +1831,7 @@ class CardTransactionRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i32.ChangePasswordPage]
+/// [_i31.ChangePasswordPage]
 class ChangePasswordRoute extends _i163.PageRouteInfo<void> {
   const ChangePasswordRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1820,7 +1845,7 @@ class ChangePasswordRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i33.CheckOutPage]
+/// [_i32.CheckOutPage]
 class CheckOutRoute extends _i163.PageRouteInfo<void> {
   const CheckOutRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1834,21 +1859,45 @@ class CheckOutRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i34.ClothsDetailsPage]
-class ClothsDetailsRoute extends _i163.PageRouteInfo<void> {
-  const ClothsDetailsRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+/// [_i33.ClothsDetailsPage]
+class ClothsDetailsRoute extends _i163.PageRouteInfo<ClothsDetailsRouteArgs> {
+  ClothsDetailsRoute({
+    _i164.Key? key,
+    required String productId,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           ClothsDetailsRoute.name,
+          args: ClothsDetailsRouteArgs(
+            key: key,
+            productId: productId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ClothsDetailsRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<ClothsDetailsRouteArgs> page =
+      _i163.PageInfo<ClothsDetailsRouteArgs>(name);
+}
+
+class ClothsDetailsRouteArgs {
+  const ClothsDetailsRouteArgs({
+    this.key,
+    required this.productId,
+  });
+
+  final _i164.Key? key;
+
+  final String productId;
+
+  @override
+  String toString() {
+    return 'ClothsDetailsRouteArgs{key: $key, productId: $productId}';
+  }
 }
 
 /// generated route for
-/// [_i35.ClothsPage]
+/// [_i34.ClothsPage]
 class ClothsRoute extends _i163.PageRouteInfo<void> {
   const ClothsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1862,7 +1911,7 @@ class ClothsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i36.ConfirmGiftCardSellPage]
+/// [_i35.ConfirmGiftCardSellPage]
 class ConfirmGiftCardSellRoute extends _i163.PageRouteInfo<void> {
   const ConfirmGiftCardSellRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1876,16 +1925,18 @@ class ConfirmGiftCardSellRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i37.ConfirmTransactionPage]
+/// [_i36.ConfirmTransactionPage]
 class ConfirmTransactionRoute
     extends _i163.PageRouteInfo<ConfirmTransactionRouteArgs> {
   ConfirmTransactionRoute({
-    required _i168.BankAccountEntity account,
+    _i164.Key? key,
+    required _i165.BankAccountEntity account,
     required double amount,
     List<_i163.PageRouteInfo>? children,
   }) : super(
           ConfirmTransactionRoute.name,
           args: ConfirmTransactionRouteArgs(
+            key: key,
             account: account,
             amount: amount,
           ),
@@ -1900,21 +1951,25 @@ class ConfirmTransactionRoute
 
 class ConfirmTransactionRouteArgs {
   const ConfirmTransactionRouteArgs({
+    this.key,
     required this.account,
     required this.amount,
   });
 
-  final _i168.BankAccountEntity account;
+  final _i164.Key? key;
+
+  final _i165.BankAccountEntity account;
+
   final double amount;
 
   @override
   String toString() {
-    return 'ConfirmTransactionRouteArgs{account: $account, amount: $amount}';
+    return 'ConfirmTransactionRouteArgs{key: $key, account: $account, amount: $amount}';
   }
 }
 
 /// generated route for
-/// [_i38.ContactTabPage]
+/// [_i37.ContactTabPage]
 class ContactTabRoute extends _i163.PageRouteInfo<void> {
   const ContactTabRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1928,7 +1983,7 @@ class ContactTabRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i39.CreatePasswordPage]
+/// [_i38.CreatePasswordPage]
 class CreatePasswordRoute extends _i163.PageRouteInfo<CreatePasswordRouteArgs> {
   CreatePasswordRoute({
     _i164.Key? key,
@@ -1981,7 +2036,7 @@ class CreatePasswordRouteArgs {
 }
 
 /// generated route for
-/// [_i40.CreatePinPage]
+/// [_i39.CreatePinPage]
 class CreatePinRoute extends _i163.PageRouteInfo<void> {
   const CreatePinRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -1995,7 +2050,7 @@ class CreatePinRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i41.CreateVirtualCardPage]
+/// [_i40.CreateVirtualCardPage]
 class CreateVirtualCardRoute extends _i163.PageRouteInfo<void> {
   const CreateVirtualCardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2009,7 +2064,7 @@ class CreateVirtualCardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i42.CreatedPinPage]
+/// [_i41.CreatedPinPage]
 class CreatedPinRoute extends _i163.PageRouteInfo<void> {
   const CreatedPinRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2023,7 +2078,7 @@ class CreatedPinRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i43.CryptoPage]
+/// [_i42.CryptoPage]
 class CryptoRoute extends _i163.PageRouteInfo<void> {
   const CryptoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2037,7 +2092,7 @@ class CryptoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i44.CryptoReceiptPage]
+/// [_i43.CryptoReceiptPage]
 class CryptoReceiptRoute extends _i163.PageRouteInfo<void> {
   const CryptoReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2051,7 +2106,7 @@ class CryptoReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i45.CryptoSellReceiptPage]
+/// [_i44.CryptoSellReceiptPage]
 class CryptoSellReceiptRoute extends _i163.PageRouteInfo<void> {
   const CryptoSellReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2065,7 +2120,7 @@ class CryptoSellReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i46.CryptoSellSucessfulPage]
+/// [_i45.CryptoSellSucessfulPage]
 class CryptoSellSucessfulRoute extends _i163.PageRouteInfo<void> {
   const CryptoSellSucessfulRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2079,7 +2134,7 @@ class CryptoSellSucessfulRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i47.CryptoTransactionSuccesfulPage]
+/// [_i46.CryptoTransactionSuccesfulPage]
 class CryptoTransactionSuccesfulRoute extends _i163.PageRouteInfo<void> {
   const CryptoTransactionSuccesfulRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2093,7 +2148,7 @@ class CryptoTransactionSuccesfulRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i48.CryptoTransactionsDetailPage]
+/// [_i47.CryptoTransactionsDetailPage]
 class CryptoTransactionsDetailRoute extends _i163.PageRouteInfo<void> {
   const CryptoTransactionsDetailRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2107,7 +2162,7 @@ class CryptoTransactionsDetailRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i49.CryptoTransactionsHistoryPage]
+/// [_i48.CryptoTransactionsHistoryPage]
 class CryptoTransactionsHistoryRoute extends _i163.PageRouteInfo<void> {
   const CryptoTransactionsHistoryRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2121,7 +2176,7 @@ class CryptoTransactionsHistoryRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i50.DataConfirmPage]
+/// [_i49.DataConfirmPage]
 class DataConfirmRoute extends _i163.PageRouteInfo<void> {
   const DataConfirmRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2135,7 +2190,7 @@ class DataConfirmRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i51.DataPage]
+/// [_i50.DataPage]
 class DataRoute extends _i163.PageRouteInfo<void> {
   const DataRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2149,7 +2204,7 @@ class DataRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i52.DataReceiptPage]
+/// [_i51.DataReceiptPage]
 class DataReceiptRoute extends _i163.PageRouteInfo<void> {
   const DataReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2163,7 +2218,7 @@ class DataReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i53.DataSuccessPage]
+/// [_i52.DataSuccessPage]
 class DataSuccessRoute extends _i163.PageRouteInfo<void> {
   const DataSuccessRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2177,14 +2232,18 @@ class DataSuccessRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i54.EditAccountPage]
+/// [_i53.EditAccountPage]
 class EditAccountRoute extends _i163.PageRouteInfo<EditAccountRouteArgs> {
   EditAccountRoute({
-    _i168.BankAccountEntity? account,
+    _i164.Key? key,
+    _i165.BankAccountEntity? account,
     List<_i163.PageRouteInfo>? children,
   }) : super(
           EditAccountRoute.name,
-          args: EditAccountRouteArgs(account: account),
+          args: EditAccountRouteArgs(
+            key: key,
+            account: account,
+          ),
           initialChildren: children,
         );
 
@@ -2195,14 +2254,23 @@ class EditAccountRoute extends _i163.PageRouteInfo<EditAccountRouteArgs> {
 }
 
 class EditAccountRouteArgs {
-  const EditAccountRouteArgs({this.account});
-  final _i168.BankAccountEntity? account;
+  const EditAccountRouteArgs({
+    this.key,
+    this.account,
+  });
+
+  final _i164.Key? key;
+
+  final _i165.BankAccountEntity? account;
+
   @override
-  String toString() => 'EditAccountRouteArgs{account: $account}';
+  String toString() {
+    return 'EditAccountRouteArgs{key: $key, account: $account}';
+  }
 }
 
 /// generated route for
-/// [_i55.EditProfilePage]
+/// [_i54.EditProfilePage]
 class EditProfileRoute extends _i163.PageRouteInfo<void> {
   const EditProfileRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2216,7 +2284,7 @@ class EditProfileRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i56.ElectricityBillSuccessPage]
+/// [_i55.ElectricityBillSuccessPage]
 class ElectricityBillSuccessRoute extends _i163.PageRouteInfo<void> {
   const ElectricityBillSuccessRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2230,7 +2298,7 @@ class ElectricityBillSuccessRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i57.ElectricityConfirmPage]
+/// [_i56.ElectricityConfirmPage]
 class ElectricityConfirmRoute extends _i163.PageRouteInfo<void> {
   const ElectricityConfirmRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2244,7 +2312,7 @@ class ElectricityConfirmRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i58.ElectricityPage]
+/// [_i57.ElectricityPage]
 class ElectricityRoute extends _i163.PageRouteInfo<void> {
   const ElectricityRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2258,7 +2326,7 @@ class ElectricityRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i59.ElectricityReceiptPage]
+/// [_i58.ElectricityReceiptPage]
 class ElectricityReceiptRoute extends _i163.PageRouteInfo<void> {
   const ElectricityReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2272,7 +2340,7 @@ class ElectricityReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i60.ExplorePage]
+/// [_i59.ExplorePage]
 class ExploreRoute extends _i163.PageRouteInfo<void> {
   const ExploreRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2286,7 +2354,7 @@ class ExploreRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i61.FaqTabPage]
+/// [_i60.FaqTabPage]
 class FaqTabRoute extends _i163.PageRouteInfo<void> {
   const FaqTabRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2300,7 +2368,7 @@ class FaqTabRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i62.FeaturesPage]
+/// [_i61.FeaturesPage]
 class FeaturesRoute extends _i163.PageRouteInfo<void> {
   const FeaturesRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2314,7 +2382,7 @@ class FeaturesRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i63.FingerprintCompletePage]
+/// [_i62.FingerprintCompletePage]
 class FingerprintCompleteRoute extends _i163.PageRouteInfo<void> {
   const FingerprintCompleteRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2328,7 +2396,7 @@ class FingerprintCompleteRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i64.FingerprintPage]
+/// [_i63.FingerprintPage]
 class FingerprintRoute extends _i163.PageRouteInfo<void> {
   const FingerprintRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2342,7 +2410,7 @@ class FingerprintRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i65.FlightBookPage]
+/// [_i64.FlightBookPage]
 class FlightBookRoute extends _i163.PageRouteInfo<void> {
   const FlightBookRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2356,7 +2424,7 @@ class FlightBookRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i66.FlightBookingPage]
+/// [_i65.FlightBookingPage]
 class FlightBookingRoute extends _i163.PageRouteInfo<void> {
   const FlightBookingRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2370,7 +2438,7 @@ class FlightBookingRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i67.FlightCardPage]
+/// [_i66.FlightCardPage]
 class FlightCardRoute extends _i163.PageRouteInfo<void> {
   const FlightCardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2384,7 +2452,7 @@ class FlightCardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i68.FlightDetailsPage]
+/// [_i67.FlightDetailsPage]
 class FlightDetailsRoute extends _i163.PageRouteInfo<void> {
   const FlightDetailsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2398,7 +2466,7 @@ class FlightDetailsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i69.FlightDetailsTwoPage]
+/// [_i68.FlightDetailsTwoPage]
 class FlightDetailsTwoRoute extends _i163.PageRouteInfo<void> {
   const FlightDetailsTwoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2412,7 +2480,7 @@ class FlightDetailsTwoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i70.FlightPaymentPage]
+/// [_i69.FlightPaymentPage]
 class FlightPaymentRoute extends _i163.PageRouteInfo<void> {
   const FlightPaymentRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2426,7 +2494,7 @@ class FlightPaymentRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i71.FlightPaymentReceiptPage]
+/// [_i70.FlightPaymentReceiptPage]
 class FlightPaymentReceiptRoute extends _i163.PageRouteInfo<void> {
   const FlightPaymentReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2440,7 +2508,7 @@ class FlightPaymentReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i72.FlightPaymwntSuccessPage]
+/// [_i71.FlightPaymwntSuccessPage]
 class FlightPaymwntSuccessRoute extends _i163.PageRouteInfo<void> {
   const FlightPaymwntSuccessRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2454,7 +2522,7 @@ class FlightPaymwntSuccessRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i73.FlightTwoPaymentPage]
+/// [_i72.FlightTwoPaymentPage]
 class FlightTwoPaymentRoute extends _i163.PageRouteInfo<void> {
   const FlightTwoPaymentRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2468,7 +2536,7 @@ class FlightTwoPaymentRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i74.FlightTwoPaymentReceiptPage]
+/// [_i73.FlightTwoPaymentReceiptPage]
 class FlightTwoPaymentReceiptRoute extends _i163.PageRouteInfo<void> {
   const FlightTwoPaymentReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2482,7 +2550,7 @@ class FlightTwoPaymentReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i75.FlightTwoPaymentSuccessPage]
+/// [_i74.FlightTwoPaymentSuccessPage]
 class FlightTwoPaymentSuccessRoute extends _i163.PageRouteInfo<void> {
   const FlightTwoPaymentSuccessRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2496,7 +2564,7 @@ class FlightTwoPaymentSuccessRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i76.ForgotPasswordPage]
+/// [_i75.ForgotPasswordPage]
 class ForgotPasswordRoute extends _i163.PageRouteInfo<void> {
   const ForgotPasswordRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2510,7 +2578,7 @@ class ForgotPasswordRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i77.FundCardPage]
+/// [_i76.FundCardPage]
 class FundCardRoute extends _i163.PageRouteInfo<void> {
   const FundCardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2524,7 +2592,7 @@ class FundCardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i78.FundCardReceiptPage]
+/// [_i77.FundCardReceiptPage]
 class FundCardReceiptRoute extends _i163.PageRouteInfo<void> {
   const FundCardReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2538,21 +2606,46 @@ class FundCardReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i79.FundCardSuccessfulPage]
-class FundCardSuccessfulRoute extends _i163.PageRouteInfo<void> {
-  const FundCardSuccessfulRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+/// [_i78.FundCardSuccessfulPage]
+class FundCardSuccessfulRoute
+    extends _i163.PageRouteInfo<FundCardSuccessfulRouteArgs> {
+  FundCardSuccessfulRoute({
+    _i164.Key? key,
+    double amountUsd = 0,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           FundCardSuccessfulRoute.name,
+          args: FundCardSuccessfulRouteArgs(
+            key: key,
+            amountUsd: amountUsd,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'FundCardSuccessfulRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<FundCardSuccessfulRouteArgs> page =
+      _i163.PageInfo<FundCardSuccessfulRouteArgs>(name);
+}
+
+class FundCardSuccessfulRouteArgs {
+  const FundCardSuccessfulRouteArgs({
+    this.key,
+    this.amountUsd = 0,
+  });
+
+  final _i164.Key? key;
+
+  final double amountUsd;
+
+  @override
+  String toString() {
+    return 'FundCardSuccessfulRouteArgs{key: $key, amountUsd: $amountUsd}';
+  }
 }
 
 /// generated route for
-/// [_i80.FundWalletPage]
+/// [_i79.FundWalletPage]
 class FundWalletRoute extends _i163.PageRouteInfo<void> {
   const FundWalletRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2566,7 +2659,7 @@ class FundWalletRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i81.GiftCardBuyReceiptPage]
+/// [_i80.GiftCardBuyReceiptPage]
 class GiftCardBuyReceiptRoute extends _i163.PageRouteInfo<void> {
   const GiftCardBuyReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2580,21 +2673,50 @@ class GiftCardBuyReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i82.GiftCardSucessPage]
-class GiftCardSucessRoute extends _i163.PageRouteInfo<void> {
-  const GiftCardSucessRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+/// [_i81.GiftCardSucessPage]
+class GiftCardSucessRoute extends _i163.PageRouteInfo<GiftCardSucessRouteArgs> {
+  GiftCardSucessRoute({
+    _i164.Key? key,
+    required String cardType,
+    required double amountInNaira,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           GiftCardSucessRoute.name,
+          args: GiftCardSucessRouteArgs(
+            key: key,
+            cardType: cardType,
+            amountInNaira: amountInNaira,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'GiftCardSucessRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<GiftCardSucessRouteArgs> page =
+      _i163.PageInfo<GiftCardSucessRouteArgs>(name);
+}
+
+class GiftCardSucessRouteArgs {
+  const GiftCardSucessRouteArgs({
+    this.key,
+    required this.cardType,
+    required this.amountInNaira,
+  });
+
+  final _i164.Key? key;
+
+  final String cardType;
+
+  final double amountInNaira;
+
+  @override
+  String toString() {
+    return 'GiftCardSucessRouteArgs{key: $key, cardType: $cardType, amountInNaira: $amountInNaira}';
+  }
 }
 
 /// generated route for
-/// [_i83.GiftcardPage]
+/// [_i82.GiftcardPage]
 class GiftcardRoute extends _i163.PageRouteInfo<void> {
   const GiftcardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2608,7 +2730,7 @@ class GiftcardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i84.GiftcardSellReceiptPage]
+/// [_i83.GiftcardSellReceiptPage]
 class GiftcardSellReceiptRoute extends _i163.PageRouteInfo<void> {
   const GiftcardSellReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2622,7 +2744,7 @@ class GiftcardSellReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i85.HelpAndSupportPage]
+/// [_i84.HelpAndSupportPage]
 class HelpAndSupportRoute extends _i163.PageRouteInfo<void> {
   const HelpAndSupportRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2636,7 +2758,7 @@ class HelpAndSupportRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i86.HomePage]
+/// [_i85.HomePage]
 class HomeRoute extends _i163.PageRouteInfo<void> {
   const HomeRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2650,7 +2772,7 @@ class HomeRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i87.KycFaceVerificationPage]
+/// [_i86.KycFaceVerificationPage]
 class KycFaceVerificationRoute extends _i163.PageRouteInfo<void> {
   const KycFaceVerificationRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2664,7 +2786,7 @@ class KycFaceVerificationRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i88.KycVerificationCompletePage]
+/// [_i87.KycVerificationCompletePage]
 class KycVerificationCompleteRoute extends _i163.PageRouteInfo<void> {
   const KycVerificationCompleteRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2678,7 +2800,7 @@ class KycVerificationCompleteRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i89.KycVerificationPage]
+/// [_i88.KycVerificationPage]
 class KycVerificationRoute extends _i163.PageRouteInfo<void> {
   const KycVerificationRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2692,7 +2814,7 @@ class KycVerificationRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i90.LoginPage]
+/// [_i89.LoginPage]
 class LoginRoute extends _i163.PageRouteInfo<void> {
   const LoginRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2706,7 +2828,7 @@ class LoginRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i91.LoginPasswordChangedPage]
+/// [_i90.LoginPasswordChangedPage]
 class LoginPasswordChangedRoute extends _i163.PageRouteInfo<void> {
   const LoginPasswordChangedRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2720,7 +2842,7 @@ class LoginPasswordChangedRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i92.LoginPasswordResetPage]
+/// [_i91.LoginPasswordResetPage]
 class LoginPasswordResetRoute
     extends _i163.PageRouteInfo<LoginPasswordResetRouteArgs> {
   LoginPasswordResetRoute({
@@ -2759,7 +2881,7 @@ class LoginPasswordResetRouteArgs {
 }
 
 /// generated route for
-/// [_i93.MultiFlightDetailsPage]
+/// [_i92.MultiFlightDetailsPage]
 class MultiFlightDetailsRoute extends _i163.PageRouteInfo<void> {
   const MultiFlightDetailsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2773,7 +2895,7 @@ class MultiFlightDetailsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i94.MultiPassengersDetailsPage]
+/// [_i93.MultiPassengersDetailsPage]
 class MultiPassengersDetailsRoute extends _i163.PageRouteInfo<void> {
   const MultiPassengersDetailsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2787,7 +2909,7 @@ class MultiPassengersDetailsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i95.MultiPaymentPage]
+/// [_i94.MultiPaymentPage]
 class MultiPaymentRoute extends _i163.PageRouteInfo<void> {
   const MultiPaymentRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2801,7 +2923,7 @@ class MultiPaymentRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i96.MultiPaymentReceiptPage]
+/// [_i95.MultiPaymentReceiptPage]
 class MultiPaymentReceiptRoute extends _i163.PageRouteInfo<void> {
   const MultiPaymentReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2815,7 +2937,7 @@ class MultiPaymentReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i97.MultiPaymentSuccessPage]
+/// [_i96.MultiPaymentSuccessPage]
 class MultiPaymentSuccessRoute extends _i163.PageRouteInfo<void> {
   const MultiPaymentSuccessRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2829,7 +2951,7 @@ class MultiPaymentSuccessRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i98.MultiSearchResultPage]
+/// [_i97.MultiSearchResultPage]
 class MultiSearchResultRoute extends _i163.PageRouteInfo<void> {
   const MultiSearchResultRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2843,7 +2965,7 @@ class MultiSearchResultRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i99.MultiSelectSeatOnePage]
+/// [_i98.MultiSelectSeatOnePage]
 class MultiSelectSeatOneRoute extends _i163.PageRouteInfo<void> {
   const MultiSelectSeatOneRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2857,7 +2979,7 @@ class MultiSelectSeatOneRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i100.MultiSelectSeatThreePage]
+/// [_i99.MultiSelectSeatThreePage]
 class MultiSelectSeatThreeRoute extends _i163.PageRouteInfo<void> {
   const MultiSelectSeatThreeRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2871,7 +2993,7 @@ class MultiSelectSeatThreeRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i101.MultiSelectSeatTwoPage]
+/// [_i100.MultiSelectSeatTwoPage]
 class MultiSelectSeatTwoRoute extends _i163.PageRouteInfo<void> {
   const MultiSelectSeatTwoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2885,7 +3007,7 @@ class MultiSelectSeatTwoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i102.MultiTripPage]
+/// [_i101.MultiTripPage]
 class MultiTripRoute extends _i163.PageRouteInfo<void> {
   const MultiTripRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2899,7 +3021,7 @@ class MultiTripRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i103.NotificationPage]
+/// [_i102.NotificationPage]
 class NotificationRoute extends _i163.PageRouteInfo<void> {
   const NotificationRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2913,7 +3035,7 @@ class NotificationRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i104.OnboardPage]
+/// [_i103.OnboardPage]
 class OnboardRoute extends _i163.PageRouteInfo<void> {
   const OnboardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2927,7 +3049,7 @@ class OnboardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i105.OneWayTripPage]
+/// [_i104.OneWayTripPage]
 class OneWayTripRoute extends _i163.PageRouteInfo<void> {
   const OneWayTripRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2941,7 +3063,7 @@ class OneWayTripRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i106.OrderReceiptPage]
+/// [_i105.OrderReceiptPage]
 class OrderReceiptRoute extends _i163.PageRouteInfo<void> {
   const OrderReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2955,7 +3077,7 @@ class OrderReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i107.OrderSuccessfulPage]
+/// [_i106.OrderSuccessfulPage]
 class OrderSuccessfulRoute extends _i163.PageRouteInfo<void> {
   const OrderSuccessfulRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2969,7 +3091,7 @@ class OrderSuccessfulRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i108.PassengerDetailsPage]
+/// [_i107.PassengerDetailsPage]
 class PassengerDetailsRoute extends _i163.PageRouteInfo<void> {
   const PassengerDetailsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2983,7 +3105,7 @@ class PassengerDetailsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i109.PassengerDetailsTwoPage]
+/// [_i108.PassengerDetailsTwoPage]
 class PassengerDetailsTwoRoute extends _i163.PageRouteInfo<void> {
   const PassengerDetailsTwoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -2997,7 +3119,7 @@ class PassengerDetailsTwoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i110.PasswordChangedPage]
+/// [_i109.PasswordChangedPage]
 class PasswordChangedRoute extends _i163.PageRouteInfo<void> {
   const PasswordChangedRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3011,7 +3133,7 @@ class PasswordChangedRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i111.PasswordChangedTwoPage]
+/// [_i110.PasswordChangedTwoPage]
 class PasswordChangedTwoRoute extends _i163.PageRouteInfo<void> {
   const PasswordChangedTwoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3025,7 +3147,7 @@ class PasswordChangedTwoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i112.PasswordResetPage]
+/// [_i111.PasswordResetPage]
 class PasswordResetRoute extends _i163.PageRouteInfo<void> {
   const PasswordResetRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3039,7 +3161,7 @@ class PasswordResetRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i113.PaymentPage]
+/// [_i112.PaymentPage]
 class PaymentRoute extends _i163.PageRouteInfo<void> {
   const PaymentRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3053,7 +3175,7 @@ class PaymentRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i114.PinResetCompletePage]
+/// [_i113.PinResetCompletePage]
 class PinResetCompleteRoute extends _i163.PageRouteInfo<void> {
   const PinResetCompleteRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3067,7 +3189,7 @@ class PinResetCompleteRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i115.PinResetPage]
+/// [_i114.PinResetPage]
 class PinResetRoute extends _i163.PageRouteInfo<void> {
   const PinResetRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3081,7 +3203,7 @@ class PinResetRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i116.PrivacyPage]
+/// [_i115.PrivacyPage]
 class PrivacyRoute extends _i163.PageRouteInfo<void> {
   const PrivacyRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3095,7 +3217,7 @@ class PrivacyRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i117.ProfilePage]
+/// [_i116.ProfilePage]
 class ProfileRoute extends _i163.PageRouteInfo<void> {
   const ProfileRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3109,7 +3231,7 @@ class ProfileRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i118.ReceiptPage]
+/// [_i117.ReceiptPage]
 class ReceiptRoute extends _i163.PageRouteInfo<void> {
   const ReceiptRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3123,7 +3245,7 @@ class ReceiptRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i119.ReceiveCryptoPage]
+/// [_i118.ReceiveCryptoPage]
 class ReceiveCryptoRoute extends _i163.PageRouteInfo<void> {
   const ReceiveCryptoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3137,7 +3259,7 @@ class ReceiveCryptoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i120.ReferPage]
+/// [_i119.ReferPage]
 class ReferRoute extends _i163.PageRouteInfo<void> {
   const ReferRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3151,7 +3273,7 @@ class ReferRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i121.RefundDetailsPage]
+/// [_i120.RefundDetailsPage]
 class RefundDetailsRoute extends _i163.PageRouteInfo<void> {
   const RefundDetailsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3165,7 +3287,7 @@ class RefundDetailsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i122.RefundPolicyPage]
+/// [_i121.RefundPolicyPage]
 class RefundPolicyRoute extends _i163.PageRouteInfo<void> {
   const RefundPolicyRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3179,7 +3301,7 @@ class RefundPolicyRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i123.ReviewDocumentPage]
+/// [_i122.ReviewDocumentPage]
 class ReviewDocumentRoute extends _i163.PageRouteInfo<void> {
   const ReviewDocumentRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3193,7 +3315,7 @@ class ReviewDocumentRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i124.RoundWayTripPage]
+/// [_i123.RoundWayTripPage]
 class RoundWayTripRoute extends _i163.PageRouteInfo<void> {
   const RoundWayTripRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3207,7 +3329,7 @@ class RoundWayTripRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i125.SearchCardPage]
+/// [_i124.SearchCardPage]
 class SearchCardRoute extends _i163.PageRouteInfo<void> {
   const SearchCardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3221,7 +3343,7 @@ class SearchCardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i126.SearchResultPage]
+/// [_i125.SearchResultPage]
 class SearchResultRoute extends _i163.PageRouteInfo<void> {
   const SearchResultRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3235,7 +3357,7 @@ class SearchResultRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i127.SearchResultTwoPage]
+/// [_i126.SearchResultTwoPage]
 class SearchResultTwoRoute extends _i163.PageRouteInfo<void> {
   const SearchResultTwoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3249,7 +3371,7 @@ class SearchResultTwoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i128.SelectInboundSeatPage]
+/// [_i127.SelectInboundSeatPage]
 class SelectInboundSeatRoute extends _i163.PageRouteInfo<void> {
   const SelectInboundSeatRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3263,7 +3385,7 @@ class SelectInboundSeatRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i129.SelectOutboundSeatPage]
+/// [_i128.SelectOutboundSeatPage]
 class SelectOutboundSeatRoute extends _i163.PageRouteInfo<void> {
   const SelectOutboundSeatRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3277,7 +3399,7 @@ class SelectOutboundSeatRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i130.SelectSeatPage]
+/// [_i129.SelectSeatPage]
 class SelectSeatRoute extends _i163.PageRouteInfo<void> {
   const SelectSeatRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3291,7 +3413,7 @@ class SelectSeatRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i131.SellCryptoPage]
+/// [_i130.SellCryptoPage]
 class SellCryptoRoute extends _i163.PageRouteInfo<void> {
   const SellCryptoRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3305,7 +3427,7 @@ class SellCryptoRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i132.SellGiftCardFeaturesPage]
+/// [_i131.SellGiftCardFeaturesPage]
 class SellGiftCardFeaturesRoute extends _i163.PageRouteInfo<void> {
   const SellGiftCardFeaturesRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3319,21 +3441,56 @@ class SellGiftCardFeaturesRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i133.SellGiftCardSuccessPage]
-class SellGiftCardSuccessRoute extends _i163.PageRouteInfo<void> {
-  const SellGiftCardSuccessRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+/// [_i132.SellGiftCardSuccessPage]
+class SellGiftCardSuccessRoute
+    extends _i163.PageRouteInfo<SellGiftCardSuccessRouteArgs> {
+  SellGiftCardSuccessRoute({
+    _i164.Key? key,
+    required String cardType,
+    required double amountInUSD,
+    required double nairaEquivalent,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           SellGiftCardSuccessRoute.name,
+          args: SellGiftCardSuccessRouteArgs(
+            key: key,
+            cardType: cardType,
+            amountInUSD: amountInUSD,
+            nairaEquivalent: nairaEquivalent,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'SellGiftCardSuccessRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<SellGiftCardSuccessRouteArgs> page =
+      _i163.PageInfo<SellGiftCardSuccessRouteArgs>(name);
+}
+
+class SellGiftCardSuccessRouteArgs {
+  const SellGiftCardSuccessRouteArgs({
+    this.key,
+    required this.cardType,
+    required this.amountInUSD,
+    required this.nairaEquivalent,
+  });
+
+  final _i164.Key? key;
+
+  final String cardType;
+
+  final double amountInUSD;
+
+  final double nairaEquivalent;
+
+  @override
+  String toString() {
+    return 'SellGiftCardSuccessRouteArgs{key: $key, cardType: $cardType, amountInUSD: $amountInUSD, nairaEquivalent: $nairaEquivalent}';
+  }
 }
 
 /// generated route for
-/// [_i134.SellGiftcardPage]
+/// [_i133.SellGiftcardPage]
 class SellGiftcardRoute extends _i163.PageRouteInfo<void> {
   const SellGiftcardRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3347,7 +3504,7 @@ class SellGiftcardRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i135.SetUpFingerprintPage]
+/// [_i134.SetUpFingerprintPage]
 class SetUpFingerprintRoute extends _i163.PageRouteInfo<void> {
   const SetUpFingerprintRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3361,7 +3518,7 @@ class SetUpFingerprintRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i136.SettingUpFingerprintPage]
+/// [_i135.SettingUpFingerprintPage]
 class SettingUpFingerprintRoute extends _i163.PageRouteInfo<void> {
   const SettingUpFingerprintRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3375,7 +3532,7 @@ class SettingUpFingerprintRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i137.SettingsPage]
+/// [_i136.SettingsPage]
 class SettingsRoute extends _i163.PageRouteInfo<void> {
   const SettingsRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3389,7 +3546,7 @@ class SettingsRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i138.ShoppingPage]
+/// [_i137.ShoppingPage]
 class ShoppingRoute extends _i163.PageRouteInfo<void> {
   const ShoppingRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3403,7 +3560,7 @@ class ShoppingRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i139.SignupPage]
+/// [_i138.SignupPage]
 class SignupRoute extends _i163.PageRouteInfo<void> {
   const SignupRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3417,7 +3574,7 @@ class SignupRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i140.SplashPage]
+/// [_i139.SplashPage]
 class SplashRoute extends _i163.PageRouteInfo<void> {
   const SplashRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3431,7 +3588,7 @@ class SplashRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i141.TermsAndConditionPage]
+/// [_i140.TermsAndConditionPage]
 class TermsAndConditionRoute extends _i163.PageRouteInfo<void> {
   const TermsAndConditionRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3445,11 +3602,11 @@ class TermsAndConditionRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i142.TokenDetailPage]
+/// [_i141.TokenDetailPage]
 class TokenDetailRoute extends _i163.PageRouteInfo<TokenDetailRouteArgs> {
   TokenDetailRoute({
     _i164.Key? key,
-    required _i165.TokenDetailModel token,
+    required _i166.TokenDetailModel token,
     List<_i163.PageRouteInfo>? children,
   }) : super(
           TokenDetailRoute.name,
@@ -3474,7 +3631,7 @@ class TokenDetailRouteArgs {
 
   final _i164.Key? key;
 
-  final _i165.TokenDetailModel token;
+  final _i166.TokenDetailModel token;
 
   @override
   String toString() {
@@ -3483,7 +3640,7 @@ class TokenDetailRouteArgs {
 }
 
 /// generated route for
-/// [_i143.TrackOrderPage]
+/// [_i142.TrackOrderPage]
 class TrackOrderRoute extends _i163.PageRouteInfo<void> {
   const TrackOrderRoute({List<_i163.PageRouteInfo>? children})
       : super(
@@ -3497,17 +3654,81 @@ class TrackOrderRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i144.TransactionDetailsPage]
-class TransactionDetailsRoute extends _i163.PageRouteInfo<void> {
-  const TransactionDetailsRoute({List<_i163.PageRouteInfo>? children})
-      : super(
+/// [_i143.TransactionDetailsPage]
+class TransactionDetailsRoute
+    extends _i163.PageRouteInfo<TransactionDetailsRouteArgs> {
+  TransactionDetailsRoute({
+    _i164.Key? key,
+    required _i167.DollarCardTransactionEntity transaction,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
           TransactionDetailsRoute.name,
+          args: TransactionDetailsRouteArgs(
+            key: key,
+            transaction: transaction,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'TransactionDetailsRoute';
 
-  static const _i163.PageInfo<void> page = _i163.PageInfo<void>(name);
+  static const _i163.PageInfo<TransactionDetailsRouteArgs> page =
+      _i163.PageInfo<TransactionDetailsRouteArgs>(name);
+}
+
+class TransactionDetailsRouteArgs {
+  const TransactionDetailsRouteArgs({
+    this.key,
+    required this.transaction,
+  });
+
+  final _i164.Key? key;
+
+  final _i167.DollarCardTransactionEntity transaction;
+
+  @override
+  String toString() {
+    return 'TransactionDetailsRouteArgs{key: $key, transaction: $transaction}';
+  }
+}
+
+/// generated route for
+/// [_i144.TransactionHistoryDetailPage]
+class TransactionHistoryDetailRoute
+    extends _i163.PageRouteInfo<TransactionHistoryDetailRouteArgs> {
+  TransactionHistoryDetailRoute({
+    _i164.Key? key,
+    required _i168.TransactionEntity transaction,
+    List<_i163.PageRouteInfo>? children,
+  }) : super(
+          TransactionHistoryDetailRoute.name,
+          args: TransactionHistoryDetailRouteArgs(
+            key: key,
+            transaction: transaction,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'TransactionHistoryDetailRoute';
+
+  static const _i163.PageInfo<TransactionHistoryDetailRouteArgs> page =
+      _i163.PageInfo<TransactionHistoryDetailRouteArgs>(name);
+}
+
+class TransactionHistoryDetailRouteArgs {
+  const TransactionHistoryDetailRouteArgs({
+    this.key,
+    required this.transaction,
+  });
+
+  final _i164.Key? key;
+
+  final _i168.TransactionEntity transaction;
+
+  @override
+  String toString() {
+    return 'TransactionHistoryDetailRouteArgs{key: $key, transaction: $transaction}';
+  }
 }
 
 /// generated route for
@@ -3525,32 +3746,6 @@ class TransactionHistoryRoute extends _i163.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i166.TransactionHistoryDetailPage]
-class TransactionHistoryDetailRoute
-    extends _i163.PageRouteInfo<TransactionHistoryDetailRouteArgs> {
-  TransactionHistoryDetailRoute({
-    required _i167.TransactionEntity transaction,
-    List<_i163.PageRouteInfo>? children,
-  }) : super(
-          TransactionHistoryDetailRoute.name,
-          args: TransactionHistoryDetailRouteArgs(transaction: transaction),
-          initialChildren: children,
-        );
-
-  static const String name = 'TransactionHistoryDetailRoute';
-
-  static const _i163.PageInfo<TransactionHistoryDetailRouteArgs> page =
-      _i163.PageInfo<TransactionHistoryDetailRouteArgs>(name);
-}
-
-class TransactionHistoryDetailRouteArgs {
-  const TransactionHistoryDetailRouteArgs({required this.transaction});
-  final _i167.TransactionEntity transaction;
-  @override
-  String toString() {
-    return 'TransactionHistoryDetailRouteArgs{transaction: $transaction}';
-  }
-}
 /// [_i146.TransactionLimitPage]
 class TransactionLimitRoute extends _i163.PageRouteInfo<void> {
   const TransactionLimitRoute({List<_i163.PageRouteInfo>? children})
@@ -3569,12 +3764,14 @@ class TransactionLimitRoute extends _i163.PageRouteInfo<void> {
 class TransactionSuccessfulRoute
     extends _i163.PageRouteInfo<TransactionSuccessfulRouteArgs> {
   TransactionSuccessfulRoute({
-    required _i168.BankAccountEntity account,
+    _i164.Key? key,
+    required _i165.BankAccountEntity account,
     required double amount,
     List<_i163.PageRouteInfo>? children,
   }) : super(
           TransactionSuccessfulRoute.name,
           args: TransactionSuccessfulRouteArgs(
+            key: key,
             account: account,
             amount: amount,
           ),
@@ -3589,16 +3786,20 @@ class TransactionSuccessfulRoute
 
 class TransactionSuccessfulRouteArgs {
   const TransactionSuccessfulRouteArgs({
+    this.key,
     required this.account,
     required this.amount,
   });
 
-  final _i168.BankAccountEntity account;
+  final _i164.Key? key;
+
+  final _i165.BankAccountEntity account;
+
   final double amount;
 
   @override
   String toString() {
-    return 'TransactionSuccessfulRouteArgs{account: $account, amount: $amount}';
+    return 'TransactionSuccessfulRouteArgs{key: $key, account: $account, amount: $amount}';
   }
 }
 
@@ -3757,11 +3958,15 @@ class VerifyPhoneRoute extends _i163.PageRouteInfo<void> {
 class VeriifyPasswordDetailRoute
     extends _i163.PageRouteInfo<VeriifyPasswordDetailRouteArgs> {
   VeriifyPasswordDetailRoute({
+    _i164.Key? key,
     required String emailAddress,
     List<_i163.PageRouteInfo>? children,
   }) : super(
           VeriifyPasswordDetailRoute.name,
-          args: VeriifyPasswordDetailRouteArgs(emailAddress: emailAddress),
+          args: VeriifyPasswordDetailRouteArgs(
+            key: key,
+            emailAddress: emailAddress,
+          ),
           initialChildren: children,
         );
 
@@ -3772,10 +3977,19 @@ class VeriifyPasswordDetailRoute
 }
 
 class VeriifyPasswordDetailRouteArgs {
-  const VeriifyPasswordDetailRouteArgs({required this.emailAddress});
+  const VeriifyPasswordDetailRouteArgs({
+    this.key,
+    required this.emailAddress,
+  });
+
+  final _i164.Key? key;
+
   final String emailAddress;
+
   @override
-  String toString() => 'VeriifyPasswordDetailRouteArgs{emailAddress: $emailAddress}';
+  String toString() {
+    return 'VeriifyPasswordDetailRouteArgs{key: $key, emailAddress: $emailAddress}';
+  }
 }
 
 /// generated route for

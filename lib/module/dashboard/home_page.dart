@@ -35,7 +35,7 @@ class HomePage extends HookConsumerWidget {
     // Show create-pin bottomsheet once after 1s if pin is not set
     useEffect(() {
       if (user == null || user.isPinSet) return null;
-      final timer = Future.delayed(const Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         if (context.mounted) {
           showModalBottomSheet(
             context: context,

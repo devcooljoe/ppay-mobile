@@ -1,22 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_transaction_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
 class TransactionDetailsPage extends HookConsumerWidget {
-  const TransactionDetailsPage({super.key});
+  final DollarCardTransactionEntity transaction;
+
+  const TransactionDetailsPage({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDebit = transaction.entry == 'DEBIT';
+
+    String formatDateTime(String createdAt, {bool timeOnly = false}) {
+      try {
+        final dt = DateTime.parse(createdAt).toLocal();
+        if (timeOnly) {
+          final h = dt.hour > 12 ? dt.hour - 12 : (dt.hour == 0 ? 12 : dt.hour);
+          final m = dt.minute.toString().padLeft(2, '0');
+          final period = dt.hour >= 12 ? 'PM' : 'AM';
+          return '$h:$m$period';
+        }
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return '${dt.day} ${months[dt.month - 1]}, ${dt.year}';
+      } catch (_) {
+        return createdAt;
+      }
+    }
+
+    Widget detailRow(String label, Widget value) {
+      return Padding(
+        padding: EdgeInsets.only(bottom: 22.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+            value,
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
-      appBar: PPAppBar(
-        title: 'Transaction Details',
-      ),
+      appBar: PPAppBar(title: 'Transaction Details'),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -24,47 +57,42 @@ class TransactionDetailsPage extends HookConsumerWidget {
             children: [
               16.verticalSpace,
               Container(
-                height: 232.h,
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.h),
                 color: PPaymobileColors.mainScreenBackground,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 55.w,
-                      width: 55.w,
-                      child: Image.asset(
-                        'assets/images/apple1.png',
-                        fit: BoxFit.contain,
+                    Container(
+                      height: 55.w, width: 55.w,
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: PPaymobileColors.deepBackgroundColor),
+                      child: Center(
+                        child: Text(
+                          transaction.merchant.name.isNotEmpty ? transaction.merchant.name[0].toUpperCase() : transaction.description[0].toUpperCase(),
+                          style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 24.sp, fontWeight: FontWeight.w600, color: PPaymobileColors.backgroundColor),
+                        ),
                       ),
                     ),
+                    8.verticalSpace,
                     Text(
-                      '\$23.28',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      '${isDebit ? '-' : '+'}\$${transaction.amount.toStringAsFixed(2)}',
+                      style: TextStyle(fontFamily: 'InstrumentSans', color: isDebit ? PPaymobileColors.transactRed : PPaymobileColors.doneTextColor, fontSize: 32.sp, fontWeight: FontWeight.w500),
                     ),
                     3.verticalSpace,
                     Text(
-                      'Apple Subscription',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.svgIconColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      transaction.merchant.name.isNotEmpty ? transaction.merchant.name : transaction.description,
+                      style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 16.sp, fontWeight: FontWeight.w500),
                     ),
                     12.verticalSpace,
-                    SizedBox(
-                      height: 24.h,
-                      width: 99.w,
-                      child: Image.asset(
-                        'assets/images/success.png', //for failed transaction, use 'assets/images/failed.png'
-                        fit: BoxFit.contain,
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: transaction.status == 'SUCCESS' ? PPaymobileColors.doneTextColor.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12).r,
+                      ),
+                      child: Text(
+                        transaction.status,
+                        style: TextStyle(fontFamily: 'InstrumentSans', color: transaction.status == 'SUCCESS' ? PPaymobileColors.doneTextColor : Colors.red, fontSize: 12.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ],
@@ -72,175 +100,45 @@ class TransactionDetailsPage extends HookConsumerWidget {
               ),
               16.verticalSpace,
               Container(
-                height: 333.h,
-                width: 400.w,
+                width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 21.h),
                 color: PPaymobileColors.mainScreenBackground,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Date: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
+                    detailRow('Date:', Text(formatDateTime(transaction.createdAt), style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    detailRow('Time:', Text(formatDateTime(transaction.createdAt, timeOnly: true), style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    detailRow(
+                      'Transaction ID:',
+                      Row(
+                        children: [
+                          Text(transaction.id.length > 12 ? '${transaction.id.substring(0, 12)}...' : transaction.id, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                          7.horizontalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              Clipboard.setData(ClipboardData(text: transaction.id));
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Transaction ID copied'), duration: Duration(seconds: 1)));
+                            },
+                            child: SizedBox(height: 21.w, width: 21.w, child: SvgPicture.asset('assets/icon/paste_black1.svg', fit: BoxFit.contain)),
                           ),
-                        ),
-                        Text(
-                          '18 July, 2025',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    22.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Time: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '09:41AM',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    22.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Transaction ID: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'CGX-10980565',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            7.horizontalSpace,
-                            SizedBox(
-                              height: 21.w,
-                              width: 21.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/paste_black1.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    22.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Amount: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '\$23.03',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    22.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Charges Fee: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '\$0.25',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    21.verticalSpace,
-                    Divider(
-                      color: PPaymobileColors.textfiedBorder,
-                      thickness: 1.h,
-                    ),
-                    24.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Total: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          '\$23.28',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
+                    detailRow('Amount:', Text('\$${transaction.amount.toStringAsFixed(2)}', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    detailRow('Type:', Text(transaction.entry, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    if (transaction.description.isNotEmpty)
+                      detailRow('Description:', Flexible(child: Text(transaction.description, textAlign: TextAlign.end, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)))),
+                    if (transaction.merchant.name.isNotEmpty) ...[
+                      Divider(color: PPaymobileColors.textfiedBorder, thickness: 1.h),
+                      24.verticalSpace,
+                      Text('Merchant', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w600)),
+                      16.verticalSpace,
+                      detailRow('Name:', Text(transaction.merchant.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                      if (transaction.merchant.city.isNotEmpty)
+                        detailRow('City:', Text(transaction.merchant.city, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                      if (transaction.merchant.country.isNotEmpty)
+                        detailRow('Country:', Text(transaction.merchant.country, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    ],
                   ],
                 ),
               ),

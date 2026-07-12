@@ -187,7 +187,7 @@ final verifyBillCustomerProvider = AutoDisposeNotifierProvider<
 
 typedef _$VerifyBillCustomer
     = AutoDisposeNotifier<AsyncValue<CustomerVerificationEntity?>>;
-String _$purchaseBillHash() => r'ace9da7b149f8df4d78927640e6b4870d53855db';
+String _$purchaseBillHash() => r'e1d2c0c5803ebf72da2d7a3be9fbc4d83d481b33';
 
 /// See also [PurchaseBill].
 @ProviderFor(PurchaseBill)
@@ -202,8 +202,7 @@ final purchaseBillProvider = AutoDisposeNotifierProvider<PurchaseBill,
 );
 
 typedef _$PurchaseBill = AutoDisposeNotifier<AsyncValue<BillPurchaseEntity?>>;
-
-String _$calculateFeeHash() => r'bills_calculate_fee_hash';
+String _$calculateFeeHash() => r'a609841b5a111b9cc692717201ef0f51ece6f03a';
 
 /// See also [CalculateFee].
 @ProviderFor(CalculateFee)

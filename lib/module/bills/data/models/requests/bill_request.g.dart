@@ -46,8 +46,8 @@ Map<String, dynamic> _$$PurchaseBillRequestImplToJson(
       'customerFirstName': instance.customerFirstName,
       'billerName': instance.billerName,
       'billerCategory': instance.billerCategory,
-      if (instance.meterNumber != null) 'meterNumber': instance.meterNumber,
-      if (instance.plan != null) 'plan': instance.plan,
-      if (instance.provider != null) 'provider': instance.provider,
-      if (instance.logoUrl != null) 'logoUrl': instance.logoUrl,
+      'meterNumber': instance.meterNumber,
+      'plan': instance.plan,
+      'provider': instance.provider,
+      'logoUrl': instance.logoUrl,
     };

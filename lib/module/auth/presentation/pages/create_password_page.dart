@@ -317,7 +317,7 @@ class CreatePasswordPage extends HookConsumerWidget {
                 21.verticalSpace,
                 TouchOpacity(
                   onTap: () {
-                    context.router.pop();
+                    context.router.maybePop();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

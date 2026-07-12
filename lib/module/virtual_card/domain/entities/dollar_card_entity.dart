@@ -6,7 +6,6 @@ part 'dollar_card_entity.freezed.dart';
 class DollarCardEntity with _$DollarCardEntity {
   const factory DollarCardEntity({
     required String id,
-    required String reference,
     required String name,
     required String cardNumber,
     required String maskedPan,

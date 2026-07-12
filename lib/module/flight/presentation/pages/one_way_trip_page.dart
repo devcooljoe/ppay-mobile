@@ -1,16 +1,21 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/flight/presentation/providers/flight_providers.dart';
+import 'package:ppay_mobile/module/flight/presentation/providers/flight_search_state.dart';
 import 'package:ppay_mobile/shared/widgets/class_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/date_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/depature_location_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/destination_location_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/passengers_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class OneWayTripPage extends HookConsumerWidget {
@@ -18,6 +23,63 @@ class OneWayTripPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final searchState = ref.watch(flightSearchStateProvider);
+    final notifier = ref.read(flightSearchStateProvider.notifier);
+    final searchAsync = ref.watch(searchFlightsProvider);
+
+    // Listen for search errors
+    ref.listen(searchFlightsProvider, (_, next) {
+      if (next.hasError) {
+        MessageHandler.showErrorSnackBar(context, next.error.toString());
+      }
+    });
+
+    String _formatDate(String iso) {
+      try {
+        final dt = DateTime.parse(iso);
+        return DateFormat('dd/MM/yyyy').format(dt);
+      } catch (_) {
+        return iso;
+      }
+    }
+
+    Future<void> _pickDate() async {
+      final result = await showModalBottomSheet<DateTime>(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (_) => const DateBottomsheet(),
+      );
+      if (result != null) {
+        notifier.setDepartureDate(DateFormat('yyyy-MM-dd').format(result));
+      }
+    }
+
+    Future<void> _search() async {
+      if (searchState.from.isEmpty || searchState.to.isEmpty) {
+        MessageHandler.showErrorSnackBar(context, 'Please select departure and destination');
+        return;
+      }
+      if (searchState.departureDate.isEmpty) {
+        MessageHandler.showErrorSnackBar(context, 'Please select a departure date');
+        return;
+      }
+      notifier.setTripType('one_way');
+      await ref.read(searchFlightsProvider.notifier).call(
+        from: searchState.from,
+        to: searchState.to,
+        departureDate: searchState.departureDate,
+        adults: searchState.adults,
+        children: searchState.children > 0 ? searchState.children : null,
+        infants: searchState.infants > 0 ? searchState.infants : null,
+        cabin: searchState.cabin,
+        tripType: 'one_way',
+      );
+      if (context.mounted) {
+        context.router.push(const SearchResultRoute());
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,10 +90,7 @@ class OneWayTripPage extends HookConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8).r,
-            border: Border.all(
-              width: 1.w,
-              color: PPaymobileColors.filterBorderColor,
-            ),
+            border: Border.all(width: 1.w, color: PPaymobileColors.filterBorderColor),
           ),
           child: SizedBox(
             height: 112.h,
@@ -48,61 +107,33 @@ class OneWayTripPage extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TouchOpacity(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) {
-                                return DepatureLocationBottomsheet();
-                              },
-                            );
-                          },
+                          onTap: () => showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (_) => const DepatureLocationBottomsheet(),
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               4.horizontalSpace,
-                              SizedBox(
-                                height: 24.w,
-                                width: 24.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/takeoff_1.svg',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
+                              SizedBox(height: 24.w, width: 24.w, child: SvgPicture.asset('assets/icon/takeoff_1.svg', fit: BoxFit.contain)),
                               15.horizontalSpace,
-                              SizedBox(
-                                height: 35.h,
-                                width: 1.5.w,
-                                child: VerticalDivider(
-                                  width: 1.w,
-                                  color: PPaymobileColors.filterBorderColor,
-                                ),
-                              ),
+                              SizedBox(height: 35.h, width: 1.5.w, child: VerticalDivider(width: 1.w, color: PPaymobileColors.filterBorderColor)),
                               25.horizontalSpace,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'From',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: PPaymobileColors.textfieldGrey,
-                                    ),
-                                  ),
+                                  Text('From', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 10.sp, fontWeight: FontWeight.w500, color: PPaymobileColors.textfieldGrey)),
                                   4.verticalSpace,
                                   Text(
-                                    'Choose',
+                                    searchState.fromLabel.isEmpty ? 'Choose' : searchState.fromLabel,
                                     style: TextStyle(
                                       fontFamily: 'InstrumentSans',
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w500,
-                                      color: PPaymobileColors.textfieldGrey,
+                                      color: searchState.fromLabel.isEmpty ? PPaymobileColors.textfieldGrey : Colors.black,
                                     ),
                                   ),
                                 ],
@@ -111,66 +142,36 @@ class OneWayTripPage extends HookConsumerWidget {
                           ),
                         ),
                         12.verticalSpace,
-                        Divider(
-                          height: 1.w,
-                          color: PPaymobileColors.filterBorderColor,
-                        ),
+                        Divider(height: 1.w, color: PPaymobileColors.filterBorderColor),
                         12.verticalSpace,
                         TouchOpacity(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) {
-                                return DestinationLocationBottomsheet();
-                              },
-                            );
-                          },
+                          onTap: () => showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (_) => const DestinationLocationBottomsheet(),
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               4.horizontalSpace,
-                              SizedBox(
-                                height: 24.w,
-                                width: 24.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/flight_down.svg',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
+                              SizedBox(height: 24.w, width: 24.w, child: SvgPicture.asset('assets/icon/flight_down.svg', fit: BoxFit.contain)),
                               15.horizontalSpace,
-                              SizedBox(
-                                height: 35.h,
-                                width: 1.5.w,
-                                child: VerticalDivider(
-                                  width: 1.w,
-                                  color: PPaymobileColors.filterBorderColor,
-                                ),
-                              ),
+                              SizedBox(height: 35.h, width: 1.5.w, child: VerticalDivider(width: 1.w, color: PPaymobileColors.filterBorderColor)),
                               25.horizontalSpace,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Text('To', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 10.sp, fontWeight: FontWeight.w500, color: PPaymobileColors.textfieldGrey)),
+                                  4.verticalSpace,
                                   Text(
-                                    'To',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: PPaymobileColors.textfieldGrey,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Choose',
+                                    searchState.toLabel.isEmpty ? 'Choose' : searchState.toLabel,
                                     style: TextStyle(
                                       fontFamily: 'InstrumentSans',
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w500,
-                                      color: PPaymobileColors.textfieldGrey,
+                                      color: searchState.toLabel.isEmpty ? PPaymobileColors.textfieldGrey : Colors.black,
                                     ),
                                   ),
                                 ],
@@ -185,26 +186,18 @@ class OneWayTripPage extends HookConsumerWidget {
                 Positioned(
                   top: 28.h,
                   right: 25.w,
-                  child: Container(
-                    height: 40.h,
-                    width: 40.h,
-                    padding: EdgeInsets.all(8.r),
-                    decoration: BoxDecoration(
-                      color: PPaymobileColors.buttonColor,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 0),
-                          blurRadius: 11.6.r,
-                          color: Color(0xff429E6E).withValues(alpha: 0.18),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/icon/swap_1.svg',
-                        fit: BoxFit.contain,
+                  child: TouchOpacity(
+                    onTap: () => notifier.swapLocations(),
+                    child: Container(
+                      height: 40.h,
+                      width: 40.h,
+                      padding: EdgeInsets.all(8.r),
+                      decoration: BoxDecoration(
+                        color: PPaymobileColors.buttonColor,
+                        shape: BoxShape.circle,
+                        boxShadow: [BoxShadow(offset: const Offset(0, 0), blurRadius: 11.6.r, color: const Color(0xff429E6E).withValues(alpha: 0.18))],
                       ),
+                      child: Center(child: SvgPicture.asset('assets/icon/swap_1.svg', fit: BoxFit.contain)),
                     ),
                   ),
                 ),
@@ -214,16 +207,7 @@ class OneWayTripPage extends HookConsumerWidget {
         ),
         16.verticalSpace,
         TouchOpacity(
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              builder: (context) {
-                return DateBottomsheet();
-              },
-            );
-          },
+          onTap: _pickDate,
           child: Container(
             height: 58.h,
             width: double.infinity,
@@ -236,29 +220,17 @@ class OneWayTripPage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Departure Date',
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: PPaymobileColors.lightGrey,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Text('Departure Date', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.lightGrey, fontSize: 10.sp, fontWeight: FontWeight.w500)),
                 4.verticalSpace,
                 Row(
                   children: [
-                    SvgPicture.asset(
-                      'assets/icon/calendar_1.svg',
-                      height: 18.w,
-                      width: 18.w,
-                    ),
+                    SvgPicture.asset('assets/icon/calendar_1.svg', height: 18.w, width: 18.w),
                     SizedBox(width: 8.w),
                     Text(
-                      '09/11/2025',
+                      searchState.departureDate.isEmpty ? 'Select date' : _formatDate(searchState.departureDate),
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
-                        color: Colors.black,
+                        color: searchState.departureDate.isEmpty ? PPaymobileColors.lightGrey : Colors.black,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -274,58 +246,28 @@ class OneWayTripPage extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TouchOpacity(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) {
-                    return PassengersBottomsheet();
-                  },
-                );
-              },
+              onTap: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (_) => const PassengersBottomsheet(),
+              ),
               child: Container(
                 height: 58.h,
                 width: 180.w,
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9.r),
-                  border: Border.all(
-                    color: PPaymobileColors.lightGrey,
-                    width: 1.w,
-                  ),
-                ),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(9.r), border: Border.all(color: PPaymobileColors.lightGrey, width: 1.w)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Passengers',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.lightGrey,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    Text('Passengers', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.lightGrey, fontSize: 10.sp, fontWeight: FontWeight.w500)),
                     4.verticalSpace,
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/icon/user_1.svg',
-                          height: 18.w,
-                          width: 18.w,
-                        ),
+                        SvgPicture.asset('assets/icon/user_1.svg', height: 18.w, width: 18.w),
                         SizedBox(width: 8.w),
-                        Text(
-                          '01 Adult',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Text(notifier.passengersLabel, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ],
@@ -333,58 +275,28 @@ class OneWayTripPage extends HookConsumerWidget {
               ),
             ),
             TouchOpacity(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) {
-                    return ClassBottomsheet();
-                  },
-                );
-              },
+              onTap: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (_) => const ClassBottomsheet(),
+              ),
               child: Container(
                 height: 58.h,
                 width: 180.w,
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9.r),
-                  border: Border.all(
-                    color: PPaymobileColors.lightGrey,
-                    width: 1.w,
-                  ),
-                ),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(9.r), border: Border.all(color: PPaymobileColors.lightGrey, width: 1.w)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Class',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.lightGrey,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    Text('Class', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.lightGrey, fontSize: 10.sp, fontWeight: FontWeight.w500)),
                     4.verticalSpace,
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/icon/economy.svg',
-                          height: 18.w,
-                          width: 18.w,
-                        ),
+                        SvgPicture.asset('assets/icon/economy.svg', height: 18.w, width: 18.w),
                         SizedBox(width: 8.w),
-                        Text(
-                          'Economy',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Text(notifier.cabinLabel, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ],
@@ -395,27 +307,16 @@ class OneWayTripPage extends HookConsumerWidget {
         ),
         27.verticalSpace,
         TouchOpacity(
-          onTap: () {
-            context.router.push(SearchResultRoute());
-          },
+          onTap: searchAsync.isLoading ? null : _search,
           child: Container(
             height: 52.h,
             width: 376.w,
             padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(55).r,
-              color: PPaymobileColors.buttonColorandText,
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(55).r, color: PPaymobileColors.buttonColorandText),
             child: Center(
-              child: Text(
-                'Search Flight',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.mainScreenBackground,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: searchAsync.isLoading
+                  ? SizedBox(height: 20.w, width: 20.w, child: const CircularProgressIndicator(strokeWidth: 2, valueColor: AlwaysStoppedAnimation(Colors.white)))
+                  : Text('Search Flight', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.mainScreenBackground, fontSize: 14.sp, fontWeight: FontWeight.w600)),
             ),
           ),
         ),

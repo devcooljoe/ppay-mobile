@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_entity.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
+import 'package:ppay_mobile/module/bills/presentation/pages/bill_receipt_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
@@ -13,12 +14,20 @@ class BillSuccessPage extends HookConsumerWidget {
   final BillType billType;
   final String amount;
   final BillerEntity biller;
+  final BillConfirmArgs args;
+  final String reference;
+  final double fee;
+  final DateTime purchasedAt;
 
   const BillSuccessPage({
     super.key,
     required this.billType,
     required this.amount,
     required this.biller,
+    required this.args,
+    required this.reference,
+    required this.fee,
+    required this.purchasedAt,
   });
 
   @override
@@ -122,8 +131,26 @@ class BillSuccessPage extends HookConsumerWidget {
                     ),
                     16.verticalSpace,
                     PPButton(
-                      text: 'Back to Home',
+                      text: 'View Receipt',
                       backgroundColor: PPaymobileColors.buttonColorandText,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BillReceiptPage(
+                              args: args,
+                              reference: reference,
+                              fee: fee,
+                              purchasedAt: purchasedAt,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    12.verticalSpace,
+                    PPButton(
+                      text: 'Back to Home',
+                      backgroundColor: PPaymobileColors.mainScreenBackground,
                       onPressed: () {
                         context.router.replaceAll([HomeRoute()]);
                       },

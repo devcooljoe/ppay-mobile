@@ -1,16 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart';
+import 'package:ppay_mobile/module/shopping/presentation/providers/shopping_providers.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/carousel_item.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/item_carousel.dart';
-import 'package:ppay_mobile/shared/widgets/shoping_packages_carousel.dart';
-import 'package:ppay_mobile/shared/widgets/product_card.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
 class ShoppingPage extends HookConsumerWidget {
@@ -20,6 +22,38 @@ class ShoppingPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = useState(0);
     final pageController = usePageController();
+    final searchController = useTextEditingController();
+    final searchQuery = useState('');
+    final homepageState = ref.watch(getHomepageProvider);
+    final productsState = ref.watch(getProductsProvider);
+    final cartState = ref.watch(getCartProvider);
+
+    useEffect(() {
+      Future.microtask(() {
+        ref.read(getHomepageProvider.notifier).call();
+        ref.read(getProductsProvider.notifier).call();
+        ref.read(getCartProvider.notifier).call();
+      });
+      return null;
+    }, []);
+
+    useEffect(() {
+      void listener() => searchQuery.value = searchController.text;
+      searchController.addListener(listener);
+      return () => searchController.removeListener(listener);
+    }, []);
+
+    void onSearch() {
+      if (searchQuery.value.isNotEmpty) {
+        ref.read(getProductsProvider.notifier).call(search: searchQuery.value);
+      }
+    }
+
+    final categories = homepageState.value?.categories ?? [];
+    final featuredProducts = homepageState.value?.featuredProducts ?? [];
+    final allProducts = productsState.value?.products ?? [];
+    final cartItemCount = cartState.value?.items.length ?? 0;
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -28,25 +62,13 @@ class ShoppingPage extends HookConsumerWidget {
         leadingWidth: 56.w,
         title: Text(
           'Shopping',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
+          style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w500),
         ),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
+            child: SizedBox(height: 24.w, width: 24.w, child: SvgPicture.asset('assets/icon/arrow_back.svg', fit: BoxFit.scaleDown)),
           ),
         ),
         actions: [
@@ -55,26 +77,30 @@ class ShoppingPage extends HookConsumerWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    context.router.push(WatchlistRoute());
-                  },
-                  child: SizedBox(
-                    height: 40.w,
-                    width: 40.w,
-                    child: Image.asset(
-                      'assets/images/favorite.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                  onTap: () => context.router.push(WatchlistRoute()),
+                  child: SizedBox(height: 40.w, width: 40.w, child: Image.asset('assets/images/favorite.png', fit: BoxFit.contain)),
                 ),
                 14.horizontalSpace,
-                SizedBox(
-                  height: 40.w,
-                  width: 40.w,
-                  child: Image.asset(
-                    'assets/images/cart.png',
-                    fit: BoxFit.contain,
-                  ),
+                Stack(
+                  children: [
+                    SizedBox(height: 40.w, width: 40.w, child: Image.asset('assets/images/cart.png', fit: BoxFit.contain)),
+                    if (cartItemCount > 0)
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          width: 16.w,
+                          height: 16.w,
+                          decoration: BoxDecoration(color: PPaymobileColors.redTextfield, shape: BoxShape.circle),
+                          child: Center(
+                            child: Text(
+                              '$cartItemCount',
+                              style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 9.sp, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ],
             ),
@@ -86,45 +112,28 @@ class ShoppingPage extends HookConsumerWidget {
           children: [
             25.verticalSpace,
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Container(
                 height: 50.h,
-                width: 400.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10).r,
-                ),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10).r),
                 child: TextFormField(
+                  controller: searchController,
+                  onFieldSubmitted: (_) => onSearch(),
                   decoration: InputDecoration(
-                    prefixIcon: SizedBox(
-                      height: 24.w,
-                      width: 24.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/bank_search.svg',
-                        fit: BoxFit.scaleDown,
-                      ),
-                    ),
-                    hintText: 'Search',
-                    hintStyle: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.textfiedBorder,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    prefixIcon: SizedBox(height: 24.w, width: 24.w, child: SvgPicture.asset('assets/icon/bank_search.svg', fit: BoxFit.scaleDown)),
+                    hintText: 'Search products',
+                    hintStyle: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp, fontWeight: FontWeight.w500),
                     filled: true,
                     fillColor: PPaymobileColors.deepBackgroundColor,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 13.w,
-                      vertical: 14.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10).r,
-                    ),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 14.h),
+                    border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10).r),
                   ),
                 ),
               ),
             ),
             25.verticalSpace,
+
+            // Carousel
             SizedBox(
               height: 184.h,
               child: PageView(
@@ -132,7 +141,7 @@ class ShoppingPage extends HookConsumerWidget {
                 onPageChanged: (index) => currentIndex.value = index,
                 children: [
                   CarouselItem(
-                    title: 'iPhone 16 Pro Max Now ',
+                    title: 'iPhone 16 Pro Max Now',
                     description: 'From ₦1,250,000 Exclusive Deal!',
                     backgroundImage: 'assets/images/shop_carousel_1.png',
                     textColor: PPaymobileColors.mainScreenBackground,
@@ -151,19 +160,10 @@ class ShoppingPage extends HookConsumerWidget {
                   ),
                   CarouselItem(
                     title: 'Trendy Handbags Now',
-                    description: '₦8,000  Don’t Miss Out',
+                    description: '₦8,000 Don\'t Miss Out',
                     backgroundImage: 'assets/images/shop_carousel_3.png',
                     textColor: PPaymobileColors.mainScreenBackground,
                     containerColor: const Color.fromARGB(255, 40, 40, 40),
-                    containerTextColor: PPaymobileColors.mainScreenBackground,
-                    containerSvg: 'assets/icon/arrow_forwardw.svg',
-                  ),
-                  CarouselItem(
-                    title: 'iGrab Wireless Earbuds ',
-                    description: 'for Just ₦9,999 Limited Offer!',
-                    backgroundImage: 'assets/images/shop_carousel_4.png',
-                    textColor: PPaymobileColors.mainScreenBackground,
-                    containerColor: PPaymobileColors.buttonColor,
                     containerTextColor: PPaymobileColors.mainScreenBackground,
                     containerSvg: 'assets/icon/arrow_forwardw.svg',
                   ),
@@ -174,142 +174,243 @@ class ShoppingPage extends HookConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                4,
+                3,
                 (index) => AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   margin: EdgeInsets.symmetric(horizontal: 11.w),
                   height: 13.w,
                   width: 13.w,
                   decoration: BoxDecoration(
-                    color: currentIndex.value == index
-                        ? PPaymobileColors.buttonColor
-                        : PPaymobileColors.deepBackgroundColor,
+                    color: currentIndex.value == index ? PPaymobileColors.buttonColor : PPaymobileColors.deepBackgroundColor,
                     borderRadius: BorderRadius.circular(6.5.r),
                   ),
                 ),
               ),
             ),
             22.verticalSpace,
+
+            // Categories
             Padding(
-              padding: EdgeInsets.only(left: 20.0.w),
-              child: Text(
-                'Item Categories',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              padding: EdgeInsets.only(left: 20.w),
+              child: Text('Item Categories', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
             ),
             20.verticalSpace,
-            Padding(
-              padding: EdgeInsets.only(left: 20.0.w),
-              child: SizedBox(
-                height: 90.h,
-                width: double.infinity,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    ItemCarousel(backgroundImage: 'assets/images/item_1.png'),
-                    GestureDetector(
-                      onTap: () {
-                        context.router.push(ClothsRoute());
-                      },
-                      child: ItemCarousel(
-                        backgroundImage: 'assets/images/item_2.png',
+            homepageState.isLoading
+                ? Padding(
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: SizedBox(
+                      height: 90.h,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        separatorBuilder: (_, __) => 12.horizontalSpace,
+                        itemBuilder: (_, __) => SkeletonLoader(width: 80.w, height: 80.w, borderRadius: BorderRadius.circular(8.r)),
                       ),
                     ),
-                    ItemCarousel(backgroundImage: 'assets/images/item_3.png'),
-                    ItemCarousel(backgroundImage: 'assets/images/item_4.png'),
-                    ItemCarousel(backgroundImage: 'assets/images/item_5.png'),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: SizedBox(
+                      height: 90.h,
+                      child: categories.isEmpty
+                          ? ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                _CategoryItem(name: 'Clothes', iconUrl: 'assets/images/item_2.png', isAsset: true, onTap: () => context.router.push(ClothsRoute())),
+                                _CategoryItem(name: 'Electronics', iconUrl: 'assets/images/item_1.png', isAsset: true),
+                                _CategoryItem(name: 'Accessories', iconUrl: 'assets/images/item_3.png', isAsset: true),
+                              ],
+                            )
+                          : ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: categories.length,
+                              separatorBuilder: (_, __) => 12.horizontalSpace,
+                              itemBuilder: (context, index) {
+                                final cat = categories[index];
+                                return _CategoryItem(
+                                  name: cat.name,
+                                  iconUrl: cat.iconUrl,
+                                  onTap: () => ref.read(getProductsProvider.notifier).call(categoryId: cat.id),
+                                );
+                              },
+                            ),
+                    ),
+                  ),
             41.verticalSpace,
+
+            // Featured Products
             Padding(
-              padding: EdgeInsets.only(left: 20.0.w),
-              child: Text(
-                'Special Packages',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              padding: EdgeInsets.only(left: 20.w),
+              child: Text('Featured Products', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
             ),
             20.verticalSpace,
-            Padding(
-              padding: EdgeInsets.only(left: 20.0.w),
-              child: SizedBox(
-                height: 165.h,
-                width: double.infinity,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    ShopingPackagesCarousel(
-                      backgroundImage: 'assets/images/special_1.png',
+            homepageState.isLoading
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SkeletonLoader(width: 170.w, height: 200.h, borderRadius: BorderRadius.circular(8.r)),
+                        SkeletonLoader(width: 170.w, height: 200.h, borderRadius: BorderRadius.circular(8.r)),
+                      ],
                     ),
-                    ShopingPackagesCarousel(
-                      backgroundImage: 'assets/images/special_2.png',
-                    ),
-                    ShopingPackagesCarousel(
-                      backgroundImage: 'assets/images/special_3.png',
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : featuredProducts.isEmpty
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Wrap(
+                          spacing: 12.w,
+                          runSpacing: 12.h,
+                          children: featuredProducts.map((p) => _ProductCard(product: p)).toList(),
+                        ),
+                      ),
             41.verticalSpace,
+
+            // All Products
             Padding(
-              padding: EdgeInsets.only(left: 20.0.w),
-              child: Text(
-                'More For You',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
+              padding: EdgeInsets.only(left: 20.w),
+              child: Text('More For You', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w600)),
+            ),
+            14.verticalSpace,
+            productsState.isLoading
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      children: List.generate(
+                        2,
+                        (_) => Padding(
+                          padding: EdgeInsets.only(bottom: 14.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SkeletonLoader(width: 170.w, height: 200.h, borderRadius: BorderRadius.circular(8.r)),
+                              SkeletonLoader(width: 170.w, height: 200.h, borderRadius: BorderRadius.circular(8.r)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : allProducts.isEmpty
+                    ? Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.h),
+                          child: Text('No products found', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp)),
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Wrap(
+                          spacing: 12.w,
+                          runSpacing: 14.h,
+                          children: allProducts.map((p) => _ProductCard(product: p)).toList(),
+                        ),
+                      ),
+            20.verticalSpace,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CategoryItem extends StatelessWidget {
+  final String name;
+  final String iconUrl;
+  final bool isAsset;
+  final VoidCallback? onTap;
+
+  const _CategoryItem({required this.name, required this.iconUrl, this.isAsset = false, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            width: 60.w,
+            height: 60.w,
+            decoration: BoxDecoration(color: PPaymobileColors.deepBackgroundColor, borderRadius: BorderRadius.circular(8.r)),
+            child: isAsset
+                ? Image.asset(iconUrl, fit: BoxFit.contain)
+                : CachedNetworkImage(
+                    imageUrl: iconUrl,
+                    fit: BoxFit.contain,
+                    errorWidget: (_, __, ___) => Icon(Icons.category, color: PPaymobileColors.svgIconColor),
+                  ),
+          ),
+          4.verticalSpace,
+          Text(name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 11.sp, fontWeight: FontWeight.w500)),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProductCard extends StatelessWidget {
+  final ProductEntity product;
+
+  const _ProductCard({required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    final hasDiscount = product.discountPrice != null && product.discountPrice! < product.price;
+    return GestureDetector(
+      onTap: () => context.router.push(ClothsDetailsRoute(productId: product.id)),
+      child: Container(
+        width: 170.w,
+        decoration: BoxDecoration(
+          color: PPaymobileColors.mainScreenBackground,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: PPaymobileColors.deepBackgroundColor, width: 1.w),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(8).r),
+              child: Container(
+                height: 130.h,
+                width: double.infinity,
+                color: PPaymobileColors.deepBackgroundColor,
+                child: Center(
+                  child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 40.w),
                 ),
               ),
             ),
-            14.verticalSpace,
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: EdgeInsets.all(8).r,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProductCard(
-                    imagePath: 'assets/images/more_1.png',
-                    title: "Man's Wear",
-                    rating: "4.5",
+                  Text(
+                    product.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 12.sp, fontWeight: FontWeight.w500),
                   ),
-                  ProductCard(
-                    imagePath: 'assets/images/more_2.png',
-                    title: "Necklace",
-                    rating: "4.5",
-                  ),
-                ],
-              ),
-            ),
-            14.verticalSpace,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ProductCard(
-                    imagePath: 'assets/images/more_3.png',
-                    title: "Man's Formal Shoe",
-                    rating: "4.5",
-                  ),
-                  ProductCard(
-                    imagePath: 'assets/images/more_4.png',
-                    title: "Relex Watch",
-                    rating: "4.5",
-                  ),
+                  4.verticalSpace,
+                  if (hasDiscount) ...[
+                    Text(
+                      '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: PPaymobileColors.textfiedBorder,
+                        fontSize: 11.sp,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                    Text(
+                      '₦${AmountFormatter.formatBalance(product.discountPrice!.toStringAsFixed(2))}',
+                      style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 13.sp, fontWeight: FontWeight.w600),
+                    ),
+                  ] else
+                    Text(
+                      '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
+                      style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 13.sp, fontWeight: FontWeight.w600),
+                    ),
                 ],
               ),
             ),

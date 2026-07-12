@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'referral_providers.dart';
+part of 'flight_search_state.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getMyReferralsHash() => r'eec30172ad2e4b12ef81a52426ba8248f358ba7f';
+String _$flightSearchStateHash() => r'065a4d62cd4dbf14fe392008f6693d3fac74e53b';
 
-/// See also [GetMyReferrals].
-@ProviderFor(GetMyReferrals)
-final getMyReferralsProvider = AutoDisposeNotifierProvider<GetMyReferrals,
-    AsyncValue<ReferralInfoEntity?>>.internal(
-  GetMyReferrals.new,
-  name: r'getMyReferralsProvider',
+/// See also [FlightSearchState].
+@ProviderFor(FlightSearchState)
+final flightSearchStateProvider =
+    AutoDisposeNotifierProvider<FlightSearchState, FlightSearchParams>.internal(
+  FlightSearchState.new,
+  name: r'flightSearchStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$getMyReferralsHash,
+      : _$flightSearchStateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$GetMyReferrals = AutoDisposeNotifier<AsyncValue<ReferralInfoEntity?>>;
+typedef _$FlightSearchState = AutoDisposeNotifier<FlightSearchParams>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

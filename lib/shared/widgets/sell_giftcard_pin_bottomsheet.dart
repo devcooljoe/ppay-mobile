@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ppay_mobile/module/giftcard/presentation/pages/sell_gift_card_success_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
@@ -44,13 +43,7 @@ class SellGiftcardPinBottomsheet extends HookConsumerWidget {
       if (realPin.value.length == 4) {
         Future.delayed(const Duration(milliseconds: 200), () {
           if (!context.mounted) return;
-
           Navigator.pop(context);
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const SellGiftCardSuccessPage()),
-          );
         });
       }
     }

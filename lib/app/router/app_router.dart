@@ -58,7 +58,6 @@ class AppRouter extends $AppRouter {
     // Bills
     AutoRoute(page: BillsRoute.page),
     AutoRoute(page: AirtimeRoute.page),
-    AutoRoute(page: AirtimeExampleRoute.page),
     AutoRoute(page: AirtimeConfirmRoute.page),
     AutoRoute(page: AirtimeReceiptRoute.page),
     AutoRoute(page: AirtimeSuccessRoute.page),

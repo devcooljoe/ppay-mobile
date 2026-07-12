@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:ppay_mobile/module/crypto/presentation/pages/sell_crypto_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
@@ -17,143 +16,53 @@ class CryptoSellSucessfulPage extends HookConsumerWidget {
       backgroundColor: PPaymobileColors.mainScreenBackground,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  122.verticalSpace,
-                  SizedBox(
-                    height: 120.w,
-                    width: 120.w,
-                    child: Image.asset(
-                      'assets/images/big_check.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  25.verticalSpace,
-                  Text(
-                    'Transaction Sucessful',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  4.verticalSpace,
-                  Text(
-                    'You successfully sold 0.000013 worth of BTC',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.svgIconColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  10.verticalSpace,
-                  SizedBox(
-                    height: 120.w,
-                    width: 120.w,
-                    child: Image.asset(
-                      'assets/images/big_fail.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  25.verticalSpace,
-                  Text(
-                    'Transfer Failed',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  4.verticalSpace,
-                  Text(
-                    'Your sale of 0.000023BTC was not successful. Please try again',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.svgIconColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  10.verticalSpace,
-                  SizedBox(
-                    height: 120.w,
-                    width: 120.w,
-                    child: Image.asset(
-                      'assets/images/big_pending.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  25.verticalSpace,
-                  Text(
-                    'Transfer Pending',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  4.verticalSpace,
-                  Text(
-                    'Your Purchase of 0.000023BTC is being processed.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.svgIconColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  200.verticalSpace,
-                  Text(
-                    '₦150,000.00 has been deducted to your main wallet',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.svgIconColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  14.verticalSpace,
-                  PPButton(
-                    text: 'Make another Trade',
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SellCryptoPage(),
-                      ),
-                    ),
-                  ),
-                  8.verticalSpace,
-                  PPButton(
-                    text: 'View Asset',
-                    onPressed: () => context.router.pushAndPopUntil(
-                      HomeRoute(),
-                      predicate: (route) => false,
-                    ),
-                  ),
-                  8.verticalSpace,
-                  PPButton(
-                    text: 'Try Again',
-                    onPressed: () {},
-                  ),
-                  12.verticalSpace,
-                  PPButton(
-                    text: 'View Receipt',
-                    onPressed: () => context.router.push(CryptoSellReceiptRoute()),
-                  ),
-                ],
+              const Spacer(),
+              SizedBox(
+                height: 120.w,
+                width: 120.w,
+                child: Image.asset('assets/images/big_check.png', fit: BoxFit.contain),
               ),
+              25.verticalSpace,
+              Text(
+                'Sale Successful',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              8.verticalSpace,
+              Text(
+                'Your crypto has been sold and the naira equivalent has been credited to your wallet.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.svgIconColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const Spacer(),
+              PPButton(
+                text: 'Make another Trade',
+                onPressed: () => context.router.replace(SellCryptoRoute()),
+              ),
+              8.verticalSpace,
+              PPButton(
+                text: 'View Transaction History',
+                onPressed: () => context.router.replace(CryptoTransactionsHistoryRoute()),
+              ),
+              8.verticalSpace,
+              PPButton(
+                text: 'Back to Home',
+                onPressed: () => context.router.replace(HomeRoute()),
+              ),
+              20.verticalSpace,
             ],
           ),
         ),

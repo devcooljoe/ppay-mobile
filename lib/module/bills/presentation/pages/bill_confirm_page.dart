@@ -75,6 +75,8 @@ class BillConfirmPage extends HookConsumerWidget {
       // Refresh wallet balance after successful purchase
       ref.read(walletProvider.notifier).fetch();
 
+      final purchase = ref.read(purchaseBillProvider).value;
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -82,6 +84,10 @@ class BillConfirmPage extends HookConsumerWidget {
             billType: args.billType,
             amount: formattedAmount,
             biller: args.biller,
+            args: args,
+            reference: purchase?.reference ?? '',
+            fee: fee,
+            purchasedAt: DateTime.now(),
           ),
         ),
       );

@@ -229,7 +229,9 @@ class _$PurchaseBillRequestCopyWithImpl<$Res, $Val extends PurchaseBillRequest>
     implements $PurchaseBillRequestCopyWith<$Res> {
   _$PurchaseBillRequestCopyWithImpl(this._value, this._then);
 
+  // ignore: unused_field
   final $Val _value;
+  // ignore: unused_field
   final $Res Function($Val) _then;
 
   @pragma('vm:prefer-inline')
@@ -248,17 +250,50 @@ class _$PurchaseBillRequestCopyWithImpl<$Res, $Val extends PurchaseBillRequest>
     Object? logoUrl = freezed,
   }) {
     return _then(_value.copyWith(
-      billItemIdentifier: null == billItemIdentifier ? _value.billItemIdentifier : billItemIdentifier as String,
-      customerIdentifier: null == customerIdentifier ? _value.customerIdentifier : customerIdentifier as String,
-      phoneNumber: null == phoneNumber ? _value.phoneNumber : phoneNumber as String,
-      amount: null == amount ? _value.amount : amount as double,
-      customerFirstName: null == customerFirstName ? _value.customerFirstName : customerFirstName as String,
-      billerName: null == billerName ? _value.billerName : billerName as String,
-      billerCategory: null == billerCategory ? _value.billerCategory : billerCategory as String,
-      meterNumber: freezed == meterNumber ? _value.meterNumber : meterNumber as String?,
-      plan: freezed == plan ? _value.plan : plan as String?,
-      provider: freezed == provider ? _value.provider : provider as String?,
-      logoUrl: freezed == logoUrl ? _value.logoUrl : logoUrl as String?,
+      billItemIdentifier: null == billItemIdentifier
+          ? _value.billItemIdentifier
+          : billItemIdentifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerIdentifier: null == customerIdentifier
+          ? _value.customerIdentifier
+          : customerIdentifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double,
+      customerFirstName: null == customerFirstName
+          ? _value.customerFirstName
+          : customerFirstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      billerName: null == billerName
+          ? _value.billerName
+          : billerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      billerCategory: null == billerCategory
+          ? _value.billerCategory
+          : billerCategory // ignore: cast_nullable_to_non_nullable
+              as String,
+      meterNumber: freezed == meterNumber
+          ? _value.meterNumber
+          : meterNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      plan: freezed == plan
+          ? _value.plan
+          : plan // ignore: cast_nullable_to_non_nullable
+              as String?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as String?,
+      logoUrl: freezed == logoUrl
+          ? _value.logoUrl
+          : logoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -309,17 +344,50 @@ class __$$PurchaseBillRequestImplCopyWithImpl<$Res>
     Object? logoUrl = freezed,
   }) {
     return _then(_$PurchaseBillRequestImpl(
-      billItemIdentifier: null == billItemIdentifier ? _value.billItemIdentifier : billItemIdentifier as String,
-      customerIdentifier: null == customerIdentifier ? _value.customerIdentifier : customerIdentifier as String,
-      phoneNumber: null == phoneNumber ? _value.phoneNumber : phoneNumber as String,
-      amount: null == amount ? _value.amount : amount as double,
-      customerFirstName: null == customerFirstName ? _value.customerFirstName : customerFirstName as String,
-      billerName: null == billerName ? _value.billerName : billerName as String,
-      billerCategory: null == billerCategory ? _value.billerCategory : billerCategory as String,
-      meterNumber: freezed == meterNumber ? _value.meterNumber : meterNumber as String?,
-      plan: freezed == plan ? _value.plan : plan as String?,
-      provider: freezed == provider ? _value.provider : provider as String?,
-      logoUrl: freezed == logoUrl ? _value.logoUrl : logoUrl as String?,
+      billItemIdentifier: null == billItemIdentifier
+          ? _value.billItemIdentifier
+          : billItemIdentifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerIdentifier: null == customerIdentifier
+          ? _value.customerIdentifier
+          : customerIdentifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double,
+      customerFirstName: null == customerFirstName
+          ? _value.customerFirstName
+          : customerFirstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      billerName: null == billerName
+          ? _value.billerName
+          : billerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      billerCategory: null == billerCategory
+          ? _value.billerCategory
+          : billerCategory // ignore: cast_nullable_to_non_nullable
+              as String,
+      meterNumber: freezed == meterNumber
+          ? _value.meterNumber
+          : meterNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      plan: freezed == plan
+          ? _value.plan
+          : plan // ignore: cast_nullable_to_non_nullable
+              as String?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as String?,
+      logoUrl: freezed == logoUrl
+          ? _value.logoUrl
+          : logoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -368,7 +436,7 @@ class _$PurchaseBillRequestImpl implements _PurchaseBillRequest {
 
   @override
   String toString() {
-    return 'PurchaseBillRequest(billItemIdentifier: $billItemIdentifier, customerIdentifier: $customerIdentifier, phoneNumber: $phoneNumber, amount: $amount, customerFirstName: $customerFirstName, billerName: $billerName, billerCategory: $billerCategory)';
+    return 'PurchaseBillRequest(billItemIdentifier: $billItemIdentifier, customerIdentifier: $customerIdentifier, phoneNumber: $phoneNumber, amount: $amount, customerFirstName: $customerFirstName, billerName: $billerName, billerCategory: $billerCategory, meterNumber: $meterNumber, plan: $plan, provider: $provider, logoUrl: $logoUrl)';
   }
 
   @override
@@ -376,19 +444,42 @@ class _$PurchaseBillRequestImpl implements _PurchaseBillRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PurchaseBillRequestImpl &&
-            other.billItemIdentifier == billItemIdentifier &&
-            other.customerIdentifier == customerIdentifier &&
-            other.phoneNumber == phoneNumber &&
-            other.amount == amount &&
-            other.customerFirstName == customerFirstName &&
-            other.billerName == billerName &&
-            other.billerCategory == billerCategory);
+            (identical(other.billItemIdentifier, billItemIdentifier) ||
+                other.billItemIdentifier == billItemIdentifier) &&
+            (identical(other.customerIdentifier, customerIdentifier) ||
+                other.customerIdentifier == customerIdentifier) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.customerFirstName, customerFirstName) ||
+                other.customerFirstName == customerFirstName) &&
+            (identical(other.billerName, billerName) ||
+                other.billerName == billerName) &&
+            (identical(other.billerCategory, billerCategory) ||
+                other.billerCategory == billerCategory) &&
+            (identical(other.meterNumber, meterNumber) ||
+                other.meterNumber == meterNumber) &&
+            (identical(other.plan, plan) || other.plan == plan) &&
+            (identical(other.provider, provider) ||
+                other.provider == provider) &&
+            (identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, billItemIdentifier,
-      customerIdentifier, phoneNumber, amount, customerFirstName, billerName, billerCategory);
+  int get hashCode => Object.hash(
+      runtimeType,
+      billItemIdentifier,
+      customerIdentifier,
+      phoneNumber,
+      amount,
+      customerFirstName,
+      billerName,
+      billerCategory,
+      meterNumber,
+      plan,
+      provider,
+      logoUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -399,7 +490,9 @@ class _$PurchaseBillRequestImpl implements _PurchaseBillRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PurchaseBillRequestImplToJson(this);
+    return _$$PurchaseBillRequestImplToJson(
+      this,
+    );
   }
 }
 

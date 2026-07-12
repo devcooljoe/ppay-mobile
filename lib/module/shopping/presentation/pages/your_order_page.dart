@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart';
+import 'package:ppay_mobile/module/shopping/presentation/providers/shopping_providers.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/empty_state.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
 class YourOrderPage extends HookConsumerWidget {
@@ -13,6 +19,20 @@ class YourOrderPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final selectedFilter = useState('All');
+    final ordersState = ref.watch(getOrdersProvider);
+
+    useEffect(() {
+      Future.microtask(() => ref.read(getOrdersProvider.notifier).call());
+      return null;
+    }, []);
+
+    final filters = ['All', 'Pending', 'Processing', 'Delivered', 'Cancelled'];
+    final orders = ordersState.value ?? [];
+    final filtered = selectedFilter.value == 'All'
+        ? orders
+        : orders.where((o) => o.status.toLowerCase() == selectedFilter.value.toLowerCase()).toList();
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -20,304 +40,169 @@ class YourOrderPage extends HookConsumerWidget {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         centerTitle: true,
-        title: Text(
-          'Your Order',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        title: Text('Your Orders', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w500)),
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
           child: TouchOpacity(
             onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
+            child: SizedBox(height: 24.w, width: 24.w, child: SvgPicture.asset('assets/icon/arrow_back.svg', fit: BoxFit.scaleDown)),
           ),
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: ListView(
-            children: [
-              39.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 38.h,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 25.w,
-                      vertical: 7.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(49.r),
-                      color: PPaymobileColors.tabColor,
-                    ),
-                    child: Center(
+        child: Column(
+          children: [
+            39.verticalSpace,
+            SizedBox(
+              height: 38.h,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                itemCount: filters.length,
+                separatorBuilder: (_, __) => 12.horizontalSpace,
+                itemBuilder: (context, index) {
+                  final filter = filters[index];
+                  final isSelected = selectedFilter.value == filter;
+                  return GestureDetector(
+                    onTap: () => selectedFilter.value = filter,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 7.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(49.r),
+                        color: isSelected ? PPaymobileColors.tabColor : PPaymobileColors.mainScreenBackground,
+                        border: isSelected ? null : Border.all(color: PPaymobileColors.textfiedBorder, width: 1.w),
+                      ),
                       child: Text(
-                        'All orders',
+                        filter,
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.mainScreenBackground,
+                          color: isSelected ? PPaymobileColors.mainScreenBackground : Colors.black,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    height: 38.h,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 25.w,
-                      vertical: 7.h,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: PPaymobileColors.textfiedBorder,
-                        width: 1.w,
-                      ),
-                      borderRadius: BorderRadius.circular(49.r),
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Delivered',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 38.h,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 25.w,
-                      vertical: 7.h,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: PPaymobileColors.textfiedBorder,
-                        width: 1.w,
-                      ),
-                      borderRadius: BorderRadius.circular(49.r),
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Active',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
-              54.verticalSpace,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 122.h,
-                    width: 176.w,
-                    child: Image.asset(
-                      'assets/images/cloths_6.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 122.h,
-                    width: 212.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Female Black Gown',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16.sp,
-                                color: Colors.black,
+            ),
+            24.verticalSpace,
+            Expanded(
+              child: ordersState.isLoading
+                  ? ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      itemCount: 3,
+                      itemBuilder: (_, __) => Padding(
+                        padding: EdgeInsets.only(bottom: 20.h),
+                        child: SkeletonLoader(width: double.infinity, height: 100.h, borderRadius: BorderRadius.circular(8.r)),
+                      ),
+                    )
+                  : ordersState.hasError
+                      ? Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('Failed to load orders', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp)),
+                              16.verticalSpace,
+                              TextButton(onPressed: () => ref.read(getOrdersProvider.notifier).call(), child: const Text('Retry')),
+                            ],
+                          ),
+                        )
+                      : filtered.isEmpty
+                          ? EmptyState(imagePath: 'assets/images/transactionimage.png', message: 'No orders found')
+                          : RefreshIndicator(
+                              onRefresh: () async => ref.read(getOrdersProvider.notifier).call(),
+                              color: PPaymobileColors.backgroundColor,
+                              child: ListView.separated(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                itemCount: filtered.length,
+                                separatorBuilder: (_, __) => 16.verticalSpace,
+                                itemBuilder: (context, index) => _OrderCard(order: filtered[index]),
                               ),
                             ),
-                            Text(
-                              'Cloths',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.sp,
-                                color: PPaymobileColors.svgIconColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '₦56,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                            42.horizontalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                context.router.push(TrackOrderRoute());
-                              },
-                              child: Container(
-                                height: 35.h,
-                                width: 67.w,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8.w,
-                                  vertical: 8.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4).r,
-                                  color: PPaymobileColors.buttonColorandText,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Review',
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: Colors.white,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              40.verticalSpace,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 122.h,
-                    width: 176.w,
-                    child: Image.asset(
-                      'assets/images/cloths_7.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 122.h,
-                    width: 212.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Female Black Gown',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Text(
-                              'Cloths',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.sp,
-                                color: PPaymobileColors.svgIconColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '₦56,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.sp,
-                                color: Colors.black,
-                              ),
-                            ),
-                            42.horizontalSpace,
-                            Container(
-                              height: 35.h,
-                              width: 67.w,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.w,
-                                vertical: 8.h,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4).r,
-                                color: PPaymobileColors.buttonColorandText,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Review',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: Colors.white,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
+  }
+}
+
+class _OrderCard extends StatelessWidget {
+  final OrderEntity order;
+  const _OrderCard({required this.order});
+
+  @override
+  Widget build(BuildContext context) {
+    final statusColor = _statusColor(order.status);
+    return Container(
+      padding: EdgeInsets.all(16).r,
+      decoration: BoxDecoration(
+        color: PPaymobileColors.mainScreenBackground,
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: PPaymobileColors.deepBackgroundColor, width: 1.w),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Order #${order.orderNumber}',
+                style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w600),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  color: statusColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Text(
+                  order.status,
+                  style: TextStyle(fontFamily: 'InstrumentSans', color: statusColor, fontSize: 11.sp, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          ),
+          8.verticalSpace,
+          if (order.items != null && order.items!.isNotEmpty)
+            Text(
+              '${order.items!.length} item${order.items!.length > 1 ? 's' : ''}',
+              style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp),
+            ),
+          8.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '₦${AmountFormatter.formatBalance(order.total.toStringAsFixed(2))}',
+                style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w600),
+              ),
+              GestureDetector(
+                onTap: () => context.router.push(TrackOrderRoute()),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.r),
+                    color: PPaymobileColors.buttonColorandText,
+                  ),
+                  child: Text('Track', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600)),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Color _statusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'delivered': return PPaymobileColors.buttonColor;
+      case 'cancelled': return PPaymobileColors.redTextfield;
+      case 'pending': return const Color(0xFF856404);
+      default: return PPaymobileColors.svgIconColor;
+    }
   }
 }

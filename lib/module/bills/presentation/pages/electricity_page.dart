@@ -9,7 +9,6 @@ import 'package:ppay_mobile/module/bills/domain/entities/bill_entity.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
 import 'package:ppay_mobile/module/bills/presentation/pages/bill_confirm_page.dart';
 import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
-import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 class ProductDetailBottomsheet extends HookConsumerWidget {
-  const ProductDetailBottomsheet({super.key});
+  final ProductEntity product;
+
+  const ProductDetailBottomsheet({super.key, required this.product});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,11 +48,10 @@ class ProductDetailBottomsheet extends HookConsumerWidget {
                 color: PPaymobileColors.mainScreenBackground,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
                   Text(
-                    'Product description',
+                    'Product Description',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
@@ -59,7 +61,7 @@ class ProductDetailBottomsheet extends HookConsumerWidget {
                   ),
                   12.verticalSpace,
                   Text(
-                    'A must-have wardrobe essential, this Black Plain T-Shirt offers a perfect blend of comfort, durability, and style. Made from soft, breathable cotton, it’s ideal for everyday wear, layering, or casual outings. Designed for a relaxed yet modern fit, it pairs effortlessly with jeans, joggers, or shorts.',
+                    product.description,
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
@@ -67,29 +69,44 @@ class ProductDetailBottomsheet extends HookConsumerWidget {
                       color: Colors.black,
                     ),
                   ),
+                  if (product.variants.isNotEmpty) ...[
+                    40.verticalSpace,
+                    Text(
+                      'Specifications',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                    12.verticalSpace,
+                    ...product.variants.first.attributes.entries.map((entry) => Padding(
+                      padding: EdgeInsets.only(bottom: 12.h),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 11.w,
+                            width: 11.w,
+                            child: Image.asset('assets/images/rectangle.png', fit: BoxFit.contain),
+                          ),
+                          12.horizontalSpace,
+                          Text(
+                            '${entry.key}: ${entry.value}',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.sp,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                  ],
                   40.verticalSpace,
                   Text(
-                    'Warranty',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                  16.verticalSpace,
-                  Text(
-                    'Up to 2 years product warranty coverage',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                  40.verticalSpace,
-                  Text(
-                    'Specifications',
+                    'Stock',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w600,
@@ -98,157 +115,18 @@ class ProductDetailBottomsheet extends HookConsumerWidget {
                     ),
                   ),
                   12.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 11.w,
-                        width: 11.w,
-                        child: Image.asset(
-                          'assets/images/rectangle.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      12.horizontalSpace,
-                      Text(
-                        'Material: 100% Cotton (soft & breathable)',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    product.inStock
+                        ? '${product.stockQuantity} units available'
+                        : 'Out of stock',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.sp,
+                      color: product.inStock ? Colors.black : PPaymobileColors.redTextfield,
+                    ),
                   ),
-                  16.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 11.w,
-                        width: 11.w,
-                        child: Image.asset(
-                          'assets/images/rectangle.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      12.horizontalSpace,
-                      Text(
-                        'Color: Black',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  16.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 11.w,
-                        width: 11.w,
-                        child: Image.asset(
-                          'assets/images/rectangle.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      12.horizontalSpace,
-                      Text(
-                        'Fit: Regular / Slim Fit (Select your preference)',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  16.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 11.w,
-                        width: 11.w,
-                        child: Image.asset(
-                          'assets/images/rectangle.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      12.horizontalSpace,
-                      Text(
-                        'Sleeves: Short Sleeves',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  16.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 11.w,
-                        width: 11.w,
-                        child: Image.asset(
-                          'assets/images/rectangle.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      12.horizontalSpace,
-                      Text(
-                        'Sizes: S, M, L, XL, XXL',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  16.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 11.w,
-                        width: 11.w,
-                        child: Image.asset(
-                          'assets/images/rectangle.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      12.horizontalSpace,
-                      Expanded(
-                        child: Text(
-                          "Care Instructions: Machine wash cold, tumble dry low",
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  20.verticalSpace,
                 ],
               ),
             ),

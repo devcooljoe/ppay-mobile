@@ -1,14 +1,18 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:ppay_mobile/shared/models/crypto_transactions_model.dart';
+import 'package:ppay_mobile/module/crypto/domain/entities/crypto_entity.dart';
+import 'package:ppay_mobile/module/crypto/presentation/providers/crypto_providers.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/crypto_action_button.dart';
-import 'package:ppay_mobile/shared/widgets/crypto_asset_card.dart';
 import 'package:ppay_mobile/shared/widgets/section_header.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
@@ -17,11 +21,24 @@ class CryptoPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final ratesState = ref.watch(getCryptoRatesProvider);
+    final assetValueState = ref.watch(getEstimatedAssetValueProvider);
+
+    useEffect(() {
+      Future.microtask(() {
+        ref.read(getCryptoRatesProvider.notifier).call();
+        ref.read(getEstimatedAssetValueProvider.notifier).call();
+      });
+      return null;
+    }, []);
+
+    final rates = ratesState.value ?? [];
+    final totalUSD = assetValueState.value?.totalValueUSD ?? '0';
+    final displayRates = rates.take(3).toList();
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(
-        title: 'Crypto',
-      ),
+      appBar: PPAppBar(title: 'Crypto'),
       body: SafeArea(
         child: ListView(
           children: [
@@ -33,9 +50,7 @@ class CryptoPage extends HookConsumerWidget {
                 top: 28.h,
               ),
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: PPaymobileColors.backgroundColor,
-              ),
+              decoration: BoxDecoration(color: PPaymobileColors.backgroundColor),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -49,39 +64,17 @@ class CryptoPage extends HookConsumerWidget {
                     ),
                   ),
                   2.verticalSpace,
-                  Text(
-                    '₦680,000.90',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.mainScreenBackground,
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  2.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 13.w,
-                        width: 13.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/colored_arrow_up.svg',
-                          fit: BoxFit.contain,
+                  assetValueState.isLoading
+                      ? SkeletonLoader(width: 180.w, height: 36.h)
+                      : Text(
+                          '\$${AmountFormatter.formatBalance(totalUSD)}',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.mainScreenBackground,
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                      3.horizontalSpace,
-                      Text(
-                        '0.09%',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.cryptoNumbersColor,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
                   24.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +103,7 @@ class CryptoPage extends HookConsumerWidget {
             ),
             24.verticalSpace,
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -120,141 +113,260 @@ class CryptoPage extends HookConsumerWidget {
                     onActionTap: () => context.router.push(AssetsRoute()),
                   ),
                   21.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CryptoAssetCard(
-                        imagePath: 'assets/images/bitcoin.png',
-                        symbol: 'BTC',
-                        name: 'Bitcoin',
-                        price: '₦3,100,000',
-                        amount: '0.000005 BTC',
-                        percentageChange: '0.09%',
-                        percentageIconPath: 'assets/icon/colored_arrow_green_up.svg',
-                        percentageColor: PPaymobileColors.doneTextColor,
-                      ),
-                      16.horizontalSpace,
-                      CryptoAssetCard(
-                        imagePath: 'assets/images/ethereum.png',
-                        symbol: 'ETH',
-                        name: 'Ethereum',
-                        price: '₦54,000.90',
-                        amount: '0.000005 ETH',
-                        percentageChange: '0.09%',
-                        percentageIconPath: 'assets/icon/colored_arrow_down.svg',
-                        percentageColor: PPaymobileColors.cryptoNumbersColor,
-                      ),
-                      16.horizontalSpace,
-                      CryptoAssetCard(
-                        imagePath: 'assets/images/solana.png',
-                        symbol: 'SOL',
-                        name: 'Solana',
-                        price: '₦65,000.20',
-                        amount: '0.000005 SOL',
-                        percentageChange: '0.09%',
-                        percentageIconPath: 'assets/icon/colored_arrow_down.svg',
-                        percentageColor: PPaymobileColors.cryptoNumbersColor,
-                      ),
-                    ],
-                  ),
+                  ratesState.isLoading
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(
+                            3,
+                            (_) => SkeletonLoader(
+                              width: 110.w,
+                              height: 120.h,
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                          ),
+                        )
+                      : displayRates.isEmpty
+                          ? const SizedBox.shrink()
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: displayRates
+                                  .map((rate) => _CryptoAssetCard(rate: rate))
+                                  .toList(),
+                            ),
                   37.verticalSpace,
                   SectionHeader(
-                    title: 'Transactions',
+                    title: 'Market Rates',
                     actionText: 'See all',
-                    onActionTap: () => context.router.push(CryptoTransactionsHistoryRoute()),
+                    onActionTap: () => context.router.push(AllTokensRoute()),
                   ),
-                  37.verticalSpace,
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (_, _) => 24.verticalSpace,
-                    itemCount: cryptoTransaction.length,
-                    itemBuilder: (context, cryptoIndex) {
-                      final crypto = cryptoTransaction[cryptoIndex];
-
-                      return SizedBox(
-                        width: double.infinity,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                  20.verticalSpace,
+                  ratesState.isLoading
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 4,
+                          itemBuilder: (_, __) => Padding(
+                            padding: EdgeInsets.only(bottom: 24.h),
+                            child: Row(
                               children: [
-                                Container(
-                                  height: 45.w,
-                                  width: 45.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.asset(
-                                    crypto.containerImage,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                5.horizontalSpace,
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      crypto.cryptoTitle,
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: Colors.black,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      crypto.cryptosubTitle,
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: Colors.black,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                SkeletonLoader(width: 45.w, height: 45.w, borderRadius: BorderRadius.circular(100.r)),
+                                12.horizontalSpace,
+                                Expanded(child: SkeletonLoader(width: double.infinity, height: 14.h)),
+                                SkeletonLoader(width: 80.w, height: 14.h),
                               ],
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  crypto.cryptoPrice,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  crypto.cryptoStatus,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: crypto.cryptoStatusColor,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
+                          ),
+                        )
+                      : ratesState.hasError
+                          ? Center(
+                              child: TextButton(
+                                onPressed: () => ref.read(getCryptoRatesProvider.notifier).call(),
+                                child: const Text('Retry'),
+                              ),
+                            )
+                          : ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (_, __) => 24.verticalSpace,
+                              itemCount: rates.length,
+                              itemBuilder: (context, index) {
+                                final rate = rates[index];
+                                return _CryptoRateRow(rate: rate);
+                              },
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _CryptoAssetCard extends StatelessWidget {
+  final CryptoRateEntity rate;
+  const _CryptoAssetCard({required this.rate});
+
+  @override
+  Widget build(BuildContext context) {
+    final change = double.tryParse(rate.percentChangePerHour) ?? 0;
+    final isPositive = change >= 0;
+    return Container(
+      width: 110.w,
+      padding: EdgeInsets.all(10).r,
+      decoration: BoxDecoration(
+        color: PPaymobileColors.deepBackgroundColor,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CachedNetworkImage(
+            imageUrl: rate.logoUrl,
+            width: 32.w,
+            height: 32.w,
+            errorWidget: (_, __, ___) => Container(
+              width: 32.w,
+              height: 32.w,
+              decoration: BoxDecoration(
+                color: PPaymobileColors.textfiedBorder,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  rate.currency.substring(0, 1).toUpperCase(),
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          6.verticalSpace,
+          Text(
+            rate.currency.toUpperCase(),
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          2.verticalSpace,
+          Text(
+            '₦${AmountFormatter.formatBalance(rate.rate)}',
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 11.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          4.verticalSpace,
+          Row(
+            children: [
+              SvgPicture.asset(
+                isPositive
+                    ? 'assets/icon/colored_arrow_green_up.svg'
+                    : 'assets/icon/colored_arrow_down.svg',
+                width: 10.w,
+                height: 10.w,
+              ),
+              3.horizontalSpace,
+              Text(
+                '${change.abs().toStringAsFixed(2)}%',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: isPositive
+                      ? PPaymobileColors.doneTextColor
+                      : PPaymobileColors.cryptoNumbersColor,
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CryptoRateRow extends StatelessWidget {
+  final CryptoRateEntity rate;
+  const _CryptoRateRow({required this.rate});
+
+  @override
+  Widget build(BuildContext context) {
+    final change = double.tryParse(rate.percentChangePerHour) ?? 0;
+    final isPositive = change >= 0;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            CachedNetworkImage(
+              imageUrl: rate.logoUrl,
+              width: 45.w,
+              height: 45.w,
+              errorWidget: (_, __, ___) => Container(
+                width: 45.w,
+                height: 45.w,
+                decoration: BoxDecoration(
+                  color: PPaymobileColors.textfiedBorder,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    rate.currency.substring(0, 1).toUpperCase(),
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            12.horizontalSpace,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  rate.name,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                4.verticalSpace,
+                Text(
+                  rate.currency.toUpperCase(),
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.svgIconColor,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              '₦${AmountFormatter.formatBalance(rate.rate)}',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            4.verticalSpace,
+            Text(
+              '${isPositive ? '+' : ''}${change.toStringAsFixed(2)}%',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: isPositive
+                    ? PPaymobileColors.doneTextColor
+                    : PPaymobileColors.cryptoNumbersColor,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

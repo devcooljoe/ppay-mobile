@@ -17,8 +17,6 @@ class KycBottomsheet extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bvnDone = (user?.isBvnVerified ?? false) || (user?.isBvnSubmitted ?? false);
-    final kycDone = (user?.isKycVerified ?? false) || (user?.isKycSubmitted ?? false);
-
     // Auto-select the first item the user still needs to action.
     // BVN is done if submitted or verified → land on KYC (index 1).
     // If neither is done → land on BVN (index 0).

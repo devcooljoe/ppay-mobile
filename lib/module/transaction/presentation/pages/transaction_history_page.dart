@@ -21,6 +21,8 @@ class TransactionHistoryPage extends HookConsumerWidget {
     final searchController = useTextEditingController();
     final searchQuery = useState('');
     final transactionState = ref.watch(getMyTransactionsProvider);
+    final isLoadingMore = useState(false);
+    final scrollController = useScrollController();
 
     useEffect(() {
       Future.microtask(() => ref.read(getMyTransactionsProvider.notifier).call());
@@ -33,6 +35,28 @@ class TransactionHistoryPage extends HookConsumerWidget {
       return () => searchController.removeListener(listener);
     }, []);
 
+    // Pagination: load more when near bottom
+    useEffect(() {
+      void onScroll() {
+        if (!scrollController.hasClients) return;
+        final maxScroll = scrollController.position.maxScrollExtent;
+        final current = scrollController.offset;
+        if (current >= maxScroll - 200 && !isLoadingMore.value) {
+          final data = transactionState.value;
+          if (data != null && data.pageNumber < data.totalPages) {
+            isLoadingMore.value = true;
+            ref
+                .read(getMyTransactionsProvider.notifier)
+                .loadMore(data.pageNumber + 1)
+                .then((_) => isLoadingMore.value = false);
+          }
+        }
+      }
+
+      scrollController.addListener(onScroll);
+      return () => scrollController.removeListener(onScroll);
+    }, [transactionState.value]);
+
     final allTransactions = transactionState.value?.transactions ?? [];
 
     final filtered = useMemoized(() {
@@ -44,6 +68,10 @@ class TransactionHistoryPage extends HookConsumerWidget {
     }, [allTransactions, searchQuery.value]);
 
     final grouped = useMemoized(() => _groupByDate(filtered), [filtered]);
+
+    Future<void> onRefresh() async {
+      await ref.read(getMyTransactionsProvider.notifier).call();
+    }
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
@@ -189,42 +217,63 @@ class TransactionHistoryPage extends HookConsumerWidget {
                                 imagePath: 'assets/images/transactionimage.png',
                                 message: 'No Transactions Found',
                               )
-                            : ListView.builder(
-                                itemCount: grouped.length,
-                                itemBuilder: (context, groupIndex) {
-                                  final group = grouped[groupIndex];
-                                  return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      24.verticalSpace,
-                                      Text(
-                                        group.label,
-                                        style: TextStyle(
-                                          fontFamily: 'InstrumentSans',
-                                          color: Colors.black,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      20.verticalSpace,
-                                      ListView.separated(
-                                        itemCount: group.transactions.length,
-                                        shrinkWrap: true,
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        separatorBuilder: (_, __) => 20.verticalSpace,
-                                        itemBuilder: (context, index) {
-                                          final tx = group.transactions[index];
-                                          return GestureDetector(
-                                            onTap: () => context.router.push(
-                                              TransactionHistoryDetailRoute(transaction: tx),
+                            : RefreshIndicator(
+                                onRefresh: onRefresh,
+                                color: PPaymobileColors.backgroundColor,
+                                child: ListView.builder(
+                                  controller: scrollController,
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  itemCount: grouped.length + (isLoadingMore.value ? 1 : 0),
+                                  itemBuilder: (context, groupIndex) {
+                                    if (groupIndex == grouped.length) {
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                                        child: Center(
+                                          child: SizedBox(
+                                            height: 24.w,
+                                            width: 24.w,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              color: PPaymobileColors.backgroundColor,
                                             ),
-                                            child: _TransactionRow(transaction: tx),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    final group = grouped[groupIndex];
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        24.verticalSpace,
+                                        Text(
+                                          group.label,
+                                          style: TextStyle(
+                                            fontFamily: 'InstrumentSans',
+                                            color: Colors.black,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        20.verticalSpace,
+                                        ListView.separated(
+                                          itemCount: group.transactions.length,
+                                          shrinkWrap: true,
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          separatorBuilder: (_, __) => 20.verticalSpace,
+                                          itemBuilder: (context, index) {
+                                            final tx = group.transactions[index];
+                                            return GestureDetector(
+                                              onTap: () => context.router.push(
+                                                TransactionHistoryDetailRoute(transaction: tx),
+                                              ),
+                                              child: _TransactionRow(transaction: tx),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
                               ),
               ),
             ],

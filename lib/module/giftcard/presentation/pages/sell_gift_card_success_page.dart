@@ -6,12 +6,22 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class SellGiftCardSuccessPage extends HookConsumerWidget {
-  const SellGiftCardSuccessPage({super.key});
+  final String cardType;
+  final double amountInUSD;
+  final double nairaEquivalent;
+
+  const SellGiftCardSuccessPage({
+    super.key,
+    required this.cardType,
+    required this.amountInUSD,
+    required this.nairaEquivalent,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +34,7 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
         leading: Padding(
           padding: EdgeInsets.only(left: 20.w),
           child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
+            onTap: () => context.router.replace(HomeRoute()),
             child: SizedBox(
               height: 24.w,
               width: 24.w,
@@ -39,9 +49,10 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: ListView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              142.verticalSpace,
+              const Spacer(),
               SizedBox(
                 height: 120.w,
                 width: 120.w,
@@ -52,7 +63,7 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
               ),
               25.verticalSpace,
               Text(
-                'Transaction Successful',
+                'Transaction Submitted',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
@@ -63,7 +74,7 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
               ),
               4.verticalSpace,
               Text(
-                'You have successfully sold a gift card. Once the status is verified is will be automatically reflected in your wallet balance',
+                'Your $cardType gift card sale has been submitted. Once verified, the naira equivalent will be credited to your wallet.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
@@ -77,7 +88,6 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
                 alignment: Alignment.center,
                 child: Container(
                   height: 30.h,
-                  width: 241.w,
                   padding: EdgeInsets.symmetric(
                     horizontal: 15.w,
                     vertical: 3.h,
@@ -98,7 +108,7 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: '₦40,000.00',
+                            text: '\$${amountInUSD.toStringAsFixed(2)} ≈ ₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
                             style: TextStyle(
                               fontFamily: 'Gilroy',
                               color: Colors.black,
@@ -131,13 +141,13 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
                     height: 24.h,
                     width: 95.w,
                     child: Image.asset(
-                      'assets/images/another_pending.png', // this is the only image the designer dropped nothing else and it is also included in the transaction pending
+                      'assets/images/another_pending.png',
                       fit: BoxFit.contain,
                     ),
                   ),
                 ],
               ),
-              98.verticalSpace,
+              const Spacer(),
               PPButton(
                 text: 'View Receipt',
                 onPressed: () => context.router.push(GiftcardSellReceiptRoute()),
@@ -145,101 +155,13 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
               24.verticalSpace,
               PPButton(
                 text: 'Go to App',
-                onPressed: () {},
+                onPressed: () => context.router.replace(HomeRoute()),
                 icon: SvgPicture.asset(
                   'assets/icon/arrow_forward_1.svg',
                   fit: BoxFit.contain,
                 ),
               ),
-              // for other cases of transaction below
-              15.verticalSpace,
-              SizedBox(
-                height: 120.w,
-                width: 120.w,
-                child: Image.asset(
-                  'assets/images/big_pending.png',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              25.verticalSpace,
-              Text(
-                'Transaction Pending', // it is Transaction Failed for failed transaction
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              4.verticalSpace,
-              Text(
-                'Your sale of amazon gift card was not successful. please try again', // for transaction failed, it is is 'Your sale of amazon gift card was not successful. please try again'
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.svgIconColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              31.verticalSpace,
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 30.h,
-                  width: 241.w,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.w,
-                    vertical: 3.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24).r,
-                    color: PPaymobileColors
-                        .warningColor, // for transaction failed it is PPaymobileColors.dangerColor,
-                  ),
-                  child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Amount Purchased: ',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors
-                              .black, // the text color is .dangerTextColor
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '₦40,000.00',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              color: Colors
-                                  .black, // the text color is .dangerTextColor
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              98.verticalSpace,
-              PPButton(
-                text: 'Try Again',
-                onPressed: () {},
-              ),
-              24.verticalSpace,
-              PPButton(
-                text: 'Go to App',
-                onPressed: () {},
-                icon: SvgPicture.asset(
-                  'assets/icon/arrow_forward_1.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
+              20.verticalSpace,
             ],
           ),
         ),

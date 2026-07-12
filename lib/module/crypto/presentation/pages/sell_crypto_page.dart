@@ -3,16 +3,21 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/crypto/domain/entities/crypto_entity.dart';
+import 'package:ppay_mobile/module/crypto/presentation/providers/crypto_providers.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/crypto_confirm_sell_bottomsheet.dart';
-import 'package:ppay_mobile/shared/widgets/crypto_sell_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
 class SellCryptoPage extends HookConsumerWidget {
@@ -20,99 +25,174 @@ class SellCryptoPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useTextEditingController();
+    final amountText = useState('');
     final showKeyboard = useState(false);
+    final selectedRate = useState<CryptoRateEntity?>(null);
+    final ratesState = ref.watch(getCryptoRatesProvider);
+    final walletState = ref.watch(getCryptoWalletProvider);
+    final sellState = ref.watch(sellCryptoProvider);
+
+    useEffect(() {
+      Future.microtask(() {
+        ref.read(getCryptoRatesProvider.notifier).call();
+      });
+      return null;
+    }, []);
+
+    useEffect(() {
+      final rates = ratesState.value;
+      if (rates != null && rates.isNotEmpty && selectedRate.value == null) {
+        selectedRate.value = rates.first;
+        ref.read(getCryptoWalletProvider.notifier).call(rates.first.currency);
+      }
+      return null;
+    }, [ratesState.value]);
 
     void onKeyTap(String value) {
-      if (value == '.' && controller.text.contains('.')) return;
-      if (value == '.' && controller.text.isEmpty) return;
-      controller.text += value;
+      if (value == '.' && amountText.value.contains('.')) return;
+      if (value == '.' && amountText.value.isEmpty) return;
+      amountText.value += value;
     }
 
     void onDelete() {
-      if (controller.text.isNotEmpty) {
-        controller.text = controller.text.substring(0, controller.text.length - 1);
+      if (amountText.value.isNotEmpty) {
+        amountText.value = amountText.value.substring(0, amountText.value.length - 1);
       }
     }
+
+    final amount = double.tryParse(amountText.value) ?? 0;
+    final rate = selectedRate.value;
+    final cryptoBalance = double.tryParse(walletState.value?.balance ?? '0') ?? 0;
+    final isInsufficient = amount > 0 && amount > cryptoBalance;
+    final nairaEquivalent = rate != null
+        ? amount * (double.tryParse(rate.sellRatePerDollar) ?? 0)
+        : 0.0;
+
+    Future<void> onSell() async {
+      if (amount <= 0) {
+        MessageHandler.showErrorSnackBar(context, 'Enter an amount');
+        return;
+      }
+      if (isInsufficient) {
+        MessageHandler.showErrorSnackBar(context, 'Insufficient crypto balance');
+        return;
+      }
+      final wallet = walletState.value;
+      if (wallet == null) {
+        MessageHandler.showErrorSnackBar(context, 'Wallet address not found');
+        return;
+      }
+
+      final confirmed = await showSecurityPinBottomsheet(context);
+      if (!confirmed) return;
+
+      await ref.read(sellCryptoProvider.notifier).call(
+        amount: amount,
+        walletAddressId: wallet.id,
+      );
+
+      if (!context.mounted) return;
+      final state = ref.read(sellCryptoProvider);
+      if (state.hasError) {
+        MessageHandler.showErrorSnackBar(context, state.error.toString());
+      } else {
+        context.router.push(CryptoSellSucessfulRoute());
+      }
+    }
+
+    void showCurrencyPicker() {
+      final rates = ratesState.value ?? [];
+      if (rates.isEmpty) return;
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (_) => _SellCurrencyPickerSheet(
+          rates: rates,
+          selected: selectedRate.value,
+          onSelect: (r) {
+            selectedRate.value = r;
+            ref.read(getCryptoWalletProvider.notifier).call(r.currency);
+          },
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(
-        title: 'Sell Crypto',
-        onBackPressed: () => Navigator.pop(context),
-      ),
+      appBar: PPAppBar(title: 'Sell Crypto', onBackPressed: () => Navigator.pop(context)),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    showKeyboard.value = false;
-                  },
+                  onTap: () => showKeyboard.value = false,
                   child: ListView(
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
                     children: [
                       37.verticalSpace,
                       Align(
                         alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 24.w,
-                              width: 24.w,
-                              child: Image.asset(
-                                'assets/images/bitcoin.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            12.horizontalSpace,
-                            RichText(
-                              text: TextSpan(
-                                text: 'Balance: ',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.svgIconColor,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: '₦689,098.00/0.000009 BTC',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: Colors.black,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                        child: GestureDetector(
+                          onTap: showCurrencyPicker,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              rate != null
+                                  ? CachedNetworkImage(
+                                      imageUrl: rate.logoUrl,
+                                      width: 24.w,
+                                      height: 24.w,
+                                      errorWidget: (_, __, ___) => Container(
+                                        width: 24.w,
+                                        height: 24.w,
+                                        decoration: BoxDecoration(
+                                          color: PPaymobileColors.textfiedBorder,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    )
+                                  : SkeletonLoader(width: 24.w, height: 24.w, borderRadius: BorderRadius.circular(100.r)),
+                              8.horizontalSpace,
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Balance: ',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: PPaymobileColors.svgIconColor,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                ],
+                                  children: [
+                                    TextSpan(
+                                      text: walletState.isLoading
+                                          ? '...'
+                                          : '${AmountFormatter.formatBalance(walletState.value?.balance ?? '0')} ${rate?.currency.toUpperCase() ?? ''}',
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        color: Colors.black,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            10.horizontalSpace,
-                            SizedBox(
-                              height: 12.h,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/arrow_down.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
+                              8.horizontalSpace,
+                              SvgPicture.asset('assets/icon/arrow_down.svg', width: 12.w, height: 12.w),
+                            ],
+                          ),
                         ),
                       ),
                       20.verticalSpace,
                       Center(
                         child: TouchOpacity(
-                          onTap: () {
-                            showKeyboard.value = true;
-                          },
+                          onTap: () => showKeyboard.value = true,
                           child: RichText(
                             text: TextSpan(
-                              text: '₦',
+                              text: '',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
                                 color: Colors.black,
@@ -121,19 +201,19 @@ class SellCryptoPage extends HookConsumerWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text: '0',
+                                  text: amountText.value.isEmpty ? '0' : amountText.value,
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
+                                    color: isInsufficient ? PPaymobileColors.redTextfield : Colors.black,
                                     fontSize: 48.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '.00',
+                                  text: ' ${rate?.currency.toUpperCase() ?? ''}',
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
+                                    color: PPaymobileColors.svgIconColor,
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -143,216 +223,49 @@ class SellCryptoPage extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      10.verticalSpace,
-                      Center(
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'Min: ',
+                      if (isInsufficient) ...[
+                        4.verticalSpace,
+                        Center(
+                          child: Text(
+                            'Insufficient crypto balance',
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
-                              color: Colors.black,
+                              color: PPaymobileColors.redTextfield,
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w500,
                             ),
-                            children: [
-                              TextSpan(
-                                text: '0.000020BTC',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      45.verticalSpace,
-                      Text(
-                        'You Sell',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      4.verticalSpace,
-                      SizedBox(
-                        height: 68.h,
-                        width: double.infinity,
-                        child: TextFormField(
-                          controller: controller,
-                          readOnly: true,
-                          showCursor: true,
-
-                          decoration: InputDecoration(
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16.0.w,
-                                vertical: 12.h,
-                              ),
-                              child: Container(
-                                height: 44.h,
-                                width: 95.w,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 12.w,
-                                  vertical: 4.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(37).r,
-                                  color: PPaymobileColors.deepBackgroundColor,
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: 36.w,
-                                      width: 36.w,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                            'assets/images/bitcoin.png',
-                                          ),
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                    11.horizontalSpace,
-                                    GestureDetector(
-                                      onTap: () async {
-                                        await showModalBottomSheet(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          builder: (_) =>
-                                              const CryptoSellBottomsheet(),
-                                        );
-                                      },
-                                      child: SizedBox(
-                                        height: 12.h,
-                                        width: 24.w,
-                                        child: SvgPicture.asset(
-                                          'assets/icon/arrow_down.svg',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            hintText: '0.0000',
-                            hintStyle: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16.sp,
+                      ],
+                      if (amount > 0 && rate != null) ...[
+                        8.verticalSpace,
+                        Center(
+                          child: Text(
+                            '≈ ₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
                               color: PPaymobileColors.svgIconColor,
-                            ),
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0.w,
-                                vertical: 20.h,
-                              ),
-                              child: SizedBox(
-                                height: 26.h,
-                                width: 36.w,
-                                child: Text(
-                                  'BTC',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1.w,
-                                color: PPaymobileColors.textfiedBorder,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1.w,
-                                color: PPaymobileColors.textfiedBorder,
-                              ),
-                              borderRadius: BorderRadius.circular(6).r,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                      ),
-                      6.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                '1 BTC',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.svgIconColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              6.horizontalSpace,
-                              SizedBox(
-                                height: 17.w,
-                                width: 17.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/swap.svg',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              6.horizontalSpace,
-                              Text(
-                                '₦13,000,000.00',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.svgIconColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
+                      ],
+                      45.verticalSpace,
+                      if (rate != null)
+                        Text(
+                          '1 ${rate.currency.toUpperCase()} ≈ ₦${AmountFormatter.formatBalance(rate.sellRatePerDollar)}',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.svgIconColor,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
                           ),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Fee: ',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.svgIconColor,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: '₦0.00',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      236.verticalSpace,
+                        ),
+                      40.verticalSpace,
                       Text(
                         textAlign: TextAlign.center,
-                        'Note: The equivalent naira amount will be deposted into your main wallet',
+                        'The equivalent naira amount will be deposited into your main wallet',
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
@@ -362,15 +275,8 @@ class SellCryptoPage extends HookConsumerWidget {
                       ),
                       12.verticalSpace,
                       PPButton(
-                        text: 'Sell',
-                        onPressed: () async {
-                          await showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (_) => const CryptoConfirmSellBottomsheet(),
-                          );
-                        },
+                        text: sellState.isLoading ? 'Processing...' : 'Sell',
+                        onPressed: sellState.isLoading ? null : onSell,
                       ),
                     ],
                   ),
@@ -382,15 +288,124 @@ class SellCryptoPage extends HookConsumerWidget {
               height: showKeyboard.value ? 424.h : 0,
               child: showKeyboard.value
                   ? KeyboardContainer(
-                      child: CustomKeyboard(
-                        onKeyTap: onKeyTap,
-                        onDelete: onDelete,
-                      ),
+                      child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
                     )
                   : null,
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _SellCurrencyPickerSheet extends StatelessWidget {
+  final List<CryptoRateEntity> rates;
+  final CryptoRateEntity? selected;
+  final ValueChanged<CryptoRateEntity> onSelect;
+
+  const _SellCurrencyPickerSheet({
+    required this.rates,
+    required this.selected,
+    required this.onSelect,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      heightFactor: 0.6,
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: Center(
+                child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+              ),
+            ),
+          ),
+          8.verticalSpace,
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+              decoration: BoxDecoration(
+                color: PPaymobileColors.mainScreenBackground,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(36).r),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Select Asset to Sell',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                  16.verticalSpace,
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: rates.length,
+                      separatorBuilder: (_, __) => Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                      itemBuilder: (context, index) {
+                        final rate = rates[index];
+                        final isSelected = selected?.id == rate.id;
+                        return ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: CachedNetworkImage(
+                            imageUrl: rate.logoUrl,
+                            width: 40.w,
+                            height: 40.w,
+                            errorWidget: (_, __, ___) => Container(
+                              width: 40.w,
+                              height: 40.w,
+                              decoration: BoxDecoration(
+                                color: PPaymobileColors.textfiedBorder,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            rate.name,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          subtitle: Text(
+                            '${rate.currency.toUpperCase()} • Balance: ${rate.value}',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: PPaymobileColors.svgIconColor,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                          trailing: isSelected
+                              ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w)
+                              : null,
+                          onTap: () {
+                            onSelect(rate);
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

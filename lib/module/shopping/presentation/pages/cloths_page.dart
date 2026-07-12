@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/shopping/presentation/providers/shopping_providers.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/cloths_filter_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/cloth_product_card.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
 class ClothsPage extends HookConsumerWidget {
@@ -15,6 +18,23 @@ class ClothsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final searchController = useTextEditingController();
+    final searchQuery = useState('');
+    final productsState = ref.watch(getProductsProvider);
+
+    useEffect(() {
+      Future.microtask(() => ref.read(getProductsProvider.notifier).call());
+      return null;
+    }, []);
+
+    useEffect(() {
+      void listener() => searchQuery.value = searchController.text;
+      searchController.addListener(listener);
+      return () => searchController.removeListener(listener);
+    }, []);
+
+    final products = productsState.value?.products ?? [];
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: AppBar(
@@ -22,7 +42,7 @@ class ClothsPage extends HookConsumerWidget {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         title: Text(
-          'Cloths',
+          'Products',
           style: TextStyle(
             fontFamily: 'InstrumentSans',
             color: Colors.black,
@@ -50,26 +70,18 @@ class ClothsPage extends HookConsumerWidget {
             child: Row(
               children: [
                 TouchOpacity(
-                  onTap: () {
-                    context.router.push(WatchlistRoute());
-                  },
+                  onTap: () => context.router.push(WatchlistRoute()),
                   child: SizedBox(
                     height: 40.w,
                     width: 40.w,
-                    child: Image.asset(
-                      'assets/images/favorite.png',
-                      fit: BoxFit.contain,
-                    ),
+                    child: Image.asset('assets/images/favorite.png', fit: BoxFit.contain),
                   ),
                 ),
                 14.horizontalSpace,
                 SizedBox(
                   height: 40.w,
                   width: 40.w,
-                  child: Image.asset(
-                    'assets/images/cart.png',
-                    fit: BoxFit.contain,
-                  ),
+                  child: Image.asset('assets/images/cart.png', fit: BoxFit.contain),
                 ),
               ],
             ),
@@ -79,43 +91,43 @@ class ClothsPage extends HookConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: ListView(
+          child: Column(
             children: [
+              16.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 50.h,
-                    width: 305.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10).r,
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: SizedBox(
-                          height: 19.w,
-                          width: 19.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/bank_search.svg',
-                            fit: BoxFit.scaleDown,
+                  Expanded(
+                    child: Container(
+                      height: 50.h,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10).r),
+                      child: TextFormField(
+                        controller: searchController,
+                        onFieldSubmitted: (_) {
+                          ref.read(getProductsProvider.notifier).call(
+                            search: searchQuery.value.isNotEmpty ? searchQuery.value : null,
+                          );
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: SizedBox(
+                            height: 19.w,
+                            width: 19.w,
+                            child: SvgPicture.asset('assets/icon/bank_search.svg', fit: BoxFit.scaleDown),
                           ),
-                        ),
-                        hintText: 'Search',
-                        hintStyle: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.textfiedBorder,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        filled: true,
-                        fillColor: PPaymobileColors.deepBackgroundColor,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 13.w,
-                          vertical: 14.h,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(10).r,
+                          hintText: 'Search',
+                          hintStyle: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.textfiedBorder,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          filled: true,
+                          fillColor: PPaymobileColors.deepBackgroundColor,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 14.h),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(10).r,
+                          ),
                         ),
                       ),
                     ),
@@ -133,16 +145,10 @@ class ClothsPage extends HookConsumerWidget {
                     child: Container(
                       height: 50.h,
                       width: 84.w,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 11.w,
-                        vertical: 10.h,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 10.h),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6.r),
-                        border: Border.all(
-                          width: 1.w,
-                          color: PPaymobileColors.filterBorderColor,
-                        ),
+                        border: Border.all(width: 1.w, color: PPaymobileColors.filterBorderColor),
                         color: PPaymobileColors.mainScreenBackground,
                       ),
                       child: Center(
@@ -152,10 +158,7 @@ class ClothsPage extends HookConsumerWidget {
                             SizedBox(
                               height: 14.w,
                               width: 14.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/filter.svg',
-                                fit: BoxFit.contain,
-                              ),
+                              child: SvgPicture.asset('assets/icon/filter.svg', fit: BoxFit.contain),
                             ),
                             6.horizontalSpace,
                             Text(
@@ -174,42 +177,117 @@ class ClothsPage extends HookConsumerWidget {
                   ),
                 ],
               ),
-              43.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ClothProductCard(
-                    imagePath: 'assets/images/cloths_1.png',
-                    title: "Man's Formal Shoe",
-                    rating: "4.5",
-                    price: "₦ 56,000.00",
-                  ),
-                  ClothProductCard(
-                    imagePath: 'assets/images/cloths_2.png',
-                    title: "Man's Formal Shoe",
-                    rating: "4.5",
-                    price: "₦ 56,000.00",
-                    onTap: () => context.router.push(ClothsDetailsRoute()),
-                  ),
-                ],
-              ),
-              27.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ClothProductCard(
-                    imagePath: 'assets/images/cloths_3.png',
-                    title: "Man's Formal Shoe",
-                    rating: "4.5",
-                    price: "₦ 56,000.00",
-                  ),
-                  ClothProductCard(
-                    imagePath: 'assets/images/cloths_4.png',
-                    title: "Man's Formal Shoe",
-                    rating: "4.5",
-                    price: "₦ 56,000.00",
-                  ),
-                ],
+              16.verticalSpace,
+              Expanded(
+                child: productsState.isLoading
+                    ? GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 14.w,
+                          mainAxisSpacing: 14.h,
+                          childAspectRatio: 0.75,
+                        ),
+                        itemCount: 6,
+                        itemBuilder: (_, __) => SkeletonLoader(
+                          width: double.infinity,
+                          height: double.infinity,
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                      )
+                    : products.isEmpty
+                        ? Center(
+                            child: Text(
+                              'No products found',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: PPaymobileColors.svgIconColor,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          )
+                        : GridView.builder(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 14.w,
+                              mainAxisSpacing: 14.h,
+                              childAspectRatio: 0.75,
+                            ),
+                            itemCount: products.length,
+                            itemBuilder: (context, index) {
+                              final product = products[index];
+                              final hasDiscount = product.discountPrice != null && product.discountPrice! < product.price;
+                              return GestureDetector(
+                                onTap: () => context.router.push(ClothsDetailsRoute(productId: product.id)),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: PPaymobileColors.mainScreenBackground,
+                                    borderRadius: BorderRadius.circular(8.r),
+                                    border: Border.all(color: PPaymobileColors.deepBackgroundColor, width: 1.w),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.vertical(top: Radius.circular(8).r),
+                                          child: Container(
+                                            width: double.infinity,
+                                            color: PPaymobileColors.deepBackgroundColor,
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.shopping_bag_outlined,
+                                                color: PPaymobileColors.svgIconColor,
+                                                size: 40.w,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(8).r,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              product.name,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
+                                                color: Colors.black,
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            4.verticalSpace,
+                                            if (hasDiscount) ...[
+                                              Text(
+                                                '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
+                                                style: TextStyle(
+                                                  fontFamily: 'InstrumentSans',
+                                                  color: PPaymobileColors.textfiedBorder,
+                                                  fontSize: 11.sp,
+                                                  decoration: TextDecoration.lineThrough,
+                                                ),
+                                              ),
+                                              Text(
+                                                '₦${AmountFormatter.formatBalance(product.discountPrice!.toStringAsFixed(2))}',
+                                                style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 13.sp, fontWeight: FontWeight.w600),
+                                              ),
+                                            ] else
+                                              Text(
+                                                '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
+                                                style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 13.sp, fontWeight: FontWeight.w600),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
               ),
             ],
           ),

@@ -8,7 +8,6 @@ part 'dollar_card_model.g.dart';
 class DollarCardModel with _$DollarCardModel {
   const factory DollarCardModel({
     required String id,
-    required String reference,
     required String name,
     required String cardNumber,
     required String maskedPan,
@@ -31,7 +30,6 @@ class DollarCardModel with _$DollarCardModel {
 
   DollarCardEntity toEntity() => DollarCardEntity(
     id: id,
-    reference: reference,
     name: name,
     cardNumber: cardNumber,
     maskedPan: maskedPan,

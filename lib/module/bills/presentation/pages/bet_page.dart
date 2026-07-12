@@ -12,12 +12,10 @@ import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_input_decoration.dart';
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_package_selector_widget.dart';
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_provider_selector_widget.dart';
-import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
-import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()

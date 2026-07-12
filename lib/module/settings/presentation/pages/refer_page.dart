@@ -55,7 +55,7 @@ class ReferPage extends HookConsumerWidget {
       );
     }
 
-    String _formatDate(String isoDate) {
+    String formatDate(String isoDate) {
       try {
         final date = DateTime.parse(isoDate);
         return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
@@ -508,7 +508,7 @@ class ReferPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  _formatDate(r.joinedAt),
+                                  formatDate(r.joinedAt),
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
                                     color: PPaymobileColors.svgIconColor,

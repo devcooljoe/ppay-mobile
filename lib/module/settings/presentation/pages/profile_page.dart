@@ -33,7 +33,7 @@ class ProfilePage extends HookConsumerWidget {
 
     final isVerified = user?.isKycVerified ?? false;
 
-    String _formatDob(String? dob) {
+    String formatDob(String? dob) {
       if (dob == null || dob.isEmpty) return 'Not set';
       try {
         final date = DateTime.parse(dob);
@@ -253,7 +253,7 @@ class ProfilePage extends HookConsumerWidget {
                   24.verticalSpace,
                   _ProfileRow(label: 'Email Address:', value: user?.emailAddress ?? '—'),
                   24.verticalSpace,
-                  _ProfileRow(label: 'Date of Birth:', value: _formatDob(user?.dob)),
+                  _ProfileRow(label: 'Date of Birth:', value: formatDob(user?.dob)),
                   24.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
