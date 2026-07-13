@@ -10,7 +10,10 @@ class UserAgentInterceptor extends Interceptor {
   String? _userAgent;
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     _userAgent ??= await _generateUserAgent();
     options.headers['user-agent'] = _userAgent;
     handler.next(options);
@@ -32,6 +35,6 @@ class UserAgentInterceptor extends Interceptor {
           'iOS ${iosInfo.systemVersion}; ${iosInfo.modelName.toUpperCase()} ${iosInfo.model.toUpperCase()}';
     }
 
-    return 'Eldaa/${packageInfo.version} ($deviceDetails)';
+    return 'PPay/${packageInfo.version} ($deviceDetails)';
   }
 }

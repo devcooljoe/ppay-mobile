@@ -32,6 +32,7 @@ class CreateOrderRequest with _$CreateOrderRequest {
     required String state,
     required String address,
     String? note,
+    String? promoCode,
     required List<OrderItemRequest> items,
   }) = _CreateOrderRequest;
 

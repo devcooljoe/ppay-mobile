@@ -134,7 +134,7 @@ class PassengerDetailsPage extends HookConsumerWidget {
         currentIndex.value++;
         _clearForm();
       } else {
-        context.router.push(const SelectSeatRoute());
+        context.router.push(const FlightPaymentRoute());
       }
     }
 

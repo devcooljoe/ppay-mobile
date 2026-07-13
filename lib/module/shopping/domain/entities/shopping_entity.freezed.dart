@@ -1162,6 +1162,167 @@ abstract class _ProductsResponseEntity implements ProductsResponseEntity {
 }
 
 /// @nodoc
+mixin _$CheckoutSummaryEntity {
+  double get deliveryFee => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
+  String? get promoCode => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CheckoutSummaryEntityCopyWith<CheckoutSummaryEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CheckoutSummaryEntityCopyWith<$Res> {
+  factory $CheckoutSummaryEntityCopyWith(CheckoutSummaryEntity value,
+          $Res Function(CheckoutSummaryEntity) then) =
+      _$CheckoutSummaryEntityCopyWithImpl<$Res, CheckoutSummaryEntity>;
+  @useResult
+  $Res call({double deliveryFee, double discount, String? promoCode});
+}
+
+/// @nodoc
+class _$CheckoutSummaryEntityCopyWithImpl<$Res,
+        $Val extends CheckoutSummaryEntity>
+    implements $CheckoutSummaryEntityCopyWith<$Res> {
+  _$CheckoutSummaryEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryFee = null,
+    Object? discount = null,
+    Object? promoCode = freezed,
+  }) {
+    return _then(_value.copyWith(
+      deliveryFee: null == deliveryFee
+          ? _value.deliveryFee
+          : deliveryFee // ignore: cast_nullable_to_non_nullable
+              as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      promoCode: freezed == promoCode
+          ? _value.promoCode
+          : promoCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CheckoutSummaryEntityImplCopyWith<$Res>
+    implements $CheckoutSummaryEntityCopyWith<$Res> {
+  factory _$$CheckoutSummaryEntityImplCopyWith(
+          _$CheckoutSummaryEntityImpl value,
+          $Res Function(_$CheckoutSummaryEntityImpl) then) =
+      __$$CheckoutSummaryEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double deliveryFee, double discount, String? promoCode});
+}
+
+/// @nodoc
+class __$$CheckoutSummaryEntityImplCopyWithImpl<$Res>
+    extends _$CheckoutSummaryEntityCopyWithImpl<$Res,
+        _$CheckoutSummaryEntityImpl>
+    implements _$$CheckoutSummaryEntityImplCopyWith<$Res> {
+  __$$CheckoutSummaryEntityImplCopyWithImpl(_$CheckoutSummaryEntityImpl _value,
+      $Res Function(_$CheckoutSummaryEntityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryFee = null,
+    Object? discount = null,
+    Object? promoCode = freezed,
+  }) {
+    return _then(_$CheckoutSummaryEntityImpl(
+      deliveryFee: null == deliveryFee
+          ? _value.deliveryFee
+          : deliveryFee // ignore: cast_nullable_to_non_nullable
+              as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      promoCode: freezed == promoCode
+          ? _value.promoCode
+          : promoCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CheckoutSummaryEntityImpl implements _CheckoutSummaryEntity {
+  const _$CheckoutSummaryEntityImpl(
+      {required this.deliveryFee, required this.discount, this.promoCode});
+
+  @override
+  final double deliveryFee;
+  @override
+  final double discount;
+  @override
+  final String? promoCode;
+
+  @override
+  String toString() {
+    return 'CheckoutSummaryEntity(deliveryFee: $deliveryFee, discount: $discount, promoCode: $promoCode)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CheckoutSummaryEntityImpl &&
+            (identical(other.deliveryFee, deliveryFee) ||
+                other.deliveryFee == deliveryFee) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
+            (identical(other.promoCode, promoCode) ||
+                other.promoCode == promoCode));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, deliveryFee, discount, promoCode);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CheckoutSummaryEntityImplCopyWith<_$CheckoutSummaryEntityImpl>
+      get copyWith => __$$CheckoutSummaryEntityImplCopyWithImpl<
+          _$CheckoutSummaryEntityImpl>(this, _$identity);
+}
+
+abstract class _CheckoutSummaryEntity implements CheckoutSummaryEntity {
+  const factory _CheckoutSummaryEntity(
+      {required final double deliveryFee,
+      required final double discount,
+      final String? promoCode}) = _$CheckoutSummaryEntityImpl;
+
+  @override
+  double get deliveryFee;
+  @override
+  double get discount;
+  @override
+  String? get promoCode;
+  @override
+  @JsonKey(ignore: true)
+  _$$CheckoutSummaryEntityImplCopyWith<_$CheckoutSummaryEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CartEntity {
   String get id => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
@@ -3127,7 +3288,7 @@ abstract class _ReviewEntity implements ReviewEntity {
 
 /// @nodoc
 mixin _$ReviewUserEntity {
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ReviewUserEntityCopyWith<ReviewUserEntity> get copyWith =>
@@ -3140,7 +3301,7 @@ abstract class $ReviewUserEntityCopyWith<$Res> {
           ReviewUserEntity value, $Res Function(ReviewUserEntity) then) =
       _$ReviewUserEntityCopyWithImpl<$Res, ReviewUserEntity>;
   @useResult
-  $Res call({String name});
+  $Res call({String? name});
 }
 
 /// @nodoc
@@ -3156,13 +3317,13 @@ class _$ReviewUserEntityCopyWithImpl<$Res, $Val extends ReviewUserEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -3175,7 +3336,7 @@ abstract class _$$ReviewUserEntityImplCopyWith<$Res>
       __$$ReviewUserEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String? name});
 }
 
 /// @nodoc
@@ -3189,13 +3350,13 @@ class __$$ReviewUserEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
   }) {
     return _then(_$ReviewUserEntityImpl(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -3203,10 +3364,10 @@ class __$$ReviewUserEntityImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ReviewUserEntityImpl implements _ReviewUserEntity {
-  const _$ReviewUserEntityImpl({required this.name});
+  const _$ReviewUserEntityImpl({this.name});
 
   @override
-  final String name;
+  final String? name;
 
   @override
   String toString() {
@@ -3233,11 +3394,11 @@ class _$ReviewUserEntityImpl implements _ReviewUserEntity {
 }
 
 abstract class _ReviewUserEntity implements ReviewUserEntity {
-  const factory _ReviewUserEntity({required final String name}) =
+  const factory _ReviewUserEntity({final String? name}) =
       _$ReviewUserEntityImpl;
 
   @override
-  String get name;
+  String? get name;
   @override
   @JsonKey(ignore: true)
   _$$ReviewUserEntityImplCopyWith<_$ReviewUserEntityImpl> get copyWith =>

@@ -72,13 +72,25 @@ class ShoppingRemoteDataSourceImpl implements ShoppingRemoteDataSource {
   }
 
   @override
-  Future<CartModel> getCart() async {
+  Future<CheckoutSummaryModel> getCheckoutSummary(double subtotal, {String? promoCode}) async {
+    final queryParams = <String, dynamic>{'subtotal': subtotal};
+    if (promoCode != null) queryParams['promoCode'] = promoCode;
+    final response = await _dio.get('$_baseUrl/shopping/checkout-summary', queryParameters: queryParams);
+    final baseResponse = BaseResponse<CheckoutSummaryModel>.fromJson(
+      response.data,
+      (data) => CheckoutSummaryModel.fromJson(data as Map<String, dynamic>),
+    );
+    return baseResponse.data!;
+  }
+
+  @override
+  Future<CartModel?> getCart() async {
     final response = await _dio.get('$_baseUrl/shopping/cart');
     final baseResponse = BaseResponse<CartModel>.fromJson(
       response.data,
       (data) => CartModel.fromJson(data as Map<String, dynamic>),
     );
-    return baseResponse.data!;
+    return baseResponse.data;
   }
 
   @override

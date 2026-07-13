@@ -9,14 +9,14 @@ class FlightModel with _$FlightModel {
   const factory FlightModel({
     required String id,
     required double amount,
-    required List<TravelerPriceModel> travelersPrice,
-    required String currency,
-    required int totalDuration,
-    required List<FlightSegmentModel> outbound,
-    required List<FlightSegmentModel> inbound,
-    required int outboundStops,
-    required int inboundStops,
-    required String source,
+    @Default([]) List<TravelerPriceModel> travelersPrice,
+    @Default('NGN') String currency,
+    @Default(0) int totalDuration,
+    @Default([]) List<FlightSegmentModel> outbound,
+    @Default([]) List<FlightSegmentModel> inbound,
+    @Default(0) int outboundStops,
+    @Default(0) int inboundStops,
+    @Default('') String source,
   }) = _FlightModel;
 
   const FlightModel._();
@@ -60,16 +60,16 @@ class FlightSegmentModel with _$FlightSegmentModel {
     required String departureTime,
     required String arrivalTime,
     required String flightNumber,
-    required String cabinType,
+    @Default('economy') String cabinType,
     required int duration,
-    required String equipmentType,
-    required String operatingAirline,
-    required String marketingAirline,
+    @Default('') String equipmentType,
+    @Default('') String operatingAirline,
+    @Default('') String marketingAirline,
     required AirlineDetailsModel airlineDetails,
     String? marriageGroup,
-    required String bookingClass,
-    required String baggage,
-    required bool overnight,
+    @Default('') String bookingClass,
+    @Default('') String baggage,
+    @Default(false) bool overnight,
     int? layover,
   }) = _FlightSegmentModel;
 
@@ -100,9 +100,9 @@ class FlightSegmentModel with _$FlightSegmentModel {
 @freezed
 class AirlineDetailsModel with _$AirlineDetailsModel {
   const factory AirlineDetailsModel({
-    required String code,
-    required String name,
-    required String logo,
+    @Default('') String code,
+    @Default('') String name,
+    @Default('') String logo,
   }) = _AirlineDetailsModel;
 
   const AirlineDetailsModel._();
@@ -117,15 +117,18 @@ class FlightConfirmationModel with _$FlightConfirmationModel {
   const factory FlightConfirmationModel({
     required String id,
     required double amount,
-    required int bookableSeats,
-    required String currency,
-    required bool documentRequired,
-    required String expiresAt,
-    required bool priceChange,
+    @Default(0) int bookableSeats,
+    @Default('NGN') String currency,
+    @Default(false) bool documentRequired,
+    String? expiresAt,
+    @Default(false) bool priceChange,
     required String bookingId,
     required String bookingReference,
-    required List<FlightSegmentModel> outbound,
-    required List<FlightSegmentModel> inbound,
+    @Default([]) List<FlightSegmentModel> outbound,
+    @Default([]) List<FlightSegmentModel> inbound,
+    @Default(0) int outboundStops,
+    @Default(0) int inboundStops,
+    @Default(0) int totalDuration,
   }) = _FlightConfirmationModel;
 
   const FlightConfirmationModel._();
@@ -138,7 +141,7 @@ class FlightConfirmationModel with _$FlightConfirmationModel {
     bookableSeats: bookableSeats,
     currency: currency,
     documentRequired: documentRequired,
-    expiresAt: expiresAt,
+    expiresAt: expiresAt ?? '',
     priceChange: priceChange,
     bookingId: bookingId,
     bookingReference: bookingReference,

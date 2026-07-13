@@ -82,6 +82,21 @@ class GetCategories extends _$GetCategories {
 }
 
 @riverpod
+class GetCheckoutSummary extends _$GetCheckoutSummary {
+  @override
+  AsyncValue<CheckoutSummaryEntity?> build() => const AsyncValue.data(null);
+
+  Future<void> call(double subtotal, {String? promoCode}) async {
+    state = const AsyncValue.loading();
+    final result = await getIt<GetCheckoutSummaryUseCase>()(subtotal, promoCode: promoCode);
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (summary) => AsyncValue.data(summary),
+    );
+  }
+}
+
+@riverpod
 class GetCart extends _$GetCart {
   @override
   AsyncValue<CartEntity?> build() => const AsyncValue.data(null);
@@ -167,6 +182,7 @@ class CreateOrder extends _$CreateOrder {
     required String orderState,
     required String address,
     String? note,
+    String? promoCode,
     required List<Map<String, dynamic>> items,
   }) async {
     state = const AsyncValue.loading();
@@ -177,6 +193,7 @@ class CreateOrder extends _$CreateOrder {
       state: orderState,
       address: address,
       note: note,
+      promoCode: promoCode,
       items: items,
     );
     state = result.fold(
@@ -266,6 +283,10 @@ class GetWatchlist extends _$GetWatchlist {
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (watchlist) => AsyncValue.data(watchlist),
     );
+  }
+
+  void setData(List<WatchlistItemEntity> data) {
+    state = AsyncValue.data(data);
   }
 }
 

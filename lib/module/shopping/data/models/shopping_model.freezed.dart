@@ -14,6 +14,201 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+CheckoutSummaryModel _$CheckoutSummaryModelFromJson(Map<String, dynamic> json) {
+  return _CheckoutSummaryModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CheckoutSummaryModel {
+  @JsonKey(fromJson: _toDouble)
+  double get deliveryFee => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
+  double get discount => throw _privateConstructorUsedError;
+  String? get promoCode => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CheckoutSummaryModelCopyWith<CheckoutSummaryModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CheckoutSummaryModelCopyWith<$Res> {
+  factory $CheckoutSummaryModelCopyWith(CheckoutSummaryModel value,
+          $Res Function(CheckoutSummaryModel) then) =
+      _$CheckoutSummaryModelCopyWithImpl<$Res, CheckoutSummaryModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(fromJson: _toDouble) double deliveryFee,
+      @JsonKey(fromJson: _toDouble) double discount,
+      String? promoCode});
+}
+
+/// @nodoc
+class _$CheckoutSummaryModelCopyWithImpl<$Res,
+        $Val extends CheckoutSummaryModel>
+    implements $CheckoutSummaryModelCopyWith<$Res> {
+  _$CheckoutSummaryModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryFee = null,
+    Object? discount = null,
+    Object? promoCode = freezed,
+  }) {
+    return _then(_value.copyWith(
+      deliveryFee: null == deliveryFee
+          ? _value.deliveryFee
+          : deliveryFee // ignore: cast_nullable_to_non_nullable
+              as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      promoCode: freezed == promoCode
+          ? _value.promoCode
+          : promoCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CheckoutSummaryModelImplCopyWith<$Res>
+    implements $CheckoutSummaryModelCopyWith<$Res> {
+  factory _$$CheckoutSummaryModelImplCopyWith(_$CheckoutSummaryModelImpl value,
+          $Res Function(_$CheckoutSummaryModelImpl) then) =
+      __$$CheckoutSummaryModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(fromJson: _toDouble) double deliveryFee,
+      @JsonKey(fromJson: _toDouble) double discount,
+      String? promoCode});
+}
+
+/// @nodoc
+class __$$CheckoutSummaryModelImplCopyWithImpl<$Res>
+    extends _$CheckoutSummaryModelCopyWithImpl<$Res, _$CheckoutSummaryModelImpl>
+    implements _$$CheckoutSummaryModelImplCopyWith<$Res> {
+  __$$CheckoutSummaryModelImplCopyWithImpl(_$CheckoutSummaryModelImpl _value,
+      $Res Function(_$CheckoutSummaryModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deliveryFee = null,
+    Object? discount = null,
+    Object? promoCode = freezed,
+  }) {
+    return _then(_$CheckoutSummaryModelImpl(
+      deliveryFee: null == deliveryFee
+          ? _value.deliveryFee
+          : deliveryFee // ignore: cast_nullable_to_non_nullable
+              as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      promoCode: freezed == promoCode
+          ? _value.promoCode
+          : promoCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CheckoutSummaryModelImpl extends _CheckoutSummaryModel {
+  const _$CheckoutSummaryModelImpl(
+      {@JsonKey(fromJson: _toDouble) required this.deliveryFee,
+      @JsonKey(fromJson: _toDouble) required this.discount,
+      this.promoCode})
+      : super._();
+
+  factory _$CheckoutSummaryModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CheckoutSummaryModelImplFromJson(json);
+
+  @override
+  @JsonKey(fromJson: _toDouble)
+  final double deliveryFee;
+  @override
+  @JsonKey(fromJson: _toDouble)
+  final double discount;
+  @override
+  final String? promoCode;
+
+  @override
+  String toString() {
+    return 'CheckoutSummaryModel(deliveryFee: $deliveryFee, discount: $discount, promoCode: $promoCode)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CheckoutSummaryModelImpl &&
+            (identical(other.deliveryFee, deliveryFee) ||
+                other.deliveryFee == deliveryFee) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
+            (identical(other.promoCode, promoCode) ||
+                other.promoCode == promoCode));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, deliveryFee, discount, promoCode);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CheckoutSummaryModelImplCopyWith<_$CheckoutSummaryModelImpl>
+      get copyWith =>
+          __$$CheckoutSummaryModelImplCopyWithImpl<_$CheckoutSummaryModelImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CheckoutSummaryModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CheckoutSummaryModel extends CheckoutSummaryModel {
+  const factory _CheckoutSummaryModel(
+      {@JsonKey(fromJson: _toDouble) required final double deliveryFee,
+      @JsonKey(fromJson: _toDouble) required final double discount,
+      final String? promoCode}) = _$CheckoutSummaryModelImpl;
+  const _CheckoutSummaryModel._() : super._();
+
+  factory _CheckoutSummaryModel.fromJson(Map<String, dynamic> json) =
+      _$CheckoutSummaryModelImpl.fromJson;
+
+  @override
+  @JsonKey(fromJson: _toDouble)
+  double get deliveryFee;
+  @override
+  @JsonKey(fromJson: _toDouble)
+  double get discount;
+  @override
+  String? get promoCode;
+  @override
+  @JsonKey(ignore: true)
+  _$$CheckoutSummaryModelImplCopyWith<_$CheckoutSummaryModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 ProductImageModel _$ProductImageModelFromJson(Map<String, dynamic> json) {
   return _ProductImageModel.fromJson(json);
 }
@@ -180,10 +375,13 @@ mixin _$ProductModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
   double get price => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDoubleNullable)
   double? get discountPrice => throw _privateConstructorUsedError;
   bool get inStock => throw _privateConstructorUsedError;
   int get stockQuantity => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: [])
   List<ProductVariantModel> get variants => throw _privateConstructorUsedError;
   List<ProductImageModel>? get images => throw _privateConstructorUsedError;
 
@@ -203,11 +401,11 @@ abstract class $ProductModelCopyWith<$Res> {
       {String id,
       String name,
       String description,
-      double price,
-      double? discountPrice,
+      @JsonKey(fromJson: _toDouble) double price,
+      @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
       bool inStock,
       int stockQuantity,
-      List<ProductVariantModel> variants,
+      @JsonKey(defaultValue: []) List<ProductVariantModel> variants,
       List<ProductImageModel>? images});
 }
 
@@ -287,11 +485,11 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       {String id,
       String name,
       String description,
-      double price,
-      double? discountPrice,
+      @JsonKey(fromJson: _toDouble) double price,
+      @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
       bool inStock,
       int stockQuantity,
-      List<ProductVariantModel> variants,
+      @JsonKey(defaultValue: []) List<ProductVariantModel> variants,
       List<ProductImageModel>? images});
 }
 
@@ -364,10 +562,11 @@ class _$ProductModelImpl extends _ProductModel {
       {required this.id,
       required this.name,
       required this.description,
-      required this.price,
-      this.discountPrice,
+      @JsonKey(fromJson: _toDouble) required this.price,
+      @JsonKey(fromJson: _toDoubleNullable) this.discountPrice,
       required this.inStock,
       required this.stockQuantity,
+      @JsonKey(defaultValue: [])
       required final List<ProductVariantModel> variants,
       final List<ProductImageModel>? images})
       : _variants = variants,
@@ -384,8 +583,10 @@ class _$ProductModelImpl extends _ProductModel {
   @override
   final String description;
   @override
+  @JsonKey(fromJson: _toDouble)
   final double price;
   @override
+  @JsonKey(fromJson: _toDoubleNullable)
   final double? discountPrice;
   @override
   final bool inStock;
@@ -393,6 +594,7 @@ class _$ProductModelImpl extends _ProductModel {
   final int stockQuantity;
   final List<ProductVariantModel> _variants;
   @override
+  @JsonKey(defaultValue: [])
   List<ProductVariantModel> get variants {
     if (_variants is EqualUnmodifiableListView) return _variants;
     // ignore: implicit_dynamic_type
@@ -466,10 +668,11 @@ abstract class _ProductModel extends ProductModel {
       {required final String id,
       required final String name,
       required final String description,
-      required final double price,
-      final double? discountPrice,
+      @JsonKey(fromJson: _toDouble) required final double price,
+      @JsonKey(fromJson: _toDoubleNullable) final double? discountPrice,
       required final bool inStock,
       required final int stockQuantity,
+      @JsonKey(defaultValue: [])
       required final List<ProductVariantModel> variants,
       final List<ProductImageModel>? images}) = _$ProductModelImpl;
   const _ProductModel._() : super._();
@@ -484,14 +687,17 @@ abstract class _ProductModel extends ProductModel {
   @override
   String get description;
   @override
+  @JsonKey(fromJson: _toDouble)
   double get price;
   @override
+  @JsonKey(fromJson: _toDoubleNullable)
   double? get discountPrice;
   @override
   bool get inStock;
   @override
   int get stockQuantity;
   @override
+  @JsonKey(defaultValue: [])
   List<ProductVariantModel> get variants;
   @override
   List<ProductImageModel>? get images;
@@ -3446,7 +3652,7 @@ ReviewUserModel _$ReviewUserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ReviewUserModel {
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -3460,7 +3666,7 @@ abstract class $ReviewUserModelCopyWith<$Res> {
           ReviewUserModel value, $Res Function(ReviewUserModel) then) =
       _$ReviewUserModelCopyWithImpl<$Res, ReviewUserModel>;
   @useResult
-  $Res call({String name});
+  $Res call({String? name});
 }
 
 /// @nodoc
@@ -3476,13 +3682,13 @@ class _$ReviewUserModelCopyWithImpl<$Res, $Val extends ReviewUserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -3495,7 +3701,7 @@ abstract class _$$ReviewUserModelImplCopyWith<$Res>
       __$$ReviewUserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String? name});
 }
 
 /// @nodoc
@@ -3509,13 +3715,13 @@ class __$$ReviewUserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
   }) {
     return _then(_$ReviewUserModelImpl(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -3523,13 +3729,13 @@ class __$$ReviewUserModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ReviewUserModelImpl extends _ReviewUserModel {
-  const _$ReviewUserModelImpl({required this.name}) : super._();
+  const _$ReviewUserModelImpl({this.name}) : super._();
 
   factory _$ReviewUserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReviewUserModelImplFromJson(json);
 
   @override
-  final String name;
+  final String? name;
 
   @override
   String toString() {
@@ -3564,15 +3770,14 @@ class _$ReviewUserModelImpl extends _ReviewUserModel {
 }
 
 abstract class _ReviewUserModel extends ReviewUserModel {
-  const factory _ReviewUserModel({required final String name}) =
-      _$ReviewUserModelImpl;
+  const factory _ReviewUserModel({final String? name}) = _$ReviewUserModelImpl;
   const _ReviewUserModel._() : super._();
 
   factory _ReviewUserModel.fromJson(Map<String, dynamic> json) =
       _$ReviewUserModelImpl.fromJson;
 
   @override
-  String get name;
+  String? get name;
   @override
   @JsonKey(ignore: true)
   _$$ReviewUserModelImplCopyWith<_$ReviewUserModelImpl> get copyWith =>

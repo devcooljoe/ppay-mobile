@@ -15,7 +15,8 @@ abstract class ShoppingRepository {
   });
   Future<Either<Failure, ProductEntity>> getProductDetails(String productId);
   Future<Either<Failure, List<CategoryEntity>>> getCategories();
-  Future<Either<Failure, CartEntity>> getCart();
+  Future<Either<Failure, CartEntity?>> getCart();
+  Future<Either<Failure, CheckoutSummaryEntity>> getCheckoutSummary(double subtotal, {String? promoCode});
   Future<Either<Failure, CartEntity>> addToCart({
     required String productId,
     String? variantId,
@@ -33,6 +34,7 @@ abstract class ShoppingRepository {
     required String state,
     required String address,
     String? note,
+    String? promoCode,
     required List<Map<String, dynamic>> items,
   });
   Future<Either<Failure, List<OrderEntity>>> getOrders();

@@ -70,6 +70,24 @@ final getCategoriesProvider = AutoDisposeNotifierProvider<GetCategories,
 
 typedef _$GetCategories
     = AutoDisposeNotifier<AsyncValue<List<CategoryEntity>?>>;
+String _$getCheckoutSummaryHash() =>
+    r'2cb474ebbf08cc9aac069c3f3f1d9c97fd911f76';
+
+/// See also [GetCheckoutSummary].
+@ProviderFor(GetCheckoutSummary)
+final getCheckoutSummaryProvider = AutoDisposeNotifierProvider<
+    GetCheckoutSummary, AsyncValue<CheckoutSummaryEntity?>>.internal(
+  GetCheckoutSummary.new,
+  name: r'getCheckoutSummaryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getCheckoutSummaryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$GetCheckoutSummary
+    = AutoDisposeNotifier<AsyncValue<CheckoutSummaryEntity?>>;
 String _$getCartHash() => r'4bc85fb962ede01551a70ebcb84978023bd92ca7';
 
 /// See also [GetCart].
@@ -132,7 +150,7 @@ final removeFromCartProvider =
 );
 
 typedef _$RemoveFromCart = AutoDisposeNotifier<AsyncValue<void>>;
-String _$createOrderHash() => r'245370166479a0b26a5116834a1413e08d94b0c0';
+String _$createOrderHash() => r'4da1edfaf374a761ca50b64b63ca05d62f7ff7e9';
 
 /// See also [CreateOrder].
 @ProviderFor(CreateOrder)
@@ -210,7 +228,7 @@ final getProductReviewsProvider = AutoDisposeNotifierProvider<GetProductReviews,
 
 typedef _$GetProductReviews
     = AutoDisposeNotifier<AsyncValue<List<ReviewEntity>?>>;
-String _$getWatchlistHash() => r'a70536ef65d5e69ddf4f6a34fe9c30d6e2a8371c';
+String _$getWatchlistHash() => r'2e13dd6af06ec8a7ea6d65fb71d80b97361a0538';
 
 /// See also [GetWatchlist].
 @ProviderFor(GetWatchlist)

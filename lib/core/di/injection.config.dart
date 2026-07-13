@@ -298,6 +298,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i540.GetProductDetailsUseCase(gh<_i766.ShoppingRepository>()));
     gh.lazySingleton<_i540.GetCategoriesUseCase>(
         () => _i540.GetCategoriesUseCase(gh<_i766.ShoppingRepository>()));
+    gh.lazySingleton<_i540.GetCheckoutSummaryUseCase>(
+        () => _i540.GetCheckoutSummaryUseCase(gh<_i766.ShoppingRepository>()));
     gh.lazySingleton<_i540.GetCartUseCase>(
         () => _i540.GetCartUseCase(gh<_i766.ShoppingRepository>()));
     gh.lazySingleton<_i540.AddToCartUseCase>(

@@ -12,28 +12,34 @@ _$FlightBookingModelImpl _$$FlightBookingModelImplFromJson(
       bookingId: json['bookingId'] as String,
       bookingReference: json['bookingReference'] as String,
       status: json['status'] as String,
-      airline: json['airline'] as String,
-      airlineLogo: json['airlineLogo'] as String,
-      origin: json['origin'] as String,
-      destination: json['destination'] as String,
-      departureTime: json['departureTime'] as String,
-      arrivalTime: json['arrivalTime'] as String,
-      duration: (json['duration'] as num).toInt(),
-      cabinClass: json['cabinClass'] as String,
+      airline: json['airline'] as String?,
+      airlineLogo: json['airlineLogo'] as String?,
+      origin: json['origin'] as String?,
+      destination: json['destination'] as String?,
+      departureTime: json['departureTime'] as String?,
+      arrivalTime: json['arrivalTime'] as String?,
+      duration: (json['duration'] as num?)?.toInt(),
+      cabinClass: json['cabinClass'] as String?,
       totalAmount: json['totalAmount'] as String,
       currency: json['currency'] as String,
-      passengers: (json['passengers'] as List<dynamic>)
-          .map((e) => PassengerModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      outbound: (json['outbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      inbound: (json['inbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      tickets: (json['tickets'] as List<dynamic>)
-          .map((e) => TicketModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      passengers: (json['passengers'] as List<dynamic>?)
+              ?.map((e) => PassengerModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      outbound: (json['outbound'] as List<dynamic>?)
+              ?.map(
+                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      inbound: (json['inbound'] as List<dynamic>?)
+              ?.map(
+                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      tickets: (json['tickets'] as List<dynamic>?)
+              ?.map((e) => TicketModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       createdAt: json['createdAt'] as String,
     );
 

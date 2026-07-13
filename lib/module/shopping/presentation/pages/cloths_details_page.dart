@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
@@ -30,13 +31,18 @@ class ClothsDetailsPage extends HookConsumerWidget {
     final quantity = useState(1);
     final productState = ref.watch(getProductDetailsProvider);
     final addToCartState = ref.watch(addToCartProvider);
+    final watchlistState = ref.watch(getWatchlistProvider);
 
     useEffect(() {
-      Future.microtask(() => ref.read(getProductDetailsProvider.notifier).call(productId));
+      Future.microtask(() {
+        ref.read(getProductDetailsProvider.notifier).call(productId);
+        ref.read(getWatchlistProvider.notifier).call();
+      });
       return null;
     }, [productId]);
 
     final product = productState.value;
+    final isInWatchlist = watchlistState.value?.any((w) => w.product?.id == productId) ?? false;
 
     Future<void> onAddToCart() async {
       if (product == null) return;
@@ -64,21 +70,55 @@ class ClothsDetailsPage extends HookConsumerWidget {
       }
     }
 
-    Future<void> onAddToWatchlist() async {
+    Future<void> onToggleWatchlist() async {
       if (product == null) return;
-      await ref.read(addToWatchlistProvider.notifier).call(product.id);
-      if (!context.mounted) return;
-      final state = ref.read(addToWatchlistProvider);
-      if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, state.error.toString());
+      final currentList = watchlistState.value ?? [];
+      if (isInWatchlist) {
+        final itemId = currentList.firstWhere((w) => w.product?.id == productId).id;
+        // Optimistically remove
+        ref.read(getWatchlistProvider.notifier).setData(
+          currentList.where((w) => w.product?.id != productId).toList(),
+        );
+        await ref.read(removeFromWatchlistProvider.notifier).call(itemId);
+        if (!context.mounted) return;
+        if (ref.read(removeFromWatchlistProvider).hasError) {
+          ref.read(getWatchlistProvider.notifier).setData(currentList);
+          MessageHandler.showErrorSnackBar(context, 'Failed to remove from wishlist');
+        }
       } else {
-        MessageHandler.showSuccessSnackBar(context, 'Added to wishlist');
+        // Optimistically add
+        ref.read(getWatchlistProvider.notifier).setData([
+          ...currentList,
+          WatchlistItemEntity(
+            id: '',
+            createdAt: '',
+            product: WatchlistProductEntity(
+              id: productId,
+              name: product.name,
+              price: product.price,
+              discountPrice: product.discountPrice,
+              inStock: product.inStock,
+              images: product.images?.map((i) => ProductImageEntity(id: i.id, url: i.url)).toList(),
+            ),
+          ),
+        ]);
+        await ref.read(addToWatchlistProvider.notifier).call(product.id);
+        if (!context.mounted) return;
+        if (ref.read(addToWatchlistProvider).hasError) {
+          ref.read(getWatchlistProvider.notifier).setData(currentList);
+          MessageHandler.showErrorSnackBar(context, 'Failed to add to wishlist');
+        } else {
+          MessageHandler.showSuccessSnackBar(context, 'Added to wishlist');
+        }
       }
     }
 
     final hasDiscount = product != null &&
         product.discountPrice != null &&
         product.discountPrice! < product.price;
+    final discountPct = hasDiscount
+        ? (((product!.price - product.discountPrice!) / product.price) * 100).round()
+        : 0;
     final displayPrice = hasDiscount ? product!.discountPrice! : (product?.price ?? 0.0);
     final originalPrice = product?.price ?? 0.0;
 
@@ -118,13 +158,14 @@ class ClothsDetailsPage extends HookConsumerWidget {
             child: Row(
               children: [
                 TouchOpacity(
-                  onTap: onAddToWatchlist,
+                  onTap: onToggleWatchlist,
                   child: SizedBox(
                     height: 40.w,
                     width: 40.w,
-                    child: Image.asset(
-                      'assets/images/favorite.png',
-                      fit: BoxFit.contain,
+                    child: Icon(
+                      isInWatchlist ? Icons.favorite : Icons.favorite_border,
+                      color: isInWatchlist ? const Color(0xFFE53935) : Colors.black,
+                      size: 26.w,
                     ),
                   ),
                 ),
@@ -250,6 +291,22 @@ class ClothsDetailsPage extends HookConsumerWidget {
                                               borderRadius: BorderRadius.circular(6.5.r),
                                             ),
                                           ),
+                                        ),
+                                      ),
+                                    ),
+                                  if (hasDiscount)
+                                    Positioned(
+                                      top: 12.h,
+                                      left: 12.w,
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                                        decoration: BoxDecoration(
+                                          color: PPaymobileColors.redTextfield,
+                                          borderRadius: BorderRadius.circular(6.r),
+                                        ),
+                                        child: Text(
+                                          '-$discountPct%',
+                                          style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w700),
                                         ),
                                       ),
                                     ),

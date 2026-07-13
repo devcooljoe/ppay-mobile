@@ -7,14 +7,14 @@ class FlightEntity with _$FlightEntity {
   const factory FlightEntity({
     required String id,
     required double amount,
-    required List<TravelerPriceEntity> travelersPrice,
-    required String currency,
-    required int totalDuration,
-    required List<FlightSegmentEntity> outbound,
-    required List<FlightSegmentEntity> inbound,
-    required int outboundStops,
-    required int inboundStops,
-    required String source,
+    @Default([]) List<TravelerPriceEntity> travelersPrice,
+    @Default('NGN') String currency,
+    @Default(0) int totalDuration,
+    @Default([]) List<FlightSegmentEntity> outbound,
+    @Default([]) List<FlightSegmentEntity> inbound,
+    @Default(0) int outboundStops,
+    @Default(0) int inboundStops,
+    @Default('') String source,
   }) = _FlightEntity;
 }
 
@@ -35,16 +35,16 @@ class FlightSegmentEntity with _$FlightSegmentEntity {
     required String departureTime,
     required String arrivalTime,
     required String flightNumber,
-    required String cabinType,
+    @Default('economy') String cabinType,
     required int duration,
-    required String equipmentType,
-    required String operatingAirline,
-    required String marketingAirline,
+    @Default('') String equipmentType,
+    @Default('') String operatingAirline,
+    @Default('') String marketingAirline,
     required AirlineDetailsEntity airlineDetails,
     String? marriageGroup,
-    required String bookingClass,
-    required String baggage,
-    required bool overnight,
+    @Default('') String bookingClass,
+    @Default('') String baggage,
+    @Default(false) bool overnight,
     int? layover,
   }) = _FlightSegmentEntity;
 }
@@ -52,9 +52,9 @@ class FlightSegmentEntity with _$FlightSegmentEntity {
 @freezed
 class AirlineDetailsEntity with _$AirlineDetailsEntity {
   const factory AirlineDetailsEntity({
-    required String code,
-    required String name,
-    required String logo,
+    @Default('') String code,
+    @Default('') String name,
+    @Default('') String logo,
   }) = _AirlineDetailsEntity;
 }
 
@@ -63,15 +63,15 @@ class FlightConfirmationEntity with _$FlightConfirmationEntity {
   const factory FlightConfirmationEntity({
     required String id,
     required double amount,
-    required int bookableSeats,
-    required String currency,
-    required bool documentRequired,
-    required String expiresAt,
-    required bool priceChange,
+    @Default(0) int bookableSeats,
+    @Default('NGN') String currency,
+    @Default(false) bool documentRequired,
+    @Default('') String expiresAt,
+    @Default(false) bool priceChange,
     required String bookingId,
     required String bookingReference,
-    required List<FlightSegmentEntity> outbound,
-    required List<FlightSegmentEntity> inbound,
+    @Default([]) List<FlightSegmentEntity> outbound,
+    @Default([]) List<FlightSegmentEntity> inbound,
   }) = _FlightConfirmationEntity;
 }
 
@@ -90,20 +90,20 @@ class FlightBookingEntity with _$FlightBookingEntity {
     required String bookingId,
     required String bookingReference,
     required String status,
-    required String airline,
-    required String airlineLogo,
-    required String origin,
-    required String destination,
-    required String departureTime,
-    required String arrivalTime,
-    required int duration,
-    required String cabinClass,
+    @Default('') String airline,
+    @Default('') String airlineLogo,
+    @Default('') String origin,
+    @Default('') String destination,
+    @Default('') String departureTime,
+    @Default('') String arrivalTime,
+    @Default(0) int duration,
+    @Default('') String cabinClass,
     required String totalAmount,
     required String currency,
-    required List<PassengerEntity> passengers,
-    required List<FlightSegmentEntity> outbound,
-    required List<FlightSegmentEntity> inbound,
-    required List<TicketEntity> tickets,
+    @Default([]) List<PassengerEntity> passengers,
+    @Default([]) List<FlightSegmentEntity> outbound,
+    @Default([]) List<FlightSegmentEntity> inbound,
+    @Default([]) List<TicketEntity> tickets,
     required String createdAt,
   }) = _FlightBookingEntity;
 }

@@ -43,6 +43,7 @@ _$CreateOrderRequestImpl _$$CreateOrderRequestImplFromJson(
       state: json['state'] as String,
       address: json['address'] as String,
       note: json['note'] as String?,
+      promoCode: json['promoCode'] as String?,
       items: (json['items'] as List<dynamic>)
           .map((e) => OrderItemRequest.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -57,6 +58,7 @@ Map<String, dynamic> _$$CreateOrderRequestImplToJson(
       'state': instance.state,
       'address': instance.address,
       'note': instance.note,
+      'promoCode': instance.promoCode,
       'items': instance.items,
     };
 

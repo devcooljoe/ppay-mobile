@@ -63,6 +63,15 @@ class ProductsResponseEntity with _$ProductsResponseEntity {
 }
 
 @freezed
+class CheckoutSummaryEntity with _$CheckoutSummaryEntity {
+  const factory CheckoutSummaryEntity({
+    required double deliveryFee,
+    required double discount,
+    String? promoCode,
+  }) = _CheckoutSummaryEntity;
+}
+
+@freezed
 class CartEntity with _$CartEntity {
   const factory CartEntity({
     required String id,
@@ -164,7 +173,7 @@ class ReviewEntity with _$ReviewEntity {
 @freezed
 class ReviewUserEntity with _$ReviewUserEntity {
   const factory ReviewUserEntity({
-    required String name,
+    String? name,
   }) = _ReviewUserEntity;
 }
 

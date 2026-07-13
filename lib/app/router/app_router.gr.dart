@@ -485,9 +485,14 @@ abstract class $AppRouter extends _i166.RootStackRouter {
       );
     },
     BoardingPassRoute.name: (routeData) {
+      final args = routeData.argsAs<BoardingPassRouteArgs>(
+          orElse: () => const BoardingPassRouteArgs());
       return _i166.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i18.BoardingPassPage(),
+        child: _i18.BoardingPassPage(
+          key: args.key,
+          bookingReference: args.bookingReference,
+        ),
       );
     },
     BookedFlightsRoute.name: (routeData) {
@@ -1930,16 +1935,40 @@ class BoardingPassDetailsRoute extends _i166.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i18.BoardingPassPage]
-class BoardingPassRoute extends _i166.PageRouteInfo<void> {
-  const BoardingPassRoute({List<_i166.PageRouteInfo>? children})
-      : super(
+class BoardingPassRoute extends _i166.PageRouteInfo<BoardingPassRouteArgs> {
+  BoardingPassRoute({
+    _i167.Key? key,
+    String? bookingReference,
+    List<_i166.PageRouteInfo>? children,
+  }) : super(
           BoardingPassRoute.name,
+          args: BoardingPassRouteArgs(
+            key: key,
+            bookingReference: bookingReference,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'BoardingPassRoute';
 
-  static const _i166.PageInfo<void> page = _i166.PageInfo<void>(name);
+  static const _i166.PageInfo<BoardingPassRouteArgs> page =
+      _i166.PageInfo<BoardingPassRouteArgs>(name);
+}
+
+class BoardingPassRouteArgs {
+  const BoardingPassRouteArgs({
+    this.key,
+    this.bookingReference,
+  });
+
+  final _i167.Key? key;
+
+  final String? bookingReference;
+
+  @override
+  String toString() {
+    return 'BoardingPassRouteArgs{key: $key, bookingReference: $bookingReference}';
+  }
 }
 
 /// generated route for

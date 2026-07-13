@@ -217,6 +217,9 @@ class ClothsPage extends HookConsumerWidget {
                             itemBuilder: (context, index) {
                               final product = products[index];
                               final hasDiscount = product.discountPrice != null && product.discountPrice! < product.price;
+                              final discountPct = hasDiscount
+                                  ? (((product.price - product.discountPrice!) / product.price) * 100).round()
+                                  : 0;
                               return GestureDetector(
                                 onTap: () => context.router.push(ClothsDetailsRoute(productId: product.id)),
                                 child: Container(
@@ -231,10 +234,31 @@ class ClothsPage extends HookConsumerWidget {
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.vertical(top: Radius.circular(8).r),
-                                          child: _ProductImage(
-                                            imageUrl: product.images?.isNotEmpty == true
-                                                ? product.images!.first.url
-                                                : null,
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            children: [
+                                              _ProductImage(
+                                                imageUrl: product.images?.isNotEmpty == true
+                                                    ? product.images!.first.url
+                                                    : null,
+                                              ),
+                                              if (hasDiscount)
+                                                Positioned(
+                                                  top: 8.h,
+                                                  left: 8.w,
+                                                  child: Container(
+                                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h),
+                                                    decoration: BoxDecoration(
+                                                      color: PPaymobileColors.redTextfield,
+                                                      borderRadius: BorderRadius.circular(4.r),
+                                                    ),
+                                                    child: Text(
+                                                      '-$discountPct%',
+                                                      style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.w700),
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
                                           ),
                                         ),
                                       ),

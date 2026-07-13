@@ -35,7 +35,7 @@ class CancelFlightSuccessfulPage extends HookConsumerWidget {
                 style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
               241.verticalSpace,
-              PPButton(text: 'Book New Flight', onPressed: () => context.router.push(const FlightBookingRoute())),
+              PPButton(text: 'Book New Flight', onPressed: () => context.router.push(const FlightBookRoute())),
               18.verticalSpace,
               PPButton(text: 'View Bookings', onPressed: () => context.router.push(const BookedFlightsRoute())),
             ],

@@ -99,7 +99,7 @@ class PassengerDetailsTwoPage extends HookConsumerWidget {
         currentIndex.value++;
         _clearForm();
       } else {
-        context.router.push(const SelectOutboundSeatRoute());
+        context.router.push(const FlightTwoPaymentRoute());
       }
     }
 

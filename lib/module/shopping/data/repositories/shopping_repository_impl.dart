@@ -70,10 +70,20 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
   }
 
   @override
-  Future<Either<Failure, CartEntity>> getCart() async {
+  Future<Either<Failure, CheckoutSummaryEntity>> getCheckoutSummary(double subtotal, {String? promoCode}) async {
+    try {
+      final result = await _remoteDataSource.getCheckoutSummary(subtotal, promoCode: promoCode);
+      return Right(result.toEntity());
+    } on DioException catch (e) {
+      return Left(e.error as Failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, CartEntity?>> getCart() async {
     try {
       final result = await _remoteDataSource.getCart();
-      return Right(result.toEntity());
+      return Right(result?.toEntity());
     } on DioException catch (e) {
       return Left(e.error as Failure);
     }
@@ -129,6 +139,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
     required String state,
     required String address,
     String? note,
+    String? promoCode,
     required List<Map<String, dynamic>> items,
   }) async {
     try {
@@ -140,6 +151,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
           state: state,
           address: address,
           note: note,
+          promoCode: promoCode,
           items: items.map((e) => OrderItemRequest.fromJson(e)).toList(),
         ),
       );

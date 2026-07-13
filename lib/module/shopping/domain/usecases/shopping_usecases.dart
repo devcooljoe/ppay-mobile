@@ -50,10 +50,18 @@ class GetCategoriesUseCase {
 }
 
 @lazySingleton
+class GetCheckoutSummaryUseCase {
+  final ShoppingRepository _repository;
+  GetCheckoutSummaryUseCase(this._repository);
+  Future<Either<Failure, CheckoutSummaryEntity>> call(double subtotal, {String? promoCode}) =>
+      _repository.getCheckoutSummary(subtotal, promoCode: promoCode);
+}
+
+@lazySingleton
 class GetCartUseCase {
   final ShoppingRepository _repository;
   GetCartUseCase(this._repository);
-  Future<Either<Failure, CartEntity>> call() => _repository.getCart();
+  Future<Either<Failure, CartEntity?>> call() => _repository.getCart();
 }
 
 @lazySingleton
@@ -95,6 +103,7 @@ class CreateOrderUseCase {
     required String state,
     required String address,
     String? note,
+    String? promoCode,
     required List<Map<String, dynamic>> items,
   }) => _repository.createOrder(
     receiverName: receiverName,
@@ -103,6 +112,7 @@ class CreateOrderUseCase {
     state: state,
     address: address,
     note: note,
+    promoCode: promoCode,
     items: items,
   );
 }

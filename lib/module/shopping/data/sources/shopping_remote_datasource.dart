@@ -14,7 +14,8 @@ abstract class ShoppingRemoteDataSource {
   });
   Future<ProductModel> getProductDetails(String productId);
   Future<List<CategoryModel>> getCategories();
-  Future<CartModel> getCart();
+  Future<CheckoutSummaryModel> getCheckoutSummary(double subtotal, {String? promoCode});
+  Future<CartModel?> getCart();
   Future<CartModel> addToCart(AddToCartRequest request);
   Future<void> updateCartItem(String cartItemId, UpdateCartItemRequest request);
   Future<void> removeFromCart(String cartItemId);

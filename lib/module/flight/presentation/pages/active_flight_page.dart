@@ -162,7 +162,7 @@ class _BookingCard extends ConsumerWidget {
                                 ]),
                               ]),
                               TouchOpacity(
-                                onTap: () => context.router.push(const BoardingPassRoute()),
+                                onTap: () => context.router.push(BoardingPassRoute(bookingReference: booking.bookingReference)),
                                 child: Container(
                                   height: 27.h, width: 72.w,
                                   padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),

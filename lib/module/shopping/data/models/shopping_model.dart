@@ -8,6 +8,25 @@ double _toDouble(dynamic v) => v is num ? v.toDouble() : double.parse(v.toString
 double? _toDoubleNullable(dynamic v) => v == null ? null : _toDouble(v);
 
 @freezed
+class CheckoutSummaryModel with _$CheckoutSummaryModel {
+  const factory CheckoutSummaryModel({
+    @JsonKey(fromJson: _toDouble) required double deliveryFee,
+    @JsonKey(fromJson: _toDouble) required double discount,
+    String? promoCode,
+  }) = _CheckoutSummaryModel;
+
+  const CheckoutSummaryModel._();
+
+  factory CheckoutSummaryModel.fromJson(Map<String, dynamic> json) => _$CheckoutSummaryModelFromJson(json);
+
+  CheckoutSummaryEntity toEntity() => CheckoutSummaryEntity(
+    deliveryFee: deliveryFee,
+    discount: discount,
+    promoCode: promoCode,
+  );
+}
+
+@freezed
 class ProductImageModel with _$ProductImageModel {
   const factory ProductImageModel({
     required String id,
@@ -27,11 +46,11 @@ class ProductModel with _$ProductModel {
     required String id,
     required String name,
     required String description,
-    required double price,
-    double? discountPrice,
+    @JsonKey(fromJson: _toDouble) required double price,
+    @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
     required bool inStock,
     required int stockQuantity,
-    required List<ProductVariantModel> variants,
+    @JsonKey(defaultValue: []) required List<ProductVariantModel> variants,
     List<ProductImageModel>? images,
   }) = _ProductModel;
 
@@ -333,7 +352,7 @@ class ReviewModel with _$ReviewModel {
 @freezed
 class ReviewUserModel with _$ReviewUserModel {
   const factory ReviewUserModel({
-    required String name,
+    String? name,
   }) = _ReviewUserModel;
 
   const ReviewUserModel._();

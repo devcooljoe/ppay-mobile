@@ -6,6 +6,22 @@ part of 'shopping_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$CheckoutSummaryModelImpl _$$CheckoutSummaryModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CheckoutSummaryModelImpl(
+      deliveryFee: _toDouble(json['deliveryFee']),
+      discount: _toDouble(json['discount']),
+      promoCode: json['promoCode'] as String?,
+    );
+
+Map<String, dynamic> _$$CheckoutSummaryModelImplToJson(
+        _$CheckoutSummaryModelImpl instance) =>
+    <String, dynamic>{
+      'deliveryFee': instance.deliveryFee,
+      'discount': instance.discount,
+      'promoCode': instance.promoCode,
+    };
+
 _$ProductImageModelImpl _$$ProductImageModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ProductImageModelImpl(
@@ -25,13 +41,15 @@ _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
-      price: (json['price'] as num).toDouble(),
-      discountPrice: (json['discountPrice'] as num?)?.toDouble(),
+      price: _toDouble(json['price']),
+      discountPrice: _toDoubleNullable(json['discountPrice']),
       inStock: json['inStock'] as bool,
       stockQuantity: (json['stockQuantity'] as num).toInt(),
-      variants: (json['variants'] as List<dynamic>)
-          .map((e) => ProductVariantModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      variants: (json['variants'] as List<dynamic>?)
+              ?.map((e) =>
+                  ProductVariantModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => ProductImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -309,7 +327,7 @@ Map<String, dynamic> _$$ReviewModelImplToJson(_$ReviewModelImpl instance) =>
 _$ReviewUserModelImpl _$$ReviewUserModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ReviewUserModelImpl(
-      name: json['name'] as String,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$$ReviewUserModelImplToJson(

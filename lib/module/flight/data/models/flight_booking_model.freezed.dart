@@ -23,14 +23,14 @@ mixin _$FlightBookingModel {
   String get bookingId => throw _privateConstructorUsedError;
   String get bookingReference => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  String get airline => throw _privateConstructorUsedError;
-  String get airlineLogo => throw _privateConstructorUsedError;
-  String get origin => throw _privateConstructorUsedError;
-  String get destination => throw _privateConstructorUsedError;
-  String get departureTime => throw _privateConstructorUsedError;
-  String get arrivalTime => throw _privateConstructorUsedError;
-  int get duration => throw _privateConstructorUsedError;
-  String get cabinClass => throw _privateConstructorUsedError;
+  String? get airline => throw _privateConstructorUsedError;
+  String? get airlineLogo => throw _privateConstructorUsedError;
+  String? get origin => throw _privateConstructorUsedError;
+  String? get destination => throw _privateConstructorUsedError;
+  String? get departureTime => throw _privateConstructorUsedError;
+  String? get arrivalTime => throw _privateConstructorUsedError;
+  int? get duration => throw _privateConstructorUsedError;
+  String? get cabinClass => throw _privateConstructorUsedError;
   String get totalAmount => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   List<PassengerModel> get passengers => throw _privateConstructorUsedError;
@@ -55,14 +55,14 @@ abstract class $FlightBookingModelCopyWith<$Res> {
       {String bookingId,
       String bookingReference,
       String status,
-      String airline,
-      String airlineLogo,
-      String origin,
-      String destination,
-      String departureTime,
-      String arrivalTime,
-      int duration,
-      String cabinClass,
+      String? airline,
+      String? airlineLogo,
+      String? origin,
+      String? destination,
+      String? departureTime,
+      String? arrivalTime,
+      int? duration,
+      String? cabinClass,
       String totalAmount,
       String currency,
       List<PassengerModel> passengers,
@@ -88,14 +88,14 @@ class _$FlightBookingModelCopyWithImpl<$Res, $Val extends FlightBookingModel>
     Object? bookingId = null,
     Object? bookingReference = null,
     Object? status = null,
-    Object? airline = null,
-    Object? airlineLogo = null,
-    Object? origin = null,
-    Object? destination = null,
-    Object? departureTime = null,
-    Object? arrivalTime = null,
-    Object? duration = null,
-    Object? cabinClass = null,
+    Object? airline = freezed,
+    Object? airlineLogo = freezed,
+    Object? origin = freezed,
+    Object? destination = freezed,
+    Object? departureTime = freezed,
+    Object? arrivalTime = freezed,
+    Object? duration = freezed,
+    Object? cabinClass = freezed,
     Object? totalAmount = null,
     Object? currency = null,
     Object? passengers = null,
@@ -117,38 +117,38 @@ class _$FlightBookingModelCopyWithImpl<$Res, $Val extends FlightBookingModel>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      airline: null == airline
+      airline: freezed == airline
           ? _value.airline
           : airline // ignore: cast_nullable_to_non_nullable
-              as String,
-      airlineLogo: null == airlineLogo
+              as String?,
+      airlineLogo: freezed == airlineLogo
           ? _value.airlineLogo
           : airlineLogo // ignore: cast_nullable_to_non_nullable
-              as String,
-      origin: null == origin
+              as String?,
+      origin: freezed == origin
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
-              as String,
-      destination: null == destination
+              as String?,
+      destination: freezed == destination
           ? _value.destination
           : destination // ignore: cast_nullable_to_non_nullable
-              as String,
-      departureTime: null == departureTime
+              as String?,
+      departureTime: freezed == departureTime
           ? _value.departureTime
           : departureTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      arrivalTime: null == arrivalTime
+              as String?,
+      arrivalTime: freezed == arrivalTime
           ? _value.arrivalTime
           : arrivalTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      duration: null == duration
+              as String?,
+      duration: freezed == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
-              as int,
-      cabinClass: null == cabinClass
+              as int?,
+      cabinClass: freezed == cabinClass
           ? _value.cabinClass
           : cabinClass // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       totalAmount: null == totalAmount
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
@@ -193,14 +193,14 @@ abstract class _$$FlightBookingModelImplCopyWith<$Res>
       {String bookingId,
       String bookingReference,
       String status,
-      String airline,
-      String airlineLogo,
-      String origin,
-      String destination,
-      String departureTime,
-      String arrivalTime,
-      int duration,
-      String cabinClass,
+      String? airline,
+      String? airlineLogo,
+      String? origin,
+      String? destination,
+      String? departureTime,
+      String? arrivalTime,
+      int? duration,
+      String? cabinClass,
       String totalAmount,
       String currency,
       List<PassengerModel> passengers,
@@ -224,14 +224,14 @@ class __$$FlightBookingModelImplCopyWithImpl<$Res>
     Object? bookingId = null,
     Object? bookingReference = null,
     Object? status = null,
-    Object? airline = null,
-    Object? airlineLogo = null,
-    Object? origin = null,
-    Object? destination = null,
-    Object? departureTime = null,
-    Object? arrivalTime = null,
-    Object? duration = null,
-    Object? cabinClass = null,
+    Object? airline = freezed,
+    Object? airlineLogo = freezed,
+    Object? origin = freezed,
+    Object? destination = freezed,
+    Object? departureTime = freezed,
+    Object? arrivalTime = freezed,
+    Object? duration = freezed,
+    Object? cabinClass = freezed,
     Object? totalAmount = null,
     Object? currency = null,
     Object? passengers = null,
@@ -253,38 +253,38 @@ class __$$FlightBookingModelImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      airline: null == airline
+      airline: freezed == airline
           ? _value.airline
           : airline // ignore: cast_nullable_to_non_nullable
-              as String,
-      airlineLogo: null == airlineLogo
+              as String?,
+      airlineLogo: freezed == airlineLogo
           ? _value.airlineLogo
           : airlineLogo // ignore: cast_nullable_to_non_nullable
-              as String,
-      origin: null == origin
+              as String?,
+      origin: freezed == origin
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
-              as String,
-      destination: null == destination
+              as String?,
+      destination: freezed == destination
           ? _value.destination
           : destination // ignore: cast_nullable_to_non_nullable
-              as String,
-      departureTime: null == departureTime
+              as String?,
+      departureTime: freezed == departureTime
           ? _value.departureTime
           : departureTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      arrivalTime: null == arrivalTime
+              as String?,
+      arrivalTime: freezed == arrivalTime
           ? _value.arrivalTime
           : arrivalTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      duration: null == duration
+              as String?,
+      duration: freezed == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
-              as int,
-      cabinClass: null == cabinClass
+              as int?,
+      cabinClass: freezed == cabinClass
           ? _value.cabinClass
           : cabinClass // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       totalAmount: null == totalAmount
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
@@ -324,20 +324,20 @@ class _$FlightBookingModelImpl extends _FlightBookingModel {
       {required this.bookingId,
       required this.bookingReference,
       required this.status,
-      required this.airline,
-      required this.airlineLogo,
-      required this.origin,
-      required this.destination,
-      required this.departureTime,
-      required this.arrivalTime,
-      required this.duration,
-      required this.cabinClass,
+      this.airline,
+      this.airlineLogo,
+      this.origin,
+      this.destination,
+      this.departureTime,
+      this.arrivalTime,
+      this.duration,
+      this.cabinClass,
       required this.totalAmount,
       required this.currency,
-      required final List<PassengerModel> passengers,
-      required final List<FlightSegmentModel> outbound,
-      required final List<FlightSegmentModel> inbound,
-      required final List<TicketModel> tickets,
+      final List<PassengerModel> passengers = const [],
+      final List<FlightSegmentModel> outbound = const [],
+      final List<FlightSegmentModel> inbound = const [],
+      final List<TicketModel> tickets = const [],
       required this.createdAt})
       : _passengers = passengers,
         _outbound = outbound,
@@ -355,27 +355,28 @@ class _$FlightBookingModelImpl extends _FlightBookingModel {
   @override
   final String status;
   @override
-  final String airline;
+  final String? airline;
   @override
-  final String airlineLogo;
+  final String? airlineLogo;
   @override
-  final String origin;
+  final String? origin;
   @override
-  final String destination;
+  final String? destination;
   @override
-  final String departureTime;
+  final String? departureTime;
   @override
-  final String arrivalTime;
+  final String? arrivalTime;
   @override
-  final int duration;
+  final int? duration;
   @override
-  final String cabinClass;
+  final String? cabinClass;
   @override
   final String totalAmount;
   @override
   final String currency;
   final List<PassengerModel> _passengers;
   @override
+  @JsonKey()
   List<PassengerModel> get passengers {
     if (_passengers is EqualUnmodifiableListView) return _passengers;
     // ignore: implicit_dynamic_type
@@ -384,6 +385,7 @@ class _$FlightBookingModelImpl extends _FlightBookingModel {
 
   final List<FlightSegmentModel> _outbound;
   @override
+  @JsonKey()
   List<FlightSegmentModel> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
@@ -392,6 +394,7 @@ class _$FlightBookingModelImpl extends _FlightBookingModel {
 
   final List<FlightSegmentModel> _inbound;
   @override
+  @JsonKey()
   List<FlightSegmentModel> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
@@ -400,6 +403,7 @@ class _$FlightBookingModelImpl extends _FlightBookingModel {
 
   final List<TicketModel> _tickets;
   @override
+  @JsonKey()
   List<TicketModel> get tickets {
     if (_tickets is EqualUnmodifiableListView) return _tickets;
     // ignore: implicit_dynamic_type
@@ -494,20 +498,20 @@ abstract class _FlightBookingModel extends FlightBookingModel {
       {required final String bookingId,
       required final String bookingReference,
       required final String status,
-      required final String airline,
-      required final String airlineLogo,
-      required final String origin,
-      required final String destination,
-      required final String departureTime,
-      required final String arrivalTime,
-      required final int duration,
-      required final String cabinClass,
+      final String? airline,
+      final String? airlineLogo,
+      final String? origin,
+      final String? destination,
+      final String? departureTime,
+      final String? arrivalTime,
+      final int? duration,
+      final String? cabinClass,
       required final String totalAmount,
       required final String currency,
-      required final List<PassengerModel> passengers,
-      required final List<FlightSegmentModel> outbound,
-      required final List<FlightSegmentModel> inbound,
-      required final List<TicketModel> tickets,
+      final List<PassengerModel> passengers,
+      final List<FlightSegmentModel> outbound,
+      final List<FlightSegmentModel> inbound,
+      final List<TicketModel> tickets,
       required final String createdAt}) = _$FlightBookingModelImpl;
   const _FlightBookingModel._() : super._();
 
@@ -521,21 +525,21 @@ abstract class _FlightBookingModel extends FlightBookingModel {
   @override
   String get status;
   @override
-  String get airline;
+  String? get airline;
   @override
-  String get airlineLogo;
+  String? get airlineLogo;
   @override
-  String get origin;
+  String? get origin;
   @override
-  String get destination;
+  String? get destination;
   @override
-  String get departureTime;
+  String? get departureTime;
   @override
-  String get arrivalTime;
+  String? get arrivalTime;
   @override
-  int get duration;
+  int? get duration;
   @override
-  String get cabinClass;
+  String? get cabinClass;
   @override
   String get totalAmount;
   @override

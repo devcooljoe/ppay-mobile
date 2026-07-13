@@ -10,20 +10,26 @@ _$FlightModelImpl _$$FlightModelImplFromJson(Map<String, dynamic> json) =>
     _$FlightModelImpl(
       id: json['id'] as String,
       amount: (json['amount'] as num).toDouble(),
-      travelersPrice: (json['travelersPrice'] as List<dynamic>)
-          .map((e) => TravelerPriceModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      currency: json['currency'] as String,
-      totalDuration: (json['totalDuration'] as num).toInt(),
-      outbound: (json['outbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      inbound: (json['inbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      outboundStops: (json['outboundStops'] as num).toInt(),
-      inboundStops: (json['inboundStops'] as num).toInt(),
-      source: json['source'] as String,
+      travelersPrice: (json['travelersPrice'] as List<dynamic>?)
+              ?.map(
+                  (e) => TravelerPriceModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      currency: json['currency'] as String? ?? 'NGN',
+      totalDuration: (json['totalDuration'] as num?)?.toInt() ?? 0,
+      outbound: (json['outbound'] as List<dynamic>?)
+              ?.map(
+                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      inbound: (json['inbound'] as List<dynamic>?)
+              ?.map(
+                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      outboundStops: (json['outboundStops'] as num?)?.toInt() ?? 0,
+      inboundStops: (json['inboundStops'] as num?)?.toInt() ?? 0,
+      source: json['source'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$FlightModelImplToJson(_$FlightModelImpl instance) =>
@@ -64,17 +70,17 @@ _$FlightSegmentModelImpl _$$FlightSegmentModelImplFromJson(
       departureTime: json['departureTime'] as String,
       arrivalTime: json['arrivalTime'] as String,
       flightNumber: json['flightNumber'] as String,
-      cabinType: json['cabinType'] as String,
+      cabinType: json['cabinType'] as String? ?? 'economy',
       duration: (json['duration'] as num).toInt(),
-      equipmentType: json['equipmentType'] as String,
-      operatingAirline: json['operatingAirline'] as String,
-      marketingAirline: json['marketingAirline'] as String,
+      equipmentType: json['equipmentType'] as String? ?? '',
+      operatingAirline: json['operatingAirline'] as String? ?? '',
+      marketingAirline: json['marketingAirline'] as String? ?? '',
       airlineDetails: AirlineDetailsModel.fromJson(
           json['airlineDetails'] as Map<String, dynamic>),
       marriageGroup: json['marriageGroup'] as String?,
-      bookingClass: json['bookingClass'] as String,
-      baggage: json['baggage'] as String,
-      overnight: json['overnight'] as bool,
+      bookingClass: json['bookingClass'] as String? ?? '',
+      baggage: json['baggage'] as String? ?? '',
+      overnight: json['overnight'] as bool? ?? false,
       layover: (json['layover'] as num?)?.toInt(),
     );
 
@@ -102,9 +108,9 @@ Map<String, dynamic> _$$FlightSegmentModelImplToJson(
 _$AirlineDetailsModelImpl _$$AirlineDetailsModelImplFromJson(
         Map<String, dynamic> json) =>
     _$AirlineDetailsModelImpl(
-      code: json['code'] as String,
-      name: json['name'] as String,
-      logo: json['logo'] as String,
+      code: json['code'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      logo: json['logo'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$AirlineDetailsModelImplToJson(
@@ -120,19 +126,26 @@ _$FlightConfirmationModelImpl _$$FlightConfirmationModelImplFromJson(
     _$FlightConfirmationModelImpl(
       id: json['id'] as String,
       amount: (json['amount'] as num).toDouble(),
-      bookableSeats: (json['bookableSeats'] as num).toInt(),
-      currency: json['currency'] as String,
-      documentRequired: json['documentRequired'] as bool,
-      expiresAt: json['expiresAt'] as String,
-      priceChange: json['priceChange'] as bool,
+      bookableSeats: (json['bookableSeats'] as num?)?.toInt() ?? 0,
+      currency: json['currency'] as String? ?? 'NGN',
+      documentRequired: json['documentRequired'] as bool? ?? false,
+      expiresAt: json['expiresAt'] as String?,
+      priceChange: json['priceChange'] as bool? ?? false,
       bookingId: json['bookingId'] as String,
       bookingReference: json['bookingReference'] as String,
-      outbound: (json['outbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      inbound: (json['inbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      outbound: (json['outbound'] as List<dynamic>?)
+              ?.map(
+                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      inbound: (json['inbound'] as List<dynamic>?)
+              ?.map(
+                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      outboundStops: (json['outboundStops'] as num?)?.toInt() ?? 0,
+      inboundStops: (json['inboundStops'] as num?)?.toInt() ?? 0,
+      totalDuration: (json['totalDuration'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$FlightConfirmationModelImplToJson(
@@ -149,6 +162,9 @@ Map<String, dynamic> _$$FlightConfirmationModelImplToJson(
       'bookingReference': instance.bookingReference,
       'outbound': instance.outbound,
       'inbound': instance.inbound,
+      'outboundStops': instance.outboundStops,
+      'inboundStops': instance.inboundStops,
+      'totalDuration': instance.totalDuration,
     };
 
 _$FlightBookingResponseModelImpl _$$FlightBookingResponseModelImplFromJson(

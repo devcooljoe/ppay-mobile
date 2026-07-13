@@ -220,14 +220,14 @@ class _$FlightModelImpl extends _FlightModel {
   const _$FlightModelImpl(
       {required this.id,
       required this.amount,
-      required final List<TravelerPriceModel> travelersPrice,
-      required this.currency,
-      required this.totalDuration,
-      required final List<FlightSegmentModel> outbound,
-      required final List<FlightSegmentModel> inbound,
-      required this.outboundStops,
-      required this.inboundStops,
-      required this.source})
+      final List<TravelerPriceModel> travelersPrice = const [],
+      this.currency = 'NGN',
+      this.totalDuration = 0,
+      final List<FlightSegmentModel> outbound = const [],
+      final List<FlightSegmentModel> inbound = const [],
+      this.outboundStops = 0,
+      this.inboundStops = 0,
+      this.source = ''})
       : _travelersPrice = travelersPrice,
         _outbound = outbound,
         _inbound = inbound,
@@ -242,6 +242,7 @@ class _$FlightModelImpl extends _FlightModel {
   final double amount;
   final List<TravelerPriceModel> _travelersPrice;
   @override
+  @JsonKey()
   List<TravelerPriceModel> get travelersPrice {
     if (_travelersPrice is EqualUnmodifiableListView) return _travelersPrice;
     // ignore: implicit_dynamic_type
@@ -249,11 +250,14 @@ class _$FlightModelImpl extends _FlightModel {
   }
 
   @override
+  @JsonKey()
   final String currency;
   @override
+  @JsonKey()
   final int totalDuration;
   final List<FlightSegmentModel> _outbound;
   @override
+  @JsonKey()
   List<FlightSegmentModel> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
@@ -262,6 +266,7 @@ class _$FlightModelImpl extends _FlightModel {
 
   final List<FlightSegmentModel> _inbound;
   @override
+  @JsonKey()
   List<FlightSegmentModel> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
@@ -269,10 +274,13 @@ class _$FlightModelImpl extends _FlightModel {
   }
 
   @override
+  @JsonKey()
   final int outboundStops;
   @override
+  @JsonKey()
   final int inboundStops;
   @override
+  @JsonKey()
   final String source;
 
   @override
@@ -335,14 +343,14 @@ abstract class _FlightModel extends FlightModel {
   const factory _FlightModel(
       {required final String id,
       required final double amount,
-      required final List<TravelerPriceModel> travelersPrice,
-      required final String currency,
-      required final int totalDuration,
-      required final List<FlightSegmentModel> outbound,
-      required final List<FlightSegmentModel> inbound,
-      required final int outboundStops,
-      required final int inboundStops,
-      required final String source}) = _$FlightModelImpl;
+      final List<TravelerPriceModel> travelersPrice,
+      final String currency,
+      final int totalDuration,
+      final List<FlightSegmentModel> outbound,
+      final List<FlightSegmentModel> inbound,
+      final int outboundStops,
+      final int inboundStops,
+      final String source}) = _$FlightModelImpl;
   const _FlightModel._() : super._();
 
   factory _FlightModel.fromJson(Map<String, dynamic> json) =
@@ -848,16 +856,16 @@ class _$FlightSegmentModelImpl extends _FlightSegmentModel {
       required this.departureTime,
       required this.arrivalTime,
       required this.flightNumber,
-      required this.cabinType,
+      this.cabinType = 'economy',
       required this.duration,
-      required this.equipmentType,
-      required this.operatingAirline,
-      required this.marketingAirline,
+      this.equipmentType = '',
+      this.operatingAirline = '',
+      this.marketingAirline = '',
       required this.airlineDetails,
       this.marriageGroup,
-      required this.bookingClass,
-      required this.baggage,
-      required this.overnight,
+      this.bookingClass = '',
+      this.baggage = '',
+      this.overnight = false,
       this.layover})
       : super._();
 
@@ -875,24 +883,31 @@ class _$FlightSegmentModelImpl extends _FlightSegmentModel {
   @override
   final String flightNumber;
   @override
+  @JsonKey()
   final String cabinType;
   @override
   final int duration;
   @override
+  @JsonKey()
   final String equipmentType;
   @override
+  @JsonKey()
   final String operatingAirline;
   @override
+  @JsonKey()
   final String marketingAirline;
   @override
   final AirlineDetailsModel airlineDetails;
   @override
   final String? marriageGroup;
   @override
+  @JsonKey()
   final String bookingClass;
   @override
+  @JsonKey()
   final String baggage;
   @override
+  @JsonKey()
   final bool overnight;
   @override
   final int? layover;
@@ -982,16 +997,16 @@ abstract class _FlightSegmentModel extends FlightSegmentModel {
       required final String departureTime,
       required final String arrivalTime,
       required final String flightNumber,
-      required final String cabinType,
+      final String cabinType,
       required final int duration,
-      required final String equipmentType,
-      required final String operatingAirline,
-      required final String marketingAirline,
+      final String equipmentType,
+      final String operatingAirline,
+      final String marketingAirline,
       required final AirlineDetailsModel airlineDetails,
       final String? marriageGroup,
-      required final String bookingClass,
-      required final String baggage,
-      required final bool overnight,
+      final String bookingClass,
+      final String baggage,
+      final bool overnight,
       final int? layover}) = _$FlightSegmentModelImpl;
   const _FlightSegmentModel._() : super._();
 
@@ -1142,17 +1157,20 @@ class __$$AirlineDetailsModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AirlineDetailsModelImpl extends _AirlineDetailsModel {
   const _$AirlineDetailsModelImpl(
-      {required this.code, required this.name, required this.logo})
+      {this.code = '', this.name = '', this.logo = ''})
       : super._();
 
   factory _$AirlineDetailsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AirlineDetailsModelImplFromJson(json);
 
   @override
+  @JsonKey()
   final String code;
   @override
+  @JsonKey()
   final String name;
   @override
+  @JsonKey()
   final String logo;
 
   @override
@@ -1191,9 +1209,9 @@ class _$AirlineDetailsModelImpl extends _AirlineDetailsModel {
 
 abstract class _AirlineDetailsModel extends AirlineDetailsModel {
   const factory _AirlineDetailsModel(
-      {required final String code,
-      required final String name,
-      required final String logo}) = _$AirlineDetailsModelImpl;
+      {final String code,
+      final String name,
+      final String logo}) = _$AirlineDetailsModelImpl;
   const _AirlineDetailsModel._() : super._();
 
   factory _AirlineDetailsModel.fromJson(Map<String, dynamic> json) =
@@ -1223,12 +1241,15 @@ mixin _$FlightConfirmationModel {
   int get bookableSeats => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   bool get documentRequired => throw _privateConstructorUsedError;
-  String get expiresAt => throw _privateConstructorUsedError;
+  String? get expiresAt => throw _privateConstructorUsedError;
   bool get priceChange => throw _privateConstructorUsedError;
   String get bookingId => throw _privateConstructorUsedError;
   String get bookingReference => throw _privateConstructorUsedError;
   List<FlightSegmentModel> get outbound => throw _privateConstructorUsedError;
   List<FlightSegmentModel> get inbound => throw _privateConstructorUsedError;
+  int get outboundStops => throw _privateConstructorUsedError;
+  int get inboundStops => throw _privateConstructorUsedError;
+  int get totalDuration => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1248,12 +1269,15 @@ abstract class $FlightConfirmationModelCopyWith<$Res> {
       int bookableSeats,
       String currency,
       bool documentRequired,
-      String expiresAt,
+      String? expiresAt,
       bool priceChange,
       String bookingId,
       String bookingReference,
       List<FlightSegmentModel> outbound,
-      List<FlightSegmentModel> inbound});
+      List<FlightSegmentModel> inbound,
+      int outboundStops,
+      int inboundStops,
+      int totalDuration});
 }
 
 /// @nodoc
@@ -1275,12 +1299,15 @@ class _$FlightConfirmationModelCopyWithImpl<$Res,
     Object? bookableSeats = null,
     Object? currency = null,
     Object? documentRequired = null,
-    Object? expiresAt = null,
+    Object? expiresAt = freezed,
     Object? priceChange = null,
     Object? bookingId = null,
     Object? bookingReference = null,
     Object? outbound = null,
     Object? inbound = null,
+    Object? outboundStops = null,
+    Object? inboundStops = null,
+    Object? totalDuration = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -1303,10 +1330,10 @@ class _$FlightConfirmationModelCopyWithImpl<$Res,
           ? _value.documentRequired
           : documentRequired // ignore: cast_nullable_to_non_nullable
               as bool,
-      expiresAt: null == expiresAt
+      expiresAt: freezed == expiresAt
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       priceChange: null == priceChange
           ? _value.priceChange
           : priceChange // ignore: cast_nullable_to_non_nullable
@@ -1327,6 +1354,18 @@ class _$FlightConfirmationModelCopyWithImpl<$Res,
           ? _value.inbound
           : inbound // ignore: cast_nullable_to_non_nullable
               as List<FlightSegmentModel>,
+      outboundStops: null == outboundStops
+          ? _value.outboundStops
+          : outboundStops // ignore: cast_nullable_to_non_nullable
+              as int,
+      inboundStops: null == inboundStops
+          ? _value.inboundStops
+          : inboundStops // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalDuration: null == totalDuration
+          ? _value.totalDuration
+          : totalDuration // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -1346,12 +1385,15 @@ abstract class _$$FlightConfirmationModelImplCopyWith<$Res>
       int bookableSeats,
       String currency,
       bool documentRequired,
-      String expiresAt,
+      String? expiresAt,
       bool priceChange,
       String bookingId,
       String bookingReference,
       List<FlightSegmentModel> outbound,
-      List<FlightSegmentModel> inbound});
+      List<FlightSegmentModel> inbound,
+      int outboundStops,
+      int inboundStops,
+      int totalDuration});
 }
 
 /// @nodoc
@@ -1372,12 +1414,15 @@ class __$$FlightConfirmationModelImplCopyWithImpl<$Res>
     Object? bookableSeats = null,
     Object? currency = null,
     Object? documentRequired = null,
-    Object? expiresAt = null,
+    Object? expiresAt = freezed,
     Object? priceChange = null,
     Object? bookingId = null,
     Object? bookingReference = null,
     Object? outbound = null,
     Object? inbound = null,
+    Object? outboundStops = null,
+    Object? inboundStops = null,
+    Object? totalDuration = null,
   }) {
     return _then(_$FlightConfirmationModelImpl(
       id: null == id
@@ -1400,10 +1445,10 @@ class __$$FlightConfirmationModelImplCopyWithImpl<$Res>
           ? _value.documentRequired
           : documentRequired // ignore: cast_nullable_to_non_nullable
               as bool,
-      expiresAt: null == expiresAt
+      expiresAt: freezed == expiresAt
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       priceChange: null == priceChange
           ? _value.priceChange
           : priceChange // ignore: cast_nullable_to_non_nullable
@@ -1424,6 +1469,18 @@ class __$$FlightConfirmationModelImplCopyWithImpl<$Res>
           ? _value._inbound
           : inbound // ignore: cast_nullable_to_non_nullable
               as List<FlightSegmentModel>,
+      outboundStops: null == outboundStops
+          ? _value.outboundStops
+          : outboundStops // ignore: cast_nullable_to_non_nullable
+              as int,
+      inboundStops: null == inboundStops
+          ? _value.inboundStops
+          : inboundStops // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalDuration: null == totalDuration
+          ? _value.totalDuration
+          : totalDuration // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1434,15 +1491,18 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
   const _$FlightConfirmationModelImpl(
       {required this.id,
       required this.amount,
-      required this.bookableSeats,
-      required this.currency,
-      required this.documentRequired,
-      required this.expiresAt,
-      required this.priceChange,
+      this.bookableSeats = 0,
+      this.currency = 'NGN',
+      this.documentRequired = false,
+      this.expiresAt,
+      this.priceChange = false,
       required this.bookingId,
       required this.bookingReference,
-      required final List<FlightSegmentModel> outbound,
-      required final List<FlightSegmentModel> inbound})
+      final List<FlightSegmentModel> outbound = const [],
+      final List<FlightSegmentModel> inbound = const [],
+      this.outboundStops = 0,
+      this.inboundStops = 0,
+      this.totalDuration = 0})
       : _outbound = outbound,
         _inbound = inbound,
         super._();
@@ -1455,14 +1515,18 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
   @override
   final double amount;
   @override
+  @JsonKey()
   final int bookableSeats;
   @override
+  @JsonKey()
   final String currency;
   @override
+  @JsonKey()
   final bool documentRequired;
   @override
-  final String expiresAt;
+  final String? expiresAt;
   @override
+  @JsonKey()
   final bool priceChange;
   @override
   final String bookingId;
@@ -1470,6 +1534,7 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
   final String bookingReference;
   final List<FlightSegmentModel> _outbound;
   @override
+  @JsonKey()
   List<FlightSegmentModel> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
@@ -1478,6 +1543,7 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
 
   final List<FlightSegmentModel> _inbound;
   @override
+  @JsonKey()
   List<FlightSegmentModel> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
@@ -1485,8 +1551,18 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
   }
 
   @override
+  @JsonKey()
+  final int outboundStops;
+  @override
+  @JsonKey()
+  final int inboundStops;
+  @override
+  @JsonKey()
+  final int totalDuration;
+
+  @override
   String toString() {
-    return 'FlightConfirmationModel(id: $id, amount: $amount, bookableSeats: $bookableSeats, currency: $currency, documentRequired: $documentRequired, expiresAt: $expiresAt, priceChange: $priceChange, bookingId: $bookingId, bookingReference: $bookingReference, outbound: $outbound, inbound: $inbound)';
+    return 'FlightConfirmationModel(id: $id, amount: $amount, bookableSeats: $bookableSeats, currency: $currency, documentRequired: $documentRequired, expiresAt: $expiresAt, priceChange: $priceChange, bookingId: $bookingId, bookingReference: $bookingReference, outbound: $outbound, inbound: $inbound, outboundStops: $outboundStops, inboundStops: $inboundStops, totalDuration: $totalDuration)';
   }
 
   @override
@@ -1511,7 +1587,13 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
             (identical(other.bookingReference, bookingReference) ||
                 other.bookingReference == bookingReference) &&
             const DeepCollectionEquality().equals(other._outbound, _outbound) &&
-            const DeepCollectionEquality().equals(other._inbound, _inbound));
+            const DeepCollectionEquality().equals(other._inbound, _inbound) &&
+            (identical(other.outboundStops, outboundStops) ||
+                other.outboundStops == outboundStops) &&
+            (identical(other.inboundStops, inboundStops) ||
+                other.inboundStops == inboundStops) &&
+            (identical(other.totalDuration, totalDuration) ||
+                other.totalDuration == totalDuration));
   }
 
   @JsonKey(ignore: true)
@@ -1528,7 +1610,10 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
       bookingId,
       bookingReference,
       const DeepCollectionEquality().hash(_outbound),
-      const DeepCollectionEquality().hash(_inbound));
+      const DeepCollectionEquality().hash(_inbound),
+      outboundStops,
+      inboundStops,
+      totalDuration);
 
   @JsonKey(ignore: true)
   @override
@@ -1547,18 +1632,20 @@ class _$FlightConfirmationModelImpl extends _FlightConfirmationModel {
 
 abstract class _FlightConfirmationModel extends FlightConfirmationModel {
   const factory _FlightConfirmationModel(
-          {required final String id,
-          required final double amount,
-          required final int bookableSeats,
-          required final String currency,
-          required final bool documentRequired,
-          required final String expiresAt,
-          required final bool priceChange,
-          required final String bookingId,
-          required final String bookingReference,
-          required final List<FlightSegmentModel> outbound,
-          required final List<FlightSegmentModel> inbound}) =
-      _$FlightConfirmationModelImpl;
+      {required final String id,
+      required final double amount,
+      final int bookableSeats,
+      final String currency,
+      final bool documentRequired,
+      final String? expiresAt,
+      final bool priceChange,
+      required final String bookingId,
+      required final String bookingReference,
+      final List<FlightSegmentModel> outbound,
+      final List<FlightSegmentModel> inbound,
+      final int outboundStops,
+      final int inboundStops,
+      final int totalDuration}) = _$FlightConfirmationModelImpl;
   const _FlightConfirmationModel._() : super._();
 
   factory _FlightConfirmationModel.fromJson(Map<String, dynamic> json) =
@@ -1575,7 +1662,7 @@ abstract class _FlightConfirmationModel extends FlightConfirmationModel {
   @override
   bool get documentRequired;
   @override
-  String get expiresAt;
+  String? get expiresAt;
   @override
   bool get priceChange;
   @override
@@ -1586,6 +1673,12 @@ abstract class _FlightConfirmationModel extends FlightConfirmationModel {
   List<FlightSegmentModel> get outbound;
   @override
   List<FlightSegmentModel> get inbound;
+  @override
+  int get outboundStops;
+  @override
+  int get inboundStops;
+  @override
+  int get totalDuration;
   @override
   @JsonKey(ignore: true)
   _$$FlightConfirmationModelImplCopyWith<_$FlightConfirmationModelImpl>

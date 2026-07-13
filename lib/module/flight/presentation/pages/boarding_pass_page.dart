@@ -15,7 +15,8 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class BoardingPassPage extends HookConsumerWidget {
-  const BoardingPassPage({super.key});
+  final String? bookingReference;
+  const BoardingPassPage({super.key, this.bookingReference});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,12 +34,12 @@ class BoardingPassPage extends HookConsumerWidget {
     }, [scrollController]);
 
     useEffect(() {
-      final ref_ = bookingResult?.bookingReference;
+      final ref_ = bookingReference ?? bookingResult?.bookingReference;
       if (ref_ != null && ref_.isNotEmpty) {
         Future.microtask(() => ref.read(getBoardingPassProvider.notifier).call(ref_));
       }
       return null;
-    }, [bookingResult?.bookingReference]);
+    }, [bookingReference, bookingResult?.bookingReference]);
 
     return Scaffold(
       backgroundColor: PPaymobileColors.buttonColorandText,

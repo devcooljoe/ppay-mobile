@@ -27,8 +27,12 @@ class CheckOutPage extends HookConsumerWidget {
     final noteController = useTextEditingController();
     final countryController = useTextEditingController(text: 'Nigeria');
     final stateController = useTextEditingController();
+    final promoController = useTextEditingController();
     final cartState = ref.watch(getCartProvider);
     final createOrderState = ref.watch(createOrderProvider);
+    final summaryState = ref.watch(getCheckoutSummaryProvider);
+    final appliedPromo = useState<String?>(null);
+    final promoLoading = useState(false);
 
     useEffect(() {
       Future.microtask(() => ref.read(getCartProvider.notifier).call());
@@ -41,9 +45,46 @@ class CheckOutPage extends HookConsumerWidget {
       final price = item.product.discountPrice ?? item.product.price;
       return sum + (price * item.quantity);
     });
-    final deliveryFee = 6500.0;
-    final discount = 1200.0;
+
+    // Fetch summary whenever subtotal changes (and on first load)
+    useEffect(() {
+      if (subtotal > 0) {
+        Future.microtask(() => ref
+            .read(getCheckoutSummaryProvider.notifier)
+            .call(subtotal, promoCode: appliedPromo.value));
+      }
+      return null;
+    }, [subtotal]);
+
+    final deliveryFee = summaryState.value?.deliveryFee ?? 0.0;
+    final discount = summaryState.value?.discount ?? 0.0;
     final total = subtotal + deliveryFee - discount;
+
+    Future<void> onApplyPromo() async {
+      final code = promoController.text.trim();
+      if (code.isEmpty) return;
+      promoLoading.value = true;
+      try {
+        await ref
+            .read(getCheckoutSummaryProvider.notifier)
+            .call(subtotal, promoCode: code);
+        final state = ref.read(getCheckoutSummaryProvider);
+        if (state.hasError) {
+          if (context.mounted) MessageHandler.showErrorSnackBar(context, state.error.toString());
+        } else {
+          appliedPromo.value = code;
+          if (context.mounted) MessageHandler.showSuccessSnackBar(context, 'Promo code applied!');
+        }
+      } finally {
+        promoLoading.value = false;
+      }
+    }
+
+    void onRemovePromo() {
+      appliedPromo.value = null;
+      promoController.clear();
+      ref.read(getCheckoutSummaryProvider.notifier).call(subtotal);
+    }
 
     Future<void> onConfirm() async {
       if (receiverController.text.isEmpty) {
@@ -77,6 +118,7 @@ class CheckOutPage extends HookConsumerWidget {
         orderState: stateController.text.trim(),
         address: addressController.text.trim(),
         note: noteController.text.isNotEmpty ? noteController.text.trim() : null,
+        promoCode: appliedPromo.value,
         items: items.map((item) => {
           'productId': item.product.id,
           if (item.variant != null) 'variantId': item.variant!.id,
@@ -196,15 +238,90 @@ class CheckOutPage extends HookConsumerWidget {
                           }).toList(),
                         ),
 
-              if (items.isNotEmpty) ...[
+              if (items.isNotEmpty) ...[ 
+                // Promo code input
+                20.verticalSpace,
+                Text('Promo Code', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                8.verticalSpace,
+                if (appliedPromo.value != null)
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                    decoration: BoxDecoration(
+                      color: PPaymobileColors.doneColor,
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(color: PPaymobileColors.buttonColor, width: 1.w),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/icon/done.svg', width: 16.w, height: 16.w, colorFilter: ColorFilter.mode(PPaymobileColors.buttonColor, BlendMode.srcIn)),
+                        8.horizontalSpace,
+                        Expanded(
+                          child: Text(
+                            '${appliedPromo.value} applied — saving ₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}',
+                            style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.buttonColor, fontSize: 13.sp, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        TouchOpacity(
+                          onTap: onRemovePromo,
+                          child: Icon(Icons.close, size: 18.w, color: PPaymobileColors.buttonColor),
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 50.h,
+                          child: TextFormField(
+                            controller: promoController,
+                            textCapitalization: TextCapitalization.characters,
+                            decoration: InputDecoration(
+                              hintText: 'Enter promo code',
+                              hintStyle: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfieldGrey, fontSize: 14.sp),
+                              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
+                              border: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+                            ),
+                          ),
+                        ),
+                      ),
+                      10.horizontalSpace,
+                      TouchOpacity(
+                        onTap: promoLoading.value ? null : onApplyPromo,
+                        child: Container(
+                          height: 50.h,
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          decoration: BoxDecoration(
+                            color: PPaymobileColors.buttonColorandText,
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                          child: Center(
+                            child: promoLoading.value
+                                ? SizedBox(width: 16.w, height: 16.w, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                                : Text('Apply', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                24.verticalSpace,
                 Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
                 16.verticalSpace,
                 _SummaryRow(label: 'Subtotal', value: '₦${AmountFormatter.formatBalance(subtotal.toStringAsFixed(2))}'),
                 8.verticalSpace,
-                _SummaryRow(label: 'Delivery Fee', value: '₦${AmountFormatter.formatBalance(deliveryFee.toStringAsFixed(2))}'),
+                summaryState.isLoading
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(vertical: 4.h),
+                        child: SkeletonLoader(width: double.infinity, height: 16.h, borderRadius: BorderRadius.circular(4.r)),
+                      )
+                    : _SummaryRow(label: 'Delivery Fee', value: '₦${AmountFormatter.formatBalance(deliveryFee.toStringAsFixed(2))}'),
                 8.verticalSpace,
-                _SummaryRow(label: 'Discount', value: '-₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}'),
-                8.verticalSpace,
+                if (discount > 0) ...[ 
+                  _SummaryRow(label: 'Discount', value: '-₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}', isDiscount: true),
+                  8.verticalSpace,
+                ],
                 _SummaryRow(label: 'Total', value: '₦${AmountFormatter.formatBalance(total.toStringAsFixed(2))}', isBold: true),
                 24.verticalSpace,
               ],
@@ -268,8 +385,9 @@ class _SummaryRow extends StatelessWidget {
   final String label;
   final String value;
   final bool isBold;
+  final bool isDiscount;
 
-  const _SummaryRow({required this.label, required this.value, this.isBold = false});
+  const _SummaryRow({required this.label, required this.value, this.isBold = false, this.isDiscount = false});
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +395,7 @@ class _SummaryRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(label, style: TextStyle(fontFamily: 'InstrumentSans', color: isBold ? Colors.black : PPaymobileColors.svgIconColor, fontSize: isBold ? 16.sp : 14.sp, fontWeight: isBold ? FontWeight.w600 : FontWeight.w400)),
-        Text(value, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: isBold ? 16.sp : 14.sp, fontWeight: isBold ? FontWeight.w600 : FontWeight.w500)),
+        Text(value, style: TextStyle(fontFamily: 'InstrumentSans', color: isDiscount ? PPaymobileColors.buttonColor : Colors.black, fontSize: isBold ? 16.sp : 14.sp, fontWeight: isBold ? FontWeight.w600 : FontWeight.w500)),
       ],
     );
   }

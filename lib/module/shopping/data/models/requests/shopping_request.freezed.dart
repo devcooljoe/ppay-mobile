@@ -345,6 +345,7 @@ mixin _$CreateOrderRequest {
   String get state => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  String? get promoCode => throw _privateConstructorUsedError;
   List<OrderItemRequest> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -366,6 +367,7 @@ abstract class $CreateOrderRequestCopyWith<$Res> {
       String state,
       String address,
       String? note,
+      String? promoCode,
       List<OrderItemRequest> items});
 }
 
@@ -388,6 +390,7 @@ class _$CreateOrderRequestCopyWithImpl<$Res, $Val extends CreateOrderRequest>
     Object? state = null,
     Object? address = null,
     Object? note = freezed,
+    Object? promoCode = freezed,
     Object? items = null,
   }) {
     return _then(_value.copyWith(
@@ -415,6 +418,10 @@ class _$CreateOrderRequestCopyWithImpl<$Res, $Val extends CreateOrderRequest>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      promoCode: freezed == promoCode
+          ? _value.promoCode
+          : promoCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -438,6 +445,7 @@ abstract class _$$CreateOrderRequestImplCopyWith<$Res>
       String state,
       String address,
       String? note,
+      String? promoCode,
       List<OrderItemRequest> items});
 }
 
@@ -458,6 +466,7 @@ class __$$CreateOrderRequestImplCopyWithImpl<$Res>
     Object? state = null,
     Object? address = null,
     Object? note = freezed,
+    Object? promoCode = freezed,
     Object? items = null,
   }) {
     return _then(_$CreateOrderRequestImpl(
@@ -485,6 +494,10 @@ class __$$CreateOrderRequestImplCopyWithImpl<$Res>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      promoCode: freezed == promoCode
+          ? _value.promoCode
+          : promoCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -503,6 +516,7 @@ class _$CreateOrderRequestImpl implements _CreateOrderRequest {
       required this.state,
       required this.address,
       this.note,
+      this.promoCode,
       required final List<OrderItemRequest> items})
       : _items = items;
 
@@ -521,6 +535,8 @@ class _$CreateOrderRequestImpl implements _CreateOrderRequest {
   final String address;
   @override
   final String? note;
+  @override
+  final String? promoCode;
   final List<OrderItemRequest> _items;
   @override
   List<OrderItemRequest> get items {
@@ -531,7 +547,7 @@ class _$CreateOrderRequestImpl implements _CreateOrderRequest {
 
   @override
   String toString() {
-    return 'CreateOrderRequest(receiverName: $receiverName, phoneNumber: $phoneNumber, country: $country, state: $state, address: $address, note: $note, items: $items)';
+    return 'CreateOrderRequest(receiverName: $receiverName, phoneNumber: $phoneNumber, country: $country, state: $state, address: $address, note: $note, promoCode: $promoCode, items: $items)';
   }
 
   @override
@@ -547,6 +563,8 @@ class _$CreateOrderRequestImpl implements _CreateOrderRequest {
             (identical(other.state, state) || other.state == state) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.note, note) || other.note == note) &&
+            (identical(other.promoCode, promoCode) ||
+                other.promoCode == promoCode) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
@@ -560,6 +578,7 @@ class _$CreateOrderRequestImpl implements _CreateOrderRequest {
       state,
       address,
       note,
+      promoCode,
       const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
@@ -585,6 +604,7 @@ abstract class _CreateOrderRequest implements CreateOrderRequest {
       required final String state,
       required final String address,
       final String? note,
+      final String? promoCode,
       required final List<OrderItemRequest> items}) = _$CreateOrderRequestImpl;
 
   factory _CreateOrderRequest.fromJson(Map<String, dynamic> json) =
@@ -602,6 +622,8 @@ abstract class _CreateOrderRequest implements CreateOrderRequest {
   String get address;
   @override
   String? get note;
+  @override
+  String? get promoCode;
   @override
   List<OrderItemRequest> get items;
   @override

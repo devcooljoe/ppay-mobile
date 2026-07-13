@@ -215,14 +215,14 @@ class _$FlightEntityImpl implements _FlightEntity {
   const _$FlightEntityImpl(
       {required this.id,
       required this.amount,
-      required final List<TravelerPriceEntity> travelersPrice,
-      required this.currency,
-      required this.totalDuration,
-      required final List<FlightSegmentEntity> outbound,
-      required final List<FlightSegmentEntity> inbound,
-      required this.outboundStops,
-      required this.inboundStops,
-      required this.source})
+      final List<TravelerPriceEntity> travelersPrice = const [],
+      this.currency = 'NGN',
+      this.totalDuration = 0,
+      final List<FlightSegmentEntity> outbound = const [],
+      final List<FlightSegmentEntity> inbound = const [],
+      this.outboundStops = 0,
+      this.inboundStops = 0,
+      this.source = ''})
       : _travelersPrice = travelersPrice,
         _outbound = outbound,
         _inbound = inbound;
@@ -233,6 +233,7 @@ class _$FlightEntityImpl implements _FlightEntity {
   final double amount;
   final List<TravelerPriceEntity> _travelersPrice;
   @override
+  @JsonKey()
   List<TravelerPriceEntity> get travelersPrice {
     if (_travelersPrice is EqualUnmodifiableListView) return _travelersPrice;
     // ignore: implicit_dynamic_type
@@ -240,11 +241,14 @@ class _$FlightEntityImpl implements _FlightEntity {
   }
 
   @override
+  @JsonKey()
   final String currency;
   @override
+  @JsonKey()
   final int totalDuration;
   final List<FlightSegmentEntity> _outbound;
   @override
+  @JsonKey()
   List<FlightSegmentEntity> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
@@ -253,6 +257,7 @@ class _$FlightEntityImpl implements _FlightEntity {
 
   final List<FlightSegmentEntity> _inbound;
   @override
+  @JsonKey()
   List<FlightSegmentEntity> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
@@ -260,10 +265,13 @@ class _$FlightEntityImpl implements _FlightEntity {
   }
 
   @override
+  @JsonKey()
   final int outboundStops;
   @override
+  @JsonKey()
   final int inboundStops;
   @override
+  @JsonKey()
   final String source;
 
   @override
@@ -318,14 +326,14 @@ abstract class _FlightEntity implements FlightEntity {
   const factory _FlightEntity(
       {required final String id,
       required final double amount,
-      required final List<TravelerPriceEntity> travelersPrice,
-      required final String currency,
-      required final int totalDuration,
-      required final List<FlightSegmentEntity> outbound,
-      required final List<FlightSegmentEntity> inbound,
-      required final int outboundStops,
-      required final int inboundStops,
-      required final String source}) = _$FlightEntityImpl;
+      final List<TravelerPriceEntity> travelersPrice,
+      final String currency,
+      final int totalDuration,
+      final List<FlightSegmentEntity> outbound,
+      final List<FlightSegmentEntity> inbound,
+      final int outboundStops,
+      final int inboundStops,
+      final String source}) = _$FlightEntityImpl;
 
   @override
   String get id;
@@ -801,16 +809,16 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
       required this.departureTime,
       required this.arrivalTime,
       required this.flightNumber,
-      required this.cabinType,
+      this.cabinType = 'economy',
       required this.duration,
-      required this.equipmentType,
-      required this.operatingAirline,
-      required this.marketingAirline,
+      this.equipmentType = '',
+      this.operatingAirline = '',
+      this.marketingAirline = '',
       required this.airlineDetails,
       this.marriageGroup,
-      required this.bookingClass,
-      required this.baggage,
-      required this.overnight,
+      this.bookingClass = '',
+      this.baggage = '',
+      this.overnight = false,
       this.layover});
 
   @override
@@ -824,24 +832,31 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
   @override
   final String flightNumber;
   @override
+  @JsonKey()
   final String cabinType;
   @override
   final int duration;
   @override
+  @JsonKey()
   final String equipmentType;
   @override
+  @JsonKey()
   final String operatingAirline;
   @override
+  @JsonKey()
   final String marketingAirline;
   @override
   final AirlineDetailsEntity airlineDetails;
   @override
   final String? marriageGroup;
   @override
+  @JsonKey()
   final String bookingClass;
   @override
+  @JsonKey()
   final String baggage;
   @override
+  @JsonKey()
   final bool overnight;
   @override
   final int? layover;
@@ -923,16 +938,16 @@ abstract class _FlightSegmentEntity implements FlightSegmentEntity {
       required final String departureTime,
       required final String arrivalTime,
       required final String flightNumber,
-      required final String cabinType,
+      final String cabinType,
       required final int duration,
-      required final String equipmentType,
-      required final String operatingAirline,
-      required final String marketingAirline,
+      final String equipmentType,
+      final String operatingAirline,
+      final String marketingAirline,
       required final AirlineDetailsEntity airlineDetails,
       final String? marriageGroup,
-      required final String bookingClass,
-      required final String baggage,
-      required final bool overnight,
+      final String bookingClass,
+      final String baggage,
+      final bool overnight,
       final int? layover}) = _$FlightSegmentEntityImpl;
 
   @override
@@ -1075,13 +1090,16 @@ class __$$AirlineDetailsEntityImplCopyWithImpl<$Res>
 
 class _$AirlineDetailsEntityImpl implements _AirlineDetailsEntity {
   const _$AirlineDetailsEntityImpl(
-      {required this.code, required this.name, required this.logo});
+      {this.code = '', this.name = '', this.logo = ''});
 
   @override
+  @JsonKey()
   final String code;
   @override
+  @JsonKey()
   final String name;
   @override
+  @JsonKey()
   final String logo;
 
   @override
@@ -1113,9 +1131,9 @@ class _$AirlineDetailsEntityImpl implements _AirlineDetailsEntity {
 
 abstract class _AirlineDetailsEntity implements AirlineDetailsEntity {
   const factory _AirlineDetailsEntity(
-      {required final String code,
-      required final String name,
-      required final String logo}) = _$AirlineDetailsEntityImpl;
+      {final String code,
+      final String name,
+      final String logo}) = _$AirlineDetailsEntityImpl;
 
   @override
   String get code;
@@ -1346,15 +1364,15 @@ class _$FlightConfirmationEntityImpl implements _FlightConfirmationEntity {
   const _$FlightConfirmationEntityImpl(
       {required this.id,
       required this.amount,
-      required this.bookableSeats,
-      required this.currency,
-      required this.documentRequired,
-      required this.expiresAt,
-      required this.priceChange,
+      this.bookableSeats = 0,
+      this.currency = 'NGN',
+      this.documentRequired = false,
+      this.expiresAt = '',
+      this.priceChange = false,
       required this.bookingId,
       required this.bookingReference,
-      required final List<FlightSegmentEntity> outbound,
-      required final List<FlightSegmentEntity> inbound})
+      final List<FlightSegmentEntity> outbound = const [],
+      final List<FlightSegmentEntity> inbound = const []})
       : _outbound = outbound,
         _inbound = inbound;
 
@@ -1363,14 +1381,19 @@ class _$FlightConfirmationEntityImpl implements _FlightConfirmationEntity {
   @override
   final double amount;
   @override
+  @JsonKey()
   final int bookableSeats;
   @override
+  @JsonKey()
   final String currency;
   @override
+  @JsonKey()
   final bool documentRequired;
   @override
+  @JsonKey()
   final String expiresAt;
   @override
+  @JsonKey()
   final bool priceChange;
   @override
   final String bookingId;
@@ -1378,6 +1401,7 @@ class _$FlightConfirmationEntityImpl implements _FlightConfirmationEntity {
   final String bookingReference;
   final List<FlightSegmentEntity> _outbound;
   @override
+  @JsonKey()
   List<FlightSegmentEntity> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
@@ -1386,6 +1410,7 @@ class _$FlightConfirmationEntityImpl implements _FlightConfirmationEntity {
 
   final List<FlightSegmentEntity> _inbound;
   @override
+  @JsonKey()
   List<FlightSegmentEntity> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
@@ -1449,15 +1474,15 @@ abstract class _FlightConfirmationEntity implements FlightConfirmationEntity {
   const factory _FlightConfirmationEntity(
           {required final String id,
           required final double amount,
-          required final int bookableSeats,
-          required final String currency,
-          required final bool documentRequired,
-          required final String expiresAt,
-          required final bool priceChange,
+          final int bookableSeats,
+          final String currency,
+          final bool documentRequired,
+          final String expiresAt,
+          final bool priceChange,
           required final String bookingId,
           required final String bookingReference,
-          required final List<FlightSegmentEntity> outbound,
-          required final List<FlightSegmentEntity> inbound}) =
+          final List<FlightSegmentEntity> outbound,
+          final List<FlightSegmentEntity> inbound}) =
       _$FlightConfirmationEntityImpl;
 
   @override
@@ -1963,20 +1988,20 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
       {required this.bookingId,
       required this.bookingReference,
       required this.status,
-      required this.airline,
-      required this.airlineLogo,
-      required this.origin,
-      required this.destination,
-      required this.departureTime,
-      required this.arrivalTime,
-      required this.duration,
-      required this.cabinClass,
+      this.airline = '',
+      this.airlineLogo = '',
+      this.origin = '',
+      this.destination = '',
+      this.departureTime = '',
+      this.arrivalTime = '',
+      this.duration = 0,
+      this.cabinClass = '',
       required this.totalAmount,
       required this.currency,
-      required final List<PassengerEntity> passengers,
-      required final List<FlightSegmentEntity> outbound,
-      required final List<FlightSegmentEntity> inbound,
-      required final List<TicketEntity> tickets,
+      final List<PassengerEntity> passengers = const [],
+      final List<FlightSegmentEntity> outbound = const [],
+      final List<FlightSegmentEntity> inbound = const [],
+      final List<TicketEntity> tickets = const [],
       required this.createdAt})
       : _passengers = passengers,
         _outbound = outbound,
@@ -1990,20 +2015,28 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
   @override
   final String status;
   @override
+  @JsonKey()
   final String airline;
   @override
+  @JsonKey()
   final String airlineLogo;
   @override
+  @JsonKey()
   final String origin;
   @override
+  @JsonKey()
   final String destination;
   @override
+  @JsonKey()
   final String departureTime;
   @override
+  @JsonKey()
   final String arrivalTime;
   @override
+  @JsonKey()
   final int duration;
   @override
+  @JsonKey()
   final String cabinClass;
   @override
   final String totalAmount;
@@ -2011,6 +2044,7 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
   final String currency;
   final List<PassengerEntity> _passengers;
   @override
+  @JsonKey()
   List<PassengerEntity> get passengers {
     if (_passengers is EqualUnmodifiableListView) return _passengers;
     // ignore: implicit_dynamic_type
@@ -2019,6 +2053,7 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
 
   final List<FlightSegmentEntity> _outbound;
   @override
+  @JsonKey()
   List<FlightSegmentEntity> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
@@ -2027,6 +2062,7 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
 
   final List<FlightSegmentEntity> _inbound;
   @override
+  @JsonKey()
   List<FlightSegmentEntity> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
@@ -2035,6 +2071,7 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
 
   final List<TicketEntity> _tickets;
   @override
+  @JsonKey()
   List<TicketEntity> get tickets {
     if (_tickets is EqualUnmodifiableListView) return _tickets;
     // ignore: implicit_dynamic_type
@@ -2121,20 +2158,20 @@ abstract class _FlightBookingEntity implements FlightBookingEntity {
       {required final String bookingId,
       required final String bookingReference,
       required final String status,
-      required final String airline,
-      required final String airlineLogo,
-      required final String origin,
-      required final String destination,
-      required final String departureTime,
-      required final String arrivalTime,
-      required final int duration,
-      required final String cabinClass,
+      final String airline,
+      final String airlineLogo,
+      final String origin,
+      final String destination,
+      final String departureTime,
+      final String arrivalTime,
+      final int duration,
+      final String cabinClass,
       required final String totalAmount,
       required final String currency,
-      required final List<PassengerEntity> passengers,
-      required final List<FlightSegmentEntity> outbound,
-      required final List<FlightSegmentEntity> inbound,
-      required final List<TicketEntity> tickets,
+      final List<PassengerEntity> passengers,
+      final List<FlightSegmentEntity> outbound,
+      final List<FlightSegmentEntity> inbound,
+      final List<TicketEntity> tickets,
       required final String createdAt}) = _$FlightBookingEntityImpl;
 
   @override
