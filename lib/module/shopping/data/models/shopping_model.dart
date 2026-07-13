@@ -5,6 +5,20 @@ part 'shopping_model.freezed.dart';
 part 'shopping_model.g.dart';
 
 @freezed
+class ProductImageModel with _$ProductImageModel {
+  const factory ProductImageModel({
+    required String id,
+    required String url,
+  }) = _ProductImageModel;
+
+  const ProductImageModel._();
+
+  factory ProductImageModel.fromJson(Map<String, dynamic> json) => _$ProductImageModelFromJson(json);
+
+  ProductImageEntity toEntity() => ProductImageEntity(id: id, url: url);
+}
+
+@freezed
 class ProductModel with _$ProductModel {
   const factory ProductModel({
     required String id,
@@ -15,6 +29,7 @@ class ProductModel with _$ProductModel {
     required bool inStock,
     required int stockQuantity,
     required List<ProductVariantModel> variants,
+    List<ProductImageModel>? images,
   }) = _ProductModel;
 
   const ProductModel._();
@@ -30,6 +45,7 @@ class ProductModel with _$ProductModel {
     inStock: inStock,
     stockQuantity: stockQuantity,
     variants: variants.map((e) => e.toEntity()).toList(),
+    images: images?.map((e) => e.toEntity()).toList(),
   );
 }
 

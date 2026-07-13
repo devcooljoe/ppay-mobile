@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ppay_mobile/module/shopping/presentation/providers/shopping_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/cloths_filter_bottomsheet.dart';
@@ -206,16 +207,10 @@ class ClothsPage extends HookConsumerWidget {
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.vertical(top: Radius.circular(8).r),
-                                          child: Container(
-                                            width: double.infinity,
-                                            color: PPaymobileColors.deepBackgroundColor,
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.shopping_bag_outlined,
-                                                color: PPaymobileColors.svgIconColor,
-                                                size: 40.w,
-                                              ),
-                                            ),
+                                          child: _ProductImage(
+                                            imageUrl: product.images?.isNotEmpty == true
+                                                ? product.images!.first.url
+                                                : null,
                                           ),
                                         ),
                                       ),
@@ -267,6 +262,41 @@ class ClothsPage extends HookConsumerWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProductImage extends StatelessWidget {
+  final String? imageUrl;
+
+  const _ProductImage({this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    if (imageUrl == null || imageUrl!.isEmpty) {
+      return Container(
+        width: double.infinity,
+        color: PPaymobileColors.deepBackgroundColor,
+        child: Center(
+          child: Icon(
+            Icons.shopping_bag_outlined,
+            color: PPaymobileColors.svgIconColor,
+            size: 40.w,
+          ),
+        ),
+      );
+    }
+    return CachedNetworkImage(
+      imageUrl: imageUrl!,
+      fit: BoxFit.cover,
+      width: double.infinity,
+      placeholder: (_, __) => Container(color: PPaymobileColors.deepBackgroundColor),
+      errorWidget: (_, __, ___) => Container(
+        color: PPaymobileColors.deepBackgroundColor,
+        child: Center(
+          child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 40.w),
         ),
       ),
     );

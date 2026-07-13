@@ -3,6 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'shopping_entity.freezed.dart';
 
 @freezed
+class ProductImageEntity with _$ProductImageEntity {
+  const factory ProductImageEntity({
+    required String id,
+    required String url,
+  }) = _ProductImageEntity;
+}
+
+@freezed
 class ProductEntity with _$ProductEntity {
   const factory ProductEntity({
     required String id,
@@ -13,6 +21,7 @@ class ProductEntity with _$ProductEntity {
     required bool inStock,
     required int stockQuantity,
     required List<ProductVariantEntity> variants,
+    List<ProductImageEntity>? images,
   }) = _ProductEntity;
 }
 

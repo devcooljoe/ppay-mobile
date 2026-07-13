@@ -15,6 +15,142 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
+mixin _$ProductImageEntity {
+  String get id => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ProductImageEntityCopyWith<ProductImageEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProductImageEntityCopyWith<$Res> {
+  factory $ProductImageEntityCopyWith(
+          ProductImageEntity value, $Res Function(ProductImageEntity) then) =
+      _$ProductImageEntityCopyWithImpl<$Res, ProductImageEntity>;
+  @useResult
+  $Res call({String id, String url});
+}
+
+/// @nodoc
+class _$ProductImageEntityCopyWithImpl<$Res, $Val extends ProductImageEntity>
+    implements $ProductImageEntityCopyWith<$Res> {
+  _$ProductImageEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? url = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ProductImageEntityImplCopyWith<$Res>
+    implements $ProductImageEntityCopyWith<$Res> {
+  factory _$$ProductImageEntityImplCopyWith(_$ProductImageEntityImpl value,
+          $Res Function(_$ProductImageEntityImpl) then) =
+      __$$ProductImageEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, String url});
+}
+
+/// @nodoc
+class __$$ProductImageEntityImplCopyWithImpl<$Res>
+    extends _$ProductImageEntityCopyWithImpl<$Res, _$ProductImageEntityImpl>
+    implements _$$ProductImageEntityImplCopyWith<$Res> {
+  __$$ProductImageEntityImplCopyWithImpl(_$ProductImageEntityImpl _value,
+      $Res Function(_$ProductImageEntityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? url = null,
+  }) {
+    return _then(_$ProductImageEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProductImageEntityImpl implements _ProductImageEntity {
+  const _$ProductImageEntityImpl({required this.id, required this.url});
+
+  @override
+  final String id;
+  @override
+  final String url;
+
+  @override
+  String toString() {
+    return 'ProductImageEntity(id: $id, url: $url)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProductImageEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.url, url) || other.url == url));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, url);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProductImageEntityImplCopyWith<_$ProductImageEntityImpl> get copyWith =>
+      __$$ProductImageEntityImplCopyWithImpl<_$ProductImageEntityImpl>(
+          this, _$identity);
+}
+
+abstract class _ProductImageEntity implements ProductImageEntity {
+  const factory _ProductImageEntity(
+      {required final String id,
+      required final String url}) = _$ProductImageEntityImpl;
+
+  @override
+  String get id;
+  @override
+  String get url;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProductImageEntityImplCopyWith<_$ProductImageEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ProductEntity {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -24,6 +160,7 @@ mixin _$ProductEntity {
   bool get inStock => throw _privateConstructorUsedError;
   int get stockQuantity => throw _privateConstructorUsedError;
   List<ProductVariantEntity> get variants => throw _privateConstructorUsedError;
+  List<ProductImageEntity>? get images => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductEntityCopyWith<ProductEntity> get copyWith =>
@@ -44,7 +181,8 @@ abstract class $ProductEntityCopyWith<$Res> {
       double? discountPrice,
       bool inStock,
       int stockQuantity,
-      List<ProductVariantEntity> variants});
+      List<ProductVariantEntity> variants,
+      List<ProductImageEntity>? images});
 }
 
 /// @nodoc
@@ -68,6 +206,7 @@ class _$ProductEntityCopyWithImpl<$Res, $Val extends ProductEntity>
     Object? inStock = null,
     Object? stockQuantity = null,
     Object? variants = null,
+    Object? images = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -102,6 +241,10 @@ class _$ProductEntityCopyWithImpl<$Res, $Val extends ProductEntity>
           ? _value.variants
           : variants // ignore: cast_nullable_to_non_nullable
               as List<ProductVariantEntity>,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageEntity>?,
     ) as $Val);
   }
 }
@@ -122,7 +265,8 @@ abstract class _$$ProductEntityImplCopyWith<$Res>
       double? discountPrice,
       bool inStock,
       int stockQuantity,
-      List<ProductVariantEntity> variants});
+      List<ProductVariantEntity> variants,
+      List<ProductImageEntity>? images});
 }
 
 /// @nodoc
@@ -144,6 +288,7 @@ class __$$ProductEntityImplCopyWithImpl<$Res>
     Object? inStock = null,
     Object? stockQuantity = null,
     Object? variants = null,
+    Object? images = freezed,
   }) {
     return _then(_$ProductEntityImpl(
       id: null == id
@@ -178,6 +323,10 @@ class __$$ProductEntityImplCopyWithImpl<$Res>
           ? _value._variants
           : variants // ignore: cast_nullable_to_non_nullable
               as List<ProductVariantEntity>,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageEntity>?,
     ));
   }
 }
@@ -193,8 +342,10 @@ class _$ProductEntityImpl implements _ProductEntity {
       this.discountPrice,
       required this.inStock,
       required this.stockQuantity,
-      required final List<ProductVariantEntity> variants})
-      : _variants = variants;
+      required final List<ProductVariantEntity> variants,
+      final List<ProductImageEntity>? images})
+      : _variants = variants,
+        _images = images;
 
   @override
   final String id;
@@ -218,9 +369,19 @@ class _$ProductEntityImpl implements _ProductEntity {
     return EqualUnmodifiableListView(_variants);
   }
 
+  final List<ProductImageEntity>? _images;
+  @override
+  List<ProductImageEntity>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'ProductEntity(id: $id, name: $name, description: $description, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, variants: $variants)';
+    return 'ProductEntity(id: $id, name: $name, description: $description, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, variants: $variants, images: $images)';
   }
 
   @override
@@ -238,7 +399,8 @@ class _$ProductEntityImpl implements _ProductEntity {
             (identical(other.inStock, inStock) || other.inStock == inStock) &&
             (identical(other.stockQuantity, stockQuantity) ||
                 other.stockQuantity == stockQuantity) &&
-            const DeepCollectionEquality().equals(other._variants, _variants));
+            const DeepCollectionEquality().equals(other._variants, _variants) &&
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @override
@@ -251,7 +413,8 @@ class _$ProductEntityImpl implements _ProductEntity {
       discountPrice,
       inStock,
       stockQuantity,
-      const DeepCollectionEquality().hash(_variants));
+      const DeepCollectionEquality().hash(_variants),
+      const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
@@ -262,15 +425,15 @@ class _$ProductEntityImpl implements _ProductEntity {
 
 abstract class _ProductEntity implements ProductEntity {
   const factory _ProductEntity(
-          {required final String id,
-          required final String name,
-          required final String description,
-          required final double price,
-          final double? discountPrice,
-          required final bool inStock,
-          required final int stockQuantity,
-          required final List<ProductVariantEntity> variants}) =
-      _$ProductEntityImpl;
+      {required final String id,
+      required final String name,
+      required final String description,
+      required final double price,
+      final double? discountPrice,
+      required final bool inStock,
+      required final int stockQuantity,
+      required final List<ProductVariantEntity> variants,
+      final List<ProductImageEntity>? images}) = _$ProductEntityImpl;
 
   @override
   String get id;
@@ -288,6 +451,8 @@ abstract class _ProductEntity implements ProductEntity {
   int get stockQuantity;
   @override
   List<ProductVariantEntity> get variants;
+  @override
+  List<ProductImageEntity>? get images;
   @override
   @JsonKey(ignore: true)
   _$$ProductEntityImplCopyWith<_$ProductEntityImpl> get copyWith =>

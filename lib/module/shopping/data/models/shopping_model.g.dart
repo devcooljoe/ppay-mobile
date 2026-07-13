@@ -6,6 +6,20 @@ part of 'shopping_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$ProductImageModelImpl _$$ProductImageModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProductImageModelImpl(
+      id: json['id'] as String,
+      url: json['url'] as String,
+    );
+
+Map<String, dynamic> _$$ProductImageModelImplToJson(
+        _$ProductImageModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'url': instance.url,
+    };
+
 _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
     _$ProductModelImpl(
       id: json['id'] as String,
@@ -17,6 +31,9 @@ _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
       stockQuantity: (json['stockQuantity'] as num).toInt(),
       variants: (json['variants'] as List<dynamic>)
           .map((e) => ProductVariantModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => ProductImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -30,6 +47,7 @@ Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
       'inStock': instance.inStock,
       'stockQuantity': instance.stockQuantity,
       'variants': instance.variants,
+      'images': instance.images,
     };
 
 _$ProductVariantModelImpl _$$ProductVariantModelImplFromJson(

@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/shopping/presentation/providers/shopping_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
@@ -190,8 +191,31 @@ class ClothsDetailsPage extends HookConsumerWidget {
                                     child: PageView.builder(
                                       controller: pageController,
                                       onPageChanged: (index) => currentIndex.value = index,
-                                      itemCount: product.variants.isNotEmpty ? product.variants.length : 1,
+                                      itemCount: (product.images?.isNotEmpty == true)
+                                          ? product.images!.length
+                                          : 1,
                                       itemBuilder: (context, index) {
+                                        final images = product.images;
+                                        if (images != null && images.isNotEmpty) {
+                                          return CachedNetworkImage(
+                                            imageUrl: images[index].url,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            placeholder: (_, __) => Container(
+                                              color: PPaymobileColors.deepBackgroundColor,
+                                            ),
+                                            errorWidget: (_, __, ___) => Container(
+                                              color: PPaymobileColors.deepBackgroundColor,
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.shopping_bag_outlined,
+                                                  color: PPaymobileColors.svgIconColor,
+                                                  size: 80.w,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
                                         return Container(
                                           color: PPaymobileColors.deepBackgroundColor,
                                           child: Center(
@@ -205,7 +229,7 @@ class ClothsDetailsPage extends HookConsumerWidget {
                                       },
                                     ),
                                   ),
-                                  if (product.variants.length > 1)
+                                  if ((product.images?.length ?? 0) > 1)
                                     Positioned(
                                       top: 251.h,
                                       left: 0,
@@ -213,7 +237,7 @@ class ClothsDetailsPage extends HookConsumerWidget {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: List.generate(
-                                          product.variants.length.clamp(0, 5),
+                                          product.images!.length.clamp(0, 5),
                                           (index) => AnimatedContainer(
                                             duration: const Duration(milliseconds: 200),
                                             margin: EdgeInsets.symmetric(horizontal: 8.9.w),
