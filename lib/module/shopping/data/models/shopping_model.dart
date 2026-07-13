@@ -4,6 +4,9 @@ import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart
 part 'shopping_model.freezed.dart';
 part 'shopping_model.g.dart';
 
+double _toDouble(dynamic v) => v is num ? v.toDouble() : double.parse(v.toString());
+double? _toDoubleNullable(dynamic v) => v == null ? null : _toDouble(v);
+
 @freezed
 class ProductImageModel with _$ProductImageModel {
   const factory ProductImageModel({
@@ -73,14 +76,14 @@ class CategoryModel with _$CategoryModel {
   const factory CategoryModel({
     required String id,
     required String name,
-    required String iconUrl,
+    String? iconUrl,
   }) = _CategoryModel;
 
   const CategoryModel._();
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => _$CategoryModelFromJson(json);
 
-  CategoryEntity toEntity() => CategoryEntity(id: id, name: name, iconUrl: iconUrl);
+  CategoryEntity toEntity() => CategoryEntity(id: id, name: name, iconUrl: iconUrl ?? '');
 }
 
 @freezed
@@ -146,11 +149,9 @@ class CartModel with _$CartModel {
 class CartItemModel with _$CartItemModel {
   const factory CartItemModel({
     required String id,
-    required String productId,
-    String? variantId,
     required int quantity,
-    required double price,
-    required CartProductModel product,
+    required CartItemProductModel product,
+    CartItemVariantModel? variant,
   }) = _CartItemModel;
 
   const CartItemModel._();
@@ -159,26 +160,49 @@ class CartItemModel with _$CartItemModel {
 
   CartItemEntity toEntity() => CartItemEntity(
     id: id,
-    productId: productId,
-    variantId: variantId,
     quantity: quantity,
-    price: price,
     product: product.toEntity(),
+    variant: variant?.toEntity(),
   );
 }
 
 @freezed
-class CartProductModel with _$CartProductModel {
-  const factory CartProductModel({
+class CartItemProductModel with _$CartItemProductModel {
+  const factory CartItemProductModel({
+    required String id,
     required String name,
-    required String imageUrl,
-  }) = _CartProductModel;
+    @JsonKey(fromJson: _toDouble) required double price,
+    @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
+    required bool inStock,
+    List<ProductImageModel>? images,
+  }) = _CartItemProductModel;
 
-  const CartProductModel._();
+  const CartItemProductModel._();
 
-  factory CartProductModel.fromJson(Map<String, dynamic> json) => _$CartProductModelFromJson(json);
+  factory CartItemProductModel.fromJson(Map<String, dynamic> json) => _$CartItemProductModelFromJson(json);
 
-  CartProductEntity toEntity() => CartProductEntity(name: name, imageUrl: imageUrl);
+  CartItemProductEntity toEntity() => CartItemProductEntity(
+    id: id,
+    name: name,
+    price: price,
+    discountPrice: discountPrice,
+    inStock: inStock,
+    images: images?.map((e) => e.toEntity()).toList(),
+  );
+}
+
+@freezed
+class CartItemVariantModel with _$CartItemVariantModel {
+  const factory CartItemVariantModel({
+    required String id,
+    required Map<String, dynamic> attributes,
+  }) = _CartItemVariantModel;
+
+  const CartItemVariantModel._();
+
+  factory CartItemVariantModel.fromJson(Map<String, dynamic> json) => _$CartItemVariantModelFromJson(json);
+
+  CartItemVariantEntity toEntity() => CartItemVariantEntity(id: id, attributes: attributes);
 }
 
 @freezed
@@ -241,11 +265,10 @@ class OrderTrackingModel with _$OrderTrackingModel {
 class OrderItemModel with _$OrderItemModel {
   const factory OrderItemModel({
     required String id,
-    required String productId,
-    String? variantId,
+    required String productName,
+    Map<String, dynamic>? variantAttributes,
     required int quantity,
-    required double price,
-    required CartProductModel product,
+    @JsonKey(fromJson: _toDouble) required double unitPrice,
   }) = _OrderItemModel;
 
   const OrderItemModel._();
@@ -254,11 +277,10 @@ class OrderItemModel with _$OrderItemModel {
 
   OrderItemEntity toEntity() => OrderItemEntity(
     id: id,
-    productId: productId,
-    variantId: variantId,
+    productName: productName,
+    variantAttributes: variantAttributes,
     quantity: quantity,
-    price: price,
-    product: product.toEntity(),
+    unitPrice: unitPrice,
   );
 }
 
@@ -326,7 +348,7 @@ class WatchlistItemModel with _$WatchlistItemModel {
   const factory WatchlistItemModel({
     required String id,
     required String createdAt,
-    required WatchlistProductModel product,
+    WatchlistProductModel? product,
   }) = _WatchlistItemModel;
 
   const WatchlistItemModel._();
@@ -336,7 +358,7 @@ class WatchlistItemModel with _$WatchlistItemModel {
   WatchlistItemEntity toEntity() => WatchlistItemEntity(
     id: id,
     createdAt: createdAt,
-    product: product.toEntity(),
+    product: product?.toEntity(),
   );
 }
 
@@ -345,9 +367,10 @@ class WatchlistProductModel with _$WatchlistProductModel {
   const factory WatchlistProductModel({
     required String id,
     required String name,
-    required double price,
-    double? discountPrice,
-    required String imageUrl,
+    @JsonKey(fromJson: _toDouble) required double price,
+    @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
+    required bool inStock,
+    List<ProductImageModel>? images,
   }) = _WatchlistProductModel;
 
   const WatchlistProductModel._();
@@ -359,6 +382,7 @@ class WatchlistProductModel with _$WatchlistProductModel {
     name: name,
     price: price,
     discountPrice: discountPrice,
-    imageUrl: imageUrl,
+    inStock: inStock,
+    images: images?.map((e) => e.toEntity()).toList(),
   );
 }

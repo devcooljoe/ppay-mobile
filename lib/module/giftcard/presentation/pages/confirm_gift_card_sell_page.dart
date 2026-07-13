@@ -22,7 +22,7 @@ import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 class ConfirmGiftCardSellPage extends HookConsumerWidget {
   final String cardType;
   final String logoUrl;
-  final GiftcardSubcategoryEntity subcategory;
+  final GiftcardSubcategoryEntity? subcategory;
   final String country;
   final double amount;
   final double nairaEquivalent;
@@ -34,7 +34,7 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
     super.key,
     required this.cardType,
     required this.logoUrl,
-    required this.subcategory,
+    this.subcategory,
     required this.country,
     required this.amount,
     required this.nairaEquivalent,
@@ -66,7 +66,7 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
       await ref.read(sellGiftcardProvider.notifier).call(
         type: cardType,
         country: country,
-        subcategoryId: subcategory.id,
+        subcategoryId: subcategory?.id,
         amount: amount,
         ecode: ecode,
         cardImagePaths: cardImages.map((f) => f.path).toList(),
@@ -145,16 +145,18 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        9.verticalSpace,
-                        Text(
-                          subcategory.name,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.svgIconColor,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
+                        if (subcategory != null) ...[
+                          9.verticalSpace,
+                          Text(
+                            subcategory!.name,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: PPaymobileColors.svgIconColor,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
+                        ],
                       ],
                     ),
                   ],

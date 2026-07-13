@@ -13,6 +13,7 @@ import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/carousel_item.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/your_cart_bottomsheet.dart';
 
 @RoutePage()
 class ShoppingPage extends HookConsumerWidget {
@@ -81,26 +82,36 @@ class ShoppingPage extends HookConsumerWidget {
                   child: SizedBox(height: 40.w, width: 40.w, child: Image.asset('assets/images/favorite.png', fit: BoxFit.contain)),
                 ),
                 14.horizontalSpace,
-                Stack(
-                  children: [
-                    SizedBox(height: 40.w, width: 40.w, child: Image.asset('assets/images/cart.png', fit: BoxFit.contain)),
-                    if (cartItemCount > 0)
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Container(
-                          width: 16.w,
-                          height: 16.w,
-                          decoration: BoxDecoration(color: PPaymobileColors.redTextfield, shape: BoxShape.circle),
-                          child: Center(
-                            child: Text(
-                              '$cartItemCount',
-                              style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 9.sp, fontWeight: FontWeight.w600),
+                GestureDetector(
+                  onTap: () async {
+                    await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) => const YourCartBottomsheet(),
+                    );
+                  },
+                  child: Stack(
+                    children: [
+                      SizedBox(height: 40.w, width: 40.w, child: Image.asset('assets/images/cart.png', fit: BoxFit.contain)),
+                      if (cartItemCount > 0)
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            width: 16.w,
+                            height: 16.w,
+                            decoration: BoxDecoration(color: PPaymobileColors.redTextfield, shape: BoxShape.circle),
+                            child: Center(
+                              child: Text(
+                                '$cartItemCount',
+                                style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 9.sp, fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

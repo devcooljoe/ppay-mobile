@@ -56,7 +56,7 @@ class EstimatedAssetValueModel with _$EstimatedAssetValueModel {
 class CryptoWalletModel with _$CryptoWalletModel {
   const factory CryptoWalletModel({
     required String id,
-    required String reference,
+    String? reference,
     required String currency,
     required String address,
     required String network,

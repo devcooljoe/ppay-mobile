@@ -75,20 +75,30 @@ class CartEntity with _$CartEntity {
 class CartItemEntity with _$CartItemEntity {
   const factory CartItemEntity({
     required String id,
-    required String productId,
-    String? variantId,
     required int quantity,
-    required double price,
-    required CartProductEntity product,
+    required CartItemProductEntity product,
+    CartItemVariantEntity? variant,
   }) = _CartItemEntity;
 }
 
 @freezed
-class CartProductEntity with _$CartProductEntity {
-  const factory CartProductEntity({
+class CartItemProductEntity with _$CartItemProductEntity {
+  const factory CartItemProductEntity({
+    required String id,
     required String name,
-    required String imageUrl,
-  }) = _CartProductEntity;
+    required double price,
+    double? discountPrice,
+    required bool inStock,
+    List<ProductImageEntity>? images,
+  }) = _CartItemProductEntity;
+}
+
+@freezed
+class CartItemVariantEntity with _$CartItemVariantEntity {
+  const factory CartItemVariantEntity({
+    required String id,
+    required Map<String, dynamic> attributes,
+  }) = _CartItemVariantEntity;
 }
 
 @freezed
@@ -122,11 +132,10 @@ class OrderTrackingEntity with _$OrderTrackingEntity {
 class OrderItemEntity with _$OrderItemEntity {
   const factory OrderItemEntity({
     required String id,
-    required String productId,
-    String? variantId,
+    required String productName,
+    Map<String, dynamic>? variantAttributes,
     required int quantity,
-    required double price,
-    required CartProductEntity product,
+    required double unitPrice,
   }) = _OrderItemEntity;
 }
 
@@ -164,7 +173,7 @@ class WatchlistItemEntity with _$WatchlistItemEntity {
   const factory WatchlistItemEntity({
     required String id,
     required String createdAt,
-    required WatchlistProductEntity product,
+    WatchlistProductEntity? product,
   }) = _WatchlistItemEntity;
 }
 
@@ -175,6 +184,11 @@ class WatchlistProductEntity with _$WatchlistProductEntity {
     required String name,
     required double price,
     double? discountPrice,
-    required String imageUrl,
+    required bool inStock,
+    List<ProductImageEntity>? images,
   }) = _WatchlistProductEntity;
+
+  const WatchlistProductEntity._();
+
+  String get imageUrl => images?.isNotEmpty == true ? images!.first.url : '';
 }

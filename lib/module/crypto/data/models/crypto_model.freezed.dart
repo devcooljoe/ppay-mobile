@@ -526,7 +526,7 @@ CryptoWalletModel _$CryptoWalletModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CryptoWalletModel {
   String get id => throw _privateConstructorUsedError;
-  String get reference => throw _privateConstructorUsedError;
+  String? get reference => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get network => throw _privateConstructorUsedError;
@@ -546,7 +546,7 @@ abstract class $CryptoWalletModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String reference,
+      String? reference,
       String currency,
       String address,
       String network,
@@ -567,7 +567,7 @@ class _$CryptoWalletModelCopyWithImpl<$Res, $Val extends CryptoWalletModel>
   @override
   $Res call({
     Object? id = null,
-    Object? reference = null,
+    Object? reference = freezed,
     Object? currency = null,
     Object? address = null,
     Object? network = null,
@@ -578,10 +578,10 @@ class _$CryptoWalletModelCopyWithImpl<$Res, $Val extends CryptoWalletModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      reference: null == reference
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -612,7 +612,7 @@ abstract class _$$CryptoWalletModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String reference,
+      String? reference,
       String currency,
       String address,
       String network,
@@ -631,7 +631,7 @@ class __$$CryptoWalletModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? reference = null,
+    Object? reference = freezed,
     Object? currency = null,
     Object? address = null,
     Object? network = null,
@@ -642,10 +642,10 @@ class __$$CryptoWalletModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      reference: null == reference
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -671,7 +671,7 @@ class __$$CryptoWalletModelImplCopyWithImpl<$Res>
 class _$CryptoWalletModelImpl extends _CryptoWalletModel {
   const _$CryptoWalletModelImpl(
       {required this.id,
-      required this.reference,
+      this.reference,
       required this.currency,
       required this.address,
       required this.network,
@@ -684,7 +684,7 @@ class _$CryptoWalletModelImpl extends _CryptoWalletModel {
   @override
   final String id;
   @override
-  final String reference;
+  final String? reference;
   @override
   final String currency;
   @override
@@ -737,7 +737,7 @@ class _$CryptoWalletModelImpl extends _CryptoWalletModel {
 abstract class _CryptoWalletModel extends CryptoWalletModel {
   const factory _CryptoWalletModel(
       {required final String id,
-      required final String reference,
+      final String? reference,
       required final String currency,
       required final String address,
       required final String network,
@@ -750,7 +750,7 @@ abstract class _CryptoWalletModel extends CryptoWalletModel {
   @override
   String get id;
   @override
-  String get reference;
+  String? get reference;
   @override
   String get currency;
   @override

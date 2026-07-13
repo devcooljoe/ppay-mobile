@@ -30,7 +30,7 @@ class EstimatedAssetValueEntity with _$EstimatedAssetValueEntity {
 class CryptoWalletEntity with _$CryptoWalletEntity {
   const factory CryptoWalletEntity({
     required String id,
-    required String reference,
+    String? reference,
     required String currency,
     required String address,
     required String network,

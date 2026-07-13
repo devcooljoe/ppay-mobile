@@ -479,7 +479,7 @@ abstract class _EstimatedAssetValueEntity implements EstimatedAssetValueEntity {
 /// @nodoc
 mixin _$CryptoWalletEntity {
   String get id => throw _privateConstructorUsedError;
-  String get reference => throw _privateConstructorUsedError;
+  String? get reference => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get network => throw _privateConstructorUsedError;
@@ -498,7 +498,7 @@ abstract class $CryptoWalletEntityCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String reference,
+      String? reference,
       String currency,
       String address,
       String network,
@@ -519,7 +519,7 @@ class _$CryptoWalletEntityCopyWithImpl<$Res, $Val extends CryptoWalletEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? reference = null,
+    Object? reference = freezed,
     Object? currency = null,
     Object? address = null,
     Object? network = null,
@@ -530,10 +530,10 @@ class _$CryptoWalletEntityCopyWithImpl<$Res, $Val extends CryptoWalletEntity>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      reference: null == reference
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -564,7 +564,7 @@ abstract class _$$CryptoWalletEntityImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String reference,
+      String? reference,
       String currency,
       String address,
       String network,
@@ -583,7 +583,7 @@ class __$$CryptoWalletEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? reference = null,
+    Object? reference = freezed,
     Object? currency = null,
     Object? address = null,
     Object? network = null,
@@ -594,10 +594,10 @@ class __$$CryptoWalletEntityImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      reference: null == reference
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       currency: null == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -623,7 +623,7 @@ class __$$CryptoWalletEntityImplCopyWithImpl<$Res>
 class _$CryptoWalletEntityImpl implements _CryptoWalletEntity {
   const _$CryptoWalletEntityImpl(
       {required this.id,
-      required this.reference,
+      this.reference,
       required this.currency,
       required this.address,
       required this.network,
@@ -632,7 +632,7 @@ class _$CryptoWalletEntityImpl implements _CryptoWalletEntity {
   @override
   final String id;
   @override
-  final String reference;
+  final String? reference;
   @override
   final String currency;
   @override
@@ -677,7 +677,7 @@ class _$CryptoWalletEntityImpl implements _CryptoWalletEntity {
 abstract class _CryptoWalletEntity implements CryptoWalletEntity {
   const factory _CryptoWalletEntity(
       {required final String id,
-      required final String reference,
+      final String? reference,
       required final String currency,
       required final String address,
       required final String network,
@@ -686,7 +686,7 @@ abstract class _CryptoWalletEntity implements CryptoWalletEntity {
   @override
   String get id;
   @override
-  String get reference;
+  String? get reference;
   @override
   String get currency;
   @override

@@ -103,7 +103,7 @@ class OrderReceiptPage extends HookConsumerWidget {
                                   8.horizontalSpace,
                                   Expanded(
                                     child: Text(
-                                      item.product.name,
+                                      item.productName,
                                       style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500),
                                       overflow: TextOverflow.ellipsis,
                                     ),

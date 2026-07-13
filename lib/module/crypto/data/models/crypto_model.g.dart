@@ -54,7 +54,7 @@ _$CryptoWalletModelImpl _$$CryptoWalletModelImplFromJson(
         Map<String, dynamic> json) =>
     _$CryptoWalletModelImpl(
       id: json['id'] as String,
-      reference: json['reference'] as String,
+      reference: json['reference'] as String?,
       currency: json['currency'] as String,
       address: json['address'] as String,
       network: json['network'] as String,

@@ -30,10 +30,10 @@ _$GiftcardRegionModelImpl _$$GiftcardRegionModelImplFromJson(
         Map<String, dynamic> json) =>
     _$GiftcardRegionModelImpl(
       id: json['id'] as String?,
-      name: json['name'] as String,
+      name: json['name'] as String?,
       flagUrl: json['flagUrl'] as String,
       packageName: json['packageName'] as String?,
-      currency: json['currency'] as String,
+      currency: json['currency'] as String?,
       countryName: json['countryName'] as String?,
       countryCode: json['countryCode'] as String?,
       items: (json['items'] as List<dynamic>?)

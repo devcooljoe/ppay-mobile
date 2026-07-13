@@ -37,9 +37,13 @@ class CheckOutPage extends HookConsumerWidget {
 
     final cart = cartState.value;
     final items = cart?.items ?? [];
-    final subtotal = items.fold<double>(0, (sum, item) => sum + (item.price * item.quantity));
-    final deliveryFee = 2500.0;
-    final total = subtotal + deliveryFee;
+    final subtotal = items.fold<double>(0, (sum, item) {
+      final price = item.product.discountPrice ?? item.product.price;
+      return sum + (price * item.quantity);
+    });
+    final deliveryFee = 6500.0;
+    final discount = 1200.0;
+    final total = subtotal + deliveryFee - discount;
 
     Future<void> onConfirm() async {
       if (receiverController.text.isEmpty) {
@@ -74,8 +78,8 @@ class CheckOutPage extends HookConsumerWidget {
         address: addressController.text.trim(),
         note: noteController.text.isNotEmpty ? noteController.text.trim() : null,
         items: items.map((item) => {
-          'productId': item.productId,
-          if (item.variantId != null) 'variantId': item.variantId,
+          'productId': item.product.id,
+          if (item.variant != null) 'variantId': item.variant!.id,
           'quantity': item.quantity,
         }).toList(),
       );
@@ -130,47 +134,66 @@ class CheckOutPage extends HookConsumerWidget {
                   : items.isEmpty
                       ? Center(child: Text('Your cart is empty', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp)))
                       : Column(
-                          children: items.map((item) => Padding(
-                            padding: EdgeInsets.only(bottom: 20.h),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 80.w,
-                                  height: 80.h,
-                                  decoration: BoxDecoration(
-                                    color: PPaymobileColors.deepBackgroundColor,
-                                    borderRadius: BorderRadius.circular(4.r),
+                          children: items.map((item) {
+                            final price = item.product.discountPrice ?? item.product.price;
+                            final imageUrl = item.product.images?.isNotEmpty == true ? item.product.images!.first.url : null;
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 20.h),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 80.w,
+                                    height: 80.h,
+                                    decoration: BoxDecoration(
+                                      color: PPaymobileColors.deepBackgroundColor,
+                                      borderRadius: BorderRadius.circular(4.r),
+                                    ),
+                                    child: imageUrl != null
+                                        ? ClipRRect(
+                                            borderRadius: BorderRadius.circular(4.r),
+                                            child: Image.network(imageUrl, fit: BoxFit.cover,
+                                              errorBuilder: (_, __, ___) => Center(child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 32.w))),
+                                          )
+                                        : Center(child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 32.w)),
                                   ),
-                                  child: Center(child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 32.w)),
-                                ),
-                                12.horizontalSpace,
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Text(item.product.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                                  12.horizontalSpace,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Text(item.product.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                                            ),
+                                            TouchOpacity(
+                                              onTap: () async {
+                                                await ref.read(removeFromCartProvider.notifier).call(item.id);
+                                                ref.read(getCartProvider.notifier).call();
+                                              },
+                                              child: SizedBox(height: 20.w, width: 20.w, child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.contain)),
+                                            ),
+                                          ],
+                                        ),
+                                        4.verticalSpace,
+                                        if (item.variant != null)
+                                          Text(
+                                            item.variant!.attributes.entries.map((e) => '${e.key}: ${e.value}').join(', '),
+                                            style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 11.sp),
                                           ),
-                                          TouchOpacity(
-                                            onTap: () => ref.read(removeFromCartProvider.notifier).call(item.id),
-                                            child: SizedBox(height: 20.w, width: 20.w, child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.contain)),
-                                          ),
-                                        ],
-                                      ),
-                                      4.verticalSpace,
-                                      Text('Qty: ${item.quantity}', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp)),
-                                      4.verticalSpace,
-                                      Text('₦${AmountFormatter.formatBalance((item.price * item.quantity).toStringAsFixed(2))}', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
-                                    ],
+                                        4.verticalSpace,
+                                        Text('Qty: ${item.quantity}', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp)),
+                                        4.verticalSpace,
+                                        Text('₦${AmountFormatter.formatBalance((price * item.quantity).toStringAsFixed(2))}', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )).toList(),
+                                ],
+                              ),
+                            );
+                          }).toList(),
                         ),
 
               if (items.isNotEmpty) ...[
@@ -179,6 +202,8 @@ class CheckOutPage extends HookConsumerWidget {
                 _SummaryRow(label: 'Subtotal', value: '₦${AmountFormatter.formatBalance(subtotal.toStringAsFixed(2))}'),
                 8.verticalSpace,
                 _SummaryRow(label: 'Delivery Fee', value: '₦${AmountFormatter.formatBalance(deliveryFee.toStringAsFixed(2))}'),
+                8.verticalSpace,
+                _SummaryRow(label: 'Discount', value: '-₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}'),
                 8.verticalSpace,
                 _SummaryRow(label: 'Total', value: '₦${AmountFormatter.formatBalance(total.toStringAsFixed(2))}', isBold: true),
                 24.verticalSpace,

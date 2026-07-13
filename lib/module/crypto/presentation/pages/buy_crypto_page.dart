@@ -98,7 +98,13 @@ class BuyCryptoPage extends HookConsumerWidget {
         MessageHandler.showErrorSnackBar(context, state.error.toString());
       } else {
         ref.read(walletProvider.notifier).fetch();
-        context.router.push(CryptoTransactionSuccessfulRoute());
+        context.router.push(CryptoTransactionSuccessfulRoute(
+          cryptoAmount: cryptoAmount,
+          currency: rate?.currency ?? '',
+          nairaAmount: amount,
+          logoUrl: rate?.logoUrl ?? '',
+          isBuy: true,
+        ));
       }
     }
 

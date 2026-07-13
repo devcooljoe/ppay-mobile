@@ -29,6 +29,7 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
     final walletState = ref.watch(walletProvider);
     final user = ref.watch(authenticatedUserProvider).value;
 
+    // Step-by-step: card → region → value
     final selectedCard = useState<BuyGiftcardRateEntity?>(null);
     final selectedRegion = useState<GiftcardRegionEntity?>(null);
     final selectedItem = useState<GiftcardItemEntity?>(null);
@@ -39,17 +40,6 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
       return null;
     }, []);
 
-    useEffect(() {
-      final rates = ratesState.value;
-      if (rates != null && rates.isNotEmpty && selectedCard.value == null) {
-        selectedCard.value = rates.first;
-        if (rates.first.regions.isNotEmpty) {
-          selectedRegion.value = rates.first.regions.first;
-        }
-      }
-      return null;
-    }, [ratesState.value]);
-
     final totalNaira = selectedItem.value != null
         ? selectedItem.value!.amountInNaira * quantity.value
         : 0.0;
@@ -58,6 +48,7 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
 
     void showCardPicker() {
       final rates = ratesState.value ?? [];
+      if (rates.isEmpty) return;
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -66,8 +57,9 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
           rates: rates,
           selected: selectedCard.value,
           onSelect: (card) {
+            // Reset downstream selections when card changes
             selectedCard.value = card;
-            selectedRegion.value = card.regions.isNotEmpty ? card.regions.first : null;
+            selectedRegion.value = null;
             selectedItem.value = null;
           },
         ),
@@ -76,7 +68,14 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
 
     void showRegionPicker() {
       final card = selectedCard.value;
-      if (card == null) return;
+      if (card == null) {
+        MessageHandler.showErrorSnackBar(context, 'Select a card type first');
+        return;
+      }
+      if (card.regions.isEmpty) {
+        MessageHandler.showErrorSnackBar(context, 'No regions available for this card');
+        return;
+      }
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -93,16 +92,28 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
     }
 
     void showValuePicker() {
+      if (selectedCard.value == null) {
+        MessageHandler.showErrorSnackBar(context, 'Select a card type first');
+        return;
+      }
       final region = selectedRegion.value;
-      if (region == null || region.items == null || region.items!.isEmpty) return;
+      if (region == null) {
+        MessageHandler.showErrorSnackBar(context, 'Select a region first');
+        return;
+      }
+      final items = region.items;
+      if (items == null || items.isEmpty) {
+        MessageHandler.showErrorSnackBar(context, 'No values available for this region');
+        return;
+      }
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (_) => _ValuePickerSheet(
-          items: region.items!,
+          items: items,
           selected: selectedItem.value,
-          currency: region.currency,
+          currency: region.currency ?? '',
           onSelect: (item) => selectedItem.value = item,
         ),
       );
@@ -141,7 +152,7 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
         amountInUSD: item.minAmount * quantity.value,
         amountInNaira: totalNaira,
         title: card.type,
-        region: region.name,
+        region: region.name ?? '',
         rate: item.rate,
       );
 
@@ -155,7 +166,7 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
           cardType: card.type,
           amountInNaira: totalNaira,
           amountInUSD: item.minAmount * quantity.value,
-          region: region.name,
+          region: region.name ?? '',
           rate: item.rate,
         ));
       }
@@ -258,32 +269,7 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
                   ),
                   40.verticalSpace,
 
-                  // Region
-                  Text('Region', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
-                  4.verticalSpace,
-                  _DropdownField(
-                    onTap: showRegionPicker,
-                    child: selectedRegion.value != null
-                        ? Row(
-                            children: [
-                              CachedNetworkImage(
-                                imageUrl: selectedRegion.value!.flagUrl,
-                                width: 23.w,
-                                height: 23.w,
-                                errorWidget: (_, __, ___) => SizedBox(width: 23.w, height: 23.w),
-                              ),
-                              12.horizontalSpace,
-                              Text(
-                                selectedRegion.value!.name,
-                                style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          )
-                        : Text('Select region', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp)),
-                  ),
-                  32.verticalSpace,
-
-                  // Card Type
+                  // Step 1: Card Type
                   Text('Card Type', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
                   4.verticalSpace,
                   ratesState.isLoading
@@ -310,57 +296,88 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
                         ),
                   32.verticalSpace,
 
-                  // Card Value + Quantity
-                  Text('Card Value', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
-                  4.verticalSpace,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _DropdownField(
-                          onTap: showValuePicker,
-                          child: selectedItem.value != null
-                              ? Text(
-                                  '\$${selectedItem.value!.minAmount.toStringAsFixed(0)} (₦${AmountFormatter.formatBalance(selectedItem.value!.amountInNaira.toStringAsFixed(2))})',
-                                  style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500),
-                                )
-                              : Text('Select value', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp)),
+                  // Step 2: Region (only shown after card is selected)
+                  if (selectedCard.value != null) ...[
+                    Text('Region', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                    4.verticalSpace,
+                    _DropdownField(
+                      onTap: showRegionPicker,
+                      child: selectedRegion.value != null
+                          ? Row(
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: selectedRegion.value!.flagUrl,
+                                  width: 23.w,
+                                  height: 23.w,
+                                  errorWidget: (_, __, ___) => SizedBox(width: 23.w, height: 23.w),
+                                ),
+                                12.horizontalSpace,
+                                Text(
+                                  selectedRegion.value!.name ?? '',
+                                  style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            )
+                          : Text('Select region', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp)),
+                    ),
+                    32.verticalSpace,
+                  ],
+
+                  // Step 3: Card Value + Quantity (only shown after region is selected)
+                  if (selectedRegion.value != null) ...[
+                    Text('Card Value', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                    4.verticalSpace,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _DropdownField(
+                            onTap: showValuePicker,
+                            child: selectedItem.value != null
+                                ? Text(
+                                    '\$${selectedItem.value!.minAmount.toStringAsFixed(0)} (₦${AmountFormatter.formatBalance(selectedItem.value!.amountInNaira.toStringAsFixed(2))})',
+                                    style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500),
+                                  )
+                                : Text('Select value', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp)),
+                          ),
+                        ),
+                        24.horizontalSpace,
+                        Row(
+                          children: [
+                            TouchOpacity(
+                              onTap: () { if (quantity.value > 1) quantity.value--; },
+                              child: SizedBox(height: 38.w, width: 38.w, child: Image.asset('assets/images/remove_green.png', fit: BoxFit.contain)),
+                            ),
+                            16.horizontalSpace,
+                            Text('${quantity.value}', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                            16.horizontalSpace,
+                            TouchOpacity(
+                              onTap: () => quantity.value++,
+                              child: SizedBox(height: 38.w, width: 38.w, child: Image.asset('assets/images/add_green.png', fit: BoxFit.contain)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    if (selectedItem.value != null) ...[
+                      8.verticalSpace,
+                      RichText(
+                        text: TextSpan(
+                          text: 'You will pay: ₦${AmountFormatter.formatBalance(totalNaira.toStringAsFixed(2))} ',
+                          style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500),
+                          children: isInsufficient
+                              ? [
+                                  TextSpan(
+                                    text: '(Insufficient Fund)',
+                                    style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.redTextfield, fontSize: 14.sp, fontWeight: FontWeight.w500),
+                                  ),
+                                ]
+                              : [],
                         ),
                       ),
-                      24.horizontalSpace,
-                      Row(
-                        children: [
-                          TouchOpacity(
-                            onTap: () { if (quantity.value > 1) quantity.value--; },
-                            child: SizedBox(height: 38.w, width: 38.w, child: Image.asset('assets/images/remove_green.png', fit: BoxFit.contain)),
-                          ),
-                          16.horizontalSpace,
-                          Text('${quantity.value}', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
-                          16.horizontalSpace,
-                          TouchOpacity(
-                            onTap: () => quantity.value++,
-                            child: SizedBox(height: 38.w, width: 38.w, child: Image.asset('assets/images/add_green.png', fit: BoxFit.contain)),
-                          ),
-                        ],
-                      ),
                     ],
-                  ),
-                  if (selectedItem.value != null) ...[
-                    8.verticalSpace,
-                    RichText(
-                      text: TextSpan(
-                        text: 'You will pay: ₦${AmountFormatter.formatBalance(totalNaira.toStringAsFixed(2))} ',
-                        style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500),
-                        children: isInsufficient
-                            ? [
-                                TextSpan(
-                                  text: '(Insufficient Fund)',
-                                  style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.redTextfield, fontSize: 14.sp, fontWeight: FontWeight.w500),
-                                ),
-                              ]
-                            : [],
-                      ),
-                    ),
+                    32.verticalSpace,
                   ],
+
                   78.verticalSpace,
                   PPButton(
                     text: buyState.isLoading ? 'Processing...' : 'Proceed to Pay',
@@ -465,8 +482,8 @@ class _RegionPickerSheet extends StatelessWidget {
               height: 32.w,
               errorWidget: (_, __, ___) => SizedBox(width: 32.w, height: 32.w),
             ),
-            title: Text(region.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
-            subtitle: Text(region.currency, style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp)),
+            title: Text(region.name ?? '', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
+            subtitle: Text(region.currency ?? '', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp)),
             trailing: selected?.name == region.name ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w) : null,
             onTap: () { onSelect(region); Navigator.pop(context); },
           );

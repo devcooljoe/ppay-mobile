@@ -49,7 +49,7 @@ class CryptoRemoteDataSourceImpl implements CryptoRemoteDataSource {
     final queryParams = <String, dynamic>{};
     if (network != null) queryParams['network'] = network;
 
-    final response = await _dio.get('$_baseUrl/crypto/wallet/$currency', queryParameters: queryParams);
+    final response = await _dio.get('$_baseUrl/crypto/get-wallet-address/$currency', queryParameters: queryParams.isNotEmpty ? queryParams : null);
     final baseResponse = BaseResponse<CryptoWalletModel>.fromJson(
       response.data,
       (data) => CryptoWalletModel.fromJson(data as Map<String, dynamic>),

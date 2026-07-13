@@ -16,10 +16,10 @@ class BuyGiftcardRateEntity with _$BuyGiftcardRateEntity {
 class GiftcardRegionEntity with _$GiftcardRegionEntity {
   const factory GiftcardRegionEntity({
     String? id,
-    required String name,
+    String? name,
     required String flagUrl,
     String? packageName,
-    required String currency,
+    String? currency,
     String? countryName,
     String? countryCode,
     List<GiftcardItemEntity>? items,

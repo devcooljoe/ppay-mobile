@@ -14,7 +14,7 @@ abstract class GiftcardRemoteDataSource {
   Future<void> sellGiftcard({
     required String type,
     required String country,
-    required String subcategoryId,
+    String? subcategoryId,
     required double amount,
     String? ecode,
     List<String>? cardImagePaths,
@@ -61,7 +61,7 @@ class GiftcardRemoteDataSourceImpl implements GiftcardRemoteDataSource {
   Future<void> sellGiftcard({
     required String type,
     required String country,
-    required String subcategoryId,
+    String? subcategoryId,
     required double amount,
     String? ecode,
     List<String>? cardImagePaths,
@@ -69,7 +69,7 @@ class GiftcardRemoteDataSourceImpl implements GiftcardRemoteDataSource {
     final formData = FormData.fromMap({
       'type': type,
       'country': country,
-      'subcategoryId': subcategoryId,
+      if (subcategoryId != null) 'subcategoryId': subcategoryId,
       'amount': amount,
       if (ecode != null) 'ecode': ecode,
     });
@@ -104,7 +104,7 @@ abstract class GiftcardRepository {
   Future<Either<Failure, void>> sellGiftcard({
     required String type,
     required String country,
-    required String subcategoryId,
+    String? subcategoryId,
     required double amount,
     String? ecode,
     List<String>? cardImagePaths,
@@ -173,7 +173,7 @@ class GiftcardRepositoryImpl implements GiftcardRepository {
   Future<Either<Failure, void>> sellGiftcard({
     required String type,
     required String country,
-    required String subcategoryId,
+    String? subcategoryId,
     required double amount,
     String? ecode,
     List<String>? cardImagePaths,

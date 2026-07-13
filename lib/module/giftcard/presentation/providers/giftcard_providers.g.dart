@@ -57,7 +57,7 @@ final buyGiftcardProvider =
 );
 
 typedef _$BuyGiftcard = AutoDisposeNotifier<AsyncValue<void>>;
-String _$sellGiftcardHash() => r'2577529843cd6e40d4a60f39959a9110ca3c337d';
+String _$sellGiftcardHash() => r'59c0e90d1fc7920bcfd8ed99359e0540faab2bb8';
 
 /// See also [SellGiftcard].
 @ProviderFor(SellGiftcard)

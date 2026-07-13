@@ -696,7 +696,7 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) {
 mixin _$CategoryModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get iconUrl => throw _privateConstructorUsedError;
+  String? get iconUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -710,7 +710,7 @@ abstract class $CategoryModelCopyWith<$Res> {
           CategoryModel value, $Res Function(CategoryModel) then) =
       _$CategoryModelCopyWithImpl<$Res, CategoryModel>;
   @useResult
-  $Res call({String id, String name, String iconUrl});
+  $Res call({String id, String name, String? iconUrl});
 }
 
 /// @nodoc
@@ -728,7 +728,7 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? iconUrl = null,
+    Object? iconUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -739,10 +739,10 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      iconUrl: null == iconUrl
+      iconUrl: freezed == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -755,7 +755,7 @@ abstract class _$$CategoryModelImplCopyWith<$Res>
       __$$CategoryModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String iconUrl});
+  $Res call({String id, String name, String? iconUrl});
 }
 
 /// @nodoc
@@ -771,7 +771,7 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? iconUrl = null,
+    Object? iconUrl = freezed,
   }) {
     return _then(_$CategoryModelImpl(
       id: null == id
@@ -782,10 +782,10 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      iconUrl: null == iconUrl
+      iconUrl: freezed == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -794,7 +794,7 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CategoryModelImpl extends _CategoryModel {
   const _$CategoryModelImpl(
-      {required this.id, required this.name, required this.iconUrl})
+      {required this.id, required this.name, this.iconUrl})
       : super._();
 
   factory _$CategoryModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -805,7 +805,7 @@ class _$CategoryModelImpl extends _CategoryModel {
   @override
   final String name;
   @override
-  final String iconUrl;
+  final String? iconUrl;
 
   @override
   String toString() {
@@ -844,7 +844,7 @@ abstract class _CategoryModel extends CategoryModel {
   const factory _CategoryModel(
       {required final String id,
       required final String name,
-      required final String iconUrl}) = _$CategoryModelImpl;
+      final String? iconUrl}) = _$CategoryModelImpl;
   const _CategoryModel._() : super._();
 
   factory _CategoryModel.fromJson(Map<String, dynamic> json) =
@@ -855,7 +855,7 @@ abstract class _CategoryModel extends CategoryModel {
   @override
   String get name;
   @override
-  String get iconUrl;
+  String? get iconUrl;
   @override
   @JsonKey(ignore: true)
   _$$CategoryModelImplCopyWith<_$CategoryModelImpl> get copyWith =>
@@ -1472,11 +1472,9 @@ CartItemModel _$CartItemModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CartItemModel {
   String get id => throw _privateConstructorUsedError;
-  String get productId => throw _privateConstructorUsedError;
-  String? get variantId => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  CartProductModel get product => throw _privateConstructorUsedError;
+  CartItemProductModel get product => throw _privateConstructorUsedError;
+  CartItemVariantModel? get variant => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1492,13 +1490,12 @@ abstract class $CartItemModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
       int quantity,
-      double price,
-      CartProductModel product});
+      CartItemProductModel product,
+      CartItemVariantModel? variant});
 
-  $CartProductModelCopyWith<$Res> get product;
+  $CartItemProductModelCopyWith<$Res> get product;
+  $CartItemVariantModelCopyWith<$Res>? get variant;
 }
 
 /// @nodoc
@@ -1515,45 +1512,47 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
     Object? quantity = null,
-    Object? price = null,
     Object? product = null,
+    Object? variant = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as CartProductModel,
+              as CartItemProductModel,
+      variant: freezed == variant
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as CartItemVariantModel?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CartProductModelCopyWith<$Res> get product {
-    return $CartProductModelCopyWith<$Res>(_value.product, (value) {
+  $CartItemProductModelCopyWith<$Res> get product {
+    return $CartItemProductModelCopyWith<$Res>(_value.product, (value) {
       return _then(_value.copyWith(product: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CartItemVariantModelCopyWith<$Res>? get variant {
+    if (_value.variant == null) {
+      return null;
+    }
+
+    return $CartItemVariantModelCopyWith<$Res>(_value.variant!, (value) {
+      return _then(_value.copyWith(variant: value) as $Val);
     });
   }
 }
@@ -1568,14 +1567,14 @@ abstract class _$$CartItemModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
       int quantity,
-      double price,
-      CartProductModel product});
+      CartItemProductModel product,
+      CartItemVariantModel? variant});
 
   @override
-  $CartProductModelCopyWith<$Res> get product;
+  $CartItemProductModelCopyWith<$Res> get product;
+  @override
+  $CartItemVariantModelCopyWith<$Res>? get variant;
 }
 
 /// @nodoc
@@ -1590,37 +1589,27 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
     Object? quantity = null,
-    Object? price = null,
     Object? product = null,
+    Object? variant = freezed,
   }) {
     return _then(_$CartItemModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as CartProductModel,
+              as CartItemProductModel,
+      variant: freezed == variant
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as CartItemVariantModel?,
     ));
   }
 }
@@ -1630,11 +1619,9 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
 class _$CartItemModelImpl extends _CartItemModel {
   const _$CartItemModelImpl(
       {required this.id,
-      required this.productId,
-      this.variantId,
       required this.quantity,
-      required this.price,
-      required this.product})
+      required this.product,
+      this.variant})
       : super._();
 
   factory _$CartItemModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -1643,19 +1630,15 @@ class _$CartItemModelImpl extends _CartItemModel {
   @override
   final String id;
   @override
-  final String productId;
-  @override
-  final String? variantId;
-  @override
   final int quantity;
   @override
-  final double price;
+  final CartItemProductModel product;
   @override
-  final CartProductModel product;
+  final CartItemVariantModel? variant;
 
   @override
   String toString() {
-    return 'CartItemModel(id: $id, productId: $productId, variantId: $variantId, quantity: $quantity, price: $price, product: $product)';
+    return 'CartItemModel(id: $id, quantity: $quantity, product: $product, variant: $variant)';
   }
 
   @override
@@ -1664,20 +1647,15 @@ class _$CartItemModelImpl extends _CartItemModel {
         (other.runtimeType == runtimeType &&
             other is _$CartItemModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.variantId, variantId) ||
-                other.variantId == variantId) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
-            (identical(other.price, price) || other.price == price) &&
-            (identical(other.product, product) || other.product == product));
+            (identical(other.product, product) || other.product == product) &&
+            (identical(other.variant, variant) || other.variant == variant));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, productId, variantId, quantity, price, product);
+  int get hashCode => Object.hash(runtimeType, id, quantity, product, variant);
 
   @JsonKey(ignore: true)
   @override
@@ -1696,11 +1674,9 @@ class _$CartItemModelImpl extends _CartItemModel {
 abstract class _CartItemModel extends CartItemModel {
   const factory _CartItemModel(
       {required final String id,
-      required final String productId,
-      final String? variantId,
       required final int quantity,
-      required final double price,
-      required final CartProductModel product}) = _$CartItemModelImpl;
+      required final CartItemProductModel product,
+      final CartItemVariantModel? variant}) = _$CartItemModelImpl;
   const _CartItemModel._() : super._();
 
   factory _CartItemModel.fromJson(Map<String, dynamic> json) =
@@ -1709,49 +1685,58 @@ abstract class _CartItemModel extends CartItemModel {
   @override
   String get id;
   @override
-  String get productId;
-  @override
-  String? get variantId;
-  @override
   int get quantity;
   @override
-  double get price;
+  CartItemProductModel get product;
   @override
-  CartProductModel get product;
+  CartItemVariantModel? get variant;
   @override
   @JsonKey(ignore: true)
   _$$CartItemModelImplCopyWith<_$CartItemModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-CartProductModel _$CartProductModelFromJson(Map<String, dynamic> json) {
-  return _CartProductModel.fromJson(json);
+CartItemProductModel _$CartItemProductModelFromJson(Map<String, dynamic> json) {
+  return _CartItemProductModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CartProductModel {
+mixin _$CartItemProductModel {
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
+  double get price => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDoubleNullable)
+  double? get discountPrice => throw _privateConstructorUsedError;
+  bool get inStock => throw _privateConstructorUsedError;
+  List<ProductImageModel>? get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CartProductModelCopyWith<CartProductModel> get copyWith =>
+  $CartItemProductModelCopyWith<CartItemProductModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CartProductModelCopyWith<$Res> {
-  factory $CartProductModelCopyWith(
-          CartProductModel value, $Res Function(CartProductModel) then) =
-      _$CartProductModelCopyWithImpl<$Res, CartProductModel>;
+abstract class $CartItemProductModelCopyWith<$Res> {
+  factory $CartItemProductModelCopyWith(CartItemProductModel value,
+          $Res Function(CartItemProductModel) then) =
+      _$CartItemProductModelCopyWithImpl<$Res, CartItemProductModel>;
   @useResult
-  $Res call({String name, String imageUrl});
+  $Res call(
+      {String id,
+      String name,
+      @JsonKey(fromJson: _toDouble) double price,
+      @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
+      bool inStock,
+      List<ProductImageModel>? images});
 }
 
 /// @nodoc
-class _$CartProductModelCopyWithImpl<$Res, $Val extends CartProductModel>
-    implements $CartProductModelCopyWith<$Res> {
-  _$CartProductModelCopyWithImpl(this._value, this._then);
+class _$CartItemProductModelCopyWithImpl<$Res,
+        $Val extends CartItemProductModel>
+    implements $CartItemProductModelCopyWith<$Res> {
+  _$CartItemProductModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1761,125 +1746,384 @@ class _$CartProductModelCopyWithImpl<$Res, $Val extends CartProductModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
+    Object? price = null,
+    Object? discountPrice = freezed,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      discountPrice: freezed == discountPrice
+          ? _value.discountPrice
+          : discountPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageModel>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$CartProductModelImplCopyWith<$Res>
-    implements $CartProductModelCopyWith<$Res> {
-  factory _$$CartProductModelImplCopyWith(_$CartProductModelImpl value,
-          $Res Function(_$CartProductModelImpl) then) =
-      __$$CartProductModelImplCopyWithImpl<$Res>;
+abstract class _$$CartItemProductModelImplCopyWith<$Res>
+    implements $CartItemProductModelCopyWith<$Res> {
+  factory _$$CartItemProductModelImplCopyWith(_$CartItemProductModelImpl value,
+          $Res Function(_$CartItemProductModelImpl) then) =
+      __$$CartItemProductModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String imageUrl});
+  $Res call(
+      {String id,
+      String name,
+      @JsonKey(fromJson: _toDouble) double price,
+      @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
+      bool inStock,
+      List<ProductImageModel>? images});
 }
 
 /// @nodoc
-class __$$CartProductModelImplCopyWithImpl<$Res>
-    extends _$CartProductModelCopyWithImpl<$Res, _$CartProductModelImpl>
-    implements _$$CartProductModelImplCopyWith<$Res> {
-  __$$CartProductModelImplCopyWithImpl(_$CartProductModelImpl _value,
-      $Res Function(_$CartProductModelImpl) _then)
+class __$$CartItemProductModelImplCopyWithImpl<$Res>
+    extends _$CartItemProductModelCopyWithImpl<$Res, _$CartItemProductModelImpl>
+    implements _$$CartItemProductModelImplCopyWith<$Res> {
+  __$$CartItemProductModelImplCopyWithImpl(_$CartItemProductModelImpl _value,
+      $Res Function(_$CartItemProductModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
+    Object? price = null,
+    Object? discountPrice = freezed,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
-    return _then(_$CartProductModelImpl(
+    return _then(_$CartItemProductModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      discountPrice: freezed == discountPrice
+          ? _value.discountPrice
+          : discountPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageModel>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CartProductModelImpl extends _CartProductModel {
-  const _$CartProductModelImpl({required this.name, required this.imageUrl})
-      : super._();
+class _$CartItemProductModelImpl extends _CartItemProductModel {
+  const _$CartItemProductModelImpl(
+      {required this.id,
+      required this.name,
+      @JsonKey(fromJson: _toDouble) required this.price,
+      @JsonKey(fromJson: _toDoubleNullable) this.discountPrice,
+      required this.inStock,
+      final List<ProductImageModel>? images})
+      : _images = images,
+        super._();
 
-  factory _$CartProductModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CartProductModelImplFromJson(json);
+  factory _$CartItemProductModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CartItemProductModelImplFromJson(json);
 
+  @override
+  final String id;
   @override
   final String name;
   @override
-  final String imageUrl;
+  @JsonKey(fromJson: _toDouble)
+  final double price;
+  @override
+  @JsonKey(fromJson: _toDoubleNullable)
+  final double? discountPrice;
+  @override
+  final bool inStock;
+  final List<ProductImageModel>? _images;
+  @override
+  List<ProductImageModel>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'CartProductModel(name: $name, imageUrl: $imageUrl)';
+    return 'CartItemProductModel(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, images: $images)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CartProductModelImpl &&
+            other is _$CartItemProductModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.discountPrice, discountPrice) ||
+                other.discountPrice == discountPrice) &&
+            (identical(other.inStock, inStock) || other.inStock == inStock) &&
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, imageUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, price, discountPrice,
+      inStock, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CartProductModelImplCopyWith<_$CartProductModelImpl> get copyWith =>
-      __$$CartProductModelImplCopyWithImpl<_$CartProductModelImpl>(
-          this, _$identity);
+  _$$CartItemProductModelImplCopyWith<_$CartItemProductModelImpl>
+      get copyWith =>
+          __$$CartItemProductModelImplCopyWithImpl<_$CartItemProductModelImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CartProductModelImplToJson(
+    return _$$CartItemProductModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _CartProductModel extends CartProductModel {
-  const factory _CartProductModel(
-      {required final String name,
-      required final String imageUrl}) = _$CartProductModelImpl;
-  const _CartProductModel._() : super._();
+abstract class _CartItemProductModel extends CartItemProductModel {
+  const factory _CartItemProductModel(
+      {required final String id,
+      required final String name,
+      @JsonKey(fromJson: _toDouble) required final double price,
+      @JsonKey(fromJson: _toDoubleNullable) final double? discountPrice,
+      required final bool inStock,
+      final List<ProductImageModel>? images}) = _$CartItemProductModelImpl;
+  const _CartItemProductModel._() : super._();
 
-  factory _CartProductModel.fromJson(Map<String, dynamic> json) =
-      _$CartProductModelImpl.fromJson;
+  factory _CartItemProductModel.fromJson(Map<String, dynamic> json) =
+      _$CartItemProductModelImpl.fromJson;
 
+  @override
+  String get id;
   @override
   String get name;
   @override
-  String get imageUrl;
+  @JsonKey(fromJson: _toDouble)
+  double get price;
+  @override
+  @JsonKey(fromJson: _toDoubleNullable)
+  double? get discountPrice;
+  @override
+  bool get inStock;
+  @override
+  List<ProductImageModel>? get images;
   @override
   @JsonKey(ignore: true)
-  _$$CartProductModelImplCopyWith<_$CartProductModelImpl> get copyWith =>
+  _$$CartItemProductModelImplCopyWith<_$CartItemProductModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+CartItemVariantModel _$CartItemVariantModelFromJson(Map<String, dynamic> json) {
+  return _CartItemVariantModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CartItemVariantModel {
+  String get id => throw _privateConstructorUsedError;
+  Map<String, dynamic> get attributes => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CartItemVariantModelCopyWith<CartItemVariantModel> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CartItemVariantModelCopyWith<$Res> {
+  factory $CartItemVariantModelCopyWith(CartItemVariantModel value,
+          $Res Function(CartItemVariantModel) then) =
+      _$CartItemVariantModelCopyWithImpl<$Res, CartItemVariantModel>;
+  @useResult
+  $Res call({String id, Map<String, dynamic> attributes});
+}
+
+/// @nodoc
+class _$CartItemVariantModelCopyWithImpl<$Res,
+        $Val extends CartItemVariantModel>
+    implements $CartItemVariantModelCopyWith<$Res> {
+  _$CartItemVariantModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? attributes = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      attributes: null == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CartItemVariantModelImplCopyWith<$Res>
+    implements $CartItemVariantModelCopyWith<$Res> {
+  factory _$$CartItemVariantModelImplCopyWith(_$CartItemVariantModelImpl value,
+          $Res Function(_$CartItemVariantModelImpl) then) =
+      __$$CartItemVariantModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, Map<String, dynamic> attributes});
+}
+
+/// @nodoc
+class __$$CartItemVariantModelImplCopyWithImpl<$Res>
+    extends _$CartItemVariantModelCopyWithImpl<$Res, _$CartItemVariantModelImpl>
+    implements _$$CartItemVariantModelImplCopyWith<$Res> {
+  __$$CartItemVariantModelImplCopyWithImpl(_$CartItemVariantModelImpl _value,
+      $Res Function(_$CartItemVariantModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? attributes = null,
+  }) {
+    return _then(_$CartItemVariantModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      attributes: null == attributes
+          ? _value._attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CartItemVariantModelImpl extends _CartItemVariantModel {
+  const _$CartItemVariantModelImpl(
+      {required this.id, required final Map<String, dynamic> attributes})
+      : _attributes = attributes,
+        super._();
+
+  factory _$CartItemVariantModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CartItemVariantModelImplFromJson(json);
+
+  @override
+  final String id;
+  final Map<String, dynamic> _attributes;
+  @override
+  Map<String, dynamic> get attributes {
+    if (_attributes is EqualUnmodifiableMapView) return _attributes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_attributes);
+  }
+
+  @override
+  String toString() {
+    return 'CartItemVariantModel(id: $id, attributes: $attributes)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CartItemVariantModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality()
+                .equals(other._attributes, _attributes));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, const DeepCollectionEquality().hash(_attributes));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CartItemVariantModelImplCopyWith<_$CartItemVariantModelImpl>
+      get copyWith =>
+          __$$CartItemVariantModelImplCopyWithImpl<_$CartItemVariantModelImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CartItemVariantModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CartItemVariantModel extends CartItemVariantModel {
+  const factory _CartItemVariantModel(
+          {required final String id,
+          required final Map<String, dynamic> attributes}) =
+      _$CartItemVariantModelImpl;
+  const _CartItemVariantModel._() : super._();
+
+  factory _CartItemVariantModel.fromJson(Map<String, dynamic> json) =
+      _$CartItemVariantModelImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  Map<String, dynamic> get attributes;
+  @override
+  @JsonKey(ignore: true)
+  _$$CartItemVariantModelImplCopyWith<_$CartItemVariantModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
@@ -2483,11 +2727,12 @@ OrderItemModel _$OrderItemModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$OrderItemModel {
   String get id => throw _privateConstructorUsedError;
-  String get productId => throw _privateConstructorUsedError;
-  String? get variantId => throw _privateConstructorUsedError;
+  String get productName => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get variantAttributes =>
+      throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  CartProductModel get product => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
+  double get unitPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2503,13 +2748,10 @@ abstract class $OrderItemModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
+      String productName,
+      Map<String, dynamic>? variantAttributes,
       int quantity,
-      double price,
-      CartProductModel product});
-
-  $CartProductModelCopyWith<$Res> get product;
+      @JsonKey(fromJson: _toDouble) double unitPrice});
 }
 
 /// @nodoc
@@ -2526,46 +2768,33 @@ class _$OrderItemModelCopyWithImpl<$Res, $Val extends OrderItemModel>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
+    Object? productName = null,
+    Object? variantAttributes = freezed,
     Object? quantity = null,
-    Object? price = null,
-    Object? product = null,
+    Object? unitPrice = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
+      productName: null == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
               as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      variantAttributes: freezed == variantAttributes
+          ? _value.variantAttributes
+          : variantAttributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
+      unitPrice: null == unitPrice
+          ? _value.unitPrice
+          : unitPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as CartProductModel,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CartProductModelCopyWith<$Res> get product {
-    return $CartProductModelCopyWith<$Res>(_value.product, (value) {
-      return _then(_value.copyWith(product: value) as $Val);
-    });
   }
 }
 
@@ -2579,14 +2808,10 @@ abstract class _$$OrderItemModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
+      String productName,
+      Map<String, dynamic>? variantAttributes,
       int quantity,
-      double price,
-      CartProductModel product});
-
-  @override
-  $CartProductModelCopyWith<$Res> get product;
+      @JsonKey(fromJson: _toDouble) double unitPrice});
 }
 
 /// @nodoc
@@ -2601,37 +2826,32 @@ class __$$OrderItemModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
+    Object? productName = null,
+    Object? variantAttributes = freezed,
     Object? quantity = null,
-    Object? price = null,
-    Object? product = null,
+    Object? unitPrice = null,
   }) {
     return _then(_$OrderItemModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
+      productName: null == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
               as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      variantAttributes: freezed == variantAttributes
+          ? _value._variantAttributes
+          : variantAttributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
+      unitPrice: null == unitPrice
+          ? _value.unitPrice
+          : unitPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as CartProductModel,
     ));
   }
 }
@@ -2641,12 +2861,12 @@ class __$$OrderItemModelImplCopyWithImpl<$Res>
 class _$OrderItemModelImpl extends _OrderItemModel {
   const _$OrderItemModelImpl(
       {required this.id,
-      required this.productId,
-      this.variantId,
+      required this.productName,
+      final Map<String, dynamic>? variantAttributes,
       required this.quantity,
-      required this.price,
-      required this.product})
-      : super._();
+      @JsonKey(fromJson: _toDouble) required this.unitPrice})
+      : _variantAttributes = variantAttributes,
+        super._();
 
   factory _$OrderItemModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderItemModelImplFromJson(json);
@@ -2654,19 +2874,27 @@ class _$OrderItemModelImpl extends _OrderItemModel {
   @override
   final String id;
   @override
-  final String productId;
+  final String productName;
+  final Map<String, dynamic>? _variantAttributes;
   @override
-  final String? variantId;
+  Map<String, dynamic>? get variantAttributes {
+    final value = _variantAttributes;
+    if (value == null) return null;
+    if (_variantAttributes is EqualUnmodifiableMapView)
+      return _variantAttributes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final int quantity;
   @override
-  final double price;
-  @override
-  final CartProductModel product;
+  @JsonKey(fromJson: _toDouble)
+  final double unitPrice;
 
   @override
   String toString() {
-    return 'OrderItemModel(id: $id, productId: $productId, variantId: $variantId, quantity: $quantity, price: $price, product: $product)';
+    return 'OrderItemModel(id: $id, productName: $productName, variantAttributes: $variantAttributes, quantity: $quantity, unitPrice: $unitPrice)';
   }
 
   @override
@@ -2675,20 +2903,25 @@ class _$OrderItemModelImpl extends _OrderItemModel {
         (other.runtimeType == runtimeType &&
             other is _$OrderItemModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.variantId, variantId) ||
-                other.variantId == variantId) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
+            const DeepCollectionEquality()
+                .equals(other._variantAttributes, _variantAttributes) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
-            (identical(other.price, price) || other.price == price) &&
-            (identical(other.product, product) || other.product == product));
+            (identical(other.unitPrice, unitPrice) ||
+                other.unitPrice == unitPrice));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, productId, variantId, quantity, price, product);
+      runtimeType,
+      id,
+      productName,
+      const DeepCollectionEquality().hash(_variantAttributes),
+      quantity,
+      unitPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -2707,12 +2940,12 @@ class _$OrderItemModelImpl extends _OrderItemModel {
 
 abstract class _OrderItemModel extends OrderItemModel {
   const factory _OrderItemModel(
-      {required final String id,
-      required final String productId,
-      final String? variantId,
-      required final int quantity,
-      required final double price,
-      required final CartProductModel product}) = _$OrderItemModelImpl;
+          {required final String id,
+          required final String productName,
+          final Map<String, dynamic>? variantAttributes,
+          required final int quantity,
+          @JsonKey(fromJson: _toDouble) required final double unitPrice}) =
+      _$OrderItemModelImpl;
   const _OrderItemModel._() : super._();
 
   factory _OrderItemModel.fromJson(Map<String, dynamic> json) =
@@ -2721,15 +2954,14 @@ abstract class _OrderItemModel extends OrderItemModel {
   @override
   String get id;
   @override
-  String get productId;
+  String get productName;
   @override
-  String? get variantId;
+  Map<String, dynamic>? get variantAttributes;
   @override
   int get quantity;
   @override
-  double get price;
-  @override
-  CartProductModel get product;
+  @JsonKey(fromJson: _toDouble)
+  double get unitPrice;
   @override
   @JsonKey(ignore: true)
   _$$OrderItemModelImplCopyWith<_$OrderItemModelImpl> get copyWith =>
@@ -3355,7 +3587,7 @@ WatchlistItemModel _$WatchlistItemModelFromJson(Map<String, dynamic> json) {
 mixin _$WatchlistItemModel {
   String get id => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
-  WatchlistProductModel get product => throw _privateConstructorUsedError;
+  WatchlistProductModel? get product => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -3369,9 +3601,9 @@ abstract class $WatchlistItemModelCopyWith<$Res> {
           WatchlistItemModel value, $Res Function(WatchlistItemModel) then) =
       _$WatchlistItemModelCopyWithImpl<$Res, WatchlistItemModel>;
   @useResult
-  $Res call({String id, String createdAt, WatchlistProductModel product});
+  $Res call({String id, String createdAt, WatchlistProductModel? product});
 
-  $WatchlistProductModelCopyWith<$Res> get product;
+  $WatchlistProductModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -3389,7 +3621,7 @@ class _$WatchlistItemModelCopyWithImpl<$Res, $Val extends WatchlistItemModel>
   $Res call({
     Object? id = null,
     Object? createdAt = null,
-    Object? product = null,
+    Object? product = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -3400,17 +3632,21 @@ class _$WatchlistItemModelCopyWithImpl<$Res, $Val extends WatchlistItemModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      product: null == product
+      product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as WatchlistProductModel,
+              as WatchlistProductModel?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $WatchlistProductModelCopyWith<$Res> get product {
-    return $WatchlistProductModelCopyWith<$Res>(_value.product, (value) {
+  $WatchlistProductModelCopyWith<$Res>? get product {
+    if (_value.product == null) {
+      return null;
+    }
+
+    return $WatchlistProductModelCopyWith<$Res>(_value.product!, (value) {
       return _then(_value.copyWith(product: value) as $Val);
     });
   }
@@ -3424,10 +3660,10 @@ abstract class _$$WatchlistItemModelImplCopyWith<$Res>
       __$$WatchlistItemModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String createdAt, WatchlistProductModel product});
+  $Res call({String id, String createdAt, WatchlistProductModel? product});
 
   @override
-  $WatchlistProductModelCopyWith<$Res> get product;
+  $WatchlistProductModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -3443,7 +3679,7 @@ class __$$WatchlistItemModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? createdAt = null,
-    Object? product = null,
+    Object? product = freezed,
   }) {
     return _then(_$WatchlistItemModelImpl(
       id: null == id
@@ -3454,10 +3690,10 @@ class __$$WatchlistItemModelImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      product: null == product
+      product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as WatchlistProductModel,
+              as WatchlistProductModel?,
     ));
   }
 }
@@ -3466,7 +3702,7 @@ class __$$WatchlistItemModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$WatchlistItemModelImpl extends _WatchlistItemModel {
   const _$WatchlistItemModelImpl(
-      {required this.id, required this.createdAt, required this.product})
+      {required this.id, required this.createdAt, this.product})
       : super._();
 
   factory _$WatchlistItemModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -3477,7 +3713,7 @@ class _$WatchlistItemModelImpl extends _WatchlistItemModel {
   @override
   final String createdAt;
   @override
-  final WatchlistProductModel product;
+  final WatchlistProductModel? product;
 
   @override
   String toString() {
@@ -3518,7 +3754,7 @@ abstract class _WatchlistItemModel extends WatchlistItemModel {
   const factory _WatchlistItemModel(
       {required final String id,
       required final String createdAt,
-      required final WatchlistProductModel product}) = _$WatchlistItemModelImpl;
+      final WatchlistProductModel? product}) = _$WatchlistItemModelImpl;
   const _WatchlistItemModel._() : super._();
 
   factory _WatchlistItemModel.fromJson(Map<String, dynamic> json) =
@@ -3529,7 +3765,7 @@ abstract class _WatchlistItemModel extends WatchlistItemModel {
   @override
   String get createdAt;
   @override
-  WatchlistProductModel get product;
+  WatchlistProductModel? get product;
   @override
   @JsonKey(ignore: true)
   _$$WatchlistItemModelImplCopyWith<_$WatchlistItemModelImpl> get copyWith =>
@@ -3545,9 +3781,12 @@ WatchlistProductModel _$WatchlistProductModelFromJson(
 mixin _$WatchlistProductModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
   double get price => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDoubleNullable)
   double? get discountPrice => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  bool get inStock => throw _privateConstructorUsedError;
+  List<ProductImageModel>? get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -3564,9 +3803,10 @@ abstract class $WatchlistProductModelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      double price,
-      double? discountPrice,
-      String imageUrl});
+      @JsonKey(fromJson: _toDouble) double price,
+      @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
+      bool inStock,
+      List<ProductImageModel>? images});
 }
 
 /// @nodoc
@@ -3587,7 +3827,8 @@ class _$WatchlistProductModelCopyWithImpl<$Res,
     Object? name = null,
     Object? price = null,
     Object? discountPrice = freezed,
-    Object? imageUrl = null,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -3606,10 +3847,14 @@ class _$WatchlistProductModelCopyWithImpl<$Res,
           ? _value.discountPrice
           : discountPrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageModel>?,
     ) as $Val);
   }
 }
@@ -3626,9 +3871,10 @@ abstract class _$$WatchlistProductModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
-      double price,
-      double? discountPrice,
-      String imageUrl});
+      @JsonKey(fromJson: _toDouble) double price,
+      @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
+      bool inStock,
+      List<ProductImageModel>? images});
 }
 
 /// @nodoc
@@ -3647,7 +3893,8 @@ class __$$WatchlistProductModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? price = null,
     Object? discountPrice = freezed,
-    Object? imageUrl = null,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
     return _then(_$WatchlistProductModelImpl(
       id: null == id
@@ -3666,10 +3913,14 @@ class __$$WatchlistProductModelImplCopyWithImpl<$Res>
           ? _value.discountPrice
           : discountPrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageModel>?,
     ));
   }
 }
@@ -3680,10 +3931,12 @@ class _$WatchlistProductModelImpl extends _WatchlistProductModel {
   const _$WatchlistProductModelImpl(
       {required this.id,
       required this.name,
-      required this.price,
-      this.discountPrice,
-      required this.imageUrl})
-      : super._();
+      @JsonKey(fromJson: _toDouble) required this.price,
+      @JsonKey(fromJson: _toDoubleNullable) this.discountPrice,
+      required this.inStock,
+      final List<ProductImageModel>? images})
+      : _images = images,
+        super._();
 
   factory _$WatchlistProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$WatchlistProductModelImplFromJson(json);
@@ -3693,15 +3946,26 @@ class _$WatchlistProductModelImpl extends _WatchlistProductModel {
   @override
   final String name;
   @override
+  @JsonKey(fromJson: _toDouble)
   final double price;
   @override
+  @JsonKey(fromJson: _toDoubleNullable)
   final double? discountPrice;
   @override
-  final String imageUrl;
+  final bool inStock;
+  final List<ProductImageModel>? _images;
+  @override
+  List<ProductImageModel>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'WatchlistProductModel(id: $id, name: $name, price: $price, discountPrice: $discountPrice, imageUrl: $imageUrl)';
+    return 'WatchlistProductModel(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, images: $images)';
   }
 
   @override
@@ -3714,14 +3978,14 @@ class _$WatchlistProductModelImpl extends _WatchlistProductModel {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.discountPrice, discountPrice) ||
                 other.discountPrice == discountPrice) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+            (identical(other.inStock, inStock) || other.inStock == inStock) &&
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, price, discountPrice, imageUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, price, discountPrice,
+      inStock, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
@@ -3742,9 +4006,10 @@ abstract class _WatchlistProductModel extends WatchlistProductModel {
   const factory _WatchlistProductModel(
       {required final String id,
       required final String name,
-      required final double price,
-      final double? discountPrice,
-      required final String imageUrl}) = _$WatchlistProductModelImpl;
+      @JsonKey(fromJson: _toDouble) required final double price,
+      @JsonKey(fromJson: _toDoubleNullable) final double? discountPrice,
+      required final bool inStock,
+      final List<ProductImageModel>? images}) = _$WatchlistProductModelImpl;
   const _WatchlistProductModel._() : super._();
 
   factory _WatchlistProductModel.fromJson(Map<String, dynamic> json) =
@@ -3755,11 +4020,15 @@ abstract class _WatchlistProductModel extends WatchlistProductModel {
   @override
   String get name;
   @override
+  @JsonKey(fromJson: _toDouble)
   double get price;
   @override
+  @JsonKey(fromJson: _toDoubleNullable)
   double? get discountPrice;
   @override
-  String get imageUrl;
+  bool get inStock;
+  @override
+  List<ProductImageModel>? get images;
   @override
   @JsonKey(ignore: true)
   _$$WatchlistProductModelImplCopyWith<_$WatchlistProductModelImpl>

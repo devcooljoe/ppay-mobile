@@ -26,6 +26,7 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
     final ratesState = ref.watch(getSellGiftcardRatesProvider);
 
     final selectedCard = useState<SellGiftcardRateEntity?>(null);
+    final selectedRegion = useState<GiftcardRegionEntity?>(null);
     final selectedSubcategory = useState<GiftcardSubcategoryEntity?>(null);
     final amountController = useTextEditingController();
     final ecodeController = useTextEditingController();
@@ -36,22 +37,19 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
       return null;
     }, []);
 
-    useEffect(() {
-      final rates = ratesState.value;
-      if (rates != null && rates.isNotEmpty && selectedCard.value == null) {
-        selectedCard.value = rates.first;
-      }
-      return null;
-    }, [ratesState.value]);
-
     final rate = selectedSubcategory.value != null
         ? double.tryParse(selectedSubcategory.value!.sellRate) ?? 0
         : 0.0;
+    final minAmount = selectedSubcategory.value != null
+        ? double.tryParse(selectedSubcategory.value!.minAmount) ?? 0
+        : 0.0;
     final amount = double.tryParse(amountController.text) ?? 0;
     final nairaEquivalent = amount * rate;
+    final isBelowMin = amount > 0 && amount < minAmount;
 
     void showCardPicker() {
       final rates = ratesState.value ?? [];
+      if (rates.isEmpty) return;
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -61,6 +59,32 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
           selected: selectedCard.value,
           onSelect: (card) {
             selectedCard.value = card;
+            selectedRegion.value = null;
+            selectedSubcategory.value = null;
+          },
+        ),
+      );
+    }
+
+    void showRegionPicker() {
+      final card = selectedCard.value;
+      if (card == null) {
+        MessageHandler.showErrorSnackBar(context, 'Select a card type first');
+        return;
+      }
+      if (card.regions.isEmpty) {
+        MessageHandler.showErrorSnackBar(context, 'No regions available for this card');
+        return;
+      }
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (_) => _SellRegionPickerSheet(
+          regions: card.regions,
+          selected: selectedRegion.value,
+          onSelect: (region) {
+            selectedRegion.value = region;
             selectedSubcategory.value = null;
           },
         ),
@@ -68,13 +92,18 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
     }
 
     void showSubcategoryPicker() {
-      final card = selectedCard.value;
-      if (card == null) return;
-      final subcategories = card.regions
-          .expand((r) => r.subcategories ?? <GiftcardSubcategoryEntity>[])
-          .toList();
+      if (selectedCard.value == null) {
+        MessageHandler.showErrorSnackBar(context, 'Select a card type first');
+        return;
+      }
+      final region = selectedRegion.value;
+      if (region == null) {
+        MessageHandler.showErrorSnackBar(context, 'Select a region first');
+        return;
+      }
+      final subcategories = region.subcategories ?? [];
       if (subcategories.isEmpty) {
-        MessageHandler.showErrorSnackBar(context, 'No subcategories available for this card');
+        MessageHandler.showErrorSnackBar(context, 'No subcategories available for this region');
         return;
       }
       showModalBottomSheet(
@@ -102,7 +131,12 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
         MessageHandler.showErrorSnackBar(context, 'Select a card type');
         return;
       }
-      if (selectedSubcategory.value == null) {
+      if (selectedRegion.value == null) {
+        MessageHandler.showErrorSnackBar(context, 'Select a region');
+        return;
+      }
+      final hasSubcategories = (selectedRegion.value!.subcategories ?? []).isNotEmpty;
+      if (hasSubcategories && selectedSubcategory.value == null) {
         MessageHandler.showErrorSnackBar(context, 'Select a card category');
         return;
       }
@@ -110,15 +144,15 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
         MessageHandler.showErrorSnackBar(context, 'Enter an amount');
         return;
       }
-      if (pickedImages.value.isEmpty && ecodeController.text.isEmpty) {
-        MessageHandler.showErrorSnackBar(context, 'Upload card image or enter e-code');
+      if (amount < minAmount) {
+        MessageHandler.showErrorSnackBar(context, 'Minimum amount is \$$minAmount');
         return;
       }
 
       final card = selectedCard.value!;
-      final sub = selectedSubcategory.value!;
-      final region = card.regions.isNotEmpty ? card.regions.first : null;
-      final country = region?.countryCode ?? region?.name ?? '';
+      final sub = selectedSubcategory.value;
+      final region = selectedRegion.value!;
+      final country = region.countryCode ?? region.name ?? '';
 
       context.router.push(ConfirmGiftCardSellRoute(
         cardType: card.type,
@@ -177,7 +211,7 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
                   Text('Please enter the details below to sell a giftcard', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
                   40.verticalSpace,
 
-                  // Card Type
+                  // Step 1: Card Type
                   Text('Card Type', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
                   4.verticalSpace,
                   ratesState.isLoading
@@ -201,16 +235,31 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
                         ),
                   32.verticalSpace,
 
-                  // Card Category
-                  Text('Card Category', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
-                  4.verticalSpace,
-                  _DropdownField(
-                    onTap: showSubcategoryPicker,
-                    child: selectedSubcategory.value != null
-                        ? Text(selectedSubcategory.value!.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))
-                        : Text('Select category', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp)),
-                  ),
-                  32.verticalSpace,
+                  // Step 2: Region (only after card selected)
+                  if (selectedCard.value != null) ...[
+                    Text('Region', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                    4.verticalSpace,
+                    _DropdownField(
+                      onTap: showRegionPicker,
+                      child: selectedRegion.value != null
+                          ? Text(selectedRegion.value!.countryName ?? selectedRegion.value!.name ?? '', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))
+                          : Text('Select region', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp)),
+                    ),
+                    32.verticalSpace,
+                  ],
+
+                  // Step 3: Subcategory (only after region selected AND region has subcategories)
+                  if (selectedRegion.value != null && (selectedRegion.value!.subcategories ?? []).isNotEmpty) ...[
+                    Text('Card Category', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                    4.verticalSpace,
+                    _DropdownField(
+                      onTap: showSubcategoryPicker,
+                      child: selectedSubcategory.value != null
+                          ? Text(selectedSubcategory.value!.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))
+                          : Text('Select category', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp)),
+                    ),
+                    32.verticalSpace,
+                  ],
 
                   // Amount
                   Text('Amount (\$)', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
@@ -222,32 +271,56 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       onChanged: (_) {},
                       decoration: InputDecoration(
-                        hintText: '\$ Enter Amount',
+                        hintText: selectedSubcategory.value != null
+                            ? '\$ Min: ${selectedSubcategory.value!.minAmount}'
+                            : '\$ Enter Amount',
                         hintStyle: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfiedBorder, fontSize: 16.sp),
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: isBelowMin ? PPaymobileColors.redTextfield : PPaymobileColors.textfieldGrey, width: 1.w),
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
                         border: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
                         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
                       ),
                     ),
                   ),
-                  if (selectedSubcategory.value != null && amount > 0) ...[
+                  if (selectedSubcategory.value != null) ...[
                     6.verticalSpace,
-                    RichText(
-                      text: TextSpan(
-                        text: 'You get: ',
-                        style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Rate: ₦${AmountFormatter.formatBalance(selectedSubcategory.value!.sellRate)}/\$',
+                          style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp),
+                        ),
+                        Text(
+                          'Min: \$${selectedSubcategory.value!.minAmount}',
+                          style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp),
+                        ),
+                      ],
+                    ),
+                    if (isBelowMin) ...[
+                      4.verticalSpace,
+                      Text(
+                        'Amount must be at least \$${selectedSubcategory.value!.minAmount}',
+                        style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.redTextfield, fontSize: 12.sp),
+                      ),
+                    ],
+                    if (amount > 0 && !isBelowMin) ...[
+                      4.verticalSpace,
+                      Row(
                         children: [
-                          TextSpan(
-                            text: '₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
-                            style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 12.sp, fontWeight: FontWeight.w600),
+                          Text(
+                            'You will receive: ',
+                            style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 13.sp),
                           ),
-                          TextSpan(
-                            text: ' (Rate: ₦${AmountFormatter.formatBalance(selectedSubcategory.value!.sellRate)}/\$)',
-                            style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp),
+                          Text(
+                            '₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
+                            style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 13.sp, fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
-                    ),
+                    ],
                   ],
                   32.verticalSpace,
 
@@ -269,8 +342,8 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
                   ),
                   32.verticalSpace,
 
-                  // Upload Image
-                  Text('Upload Image', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                  // Upload Images (optional, multiple)
+                  Text('Upload Images (Optional)', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
                   4.verticalSpace,
                   TouchOpacity(
                     onTap: pickImages,
@@ -398,6 +471,10 @@ class _SellCardPickerSheet extends StatelessWidget {
 
   const _SellCardPickerSheet({required this.rates, required this.selected, required this.onSelect});
 
+  bool _isAvailable(SellGiftcardRateEntity rate) {
+    return rate.regions.any((r) => (r.subcategories ?? []).isNotEmpty);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -429,17 +506,108 @@ class _SellCardPickerSheet extends StatelessWidget {
                       separatorBuilder: (_, __) => Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
                       itemBuilder: (context, index) {
                         final rate = rates[index];
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: CachedNetworkImage(
-                            imageUrl: rate.logoUrl,
-                            width: 40.w,
-                            height: 40.w,
-                            errorWidget: (_, __, ___) => Container(width: 40.w, height: 40.w, color: PPaymobileColors.deepBackgroundColor),
+                        final available = _isAvailable(rate);
+                        return GestureDetector(
+                          onTap: () {
+                            if (!available) {
+                              MessageHandler.showErrorSnackBar(context, 'This gift card is currently not available for sale');
+                              return;
+                            }
+                            onSelect(rate);
+                            Navigator.pop(context);
+                          },
+                          child: Opacity(
+                            opacity: available ? 1.0 : 0.4,
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: CachedNetworkImage(
+                                imageUrl: rate.logoUrl,
+                                width: 40.w,
+                                height: 40.w,
+                                errorWidget: (_, __, ___) => Container(width: 40.w, height: 40.w, color: PPaymobileColors.deepBackgroundColor),
+                              ),
+                              title: Text(rate.type, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                              trailing: available
+                                  ? (selected?.id == rate.id ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w) : null)
+                                  : Icon(Icons.block, color: Colors.grey, size: 18.w),
+                            ),
                           ),
-                          title: Text(rate.type, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
-                          trailing: selected?.id == rate.id ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w) : null,
-                          onTap: () { onSelect(rate); Navigator.pop(context); },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SellRegionPickerSheet extends StatelessWidget {
+  final List<GiftcardRegionEntity> regions;
+  final GiftcardRegionEntity? selected;
+  final ValueChanged<GiftcardRegionEntity> onSelect;
+
+  const _SellRegionPickerSheet({required this.regions, required this.selected, required this.onSelect});
+
+  bool _isAvailable(GiftcardRegionEntity region) {
+    return (region.subcategories ?? []).isNotEmpty;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      heightFactor: 0.65,
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30).r, color: PPaymobileColors.mainScreenBackground),
+              child: Center(child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown)),
+            ),
+          ),
+          8.verticalSpace,
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+              decoration: BoxDecoration(color: PPaymobileColors.mainScreenBackground, borderRadius: BorderRadius.vertical(top: Radius.circular(36).r)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Select Region', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.black)),
+                  16.verticalSpace,
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: regions.length,
+                      separatorBuilder: (_, __) => Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                      itemBuilder: (context, index) {
+                        final region = regions[index];
+                        final available = _isAvailable(region);
+                        return GestureDetector(
+                          onTap: () {
+                            if (!available) {
+                              MessageHandler.showErrorSnackBar(context, 'This region is currently not available for sale');
+                              return;
+                            }
+                            onSelect(region);
+                            Navigator.pop(context);
+                          },
+                          child: Opacity(
+                            opacity: available ? 1.0 : 0.4,
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              title: Text(region.countryName ?? region.name ?? '', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                              trailing: available
+                                  ? (selected?.id == region.id ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w) : null)
+                                  : Icon(Icons.block, color: Colors.grey, size: 18.w),
+                            ),
+                          ),
                         );
                       },
                     ),

@@ -29,10 +29,10 @@ class BuyGiftcardRateModel with _$BuyGiftcardRateModel {
 class GiftcardRegionModel with _$GiftcardRegionModel {
   const factory GiftcardRegionModel({
     String? id,
-    required String name,
+    String? name,
     required String flagUrl,
     String? packageName,
-    required String currency,
+    String? currency,
     String? countryName,
     String? countryCode,
     List<GiftcardItemModel>? items,

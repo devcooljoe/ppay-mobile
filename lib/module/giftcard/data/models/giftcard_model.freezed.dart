@@ -235,10 +235,10 @@ GiftcardRegionModel _$GiftcardRegionModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$GiftcardRegionModel {
   String? get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   String get flagUrl => throw _privateConstructorUsedError;
   String? get packageName => throw _privateConstructorUsedError;
-  String get currency => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
   String? get countryName => throw _privateConstructorUsedError;
   String? get countryCode => throw _privateConstructorUsedError;
   List<GiftcardItemModel>? get items => throw _privateConstructorUsedError;
@@ -259,10 +259,10 @@ abstract class $GiftcardRegionModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      String name,
+      String? name,
       String flagUrl,
       String? packageName,
-      String currency,
+      String? currency,
       String? countryName,
       String? countryCode,
       List<GiftcardItemModel>? items,
@@ -283,10 +283,10 @@ class _$GiftcardRegionModelCopyWithImpl<$Res, $Val extends GiftcardRegionModel>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = null,
+    Object? name = freezed,
     Object? flagUrl = null,
     Object? packageName = freezed,
-    Object? currency = null,
+    Object? currency = freezed,
     Object? countryName = freezed,
     Object? countryCode = freezed,
     Object? items = freezed,
@@ -297,10 +297,10 @@ class _$GiftcardRegionModelCopyWithImpl<$Res, $Val extends GiftcardRegionModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       flagUrl: null == flagUrl
           ? _value.flagUrl
           : flagUrl // ignore: cast_nullable_to_non_nullable
@@ -309,10 +309,10 @@ class _$GiftcardRegionModelCopyWithImpl<$Res, $Val extends GiftcardRegionModel>
           ? _value.packageName
           : packageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      currency: null == currency
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       countryName: freezed == countryName
           ? _value.countryName
           : countryName // ignore: cast_nullable_to_non_nullable
@@ -343,10 +343,10 @@ abstract class _$$GiftcardRegionModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? id,
-      String name,
+      String? name,
       String flagUrl,
       String? packageName,
-      String currency,
+      String? currency,
       String? countryName,
       String? countryCode,
       List<GiftcardItemModel>? items,
@@ -365,10 +365,10 @@ class __$$GiftcardRegionModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = null,
+    Object? name = freezed,
     Object? flagUrl = null,
     Object? packageName = freezed,
-    Object? currency = null,
+    Object? currency = freezed,
     Object? countryName = freezed,
     Object? countryCode = freezed,
     Object? items = freezed,
@@ -379,10 +379,10 @@ class __$$GiftcardRegionModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       flagUrl: null == flagUrl
           ? _value.flagUrl
           : flagUrl // ignore: cast_nullable_to_non_nullable
@@ -391,10 +391,10 @@ class __$$GiftcardRegionModelImplCopyWithImpl<$Res>
           ? _value.packageName
           : packageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      currency: null == currency
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       countryName: freezed == countryName
           ? _value.countryName
           : countryName // ignore: cast_nullable_to_non_nullable
@@ -420,10 +420,10 @@ class __$$GiftcardRegionModelImplCopyWithImpl<$Res>
 class _$GiftcardRegionModelImpl extends _GiftcardRegionModel {
   const _$GiftcardRegionModelImpl(
       {this.id,
-      required this.name,
+      this.name,
       required this.flagUrl,
       this.packageName,
-      required this.currency,
+      this.currency,
       this.countryName,
       this.countryCode,
       final List<GiftcardItemModel>? items,
@@ -438,13 +438,13 @@ class _$GiftcardRegionModelImpl extends _GiftcardRegionModel {
   @override
   final String? id;
   @override
-  final String name;
+  final String? name;
   @override
   final String flagUrl;
   @override
   final String? packageName;
   @override
-  final String currency;
+  final String? currency;
   @override
   final String? countryName;
   @override
@@ -527,10 +527,10 @@ class _$GiftcardRegionModelImpl extends _GiftcardRegionModel {
 abstract class _GiftcardRegionModel extends GiftcardRegionModel {
   const factory _GiftcardRegionModel(
           {final String? id,
-          required final String name,
+          final String? name,
           required final String flagUrl,
           final String? packageName,
-          required final String currency,
+          final String? currency,
           final String? countryName,
           final String? countryCode,
           final List<GiftcardItemModel>? items,
@@ -544,13 +544,13 @@ abstract class _GiftcardRegionModel extends GiftcardRegionModel {
   @override
   String? get id;
   @override
-  String get name;
+  String? get name;
   @override
   String get flagUrl;
   @override
   String? get packageName;
   @override
-  String get currency;
+  String? get currency;
   @override
   String? get countryName;
   @override

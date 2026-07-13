@@ -111,17 +111,25 @@ class _OrderTrackingContent extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item.product.name,
+                          item.productName,
                           style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w500, fontSize: 16.sp, color: Colors.black),
                         ),
                         6.verticalSpace,
+                        if (item.variantAttributes != null && item.variantAttributes!.isNotEmpty)
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 6.h),
+                            child: Text(
+                              item.variantAttributes!.entries.map((e) => '${e.key}: ${e.value}').join(', '),
+                              style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w400, fontSize: 11.sp, color: PPaymobileColors.svgIconColor),
+                            ),
+                          ),
                         Text(
                           'Qty: ${item.quantity}',
                           style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w400, fontSize: 12.sp, color: PPaymobileColors.svgIconColor),
                         ),
                         6.verticalSpace,
                         Text(
-                          '₦${AmountFormatter.formatBalance((item.price * item.quantity).toStringAsFixed(2))}',
+                          '₦${AmountFormatter.formatBalance((item.unitPrice * item.quantity).toStringAsFixed(2))}',
                           style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w500, fontSize: 18.sp, color: Colors.black),
                         ),
                       ],

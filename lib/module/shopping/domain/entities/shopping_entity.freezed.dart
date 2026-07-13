@@ -1327,11 +1327,9 @@ abstract class _CartEntity implements CartEntity {
 /// @nodoc
 mixin _$CartItemEntity {
   String get id => throw _privateConstructorUsedError;
-  String get productId => throw _privateConstructorUsedError;
-  String? get variantId => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  CartProductEntity get product => throw _privateConstructorUsedError;
+  CartItemProductEntity get product => throw _privateConstructorUsedError;
+  CartItemVariantEntity? get variant => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CartItemEntityCopyWith<CartItemEntity> get copyWith =>
@@ -1346,13 +1344,12 @@ abstract class $CartItemEntityCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
       int quantity,
-      double price,
-      CartProductEntity product});
+      CartItemProductEntity product,
+      CartItemVariantEntity? variant});
 
-  $CartProductEntityCopyWith<$Res> get product;
+  $CartItemProductEntityCopyWith<$Res> get product;
+  $CartItemVariantEntityCopyWith<$Res>? get variant;
 }
 
 /// @nodoc
@@ -1369,45 +1366,47 @@ class _$CartItemEntityCopyWithImpl<$Res, $Val extends CartItemEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
     Object? quantity = null,
-    Object? price = null,
     Object? product = null,
+    Object? variant = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as CartProductEntity,
+              as CartItemProductEntity,
+      variant: freezed == variant
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as CartItemVariantEntity?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CartProductEntityCopyWith<$Res> get product {
-    return $CartProductEntityCopyWith<$Res>(_value.product, (value) {
+  $CartItemProductEntityCopyWith<$Res> get product {
+    return $CartItemProductEntityCopyWith<$Res>(_value.product, (value) {
       return _then(_value.copyWith(product: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CartItemVariantEntityCopyWith<$Res>? get variant {
+    if (_value.variant == null) {
+      return null;
+    }
+
+    return $CartItemVariantEntityCopyWith<$Res>(_value.variant!, (value) {
+      return _then(_value.copyWith(variant: value) as $Val);
     });
   }
 }
@@ -1422,14 +1421,14 @@ abstract class _$$CartItemEntityImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
       int quantity,
-      double price,
-      CartProductEntity product});
+      CartItemProductEntity product,
+      CartItemVariantEntity? variant});
 
   @override
-  $CartProductEntityCopyWith<$Res> get product;
+  $CartItemProductEntityCopyWith<$Res> get product;
+  @override
+  $CartItemVariantEntityCopyWith<$Res>? get variant;
 }
 
 /// @nodoc
@@ -1444,37 +1443,27 @@ class __$$CartItemEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
     Object? quantity = null,
-    Object? price = null,
     Object? product = null,
+    Object? variant = freezed,
   }) {
     return _then(_$CartItemEntityImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as CartProductEntity,
+              as CartItemProductEntity,
+      variant: freezed == variant
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as CartItemVariantEntity?,
     ));
   }
 }
@@ -1484,28 +1473,22 @@ class __$$CartItemEntityImplCopyWithImpl<$Res>
 class _$CartItemEntityImpl implements _CartItemEntity {
   const _$CartItemEntityImpl(
       {required this.id,
-      required this.productId,
-      this.variantId,
       required this.quantity,
-      required this.price,
-      required this.product});
+      required this.product,
+      this.variant});
 
   @override
   final String id;
   @override
-  final String productId;
-  @override
-  final String? variantId;
-  @override
   final int quantity;
   @override
-  final double price;
+  final CartItemProductEntity product;
   @override
-  final CartProductEntity product;
+  final CartItemVariantEntity? variant;
 
   @override
   String toString() {
-    return 'CartItemEntity(id: $id, productId: $productId, variantId: $variantId, quantity: $quantity, price: $price, product: $product)';
+    return 'CartItemEntity(id: $id, quantity: $quantity, product: $product, variant: $variant)';
   }
 
   @override
@@ -1514,19 +1497,14 @@ class _$CartItemEntityImpl implements _CartItemEntity {
         (other.runtimeType == runtimeType &&
             other is _$CartItemEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.variantId, variantId) ||
-                other.variantId == variantId) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
-            (identical(other.price, price) || other.price == price) &&
-            (identical(other.product, product) || other.product == product));
+            (identical(other.product, product) || other.product == product) &&
+            (identical(other.variant, variant) || other.variant == variant));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, productId, variantId, quantity, price, product);
+  int get hashCode => Object.hash(runtimeType, id, quantity, product, variant);
 
   @JsonKey(ignore: true)
   @override
@@ -1539,24 +1517,18 @@ class _$CartItemEntityImpl implements _CartItemEntity {
 abstract class _CartItemEntity implements CartItemEntity {
   const factory _CartItemEntity(
       {required final String id,
-      required final String productId,
-      final String? variantId,
       required final int quantity,
-      required final double price,
-      required final CartProductEntity product}) = _$CartItemEntityImpl;
+      required final CartItemProductEntity product,
+      final CartItemVariantEntity? variant}) = _$CartItemEntityImpl;
 
   @override
   String get id;
   @override
-  String get productId;
-  @override
-  String? get variantId;
-  @override
   int get quantity;
   @override
-  double get price;
+  CartItemProductEntity get product;
   @override
-  CartProductEntity get product;
+  CartItemVariantEntity? get variant;
   @override
   @JsonKey(ignore: true)
   _$$CartItemEntityImplCopyWith<_$CartItemEntityImpl> get copyWith =>
@@ -1564,28 +1536,39 @@ abstract class _CartItemEntity implements CartItemEntity {
 }
 
 /// @nodoc
-mixin _$CartProductEntity {
+mixin _$CartItemProductEntity {
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  double get price => throw _privateConstructorUsedError;
+  double? get discountPrice => throw _privateConstructorUsedError;
+  bool get inStock => throw _privateConstructorUsedError;
+  List<ProductImageEntity>? get images => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CartProductEntityCopyWith<CartProductEntity> get copyWith =>
+  $CartItemProductEntityCopyWith<CartItemProductEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CartProductEntityCopyWith<$Res> {
-  factory $CartProductEntityCopyWith(
-          CartProductEntity value, $Res Function(CartProductEntity) then) =
-      _$CartProductEntityCopyWithImpl<$Res, CartProductEntity>;
+abstract class $CartItemProductEntityCopyWith<$Res> {
+  factory $CartItemProductEntityCopyWith(CartItemProductEntity value,
+          $Res Function(CartItemProductEntity) then) =
+      _$CartItemProductEntityCopyWithImpl<$Res, CartItemProductEntity>;
   @useResult
-  $Res call({String name, String imageUrl});
+  $Res call(
+      {String id,
+      String name,
+      double price,
+      double? discountPrice,
+      bool inStock,
+      List<ProductImageEntity>? images});
 }
 
 /// @nodoc
-class _$CartProductEntityCopyWithImpl<$Res, $Val extends CartProductEntity>
-    implements $CartProductEntityCopyWith<$Res> {
-  _$CartProductEntityCopyWithImpl(this._value, this._then);
+class _$CartItemProductEntityCopyWithImpl<$Res,
+        $Val extends CartItemProductEntity>
+    implements $CartItemProductEntityCopyWith<$Res> {
+  _$CartItemProductEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1595,109 +1578,345 @@ class _$CartProductEntityCopyWithImpl<$Res, $Val extends CartProductEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
+    Object? price = null,
+    Object? discountPrice = freezed,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      discountPrice: freezed == discountPrice
+          ? _value.discountPrice
+          : discountPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageEntity>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$CartProductEntityImplCopyWith<$Res>
-    implements $CartProductEntityCopyWith<$Res> {
-  factory _$$CartProductEntityImplCopyWith(_$CartProductEntityImpl value,
-          $Res Function(_$CartProductEntityImpl) then) =
-      __$$CartProductEntityImplCopyWithImpl<$Res>;
+abstract class _$$CartItemProductEntityImplCopyWith<$Res>
+    implements $CartItemProductEntityCopyWith<$Res> {
+  factory _$$CartItemProductEntityImplCopyWith(
+          _$CartItemProductEntityImpl value,
+          $Res Function(_$CartItemProductEntityImpl) then) =
+      __$$CartItemProductEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String imageUrl});
+  $Res call(
+      {String id,
+      String name,
+      double price,
+      double? discountPrice,
+      bool inStock,
+      List<ProductImageEntity>? images});
 }
 
 /// @nodoc
-class __$$CartProductEntityImplCopyWithImpl<$Res>
-    extends _$CartProductEntityCopyWithImpl<$Res, _$CartProductEntityImpl>
-    implements _$$CartProductEntityImplCopyWith<$Res> {
-  __$$CartProductEntityImplCopyWithImpl(_$CartProductEntityImpl _value,
-      $Res Function(_$CartProductEntityImpl) _then)
+class __$$CartItemProductEntityImplCopyWithImpl<$Res>
+    extends _$CartItemProductEntityCopyWithImpl<$Res,
+        _$CartItemProductEntityImpl>
+    implements _$$CartItemProductEntityImplCopyWith<$Res> {
+  __$$CartItemProductEntityImplCopyWithImpl(_$CartItemProductEntityImpl _value,
+      $Res Function(_$CartItemProductEntityImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
+    Object? price = null,
+    Object? discountPrice = freezed,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
-    return _then(_$CartProductEntityImpl(
+    return _then(_$CartItemProductEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      discountPrice: freezed == discountPrice
+          ? _value.discountPrice
+          : discountPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageEntity>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$CartProductEntityImpl implements _CartProductEntity {
-  const _$CartProductEntityImpl({required this.name, required this.imageUrl});
+class _$CartItemProductEntityImpl implements _CartItemProductEntity {
+  const _$CartItemProductEntityImpl(
+      {required this.id,
+      required this.name,
+      required this.price,
+      this.discountPrice,
+      required this.inStock,
+      final List<ProductImageEntity>? images})
+      : _images = images;
 
+  @override
+  final String id;
   @override
   final String name;
   @override
-  final String imageUrl;
+  final double price;
+  @override
+  final double? discountPrice;
+  @override
+  final bool inStock;
+  final List<ProductImageEntity>? _images;
+  @override
+  List<ProductImageEntity>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'CartProductEntity(name: $name, imageUrl: $imageUrl)';
+    return 'CartItemProductEntity(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, images: $images)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CartProductEntityImpl &&
+            other is _$CartItemProductEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.discountPrice, discountPrice) ||
+                other.discountPrice == discountPrice) &&
+            (identical(other.inStock, inStock) || other.inStock == inStock) &&
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, imageUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, price, discountPrice,
+      inStock, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CartProductEntityImplCopyWith<_$CartProductEntityImpl> get copyWith =>
-      __$$CartProductEntityImplCopyWithImpl<_$CartProductEntityImpl>(
-          this, _$identity);
+  _$$CartItemProductEntityImplCopyWith<_$CartItemProductEntityImpl>
+      get copyWith => __$$CartItemProductEntityImplCopyWithImpl<
+          _$CartItemProductEntityImpl>(this, _$identity);
 }
 
-abstract class _CartProductEntity implements CartProductEntity {
-  const factory _CartProductEntity(
-      {required final String name,
-      required final String imageUrl}) = _$CartProductEntityImpl;
+abstract class _CartItemProductEntity implements CartItemProductEntity {
+  const factory _CartItemProductEntity(
+      {required final String id,
+      required final String name,
+      required final double price,
+      final double? discountPrice,
+      required final bool inStock,
+      final List<ProductImageEntity>? images}) = _$CartItemProductEntityImpl;
 
+  @override
+  String get id;
   @override
   String get name;
   @override
-  String get imageUrl;
+  double get price;
+  @override
+  double? get discountPrice;
+  @override
+  bool get inStock;
+  @override
+  List<ProductImageEntity>? get images;
   @override
   @JsonKey(ignore: true)
-  _$$CartProductEntityImplCopyWith<_$CartProductEntityImpl> get copyWith =>
+  _$$CartItemProductEntityImplCopyWith<_$CartItemProductEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$CartItemVariantEntity {
+  String get id => throw _privateConstructorUsedError;
+  Map<String, dynamic> get attributes => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CartItemVariantEntityCopyWith<CartItemVariantEntity> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CartItemVariantEntityCopyWith<$Res> {
+  factory $CartItemVariantEntityCopyWith(CartItemVariantEntity value,
+          $Res Function(CartItemVariantEntity) then) =
+      _$CartItemVariantEntityCopyWithImpl<$Res, CartItemVariantEntity>;
+  @useResult
+  $Res call({String id, Map<String, dynamic> attributes});
+}
+
+/// @nodoc
+class _$CartItemVariantEntityCopyWithImpl<$Res,
+        $Val extends CartItemVariantEntity>
+    implements $CartItemVariantEntityCopyWith<$Res> {
+  _$CartItemVariantEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? attributes = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      attributes: null == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CartItemVariantEntityImplCopyWith<$Res>
+    implements $CartItemVariantEntityCopyWith<$Res> {
+  factory _$$CartItemVariantEntityImplCopyWith(
+          _$CartItemVariantEntityImpl value,
+          $Res Function(_$CartItemVariantEntityImpl) then) =
+      __$$CartItemVariantEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, Map<String, dynamic> attributes});
+}
+
+/// @nodoc
+class __$$CartItemVariantEntityImplCopyWithImpl<$Res>
+    extends _$CartItemVariantEntityCopyWithImpl<$Res,
+        _$CartItemVariantEntityImpl>
+    implements _$$CartItemVariantEntityImplCopyWith<$Res> {
+  __$$CartItemVariantEntityImplCopyWithImpl(_$CartItemVariantEntityImpl _value,
+      $Res Function(_$CartItemVariantEntityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? attributes = null,
+  }) {
+    return _then(_$CartItemVariantEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      attributes: null == attributes
+          ? _value._attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CartItemVariantEntityImpl implements _CartItemVariantEntity {
+  const _$CartItemVariantEntityImpl(
+      {required this.id, required final Map<String, dynamic> attributes})
+      : _attributes = attributes;
+
+  @override
+  final String id;
+  final Map<String, dynamic> _attributes;
+  @override
+  Map<String, dynamic> get attributes {
+    if (_attributes is EqualUnmodifiableMapView) return _attributes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_attributes);
+  }
+
+  @override
+  String toString() {
+    return 'CartItemVariantEntity(id: $id, attributes: $attributes)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CartItemVariantEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality()
+                .equals(other._attributes, _attributes));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, const DeepCollectionEquality().hash(_attributes));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CartItemVariantEntityImplCopyWith<_$CartItemVariantEntityImpl>
+      get copyWith => __$$CartItemVariantEntityImplCopyWithImpl<
+          _$CartItemVariantEntityImpl>(this, _$identity);
+}
+
+abstract class _CartItemVariantEntity implements CartItemVariantEntity {
+  const factory _CartItemVariantEntity(
+          {required final String id,
+          required final Map<String, dynamic> attributes}) =
+      _$CartItemVariantEntityImpl;
+
+  @override
+  String get id;
+  @override
+  Map<String, dynamic> get attributes;
+  @override
+  @JsonKey(ignore: true)
+  _$$CartItemVariantEntityImplCopyWith<_$CartItemVariantEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2255,11 +2474,11 @@ abstract class _OrderTrackingEntity implements OrderTrackingEntity {
 /// @nodoc
 mixin _$OrderItemEntity {
   String get id => throw _privateConstructorUsedError;
-  String get productId => throw _privateConstructorUsedError;
-  String? get variantId => throw _privateConstructorUsedError;
+  String get productName => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get variantAttributes =>
+      throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  CartProductEntity get product => throw _privateConstructorUsedError;
+  double get unitPrice => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderItemEntityCopyWith<OrderItemEntity> get copyWith =>
@@ -2274,13 +2493,10 @@ abstract class $OrderItemEntityCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
+      String productName,
+      Map<String, dynamic>? variantAttributes,
       int quantity,
-      double price,
-      CartProductEntity product});
-
-  $CartProductEntityCopyWith<$Res> get product;
+      double unitPrice});
 }
 
 /// @nodoc
@@ -2297,46 +2513,33 @@ class _$OrderItemEntityCopyWithImpl<$Res, $Val extends OrderItemEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
+    Object? productName = null,
+    Object? variantAttributes = freezed,
     Object? quantity = null,
-    Object? price = null,
-    Object? product = null,
+    Object? unitPrice = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
+      productName: null == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
               as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      variantAttributes: freezed == variantAttributes
+          ? _value.variantAttributes
+          : variantAttributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
+      unitPrice: null == unitPrice
+          ? _value.unitPrice
+          : unitPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as CartProductEntity,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CartProductEntityCopyWith<$Res> get product {
-    return $CartProductEntityCopyWith<$Res>(_value.product, (value) {
-      return _then(_value.copyWith(product: value) as $Val);
-    });
   }
 }
 
@@ -2350,14 +2553,10 @@ abstract class _$$OrderItemEntityImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String productId,
-      String? variantId,
+      String productName,
+      Map<String, dynamic>? variantAttributes,
       int quantity,
-      double price,
-      CartProductEntity product});
-
-  @override
-  $CartProductEntityCopyWith<$Res> get product;
+      double unitPrice});
 }
 
 /// @nodoc
@@ -2372,37 +2571,32 @@ class __$$OrderItemEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? productId = null,
-    Object? variantId = freezed,
+    Object? productName = null,
+    Object? variantAttributes = freezed,
     Object? quantity = null,
-    Object? price = null,
-    Object? product = null,
+    Object? unitPrice = null,
   }) {
     return _then(_$OrderItemEntityImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
+      productName: null == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
               as String,
-      variantId: freezed == variantId
-          ? _value.variantId
-          : variantId // ignore: cast_nullable_to_non_nullable
-              as String?,
+      variantAttributes: freezed == variantAttributes
+          ? _value._variantAttributes
+          : variantAttributes // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
+      unitPrice: null == unitPrice
+          ? _value.unitPrice
+          : unitPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as CartProductEntity,
     ));
   }
 }
@@ -2412,28 +2606,35 @@ class __$$OrderItemEntityImplCopyWithImpl<$Res>
 class _$OrderItemEntityImpl implements _OrderItemEntity {
   const _$OrderItemEntityImpl(
       {required this.id,
-      required this.productId,
-      this.variantId,
+      required this.productName,
+      final Map<String, dynamic>? variantAttributes,
       required this.quantity,
-      required this.price,
-      required this.product});
+      required this.unitPrice})
+      : _variantAttributes = variantAttributes;
 
   @override
   final String id;
   @override
-  final String productId;
+  final String productName;
+  final Map<String, dynamic>? _variantAttributes;
   @override
-  final String? variantId;
+  Map<String, dynamic>? get variantAttributes {
+    final value = _variantAttributes;
+    if (value == null) return null;
+    if (_variantAttributes is EqualUnmodifiableMapView)
+      return _variantAttributes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final int quantity;
   @override
-  final double price;
-  @override
-  final CartProductEntity product;
+  final double unitPrice;
 
   @override
   String toString() {
-    return 'OrderItemEntity(id: $id, productId: $productId, variantId: $variantId, quantity: $quantity, price: $price, product: $product)';
+    return 'OrderItemEntity(id: $id, productName: $productName, variantAttributes: $variantAttributes, quantity: $quantity, unitPrice: $unitPrice)';
   }
 
   @override
@@ -2442,19 +2643,24 @@ class _$OrderItemEntityImpl implements _OrderItemEntity {
         (other.runtimeType == runtimeType &&
             other is _$OrderItemEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.variantId, variantId) ||
-                other.variantId == variantId) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
+            const DeepCollectionEquality()
+                .equals(other._variantAttributes, _variantAttributes) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
-            (identical(other.price, price) || other.price == price) &&
-            (identical(other.product, product) || other.product == product));
+            (identical(other.unitPrice, unitPrice) ||
+                other.unitPrice == unitPrice));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, productId, variantId, quantity, price, product);
+      runtimeType,
+      id,
+      productName,
+      const DeepCollectionEquality().hash(_variantAttributes),
+      quantity,
+      unitPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -2467,24 +2673,21 @@ class _$OrderItemEntityImpl implements _OrderItemEntity {
 abstract class _OrderItemEntity implements OrderItemEntity {
   const factory _OrderItemEntity(
       {required final String id,
-      required final String productId,
-      final String? variantId,
+      required final String productName,
+      final Map<String, dynamic>? variantAttributes,
       required final int quantity,
-      required final double price,
-      required final CartProductEntity product}) = _$OrderItemEntityImpl;
+      required final double unitPrice}) = _$OrderItemEntityImpl;
 
   @override
   String get id;
   @override
-  String get productId;
+  String get productName;
   @override
-  String? get variantId;
+  Map<String, dynamic>? get variantAttributes;
   @override
   int get quantity;
   @override
-  double get price;
-  @override
-  CartProductEntity get product;
+  double get unitPrice;
   @override
   @JsonKey(ignore: true)
   _$$OrderItemEntityImplCopyWith<_$OrderItemEntityImpl> get copyWith =>
@@ -3045,7 +3248,7 @@ abstract class _ReviewUserEntity implements ReviewUserEntity {
 mixin _$WatchlistItemEntity {
   String get id => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
-  WatchlistProductEntity get product => throw _privateConstructorUsedError;
+  WatchlistProductEntity? get product => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WatchlistItemEntityCopyWith<WatchlistItemEntity> get copyWith =>
@@ -3058,9 +3261,9 @@ abstract class $WatchlistItemEntityCopyWith<$Res> {
           WatchlistItemEntity value, $Res Function(WatchlistItemEntity) then) =
       _$WatchlistItemEntityCopyWithImpl<$Res, WatchlistItemEntity>;
   @useResult
-  $Res call({String id, String createdAt, WatchlistProductEntity product});
+  $Res call({String id, String createdAt, WatchlistProductEntity? product});
 
-  $WatchlistProductEntityCopyWith<$Res> get product;
+  $WatchlistProductEntityCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -3078,7 +3281,7 @@ class _$WatchlistItemEntityCopyWithImpl<$Res, $Val extends WatchlistItemEntity>
   $Res call({
     Object? id = null,
     Object? createdAt = null,
-    Object? product = null,
+    Object? product = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -3089,17 +3292,21 @@ class _$WatchlistItemEntityCopyWithImpl<$Res, $Val extends WatchlistItemEntity>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      product: null == product
+      product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as WatchlistProductEntity,
+              as WatchlistProductEntity?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $WatchlistProductEntityCopyWith<$Res> get product {
-    return $WatchlistProductEntityCopyWith<$Res>(_value.product, (value) {
+  $WatchlistProductEntityCopyWith<$Res>? get product {
+    if (_value.product == null) {
+      return null;
+    }
+
+    return $WatchlistProductEntityCopyWith<$Res>(_value.product!, (value) {
       return _then(_value.copyWith(product: value) as $Val);
     });
   }
@@ -3113,10 +3320,10 @@ abstract class _$$WatchlistItemEntityImplCopyWith<$Res>
       __$$WatchlistItemEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String createdAt, WatchlistProductEntity product});
+  $Res call({String id, String createdAt, WatchlistProductEntity? product});
 
   @override
-  $WatchlistProductEntityCopyWith<$Res> get product;
+  $WatchlistProductEntityCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -3132,7 +3339,7 @@ class __$$WatchlistItemEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? createdAt = null,
-    Object? product = null,
+    Object? product = freezed,
   }) {
     return _then(_$WatchlistItemEntityImpl(
       id: null == id
@@ -3143,10 +3350,10 @@ class __$$WatchlistItemEntityImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      product: null == product
+      product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as WatchlistProductEntity,
+              as WatchlistProductEntity?,
     ));
   }
 }
@@ -3155,14 +3362,14 @@ class __$$WatchlistItemEntityImplCopyWithImpl<$Res>
 
 class _$WatchlistItemEntityImpl implements _WatchlistItemEntity {
   const _$WatchlistItemEntityImpl(
-      {required this.id, required this.createdAt, required this.product});
+      {required this.id, required this.createdAt, this.product});
 
   @override
   final String id;
   @override
   final String createdAt;
   @override
-  final WatchlistProductEntity product;
+  final WatchlistProductEntity? product;
 
   @override
   String toString() {
@@ -3193,17 +3400,16 @@ class _$WatchlistItemEntityImpl implements _WatchlistItemEntity {
 
 abstract class _WatchlistItemEntity implements WatchlistItemEntity {
   const factory _WatchlistItemEntity(
-          {required final String id,
-          required final String createdAt,
-          required final WatchlistProductEntity product}) =
-      _$WatchlistItemEntityImpl;
+      {required final String id,
+      required final String createdAt,
+      final WatchlistProductEntity? product}) = _$WatchlistItemEntityImpl;
 
   @override
   String get id;
   @override
   String get createdAt;
   @override
-  WatchlistProductEntity get product;
+  WatchlistProductEntity? get product;
   @override
   @JsonKey(ignore: true)
   _$$WatchlistItemEntityImplCopyWith<_$WatchlistItemEntityImpl> get copyWith =>
@@ -3216,7 +3422,8 @@ mixin _$WatchlistProductEntity {
   String get name => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   double? get discountPrice => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  bool get inStock => throw _privateConstructorUsedError;
+  List<ProductImageEntity>? get images => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WatchlistProductEntityCopyWith<WatchlistProductEntity> get copyWith =>
@@ -3234,7 +3441,8 @@ abstract class $WatchlistProductEntityCopyWith<$Res> {
       String name,
       double price,
       double? discountPrice,
-      String imageUrl});
+      bool inStock,
+      List<ProductImageEntity>? images});
 }
 
 /// @nodoc
@@ -3255,7 +3463,8 @@ class _$WatchlistProductEntityCopyWithImpl<$Res,
     Object? name = null,
     Object? price = null,
     Object? discountPrice = freezed,
-    Object? imageUrl = null,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -3274,10 +3483,14 @@ class _$WatchlistProductEntityCopyWithImpl<$Res,
           ? _value.discountPrice
           : discountPrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageEntity>?,
     ) as $Val);
   }
 }
@@ -3296,7 +3509,8 @@ abstract class _$$WatchlistProductEntityImplCopyWith<$Res>
       String name,
       double price,
       double? discountPrice,
-      String imageUrl});
+      bool inStock,
+      List<ProductImageEntity>? images});
 }
 
 /// @nodoc
@@ -3316,7 +3530,8 @@ class __$$WatchlistProductEntityImplCopyWithImpl<$Res>
     Object? name = null,
     Object? price = null,
     Object? discountPrice = freezed,
-    Object? imageUrl = null,
+    Object? inStock = null,
+    Object? images = freezed,
   }) {
     return _then(_$WatchlistProductEntityImpl(
       id: null == id
@@ -3335,23 +3550,30 @@ class __$$WatchlistProductEntityImplCopyWithImpl<$Res>
           ? _value.discountPrice
           : discountPrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      inStock: null == inStock
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<ProductImageEntity>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$WatchlistProductEntityImpl implements _WatchlistProductEntity {
+class _$WatchlistProductEntityImpl extends _WatchlistProductEntity {
   const _$WatchlistProductEntityImpl(
       {required this.id,
       required this.name,
       required this.price,
       this.discountPrice,
-      required this.imageUrl});
+      required this.inStock,
+      final List<ProductImageEntity>? images})
+      : _images = images,
+        super._();
 
   @override
   final String id;
@@ -3362,11 +3584,20 @@ class _$WatchlistProductEntityImpl implements _WatchlistProductEntity {
   @override
   final double? discountPrice;
   @override
-  final String imageUrl;
+  final bool inStock;
+  final List<ProductImageEntity>? _images;
+  @override
+  List<ProductImageEntity>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'WatchlistProductEntity(id: $id, name: $name, price: $price, discountPrice: $discountPrice, imageUrl: $imageUrl)';
+    return 'WatchlistProductEntity(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, images: $images)';
   }
 
   @override
@@ -3379,13 +3610,13 @@ class _$WatchlistProductEntityImpl implements _WatchlistProductEntity {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.discountPrice, discountPrice) ||
                 other.discountPrice == discountPrice) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+            (identical(other.inStock, inStock) || other.inStock == inStock) &&
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, price, discountPrice, imageUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, price, discountPrice,
+      inStock, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
@@ -3395,13 +3626,15 @@ class _$WatchlistProductEntityImpl implements _WatchlistProductEntity {
           _$WatchlistProductEntityImpl>(this, _$identity);
 }
 
-abstract class _WatchlistProductEntity implements WatchlistProductEntity {
+abstract class _WatchlistProductEntity extends WatchlistProductEntity {
   const factory _WatchlistProductEntity(
       {required final String id,
       required final String name,
       required final double price,
       final double? discountPrice,
-      required final String imageUrl}) = _$WatchlistProductEntityImpl;
+      required final bool inStock,
+      final List<ProductImageEntity>? images}) = _$WatchlistProductEntityImpl;
+  const _WatchlistProductEntity._() : super._();
 
   @override
   String get id;
@@ -3412,7 +3645,9 @@ abstract class _WatchlistProductEntity implements WatchlistProductEntity {
   @override
   double? get discountPrice;
   @override
-  String get imageUrl;
+  bool get inStock;
+  @override
+  List<ProductImageEntity>? get images;
   @override
   @JsonKey(ignore: true)
   _$$WatchlistProductEntityImplCopyWith<_$WatchlistProductEntityImpl>

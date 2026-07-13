@@ -52,7 +52,7 @@ class SellGiftcardUseCase {
   Future<Either<Failure, void>> call({
     required String type,
     required String country,
-    required String subcategoryId,
+    String? subcategoryId,
     required double amount,
     String? ecode,
     List<String>? cardImagePaths,

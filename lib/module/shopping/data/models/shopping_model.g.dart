@@ -70,7 +70,7 @@ _$CategoryModelImpl _$$CategoryModelImplFromJson(Map<String, dynamic> json) =>
     _$CategoryModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      iconUrl: json['iconUrl'] as String,
+      iconUrl: json['iconUrl'] as String?,
     );
 
 Map<String, dynamic> _$$CategoryModelImplToJson(_$CategoryModelImpl instance) =>
@@ -137,36 +137,59 @@ Map<String, dynamic> _$$CartModelImplToJson(_$CartModelImpl instance) =>
 _$CartItemModelImpl _$$CartItemModelImplFromJson(Map<String, dynamic> json) =>
     _$CartItemModelImpl(
       id: json['id'] as String,
-      productId: json['productId'] as String,
-      variantId: json['variantId'] as String?,
       quantity: (json['quantity'] as num).toInt(),
-      price: (json['price'] as num).toDouble(),
-      product:
-          CartProductModel.fromJson(json['product'] as Map<String, dynamic>),
+      product: CartItemProductModel.fromJson(
+          json['product'] as Map<String, dynamic>),
+      variant: json['variant'] == null
+          ? null
+          : CartItemVariantModel.fromJson(
+              json['variant'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CartItemModelImplToJson(_$CartItemModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'productId': instance.productId,
-      'variantId': instance.variantId,
       'quantity': instance.quantity,
-      'price': instance.price,
       'product': instance.product,
+      'variant': instance.variant,
     };
 
-_$CartProductModelImpl _$$CartProductModelImplFromJson(
+_$CartItemProductModelImpl _$$CartItemProductModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$CartProductModelImpl(
+    _$CartItemProductModelImpl(
+      id: json['id'] as String,
       name: json['name'] as String,
-      imageUrl: json['imageUrl'] as String,
+      price: _toDouble(json['price']),
+      discountPrice: _toDoubleNullable(json['discountPrice']),
+      inStock: json['inStock'] as bool,
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => ProductImageModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$$CartProductModelImplToJson(
-        _$CartProductModelImpl instance) =>
+Map<String, dynamic> _$$CartItemProductModelImplToJson(
+        _$CartItemProductModelImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
-      'imageUrl': instance.imageUrl,
+      'price': instance.price,
+      'discountPrice': instance.discountPrice,
+      'inStock': instance.inStock,
+      'images': instance.images,
+    };
+
+_$CartItemVariantModelImpl _$$CartItemVariantModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CartItemVariantModelImpl(
+      id: json['id'] as String,
+      attributes: json['attributes'] as Map<String, dynamic>,
+    );
+
+Map<String, dynamic> _$$CartItemVariantModelImplToJson(
+        _$CartItemVariantModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'attributes': instance.attributes,
     };
 
 _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
@@ -227,23 +250,20 @@ Map<String, dynamic> _$$OrderTrackingModelImplToJson(
 _$OrderItemModelImpl _$$OrderItemModelImplFromJson(Map<String, dynamic> json) =>
     _$OrderItemModelImpl(
       id: json['id'] as String,
-      productId: json['productId'] as String,
-      variantId: json['variantId'] as String?,
+      productName: json['productName'] as String,
+      variantAttributes: json['variantAttributes'] as Map<String, dynamic>?,
       quantity: (json['quantity'] as num).toInt(),
-      price: (json['price'] as num).toDouble(),
-      product:
-          CartProductModel.fromJson(json['product'] as Map<String, dynamic>),
+      unitPrice: _toDouble(json['unitPrice']),
     );
 
 Map<String, dynamic> _$$OrderItemModelImplToJson(
         _$OrderItemModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'productId': instance.productId,
-      'variantId': instance.variantId,
+      'productName': instance.productName,
+      'variantAttributes': instance.variantAttributes,
       'quantity': instance.quantity,
-      'price': instance.price,
-      'product': instance.product,
+      'unitPrice': instance.unitPrice,
     };
 
 _$OrderShippingAddressModelImpl _$$OrderShippingAddressModelImplFromJson(
@@ -303,8 +323,10 @@ _$WatchlistItemModelImpl _$$WatchlistItemModelImplFromJson(
     _$WatchlistItemModelImpl(
       id: json['id'] as String,
       createdAt: json['createdAt'] as String,
-      product: WatchlistProductModel.fromJson(
-          json['product'] as Map<String, dynamic>),
+      product: json['product'] == null
+          ? null
+          : WatchlistProductModel.fromJson(
+              json['product'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$WatchlistItemModelImplToJson(
@@ -320,9 +342,12 @@ _$WatchlistProductModelImpl _$$WatchlistProductModelImplFromJson(
     _$WatchlistProductModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      price: (json['price'] as num).toDouble(),
-      discountPrice: (json['discountPrice'] as num?)?.toDouble(),
-      imageUrl: json['imageUrl'] as String,
+      price: _toDouble(json['price']),
+      discountPrice: _toDoubleNullable(json['discountPrice']),
+      inStock: json['inStock'] as bool,
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => ProductImageModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$WatchlistProductModelImplToJson(
@@ -332,5 +357,6 @@ Map<String, dynamic> _$$WatchlistProductModelImplToJson(
       'name': instance.name,
       'price': instance.price,
       'discountPrice': instance.discountPrice,
-      'imageUrl': instance.imageUrl,
+      'inStock': instance.inStock,
+      'images': instance.images,
     };

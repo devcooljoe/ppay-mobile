@@ -7,11 +7,13 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 class CustomKeyboard extends HookWidget {
   final Function(String) onKeyTap;
   final VoidCallback onDelete;
+  final bool showDecimal;
 
   const CustomKeyboard({
     super.key,
     required this.onKeyTap,
     required this.onDelete,
+    this.showDecimal = true,
   });
 
   Widget _key(String value, {VoidCallback? onTap}) {
@@ -68,7 +70,7 @@ class CustomKeyboard extends HookWidget {
         _key('7', onTap: () => onKeyTap('7')),
         _key('8', onTap: () => onKeyTap('8')),
         _key('9', onTap: () => onKeyTap('9')),
-        _key('.', onTap: () => onKeyTap('.')),
+        showDecimal ? _key('.', onTap: () => onKeyTap('.')) : const SizedBox.shrink(),
         _key('0', onTap: () => onKeyTap('0')),
         _deleteKey(onTap: onDelete),
       ],
