@@ -4,27 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/flight/presentation/providers/flight_search_state.dart';
+import 'package:ppay_mobile/shared/data/airports_data.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
-
-const _airports = [
-  {'code': 'LOS', 'label': 'Lagos (LOS)', 'country': 'Nigeria'},
-  {'code': 'ABV', 'label': 'Abuja (ABV)', 'country': 'Nigeria'},
-  {'code': 'PHC', 'label': 'Port Harcourt (PHC)', 'country': 'Nigeria'},
-  {'code': 'KAN', 'label': 'Kano (KAN)', 'country': 'Nigeria'},
-  {'code': 'ENU', 'label': 'Enugu (ENU)', 'country': 'Nigeria'},
-  {'code': 'IBA', 'label': 'Ibadan (IBA)', 'country': 'Nigeria'},
-  {'code': 'BEN', 'label': 'Benin (BEN)', 'country': 'Nigeria'},
-  {'code': 'ABJ', 'label': 'Abidjan (ABJ)', 'country': 'Côte d\'Ivoire'},
-  {'code': 'ACC', 'label': 'Accra (ACC)', 'country': 'Ghana'},
-  {'code': 'DKR', 'label': 'Dakar (DKR)', 'country': 'Senegal'},
-  {'code': 'NBO', 'label': 'Nairobi (NBO)', 'country': 'Kenya'},
-  {'code': 'JNB', 'label': 'Johannesburg (JNB)', 'country': 'South Africa'},
-  {'code': 'LHR', 'label': 'London Heathrow (LHR)', 'country': 'United Kingdom'},
-  {'code': 'CDG', 'label': 'Paris Charles de Gaulle (CDG)', 'country': 'France'},
-  {'code': 'DXB', 'label': 'Dubai (DXB)', 'country': 'UAE'},
-  {'code': 'JFK', 'label': 'New York JFK (JFK)', 'country': 'USA'},
-];
 
 class DestinationLocationBottomsheet extends HookConsumerWidget {
   const DestinationLocationBottomsheet({super.key});
@@ -34,16 +16,19 @@ class DestinationLocationBottomsheet extends HookConsumerWidget {
     final query = useState('');
     final controller = useTextEditingController();
 
-    final filtered = _airports.where((a) {
-      final q = query.value.toLowerCase();
-      return q.isEmpty ||
-          a['code']!.toLowerCase().contains(q) ||
-          a['label']!.toLowerCase().contains(q) ||
-          a['country']!.toLowerCase().contains(q);
-    }).toList();
+    final filtered = useMemoized(() {
+      final q = query.value.toLowerCase().trim();
+      if (q.isEmpty) return kAirports;
+      return kAirports.where((a) =>
+        a.code.toLowerCase().contains(q) ||
+        a.city.toLowerCase().contains(q) ||
+        a.name.toLowerCase().contains(q) ||
+        a.country.toLowerCase().contains(q),
+      ).toList();
+    }, [query.value]);
 
     return FractionallySizedBox(
-      heightFactor: 0.550,
+      heightFactor: 0.85,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -76,7 +61,7 @@ class DestinationLocationBottomsheet extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Enter destination',
+                    'Destination',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
@@ -84,19 +69,24 @@ class DestinationLocationBottomsheet extends HookConsumerWidget {
                       color: Colors.black,
                     ),
                   ),
-                  38.verticalSpace,
+                  24.verticalSpace,
                   SizedBox(
                     height: 44.h,
                     child: TextFormField(
                       controller: controller,
+                      autofocus: true,
                       onChanged: (v) => query.value = v,
                       decoration: InputDecoration(
-                        hintText: 'Search airport or city',
+                        hintText: 'Search city, airport or country',
                         hintStyle: TextStyle(
                           fontFamily: 'InstrumentSans',
                           color: PPaymobileColors.filterBorderColor,
                           fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(10.r),
+                          child: SvgPicture.asset('assets/icon/flight_down.svg', fit: BoxFit.contain),
                         ),
                         suffixIcon: query.value.isNotEmpty
                             ? GestureDetector(
@@ -104,90 +94,146 @@ class DestinationLocationBottomsheet extends HookConsumerWidget {
                                   controller.clear();
                                   query.value = '';
                                 },
-                                child: SizedBox(
-                                  height: 24.h,
-                                  width: 24.h,
+                                child: Padding(
+                                  padding: EdgeInsets.all(10.r),
                                   child: SvgPicture.asset('assets/icon/cancel_1.svg', fit: BoxFit.scaleDown),
                                 ),
                               )
                             : null,
-                        contentPadding: EdgeInsets.all(10).r,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
-                          borderSide: BorderSide(color: PPaymobileColors.buttonColor, width: 1.w),
+                          borderSide: BorderSide(color: PPaymobileColors.buttonColor, width: 1.5.w),
                         ),
                       ),
                     ),
                   ),
-                  28.verticalSpace,
+                  20.verticalSpace,
                   Text(
-                    query.value.isEmpty ? 'Suggestions' : 'Results',
+                    query.value.isEmpty ? 'All Airports' : 'Results (${filtered.length})',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       color: Colors.black,
                     ),
                   ),
-                  20.verticalSpace,
+                  16.verticalSpace,
                   Expanded(
-                    child: ListView.separated(
-                      itemCount: filtered.length,
-                      separatorBuilder: (_, __) => 16.verticalSpace,
-                      itemBuilder: (_, i) {
-                        final airport = filtered[i];
-                        return TouchOpacity(
-                          onTap: () {
-                            ref.read(flightSearchStateProvider.notifier)
-                                .setTo(airport['code']!, airport['label']!);
-                            Navigator.pop(context);
-                          },
-                          child: SizedBox(
-                            height: 49.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                    child: filtered.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                SizedBox(
-                                  height: 33.h,
-                                  width: 33.h,
-                                  child: SvgPicture.asset('assets/icon/flight_down.svg', fit: BoxFit.contain),
-                                ),
-                                10.horizontalSpace,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      airport['label']!,
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14.sp,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    4.verticalSpace,
-                                    Text(
-                                      airport['country']!,
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.sp,
-                                        color: PPaymobileColors.anotherGreyColor,
-                                      ),
-                                    ),
-                                  ],
+                                SvgPicture.asset('assets/icon/flight_down.svg', height: 48.h, width: 48.h),
+                                16.verticalSpace,
+                                Text(
+                                  'No airports found',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    fontSize: 14.sp,
+                                    color: PPaymobileColors.svgIconColor,
+                                  ),
                                 ),
                               ],
                             ),
+                          )
+                        : ListView.separated(
+                            itemCount: filtered.length,
+                            separatorBuilder: (_, __) => Divider(
+                              height: 1.h,
+                              color: PPaymobileColors.deepBackgroundColor,
+                            ),
+                            itemBuilder: (_, i) {
+                              final airport = filtered[i];
+                              return TouchOpacity(
+                                onTap: () {
+                                  ref.read(flightSearchStateProvider.notifier)
+                                      .setTo(airport.code, airport.label);
+                                  Navigator.pop(context);
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 40.w,
+                                        width: 40.w,
+                                        decoration: BoxDecoration(
+                                          color: PPaymobileColors.deepBackgroundColor,
+                                          borderRadius: BorderRadius.circular(8.r),
+                                        ),
+                                        child: Center(
+                                          child: SvgPicture.asset(
+                                            'assets/icon/flight_down.svg',
+                                            height: 20.w,
+                                            width: 20.w,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                      12.horizontalSpace,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    airport.city,
+                                                    style: TextStyle(
+                                                      fontFamily: 'InstrumentSans',
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 14.sp,
+                                                      color: Colors.black,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                                8.horizontalSpace,
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                                                  decoration: BoxDecoration(
+                                                    color: PPaymobileColors.buttonColor.withValues(alpha: 0.1),
+                                                    borderRadius: BorderRadius.circular(4.r),
+                                                  ),
+                                                  child: Text(
+                                                    airport.code,
+                                                    style: TextStyle(
+                                                      fontFamily: 'InstrumentSans',
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 12.sp,
+                                                      color: PPaymobileColors.buttonColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            4.verticalSpace,
+                                            Text(
+                                              '${airport.name} · ${airport.country}',
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11.sp,
+                                                color: PPaymobileColors.anotherGreyColor,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               ),

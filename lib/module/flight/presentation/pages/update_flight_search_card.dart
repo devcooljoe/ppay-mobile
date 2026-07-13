@@ -3,7 +3,6 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/flight/presentation/pages/multi_trip_page.dart';
 import 'package:ppay_mobile/module/flight/presentation/pages/one_way_trip_page.dart';
 import 'package:ppay_mobile/module/flight/presentation/pages/round_way_trip_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -14,7 +13,7 @@ class UpdateFlightSearchCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Container(
         height: 503.h,
         width: double.infinity,
@@ -88,7 +87,6 @@ class UpdateFlightSearchCard extends HookConsumerWidget {
                 tabs: const [
                   Tab(text: 'One Way Trip'),
                   Tab(text: 'Round Trip'),
-                  Tab(text: 'Multi Trip'),
                 ],
               ),
             ),
@@ -97,7 +95,6 @@ class UpdateFlightSearchCard extends HookConsumerWidget {
                 children: [
                   OneWayTripPage(),
                   RoundWayTripPage(),
-                  MultiTripPage(),
                 ],
               ),
             ),
