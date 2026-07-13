@@ -1,49 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
 class GiftcardSellReceiptPage extends HookConsumerWidget {
-  const GiftcardSellReceiptPage({super.key});
+  final String cardType;
+  final double amountInUSD;
+  final double nairaEquivalent;
+  final double sellRate;
+  final DateTime submittedAt;
+
+  const GiftcardSellReceiptPage({
+    super.key,
+    required this.cardType,
+    required this.amountInUSD,
+    required this.nairaEquivalent,
+    required this.sellRate,
+    required this.submittedAt,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        title: Text(
-          'Receipt',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: PPAppBar(title: 'Receipt'),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -51,24 +35,34 @@ class GiftcardSellReceiptPage extends HookConsumerWidget {
             children: [
               16.verticalSpace,
               Container(
-                height: 306.h,
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.h),
                 color: PPaymobileColors.mainScreenBackground,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    Container(
                       height: 84.w,
                       width: 84.w,
-                      child: Image.asset(
-                        'assets/images/amazon_2.png',
-                        fit: BoxFit.contain,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: PPaymobileColors.deepBackgroundColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          cardType.isNotEmpty ? cardType[0].toUpperCase() : 'G',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.backgroundColor,
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
                     ),
                     11.verticalSpace,
                     Text(
-                      'Amazon Gift Card',
+                      '$cardType Gift Card',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: PPaymobileColors.svgIconColor,
@@ -80,14 +74,11 @@ class GiftcardSellReceiptPage extends HookConsumerWidget {
                     SizedBox(
                       height: 24.h,
                       width: 99.w,
-                      child: Image.asset(
-                        'assets/images/success.png', //for failed transaction, use 'assets/images/failed.png'
-                        fit: BoxFit.contain,
-                      ),
+                      child: Image.asset('assets/images/another_pending.png', fit: BoxFit.contain),
                     ),
                     11.verticalSpace,
                     Text(
-                      '\$23.28',
+                      '\$${amountInUSD.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: Colors.black,
@@ -97,10 +88,10 @@ class GiftcardSellReceiptPage extends HookConsumerWidget {
                     ),
                     3.verticalSpace,
                     Text(
-                      'Sold Amazon Gift Card',
+                      'Sold $cardType Gift Card',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.anotherGreyColor,
+                        color: PPaymobileColors.svgIconColor,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                       ),
@@ -110,195 +101,38 @@ class GiftcardSellReceiptPage extends HookConsumerWidget {
               ),
               16.verticalSpace,
               Container(
-                height: 352.h,
-                width: 400.w,
+                width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
                 color: PPaymobileColors.mainScreenBackground,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Date: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '18 July, 2025',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                    _ReceiptRow(label: 'Date', value: _formatDate(submittedAt)),
+                    18.verticalSpace,
+                    _ReceiptRow(
+                      label: 'Dollar Amount',
+                      value: '\$${amountInUSD.toStringAsFixed(2)}',
                     ),
                     18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Region: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 23.w,
-                              width: 23.w,
-                              child: Image.asset(
-                                'assets/images/nigeria_flag.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            12.horizontalSpace,
-                            Text(
-                              'NGA',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _ReceiptRow(
+                      label: 'Naira Equivalent',
+                      value: '₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
                     ),
                     18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Transaction ID: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'CGX-10980565',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            7.horizontalSpace,
-                            SizedBox(
-                              height: 21.w,
-                              width: 21.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/paste_black1.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _ReceiptRow(
+                      label: 'Sell Rate',
+                      value: '₦${AmountFormatter.formatBalance(sellRate.toStringAsFixed(2))}/\$',
                     ),
                     18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Dollar Amount: ',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '\$23.03',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Naira Rate:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '₦30,030.00',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Fee:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '₦30.00',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                    _ReceiptRow(label: 'Status', value: 'Pending Review'),
                     20.verticalSpace,
-                    Divider(
-                      color: PPaymobileColors.textfiedBorder,
-                      thickness: 1.h,
-                    ),
+                    Divider(color: PPaymobileColors.textfiedBorder, thickness: 1.h),
                     18.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Total: ',
+                          'You Receive',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
@@ -307,7 +141,7 @@ class GiftcardSellReceiptPage extends HookConsumerWidget {
                           ),
                         ),
                         Text(
-                          '\$28.28',
+                          '₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
@@ -324,6 +158,53 @@ class GiftcardSellReceiptPage extends HookConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  String _formatDate(DateTime date) {
+    const months = [
+      '', 'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return '${date.day} ${months[date.month]}, ${date.year}';
+  }
+}
+
+class _ReceiptRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _ReceiptRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          '$label: ',
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 180.w),
+          child: Text(
+            value,
+            textAlign: TextAlign.right,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

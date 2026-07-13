@@ -152,7 +152,7 @@ class BvnconfirmPage extends HookConsumerWidget {
                   ),
                   hintText: 'Enter BVN',
                   hintStyle: TextStyle(
-                    fontFamily: 'Gilroy',
+                    fontFamily: 'InstrumentSans',
                     fontWeight: FontWeight.w400,
                     fontSize: 16.sp,
                     color: PPaymobileColors.svgIconColor,

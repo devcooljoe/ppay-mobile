@@ -100,7 +100,7 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                         ),
                       ),
@@ -179,7 +179,7 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                 child: Text(
                   '$year',
                   style: TextStyle(
-                    fontFamily: 'Gilroy',
+                    fontFamily: 'InstrumentSans',
                     fontSize: 13.sp,
                     fontWeight:
                         isSelected ? FontWeight.w600 : FontWeight.w400,
@@ -227,7 +227,7 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                 child: Text(
                   monthName(month).substring(0, 3),
                   style: TextStyle(
-                    fontFamily: 'Gilroy',
+                    fontFamily: 'InstrumentSans',
                     fontSize: 14.sp,
                     fontWeight:
                         isSelected ? FontWeight.w600 : FontWeight.w400,
@@ -275,7 +275,7 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                   ),
                   todayTextStyle: const TextStyle(
                     color: Colors.black,
-                    fontFamily: 'Gilroy',
+                    fontFamily: 'InstrumentSans',
                   ),
                 ),
               )
@@ -318,7 +318,7 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                               ? 'Select date'
                               : '${selectedDay.value!.day.toString().padLeft(2, '0')}/${selectedDay.value!.month.toString().padLeft(2, '0')}/${selectedDay.value!.year}',
                           style: TextStyle(
-                            fontFamily: 'Gilroy',
+                            fontFamily: 'InstrumentSans',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
                             color: Colors.black,
@@ -346,7 +346,7 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                       child: Text(
                         'Apply',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                           color: PPaymobileColors.mainScreenBackground,

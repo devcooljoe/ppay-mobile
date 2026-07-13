@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -117,22 +118,7 @@ class PinResetPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset('assets/icon/arrow_back.svg', fit: BoxFit.scaleDown),
-            ),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: step.value == 0
@@ -254,7 +240,7 @@ class _OtpStep extends StatelessWidget {
                   child: Text(
                     'Verify OTP',
                     style: TextStyle(
-                      fontFamily: 'Montserrat',
+                      fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
                       color: Colors.white,
@@ -387,7 +373,7 @@ class _NewPinStep extends StatelessWidget {
                       Text(
                         'Reset PIN',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
                           color: Colors.white,

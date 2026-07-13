@@ -27,9 +27,7 @@ class SupportTicketSheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
+          GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -47,7 +45,6 @@ class SupportTicketSheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(
@@ -165,7 +162,7 @@ class SupportTicketSheet extends HookConsumerWidget {
                         ),
                         hintText: 'e.g Payment not going through',
                         hintStyle: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w400,
                           fontSize: 16.sp,
                           color: PPaymobileColors.svgIconColor,
@@ -210,7 +207,7 @@ class SupportTicketSheet extends HookConsumerWidget {
                         ),
                         hintText: 'Enter Issue',
                         hintStyle: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w400,
                           fontSize: 16.sp,
                           color: PPaymobileColors.svgIconColor,
@@ -274,7 +271,7 @@ class SupportTicketSheet extends HookConsumerWidget {
                         child: Text(
                           'Submit Ticket',
                           style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'InstrumentSans',
                             fontWeight: FontWeight.w600,
                             fontSize: 16.sp,
                             color: Colors.white,

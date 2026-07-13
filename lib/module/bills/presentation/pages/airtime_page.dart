@@ -4,9 +4,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_entity.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
-import 'package:ppay_mobile/module/bills/presentation/pages/bill_confirm_page.dart';
 import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_input_decoration.dart';
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_package_selector_widget.dart';
@@ -90,23 +90,18 @@ class AirtimePage extends HookConsumerWidget {
             isActive: true,
           );
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => BillConfirmPage(
-            args: BillConfirmArgs(
-              billType: BillType.airtime,
-              biller: selectedBiller.value!,
-              billItem: item,
-              customerIdentifier: phoneController.text.trim(),
-              customerName: '',
-              phoneNumber: phoneController.text.trim(),
-              amount: amount,
-              billerCategory: 'Airtime',
-            ),
-          ),
+      context.router.push(BillConfirmRoute(
+        args: BillConfirmArgs(
+          billType: BillType.airtime,
+          biller: selectedBiller.value!,
+          billItem: item,
+          customerIdentifier: phoneController.text.trim(),
+          customerName: '',
+          phoneNumber: phoneController.text.trim(),
+          amount: amount,
+          billerCategory: 'Airtime',
         ),
-      );
+      ));
     }
 
     return Scaffold(

@@ -250,7 +250,7 @@ class KycVerificationPage extends HookConsumerWidget {
                         child: Text(
                           'Enter your ${selectedDoc.value!.name} number exactly as it appears on the document',
                           style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'InstrumentSans',
                             color: PPaymobileColors.buttonColor,
                             fontWeight: FontWeight.w500,
                             fontSize: 13.sp,

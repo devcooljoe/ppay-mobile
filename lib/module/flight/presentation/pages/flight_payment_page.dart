@@ -33,7 +33,7 @@ class FlightPaymentPage extends HookConsumerWidget {
         MessageHandler.showErrorSnackBar(context, next.error.toString());
       } else if (next.hasValue && next.value != null) {
         ref.read(flightBookingResultProvider.notifier).set(next.value!);
-        context.router.push(const FlightPaymwntSuccessRoute());
+        context.router.push(const FlightPaymentSuccessRoute());
       }
     });
 

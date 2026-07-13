@@ -8,12 +8,14 @@ class PPAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final VoidCallback? onBackPressed;
   final List<Widget>? actions;
+  final bool showLeading;
 
   const PPAppBar({
     super.key,
     this.title,
     this.onBackPressed,
     this.actions,
+    this.showLeading = true,
   });
 
   @override
@@ -21,8 +23,9 @@ class PPAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       toolbarHeight: 56,
-      leadingWidth: 56.w,
+      leadingWidth: showLeading ? 56.w : 0,
       centerTitle: true,
+      automaticallyImplyLeading: false,
       title: title != null
           ? Text(
               title!,
@@ -34,20 +37,22 @@ class PPAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
-      leading: Padding(
-        padding: EdgeInsets.only(left: 20.w),
-        child: TouchOpacity(
-          onTap: onBackPressed ?? () => Navigator.pop(context),
-          child: SizedBox(
-            height: 24.w,
-            width: 24.w,
-            child: SvgPicture.asset(
-              'assets/icon/arrow_back.svg',
-              fit: BoxFit.scaleDown,
-            ),
-          ),
-        ),
-      ),
+      leading: showLeading
+          ? Padding(
+              padding: EdgeInsets.only(left: 20.w),
+              child: TouchOpacity(
+                onTap: onBackPressed ?? () => Navigator.pop(context),
+                child: SizedBox(
+                  height: 24.w,
+                  width: 24.w,
+                  child: SvgPicture.asset(
+                    'assets/icon/arrow_back.svg',
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              ),
+            )
+          : null,
       actions: actions,
     );
   }

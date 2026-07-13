@@ -145,7 +145,7 @@ class SettingUpFingerprintPage extends HookConsumerWidget {
                             Text(
                               'Finish',
                               style: TextStyle(
-                                fontFamily: 'Montserrat',
+                                fontFamily: 'InstrumentSans',
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16.sp,
                                 color: Colors.white,

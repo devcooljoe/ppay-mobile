@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -260,20 +261,7 @@ class CardPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text('Virtual Card', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w500)),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(height: 24.w, width: 24.w, child: SvgPicture.asset('assets/icon/arrow_back.svg', fit: BoxFit.scaleDown)),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Virtual Card'),
       body: cardState is AsyncLoading
           ? const Center(child: CircularProgressIndicator())
           : cardState is AsyncError
@@ -452,6 +440,13 @@ class CardPage extends HookConsumerWidget {
                             'Get your billing address info',
                             SizedBox(height: 24.h, width: 12.w, child: SvgPicture.asset('assets/icon/arrow_forward.svg', fit: BoxFit.contain)),
                             () => _showBillingDialog(context, card.address),
+                          ),
+                          27.verticalSpace,
+                          menuRow(
+                            'Card Limit',
+                            'View your card spending limits',
+                            SizedBox(height: 24.h, width: 12.w, child: SvgPicture.asset('assets/icon/arrow_forward.svg', fit: BoxFit.contain)),
+                            () => context.router.push(CardLimitRoute()),
                           ),
                           27.verticalSpace,
                           menuRow(

@@ -95,7 +95,18 @@ class OrderEntity with _$OrderEntity {
     required String createdAt,
     List<OrderItemEntity>? items,
     OrderShippingAddressEntity? shippingAddress,
+    List<OrderTrackingEntity>? tracking,
   }) = _OrderEntity;
+}
+
+@freezed
+class OrderTrackingEntity with _$OrderTrackingEntity {
+  const factory OrderTrackingEntity({
+    required String id,
+    required String status,
+    String? trackingId,
+    required String createdAt,
+  }) = _OrderTrackingEntity;
 }
 
 @freezed

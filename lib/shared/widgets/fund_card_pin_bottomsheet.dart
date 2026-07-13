@@ -1,20 +1,28 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pinput/pinput.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
-import 'package:ppay_mobile/module/virtual_card/presentation/pages/fund_card_successful_page.dart';
 import 'package:ppay_mobile/module/virtual_card/presentation/providers/virtual_card_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
 class FundCardPinBottomsheet extends HookConsumerWidget {
   final double amountUsd;
+  final double nairaAmount;
+  final double rate;
 
-  const FundCardPinBottomsheet({super.key, required this.amountUsd});
+  const FundCardPinBottomsheet({
+    super.key,
+    required this.amountUsd,
+    required this.nairaAmount,
+    required this.rate,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -72,7 +80,11 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
       ref.read(getDollarCardProvider.notifier).call();
 
       Navigator.pop(context);
-      Navigator.push(context, MaterialPageRoute(builder: (_) => FundCardSuccessfulPage(amountUsd: amountUsd)));
+      context.router.push(FundCardSuccessfulRoute(
+        amountUsd: amountUsd,
+        nairaAmount: nairaAmount,
+        rate: rate,
+      ));
     }
 
     void onKeyTap(String value) {

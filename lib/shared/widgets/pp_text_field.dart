@@ -55,7 +55,7 @@ class PPTextField extends StatelessWidget {
         hint: hint,
         counterText: '',
         hintStyle: TextStyle(
-          fontFamily: 'Gilroy',
+          fontFamily: 'InstrumentSans',
           fontWeight: FontWeight.w400,
           fontSize: 16.sp,
           fontStyle: FontStyle.italic,

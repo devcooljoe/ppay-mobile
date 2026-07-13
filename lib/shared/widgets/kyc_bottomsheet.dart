@@ -238,7 +238,7 @@ class KycBottomsheet extends HookConsumerWidget {
                         child: Text(
                           'Your data will be encrypted and stored securely',
                           style: TextStyle(
-                            fontFamily: 'Gilroy',
+                            fontFamily: 'InstrumentSans',
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w400,
                             color: PPaymobileColors.svgIconColor,
@@ -263,7 +263,7 @@ class KycBottomsheet extends HookConsumerWidget {
                       child: Text(
                         'Continue',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
                           color: Colors.white,

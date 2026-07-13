@@ -7,8 +7,8 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
-class CryptoSellSucessfulPage extends HookConsumerWidget {
-  const CryptoSellSucessfulPage({super.key});
+class CryptoSellSuccessfulPage extends HookConsumerWidget {
+  const CryptoSellSuccessfulPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

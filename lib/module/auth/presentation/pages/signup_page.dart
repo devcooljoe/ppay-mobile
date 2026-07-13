@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -81,11 +82,7 @@ class SignupPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: const PPAppBar(showLeading: false),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: Form(
@@ -245,7 +242,7 @@ class SignupPage extends HookConsumerWidget {
                           Text(
                             'By opening an account you agree to our ',
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'InstrumentSans',
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
                               fontSize: 14.sp,
@@ -257,7 +254,7 @@ class SignupPage extends HookConsumerWidget {
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               decorationColor: const Color(0xff429E6E),
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'InstrumentSans',
                               color: const Color(0xff429E6E),
                               fontWeight: FontWeight.w500,
                               fontSize: 14.sp,
@@ -278,7 +275,7 @@ class SignupPage extends HookConsumerWidget {
                   Text(
                     'Already have an account?',
                     style: TextStyle(
-                      fontFamily: 'Montserrat',
+                      fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
                       color: Colors.black,
@@ -292,7 +289,7 @@ class SignupPage extends HookConsumerWidget {
                     child: Text(
                       'Sign In',
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'InstrumentSans',
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
                         color: PPaymobileColors.buttonColor,

@@ -10,14 +10,20 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
-class GiftCardSucessPage extends HookConsumerWidget {
+class GiftCardSuccessPage extends HookConsumerWidget {
   final String cardType;
   final double amountInNaira;
+  final double amountInUSD;
+  final String region;
+  final double rate;
 
-  const GiftCardSucessPage({
+  const GiftCardSuccessPage({
     super.key,
     required this.cardType,
     required this.amountInNaira,
+    required this.amountInUSD,
+    required this.region,
+    required this.rate,
   });
 
   @override
@@ -88,7 +94,7 @@ class GiftCardSucessPage extends HookConsumerWidget {
                           TextSpan(
                             text: '₦${AmountFormatter.formatBalance(amountInNaira.toStringAsFixed(2))}',
                             style: TextStyle(
-                              fontFamily: 'Gilroy',
+                              fontFamily: 'InstrumentSans',
                               color: Colors.black,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
@@ -112,7 +118,14 @@ class GiftCardSucessPage extends HookConsumerWidget {
               14.verticalSpace,
               PPButton(
                 text: 'View Receipt',
-                onPressed: () => context.router.push(GiftCardBuyReceiptRoute()),
+                onPressed: () => context.router.push(GiftCardBuyReceiptRoute(
+                  cardType: cardType,
+                  amountInNaira: amountInNaira,
+                  amountInUSD: amountInUSD,
+                  region: region,
+                  rate: rate,
+                  purchasedAt: DateTime.now(),
+                )),
               ),
               20.verticalSpace,
             ],

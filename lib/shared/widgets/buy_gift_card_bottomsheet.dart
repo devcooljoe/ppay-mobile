@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/giftcard_pin_botomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class BuyGiftCardBottomsheet extends HookConsumerWidget {
@@ -16,9 +16,7 @@ class BuyGiftCardBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
+          GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -36,7 +34,6 @@ class BuyGiftCardBottomsheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(
@@ -230,16 +227,9 @@ class BuyGiftCardBottomsheet extends HookConsumerWidget {
                   36.verticalSpace,
                   TouchOpacity(
                     onTap: () async {
-                      if (!context.mounted) return;
                       Navigator.pop(context);
-                      await Future.delayed(const Duration(milliseconds: 200));
                       if (!context.mounted) return;
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (_) => const GiftcardPinBotomsheet(),
-                      );
+                      await showSecurityPinBottomsheet(context);
                     },
 
                     child: Container(

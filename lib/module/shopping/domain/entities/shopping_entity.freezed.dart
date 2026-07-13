@@ -1548,6 +1548,7 @@ mixin _$OrderEntity {
   List<OrderItemEntity>? get items => throw _privateConstructorUsedError;
   OrderShippingAddressEntity? get shippingAddress =>
       throw _privateConstructorUsedError;
+  List<OrderTrackingEntity>? get tracking => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderEntityCopyWith<OrderEntity> get copyWith =>
@@ -1570,7 +1571,8 @@ abstract class $OrderEntityCopyWith<$Res> {
       double total,
       String createdAt,
       List<OrderItemEntity>? items,
-      OrderShippingAddressEntity? shippingAddress});
+      OrderShippingAddressEntity? shippingAddress,
+      List<OrderTrackingEntity>? tracking});
 
   $OrderShippingAddressEntityCopyWith<$Res>? get shippingAddress;
 }
@@ -1598,6 +1600,7 @@ class _$OrderEntityCopyWithImpl<$Res, $Val extends OrderEntity>
     Object? createdAt = null,
     Object? items = freezed,
     Object? shippingAddress = freezed,
+    Object? tracking = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -1640,6 +1643,10 @@ class _$OrderEntityCopyWithImpl<$Res, $Val extends OrderEntity>
           ? _value.shippingAddress
           : shippingAddress // ignore: cast_nullable_to_non_nullable
               as OrderShippingAddressEntity?,
+      tracking: freezed == tracking
+          ? _value.tracking
+          : tracking // ignore: cast_nullable_to_non_nullable
+              as List<OrderTrackingEntity>?,
     ) as $Val);
   }
 
@@ -1675,7 +1682,8 @@ abstract class _$$OrderEntityImplCopyWith<$Res>
       double total,
       String createdAt,
       List<OrderItemEntity>? items,
-      OrderShippingAddressEntity? shippingAddress});
+      OrderShippingAddressEntity? shippingAddress,
+      List<OrderTrackingEntity>? tracking});
 
   @override
   $OrderShippingAddressEntityCopyWith<$Res>? get shippingAddress;
@@ -1702,6 +1710,7 @@ class __$$OrderEntityImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? items = freezed,
     Object? shippingAddress = freezed,
+    Object? tracking = freezed,
   }) {
     return _then(_$OrderEntityImpl(
       id: null == id
@@ -1744,6 +1753,10 @@ class __$$OrderEntityImplCopyWithImpl<$Res>
           ? _value.shippingAddress
           : shippingAddress // ignore: cast_nullable_to_non_nullable
               as OrderShippingAddressEntity?,
+      tracking: freezed == tracking
+          ? _value._tracking
+          : tracking // ignore: cast_nullable_to_non_nullable
+              as List<OrderTrackingEntity>?,
     ));
   }
 }
@@ -1761,8 +1774,10 @@ class _$OrderEntityImpl implements _OrderEntity {
       required this.total,
       required this.createdAt,
       final List<OrderItemEntity>? items,
-      this.shippingAddress})
-      : _items = items;
+      this.shippingAddress,
+      final List<OrderTrackingEntity>? tracking})
+      : _items = items,
+        _tracking = tracking;
 
   @override
   final String id;
@@ -1792,10 +1807,19 @@ class _$OrderEntityImpl implements _OrderEntity {
 
   @override
   final OrderShippingAddressEntity? shippingAddress;
+  final List<OrderTrackingEntity>? _tracking;
+  @override
+  List<OrderTrackingEntity>? get tracking {
+    final value = _tracking;
+    if (value == null) return null;
+    if (_tracking is EqualUnmodifiableListView) return _tracking;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'OrderEntity(id: $id, orderNumber: $orderNumber, status: $status, subtotal: $subtotal, deliveryFee: $deliveryFee, discount: $discount, total: $total, createdAt: $createdAt, items: $items, shippingAddress: $shippingAddress)';
+    return 'OrderEntity(id: $id, orderNumber: $orderNumber, status: $status, subtotal: $subtotal, deliveryFee: $deliveryFee, discount: $discount, total: $total, createdAt: $createdAt, items: $items, shippingAddress: $shippingAddress, tracking: $tracking)';
   }
 
   @override
@@ -1818,7 +1842,8 @@ class _$OrderEntityImpl implements _OrderEntity {
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.shippingAddress, shippingAddress) ||
-                other.shippingAddress == shippingAddress));
+                other.shippingAddress == shippingAddress) &&
+            const DeepCollectionEquality().equals(other._tracking, _tracking));
   }
 
   @override
@@ -1833,7 +1858,8 @@ class _$OrderEntityImpl implements _OrderEntity {
       total,
       createdAt,
       const DeepCollectionEquality().hash(_items),
-      shippingAddress);
+      shippingAddress,
+      const DeepCollectionEquality().hash(_tracking));
 
   @JsonKey(ignore: true)
   @override
@@ -1853,7 +1879,8 @@ abstract class _OrderEntity implements OrderEntity {
       required final double total,
       required final String createdAt,
       final List<OrderItemEntity>? items,
-      final OrderShippingAddressEntity? shippingAddress}) = _$OrderEntityImpl;
+      final OrderShippingAddressEntity? shippingAddress,
+      final List<OrderTrackingEntity>? tracking}) = _$OrderEntityImpl;
 
   @override
   String get id;
@@ -1876,8 +1903,187 @@ abstract class _OrderEntity implements OrderEntity {
   @override
   OrderShippingAddressEntity? get shippingAddress;
   @override
+  List<OrderTrackingEntity>? get tracking;
+  @override
   @JsonKey(ignore: true)
   _$$OrderEntityImplCopyWith<_$OrderEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$OrderTrackingEntity {
+  String get id => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  String? get trackingId => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $OrderTrackingEntityCopyWith<OrderTrackingEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OrderTrackingEntityCopyWith<$Res> {
+  factory $OrderTrackingEntityCopyWith(
+          OrderTrackingEntity value, $Res Function(OrderTrackingEntity) then) =
+      _$OrderTrackingEntityCopyWithImpl<$Res, OrderTrackingEntity>;
+  @useResult
+  $Res call({String id, String status, String? trackingId, String createdAt});
+}
+
+/// @nodoc
+class _$OrderTrackingEntityCopyWithImpl<$Res, $Val extends OrderTrackingEntity>
+    implements $OrderTrackingEntityCopyWith<$Res> {
+  _$OrderTrackingEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? status = null,
+    Object? trackingId = freezed,
+    Object? createdAt = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      trackingId: freezed == trackingId
+          ? _value.trackingId
+          : trackingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OrderTrackingEntityImplCopyWith<$Res>
+    implements $OrderTrackingEntityCopyWith<$Res> {
+  factory _$$OrderTrackingEntityImplCopyWith(_$OrderTrackingEntityImpl value,
+          $Res Function(_$OrderTrackingEntityImpl) then) =
+      __$$OrderTrackingEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, String status, String? trackingId, String createdAt});
+}
+
+/// @nodoc
+class __$$OrderTrackingEntityImplCopyWithImpl<$Res>
+    extends _$OrderTrackingEntityCopyWithImpl<$Res, _$OrderTrackingEntityImpl>
+    implements _$$OrderTrackingEntityImplCopyWith<$Res> {
+  __$$OrderTrackingEntityImplCopyWithImpl(_$OrderTrackingEntityImpl _value,
+      $Res Function(_$OrderTrackingEntityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? status = null,
+    Object? trackingId = freezed,
+    Object? createdAt = null,
+  }) {
+    return _then(_$OrderTrackingEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      trackingId: freezed == trackingId
+          ? _value.trackingId
+          : trackingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OrderTrackingEntityImpl implements _OrderTrackingEntity {
+  const _$OrderTrackingEntityImpl(
+      {required this.id,
+      required this.status,
+      this.trackingId,
+      required this.createdAt});
+
+  @override
+  final String id;
+  @override
+  final String status;
+  @override
+  final String? trackingId;
+  @override
+  final String createdAt;
+
+  @override
+  String toString() {
+    return 'OrderTrackingEntity(id: $id, status: $status, trackingId: $trackingId, createdAt: $createdAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OrderTrackingEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.trackingId, trackingId) ||
+                other.trackingId == trackingId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, status, trackingId, createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OrderTrackingEntityImplCopyWith<_$OrderTrackingEntityImpl> get copyWith =>
+      __$$OrderTrackingEntityImplCopyWithImpl<_$OrderTrackingEntityImpl>(
+          this, _$identity);
+}
+
+abstract class _OrderTrackingEntity implements OrderTrackingEntity {
+  const factory _OrderTrackingEntity(
+      {required final String id,
+      required final String status,
+      final String? trackingId,
+      required final String createdAt}) = _$OrderTrackingEntityImpl;
+
+  @override
+  String get id;
+  @override
+  String get status;
+  @override
+  String? get trackingId;
+  @override
+  String get createdAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$OrderTrackingEntityImplCopyWith<_$OrderTrackingEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

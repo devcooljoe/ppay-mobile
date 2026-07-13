@@ -1,11 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
-import 'package:ppay_mobile/module/bills/presentation/pages/bill_success_page.dart';
 import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
+import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
@@ -15,6 +17,7 @@ import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
+@RoutePage()
 class BillConfirmPage extends HookConsumerWidget {
   final BillConfirmArgs args;
 
@@ -77,28 +80,20 @@ class BillConfirmPage extends HookConsumerWidget {
 
       final purchase = ref.read(purchaseBillProvider).value;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => BillSuccessPage(
-            billType: args.billType,
-            amount: formattedAmount,
-            biller: args.biller,
-            args: args,
-            reference: purchase?.reference ?? '',
-            fee: fee,
-            purchasedAt: DateTime.now(),
-          ),
-        ),
-      );
+      context.router.replace(BillSuccessRoute(
+        billType: args.billType,
+        amount: formattedAmount,
+        biller: args.biller,
+        args: args,
+        reference: purchase?.reference ?? '',
+        fee: fee,
+        purchasedAt: DateTime.now(),
+      ));
     }
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(
-        title: args.billType.label,
-        onBackPressed: () => Navigator.pop(context),
-      ),
+      appBar: PPAppBar(title: args.billType.label),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),

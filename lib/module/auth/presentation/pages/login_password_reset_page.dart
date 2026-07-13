@@ -207,7 +207,7 @@ class LoginPasswordResetPage extends HookConsumerWidget {
                       Text(
                         'Back to Login',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: PPaymobileColors.svgIconColor,

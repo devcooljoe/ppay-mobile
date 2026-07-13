@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 
 @RoutePage()
 class SellGiftcardPage extends HookConsumerWidget {
-  const SellGiftcardPage({super.key});
+  final TransactionEntity transaction;
+  const SellGiftcardPage({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final details = transaction.details ?? {};
+    final cardType = details['type'] as String? ?? transaction.title;
+    final region = details['region'] as String? ?? details['country'] as String? ?? '—';
+    final amountInUsd = details['amountInUsd']?.toString() ?? '—';
+    final nairaEquivalent = '₦${AmountFormatter.formatBalance(transaction.amount)}';
+    final fee = '₦${AmountFormatter.formatBalance(transaction.fee)}';
+    final total = () {
+      final a = double.tryParse(transaction.amount) ?? 0;
+      final f = double.tryParse(transaction.fee) ?? 0;
+      return '₦${AmountFormatter.formatBalance((a + f).toStringAsFixed(2))}';
+    }();
+
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
       appBar: PPAppBar(
@@ -26,7 +41,6 @@ class SellGiftcardPage extends HookConsumerWidget {
             children: [
               16.verticalSpace,
               Container(
-                height: 306.h,
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.h),
                 color: PPaymobileColors.mainScreenBackground,
@@ -35,11 +49,20 @@ class SellGiftcardPage extends HookConsumerWidget {
                   children: [
                     CircleAvatar(
                       radius: 42.r,
-                      backgroundImage: AssetImage('assets/images/ebay.png'),
+                      backgroundColor: const Color(0xFF00A86B),
+                      child: Text(
+                        cardType.isNotEmpty ? cardType[0].toUpperCase() : 'G',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.white,
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                     11.verticalSpace,
                     Text(
-                      'Ebay Gift Card',
+                      '$cardType Gift Card',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: Colors.black,
@@ -48,27 +71,10 @@ class SellGiftcardPage extends HookConsumerWidget {
                       ),
                     ),
                     11.verticalSpace,
-                    //this container is different from the one in airtime examppple screen just change the text and the container color
-                    Container(
-                      height: 23.h,
-                      width: 129.w,
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      color: PPaymobileColors.warningColor,
-                      child: Center(
-                        child: Text(
-                          'Pending',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.warningTextColor,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
+                    _StatusBadge(status: transaction.status),
                     11.verticalSpace,
                     Text(
-                      '\$23.28',
+                      amountInUsd != '—' ? '\$$amountInUsd' : nairaEquivalent,
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: Colors.black,
@@ -78,7 +84,7 @@ class SellGiftcardPage extends HookConsumerWidget {
                     ),
                     3.verticalSpace,
                     Text(
-                      'Sold Ebay Gift Card',
+                      'Sold $cardType Gift Card',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: PPaymobileColors.svgIconColor,
@@ -91,7 +97,6 @@ class SellGiftcardPage extends HookConsumerWidget {
               ),
               16.verticalSpace,
               Container(
-                height: 350.h,
                 width: double.infinity,
                 padding: EdgeInsets.only(
                   left: 16.w,
@@ -103,181 +108,19 @@ class SellGiftcardPage extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Date:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '23 July, 2025  09:00PM',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                    _DetailRow(label: 'Date', value: _formatDate(transaction.date)),
+                    _DetailRow(label: 'Time', value: _formatTime(transaction.date)),
+                    _DetailRow(label: 'Region', value: region),
+                    _DetailRow(
+                      label: 'Transaction ID',
+                      value: transaction.transactionId,
+                      copyable: true,
                     ),
-                    18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Region:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              height: 23.w,
-                              width: 23.w,
-                              child: Image.asset(
-                                'assets/images/usa_flag.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            12.horizontalSpace,
-                            Text(
-                              'Ebay (NGA)',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Transaction ID:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'CGX-10980565',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            6.horizontalSpace,
-                            SizedBox(
-                              height: 20.w,
-                              width: 20.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/paste.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Naira Equivalent:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '₦ 30,000.00',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Amount:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          "\$23.28",
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    18.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Fee:',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '\$0.25',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    20.verticalSpace,
-                    Divider(
-                      height: 1.h,
-                      color: PPaymobileColors.deepBackgroundColor,
-                    ),
+                    _DetailRow(label: 'Naira Equivalent', value: nairaEquivalent),
+                    if (amountInUsd != '—')
+                      _DetailRow(label: 'Amount', value: '\$$amountInUsd'),
+                    _DetailRow(label: 'Fee', value: fee),
+                    Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
                     18.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -292,7 +135,7 @@ class SellGiftcardPage extends HookConsumerWidget {
                           ),
                         ),
                         Text(
-                          '\$24.53',
+                          total,
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
@@ -308,6 +151,128 @@ class SellGiftcardPage extends HookConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  String _formatDate(DateTime date) {
+    const months = [
+      '', 'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return '${date.day} ${months[date.month]}, ${date.year}';
+  }
+
+  String _formatTime(DateTime date) {
+    final hour = date.hour % 12 == 0 ? 12 : date.hour % 12;
+    final minute = date.minute.toString().padLeft(2, '0');
+    final period = date.hour < 12 ? 'AM' : 'PM';
+    return '$hour:$minute$period';
+  }
+}
+
+class _StatusBadge extends StatelessWidget {
+  final TransactionStatus status;
+  const _StatusBadge({required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    Color bg;
+    Color text;
+    String label;
+    switch (status) {
+      case TransactionStatus.successful:
+        bg = PPaymobileColors.warningColor;
+        text = PPaymobileColors.warningTextColor;
+        label = 'Successful';
+        break;
+      case TransactionStatus.failed:
+        bg = const Color(0xFFFFE5E5);
+        text = PPaymobileColors.redTextfield;
+        label = 'Failed';
+        break;
+      case TransactionStatus.pending:
+        bg = PPaymobileColors.warningColor;
+        text = PPaymobileColors.warningTextColor;
+        label = 'Pending';
+        break;
+    }
+    return Container(
+      height: 23.h,
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      color: bg,
+      child: Center(
+        child: Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: text,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DetailRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final bool copyable;
+  const _DetailRow({required this.label, required this.value, this.copyable = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 18.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '$label:',
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Row(
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 180.w),
+                child: Text(
+                  value,
+                  textAlign: TextAlign.right,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              if (copyable) ...[
+                6.horizontalSpace,
+                GestureDetector(
+                  onTap: () {
+                    Clipboard.setData(ClipboardData(text: value));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('$label copied'), duration: const Duration(seconds: 2)),
+                    );
+                  },
+                  child: SizedBox(
+                    height: 20.w,
+                    width: 20.w,
+                    child: SvgPicture.asset('assets/icon/paste.svg', fit: BoxFit.contain),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ],
       ),
     );
   }

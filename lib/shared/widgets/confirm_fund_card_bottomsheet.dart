@@ -27,7 +27,11 @@ class ConfirmFundCardBottomsheet extends HookConsumerWidget {
           context: context,
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
-          builder: (_) => FundCardPinBottomsheet(amountUsd: amountUsd),
+          builder: (_) => FundCardPinBottomsheet(
+            amountUsd: amountUsd,
+            nairaAmount: nairaAmount,
+            rate: rate,
+          ),
         );
       }
     });
@@ -138,7 +142,7 @@ class ConfirmFundCardBottomsheet extends HookConsumerWidget {
                       onPressed: hasEnoughBalance ? () => _openPinSheet(context) : null,
                       child: Text(
                         'Confirm Payment',
-                        style: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.w600, fontSize: 16.sp, color: PPaymobileColors.mainScreenBackground),
+                        style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w600, fontSize: 16.sp, color: PPaymobileColors.mainScreenBackground),
                       ),
                     ),
                   ),

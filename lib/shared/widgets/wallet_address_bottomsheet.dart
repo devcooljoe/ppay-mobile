@@ -15,9 +15,7 @@ class WalletAddressBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: TouchOpacity(
+          TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -35,7 +33,6 @@ class WalletAddressBottomsheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(
@@ -230,7 +227,7 @@ class WalletAddressBottomsheet extends HookConsumerWidget {
                           Text(
                             'Copy Address',
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'InstrumentSans',
                               fontWeight: FontWeight.w600,
                               fontSize: 16.sp,
                               color: PPaymobileColors.mainScreenBackground,
@@ -272,7 +269,7 @@ class WalletAddressBottomsheet extends HookConsumerWidget {
                           Text(
                             'Share',
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'InstrumentSans',
                               fontWeight: FontWeight.w600,
                               fontSize: 16.sp,
                               color: Colors.black,

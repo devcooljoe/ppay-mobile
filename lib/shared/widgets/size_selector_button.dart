@@ -35,7 +35,7 @@ class SizeSelectorButton extends StatelessWidget {
           child: Text(
             size,
             style: TextStyle(
-              fontFamily: 'Gilroy',
+              fontFamily: 'InstrumentSans',
               color: isSelected
                   ? PPaymobileColors.mainScreenBackground
                   : Colors.black,

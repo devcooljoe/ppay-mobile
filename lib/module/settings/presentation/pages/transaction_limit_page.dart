@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:flutter/services.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()
@@ -12,47 +16,26 @@ class TransactionLimitPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authenticatedUserProvider).value;
+    final wallet = ref.watch(walletProvider).value;
+
+    final tier = user?.tier ?? 1;
+    final accountNumber = wallet?.accountNumber ?? '—';
+    final accountName = wallet?.accountName ?? user?.fullName ?? '—';
+    final bankName = wallet?.bankName ?? '—';
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text(
-          'Privacy Policy',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Transaction Limit'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: ListView(
           children: [
             34.verticalSpace,
+            // Wallet card
             Container(
               width: double.infinity,
-              height: 127.h,
               padding: EdgeInsets.all(12).r,
-
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -63,12 +46,9 @@ class TransactionLimitPage extends HookConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 103.h,
-                    width: 305.w,
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Wallet Details',
@@ -81,58 +61,77 @@ class TransactionLimitPage extends HookConsumerWidget {
                         ),
                         8.verticalSpace,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              '8932765789',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 32.sp,
-                                fontWeight: FontWeight.w500,
+                            Flexible(
+                              child: Text(
+                                accountNumber,
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 28.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                            12.horizontalSpace,
-                            SizedBox(
-                              height: 24.w,
-                              width: 24.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/copy_black.svg',
-                                fit: BoxFit.contain,
+                            if (accountNumber != '—') ...[
+                              12.horizontalSpace,
+                              TouchOpacity(
+                                onTap: () {
+                                  Clipboard.setData(ClipboardData(text: accountNumber));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Account number copied'),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                },
+                                child: SizedBox(
+                                  height: 24.w,
+                                  width: 24.w,
+                                  child: SvgPicture.asset(
+                                    'assets/icon/copy_black.svg',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ],
                         ),
                         2.verticalSpace,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              '9 Service Bank',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
+                            Flexible(
+                              child: Text(
+                                bankName,
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                            7.horizontalSpace,
-                            SizedBox(
-                              height: 11.w,
-                              width: 11.w,
-                              child: SvgPicture.asset(
-                                'assets/icon/big_dot.svg',
-                                fit: BoxFit.contain,
+                            if (bankName != '—' && accountName != '—') ...[
+                              7.horizontalSpace,
+                              SizedBox(
+                                height: 11.w,
+                                width: 11.w,
+                                child: SvgPicture.asset(
+                                  'assets/icon/big_dot.svg',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ),
-                            7.horizontalSpace,
-                            Text(
-                              'Adebami Samuel',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
+                              7.horizontalSpace,
+                            ],
+                            Flexible(
+                              child: Text(
+                                accountName,
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ],
@@ -157,7 +156,7 @@ class TransactionLimitPage extends HookConsumerWidget {
                         color: PPaymobileColors.mainScreenBackground,
                         child: Center(
                           child: Text(
-                            'Tier 3',
+                            'Tier $tier',
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
                               color: PPaymobileColors.buttonColorandText,
@@ -206,491 +205,189 @@ class TransactionLimitPage extends HookConsumerWidget {
                   ),
                 ),
                 30.verticalSpace,
-                Text(
-                  'Tier 1',
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                8.verticalSpace,
-                Container(
-                  height: 44.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.all(10).r,
-                  color: PPaymobileColors.deepBackgroundColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Transaction',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      92.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Minimum',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              'Maximum',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                14.verticalSpace,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0).r,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Withdrawal',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      92.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '₦5,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              '₦125,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                10.verticalSpace,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0).r,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Funding',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      114.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '₦5,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              '₦125,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                _TierSection(
+                  tierNumber: 1,
+                  isCurrent: tier == 1,
+                  withdrawalMin: '₦5,000',
+                  withdrawalMax: '₦50,000',
+                  fundingMin: '₦100',
+                  fundingMax: '₦50,000',
                 ),
                 32.verticalSpace,
-                Text(
-                  'Tier 2',
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                8.verticalSpace,
-                Container(
-                  height: 44.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.all(10).r,
-                  color: PPaymobileColors.deepBackgroundColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Transaction',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      92.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Minimum',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              'Maximum',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                14.verticalSpace,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0).r,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Withdrawal',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      92.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '₦5,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              '₦125,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                10.verticalSpace,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0).r,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Funding',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      114.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '₦5,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              '₦125,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                _TierSection(
+                  tierNumber: 2,
+                  isCurrent: tier == 2,
+                  withdrawalMin: '₦5,000',
+                  withdrawalMax: '₦200,000',
+                  fundingMin: '₦100',
+                  fundingMax: '₦200,000',
                 ),
                 32.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tier 3',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    13.horizontalSpace,
-                    Container(
-                      height: 20.h,
-                      width: 60.w,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                        vertical: 4.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: PPaymobileColors.doneColor,
-                        borderRadius: BorderRadius.circular(4).r,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Current',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.doneTextColor,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                _TierSection(
+                  tierNumber: 3,
+                  isCurrent: tier == 3,
+                  withdrawalMin: '₦5,000',
+                  withdrawalMax: 'Unlimited',
+                  fundingMin: '₦100',
+                  fundingMax: 'Unlimited',
                 ),
-                8.verticalSpace,
-                Container(
-                  height: 44.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.all(10).r,
-                  color: PPaymobileColors.deepBackgroundColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Transaction',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      92.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Minimum',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              'Maximum',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                14.verticalSpace,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0).r,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Withdrawal',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      92.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '₦5,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              '₦125,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                10.verticalSpace,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0).r,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Funding',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      114.horizontalSpace,
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '₦5,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              '₦125,000',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                32.verticalSpace,
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _TierSection extends StatelessWidget {
+  final int tierNumber;
+  final bool isCurrent;
+  final String withdrawalMin;
+  final String withdrawalMax;
+  final String fundingMin;
+  final String fundingMax;
+
+  const _TierSection({
+    required this.tierNumber,
+    required this.isCurrent,
+    required this.withdrawalMin,
+    required this.withdrawalMax,
+    required this.fundingMin,
+    required this.fundingMax,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              'Tier $tierNumber',
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            if (isCurrent) ...[
+              13.horizontalSpace,
+              Container(
+                height: 20.h,
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  color: PPaymobileColors.doneColor,
+                  borderRadius: BorderRadius.circular(4).r,
+                ),
+                child: Text(
+                  'Current',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.doneTextColor,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+        8.verticalSpace,
+        Container(
+          height: 44.h,
+          width: double.infinity,
+          padding: EdgeInsets.all(10).r,
+          color: PPaymobileColors.deepBackgroundColor,
+          child: Row(
+            children: [
+              Text(
+                'Transaction',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                'Minimum',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              40.horizontalSpace,
+              Text(
+                'Maximum',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        14.verticalSpace,
+        _LimitRow(label: 'Withdrawal', min: withdrawalMin, max: withdrawalMax),
+        10.verticalSpace,
+        _LimitRow(label: 'Funding', min: fundingMin, max: fundingMax),
+      ],
+    );
+  }
+}
+
+class _LimitRow extends StatelessWidget {
+  final String label;
+  final String min;
+  final String max;
+
+  const _LimitRow({required this.label, required this.min, required this.max});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      child: Row(
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const Spacer(),
+          Text(
+            min,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          40.horizontalSpace,
+          Text(
+            max,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }

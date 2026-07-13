@@ -25,7 +25,7 @@ class CustomExpansionTile extends HookConsumerWidget {
               'Type',
               textAlign: TextAlign.start,
               style: TextStyle(
-                fontFamily: 'Gilroy',
+                fontFamily: 'InstrumentSans',
                 color: Colors.black,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w400,

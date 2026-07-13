@@ -97,7 +97,7 @@ class OnboardPage extends HookConsumerWidget {
                           Text(
                             item.title,
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'InstrumentSans',
                               fontSize: 24.sp,
                               fontWeight: FontWeight.w600,
                               color: PPaymobileColors.highlightTextColor,
@@ -107,7 +107,7 @@ class OnboardPage extends HookConsumerWidget {
                           Text(
                             item.highlight,
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'InstrumentSans',
                               fontSize: 24.sp,
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -160,7 +160,7 @@ class OnboardPage extends HookConsumerWidget {
                 pages[currentIndex.value].description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'Montserrat',
+                  fontFamily: 'InstrumentSans',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
                   color: PPaymobileColors.mainScreenBackground,
@@ -184,7 +184,7 @@ class OnboardPage extends HookConsumerWidget {
                   child: Text(
                     'Get Started',
                     style: TextStyle(
-                      fontFamily: 'Montserrat',
+                      fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
                       color: Colors.white,
@@ -200,7 +200,7 @@ class OnboardPage extends HookConsumerWidget {
                 Text(
                   'Already have an account?',
                   style: TextStyle(
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'InstrumentSans',
                     fontWeight: FontWeight.w600,
                     fontSize: 16.sp,
                     color: Colors.white,
@@ -212,7 +212,7 @@ class OnboardPage extends HookConsumerWidget {
                   child: Text(
                     'Sign In',
                     style: TextStyle(
-                      fontFamily: 'Montserrat',
+                      fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
                       color: PPaymobileColors.highlightTextColor,

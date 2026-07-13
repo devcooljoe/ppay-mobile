@@ -96,7 +96,7 @@ class SellCryptoPage extends HookConsumerWidget {
       if (state.hasError) {
         MessageHandler.showErrorSnackBar(context, state.error.toString());
       } else {
-        context.router.push(CryptoSellSucessfulRoute());
+        context.router.push(CryptoSellSuccessfulRoute());
       }
     }
 

@@ -178,6 +178,7 @@ class OrderModel with _$OrderModel {
     required String createdAt,
     List<OrderItemModel>? items,
     OrderShippingAddressModel? shippingAddress,
+    List<OrderTrackingModel>? tracking,
   }) = _OrderModel;
 
   const OrderModel._();
@@ -195,6 +196,28 @@ class OrderModel with _$OrderModel {
     createdAt: createdAt,
     items: items?.map((e) => e.toEntity()).toList(),
     shippingAddress: shippingAddress?.toEntity(),
+    tracking: tracking?.map((e) => e.toEntity()).toList(),
+  );
+}
+
+@freezed
+class OrderTrackingModel with _$OrderTrackingModel {
+  const factory OrderTrackingModel({
+    required String id,
+    required String status,
+    String? trackingId,
+    required String createdAt,
+  }) = _OrderTrackingModel;
+
+  const OrderTrackingModel._();
+
+  factory OrderTrackingModel.fromJson(Map<String, dynamic> json) => _$OrderTrackingModelFromJson(json);
+
+  OrderTrackingEntity toEntity() => OrderTrackingEntity(
+    id: id,
+    status: status,
+    trackingId: trackingId,
+    createdAt: createdAt,
   );
 }
 

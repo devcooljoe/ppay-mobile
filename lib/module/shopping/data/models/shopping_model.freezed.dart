@@ -1712,6 +1712,7 @@ mixin _$OrderModel {
   List<OrderItemModel>? get items => throw _privateConstructorUsedError;
   OrderShippingAddressModel? get shippingAddress =>
       throw _privateConstructorUsedError;
+  List<OrderTrackingModel>? get tracking => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1735,7 +1736,8 @@ abstract class $OrderModelCopyWith<$Res> {
       double total,
       String createdAt,
       List<OrderItemModel>? items,
-      OrderShippingAddressModel? shippingAddress});
+      OrderShippingAddressModel? shippingAddress,
+      List<OrderTrackingModel>? tracking});
 
   $OrderShippingAddressModelCopyWith<$Res>? get shippingAddress;
 }
@@ -1763,6 +1765,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? createdAt = null,
     Object? items = freezed,
     Object? shippingAddress = freezed,
+    Object? tracking = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -1805,6 +1808,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.shippingAddress
           : shippingAddress // ignore: cast_nullable_to_non_nullable
               as OrderShippingAddressModel?,
+      tracking: freezed == tracking
+          ? _value.tracking
+          : tracking // ignore: cast_nullable_to_non_nullable
+              as List<OrderTrackingModel>?,
     ) as $Val);
   }
 
@@ -1840,7 +1847,8 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       double total,
       String createdAt,
       List<OrderItemModel>? items,
-      OrderShippingAddressModel? shippingAddress});
+      OrderShippingAddressModel? shippingAddress,
+      List<OrderTrackingModel>? tracking});
 
   @override
   $OrderShippingAddressModelCopyWith<$Res>? get shippingAddress;
@@ -1867,6 +1875,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? items = freezed,
     Object? shippingAddress = freezed,
+    Object? tracking = freezed,
   }) {
     return _then(_$OrderModelImpl(
       id: null == id
@@ -1909,6 +1918,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.shippingAddress
           : shippingAddress // ignore: cast_nullable_to_non_nullable
               as OrderShippingAddressModel?,
+      tracking: freezed == tracking
+          ? _value._tracking
+          : tracking // ignore: cast_nullable_to_non_nullable
+              as List<OrderTrackingModel>?,
     ));
   }
 }
@@ -1926,8 +1939,10 @@ class _$OrderModelImpl extends _OrderModel {
       required this.total,
       required this.createdAt,
       final List<OrderItemModel>? items,
-      this.shippingAddress})
+      this.shippingAddress,
+      final List<OrderTrackingModel>? tracking})
       : _items = items,
+        _tracking = tracking,
         super._();
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -1961,10 +1976,19 @@ class _$OrderModelImpl extends _OrderModel {
 
   @override
   final OrderShippingAddressModel? shippingAddress;
+  final List<OrderTrackingModel>? _tracking;
+  @override
+  List<OrderTrackingModel>? get tracking {
+    final value = _tracking;
+    if (value == null) return null;
+    if (_tracking is EqualUnmodifiableListView) return _tracking;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, orderNumber: $orderNumber, status: $status, subtotal: $subtotal, deliveryFee: $deliveryFee, discount: $discount, total: $total, createdAt: $createdAt, items: $items, shippingAddress: $shippingAddress)';
+    return 'OrderModel(id: $id, orderNumber: $orderNumber, status: $status, subtotal: $subtotal, deliveryFee: $deliveryFee, discount: $discount, total: $total, createdAt: $createdAt, items: $items, shippingAddress: $shippingAddress, tracking: $tracking)';
   }
 
   @override
@@ -1987,7 +2011,8 @@ class _$OrderModelImpl extends _OrderModel {
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.shippingAddress, shippingAddress) ||
-                other.shippingAddress == shippingAddress));
+                other.shippingAddress == shippingAddress) &&
+            const DeepCollectionEquality().equals(other._tracking, _tracking));
   }
 
   @JsonKey(ignore: true)
@@ -2003,7 +2028,8 @@ class _$OrderModelImpl extends _OrderModel {
       total,
       createdAt,
       const DeepCollectionEquality().hash(_items),
-      shippingAddress);
+      shippingAddress,
+      const DeepCollectionEquality().hash(_tracking));
 
   @JsonKey(ignore: true)
   @override
@@ -2030,7 +2056,8 @@ abstract class _OrderModel extends OrderModel {
       required final double total,
       required final String createdAt,
       final List<OrderItemModel>? items,
-      final OrderShippingAddressModel? shippingAddress}) = _$OrderModelImpl;
+      final OrderShippingAddressModel? shippingAddress,
+      final List<OrderTrackingModel>? tracking}) = _$OrderModelImpl;
   const _OrderModel._() : super._();
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
@@ -2057,8 +2084,208 @@ abstract class _OrderModel extends OrderModel {
   @override
   OrderShippingAddressModel? get shippingAddress;
   @override
+  List<OrderTrackingModel>? get tracking;
+  @override
   @JsonKey(ignore: true)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OrderTrackingModel _$OrderTrackingModelFromJson(Map<String, dynamic> json) {
+  return _OrderTrackingModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OrderTrackingModel {
+  String get id => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  String? get trackingId => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OrderTrackingModelCopyWith<OrderTrackingModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OrderTrackingModelCopyWith<$Res> {
+  factory $OrderTrackingModelCopyWith(
+          OrderTrackingModel value, $Res Function(OrderTrackingModel) then) =
+      _$OrderTrackingModelCopyWithImpl<$Res, OrderTrackingModel>;
+  @useResult
+  $Res call({String id, String status, String? trackingId, String createdAt});
+}
+
+/// @nodoc
+class _$OrderTrackingModelCopyWithImpl<$Res, $Val extends OrderTrackingModel>
+    implements $OrderTrackingModelCopyWith<$Res> {
+  _$OrderTrackingModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? status = null,
+    Object? trackingId = freezed,
+    Object? createdAt = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      trackingId: freezed == trackingId
+          ? _value.trackingId
+          : trackingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OrderTrackingModelImplCopyWith<$Res>
+    implements $OrderTrackingModelCopyWith<$Res> {
+  factory _$$OrderTrackingModelImplCopyWith(_$OrderTrackingModelImpl value,
+          $Res Function(_$OrderTrackingModelImpl) then) =
+      __$$OrderTrackingModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, String status, String? trackingId, String createdAt});
+}
+
+/// @nodoc
+class __$$OrderTrackingModelImplCopyWithImpl<$Res>
+    extends _$OrderTrackingModelCopyWithImpl<$Res, _$OrderTrackingModelImpl>
+    implements _$$OrderTrackingModelImplCopyWith<$Res> {
+  __$$OrderTrackingModelImplCopyWithImpl(_$OrderTrackingModelImpl _value,
+      $Res Function(_$OrderTrackingModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? status = null,
+    Object? trackingId = freezed,
+    Object? createdAt = null,
+  }) {
+    return _then(_$OrderTrackingModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      trackingId: freezed == trackingId
+          ? _value.trackingId
+          : trackingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OrderTrackingModelImpl extends _OrderTrackingModel {
+  const _$OrderTrackingModelImpl(
+      {required this.id,
+      required this.status,
+      this.trackingId,
+      required this.createdAt})
+      : super._();
+
+  factory _$OrderTrackingModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OrderTrackingModelImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String status;
+  @override
+  final String? trackingId;
+  @override
+  final String createdAt;
+
+  @override
+  String toString() {
+    return 'OrderTrackingModel(id: $id, status: $status, trackingId: $trackingId, createdAt: $createdAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OrderTrackingModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.trackingId, trackingId) ||
+                other.trackingId == trackingId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, status, trackingId, createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OrderTrackingModelImplCopyWith<_$OrderTrackingModelImpl> get copyWith =>
+      __$$OrderTrackingModelImplCopyWithImpl<_$OrderTrackingModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OrderTrackingModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OrderTrackingModel extends OrderTrackingModel {
+  const factory _OrderTrackingModel(
+      {required final String id,
+      required final String status,
+      final String? trackingId,
+      required final String createdAt}) = _$OrderTrackingModelImpl;
+  const _OrderTrackingModel._() : super._();
+
+  factory _OrderTrackingModel.fromJson(Map<String, dynamic> json) =
+      _$OrderTrackingModelImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  String get status;
+  @override
+  String? get trackingId;
+  @override
+  String get createdAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$OrderTrackingModelImplCopyWith<_$OrderTrackingModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

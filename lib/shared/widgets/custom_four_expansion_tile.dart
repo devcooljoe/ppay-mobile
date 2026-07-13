@@ -25,7 +25,7 @@ class CustomFourExpansionTile extends HookConsumerWidget {
               'Size',
               textAlign: TextAlign.start,
               style: TextStyle(
-                fontFamily: 'Gilroy',
+                fontFamily: 'InstrumentSans',
                 color: Colors.black,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w400,
@@ -67,7 +67,7 @@ class CustomFourExpansionTile extends HookConsumerWidget {
                       child: Text(
                         'S',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: PPaymobileColors.mainScreenBackground,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
@@ -91,7 +91,7 @@ class CustomFourExpansionTile extends HookConsumerWidget {
                       child: Text(
                         'M',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
@@ -115,7 +115,7 @@ class CustomFourExpansionTile extends HookConsumerWidget {
                       child: Text(
                         'XL',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
@@ -139,7 +139,7 @@ class CustomFourExpansionTile extends HookConsumerWidget {
                       child: Text(
                         'XXL',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
@@ -163,7 +163,7 @@ class CustomFourExpansionTile extends HookConsumerWidget {
                       child: Text(
                         '3L',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,

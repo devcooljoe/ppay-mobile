@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart';
 import 'package:ppay_mobile/module/shopping/presentation/providers/shopping_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
@@ -35,20 +34,7 @@ class YourOrderPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        title: Text('Your Orders', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w500)),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(height: 24.w, width: 24.w, child: SvgPicture.asset('assets/icon/arrow_back.svg', fit: BoxFit.scaleDown)),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Your Orders'),
       body: SafeArea(
         child: Column(
           children: [
@@ -180,7 +166,7 @@ class _OrderCard extends StatelessWidget {
                 style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
               GestureDetector(
-                onTap: () => context.router.push(TrackOrderRoute()),
+                onTap: () => context.router.push(TrackOrderRoute(orderId: order.id)),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                   decoration: BoxDecoration(

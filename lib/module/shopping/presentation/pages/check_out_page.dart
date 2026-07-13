@@ -84,8 +84,8 @@ class CheckOutPage extends HookConsumerWidget {
       final state = ref.read(createOrderProvider);
       if (state.hasError) {
         MessageHandler.showErrorSnackBar(context, state.error.toString());
-      } else {
-        context.router.replace(OrderSuccessfulRoute());
+      } else if (state.value != null) {
+        context.router.replace(OrderSuccessfulRoute(order: state.value!));
       }
     }
 

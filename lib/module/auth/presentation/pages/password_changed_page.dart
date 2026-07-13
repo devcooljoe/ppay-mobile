@@ -62,7 +62,7 @@ class PasswordChangedPage extends HookConsumerWidget {
                         PPButton(
                           text: 'Back to Login',
                           onPressed: () =>
-                              context.router.push(BvnVerificationRoute()),
+                              context.router.push(LoginRoute()),
                           backgroundColor: PPaymobileColors.buttonColorandText,
                         ),
                       ],

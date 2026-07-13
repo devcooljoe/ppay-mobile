@@ -17,9 +17,7 @@ class GenderBottomsheet extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           /// Close button (same as before)
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
+          GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -39,7 +37,6 @@ class GenderBottomsheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(

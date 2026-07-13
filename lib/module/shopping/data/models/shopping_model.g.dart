@@ -168,6 +168,9 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : OrderShippingAddressModel.fromJson(
               json['shippingAddress'] as Map<String, dynamic>),
+      tracking: (json['tracking'] as List<dynamic>?)
+          ?.map((e) => OrderTrackingModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
@@ -182,6 +185,25 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'createdAt': instance.createdAt,
       'items': instance.items,
       'shippingAddress': instance.shippingAddress,
+      'tracking': instance.tracking,
+    };
+
+_$OrderTrackingModelImpl _$$OrderTrackingModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$OrderTrackingModelImpl(
+      id: json['id'] as String,
+      status: json['status'] as String,
+      trackingId: json['trackingId'] as String?,
+      createdAt: json['createdAt'] as String,
+    );
+
+Map<String, dynamic> _$$OrderTrackingModelImplToJson(
+        _$OrderTrackingModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'status': instance.status,
+      'trackingId': instance.trackingId,
+      'createdAt': instance.createdAt,
     };
 
 _$OrderItemModelImpl _$$OrderItemModelImplFromJson(Map<String, dynamic> json) =>

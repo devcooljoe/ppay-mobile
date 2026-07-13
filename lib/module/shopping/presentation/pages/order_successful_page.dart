@@ -1,40 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class OrderSuccessfulPage extends HookConsumerWidget {
-  const OrderSuccessfulPage({super.key});
+  final OrderEntity order;
+
+  const OrderSuccessfulPage({super.key, required this.order});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -75,7 +60,7 @@ class OrderSuccessfulPage extends HookConsumerWidget {
               220.verticalSpace,
               PPButton(
                 text: 'Track Order',
-                onPressed: () => context.router.push(YourOrderRoute()),
+                onPressed: () => context.router.push(TrackOrderRoute(orderId: order.id)),
               ),
               18.verticalSpace,
               PPButton(
@@ -83,10 +68,9 @@ class OrderSuccessfulPage extends HookConsumerWidget {
                 onPressed: () => context.router.push(ShoppingRoute()),
               ),
               10.verticalSpace,
-              // adding it but it is not in the UI and i dont know how to access the receipt screen unless i do this
               TouchOpacity(
                 onTap: () {
-                  context.router.push(OrderReceiptRoute());
+                  context.router.push(OrderReceiptRoute(order: order));
                 },
                 child: Text(
                   'Access Receipt',

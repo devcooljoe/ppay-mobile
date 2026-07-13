@@ -18,9 +18,7 @@ class SortBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
+          GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -38,7 +36,6 @@ class SortBottomsheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(
@@ -197,7 +194,7 @@ class SortBottomsheet extends HookConsumerWidget {
                         child: Text(
                           'Apply',
                           style: TextStyle(
-                            fontFamily: 'Gilroy',
+                            fontFamily: 'InstrumentSans',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             color: PPaymobileColors.mainScreenBackground,

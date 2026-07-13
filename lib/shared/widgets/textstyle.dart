@@ -1,18 +1,25 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PPaymobileTextStyles {
-  static final regular = TextStyle(
-    fontFamily: 'Montserrat',
-    fontWeight: FontWeight.w400,
-  );
+  static TextStyle regular({double? size, Color? color}) => TextStyle(
+        fontFamily: 'InstrumentSans',
+        fontWeight: FontWeight.w400,
+        fontSize: size ?? 14.sp,
+        color: color ?? Colors.black,
+      );
 
-  static final medium = TextStyle(
-    fontFamily: 'Montserrat',
-    fontWeight: FontWeight.w500,
-  );
+  static TextStyle medium({double? size, Color? color}) => TextStyle(
+        fontFamily: 'InstrumentSans',
+        fontWeight: FontWeight.w500,
+        fontSize: size ?? 14.sp,
+        color: color ?? Colors.black,
+      );
 
-  static final semiBold = TextStyle(
-    fontFamily: 'Montserrat',
-    fontWeight: FontWeight.w600,
-  );
+  static TextStyle semiBold({double? size, Color? color}) => TextStyle(
+        fontFamily: 'InstrumentSans',
+        fontWeight: FontWeight.w600,
+        fontSize: size ?? 14.sp,
+        color: color ?? Colors.black,
+      );
 }

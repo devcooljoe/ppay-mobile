@@ -24,9 +24,7 @@ class LiveChatSheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
+          GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -44,7 +42,6 @@ class LiveChatSheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(
@@ -146,7 +143,7 @@ class LiveChatSheet extends HookConsumerWidget {
                         ),
                         hintText: 'Send message',
                         hintStyle: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w400,
                           fontSize: 16.sp,
                           color: PPaymobileColors.svgIconColor,

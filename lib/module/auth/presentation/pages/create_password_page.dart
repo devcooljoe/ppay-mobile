@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -114,11 +115,7 @@ class CreatePasswordPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: const PPAppBar(showLeading: false),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
@@ -331,7 +328,7 @@ class CreatePasswordPage extends HookConsumerWidget {
                       Text(
                         'Back',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: PPaymobileColors.svgIconColor,

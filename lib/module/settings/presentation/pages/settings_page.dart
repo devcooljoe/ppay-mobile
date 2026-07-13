@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -61,22 +62,7 @@ class SettingsPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Settings',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Settings', showLeading: false),
       body: SafeArea(
         child: ListView(
           children: [
@@ -87,7 +73,9 @@ class SettingsPage extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  GestureDetector(
+                    onTap: () => context.router.push(EditProfileRoute()),
+                    child: Container(
                     height: 68.w,
                     width: 68.w,
                     color: Colors.transparent,
@@ -133,6 +121,7 @@ class SettingsPage extends HookConsumerWidget {
                         ),
                       ],
                     ),
+                  ),
                   ),
                   8.verticalSpace,
                   Text(

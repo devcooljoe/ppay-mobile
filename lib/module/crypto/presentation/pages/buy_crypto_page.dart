@@ -98,7 +98,7 @@ class BuyCryptoPage extends HookConsumerWidget {
         MessageHandler.showErrorSnackBar(context, state.error.toString());
       } else {
         ref.read(walletProvider.notifier).fetch();
-        context.router.push(CryptoTransactionSuccesfulRoute());
+        context.router.push(CryptoTransactionSuccessfulRoute());
       }
     }
 

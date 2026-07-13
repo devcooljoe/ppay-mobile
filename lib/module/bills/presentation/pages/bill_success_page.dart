@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_entity.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
-import 'package:ppay_mobile/module/bills/presentation/pages/bill_receipt_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
+@RoutePage()
 class BillSuccessPage extends HookConsumerWidget {
   final BillType billType;
   final String amount;
@@ -55,11 +56,7 @@ class BillSuccessPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: const PPAppBar(showLeading: false),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -133,19 +130,12 @@ class BillSuccessPage extends HookConsumerWidget {
                     PPButton(
                       text: 'View Receipt',
                       backgroundColor: PPaymobileColors.buttonColorandText,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => BillReceiptPage(
-                              args: args,
-                              reference: reference,
-                              fee: fee,
-                              purchasedAt: purchasedAt,
-                            ),
-                          ),
-                        );
-                      },
+                      onPressed: () => context.router.push(BillReceiptRoute(
+                        args: args,
+                        reference: reference,
+                        fee: fee,
+                        purchasedAt: purchasedAt,
+                      )),
                     ),
                     12.verticalSpace,
                     PPButton(

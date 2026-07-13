@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
@@ -15,36 +15,22 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
   final String cardType;
   final double amountInUSD;
   final double nairaEquivalent;
+  final double sellRate;
 
   const SellGiftCardSuccessPage({
     super.key,
     required this.cardType,
     required this.amountInUSD,
     required this.nairaEquivalent,
+    required this.sellRate,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => context.router.replace(HomeRoute()),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
+      appBar: PPAppBar(
+        onBackPressed: () => context.router.replace(HomeRoute()),
       ),
       body: SafeArea(
         child: Padding(
@@ -110,7 +96,7 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
                           TextSpan(
                             text: '\$${amountInUSD.toStringAsFixed(2)} ≈ ₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
                             style: TextStyle(
-                              fontFamily: 'Gilroy',
+                              fontFamily: 'InstrumentSans',
                               color: Colors.black,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
@@ -150,7 +136,13 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
               const Spacer(),
               PPButton(
                 text: 'View Receipt',
-                onPressed: () => context.router.push(GiftcardSellReceiptRoute()),
+                onPressed: () => context.router.push(GiftcardSellReceiptRoute(
+                  cardType: cardType,
+                  amountInUSD: amountInUSD,
+                  nairaEquivalent: nairaEquivalent,
+                  sellRate: sellRate,
+                  submittedAt: DateTime.now(),
+                )),
               ),
               24.verticalSpace,
               PPButton(

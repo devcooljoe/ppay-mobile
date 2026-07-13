@@ -10,7 +10,7 @@ import 'package:ppay_mobile/module/transaction/presentation/providers/transactio
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/pin_bottom_sheet.dart';
+import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
@@ -227,28 +227,22 @@ class ConfirmTransactionPage extends HookConsumerWidget {
               129.verticalSpace,
               PPButton(
                 text: 'Confirm Payment',
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (_) => PinBottomSheet(
-                      onPinVerified: () {
-                        context.router.push(
-                          TransactionSuccessfulRoute(
-                            account: account,
-                            amount: amount,
-                          ),
-                        );
-                        ref.read(withdrawProvider.notifier).call(
-                              amount: amount,
-                              accountNumber: account.accountNumber,
-                              accountName: account.accountName,
-                              bankCode: account.bankCode,
-                              bankName: account.bankName,
-                            );
-                      },
+                onPressed: () async {
+                  final verified = await showSecurityPinBottomsheet(context);
+                  if (!verified) return;
+                  if (!context.mounted) return;
+                  context.router.push(
+                    TransactionSuccessfulRoute(
+                      account: account,
+                      amount: amount,
                     ),
+                  );
+                  ref.read(withdrawProvider.notifier).call(
+                    amount: amount,
+                    accountNumber: account.accountNumber,
+                    accountName: account.accountName,
+                    bankCode: account.bankCode,
+                    bankName: account.bankName,
                   );
                 },
               ),

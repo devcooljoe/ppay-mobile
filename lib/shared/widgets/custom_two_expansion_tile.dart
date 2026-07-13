@@ -25,7 +25,7 @@ class CustomTwoExpansionTile extends HookConsumerWidget {
               'Price',
               textAlign: TextAlign.start,
               style: TextStyle(
-                fontFamily: 'Gilroy',
+                fontFamily: 'InstrumentSans',
                 color: Colors.black,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w400,
@@ -68,7 +68,7 @@ class CustomTwoExpansionTile extends HookConsumerWidget {
                       Text(
                         'Min:',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
@@ -115,7 +115,7 @@ class CustomTwoExpansionTile extends HookConsumerWidget {
                       Text(
                         'Max:',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,

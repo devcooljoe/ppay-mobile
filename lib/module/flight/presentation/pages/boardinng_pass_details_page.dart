@@ -6,8 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 @RoutePage()
-class BoardinngPassDetailsPage extends HookConsumerWidget {
-  const BoardinngPassDetailsPage({super.key});
+class BoardingPassDetailsPage extends HookConsumerWidget {
+  const BoardingPassDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

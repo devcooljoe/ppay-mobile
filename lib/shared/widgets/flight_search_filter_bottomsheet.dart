@@ -15,9 +15,7 @@ class FlightSearchFilterBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: TouchOpacity(
+          TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -35,7 +33,6 @@ class FlightSearchFilterBottomsheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(

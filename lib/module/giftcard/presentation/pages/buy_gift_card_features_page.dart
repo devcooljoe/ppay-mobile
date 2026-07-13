@@ -151,9 +151,12 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
         MessageHandler.showErrorSnackBar(context, state.error.toString());
       } else {
         ref.read(walletProvider.notifier).fetch();
-        context.router.replace(GiftCardSucessRoute(
+        context.router.replace(GiftCardSuccessRoute(
           cardType: card.type,
           amountInNaira: totalNaira,
+          amountInUSD: item.minAmount * quantity.value,
+          region: region.name,
+          rate: item.rate,
         ));
       }
     }

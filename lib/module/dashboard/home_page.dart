@@ -23,6 +23,7 @@ import 'package:ppay_mobile/module/transaction/presentation/providers/transactio
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 import 'package:ppay_mobile/shared/widgets/wallet_detail_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/withdrawal_bottomsheet.dart';
+import 'package:ppay_mobile/module/notification/presentation/providers/notification_providers.dart';
 
 @RoutePage()
 class HomePage extends HookConsumerWidget {
@@ -63,6 +64,8 @@ class HomePage extends HookConsumerWidget {
     final walletAsync = ref.watch(walletProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
     final transactionAsync = ref.watch(getMyTransactionsProvider);
+    final notifState = ref.watch(getMyNotificationsProvider);
+    final hasUnread = (notifState.value ?? []).any((n) => n.status != 'sent');
 
     // Load recent transactions on first build
     useEffect(() {
@@ -181,18 +184,19 @@ class HomePage extends HookConsumerWidget {
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: 9.h,
-                      left: 26.w,
-                      child: SizedBox(
-                        height: 9.w,
-                        width: 9.w,
-                        child: SvgPicture.asset(
-                          'assets/icon/newnotif.svg',
-                          fit: BoxFit.contain,
+                    if (hasUnread)
+                      Positioned(
+                        top: 9.h,
+                        left: 26.w,
+                        child: SizedBox(
+                          height: 9.w,
+                          width: 9.w,
+                          child: SvgPicture.asset(
+                            'assets/icon/newnotif.svg',
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -541,7 +545,7 @@ class HomePage extends HookConsumerWidget {
                         FeatureIconButton(
                           iconPath: 'assets/icon/more.svg',
                           label: 'More',
-                          onTap: () {},
+                          onTap: () => context.router.push(FeaturesRoute()),
                         ),
                       ],
                     ),

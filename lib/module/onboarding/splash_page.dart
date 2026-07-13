@@ -81,7 +81,7 @@ class SplashPage extends HookConsumerWidget {
                   Text(
                     'PINNACLEPAY',
                     style: TextStyle(
-                      fontFamily: 'Montserrat',
+                      fontFamily: 'InstrumentSans',
                       fontSize: 20.sp,
                       color: PPaymobileColors.mainScreenBackground,
                       letterSpacing: 1.2,

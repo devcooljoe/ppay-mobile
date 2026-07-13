@@ -131,7 +131,7 @@ class LoginPage extends HookConsumerWidget {
                     Text(
                       'Welcome back, enter the details below',
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'InstrumentSans',
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         color: PPaymobileColors.svgIconColor,
@@ -240,7 +240,7 @@ class LoginPage extends HookConsumerWidget {
                             Text(
                               'Remember Me',
                               style: TextStyle(
-                                fontFamily: 'Montserrat',
+                                fontFamily: 'InstrumentSans',
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14.sp,
@@ -256,7 +256,7 @@ class LoginPage extends HookConsumerWidget {
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             decorationColor: PPaymobileColors.buttonColor,
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'InstrumentSans',
                             color: PPaymobileColors.buttonColor,
                             fontWeight: FontWeight.w500,
                             fontSize: 14.sp,
@@ -276,7 +276,7 @@ class LoginPage extends HookConsumerWidget {
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           decorationColor: PPaymobileColors.buttonColor,
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           color: PPaymobileColors.buttonColor,
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
@@ -295,7 +295,7 @@ class LoginPage extends HookConsumerWidget {
                         'Or Use Biometrics',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           color: Colors.black,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
@@ -322,7 +322,7 @@ class LoginPage extends HookConsumerWidget {
                     Text(
                       "Don't have an account?",
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'InstrumentSans',
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
                         color: Colors.black,
@@ -334,7 +334,7 @@ class LoginPage extends HookConsumerWidget {
                       child: Text(
                         'Sign Up',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: PPaymobileColors.buttonColor,

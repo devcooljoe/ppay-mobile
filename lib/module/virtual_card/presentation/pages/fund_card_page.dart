@@ -90,7 +90,7 @@ class FundCardPage extends HookConsumerWidget {
                         children: [
                           TextSpan(
                             text: amountText.value.isEmpty ? '0' : amountText.value,
-                            style: TextStyle(fontFamily: 'Gilroy', color: Colors.black, fontSize: 56.sp, fontWeight: FontWeight.w400),
+                            style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 56.sp, fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),

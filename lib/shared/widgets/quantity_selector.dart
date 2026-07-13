@@ -50,7 +50,7 @@ class QuantitySelector extends StatelessWidget {
         Text(
           "$quantity",
           style: TextStyle(
-            fontFamily: 'Gilroy',
+            fontFamily: 'InstrumentSans',
             color: Colors.black,
             fontSize: 20.sp,
             fontWeight: FontWeight.w400,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -75,21 +76,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Transaction History',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Transaction History', showLeading: false),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -263,9 +250,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
                                           itemBuilder: (context, index) {
                                             final tx = group.transactions[index];
                                             return GestureDetector(
-                                              onTap: () => context.router.push(
-                                                TransactionHistoryDetailRoute(transaction: tx),
-                                              ),
+                                              onTap: () => _navigateToDetail(context, tx),
                                               child: _TransactionRow(transaction: tx),
                                             );
                                           },
@@ -332,6 +317,19 @@ class TransactionHistoryPage extends HookConsumerWidget {
     return groups.entries
         .map((e) => _TransactionGroup(label: e.key, transactions: e.value))
         .toList();
+  }
+
+  void _navigateToDetail(BuildContext context, TransactionEntity tx) {
+    switch (tx.type) {
+      case TransactionType.giftcardPurchase:
+        context.router.push(BuyGiftcardRoute(transaction: tx));
+        break;
+      case TransactionType.giftcardSale:
+        context.router.push(SellGiftcardRoute(transaction: tx));
+        break;
+      default:
+        context.router.push(TransactionHistoryDetailRoute(transaction: tx));
+    }
   }
 
   String _monthName(int month) {

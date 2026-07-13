@@ -224,7 +224,7 @@ class BvnVerificationPage extends HookConsumerWidget {
                       child: Text(
                         'Your BVN is an 11-digit number on your bank card or accessible via *565*0#',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           color: PPaymobileColors.buttonColor,
                           fontWeight: FontWeight.w500,
                           fontSize: 13.sp,

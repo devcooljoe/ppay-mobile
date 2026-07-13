@@ -15,7 +15,6 @@ import 'package:ppay_mobile/module/giftcard/presentation/providers/giftcard_prov
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
-import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
@@ -25,7 +24,6 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ratesState = ref.watch(getSellGiftcardRatesProvider);
-    final sellState = ref.watch(sellGiftcardProvider);
 
     final selectedCard = useState<SellGiftcardRateEntity?>(null);
     final selectedSubcategory = useState<GiftcardSubcategoryEntity?>(null);
@@ -99,7 +97,7 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
       }
     }
 
-    Future<void> onProceed() async {
+    void onProceed() {
       if (selectedCard.value == null) {
         MessageHandler.showErrorSnackBar(context, 'Select a card type');
         return;
@@ -117,33 +115,22 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
         return;
       }
 
-      final confirmed = await showSecurityPinBottomsheet(context);
-      if (!confirmed) return;
-
       final card = selectedCard.value!;
       final sub = selectedSubcategory.value!;
       final region = card.regions.isNotEmpty ? card.regions.first : null;
+      final country = region?.countryCode ?? region?.name ?? '';
 
-      await ref.read(sellGiftcardProvider.notifier).call(
-        type: card.type,
-        country: region?.countryCode ?? region?.name ?? '',
-        subcategoryId: sub.id,
+      context.router.push(ConfirmGiftCardSellRoute(
+        cardType: card.type,
+        logoUrl: card.logoUrl,
+        subcategory: sub,
+        country: country,
         amount: amount,
+        nairaEquivalent: nairaEquivalent,
+        sellRate: rate,
         ecode: ecodeController.text.isNotEmpty ? ecodeController.text : null,
-        cardImagePaths: pickedImages.value.map((f) => f.path).toList(),
-      );
-
-      if (!context.mounted) return;
-      final state = ref.read(sellGiftcardProvider);
-      if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, state.error.toString());
-      } else {
-        context.router.replace(SellGiftCardSuccessRoute(
-          cardType: card.type,
-          amountInUSD: amount,
-          nairaEquivalent: nairaEquivalent,
-        ));
-      }
+        cardImages: pickedImages.value,
+      ));
     }
 
     return Scaffold(
@@ -361,8 +348,8 @@ class SellGiftCardFeaturesPage extends HookConsumerWidget {
                   )),
                   32.verticalSpace,
                   PPButton(
-                    text: sellState.isLoading ? 'Processing...' : 'Proceed',
-                    onPressed: sellState.isLoading ? null : onProceed,
+                    text: 'Proceed',
+                    onPressed: onProceed,
                   ),
                   16.verticalSpace,
                 ],

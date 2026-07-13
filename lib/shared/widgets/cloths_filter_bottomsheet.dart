@@ -18,9 +18,7 @@ class ClothsFilterBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
+          GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -38,7 +36,6 @@ class ClothsFilterBottomsheet extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
           ),
           10.verticalSpace,
           Expanded(
@@ -228,7 +225,7 @@ class ClothsFilterBottomsheet extends HookConsumerWidget {
                                   child: Text(
                                     'Apply',
                                     style: TextStyle(
-                                      fontFamily: 'Montserrat',
+                                      fontFamily: 'InstrumentSans',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16.sp,
                                       color: Colors.white,
@@ -252,7 +249,7 @@ class ClothsFilterBottomsheet extends HookConsumerWidget {
                                   child: Text(
                                     'Reset',
                                     style: TextStyle(
-                                      fontFamily: 'Montserrat',
+                                      fontFamily: 'InstrumentSans',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16.sp,
                                       color: Colors.black,

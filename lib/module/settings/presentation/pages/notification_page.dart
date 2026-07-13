@@ -3,105 +3,140 @@ import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/settings/presentation/providers/notification_prefs_provider.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
-class NotificationPage extends HookConsumerWidget {
+class NotificationPage extends ConsumerWidget {
   const NotificationPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final prefsAsync = ref.watch(notificationPrefsStateProvider);
+
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
-      appBar: PPAppBar(
-        title: 'Notification Settings',
-      ),
+      appBar: PPAppBar(title: 'Notification Settings'),
       body: SafeArea(
-        child: ListView(
-          children: [
-            Container(
-              height: 16.h,
-              width: double.infinity,
-              color: PPaymobileColors.mainScreenBackground,
+        child: prefsAsync.when(
+          loading: () => Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: Column(
+              children: [
+                SkeletonLoader(width: double.infinity, height: 56.h),
+                16.verticalSpace,
+                SkeletonLoader(width: double.infinity, height: 56.h),
+                16.verticalSpace,
+                SkeletonLoader(width: double.infinity, height: 56.h),
+              ],
             ),
-            11.verticalSpace,
-            Expanded(
-              child: Container(
+          ),
+          error: (_, __) => const SizedBox.shrink(),
+          data: (prefs) => ListView(
+            children: [
+              Container(
+                height: 16.h,
+                width: double.infinity,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              11.verticalSpace,
+              Container(
                 width: double.infinity,
                 color: PPaymobileColors.mainScreenBackground,
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _notificationTile(
+                    _NotificationTile(
                       svgImage: 'assets/icon/phone.svg',
                       title: 'Push Notification',
-                      value: true,
-                      onChanged: (value) {},
+                      subtitle: 'Receive alerts directly on your device',
+                      value: prefs.pushEnabled,
+                      onChanged: (v) =>
+                          ref.read(notificationPrefsStateProvider.notifier).togglePush(v),
                     ),
-                    15.verticalSpace,
-                    _notificationTile(
+                    Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                    _NotificationTile(
                       svgImage: 'assets/icon/message.svg',
                       title: 'Email Notification',
-                      value: false,
-                      onChanged: (value) {},
+                      subtitle: 'Receive updates via email',
+                      value: prefs.emailEnabled,
+                      onChanged: (v) =>
+                          ref.read(notificationPrefsStateProvider.notifier).toggleEmail(v),
                     ),
-                    15.verticalSpace,
-                    _notificationTile(
+                    Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                    _NotificationTile(
                       svgImage: 'assets/icon/sms.svg',
                       title: 'SMS Notification',
-                      value: false,
-                      onChanged: (value) {},
+                      subtitle: 'Receive alerts via text message',
+                      value: prefs.smsEnabled,
+                      onChanged: (v) =>
+                          ref.read(notificationPrefsStateProvider.notifier).toggleSms(v),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-Widget _notificationTile({
-  required String svgImage,
-  required String title,
-  required bool value,
-  required Function(bool) onChanged,
-}) {
-  return ListTile(
-    contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
-    leading: SizedBox(
-      height: 24.w,
-      width: 24.w,
-      child: SvgPicture.asset(svgImage, fit: BoxFit.contain),
-    ),
-    title: Text(
-      title,
-      style: TextStyle(
-        fontFamily: 'InstrumentSans',
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w500,
-        color: Colors.black,
+class _NotificationTile extends StatelessWidget {
+  final String svgImage;
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const _NotificationTile({
+    required this.svgImage,
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      leading: SizedBox(
+        height: 24.w,
+        width: 24.w,
+        child: SvgPicture.asset(svgImage, fit: BoxFit.contain),
       ),
-    ),
-    trailing: Switch(
-      value: value,
-      trackOutlineColor: WidgetStateProperty.resolveWith<Color?>((
-        Set<WidgetState> states,
-      ) {
-        if (states.contains(WidgetState.disabled)) {
-          return Colors.transparent;
-        }
-        return Colors.transparent;
-      }),
-      activeThumbColor: PPaymobileColors.buttonColor,
-      activeTrackColor: PPaymobileColors.doneColor,
-      inactiveThumbColor: PPaymobileColors.svgIconColor,
-      inactiveTrackColor: PPaymobileColors.deepBackgroundColor,
-      onChanged: onChanged,
-    ),
-  );
+      title: Text(
+        title,
+        style: TextStyle(
+          fontFamily: 'InstrumentSans',
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: TextStyle(
+          fontFamily: 'InstrumentSans',
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w400,
+          color: PPaymobileColors.svgIconColor,
+        ),
+      ),
+      trailing: Switch(
+        value: value,
+        trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
+        activeThumbColor: PPaymobileColors.buttonColor,
+        activeTrackColor: PPaymobileColors.doneColor,
+        inactiveThumbColor: PPaymobileColors.svgIconColor,
+        inactiveTrackColor: PPaymobileColors.deepBackgroundColor,
+        onChanged: onChanged,
+      ),
+    );
+  }
 }

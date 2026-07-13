@@ -1,53 +1,94 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/giftcard/domain/entities/giftcard_entity.dart';
+import 'package:ppay_mobile/module/giftcard/presentation/providers/giftcard_providers.dart';
+import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
-import 'package:ppay_mobile/shared/widgets/sell_giftcard_pin_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 
 @RoutePage()
 class ConfirmGiftCardSellPage extends HookConsumerWidget {
-  const ConfirmGiftCardSellPage({super.key});
+  final String cardType;
+  final String logoUrl;
+  final GiftcardSubcategoryEntity subcategory;
+  final String country;
+  final double amount;
+  final double nairaEquivalent;
+  final double sellRate;
+  final String? ecode;
+  final List<XFile> cardImages;
+
+  const ConfirmGiftCardSellPage({
+    super.key,
+    required this.cardType,
+    required this.logoUrl,
+    required this.subcategory,
+    required this.country,
+    required this.amount,
+    required this.nairaEquivalent,
+    required this.sellRate,
+    this.ecode,
+    required this.cardImages,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isEnabled = useState(false);
+    final isNotifyEnabled = useState(false);
+    final sellState = ref.watch(sellGiftcardProvider);
+
+    ref.listen(sellGiftcardProvider, (_, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else {
+        AppLoader.hide(context);
+        if (next.hasError) {
+          MessageHandler.showErrorSnackBar(context, next.error.toString());
+        }
+      }
+    });
+
+    Future<void> onProceed() async {
+      final confirmed = await showSecurityPinBottomsheet(context);
+      if (!confirmed) return;
+
+      await ref.read(sellGiftcardProvider.notifier).call(
+        type: cardType,
+        country: country,
+        subcategoryId: subcategory.id,
+        amount: amount,
+        ecode: ecode,
+        cardImagePaths: cardImages.map((f) => f.path).toList(),
+      );
+
+      if (!context.mounted) return;
+      final state = ref.read(sellGiftcardProvider);
+      if (state.hasError) {
+        MessageHandler.showErrorSnackBar(context, state.error.toString());
+      } else {
+        context.router.replace(SellGiftCardSuccessRoute(
+          cardType: cardType,
+          amountInUSD: amount,
+          nairaEquivalent: nairaEquivalent,
+          sellRate: sellRate,
+        ));
+      }
+    }
+
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: AppBar(
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        toolbarHeight: 56,
-        leadingWidth: 56.w,
-        title: Text(
-          'Sell Gift Card',
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: TouchOpacity(
-            onTap: () => Navigator.pop(context),
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: const PPAppBar(title: 'Sell Gift Card'),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0.w),
@@ -73,44 +114,30 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                 ),
               ),
               39.verticalSpace,
+              // Card header
               Container(
-                height: 79.h,
                 width: double.infinity,
-                padding: EdgeInsets.only(
-                  left: 12.w,
-                  right: 12.w,
-                  top: 6.h,
-                  bottom: 16.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
                 decoration: BoxDecoration(
                   color: PPaymobileColors.mainScreenBackground,
-                  border: Border.all(
-                    color: PPaymobileColors.filterBorderColor,
-                    width: 1.w,
-                  ),
+                  border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    ClipOval(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(26).r,
-                        ),
-                        child: Image.asset(
-                          'assets/images/ebay.png',
-                          fit: BoxFit.cover,
-                        ),
+                    CircleAvatar(
+                      radius: 22.r,
+                      backgroundColor: const Color(0xFF00A86B),
+                      child: Text(
+                        cardType.isNotEmpty ? cardType[0].toUpperCase() : 'G',
+                        style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w700),
                       ),
                     ),
                     12.horizontalSpace,
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        6.verticalSpace,
                         Text(
-                          'Ebay',
+                          cardType,
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
@@ -120,7 +147,7 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                         ),
                         9.verticalSpace,
                         Text(
-                          'USA ebay  Gift card [25-49]',
+                          subcategory.name,
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: PPaymobileColors.svgIconColor,
@@ -133,184 +160,64 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                   ],
                 ),
               ),
+              // Details
               Container(
-                height: 246.h,
                 width: double.infinity,
-                padding: EdgeInsets.only(
-                  left: 16.w,
-                  right: 40.w,
-                  top: 16.h,
-                  bottom: 15.h,
-                ),
+                padding: EdgeInsets.only(left: 16.w, right: 40.w, top: 16.h, bottom: 15.h),
                 decoration: BoxDecoration(
                   color: PPaymobileColors.mainScreenBackground,
-                  border: Border.all(
-                    color: PPaymobileColors.filterBorderColor,
-                    width: 1.w,
-                  ),
+                  border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Amount',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.svgIconColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            3.verticalSpace,
-                            Text(
-                              '\$500',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'You will Receive',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.svgIconColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            3.verticalSpace,
-                            Text(
-                              '₦500,060.00',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
+                        _InfoColumn(label: 'Amount', value: '\$${amount.toStringAsFixed(2)}'),
+                        _InfoColumn(
+                          label: 'You will Receive',
+                          value: '₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
                         ),
                       ],
                     ),
                     28.verticalSpace,
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Fee',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.svgIconColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            3.verticalSpace,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '\$1.20',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                6.horizontalSpace,
-                                SizedBox(
-                                  height: 16.w,
-                                  width: 16.w,
-                                  child: SvgPicture.asset(
-                                    'assets/icon/equiv.svg',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                6.horizontalSpace,
-                                Text(
-                                  '₦1,400',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Rate',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.svgIconColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            3.verticalSpace,
-                            Text(
-                              '\$1,390.00/\$',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
+                        _InfoColumn(label: 'Country', value: country),
+                        _InfoColumn(
+                          label: 'Rate',
+                          value: '₦${AmountFormatter.formatBalance(sellRate.toStringAsFixed(2))}/\$',
                         ),
                       ],
                     ),
-                    28.verticalSpace,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Card Code',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.svgIconColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
+                    if (ecode != null && ecode!.isNotEmpty) ...[
+                      28.verticalSpace,
+                      _InfoColumn(label: 'Card Code', value: ecode!),
+                    ],
+                    if (cardImages.isNotEmpty) ...[
+                      28.verticalSpace,
+                      Text(
+                        'Card Images',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: PPaymobileColors.svgIconColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
                         ),
-                        3.verticalSpace,
-                        Text(
-                          'Ebay Card',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: Colors.black,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
+                      ),
+                      6.verticalSpace,
+                      Row(
+                        children: cardImages.take(3).map((img) => Padding(
+                          padding: EdgeInsets.only(right: 8.w),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4).r,
+                            child: Image.file(File(img.path), width: 56.w, height: 48.h, fit: BoxFit.cover),
                           ),
-                        ),
-                      ],
-                    ),
+                        )).toList(),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -322,10 +229,8 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                     height: 20.h,
                     width: 37.w,
                     child: CustomSwitch(
-                      value: isEnabled.value,
-                      onChanged: (val) {
-                        isEnabled.value = val;
-                      },
+                      value: isNotifyEnabled.value,
+                      onChanged: (val) => isNotifyEnabled.value = val,
                     ),
                   ),
                   13.horizontalSpace,
@@ -342,28 +247,23 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
               ),
               40.verticalSpace,
               Container(
-                height: 104.h,
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
                 color: PPaymobileColors.warningColor,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 19.w,
                       width: 19.w,
-                      child: SvgPicture.asset(
-                        'assets/icon/warning.svg',
-                        fit: BoxFit.contain,
-                      ),
+                      child: SvgPicture.asset('assets/icon/warning.svg', fit: BoxFit.contain),
                     ),
                     8.horizontalSpace,
                     Expanded(
                       child: Text(
-                        'Your payout will be automatically sent to your wallet once approved. You will receive ₦500,000 upon successful verification.',
+                        'Your payout will be automatically sent to your wallet once approved. You will receive ₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))} upon successful verification.',
                         style: TextStyle(
-                          fontFamily: 'Gilroy',
+                          fontFamily: 'InstrumentSans',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
@@ -375,14 +275,10 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
               ),
               40.verticalSpace,
               Container(
-                height: 246.h,
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 23.h),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1.w,
-                    color: PPaymobileColors.filterBorderColor,
-                  ),
+                  border: Border.all(width: 1.w, color: PPaymobileColors.filterBorderColor),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,64 +293,38 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                       ),
                     ),
                     16.verticalSpace,
-                    Text(
+                    ...[
                       'Ensure all card details provided are correct. Incorrect information may cause delays',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.svgIconColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    19.verticalSpace,
-                    Text(
                       'Uploaded images must be clear and unaltered to avoid rejection',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.svgIconColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    19.verticalSpace,
-                    Text(
                       'Do not share your card code with anyone outside the app',
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        color: PPaymobileColors.svgIconColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
+                    ].map((tip) => Padding(
+                      padding: EdgeInsets.only(bottom: 19.h),
+                      child: Text(
+                        tip,
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: PPaymobileColors.svgIconColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
+                    )),
                   ],
                 ),
               ),
               78.verticalSpace,
               TouchOpacity(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) {
-                      return SellGiftcardPinBottomsheet();
-                    },
-                  );
-                },
+                onTap: sellState.isLoading ? null : onProceed,
                 child: Container(
                   height: 50.h,
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 10.h,
-                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(56).r,
                     color: PPaymobileColors.buttonColorandText,
                   ),
                   child: Center(
                     child: Text(
-                      'Proceed to Payment',
+                      sellState.isLoading ? 'Processing...' : 'Proceed to Payment',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: Colors.white,
@@ -468,15 +338,11 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
               12.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     height: 20.w,
                     width: 20.w,
-                    child: SvgPicture.asset(
-                      'assets/icon/padlock_1.svg',
-                      fit: BoxFit.contain,
-                    ),
+                    child: SvgPicture.asset('assets/icon/padlock_1.svg', fit: BoxFit.contain),
                   ),
                   5.horizontalSpace,
                   Text(
@@ -495,6 +361,40 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _InfoColumn extends StatelessWidget {
+  final String label;
+  final String value;
+  const _InfoColumn({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: PPaymobileColors.svgIconColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        3.verticalSpace,
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }

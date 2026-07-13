@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/crypto_sell_pin_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 
 class CryptoConfirmSellBottomsheet extends HookConsumerWidget {
   const CryptoConfirmSellBottomsheet({super.key});
@@ -15,9 +15,7 @@ class CryptoConfirmSellBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 0),
-            child: GestureDetector(
+          GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,
@@ -36,7 +34,6 @@ class CryptoConfirmSellBottomsheet extends HookConsumerWidget {
                 ),
               ),
             ),
-          ),
           10.verticalSpace,
           Expanded(
             child: Container(
@@ -289,17 +286,12 @@ class CryptoConfirmSellBottomsheet extends HookConsumerWidget {
                         elevation: 0,
                       ),
                       onPressed: () async {
-                        await showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (_) => const CryptoSellPinBottomsheet(),
-                        );
+                        await showSecurityPinBottomsheet(context);
                       },
                       child: Text(
                         'Confirm Sell',
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
                           color: PPaymobileColors.mainScreenBackground,
