@@ -21,7 +21,11 @@ class ExplorePage extends HookConsumerWidget {
 
     void onTapped(int index) {
       selectedIndex.value = index;
-      pageController.jumpToPage(index);
+      pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+      );
     }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,

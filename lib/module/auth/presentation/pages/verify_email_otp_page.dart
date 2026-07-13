@@ -173,14 +173,18 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
-                  onCompleted: (value) {},
+                  onCompleted: (value) {
+                    ref
+                        .read(verifyEmailOtpProvider.notifier)
+                        .call(otpCode: value);
+                  },
                 ),
               ),
               16.verticalSpace,
               Row(
                 children: [
                   Text(
-                    'Didn\'t Get the code? ',
+                    'Didn\'t get the code? ',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontSize: 14.sp,
@@ -206,12 +210,16 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
               ),
               16.verticalSpace,
               Text(
-                'Time Left: ${formatTime(countdown.value)}',
+                canResend.value
+                    ? 'Code expired'
+                    : 'Time Left: ${formatTime(countdown.value)}',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: const Color(0xff5B5B5B),
+                  color: canResend.value
+                      ? PPaymobileColors.redTextfield
+                      : const Color(0xff5B5B5B),
                 ),
               ),
               const Spacer(),

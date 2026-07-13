@@ -93,7 +93,7 @@ class SignupPage extends HookConsumerWidget {
               Row(
                 children: [
                   Text(
-                    'Sign',
+                    'Sign Up',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: PPaymobileColors.buttonColorandText,
@@ -101,17 +101,6 @@ class SignupPage extends HookConsumerWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  6.horizontalSpace,
-                  Text(
-                    'UP',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.buttonColorandText,
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  8.verticalSpace,
                 ],
               ),
               8.verticalSpace,
@@ -236,31 +225,28 @@ class SignupPage extends HookConsumerWidget {
                     ),
                     9.horizontalSpace,
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'By opening an account you agree to our ',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.sp,
-                            ),
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
                           ),
-                          3.verticalSpace,
-                          Text(
-                            'terms and conditions',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              decorationColor: const Color(0xff429E6E),
-                              fontFamily: 'InstrumentSans',
-                              color: const Color(0xff429E6E),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.sp,
+                          children: [
+                            const TextSpan(
+                              text: 'By opening an account you agree to our ',
                             ),
-                          ),
-                        ],
+                            TextSpan(
+                              text: 'terms and conditions',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationColor: const Color(0xff429E6E),
+                                color: const Color(0xff429E6E),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

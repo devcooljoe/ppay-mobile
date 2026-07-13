@@ -284,7 +284,7 @@ class LoginPage extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                71.verticalSpace,
+                36.verticalSpace,
                 PPButton(text: 'Sign In', onPressed: handleSignIn),
                 16.verticalSpace,
                 if (isBiometricEnabled.value)

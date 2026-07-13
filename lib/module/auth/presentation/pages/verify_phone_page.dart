@@ -184,7 +184,12 @@ class VerifyPhonePage extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                   ),
-                  onCompleted: (_) {},
+                  onCompleted: (value) {
+                    hasError.value = false;
+                    ref
+                        .read(verifyPhoneOtpProvider.notifier)
+                        .call(otpCode: value);
+                  },
                 ),
               ),
               if (hasError.value) ...[

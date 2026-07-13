@@ -47,6 +47,11 @@ class PPTextField extends StatelessWidget {
       keyboardType: keyboardType,
       maxLength: maxLength,
       inputFormatters: inputFormatters,
+      style: TextStyle(
+        fontFamily: 'InstrumentSans',
+        fontSize: 16.sp,
+        color: Colors.black,
+      ),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 15.h),
         prefixIcon: prefixIcon,
@@ -68,6 +73,23 @@ class PPTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6.r),
           borderSide: BorderSide(color: PPaymobileColors.lightGrey, width: 1.w),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(color: PPaymobileColors.buttonColor, width: 1.5.w),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(color: PPaymobileColors.redTextfield, width: 1.w),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.r),
+          borderSide: BorderSide(color: PPaymobileColors.redTextfield, width: 1.5.w),
+        ),
+        errorStyle: TextStyle(
+          fontFamily: 'InstrumentSans',
+          fontSize: 12.sp,
+          color: PPaymobileColors.redTextfield,
         ),
       ),
     );

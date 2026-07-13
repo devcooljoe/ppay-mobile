@@ -392,7 +392,7 @@ class HomePage extends HookConsumerWidget {
                               ),
                             ),
                             Text(
-                              'Please Click to Complete Verification',
+                              'Unlock full access to your wallet',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
                                 fontSize: 12.sp,
@@ -475,7 +475,7 @@ class HomePage extends HookConsumerWidget {
                           8.horizontalSpace,
                           Expanded(
                             child: Text(
-                              'Documents currently being reviewed. Please this won\'t take long. Click to view status',
+                              'Documents are being reviewed. This usually takes 24–48 hours. Tap to view status.',
                               softWrap: true,
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
@@ -618,7 +618,8 @@ class HomePage extends HookConsumerWidget {
     if (recent.isEmpty) {
       return EmptyState(
         imagePath: 'assets/images/transactionimage.png',
-        message: 'No Transaction Available',
+        message: 'No Transactions Yet',
+        subtitle: 'Your recent activity will appear here.',
       );
     }
 

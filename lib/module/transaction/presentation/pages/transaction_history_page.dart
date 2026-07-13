@@ -11,6 +11,7 @@ import 'package:ppay_mobile/module/transaction/presentation/providers/transactio
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/empty_state.dart';
+import 'package:ppay_mobile/shared/widgets/filter_transactions_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
 @RoutePage()
@@ -129,44 +130,54 @@ class TransactionHistoryPage extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 54.h,
-                    width: 86.w,
-                    padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 12.h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(6).r,
-                        bottomRight: Radius.circular(6).r,
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (_) => const FilterTransactionsBottomsheet(),
+                      );
+                    },
+                    child: Container(
+                      height: 54.h,
+                      width: 86.w,
+                      padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(6).r,
+                          bottomRight: Radius.circular(6).r,
+                        ),
+                        border: Border.all(
+                          width: 1.w,
+                          color: PPaymobileColors.filterBorderColor,
+                        ),
+                        color: PPaymobileColors.mainScreenBackground,
                       ),
-                      border: Border.all(
-                        width: 1.w,
-                        color: PPaymobileColors.filterBorderColor,
-                      ),
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            height: 14.w,
-                            width: 14.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/filter.svg',
-                              fit: BoxFit.contain,
+                      child: Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 14.w,
+                              width: 14.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/filter.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          6.horizontalSpace,
-                          Text(
-                            'Filter',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: PPaymobileColors.textfiedBorder,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
+                            6.horizontalSpace,
+                            Text(
+                              'Filter',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: PPaymobileColors.textfiedBorder,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -200,9 +211,15 @@ class TransactionHistoryPage extends HookConsumerWidget {
                             ),
                           )
                         : filtered.isEmpty
-                            ? EmptyState(
-                                imagePath: 'assets/images/transactionimage.png',
-                                message: 'No Transactions Found',
+                            ? Center(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 40.h),
+                                  child: EmptyState(
+                                    imagePath: 'assets/images/transactionimage.png',
+                                    message: 'No Transactions Yet',
+                                    subtitle: 'Your transaction history will appear here.',
+                                  ),
+                                ),
                               )
                             : RefreshIndicator(
                                 onRefresh: onRefresh,

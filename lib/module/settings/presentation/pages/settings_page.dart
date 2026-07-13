@@ -197,7 +197,6 @@ class SettingsPage extends HookConsumerWidget {
               color: PPaymobileColors.deepBackgroundColor,
             ),
             Container(
-              height: 267.h,
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
               color: PPaymobileColors.mainScreenBackground,
@@ -251,7 +250,6 @@ class SettingsPage extends HookConsumerWidget {
               color: PPaymobileColors.deepBackgroundColor,
             ),
             Container(
-              height: 335.h,
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
               color: PPaymobileColors.mainScreenBackground,
@@ -307,7 +305,6 @@ class SettingsPage extends HookConsumerWidget {
               color: PPaymobileColors.deepBackgroundColor,
             ),
             Container(
-              height: 131.h,
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
               color: PPaymobileColors.mainScreenBackground,
@@ -338,7 +335,6 @@ class SettingsPage extends HookConsumerWidget {
               color: PPaymobileColors.deepBackgroundColor,
             ),
             Container(
-              height: 131.h,
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
               color: PPaymobileColors.mainScreenBackground,
@@ -369,7 +365,6 @@ class SettingsPage extends HookConsumerWidget {
               color: PPaymobileColors.deepBackgroundColor,
             ),
             Container(
-              height: 267.h,
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
               color: PPaymobileColors.mainScreenBackground,
@@ -412,7 +407,6 @@ class SettingsPage extends HookConsumerWidget {
               color: PPaymobileColors.deepBackgroundColor,
             ),
             Container(
-              height: 131.h,
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 17.h),
               color: PPaymobileColors.mainScreenBackground,

@@ -73,11 +73,35 @@ class OnboardPage extends HookConsumerWidget {
       }
     }
 
+    final isLastPage = currentIndex.value == pages.length - 1;
+
     return Scaffold(
       backgroundColor: PPaymobileColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: EdgeInsets.only(top: 12.h, right: 20.w),
+                child: AnimatedOpacity(
+                  opacity: isLastPage ? 0.0 : 1.0,
+                  duration: const Duration(milliseconds: 200),
+                  child: TouchOpacity(
+                    onTap: isLastPage ? null : () => markSeenAndNavigate(const LoginRoute()),
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: PPaymobileColors.mainScreenBackground.withValues(alpha: 0.7),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               child: PageView.builder(
                 controller: pageController,
@@ -180,9 +204,18 @@ class OnboardPage extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(42),
                     ),
                   ),
-                  onPressed: () => markSeenAndNavigate(const SignupRoute()),
+                  onPressed: () {
+                    if (isLastPage) {
+                      markSeenAndNavigate(const SignupRoute());
+                    } else {
+                      pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
                   child: Text(
-                    'Get Started',
+                    isLastPage ? 'Get Started' : 'Next',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w600,

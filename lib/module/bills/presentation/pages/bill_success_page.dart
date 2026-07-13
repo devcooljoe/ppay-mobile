@@ -140,7 +140,8 @@ class BillSuccessPage extends HookConsumerWidget {
                     12.verticalSpace,
                     PPButton(
                       text: 'Back to Home',
-                      backgroundColor: PPaymobileColors.mainScreenBackground,
+                      backgroundColor: PPaymobileColors.deepBackgroundColor,
+                      textColor: PPaymobileColors.buttonColorandText,
                       onPressed: () {
                         context.router.replaceAll([HomeRoute()]);
                       },
