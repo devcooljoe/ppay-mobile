@@ -126,4 +126,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<void> verifyPin(String pin) async {
     await _dio.post('$_baseUrl/users/verify-pin', data: {'pin': pin});
   }
+
+  @override
+  Future<void> verifyPassword(String password) async {
+    await _dio.post('$_baseUrl/users/verify-password', data: {'password': password});
+  }
 }

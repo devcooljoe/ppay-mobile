@@ -9,9 +9,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/referral/presentation/providers/referral_providers.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
-import 'package:share_plus/share_plus.dart';
 
 @RoutePage()
 class ReferPage extends HookConsumerWidget {
@@ -27,32 +28,33 @@ class ReferPage extends HookConsumerWidget {
       return null;
     }, []);
 
-    final referralCode = referralState.value?.referralCode ?? user?.referralCode ?? '';
-    final referralLink = referralState.value?.referralLink ??
-        (referralCode.isNotEmpty
-            ? 'https://app.pinnaclepay.ng/register?ref=$referralCode'
-            : '');
-    final totalReferrals = referralState.value?.totalReferrals ?? 0;
-    final referrals = referralState.value?.referrals ?? [];
+    ref.listen(withdrawPointsProvider, (previous, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else if (previous?.isLoading == true) {
+        AppLoader.hide(context);
+        if (next.hasError) {
+          MessageHandler.showErrorSnackBar(context, next.error.toString());
+        } else {
+          MessageHandler.showSuccessSnackBar(context, 'Points withdrawn to your wallet!');
+          ref.read(getMyReferralsProvider.notifier).call();
+        }
+      }
+    });
+
+    final info = referralState.value;
+    final referralCode = info?.referralCode ?? user?.referralCode ?? '';
+    final totalReferrals = info?.totalReferrals ?? 0;
+    final pointsBalance = info?.pointsBalance ?? 0;
+    final pointsPerReferral = info?.pointsPerReferral ?? 0;
+    final minimumWithdrawalPoints = info?.minimumWithdrawalPoints ?? 0;
+    final referrals = info?.referrals ?? [];
+    final canWithdraw = pointsBalance >= minimumWithdrawalPoints && pointsBalance > 0;
 
     void copyCode() {
       if (referralCode.isEmpty) return;
       Clipboard.setData(ClipboardData(text: referralCode));
       MessageHandler.showSuccessSnackBar(context, 'Referral code copied!');
-    }
-
-    void copyLink() {
-      if (referralLink.isEmpty) return;
-      Clipboard.setData(ClipboardData(text: referralLink));
-      MessageHandler.showSuccessSnackBar(context, 'Referral link copied!');
-    }
-
-    void shareLink() {
-      if (referralLink.isEmpty) return;
-      Share.share(
-        'Join me on PinnaclePay and enjoy seamless payments! Use my referral link: $referralLink',
-        subject: 'Join PinnaclePay',
-      );
     }
 
     String formatDate(String isoDate) {
@@ -123,7 +125,7 @@ class ReferPage extends HookConsumerWidget {
                         height: 76.h,
                         width: 200.w,
                         child: Text(
-                          'Earn rewards for every friend you refer',
+                          'Earn points for every friend you refer',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: PPaymobileColors.mainScreenBackground,
@@ -146,7 +148,7 @@ class ReferPage extends HookConsumerWidget {
               ),
             ),
 
-            // Stats card
+            // Stats + Points card
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
@@ -155,32 +157,61 @@ class ReferPage extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      referralState.isLoading
-                          ? SkeletonLoader(width: 40.w, height: 28.h)
-                          : Text(
-                              '$totalReferrals',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.backgroundColor,
-                                fontSize: 28.sp,
-                                fontWeight: FontWeight.w700,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        referralState.isLoading
+                            ? SkeletonLoader(width: 40.w, height: 28.h)
+                            : Text(
+                                '$totalReferrals',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: PPaymobileColors.backgroundColor,
+                                  fontSize: 28.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                      4.verticalSpace,
-                      Text(
-                        'Total Referrals',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400,
+                        4.verticalSpace,
+                        Text(
+                          'Total Referrals',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.svgIconColor,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ),
+                  Container(width: 1.w, height: 48.h, color: PPaymobileColors.textfiedBorder),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        referralState.isLoading
+                            ? SkeletonLoader(width: 60.w, height: 28.h)
+                            : Text(
+                                '$pointsBalance pts',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: PPaymobileColors.backgroundColor,
+                                  fontSize: 22.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                        4.verticalSpace,
+                        Text(
+                          'Points Balance',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.svgIconColor,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -191,47 +222,31 @@ class ReferPage extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // How it works
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 58.h,
-                        width: 56.w,
-                        child: Image.asset(
-                          'assets/images/coins.png',
-                          fit: BoxFit.contain,
+                  // Points info
+                  if (!referralState.isLoading && pointsPerReferral > 0)
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEFF5F2),
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Text(
+                        'You earn $pointsPerReferral point${pointsPerReferral == 1 ? '' : 's'} (₦$pointsPerReferral) when a referred friend completes their first transaction.',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: PPaymobileColors.backgroundColor,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      10.horizontalSpace,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Get rewards by sharing with friends',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            'Earn for every successful referral',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: PPaymobileColors.svgIconColor,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  32.verticalSpace,
+                    ),
+
+                  if (!referralState.isLoading && pointsPerReferral > 0) 16.verticalSpace,
+
+                  // How it works steps
                   Text(
-                    'Simple steps to get rewards',
+                    'How it works',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: Colors.black,
@@ -242,17 +257,17 @@ class ReferPage extends HookConsumerWidget {
                   20.verticalSpace,
                   _StepRow(
                     iconPath: 'assets/icon/link.svg',
-                    label: 'Copy and share the link',
+                    label: 'Copy and share your referral code',
                     showConnector: true,
                   ),
                   _StepRow(
                     iconPath: 'assets/icon/signin.svg',
-                    label: 'Your friends signup with your link',
+                    label: 'Your friend signs up with your code',
                     showConnector: true,
                   ),
                   _StepRow(
                     iconPath: 'assets/icon/money.svg',
-                    label: 'Get cashback for each referral',
+                    label: 'They make their first transaction — you earn points',
                     showConnector: false,
                   ),
                   48.verticalSpace,
@@ -302,11 +317,11 @@ class ReferPage extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                  16.verticalSpace,
+                  32.verticalSpace,
 
-                  // Referral link section
+                  // Withdraw points section
                   Text(
-                    'Referral Link',
+                    'Withdraw Points',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: Colors.black,
@@ -314,103 +329,28 @@ class ReferPage extends HookConsumerWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  10.verticalSpace,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 46.h,
-                          padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            border: Border.all(color: PPaymobileColors.textfiedBorder),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4.r),
-                              bottomLeft: Radius.circular(4.r),
-                            ),
-                          ),
-                          alignment: Alignment.centerLeft,
-                          child: referralState.isLoading
-                              ? SkeletonLoader(width: double.infinity, height: 14.h)
-                              : Text(
-                                  referralLink.isNotEmpty ? referralLink : '—',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: PPaymobileColors.svgIconColor,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                        ),
-                      ),
-                      TouchOpacity(
-                        onTap: copyLink,
-                        child: Container(
-                          height: 46.h,
-                          width: 72.w,
-                          padding: EdgeInsets.all(10).r,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(4).r,
-                              bottomRight: Radius.circular(4).r,
-                            ),
-                            color: PPaymobileColors.backgroundColor,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Copy',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.mainScreenBackground,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  8.verticalSpace,
+                  Text(
+                    minimumWithdrawalPoints > 0
+                        ? 'Minimum $minimumWithdrawalPoints points required to withdraw. 1 point = ₦1.'
+                        : '1 point = ₦1. Withdraw your points to your wallet.',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.svgIconColor,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                   16.verticalSpace,
-
-                  // Share button
-                  TouchOpacity(
-                    onTap: shareLink,
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                        color: PPaymobileColors.backgroundColor,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Center(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icon/link.svg',
-                              width: 18.w,
-                              height: 18.w,
-                              colorFilter: const ColorFilter.mode(
-                                Colors.white,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                            8.horizontalSpace,
-                            Text(
-                              'Share Referral Link',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.mainScreenBackground,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  PPButton(
+                    text: canWithdraw
+                        ? 'Withdraw $pointsBalance Points (₦$pointsBalance)'
+                        : pointsBalance == 0
+                            ? 'No Points to Withdraw'
+                            : 'Need $minimumWithdrawalPoints pts minimum (you have $pointsBalance)',
+                    onPressed: canWithdraw
+                        ? () => ref.read(withdrawPointsProvider.notifier).call()
+                        : null,
                   ),
                   32.verticalSpace,
 
@@ -457,8 +397,7 @@ class ReferPage extends HookConsumerWidget {
                         ...referrals.map(
                           (r) => Container(
                             margin: EdgeInsets.only(bottom: 10.h),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 12.h),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                             decoration: BoxDecoration(
                               color: PPaymobileColors.deepBackgroundColor,
                               borderRadius: BorderRadius.circular(8.r),
@@ -469,9 +408,7 @@ class ReferPage extends HookConsumerWidget {
                                   radius: 20.r,
                                   backgroundColor: PPaymobileColors.backgroundColor,
                                   child: Text(
-                                    r.name.isNotEmpty
-                                        ? r.name[0].toUpperCase()
-                                        : '?',
+                                    r.name.isNotEmpty ? r.name[0].toUpperCase() : '?',
                                     style: TextStyle(
                                       fontFamily: 'InstrumentSans',
                                       color: Colors.white,
@@ -496,7 +433,7 @@ class ReferPage extends HookConsumerWidget {
                                       ),
                                       2.verticalSpace,
                                       Text(
-                                        r.email,
+                                        formatDate(r.joinedAt),
                                         style: TextStyle(
                                           fontFamily: 'InstrumentSans',
                                           color: PPaymobileColors.svgIconColor,
@@ -507,13 +444,24 @@ class ReferPage extends HookConsumerWidget {
                                     ],
                                   ),
                                 ),
-                                Text(
-                                  formatDate(r.joinedAt),
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: PPaymobileColors.svgIconColor,
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w400,
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                                  decoration: BoxDecoration(
+                                    color: r.pointsAwarded
+                                        ? Colors.green.shade50
+                                        : Colors.orange.shade50,
+                                    borderRadius: BorderRadius.circular(4.r),
+                                  ),
+                                  child: Text(
+                                    r.pointsAwarded ? 'Points Earned' : 'Pending',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: r.pointsAwarded
+                                          ? Colors.green.shade700
+                                          : Colors.orange.shade700,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -570,13 +518,15 @@ class _StepRow extends StatelessWidget {
               ),
             ),
             8.horizontalSpace,
-            Text(
-              label,
-              style: TextStyle(
-                fontFamily: 'InstrumentSans',
-                color: Colors.black,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],

@@ -243,4 +243,14 @@ class UserRepositoryImpl implements UserRepository {
       return Left(e.error as Failure);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> verifyPassword({required String password}) async {
+    try {
+      await _remoteDataSource.verifyPassword(password);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(e.error as Failure);
+    }
+  }
 }

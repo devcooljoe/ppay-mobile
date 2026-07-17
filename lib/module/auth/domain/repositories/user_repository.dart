@@ -52,4 +52,5 @@ abstract class UserRepository {
     required String confirmPin,
   });
   Future<Either<Failure, void>> verifyPin({required String pin});
+  Future<Either<Failure, void>> verifyPassword({required String password});
 }

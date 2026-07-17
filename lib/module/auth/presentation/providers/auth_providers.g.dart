@@ -258,5 +258,21 @@ final verifyPinProvider =
 );
 
 typedef _$VerifyPin = AutoDisposeNotifier<AsyncValue<void>>;
+String _$verifyPasswordHash() => r'5a0fcbc8e4a7f9b844a0232b17a06d8b431086eb';
+
+/// See also [VerifyPassword].
+@ProviderFor(VerifyPassword)
+final verifyPasswordProvider =
+    AutoDisposeNotifierProvider<VerifyPassword, AsyncValue<void>>.internal(
+  VerifyPassword.new,
+  name: r'verifyPasswordProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$verifyPasswordHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$VerifyPassword = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

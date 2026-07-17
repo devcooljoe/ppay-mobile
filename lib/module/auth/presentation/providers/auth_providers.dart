@@ -17,6 +17,7 @@ import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_password_o
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_pin_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_phone_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_pin_usecase.dart';
+import 'package:ppay_mobile/module/auth/domain/usecases/verify_password_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
@@ -330,6 +331,22 @@ class VerifyPin extends _$VerifyPin {
   Future<bool> call({required String pin}) async {
     state = const AsyncValue.loading();
     final result = await getIt<VerifyPinUseCase>()(pin: pin);
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (_) => const AsyncValue.data(null),
+    );
+    return result.isRight();
+  }
+}
+
+@riverpod
+class VerifyPassword extends _$VerifyPassword {
+  @override
+  AsyncValue<void> build() => const AsyncValue.data(null);
+
+  Future<bool> call({required String password}) async {
+    state = const AsyncValue.loading();
+    final result = await getIt<VerifyPasswordUseCase>()(password: password);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),

@@ -37,14 +37,14 @@ class ChangePasswordPage extends HookConsumerWidget {
       return () => newController.removeListener(listener);
     }, []);
 
-    ref.listen(changePasswordProvider, (_, next) {
+    ref.listen(changePasswordProvider, (previous, next) {
       if (next.isLoading) {
         AppLoader.show(context);
-      } else {
+      } else if (previous?.isLoading == true) {
         AppLoader.hide(context);
         if (next.hasError) {
           MessageHandler.showErrorSnackBar(context, next.error.toString());
-        } else if (!next.isLoading) {
+        } else {
           MessageHandler.showSuccessSnackBar(context, 'Password changed successfully');
           context.router.push(const PasswordChangedRoute());
         }

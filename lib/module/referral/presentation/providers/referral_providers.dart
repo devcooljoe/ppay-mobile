@@ -1,6 +1,7 @@
 import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/module/referral/domain/entities/referral_entity.dart';
 import 'package:ppay_mobile/module/referral/domain/usecases/get_my_referrals_usecase.dart';
+import 'package:ppay_mobile/module/referral/domain/usecases/withdraw_points_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'referral_providers.g.dart';
@@ -16,6 +17,21 @@ class GetMyReferrals extends _$GetMyReferrals {
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (info) => AsyncValue.data(info),
+    );
+  }
+}
+
+@riverpod
+class WithdrawPoints extends _$WithdrawPoints {
+  @override
+  AsyncValue<void> build() => const AsyncValue.data(null);
+
+  Future<void> call() async {
+    state = const AsyncValue.loading();
+    final result = await getIt<WithdrawPointsUseCase>()();
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (_) => const AsyncValue.data(null),
     );
   }
 }

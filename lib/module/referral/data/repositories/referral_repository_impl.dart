@@ -21,4 +21,14 @@ class ReferralRepositoryImpl implements ReferralRepository {
       return Left(e.error as Failure);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> withdrawPoints() async {
+    try {
+      await _remoteDataSource.withdrawPoints();
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(e.error as Failure);
+    }
+  }
 }

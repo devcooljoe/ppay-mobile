@@ -20,4 +20,9 @@ class ReferralRemoteDataSourceImpl implements ReferralRemoteDataSource {
     );
     return baseResponse.data!;
   }
+
+  @override
+  Future<void> withdrawPoints() async {
+    await _dio.post('$_baseUrl/referrals/withdraw-points');
+  }
 }

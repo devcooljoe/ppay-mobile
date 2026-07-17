@@ -71,6 +71,8 @@ import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_password_o
     as _i739;
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_pin_otp_usecase.dart'
     as _i509;
+import 'package:ppay_mobile/module/auth/domain/usecases/verify_password_usecase.dart'
+    as _i1012;
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_phone_otp_usecase.dart'
     as _i783;
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_pin_usecase.dart'
@@ -151,6 +153,8 @@ import 'package:ppay_mobile/module/referral/domain/repositories/referral_reposit
     as _i454;
 import 'package:ppay_mobile/module/referral/domain/usecases/get_my_referrals_usecase.dart'
     as _i1052;
+import 'package:ppay_mobile/module/referral/domain/usecases/withdraw_points_usecase.dart'
+    as _i144;
 import 'package:ppay_mobile/module/settings/data/repositories/bank_account_repository_impl.dart'
     as _i1035;
 import 'package:ppay_mobile/module/settings/data/sources/bank_account_remote_datasource.dart'
@@ -415,6 +419,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i201.GetMyTransactionsUseCase(gh<_i1002.TransactionRepository>()));
     gh.lazySingleton<_i1052.GetMyReferralsUseCase>(
         () => _i1052.GetMyReferralsUseCase(gh<_i454.ReferralRepository>()));
+    gh.lazySingleton<_i144.WithdrawPointsUseCase>(
+        () => _i144.WithdrawPointsUseCase(gh<_i454.ReferralRepository>()));
     gh.lazySingleton<_i509.VerifyForgotPinOtpUseCase>(
         () => _i509.VerifyForgotPinOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i1043.ForgotPasswordUseCase>(
@@ -447,6 +453,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i470.ChangePasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i882.VerifyEmailOtpUseCase>(
         () => _i882.VerifyEmailOtpUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i1012.VerifyPasswordUseCase>(
+        () => _i1012.VerifyPasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i672.GetWalletUseCase>(
         () => _i672.GetWalletUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i690.CalculateFeeUseCase>(

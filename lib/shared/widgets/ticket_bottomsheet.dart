@@ -148,7 +148,7 @@ class _TicketListSheet extends HookConsumerWidget {
                           final ticket = state.tickets[index];
                           return TouchOpacity(
                             onTap: () {
-                              showTicketChatSheet(context, ticket.id, ticket.subject);
+                              showTicketChatSheet(context, ticket.id, ticket.subject, ticket.status);
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 14.h),
@@ -551,19 +551,25 @@ class _StatusBadge extends StatelessWidget {
 
 // ── Ticket chat sheet ────────────────────────────────────────────────────────
 
-void showTicketChatSheet(BuildContext context, String ticketId, String subject) {
+void showTicketChatSheet(
+  BuildContext context,
+  String ticketId,
+  String subject,
+  String status,
+) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (_) => _TicketChatSheet(ticketId: ticketId, subject: subject),
+    builder: (_) => _TicketChatSheet(ticketId: ticketId, subject: subject, status: status),
   );
 }
 
 class _TicketChatSheet extends HookConsumerWidget {
   final String ticketId;
   final String subject;
-  const _TicketChatSheet({required this.ticketId, required this.subject});
+  final String status;
+  const _TicketChatSheet({required this.ticketId, required this.subject, required this.status});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -678,6 +684,33 @@ class _TicketChatSheet extends HookConsumerWidget {
                                 },
                               ),
                   ),
+                  if (status == 'closed')
+                    Container(
+                      margin: EdgeInsets.only(bottom: 12.h),
+                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(12.r),
+                        border: Border.all(color: Colors.grey.shade300),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.lock_outline_rounded, size: 16.sp, color: Colors.grey),
+                          8.horizontalSpace,
+                          Expanded(
+                            child: Text(
+                              'This ticket is closed. No further messages can be sent.',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontSize: 13.sp,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  else
                   Padding(
                     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 12.h),
                     child: Row(
