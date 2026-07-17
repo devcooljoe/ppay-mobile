@@ -8,6 +8,8 @@ Treat the entire workspace as one application, not as independent repositories.
 
 Always understand how the projects interact before making changes.
 
+When writing a file you don't have to write it as once especially if the content you need to write is large. You just need to write them in batches by appending to the file.
+
 ---
 
 # Workspace Structure
