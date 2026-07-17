@@ -77,7 +77,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: const PPAppBar(title: 'Transaction History', showLeading: false),
+      appBar: const PPAppBar(title: 'Transaction History'),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),

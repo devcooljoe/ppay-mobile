@@ -109,14 +109,7 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
                       label: 'Fee',
                       value: '₦${AmountFormatter.formatBalance(transaction.fee)}',
                     ),
-                    _DetailRow(
-                      label: 'Balance Before',
-                      value: '₦${AmountFormatter.formatBalance(transaction.balanceBefore)}',
-                    ),
-                    _DetailRow(
-                      label: 'Balance After',
-                      value: '₦${AmountFormatter.formatBalance(transaction.balanceAfter)}',
-                    ),
+
                     ..._typeSpecificRows(transaction),
                     Divider(height: 32.h, color: PPaymobileColors.deepBackgroundColor),
                     Row(
@@ -336,15 +329,16 @@ class _StatusBadge extends StatelessWidget {
         label = 'Pending';
         break;
     }
-    return Container(
-      height: 24.h,
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(34).r,
-      ),
-      child: Center(
-        child: Text(
+    return UnconstrainedBox(
+      child: Container(
+        height: 24.h,
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(34).r,
+        ),
+        child: Center(
+          child: Text(
           label,
           style: TextStyle(
             fontFamily: 'InstrumentSans',
@@ -353,6 +347,7 @@ class _StatusBadge extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
+      ),
       ),
     );
   }
