@@ -11,6 +11,8 @@
 import 'package:dio/dio.dart' as _i361;
 import 'package:event_bus/event_bus.dart' as _i1017;
 import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as _i163;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:ppay_mobile/core/di/firebase_module.dart' as _i462;
@@ -24,10 +26,12 @@ import 'package:ppay_mobile/core/network/interceptors/network_interceptor.dart'
 import 'package:ppay_mobile/core/network/interceptors/user_agent_interceptor.dart'
     as _i403;
 import 'package:ppay_mobile/core/network/network_info.dart' as _i67;
+import 'package:ppay_mobile/core/services/app_update_service.dart' as _i901;
 import 'package:ppay_mobile/core/services/biometric_service.dart' as _i1002;
+import 'package:ppay_mobile/core/services/firebase_messaging_service.dart'
+    as _i755;
 import 'package:ppay_mobile/core/services/hive_service.dart' as _i389;
 import 'package:ppay_mobile/core/services/inactivity_service.dart' as _i668;
-import 'package:ppay_mobile/core/services/notification_service.dart' as _i406;
 import 'package:ppay_mobile/core/services/pin_verification_service.dart'
     as _i615;
 import 'package:ppay_mobile/core/services/token_service.dart' as _i971;
@@ -167,6 +171,14 @@ import 'package:ppay_mobile/module/shopping/domain/repositories/shopping_reposit
     as _i766;
 import 'package:ppay_mobile/module/shopping/domain/usecases/shopping_usecases.dart'
     as _i540;
+import 'package:ppay_mobile/module/support_ticket/data/repositories/support_ticket_repository_impl.dart'
+    as _i603;
+import 'package:ppay_mobile/module/support_ticket/data/sources/support_ticket_remote_datasource.dart'
+    as _i140;
+import 'package:ppay_mobile/module/support_ticket/data/sources/support_ticket_remote_datasource_impl.dart'
+    as _i77;
+import 'package:ppay_mobile/module/support_ticket/domain/repositories/support_ticket_repository.dart'
+    as _i700;
 import 'package:ppay_mobile/module/transaction/data/repositories/transaction_repository_impl.dart'
     as _i1025;
 import 'package:ppay_mobile/module/transaction/data/repositories/wallet_repository_impl.dart'
@@ -226,12 +238,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1002.BiometricService>(() => _i1002.BiometricService());
     gh.lazySingleton<_i971.TokenService>(() => _i971.TokenService());
     gh.lazySingleton<_i668.InactivityService>(() => _i668.InactivityService());
-    gh.lazySingleton<_i406.NotificationService>(
-        () => _i406.NotificationService());
+    gh.lazySingleton<_i901.AppUpdateService>(() => _i901.AppUpdateService());
     gh.lazySingleton<_i637.AuthInterceptor>(
         () => _i637.AuthInterceptor(gh<_i971.TokenService>()));
     gh.singleton<_i464.OnboardingRepository>(() =>
         _i966.OnboardingRepositoryImpl(gh<_i713.OnboardingLocalDataSource>()));
+    gh.lazySingleton<_i755.FirebaseMessagingService>(
+        () => _i755.FirebaseMessagingService(
+              gh<_i892.FirebaseMessaging>(),
+              gh<_i163.FlutterLocalNotificationsPlugin>(),
+            ));
     gh.lazySingleton<_i67.NetworkInfo>(() => _i67.NetworkInfoImpl());
     gh.lazySingleton<_i497.SetOnboardingSeenUseCase>(
         () => _i497.SetOnboardingSeenUseCase(gh<_i464.OnboardingRepository>()));
@@ -279,6 +295,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i273.ShoppingRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i127.GiftcardRepository>(() =>
         _i127.GiftcardRepositoryImpl(gh<_i127.GiftcardRemoteDataSource>()));
+    gh.lazySingleton<_i140.SupportTicketRemoteDataSource>(
+        () => _i77.SupportTicketRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i1002.TransactionRepository>(() =>
         _i1025.TransactionRepositoryImpl(gh<_i813.WalletRemoteDataSource>()));
     gh.lazySingleton<_i629.BankAccountRepository>(() =>
@@ -357,6 +375,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i417.BillPaymentRepository>(() =>
         _i781.BillPaymentRepositoryImpl(
             gh<_i86.BillPaymentRemoteDataSource>()));
+    gh.lazySingleton<_i700.SupportTicketRepository>(() =>
+        _i603.SupportTicketRepositoryImpl(
+            gh<_i140.SupportTicketRemoteDataSource>()));
     gh.lazySingleton<_i1066.CreateDollarCardUseCase>(
         () => _i1066.CreateDollarCardUseCase(gh<_i674.DollarCardRepository>()));
     gh.lazySingleton<_i1066.GetDollarCardUseCase>(
@@ -416,22 +437,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i232.ResendEmailOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i739.VerifyForgotPasswordOtpUseCase>(
         () => _i739.VerifyForgotPasswordOtpUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i370.VerifyPinUseCase>(
+        () => _i370.VerifyPinUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i849.GetUserUseCase>(
         () => _i849.GetUserUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i470.ChangePasswordUseCase>(
         () => _i470.ChangePasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i882.VerifyEmailOtpUseCase>(
         () => _i882.VerifyEmailOtpUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i370.VerifyPinUseCase>(
-        () => _i370.VerifyPinUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i672.GetWalletUseCase>(
         () => _i672.GetWalletUseCase(gh<_i836.WalletRepository>()));
+    gh.lazySingleton<_i690.CalculateFeeUseCase>(
+        () => _i690.CalculateFeeUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i649.WithdrawUseCase>(
         () => _i649.WithdrawUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i600.NameEnquiryUseCase>(
         () => _i600.NameEnquiryUseCase(gh<_i836.WalletRepository>()));
-    gh.lazySingleton<_i690.CalculateFeeUseCase>(
-        () => _i690.CalculateFeeUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i831.GetAirtimeBillersUseCase>(() =>
         _i831.GetAirtimeBillersUseCase(gh<_i417.BillPaymentRepository>()));
     gh.lazySingleton<_i831.GetDataBillersUseCase>(

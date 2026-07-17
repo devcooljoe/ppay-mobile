@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
@@ -13,10 +12,10 @@ import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
-import 'package:ppay_mobile/shared/widgets/gender_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
-import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class EditProfilePage extends HookConsumerWidget {
@@ -30,7 +29,6 @@ class EditProfilePage extends HookConsumerWidget {
     final dateController = useTextEditingController(
       text: user?.dob != null ? _formatDobForDisplay(user!.dob!) : '',
     );
-    final genderController = useTextEditingController();
     final selectedDob = useState<String?>(user?.dob);
 
     ref.listen(updateProfileProvider, (_, next) {
@@ -42,7 +40,10 @@ class EditProfilePage extends HookConsumerWidget {
           MessageHandler.showErrorSnackBar(context, next.error.toString());
         } else if (!next.isLoading) {
           ref.read(authenticatedUserProvider.notifier).silentRefresh();
-          MessageHandler.showSuccessSnackBar(context, 'Profile updated successfully');
+          MessageHandler.showSuccessSnackBar(
+            context,
+            'Profile updated successfully',
+          );
           Navigator.pop(context);
         }
       }
@@ -56,14 +57,20 @@ class EditProfilePage extends HookConsumerWidget {
         if (next.hasError) {
           MessageHandler.showErrorSnackBar(context, next.error.toString());
         } else if (!next.isLoading) {
-          MessageHandler.showSuccessSnackBar(context, 'Profile picture updated');
+          MessageHandler.showSuccessSnackBar(
+            context,
+            'Profile picture updated',
+          );
         }
       }
     });
 
     Future<void> pickAndUploadImage() async {
       final picker = ImagePicker();
-      final picked = await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+      final picked = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 80,
+      );
       if (picked != null) {
         await ref.read(uploadProfilePictureProvider.notifier).call(picked.path);
       }
@@ -73,13 +80,15 @@ class EditProfilePage extends HookConsumerWidget {
       final name = nameController.text.trim();
       final dob = selectedDob.value;
       if (name.isEmpty && dob == null) {
-        MessageHandler.showErrorSnackBar(context, 'Please update at least one field');
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Please update at least one field',
+        );
         return;
       }
-      ref.read(updateProfileProvider.notifier).call(
-            fullName: name.isNotEmpty ? name : null,
-            dob: dob,
-          );
+      ref
+          .read(updateProfileProvider.notifier)
+          .call(fullName: name.isNotEmpty ? name : null, dob: dob);
     }
 
     final picture = user?.picture;
@@ -90,27 +99,7 @@ class EditProfilePage extends HookConsumerWidget {
       appBar: PPAppBar(
         title: 'Profile',
         onBackPressed: () => Navigator.pop(context),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 20.w),
-            child: TouchOpacity(
-              onTap: () {
-                nameController.text = user?.fullName ?? '';
-                dateController.text = user?.dob != null ? _formatDobForDisplay(user!.dob!) : '';
-                selectedDob.value = user?.dob;
-              },
-              child: Text(
-                'Reset',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.doneTextColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-        ],
+        actions: const [],
       ),
       body: SafeArea(
         child: Padding(
@@ -141,7 +130,8 @@ class EditProfilePage extends HookConsumerWidget {
                                   initials,
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
-                                    color: PPaymobileColors.mainScreenBackground,
+                                    color:
+                                        PPaymobileColors.mainScreenBackground,
                                     fontSize: 28.sp,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -163,7 +153,10 @@ class EditProfilePage extends HookConsumerWidget {
                                 width: 14.w,
                                 height: 14.w,
                                 fit: BoxFit.contain,
-                                colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                                colorFilter: const ColorFilter.mode(
+                                  Colors.white,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ),
                           ),
@@ -177,10 +170,16 @@ class EditProfilePage extends HookConsumerWidget {
                     child: Container(
                       height: 40.h,
                       width: 134.w,
-                      padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 8.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 19.w,
+                        vertical: 8.h,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6).r,
-                        border: Border.all(width: 1.w, color: PPaymobileColors.textfiedBorder),
+                        border: Border.all(
+                          width: 1.w,
+                          color: PPaymobileColors.textfiedBorder,
+                        ),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -188,7 +187,10 @@ class EditProfilePage extends HookConsumerWidget {
                           SizedBox(
                             height: 14.h,
                             width: 15.w,
-                            child: SvgPicture.asset('assets/icon/camera.svg', fit: BoxFit.contain),
+                            child: SvgPicture.asset(
+                              'assets/icon/camera.svg',
+                              fit: BoxFit.contain,
+                            ),
                           ),
                           6.horizontalSpace,
                           Text(
@@ -213,12 +215,17 @@ class EditProfilePage extends HookConsumerWidget {
                       Container(
                         height: 52.h,
                         width: double.infinity,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6).r),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6).r,
+                        ),
                         child: TextFormField(
                           controller: nameController,
                           textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 14.h,
+                            ),
                             hintText: 'Full Name',
                             hintStyle: TextStyle(
                               fontFamily: 'InstrumentSans',
@@ -228,11 +235,17 @@ class EditProfilePage extends HookConsumerWidget {
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfiedBorder,
+                                width: 1.w,
+                              ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
+                              borderSide: BorderSide(
+                                color: PPaymobileColors.textfiedBorder,
+                                width: 1.w,
+                              ),
                             ),
                           ),
                         ),
@@ -258,7 +271,10 @@ class EditProfilePage extends HookConsumerWidget {
                           }
                         },
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 14.h,
+                          ),
                           hintText: 'DD/MM/YYYY',
                           hintStyle: TextStyle(
                             fontFamily: 'InstrumentSans',
@@ -269,71 +285,23 @@ class EditProfilePage extends HookConsumerWidget {
                           suffixIcon: SizedBox(
                             height: 24.w,
                             width: 24.w,
-                            child: SvgPicture.asset('assets/icon/calendar.svg', fit: BoxFit.scaleDown),
+                            child: SvgPicture.asset(
+                              'assets/icon/calendar.svg',
+                              fit: BoxFit.scaleDown,
+                            ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.r),
-                            borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfiedBorder,
+                              width: 1.w,
+                            ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.r),
-                            borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
-                          ),
-                        ),
-                      ),
-                      24.verticalSpace,
-                      const PPLabel(text: 'Gender'),
-                      4.verticalSpace,
-                      TouchOpacity(
-                        onTap: () async {
-                          final result = await showModalBottomSheet<String>(
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (_) => const GenderBottomsheet(),
-                          );
-                          if (result != null) genderController.text = result;
-                        },
-                        child: Container(
-                          height: 52.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6).r),
-                          child: TextFormField(
-                            controller: genderController,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.h),
-                              hintText: 'Select',
-                              hintStyle: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
-                                color: PPaymobileColors.textfiedBorder,
-                              ),
-                              suffixIcon: TouchOpacity(
-                                onTap: () async {
-                                  final result = await showModalBottomSheet<String>(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    builder: (_) => const GenderBottomsheet(),
-                                  );
-                                  if (result != null) genderController.text = result;
-                                },
-                                child: SizedBox(
-                                  height: 14.h,
-                                  width: 8.w,
-                                  child: SvgPicture.asset('assets/icon/arrow_down.svg', fit: BoxFit.scaleDown),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6.r),
-                                borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6.r),
-                                borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
-                              ),
+                            borderSide: BorderSide(
+                              color: PPaymobileColors.textfiedBorder,
+                              width: 1.w,
                             ),
                           ),
                         ),

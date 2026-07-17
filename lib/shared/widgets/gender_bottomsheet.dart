@@ -77,12 +77,14 @@ class GenderBottomsheet extends HookConsumerWidget {
   Widget _optionTile(String value, ValueNotifier<String> selectedValue, BuildContext context) {
     final isSelected = selectedValue.value == value;
 
-    return SizedBox(
-      child: GestureDetector(
-        onTap: () {
-          selectedValue.value = value;
-          Navigator.pop(context, value.toLowerCase());
-        },
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        selectedValue.value = value;
+        Navigator.pop(context, value.toLowerCase());
+      },
+      child: SizedBox(
+        width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -26,13 +26,6 @@ class ProfilePage extends HookConsumerWidget {
       return user.fullName.isNotEmpty ? user.fullName[0].toUpperCase() : '';
     }, [user?.fullName]);
 
-    final tierLabel = useMemoized(() {
-      if (user == null) return 'Tier 1';
-      return 'Tier ${user.tier}';
-    }, [user?.tier]);
-
-    final isVerified = user?.isKycVerified ?? false;
-
     String formatDob(String? dob) {
       if (dob == null || dob.isEmpty) return 'Not set';
       try {
@@ -71,167 +64,69 @@ class ProfilePage extends HookConsumerWidget {
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 25.h),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 32.h),
               color: PPaymobileColors.mainScreenBackground,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  45.verticalSpace,
-                  Container(
-                    height: 68.w,
-                    width: 68.w,
-                    color: Colors.transparent,
+                  GestureDetector(
+                    onTap: () => context.router.push(EditProfileRoute()),
                     child: Stack(
                       children: [
                         user?.picture != null
                             ? CircleAvatar(
-                                radius: 31.5.r,
+                                radius: 40.r,
                                 backgroundImage: NetworkImage(user!.picture!),
                               )
                             : CircleAvatar(
-                                radius: 31.5.r,
+                                radius: 40.r,
                                 backgroundColor: PPaymobileColors.backgroundColor,
-                                child: Center(
-                                  child: Text(
-                                    initials,
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: PPaymobileColors.mainScreenBackground,
-                                      fontSize: 24.sp,
-                                      fontWeight: FontWeight.w800,
-                                    ),
+                                child: Text(
+                                  initials,
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: PPaymobileColors.mainScreenBackground,
+                                    fontSize: 26.sp,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
                         Positioned(
-                          right: 5.w,
-                          bottom: 5.h,
+                          right: 0,
+                          bottom: 0,
                           child: CircleAvatar(
                             backgroundColor: PPaymobileColors.deepBackgroundColor,
-                            radius: 8.r,
-                            child: Center(
-                              child: SizedBox(
-                                height: 12.w,
-                                width: 12.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/edit.svg',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
+                            radius: 10.r,
+                            child: SvgPicture.asset(
+                              'assets/icon/edit.svg',
+                              width: 12.w,
+                              height: 12.w,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  4.verticalSpace,
+                  12.verticalSpace,
                   Text(
                     user?.fullName ?? '',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       color: Colors.black,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  25.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Account Level:',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            height: 19.w,
-                            width: 19.w,
-                            child: Image.asset(
-                              'assets/images/award.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tierLabel,
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.doneTextColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12.w,
-                                height: 24.h,
-                                child: SvgPicture.asset(
-                                  'assets/icon/arrow_forward.svg',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  19.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Account Verification:',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Container(
-                        height: 24.h,
-                        width: 80.w,
-                        padding: EdgeInsets.symmetric(horizontal: 7.w),
-                        color: isVerified
-                            ? PPaymobileColors.doneColor
-                            : PPaymobileColors.deepBackgroundColor,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 12.w,
-                              width: 12.w,
-                              child: SvgPicture.asset(
-                                isVerified
-                                    ? 'assets/icon/check.svg'
-                                    : 'assets/icon/cancel.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            6.horizontalSpace,
-                            Text(
-                              isVerified ? 'Verified' : 'Pending',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: isVerified
-                                    ? PPaymobileColors.highlightTextColor
-                                    : PPaymobileColors.svgIconColor,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  4.verticalSpace,
+                  Text(
+                    user?.emailAddress ?? '',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.svgIconColor,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ],
               ),
@@ -239,64 +134,45 @@ class ProfilePage extends HookConsumerWidget {
             16.verticalSpace,
             Container(
               width: double.infinity,
-              padding: EdgeInsets.only(
-                left: 20.w,
-                top: 24.w,
-                right: 20.w,
-                bottom: 24.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
               color: PPaymobileColors.mainScreenBackground,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _ProfileRow(label: 'Full Name:', value: user?.fullName ?? '—'),
-                  24.verticalSpace,
-                  _ProfileRow(label: 'Email Address:', value: user?.emailAddress ?? '—'),
-                  24.verticalSpace,
-                  _ProfileRow(label: 'Date of Birth:', value: formatDob(user?.dob)),
-                  24.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Phone No:',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            user?.phoneNumber ?? '—',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          6.horizontalSpace,
-                          SizedBox(
-                            height: 20.w,
-                            width: 20.w,
-                            child: SvgPicture.asset(
-                              'assets/icon/paste.svg',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  Text(
+                    'Personal Information',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: Colors.black,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  20.verticalSpace,
+                  _ProfileRow(label: 'Full Name', value: user?.fullName ?? '—'),
+                  _ProfileDivider(),
+                  _ProfileRow(label: 'Email Address', value: user?.emailAddress ?? '—'),
+                  _ProfileDivider(),
+                  _ProfileRow(label: 'Phone Number', value: user?.phoneNumber ?? '—'),
+                  _ProfileDivider(),
+                  _ProfileRow(label: 'Date of Birth', value: formatDob(user?.dob)),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ProfileDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      height: 1,
+      thickness: 1,
+      color: PPaymobileColors.deepBackgroundColor,
     );
   }
 }
@@ -309,28 +185,35 @@ class _ProfileRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: PPaymobileColors.svgIconColor,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: PPaymobileColors.svgIconColor,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontFamily: 'InstrumentSans',
-            color: Colors.black,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500,
+          Flexible(
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

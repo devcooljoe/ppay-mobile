@@ -9,12 +9,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.dart';
 import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/core/providers/inactivity_provider.dart';
-import 'package:ppay_mobile/core/services/notification_service.dart';
+import 'package:ppay_mobile/core/services/app_update_service.dart';
+import 'package:ppay_mobile/core/services/firebase_messaging_service.dart';
 import 'package:ppay_mobile/core/widgets/activity_tracker.dart';
 import 'package:ppay_mobile/core/widgets/inactivity_handler.dart';
 import 'package:ppay_mobile/core/widgets/navigation_handler.dart';
 import 'package:ppay_mobile/firebase_options.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:upgrader/upgrader.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +35,15 @@ Future<void> main() async {
   );
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await getIt<NotificationService>().initialize();
+
+  final messagingService = getIt<FirebaseMessagingService>();
+  await messagingService.initialize();
+
+  if (Platform.isAndroid) {
+    final updateService = getIt<AppUpdateService>();
+    await updateService.checkForUpdate();
+  }
+
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -58,29 +68,38 @@ class MyApp extends HookConsumerWidget {
           left: false,
           top: false,
           bottom: Platform.isAndroid,
-          child: MaterialApp.router(
-            title: 'Pinnacle Pay',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              useMaterial3: true,
-              colorScheme: ColorScheme.light(
-                primary: PPaymobileColors.buttonColor,
-              ),
-            ),
-            routerConfig: _appRouter.config(),
-            builder: (context, child) {
-              return InactivityHandler(
-                router: _appRouter,
-                child: ActivityTracker(
-                  child: NavigationHandler(router: _appRouter, child: child!),
-                ),
-              );
-            },
-          ),
+          child: Platform.isIOS
+              ? UpgradeAlert(
+                  upgrader: Upgrader(
+                    durationUntilAlertAgain: const Duration(days: 1),
+                  ),
+                  child: _buildMaterialApp(),
+                )
+              : _buildMaterialApp(),
         );
       },
       designSize: const Size(440, 920),
       minTextAdapt: true,
+    );
+  }
+
+  Widget _buildMaterialApp() {
+    return MaterialApp.router(
+      title: 'Pinnacle Pay',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.light(primary: PPaymobileColors.buttonColor),
+      ),
+      routerConfig: _appRouter.config(),
+      builder: (context, child) {
+        return InactivityHandler(
+          router: _appRouter,
+          child: ActivityTracker(
+            child: NavigationHandler(router: _appRouter, child: child!),
+          ),
+        );
+      },
     );
   }
 }

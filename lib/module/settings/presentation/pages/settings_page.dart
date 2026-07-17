@@ -41,6 +41,55 @@ class SettingsPage extends HookConsumerWidget {
     }, [user?.tier]);
 
     Future<void> handleLogout() async {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: PPaymobileColors.mainScreenBackground,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+          title: Text(
+            'Log out',
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          content: Text(
+            'Are you sure you want to log out of your account?',
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              fontSize: 14.sp,
+              color: PPaymobileColors.svgIconColor,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text(
+                'Log out',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.transactRed,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true) return;
       AppLoader.show(context);
       await getIt<TokenService>().clearToken();
       ref.read(authenticatedUserProvider.notifier).updateUser(
@@ -224,14 +273,28 @@ class SettingsPage extends HookConsumerWidget {
                     title: 'KYC Verification',
                     onTap: () => context.router.push(ReviewDocumentRoute()),
                     trailing: Container(
-                      height: 29.h,
-                      width: 59.w,
+                      height: 24.h,
+                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
                       decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/verified.png'),
-                          fit: BoxFit.contain,
-                        ),
+                        color: (user?.isKycVerified ?? false)
+                            ? PPaymobileColors.doneColor
+                            : PPaymobileColors.warningColor,
                         borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      child: Text(
+                        (user?.isKycVerified ?? false)
+                            ? 'Verified'
+                            : (user?.isKycSubmitted ?? false)
+                                ? 'Pending'
+                                : 'Not verified',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w500,
+                          color: (user?.isKycVerified ?? false)
+                              ? PPaymobileColors.doneTextColor
+                              : PPaymobileColors.warningTextColor,
+                        ),
                       ),
                     ),
                   ),
@@ -289,12 +352,6 @@ class SettingsPage extends HookConsumerWidget {
                         onChanged: (_) => handleBiometricToggle(),
                       ),
                     ),
-                  ),
-                  12.verticalSpace,
-                  SettingsMenuItem(
-                    imagePath: 'assets/images/notif_set.png',
-                    title: 'Notification Settings',
-                    onTap: () => context.router.push(NotificationRoute()),
                   ),
                 ],
               ),

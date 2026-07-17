@@ -21,18 +21,15 @@ class PinResetPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Step 0 = OTP entry, Step 1 = new PIN entry
+    // step 0 = OTP, step 1 = enter new PIN, step 2 = confirm PIN
     final step = useState(0);
     final resetToken = useState<String?>(null);
     final otpController = useTextEditingController();
     final pinController = useTextEditingController();
     final confirmPinController = useTextEditingController();
 
-    // Trigger ForgotPin on page load
     useEffect(() {
-      Future.microtask(() {
-        ref.read(forgotPinProvider.notifier).call();
-      });
+      Future.microtask(() => ref.read(forgotPinProvider.notifier).call());
       return null;
     }, []);
 
@@ -68,24 +65,35 @@ class PinResetPage extends HookConsumerWidget {
         AppLoader.hide(context);
         if (next.hasError) {
           MessageHandler.showErrorSnackBar(context, next.error.toString());
-        } else if (!next.isLoading) {
+        } else if (!next.isLoading && !next.hasError) {
           context.router.replace(const PinResetCompleteRoute());
         }
       }
     });
 
     void onKeyTap(String value) {
-      final controller = step.value == 0 ? otpController : pinController;
-      final limit = step.value == 0 ? 6 : 4;
-      if (controller.text.length < limit) {
-        controller.text += value;
+      if (step.value == 0) {
+        if (otpController.text.length < 6) otpController.text += value;
+      } else if (step.value == 1) {
+        if (pinController.text.length < 4) pinController.text += value;
+      } else {
+        if (confirmPinController.text.length < 4) confirmPinController.text += value;
       }
     }
 
     void onDelete() {
-      final controller = step.value == 0 ? otpController : pinController;
-      if (controller.text.isNotEmpty) {
-        controller.text = controller.text.substring(0, controller.text.length - 1);
+      if (step.value == 0) {
+        if (otpController.text.isNotEmpty) {
+          otpController.text = otpController.text.substring(0, otpController.text.length - 1);
+        }
+      } else if (step.value == 1) {
+        if (pinController.text.isNotEmpty) {
+          pinController.text = pinController.text.substring(0, pinController.text.length - 1);
+        }
+      } else {
+        if (confirmPinController.text.isNotEmpty) {
+          confirmPinController.text = confirmPinController.text.substring(0, confirmPinController.text.length - 1);
+        }
       }
     }
 
@@ -98,15 +106,24 @@ class PinResetPage extends HookConsumerWidget {
       ref.read(verifyForgotPinOtpProvider.notifier).call(otpCode: otp);
     }
 
-    void handleResetPin() {
+    void handlePinEntered() {
+      if (pinController.text.length != 4) {
+        MessageHandler.showErrorSnackBar(context, 'Please enter a 4-digit PIN');
+        return;
+      }
+      step.value = 2;
+    }
+
+    void handleConfirmPin() {
       final pin = pinController.text;
       final confirm = confirmPinController.text;
-      if (pin.length != 4) {
-        MessageHandler.showErrorSnackBar(context, 'Please enter a 4-digit PIN');
+      if (confirm.length != 4) {
+        MessageHandler.showErrorSnackBar(context, 'Please confirm your 4-digit PIN');
         return;
       }
       if (pin != confirm) {
         MessageHandler.showErrorSnackBar(context, 'PINs do not match');
+        confirmPinController.clear();
         return;
       }
       ref.read(resetPinProvider.notifier).call(
@@ -118,7 +135,14 @@ class PinResetPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: const PPAppBar(),
+      appBar: PPAppBar(
+        onBackPressed: step.value > 0
+            ? () {
+                if (step.value == 2) confirmPinController.clear();
+                step.value = step.value - 1;
+              }
+            : null,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
         child: step.value == 0
@@ -129,13 +153,25 @@ class PinResetPage extends HookConsumerWidget {
                 onVerify: handleVerifyOtp,
                 onResend: () => ref.read(forgotPinProvider.notifier).call(),
               )
-            : _NewPinStep(
-                pinController: pinController,
-                confirmPinController: confirmPinController,
-                onKeyTap: onKeyTap,
-                onDelete: onDelete,
-                onSubmit: handleResetPin,
-              ),
+            : step.value == 1
+                ? _PinEntryStep(
+                    label: 'New Security PIN',
+                    subtitle: 'Enter a new 4-digit security PIN',
+                    pinController: pinController,
+                    onKeyTap: onKeyTap,
+                    onDelete: onDelete,
+                    onSubmit: handlePinEntered,
+                    buttonLabel: 'Continue',
+                  )
+                : _PinEntryStep(
+                    label: 'Confirm PIN',
+                    subtitle: 'Re-enter your new 4-digit PIN to confirm',
+                    pinController: confirmPinController,
+                    onKeyTap: onKeyTap,
+                    onDelete: onDelete,
+                    onSubmit: handleConfirmPin,
+                    buttonLabel: 'Reset PIN',
+                  ),
       ),
     );
   }
@@ -222,29 +258,25 @@ class _OtpStep extends StatelessWidget {
               ],
             ),
             29.verticalSpace,
-            KeyboardContainer(
-              child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
-            ),
+            KeyboardContainer(child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete)),
             24.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.buttonColorandText,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(42)),
-                    elevation: 0,
-                  ),
-                  onPressed: onVerify,
-                  child: Text(
-                    'Verify OTP',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.white,
-                    ),
+            SizedBox(
+              width: double.infinity,
+              height: 50.h,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: PPaymobileColors.buttonColorandText,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(42)),
+                  elevation: 0,
+                ),
+                onPressed: onVerify,
+                child: Text(
+                  'Verify OTP',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -256,19 +288,23 @@ class _OtpStep extends StatelessWidget {
   }
 }
 
-class _NewPinStep extends StatelessWidget {
+class _PinEntryStep extends StatelessWidget {
+  final String label;
+  final String subtitle;
   final TextEditingController pinController;
-  final TextEditingController confirmPinController;
   final void Function(String) onKeyTap;
   final VoidCallback onDelete;
   final VoidCallback onSubmit;
+  final String buttonLabel;
 
-  const _NewPinStep({
+  const _PinEntryStep({
+    required this.label,
+    required this.subtitle,
     required this.pinController,
-    required this.confirmPinController,
     required this.onKeyTap,
     required this.onDelete,
     required this.onSubmit,
+    required this.buttonLabel,
   });
 
   @override
@@ -277,7 +313,7 @@ class _NewPinStep extends StatelessWidget {
       children: [
         24.verticalSpace,
         Text(
-          'New Security PIN',
+          label,
           style: TextStyle(
             fontFamily: 'InstrumentSans',
             color: PPaymobileColors.buttonColorandText,
@@ -287,7 +323,7 @@ class _NewPinStep extends StatelessWidget {
         ),
         4.verticalSpace,
         Text(
-          'Enter a new 4-digit security PIN',
+          subtitle,
           style: TextStyle(
             fontFamily: 'InstrumentSans',
             color: PPaymobileColors.svgIconColor,
@@ -310,28 +346,8 @@ class _NewPinStep extends StatelessWidget {
               child: SvgPicture.asset('assets/icon/lock_green.svg', fit: BoxFit.contain),
             ),
             24.verticalSpace,
-            Text('New PIN', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp, color: PPaymobileColors.svgIconColor)),
-            8.verticalSpace,
             Pinput(
               controller: pinController,
-              length: 4,
-              keyboardType: TextInputType.none,
-              separatorBuilder: (index) => 18.horizontalSpace,
-              defaultPinTheme: PinTheme(
-                width: 52.w,
-                height: 49.h,
-                textStyle: TextStyle(fontSize: 20.sp, color: Colors.black, fontWeight: FontWeight.w600),
-                decoration: BoxDecoration(
-                  border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.w),
-                  borderRadius: BorderRadius.circular(6.r),
-                ),
-              ),
-            ),
-            20.verticalSpace,
-            Text('Confirm PIN', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp, color: PPaymobileColors.svgIconColor)),
-            8.verticalSpace,
-            Pinput(
-              controller: confirmPinController,
               length: 4,
               keyboardType: TextInputType.none,
               separatorBuilder: (index) => 18.horizontalSpace,
@@ -352,37 +368,33 @@ class _NewPinStep extends StatelessWidget {
               style: TextStyle(fontSize: 13.sp, color: Colors.black),
             ),
             29.verticalSpace,
-            KeyboardContainer(
-              child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
-            ),
+            KeyboardContainer(child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete)),
             24.verticalSpace,
-            TouchOpacity(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: PPaymobileColors.buttonColorandText,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(42)),
-                    elevation: 0,
-                  ),
-                  onPressed: onSubmit,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Reset PIN',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.white,
-                        ),
+            SizedBox(
+              width: double.infinity,
+              height: 50.h,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: PPaymobileColors.buttonColorandText,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(42)),
+                  elevation: 0,
+                ),
+                onPressed: onSubmit,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      buttonLabel,
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
+                        color: Colors.white,
                       ),
-                      10.horizontalSpace,
-                      SvgPicture.asset('assets/icon/arrow_forwardw.svg', height: 24.w, width: 24.w, fit: BoxFit.contain),
-                    ],
-                  ),
+                    ),
+                    10.horizontalSpace,
+                    SvgPicture.asset('assets/icon/arrow_forwardw.svg', height: 24.w, width: 24.w, fit: BoxFit.contain),
+                  ],
                 ),
               ),
             ),
