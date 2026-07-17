@@ -230,6 +230,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i713.OnboardingLocalDataSource());
     gh.lazySingleton<_i892.FirebaseMessaging>(
         () => firebaseModule.firebaseMessaging);
+    gh.lazySingleton<_i163.FlutterLocalNotificationsPlugin>(
+        () => firebaseModule.localNotifications);
     gh.lazySingleton<_i403.UserAgentInterceptor>(
         () => _i403.UserAgentInterceptor());
     gh.lazySingleton<_i1017.EventBus>(() => dioModule.eventBus());

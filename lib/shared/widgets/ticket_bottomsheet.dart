@@ -7,7 +7,6 @@ import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/support_ticket/presentation/providers/support_ticket_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
-import 'package:ppay_mobile/shared/widgets/live_chat_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 void showSupportTicketSheet(BuildContext context) {
@@ -149,7 +148,7 @@ class _TicketListSheet extends HookConsumerWidget {
                           final ticket = state.tickets[index];
                           return TouchOpacity(
                             onTap: () {
-                              showLiveChatSheetForTicket(context, ticket.id, ticket.subject);
+                              showTicketChatSheet(context, ticket.id, ticket.subject);
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 14.h),
@@ -545,6 +544,199 @@ class _StatusBadge extends StatelessWidget {
           color: fg,
           fontWeight: FontWeight.w600,
         ),
+      ),
+    );
+  }
+}
+
+// ── Ticket chat sheet ────────────────────────────────────────────────────────
+
+void showTicketChatSheet(BuildContext context, String ticketId, String subject) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (_) => _TicketChatSheet(ticketId: ticketId, subject: subject),
+  );
+}
+
+class _TicketChatSheet extends HookConsumerWidget {
+  final String ticketId;
+  final String subject;
+  const _TicketChatSheet({required this.ticketId, required this.subject});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(ticketChatProvider(ticketId));
+    final ctrl = useTextEditingController();
+    final scrollCtrl = useScrollController();
+
+    useEffect(() {
+      Future.microtask(() => ref.read(ticketChatProvider(ticketId).notifier).loadMessages());
+      return null;
+    }, []);
+
+    useEffect(() {
+      if (state.messages.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (scrollCtrl.hasClients) {
+            scrollCtrl.animateTo(
+              scrollCtrl.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+            );
+          }
+        });
+      }
+      return null;
+    }, [state.messages.length]);
+
+    return FractionallySizedBox(
+      heightFactor: 0.88,
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: SizedBox(
+                height: 18.h,
+                width: 18.h,
+                child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+              ),
+            ),
+          ),
+          10.verticalSpace,
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: PPaymobileColors.mainScreenBackground,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    subject,
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                  12.verticalSpace,
+                  Expanded(
+                    child: state.isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : state.messages.isEmpty
+                            ? Center(
+                                child: Text(
+                                  'No messages yet',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    fontSize: 14.sp,
+                                    color: PPaymobileColors.svgIconColor,
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                controller: scrollCtrl,
+                                itemCount: state.messages.length,
+                                itemBuilder: (_, i) {
+                                  final msg = state.messages[i];
+                                  final isUser = msg.sender == 'user';
+                                  return Align(
+                                    alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10.h),
+                                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                                      constraints: BoxConstraints(maxWidth: 0.72.sw),
+                                      decoration: BoxDecoration(
+                                        color: isUser
+                                            ? PPaymobileColors.buttonColor
+                                            : PPaymobileColors.textfiedBorder.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(12.r),
+                                      ),
+                                      child: Text(
+                                        msg.body,
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          fontSize: 14.sp,
+                                          color: isUser ? Colors.white : Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 12.h),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: ctrl,
+                            decoration: InputDecoration(
+                              hintText: 'Type a message...',
+                              hintStyle: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontSize: 14.sp,
+                                color: PPaymobileColors.svgIconColor,
+                              ),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.r),
+                                borderSide: BorderSide(color: PPaymobileColors.textfiedBorder),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.r),
+                                borderSide: BorderSide(color: PPaymobileColors.textfiedBorder),
+                              ),
+                            ),
+                          ),
+                        ),
+                        10.horizontalSpace,
+                        TouchOpacity(
+                          onTap: state.isSending
+                              ? null
+                              : () {
+                                  final text = ctrl.text.trim();
+                                  if (text.isEmpty) return;
+                                  ctrl.clear();
+                                  ref.read(ticketChatProvider(ticketId).notifier).sendMessage(text);
+                                },
+                          child: Container(
+                            width: 44.w,
+                            height: 44.w,
+                            decoration: BoxDecoration(
+                              color: PPaymobileColors.buttonColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: state.isSending
+                                ? const Padding(
+                                    padding: EdgeInsets.all(12),
+                                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                                  )
+                                : const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
