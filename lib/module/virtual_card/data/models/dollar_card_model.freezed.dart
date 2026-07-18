@@ -21,6 +21,8 @@ DollarCardModel _$DollarCardModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DollarCardModel {
   String get id => throw _privateConstructorUsedError;
+  String get dbId => throw _privateConstructorUsedError;
+  String get brand => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get cardNumber => throw _privateConstructorUsedError;
   String get maskedPan => throw _privateConstructorUsedError;
@@ -50,6 +52,8 @@ abstract class $DollarCardModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String dbId,
+      String brand,
       String name,
       String cardNumber,
       String maskedPan,
@@ -82,6 +86,8 @@ class _$DollarCardModelCopyWithImpl<$Res, $Val extends DollarCardModel>
   @override
   $Res call({
     Object? id = null,
+    Object? dbId = null,
+    Object? brand = null,
     Object? name = null,
     Object? cardNumber = null,
     Object? maskedPan = null,
@@ -101,6 +107,14 @@ class _$DollarCardModelCopyWithImpl<$Res, $Val extends DollarCardModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      dbId: null == dbId
+          ? _value.dbId
+          : dbId // ignore: cast_nullable_to_non_nullable
+              as String,
+      brand: null == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -180,6 +194,8 @@ abstract class _$$DollarCardModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String dbId,
+      String brand,
       String name,
       String cardNumber,
       String maskedPan,
@@ -211,6 +227,8 @@ class __$$DollarCardModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? dbId = null,
+    Object? brand = null,
     Object? name = null,
     Object? cardNumber = null,
     Object? maskedPan = null,
@@ -230,6 +248,14 @@ class __$$DollarCardModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      dbId: null == dbId
+          ? _value.dbId
+          : dbId // ignore: cast_nullable_to_non_nullable
+              as String,
+      brand: null == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -296,6 +322,8 @@ class __$$DollarCardModelImplCopyWithImpl<$Res>
 class _$DollarCardModelImpl extends _DollarCardModel {
   const _$DollarCardModelImpl(
       {required this.id,
+      required this.dbId,
+      required this.brand,
       required this.name,
       required this.cardNumber,
       required this.maskedPan,
@@ -317,6 +345,10 @@ class _$DollarCardModelImpl extends _DollarCardModel {
 
   @override
   final String id;
+  @override
+  final String dbId;
+  @override
+  final String brand;
   @override
   final String name;
   @override
@@ -348,7 +380,7 @@ class _$DollarCardModelImpl extends _DollarCardModel {
 
   @override
   String toString() {
-    return 'DollarCardModel(id: $id, name: $name, cardNumber: $cardNumber, maskedPan: $maskedPan, expiry: $expiry, cvv: $cvv, status: $status, type: $type, issuer: $issuer, currency: $currency, balance: $balance, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, rate: $rate)';
+    return 'DollarCardModel(id: $id, dbId: $dbId, brand: $brand, name: $name, cardNumber: $cardNumber, maskedPan: $maskedPan, expiry: $expiry, cvv: $cvv, status: $status, type: $type, issuer: $issuer, currency: $currency, balance: $balance, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, rate: $rate)';
   }
 
   @override
@@ -357,6 +389,8 @@ class _$DollarCardModelImpl extends _DollarCardModel {
         (other.runtimeType == runtimeType &&
             other is _$DollarCardModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.dbId, dbId) || other.dbId == dbId) &&
+            (identical(other.brand, brand) || other.brand == brand) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.cardNumber, cardNumber) ||
                 other.cardNumber == cardNumber) &&
@@ -383,6 +417,8 @@ class _$DollarCardModelImpl extends _DollarCardModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      dbId,
+      brand,
       name,
       cardNumber,
       maskedPan,
@@ -416,6 +452,8 @@ class _$DollarCardModelImpl extends _DollarCardModel {
 abstract class _DollarCardModel extends DollarCardModel {
   const factory _DollarCardModel(
       {required final String id,
+      required final String dbId,
+      required final String brand,
       required final String name,
       required final String cardNumber,
       required final String maskedPan,
@@ -437,6 +475,10 @@ abstract class _DollarCardModel extends DollarCardModel {
 
   @override
   String get id;
+  @override
+  String get dbId;
+  @override
+  String get brand;
   @override
   String get name;
   @override

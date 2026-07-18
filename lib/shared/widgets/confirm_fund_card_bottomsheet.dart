@@ -6,6 +6,7 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/fund_card_pin_bottomsheet.dart';
 
 class ConfirmFundCardBottomsheet extends HookConsumerWidget {
+  final String cardId;
   final double amountUsd;
   final double nairaAmount;
   final double rate;
@@ -13,6 +14,7 @@ class ConfirmFundCardBottomsheet extends HookConsumerWidget {
 
   const ConfirmFundCardBottomsheet({
     super.key,
+    required this.cardId,
     required this.amountUsd,
     required this.nairaAmount,
     required this.rate,
@@ -28,6 +30,7 @@ class ConfirmFundCardBottomsheet extends HookConsumerWidget {
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
           builder: (_) => FundCardPinBottomsheet(
+            cardId: cardId,
             amountUsd: amountUsd,
             nairaAmount: nairaAmount,
             rate: rate,

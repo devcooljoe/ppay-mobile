@@ -6,7 +6,7 @@ part of 'virtual_card_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$createDollarCardHash() => r'0988408ab82266ab4997fbed1c85cc4cc15d0c50';
+String _$createDollarCardHash() => r'1468624949eb75151ed1a64b1c3c3e50025be5ff';
 
 /// See also [CreateDollarCard].
 @ProviderFor(CreateDollarCard)
@@ -22,7 +22,39 @@ final createDollarCardProvider =
 );
 
 typedef _$CreateDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
-String _$getDollarCardHash() => r'0057fe4941e7591f967a267b11d682f367918bef';
+String _$addDollarCardHash() => r'7cccc259504d351f7bcaad6d8eddf7cccff52ee6';
+
+/// See also [AddDollarCard].
+@ProviderFor(AddDollarCard)
+final addDollarCardProvider =
+    AutoDisposeNotifierProvider<AddDollarCard, AsyncValue<void>>.internal(
+  AddDollarCard.new,
+  name: r'addDollarCardProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$addDollarCardHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AddDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
+String _$getDollarCardsHash() => r'66ecee6267c56c403445fabcbb677c5d1d213529';
+
+/// See also [GetDollarCards].
+@ProviderFor(GetDollarCards)
+final getDollarCardsProvider = NotifierProvider<GetDollarCards,
+    AsyncValue<List<DollarCardEntity>>>.internal(
+  GetDollarCards.new,
+  name: r'getDollarCardsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getDollarCardsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$GetDollarCards = Notifier<AsyncValue<List<DollarCardEntity>>>;
+String _$getDollarCardHash() => r'6eb0649377f057c0c31b920a4d814a5a0cbf780d';
 
 /// See also [GetDollarCard].
 @ProviderFor(GetDollarCard)
@@ -38,7 +70,7 @@ final getDollarCardProvider = AutoDisposeNotifierProvider<GetDollarCard,
 );
 
 typedef _$GetDollarCard = AutoDisposeNotifier<AsyncValue<DollarCardEntity?>>;
-String _$fundDollarCardHash() => r'08613279cb609f2946b1e680462537276ac6f6ad';
+String _$fundDollarCardHash() => r'5e7ec7fb7b7f6b3ca3052e500fbb8a6cf5dc9f18';
 
 /// See also [FundDollarCard].
 @ProviderFor(FundDollarCard)
@@ -55,7 +87,7 @@ final fundDollarCardProvider =
 
 typedef _$FundDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
 String _$withdrawDollarCardHash() =>
-    r'f0f9f961a9b6439a46259d500fb7745c01177a15';
+    r'b41deb7ca384483929340e79eb95a81efa20ac5e';
 
 /// See also [WithdrawDollarCard].
 @ProviderFor(WithdrawDollarCard)
@@ -72,7 +104,7 @@ final withdrawDollarCardProvider =
 
 typedef _$WithdrawDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
 String _$getDollarCardTransactionsHash() =>
-    r'2222411f50a6a6f149d8b4540e5f6e02b9ea4033';
+    r'2a881c0e3eae26b447e95c5d1b587f5704d66e2d';
 
 /// See also [GetDollarCardTransactions].
 @ProviderFor(GetDollarCardTransactions)
@@ -90,7 +122,7 @@ final getDollarCardTransactionsProvider = AutoDisposeNotifierProvider<
 
 typedef _$GetDollarCardTransactions
     = AutoDisposeNotifier<AsyncValue<List<DollarCardTransactionEntity>?>>;
-String _$freezeDollarCardHash() => r'55d156d8e6d961657a3c9c67fac085ad9236bec9';
+String _$freezeDollarCardHash() => r'ffa095774e0ed85d352d667cbbeacc2071978244';
 
 /// See also [FreezeDollarCard].
 @ProviderFor(FreezeDollarCard)
@@ -107,7 +139,7 @@ final freezeDollarCardProvider =
 
 typedef _$FreezeDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
 String _$unfreezeDollarCardHash() =>
-    r'29bd2b81cffc0cd91912ab735a7dedf210bbd5a6';
+    r'd31725920f1124401740613c56a48c4ef73742d1';
 
 /// See also [UnfreezeDollarCard].
 @ProviderFor(UnfreezeDollarCard)
@@ -124,7 +156,7 @@ final unfreezeDollarCardProvider =
 
 typedef _$UnfreezeDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
 String _$terminateDollarCardHash() =>
-    r'af3f9b44c6930d4a25a24ae31b00f024ed80c1e6';
+    r'02f0cea08e0899b3fb786da39961c292d0ecc19f';
 
 /// See also [TerminateDollarCard].
 @ProviderFor(TerminateDollarCard)

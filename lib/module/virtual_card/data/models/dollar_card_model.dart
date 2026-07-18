@@ -8,6 +8,8 @@ part 'dollar_card_model.g.dart';
 class DollarCardModel with _$DollarCardModel {
   const factory DollarCardModel({
     required String id,
+    required String dbId,
+    required String brand,
     required String name,
     required String cardNumber,
     required String maskedPan,
@@ -28,8 +30,10 @@ class DollarCardModel with _$DollarCardModel {
 
   factory DollarCardModel.fromJson(Map<String, dynamic> json) => _$DollarCardModelFromJson(json);
 
-  DollarCardEntity toEntity() => DollarCardEntity(
+  DollarCardEntity toEntity({String color = 'teal'}) => DollarCardEntity(
     id: id,
+    dbId: dbId,
+    brand: brand,
     name: name,
     cardNumber: cardNumber,
     maskedPan: maskedPan,
@@ -44,6 +48,7 @@ class DollarCardModel with _$DollarCardModel {
     createdAt: createdAt,
     updatedAt: updatedAt,
     rate: rate,
+    color: color,
   );
 }
 

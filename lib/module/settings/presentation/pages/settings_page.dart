@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/core/services/token_service.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
@@ -13,8 +13,8 @@ import 'package:ppay_mobile/module/settings/presentation/providers/biometric_pro
 import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/settings_menu_item.dart';
-import 'package:flutter_svg/svg.dart';
 
 @RoutePage()
 class SettingsPage extends HookConsumerWidget {
@@ -45,7 +45,9 @@ class SettingsPage extends HookConsumerWidget {
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: PPaymobileColors.mainScreenBackground,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
           title: Text(
             'Log out',
             style: TextStyle(
@@ -92,20 +94,35 @@ class SettingsPage extends HookConsumerWidget {
       if (confirmed != true) return;
       AppLoader.show(context);
       await getIt<TokenService>().clearToken();
-      ref.read(authenticatedUserProvider.notifier).updateUser(
-        ref.read(authenticatedUserProvider).value!.copyWith(),
-      );
+      ref
+          .read(authenticatedUserProvider.notifier)
+          .updateUser(ref.read(authenticatedUserProvider).value!.copyWith());
       if (!context.mounted) return;
       AppLoader.hide(context);
       context.router.replaceAll([const LoginRoute()]);
     }
 
     Future<void> handleBiometricToggle() async {
+      final isAvailable = await ref
+          .read(biometricStateProvider.notifier)
+          .isBiometricAvailable();
+      if (!isAvailable && context.mounted) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Biometric authentication is not available on this device',
+        );
+        return;
+      }
       final toggled = await ref
           .read(biometricStateProvider.notifier)
-          .toggleBiometric('Authenticate to ${isBiometricEnabled ? 'disable' : 'enable'} biometric login');
+          .toggleBiometric(
+            'Authenticate to ${isBiometricEnabled ? 'disable' : 'enable'} biometric login',
+          );
       if (!toggled && context.mounted) {
-        MessageHandler.showErrorSnackBar(context, 'Biometric authentication failed');
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Biometric authentication failed',
+        );
       }
     }
 
@@ -125,52 +142,55 @@ class SettingsPage extends HookConsumerWidget {
                   GestureDetector(
                     onTap: () => context.router.push(EditProfileRoute()),
                     child: Container(
-                    height: 68.w,
-                    width: 68.w,
-                    color: Colors.transparent,
-                    child: Stack(
-                      children: [
-                        user?.picture != null
-                            ? CircleAvatar(
-                                radius: 31.5.r,
-                                backgroundImage: NetworkImage(user!.picture!),
-                              )
-                            : CircleAvatar(
-                                radius: 31.5.r,
-                                backgroundColor: PPaymobileColors.backgroundColor,
-                                child: Center(
-                                  child: Text(
-                                    initials,
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: PPaymobileColors.mainScreenBackground,
-                                      fontSize: 24.sp,
-                                      fontWeight: FontWeight.w800,
+                      height: 68.w,
+                      width: 68.w,
+                      color: Colors.transparent,
+                      child: Stack(
+                        children: [
+                          user?.picture != null
+                              ? CircleAvatar(
+                                  radius: 31.5.r,
+                                  backgroundImage: NetworkImage(user!.picture!),
+                                )
+                              : CircleAvatar(
+                                  radius: 31.5.r,
+                                  backgroundColor:
+                                      PPaymobileColors.backgroundColor,
+                                  child: Center(
+                                    child: Text(
+                                      initials,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        color: PPaymobileColors
+                                            .mainScreenBackground,
+                                        fontSize: 24.sp,
+                                        fontWeight: FontWeight.w800,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                        Positioned(
-                          right: 5.w,
-                          bottom: 5.h,
-                          child: CircleAvatar(
-                            backgroundColor: PPaymobileColors.deepBackgroundColor,
-                            radius: 8.r,
-                            child: Center(
-                              child: SizedBox(
-                                height: 12.w,
-                                width: 12.w,
-                                child: SvgPicture.asset(
-                                  'assets/icon/edit.svg',
-                                  fit: BoxFit.contain,
+                          Positioned(
+                            right: 5.w,
+                            bottom: 5.h,
+                            child: CircleAvatar(
+                              backgroundColor:
+                                  PPaymobileColors.deepBackgroundColor,
+                              radius: 8.r,
+                              child: Center(
+                                child: SizedBox(
+                                  height: 12.w,
+                                  width: 12.w,
+                                  child: SvgPicture.asset(
+                                    'assets/icon/edit.svg',
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                   ),
                   8.verticalSpace,
                   Text(
@@ -274,7 +294,10 @@ class SettingsPage extends HookConsumerWidget {
                     onTap: () => context.router.push(ReviewDocumentRoute()),
                     trailing: Container(
                       height: 24.h,
-                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 3.h,
+                      ),
                       decoration: BoxDecoration(
                         color: (user?.isKycVerified ?? false)
                             ? PPaymobileColors.doneColor
@@ -285,8 +308,8 @@ class SettingsPage extends HookConsumerWidget {
                         (user?.isKycVerified ?? false)
                             ? 'Verified'
                             : (user?.isKycSubmitted ?? false)
-                                ? 'Pending'
-                                : 'Not verified',
+                            ? 'Pending'
+                            : 'Not verified',
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
                           fontSize: 11.sp,
@@ -344,6 +367,7 @@ class SettingsPage extends HookConsumerWidget {
                   SettingsMenuItem(
                     imagePath: 'assets/images/enable_biom_set.png',
                     title: 'Enable Biometric',
+                    onTap: handleBiometricToggle,
                     trailing: SizedBox(
                       height: 20.h,
                       width: 37.w,

@@ -12,12 +12,15 @@ abstract class DollarCardRepository {
     required String state,
     required String postalCode,
     required File photo,
+    required File ninPhoto,
   });
-  Future<Either<Failure, DollarCardEntity>> getDollarCard();
-  Future<Either<Failure, void>> fundDollarCard({required double amount});
-  Future<Either<Failure, void>> withdrawDollarCard({required double amount});
-  Future<Either<Failure, List<DollarCardTransactionEntity>>> getDollarCardTransactions();
-  Future<Either<Failure, void>> freezeDollarCard();
-  Future<Either<Failure, void>> unfreezeDollarCard();
-  Future<Either<Failure, void>> terminateDollarCard();
+  Future<Either<Failure, void>> addDollarCard({required String brand});
+  Future<Either<Failure, List<DollarCardEntity>>> getDollarCards();
+  Future<Either<Failure, DollarCardEntity>> getDollarCard({required String cardId});
+  Future<Either<Failure, void>> fundDollarCard({required String cardId, required double amount});
+  Future<Either<Failure, void>> withdrawDollarCard({required String cardId, required double amount});
+  Future<Either<Failure, List<DollarCardTransactionEntity>>> getDollarCardTransactions({required String cardId});
+  Future<Either<Failure, void>> freezeDollarCard({required String cardId});
+  Future<Either<Failure, void>> unfreezeDollarCard({required String cardId});
+  Future<Either<Failure, void>> terminateDollarCard({required String cardId});
 }

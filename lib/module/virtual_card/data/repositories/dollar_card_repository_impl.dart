@@ -24,14 +24,12 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
     required String state,
     required String postalCode,
     required File photo,
+    required File ninPhoto,
   }) async {
     try {
       await _remoteDataSource.createDollarCard(
-        street: street,
-        city: city,
-        state: state,
-        postalCode: postalCode,
-        photo: photo,
+        street: street, city: city, state: state,
+        postalCode: postalCode, photo: photo, ninPhoto: ninPhoto,
       );
       return const Right(null);
     } on DioException catch (e) {
@@ -40,9 +38,30 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, DollarCardEntity>> getDollarCard() async {
+  Future<Either<Failure, void>> addDollarCard({required String brand}) async {
     try {
-      final result = await _remoteDataSource.getDollarCard();
+      await _remoteDataSource.addDollarCard(brand: brand);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(e.error as Failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DollarCardEntity>>> getDollarCards() async {
+    try {
+      final result = await _remoteDataSource.getDollarCards();
+      return Right(result.map((m) => m.toEntity()).toList());
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 404) return const Right([]);
+      return Left(e.error as Failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, DollarCardEntity>> getDollarCard({required String cardId}) async {
+    try {
+      final result = await _remoteDataSource.getDollarCard(cardId: cardId);
       return Right(result.toEntity());
     } on DioException catch (e) {
       return Left(e.error as Failure);
@@ -50,9 +69,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, void>> fundDollarCard({required double amount}) async {
+  Future<Either<Failure, void>> fundDollarCard({required String cardId, required double amount}) async {
     try {
-      await _remoteDataSource.fundDollarCard(FundDollarCardRequest(amount: amount));
+      await _remoteDataSource.fundDollarCard(cardId: cardId, request: FundDollarCardRequest(amount: amount));
       return const Right(null);
     } on DioException catch (e) {
       return Left(e.error as Failure);
@@ -60,9 +79,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, void>> withdrawDollarCard({required double amount}) async {
+  Future<Either<Failure, void>> withdrawDollarCard({required String cardId, required double amount}) async {
     try {
-      await _remoteDataSource.withdrawDollarCard(WithdrawDollarCardRequest(amount: amount));
+      await _remoteDataSource.withdrawDollarCard(cardId: cardId, request: WithdrawDollarCardRequest(amount: amount));
       return const Right(null);
     } on DioException catch (e) {
       return Left(e.error as Failure);
@@ -70,9 +89,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, List<DollarCardTransactionEntity>>> getDollarCardTransactions() async {
+  Future<Either<Failure, List<DollarCardTransactionEntity>>> getDollarCardTransactions({required String cardId}) async {
     try {
-      final result = await _remoteDataSource.getDollarCardTransactions();
+      final result = await _remoteDataSource.getDollarCardTransactions(cardId: cardId);
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
       return Left(e.error as Failure);
@@ -80,9 +99,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, void>> freezeDollarCard() async {
+  Future<Either<Failure, void>> freezeDollarCard({required String cardId}) async {
     try {
-      await _remoteDataSource.freezeDollarCard();
+      await _remoteDataSource.freezeDollarCard(cardId: cardId);
       return const Right(null);
     } on DioException catch (e) {
       return Left(e.error as Failure);
@@ -90,9 +109,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, void>> unfreezeDollarCard() async {
+  Future<Either<Failure, void>> unfreezeDollarCard({required String cardId}) async {
     try {
-      await _remoteDataSource.unfreezeDollarCard();
+      await _remoteDataSource.unfreezeDollarCard(cardId: cardId);
       return const Right(null);
     } on DioException catch (e) {
       return Left(e.error as Failure);
@@ -100,9 +119,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, void>> terminateDollarCard() async {
+  Future<Either<Failure, void>> terminateDollarCard({required String cardId}) async {
     try {
-      await _remoteDataSource.terminateDollarCard();
+      await _remoteDataSource.terminateDollarCard(cardId: cardId);
       return const Right(null);
     } on DioException catch (e) {
       return Left(e.error as Failure);

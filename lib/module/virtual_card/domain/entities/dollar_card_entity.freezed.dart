@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DollarCardEntity {
   String get id => throw _privateConstructorUsedError;
+  String get dbId => throw _privateConstructorUsedError;
+  String get brand => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get cardNumber => throw _privateConstructorUsedError;
   String get maskedPan => throw _privateConstructorUsedError;
@@ -31,6 +33,7 @@ mixin _$DollarCardEntity {
   String get createdAt => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
+  String get color => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DollarCardEntityCopyWith<DollarCardEntity> get copyWith =>
@@ -45,6 +48,8 @@ abstract class $DollarCardEntityCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String dbId,
+      String brand,
       String name,
       String cardNumber,
       String maskedPan,
@@ -58,7 +63,8 @@ abstract class $DollarCardEntityCopyWith<$Res> {
       DollarCardAddressEntity address,
       String createdAt,
       String updatedAt,
-      double rate});
+      double rate,
+      String color});
 
   $DollarCardAddressEntityCopyWith<$Res> get address;
 }
@@ -77,6 +83,8 @@ class _$DollarCardEntityCopyWithImpl<$Res, $Val extends DollarCardEntity>
   @override
   $Res call({
     Object? id = null,
+    Object? dbId = null,
+    Object? brand = null,
     Object? name = null,
     Object? cardNumber = null,
     Object? maskedPan = null,
@@ -91,11 +99,20 @@ class _$DollarCardEntityCopyWithImpl<$Res, $Val extends DollarCardEntity>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? rate = null,
+    Object? color = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      dbId: null == dbId
+          ? _value.dbId
+          : dbId // ignore: cast_nullable_to_non_nullable
+              as String,
+      brand: null == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -153,6 +170,10 @@ class _$DollarCardEntityCopyWithImpl<$Res, $Val extends DollarCardEntity>
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -175,6 +196,8 @@ abstract class _$$DollarCardEntityImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String dbId,
+      String brand,
       String name,
       String cardNumber,
       String maskedPan,
@@ -188,7 +211,8 @@ abstract class _$$DollarCardEntityImplCopyWith<$Res>
       DollarCardAddressEntity address,
       String createdAt,
       String updatedAt,
-      double rate});
+      double rate,
+      String color});
 
   @override
   $DollarCardAddressEntityCopyWith<$Res> get address;
@@ -206,6 +230,8 @@ class __$$DollarCardEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? dbId = null,
+    Object? brand = null,
     Object? name = null,
     Object? cardNumber = null,
     Object? maskedPan = null,
@@ -220,11 +246,20 @@ class __$$DollarCardEntityImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? rate = null,
+    Object? color = null,
   }) {
     return _then(_$DollarCardEntityImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      dbId: null == dbId
+          ? _value.dbId
+          : dbId // ignore: cast_nullable_to_non_nullable
+              as String,
+      brand: null == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -282,6 +317,10 @@ class __$$DollarCardEntityImplCopyWithImpl<$Res>
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -291,6 +330,8 @@ class __$$DollarCardEntityImplCopyWithImpl<$Res>
 class _$DollarCardEntityImpl implements _DollarCardEntity {
   const _$DollarCardEntityImpl(
       {required this.id,
+      required this.dbId,
+      required this.brand,
       required this.name,
       required this.cardNumber,
       required this.maskedPan,
@@ -304,10 +345,15 @@ class _$DollarCardEntityImpl implements _DollarCardEntity {
       required this.address,
       required this.createdAt,
       required this.updatedAt,
-      required this.rate});
+      required this.rate,
+      this.color = 'teal'});
 
   @override
   final String id;
+  @override
+  final String dbId;
+  @override
+  final String brand;
   @override
   final String name;
   @override
@@ -336,10 +382,13 @@ class _$DollarCardEntityImpl implements _DollarCardEntity {
   final String updatedAt;
   @override
   final double rate;
+  @override
+  @JsonKey()
+  final String color;
 
   @override
   String toString() {
-    return 'DollarCardEntity(id: $id, name: $name, cardNumber: $cardNumber, maskedPan: $maskedPan, expiry: $expiry, cvv: $cvv, status: $status, type: $type, issuer: $issuer, currency: $currency, balance: $balance, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, rate: $rate)';
+    return 'DollarCardEntity(id: $id, dbId: $dbId, brand: $brand, name: $name, cardNumber: $cardNumber, maskedPan: $maskedPan, expiry: $expiry, cvv: $cvv, status: $status, type: $type, issuer: $issuer, currency: $currency, balance: $balance, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, rate: $rate, color: $color)';
   }
 
   @override
@@ -348,6 +397,8 @@ class _$DollarCardEntityImpl implements _DollarCardEntity {
         (other.runtimeType == runtimeType &&
             other is _$DollarCardEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.dbId, dbId) || other.dbId == dbId) &&
+            (identical(other.brand, brand) || other.brand == brand) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.cardNumber, cardNumber) ||
                 other.cardNumber == cardNumber) &&
@@ -366,13 +417,16 @@ class _$DollarCardEntityImpl implements _DollarCardEntity {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.rate, rate) || other.rate == rate));
+            (identical(other.rate, rate) || other.rate == rate) &&
+            (identical(other.color, color) || other.color == color));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      dbId,
+      brand,
       name,
       cardNumber,
       maskedPan,
@@ -386,7 +440,8 @@ class _$DollarCardEntityImpl implements _DollarCardEntity {
       address,
       createdAt,
       updatedAt,
-      rate);
+      rate,
+      color);
 
   @JsonKey(ignore: true)
   @override
@@ -399,6 +454,8 @@ class _$DollarCardEntityImpl implements _DollarCardEntity {
 abstract class _DollarCardEntity implements DollarCardEntity {
   const factory _DollarCardEntity(
       {required final String id,
+      required final String dbId,
+      required final String brand,
       required final String name,
       required final String cardNumber,
       required final String maskedPan,
@@ -412,10 +469,15 @@ abstract class _DollarCardEntity implements DollarCardEntity {
       required final DollarCardAddressEntity address,
       required final String createdAt,
       required final String updatedAt,
-      required final double rate}) = _$DollarCardEntityImpl;
+      required final double rate,
+      final String color}) = _$DollarCardEntityImpl;
 
   @override
   String get id;
+  @override
+  String get dbId;
+  @override
+  String get brand;
   @override
   String get name;
   @override
@@ -444,6 +506,8 @@ abstract class _DollarCardEntity implements DollarCardEntity {
   String get updatedAt;
   @override
   double get rate;
+  @override
+  String get color;
   @override
   @JsonKey(ignore: true)
   _$$DollarCardEntityImplCopyWith<_$DollarCardEntityImpl> get copyWith =>

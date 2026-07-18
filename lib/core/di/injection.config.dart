@@ -386,6 +386,10 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i140.SupportTicketRemoteDataSource>()));
     gh.lazySingleton<_i1066.CreateDollarCardUseCase>(
         () => _i1066.CreateDollarCardUseCase(gh<_i674.DollarCardRepository>()));
+    gh.lazySingleton<_i1066.AddDollarCardUseCase>(
+        () => _i1066.AddDollarCardUseCase(gh<_i674.DollarCardRepository>()));
+    gh.lazySingleton<_i1066.GetDollarCardsUseCase>(
+        () => _i1066.GetDollarCardsUseCase(gh<_i674.DollarCardRepository>()));
     gh.lazySingleton<_i1066.GetDollarCardUseCase>(
         () => _i1066.GetDollarCardUseCase(gh<_i674.DollarCardRepository>()));
     gh.lazySingleton<_i1066.FundDollarCardUseCase>(

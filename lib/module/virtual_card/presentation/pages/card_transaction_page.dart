@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_entity.dart';
 import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_transaction_entity.dart';
 import 'package:ppay_mobile/module/virtual_card/presentation/providers/virtual_card_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -14,7 +15,8 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class CardTransactionPage extends HookConsumerWidget {
-  const CardTransactionPage({super.key});
+  final DollarCardEntity card;
+  const CardTransactionPage({super.key, required this.card});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +25,7 @@ class CardTransactionPage extends HookConsumerWidget {
     final searchQuery = useState('');
 
     useEffect(() {
-      Future.microtask(() => ref.read(getDollarCardTransactionsProvider.notifier).call());
+      Future.microtask(() => ref.read(getDollarCardTransactionsProvider.notifier).call(cardId: card.dbId));
       searchCtrl.addListener(() => searchQuery.value = searchCtrl.text.toLowerCase());
       return null;
     }, []);
@@ -105,7 +107,7 @@ class CardTransactionPage extends HookConsumerWidget {
                       children: [
                         Text(MessageHandler.getErrorMessage(txState.error), textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp)),
                         16.verticalSpace,
-                        TextButton(onPressed: () => ref.read(getDollarCardTransactionsProvider.notifier).call(), child: const Text('Retry')),
+                        TextButton(onPressed: () => ref.read(getDollarCardTransactionsProvider.notifier).call(cardId: card.dbId), child: const Text('Retry')),
                       ],
                     ),
                   ),

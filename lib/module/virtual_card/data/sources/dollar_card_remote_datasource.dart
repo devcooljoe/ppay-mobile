@@ -12,12 +12,15 @@ abstract class DollarCardRemoteDataSource {
     required String state,
     required String postalCode,
     required File photo,
+    required File ninPhoto,
   });
-  Future<DollarCardModel> getDollarCard();
-  Future<void> fundDollarCard(FundDollarCardRequest request);
-  Future<void> withdrawDollarCard(WithdrawDollarCardRequest request);
-  Future<List<DollarCardTransactionModel>> getDollarCardTransactions();
-  Future<void> freezeDollarCard();
-  Future<void> unfreezeDollarCard();
-  Future<void> terminateDollarCard();
+  Future<void> addDollarCard({required String brand});
+  Future<List<DollarCardModel>> getDollarCards();
+  Future<DollarCardModel> getDollarCard({required String cardId});
+  Future<void> fundDollarCard({required String cardId, required FundDollarCardRequest request});
+  Future<void> withdrawDollarCard({required String cardId, required WithdrawDollarCardRequest request});
+  Future<List<DollarCardTransactionModel>> getDollarCardTransactions({required String cardId});
+  Future<void> freezeDollarCard({required String cardId});
+  Future<void> unfreezeDollarCard({required String cardId});
+  Future<void> terminateDollarCard({required String cardId});
 }

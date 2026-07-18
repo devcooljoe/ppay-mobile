@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
-import 'package:ppay_mobile/module/virtual_card/presentation/providers/virtual_card_providers.dart';
+import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/confirm_fund_card_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
@@ -14,17 +14,16 @@ import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
 class FundCardPage extends HookConsumerWidget {
-  const FundCardPage({super.key});
+  final DollarCardEntity card;
+  const FundCardPage({super.key, required this.card});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final amountText = useState('');
     final walletState = ref.watch(walletProvider);
-    final cardState = ref.watch(getDollarCardProvider);
 
     final wallet = walletState.value;
-    final card = cardState.value;
-    final rate = card?.rate ?? 0.0;
+    final rate = card.rate;
     final walletBalance = double.tryParse(wallet?.balance ?? '0') ?? 0.0;
 
     final amount = double.tryParse(amountText.value) ?? 0.0;
@@ -123,6 +122,7 @@ class FundCardPage extends HookConsumerWidget {
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
                                 builder: (_) => ConfirmFundCardBottomsheet(
+                                  cardId: card.dbId,
                                   amountUsd: amount,
                                   nairaAmount: nairaAmount,
                                   rate: rate,

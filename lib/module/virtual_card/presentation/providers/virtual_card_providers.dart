@@ -19,14 +19,12 @@ class CreateDollarCard extends _$CreateDollarCard {
     required String cardState,
     required String postalCode,
     required File photo,
+    required File ninPhoto,
   }) async {
     state = const AsyncValue.loading();
     final result = await getIt<CreateDollarCardUseCase>()(
-      street: street,
-      city: city,
-      state: cardState,
-      postalCode: postalCode,
-      photo: photo,
+      street: street, city: city, state: cardState,
+      postalCode: postalCode, photo: photo, ninPhoto: ninPhoto,
     );
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
@@ -36,13 +34,43 @@ class CreateDollarCard extends _$CreateDollarCard {
 }
 
 @riverpod
+class AddDollarCard extends _$AddDollarCard {
+  @override
+  AsyncValue<void> build() => const AsyncValue.data(null);
+
+  Future<void> call({required String brand}) async {
+    state = const AsyncValue.loading();
+    final result = await getIt<AddDollarCardUseCase>()(brand: brand);
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (_) => const AsyncValue.data(null),
+    );
+  }
+}
+
+@Riverpod(keepAlive: true)
+class GetDollarCards extends _$GetDollarCards {
+  @override
+  AsyncValue<List<DollarCardEntity>> build() => const AsyncValue.data([]);
+
+  Future<void> call() async {
+    state = const AsyncValue.loading();
+    final result = await getIt<GetDollarCardsUseCase>()();
+    state = result.fold(
+      (l) => AsyncValue.error(l.message, StackTrace.current),
+      (cards) => AsyncValue.data(cards),
+    );
+  }
+}
+
+@riverpod
 class GetDollarCard extends _$GetDollarCard {
   @override
   AsyncValue<DollarCardEntity?> build() => const AsyncValue.data(null);
 
-  Future<void> call() async {
+  Future<void> call({required String cardId}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<GetDollarCardUseCase>()();
+    final result = await getIt<GetDollarCardUseCase>()(cardId: cardId);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (card) => AsyncValue.data(card),
@@ -55,9 +83,9 @@ class FundDollarCard extends _$FundDollarCard {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
 
-  Future<void> call({required double amount}) async {
+  Future<void> call({required String cardId, required double amount}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<FundDollarCardUseCase>()(amount: amount);
+    final result = await getIt<FundDollarCardUseCase>()(cardId: cardId, amount: amount);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),
@@ -70,9 +98,9 @@ class WithdrawDollarCard extends _$WithdrawDollarCard {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
 
-  Future<void> call({required double amount}) async {
+  Future<void> call({required String cardId, required double amount}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<WithdrawDollarCardUseCase>()(amount: amount);
+    final result = await getIt<WithdrawDollarCardUseCase>()(cardId: cardId, amount: amount);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),
@@ -85,9 +113,9 @@ class GetDollarCardTransactions extends _$GetDollarCardTransactions {
   @override
   AsyncValue<List<DollarCardTransactionEntity>?> build() => const AsyncValue.data(null);
 
-  Future<void> call() async {
+  Future<void> call({required String cardId}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<GetDollarCardTransactionsUseCase>()();
+    final result = await getIt<GetDollarCardTransactionsUseCase>()(cardId: cardId);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (transactions) => AsyncValue.data(transactions),
@@ -100,9 +128,9 @@ class FreezeDollarCard extends _$FreezeDollarCard {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
 
-  Future<void> call() async {
+  Future<void> call({required String cardId}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<FreezeDollarCardUseCase>()();
+    final result = await getIt<FreezeDollarCardUseCase>()(cardId: cardId);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),
@@ -115,9 +143,9 @@ class UnfreezeDollarCard extends _$UnfreezeDollarCard {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
 
-  Future<void> call() async {
+  Future<void> call({required String cardId}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<UnfreezeDollarCardUseCase>()();
+    final result = await getIt<UnfreezeDollarCardUseCase>()(cardId: cardId);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),
@@ -130,9 +158,9 @@ class TerminateDollarCard extends _$TerminateDollarCard {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
 
-  Future<void> call() async {
+  Future<void> call({required String cardId}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<TerminateDollarCardUseCase>()();
+    final result = await getIt<TerminateDollarCardUseCase>()(cardId: cardId);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),

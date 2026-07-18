@@ -15,19 +15,22 @@ class VirtualCardPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cardState = ref.watch(getDollarCardProvider);
+    final cardState = ref.watch(getDollarCardsProvider);
 
     useEffect(() {
-      Future.microtask(() => ref.read(getDollarCardProvider.notifier).call());
+      Future.microtask(() => ref.read(getDollarCardsProvider.notifier).call());
       return null;
     }, []);
 
-    // If card loaded successfully, go straight to CardPage
+    // If cards loaded, go straight to MyCardsPage
     useEffect(() {
-      if (cardState is AsyncData && cardState.value != null) {
-        Future.microtask(() {
-          if (context.mounted) context.router.replace(CardRoute());
-        });
+      if (cardState.hasValue && !cardState.hasError) {
+        final cards = cardState.value ?? [];
+        if (cards.isNotEmpty) {
+          Future.microtask(() {
+            if (context.mounted) context.router.replace(MyCardsRoute());
+          });
+        }
       }
       return null;
     }, [cardState]);

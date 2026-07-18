@@ -14,12 +14,14 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pin_custom_keyboard.dart';
 
 class FundCardPinBottomsheet extends HookConsumerWidget {
+  final String cardId;
   final double amountUsd;
   final double nairaAmount;
   final double rate;
 
   const FundCardPinBottomsheet({
     super.key,
+    required this.cardId,
     required this.amountUsd,
     required this.nairaAmount,
     required this.rate,
@@ -64,7 +66,7 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
         return;
       }
 
-      await ref.read(fundDollarCardProvider.notifier).call(amount: amountUsd);
+      await ref.read(fundDollarCardProvider.notifier).call(cardId: cardId, amount: amountUsd);
       final fundState = ref.read(fundDollarCardProvider);
 
       isLoading.value = false;
@@ -77,9 +79,9 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
         return;
       }
 
-      // Refresh wallet and card
+      // Refresh wallet and cards
       ref.read(walletProvider.notifier).fetch();
-      ref.read(getDollarCardProvider.notifier).call();
+      ref.read(getDollarCardsProvider.notifier).call();
 
       Navigator.pop(context);
       context.router.push(FundCardSuccessfulRoute(

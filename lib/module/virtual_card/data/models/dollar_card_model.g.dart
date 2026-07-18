@@ -10,6 +10,8 @@ _$DollarCardModelImpl _$$DollarCardModelImplFromJson(
         Map<String, dynamic> json) =>
     _$DollarCardModelImpl(
       id: json['id'] as String,
+      dbId: json['dbId'] as String,
+      brand: json['brand'] as String,
       name: json['name'] as String,
       cardNumber: json['cardNumber'] as String,
       maskedPan: json['maskedPan'] as String,
@@ -31,6 +33,8 @@ Map<String, dynamic> _$$DollarCardModelImplToJson(
         _$DollarCardModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'dbId': instance.dbId,
+      'brand': instance.brand,
       'name': instance.name,
       'cardNumber': instance.cardNumber,
       'maskedPan': instance.maskedPan,

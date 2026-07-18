@@ -57,8 +57,8 @@ class FundCardSuccessfulPage extends HookConsumerWidget {
               ),
               14.verticalSpace,
               PPButton(
-                text: 'View Card',
-                onPressed: () => context.router.replace(CardRoute()),
+                text: 'View Cards',
+                onPressed: () => context.router.replace(MyCardsRoute()),
                 icon: SvgPicture.asset('assets/icon/arrow_forwardw.svg', height: 24.w, width: 24.w, fit: BoxFit.contain),
               ),
               20.verticalSpace,

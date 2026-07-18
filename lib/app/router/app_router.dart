@@ -113,7 +113,9 @@ class AppRouter extends $AppRouter {
 
     // Virtual Card
     AutoRoute(page: VirtualCardRoute.page),
+    AutoRoute(page: MyCardsRoute.page),
     AutoRoute(page: CardRoute.page),
+    AutoRoute(page: AddDollarCardRoute.page),
     AutoRoute(page: CreateVirtualCardRoute.page),
     AutoRoute(page: VirtualCardSuccessRoute.page),
     AutoRoute(page: CardTransactionRoute.page),

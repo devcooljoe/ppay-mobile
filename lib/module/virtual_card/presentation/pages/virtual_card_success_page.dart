@@ -43,10 +43,10 @@ class VirtualCardSuccessPage extends HookConsumerWidget {
                   ),
                   24.verticalSpace,
                   PPButton(
-                    text: 'Go to Card',
+                    text: 'Go to My Cards',
                     onPressed: () {
-                      ref.read(getDollarCardProvider.notifier).call();
-                      context.router.replace(CardRoute());
+                      ref.read(getDollarCardsProvider.notifier).call();
+                      context.router.replace(MyCardsRoute());
                     },
                   ),
                 ],

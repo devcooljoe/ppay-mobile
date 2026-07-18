@@ -11,6 +11,7 @@ import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/core/providers/inactivity_provider.dart';
 import 'package:ppay_mobile/core/services/app_update_service.dart';
 import 'package:ppay_mobile/core/services/firebase_messaging_service.dart';
+import 'package:ppay_mobile/core/services/token_service.dart';
 import 'package:ppay_mobile/core/widgets/activity_tracker.dart';
 import 'package:ppay_mobile/core/widgets/inactivity_handler.dart';
 import 'package:ppay_mobile/core/widgets/navigation_handler.dart';
@@ -35,6 +36,8 @@ Future<void> main() async {
   );
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await getIt<TokenService>().loadToken();
 
   final messagingService = getIt<FirebaseMessagingService>();
   await messagingService.initialize();

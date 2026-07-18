@@ -6,6 +6,8 @@ part 'dollar_card_entity.freezed.dart';
 class DollarCardEntity with _$DollarCardEntity {
   const factory DollarCardEntity({
     required String id,
+    required String dbId,
+    required String brand,
     required String name,
     required String cardNumber,
     required String maskedPan,
@@ -20,6 +22,7 @@ class DollarCardEntity with _$DollarCardEntity {
     required String createdAt,
     required String updatedAt,
     required double rate,
+    @Default('teal') String color,
   }) = _DollarCardEntity;
 }
 

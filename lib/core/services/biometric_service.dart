@@ -11,11 +11,9 @@ class BiometricService {
 
   Future<bool> isBiometricAvailable() async {
     try {
-      final isAvailable = await _localAuth.canCheckBiometrics;
-      final isDeviceSupported = await _localAuth.isDeviceSupported();
-      final availableBiometrics = await _localAuth.getAvailableBiometrics();
-
-      return isAvailable && isDeviceSupported && availableBiometrics.isNotEmpty;
+      final isSupported = await _localAuth.isDeviceSupported();
+      final canCheck = await _localAuth.canCheckBiometrics;
+      return isSupported && canCheck;
     } catch (e) {
       return false;
     }
@@ -29,10 +27,13 @@ class BiometricService {
     }
   }
 
-  Future<bool> authenticate({required String reason, bool biometricOnly = false}) async {
+  Future<bool> authenticate({
+    required String reason,
+    bool biometricOnly = false,
+  }) async {
     try {
-      final isAvailable = await isBiometricAvailable();
-      if (!isAvailable) return false;
+      final isSupported = await _localAuth.isDeviceSupported();
+      if (!isSupported) return false;
 
       return await _localAuth.authenticate(
         localizedReason: reason,
@@ -43,7 +44,7 @@ class BiometricService {
           sensitiveTransaction: false,
         ),
       );
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }
