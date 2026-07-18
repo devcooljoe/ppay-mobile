@@ -38,9 +38,9 @@ class AddDollarCard extends _$AddDollarCard {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
 
-  Future<void> call({required String brand}) async {
+  Future<void> call({required String brand, required double amount}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<AddDollarCardUseCase>()(brand: brand);
+    final result = await getIt<AddDollarCardUseCase>()(brand: brand, amount: amount);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),

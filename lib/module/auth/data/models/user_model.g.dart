@@ -23,6 +23,8 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       isPinSet: json['isPinSet'] as bool,
       hasCustomer: json['hasCustomer'] as bool,
       tier: (json['tier'] as num).toInt(),
+      dollarCardCustomerId: json['dollarCardCustomerId'] as String?,
+      conversionRate: (json['conversionRate'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -42,4 +44,6 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'isPinSet': instance.isPinSet,
       'hasCustomer': instance.hasCustomer,
       'tier': instance.tier,
+      'dollarCardCustomerId': instance.dollarCardCustomerId,
+      'conversionRate': instance.conversionRate,
     };

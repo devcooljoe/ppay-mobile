@@ -4,6 +4,7 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/virtual_card/presentation/providers/virtual_card_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
@@ -16,6 +17,7 @@ class VirtualCardPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cardState = ref.watch(getDollarCardsProvider);
+    final user = ref.watch(authenticatedUserProvider).value;
 
     useEffect(() {
       Future.microtask(() => ref.read(getDollarCardsProvider.notifier).call());
@@ -92,12 +94,20 @@ class VirtualCardPage extends HookConsumerWidget {
                 ),
               ),
               109.verticalSpace,
-              if (cardState is AsyncLoading)
+              if (cardState.isLoading)
                 const Center(child: CircularProgressIndicator())
               else
                 PPButton(
-                  text: 'Create Dollar Card',
-                  onPressed: () => context.router.push(CreateVirtualCardRoute()),
+                  text: user?.dollarCardCustomerId != null
+                      ? 'Create Dollar Card'
+                      : 'Get Started',
+                  onPressed: () {
+                    if (user?.dollarCardCustomerId != null) {
+                      context.router.push(AddDollarCardRoute());
+                    } else {
+                      context.router.push(CreateVirtualCardRoute());
+                    }
+                  },
                 ),
             ],
           ),

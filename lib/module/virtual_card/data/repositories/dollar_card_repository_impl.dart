@@ -38,9 +38,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addDollarCard({required String brand}) async {
+  Future<Either<Failure, void>> addDollarCard({required String brand, required double amount}) async {
     try {
-      await _remoteDataSource.addDollarCard(brand: brand);
+      await _remoteDataSource.addDollarCard(brand: brand, amount: amount);
       return const Right(null);
     } on DioException catch (e) {
       return Left(e.error as Failure);

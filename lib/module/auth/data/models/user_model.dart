@@ -22,6 +22,8 @@ class UserModel with _$UserModel {
     required bool isPinSet,
     required bool hasCustomer,
     required int tier,
+    String? dollarCardCustomerId,
+    @Default(0) double conversionRate,
   }) = _UserModel;
 
   const UserModel._();
@@ -44,5 +46,7 @@ class UserModel with _$UserModel {
     isPinSet: isPinSet,
     hasCustomer: hasCustomer,
     tier: tier,
+    dollarCardCustomerId: dollarCardCustomerId,
+    conversionRate: conversionRate,
   );
 }

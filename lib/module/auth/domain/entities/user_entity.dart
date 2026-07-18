@@ -20,5 +20,7 @@ class UserEntity with _$UserEntity {
     required bool isPinSet,
     required bool hasCustomer,
     required int tier,
+    String? dollarCardCustomerId,
+    @Default(0) double conversionRate,
   }) = _UserEntity;
 }

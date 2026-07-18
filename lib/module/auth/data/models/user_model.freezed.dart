@@ -35,6 +35,8 @@ mixin _$UserModel {
   bool get isPinSet => throw _privateConstructorUsedError;
   bool get hasCustomer => throw _privateConstructorUsedError;
   int get tier => throw _privateConstructorUsedError;
+  String? get dollarCardCustomerId => throw _privateConstructorUsedError;
+  double get conversionRate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -62,7 +64,9 @@ abstract class $UserModelCopyWith<$Res> {
       bool isKycSubmitted,
       bool isPinSet,
       bool hasCustomer,
-      int tier});
+      int tier,
+      String? dollarCardCustomerId,
+      double conversionRate});
 }
 
 /// @nodoc
@@ -93,6 +97,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? isPinSet = null,
     Object? hasCustomer = null,
     Object? tier = null,
+    Object? dollarCardCustomerId = freezed,
+    Object? conversionRate = null,
   }) {
     return _then(_value.copyWith(
       fullName: null == fullName
@@ -155,6 +161,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.tier
           : tier // ignore: cast_nullable_to_non_nullable
               as int,
+      dollarCardCustomerId: freezed == dollarCardCustomerId
+          ? _value.dollarCardCustomerId
+          : dollarCardCustomerId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      conversionRate: null == conversionRate
+          ? _value.conversionRate
+          : conversionRate // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -182,7 +196,9 @@ abstract class _$$UserModelImplCopyWith<$Res>
       bool isKycSubmitted,
       bool isPinSet,
       bool hasCustomer,
-      int tier});
+      int tier,
+      String? dollarCardCustomerId,
+      double conversionRate});
 }
 
 /// @nodoc
@@ -211,6 +227,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? isPinSet = null,
     Object? hasCustomer = null,
     Object? tier = null,
+    Object? dollarCardCustomerId = freezed,
+    Object? conversionRate = null,
   }) {
     return _then(_$UserModelImpl(
       fullName: null == fullName
@@ -273,6 +291,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.tier
           : tier // ignore: cast_nullable_to_non_nullable
               as int,
+      dollarCardCustomerId: freezed == dollarCardCustomerId
+          ? _value.dollarCardCustomerId
+          : dollarCardCustomerId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      conversionRate: null == conversionRate
+          ? _value.conversionRate
+          : conversionRate // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -295,7 +321,9 @@ class _$UserModelImpl extends _UserModel {
       required this.isKycSubmitted,
       required this.isPinSet,
       required this.hasCustomer,
-      required this.tier})
+      required this.tier,
+      this.dollarCardCustomerId,
+      this.conversionRate = 0})
       : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -331,10 +359,15 @@ class _$UserModelImpl extends _UserModel {
   final bool hasCustomer;
   @override
   final int tier;
+  @override
+  final String? dollarCardCustomerId;
+  @override
+  @JsonKey()
+  final double conversionRate;
 
   @override
   String toString() {
-    return 'UserModel(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, dob: $dob, referralCode: $referralCode, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier)';
+    return 'UserModel(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, dob: $dob, referralCode: $referralCode, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier, dollarCardCustomerId: $dollarCardCustomerId, conversionRate: $conversionRate)';
   }
 
   @override
@@ -368,7 +401,11 @@ class _$UserModelImpl extends _UserModel {
                 other.isPinSet == isPinSet) &&
             (identical(other.hasCustomer, hasCustomer) ||
                 other.hasCustomer == hasCustomer) &&
-            (identical(other.tier, tier) || other.tier == tier));
+            (identical(other.tier, tier) || other.tier == tier) &&
+            (identical(other.dollarCardCustomerId, dollarCardCustomerId) ||
+                other.dollarCardCustomerId == dollarCardCustomerId) &&
+            (identical(other.conversionRate, conversionRate) ||
+                other.conversionRate == conversionRate));
   }
 
   @JsonKey(ignore: true)
@@ -389,7 +426,9 @@ class _$UserModelImpl extends _UserModel {
       isKycSubmitted,
       isPinSet,
       hasCustomer,
-      tier);
+      tier,
+      dollarCardCustomerId,
+      conversionRate);
 
   @JsonKey(ignore: true)
   @override
@@ -421,7 +460,9 @@ abstract class _UserModel extends UserModel {
       required final bool isKycSubmitted,
       required final bool isPinSet,
       required final bool hasCustomer,
-      required final int tier}) = _$UserModelImpl;
+      required final int tier,
+      final String? dollarCardCustomerId,
+      final double conversionRate}) = _$UserModelImpl;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -457,6 +498,10 @@ abstract class _UserModel extends UserModel {
   bool get hasCustomer;
   @override
   int get tier;
+  @override
+  String? get dollarCardCustomerId;
+  @override
+  double get conversionRate;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

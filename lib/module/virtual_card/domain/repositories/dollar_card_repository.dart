@@ -14,7 +14,7 @@ abstract class DollarCardRepository {
     required File photo,
     required File ninPhoto,
   });
-  Future<Either<Failure, void>> addDollarCard({required String brand});
+  Future<Either<Failure, void>> addDollarCard({required String brand, required double amount});
   Future<Either<Failure, List<DollarCardEntity>>> getDollarCards();
   Future<Either<Failure, DollarCardEntity>> getDollarCard({required String cardId});
   Future<Either<Failure, void>> fundDollarCard({required String cardId, required double amount});

@@ -31,6 +31,8 @@ mixin _$UserEntity {
   bool get isPinSet => throw _privateConstructorUsedError;
   bool get hasCustomer => throw _privateConstructorUsedError;
   int get tier => throw _privateConstructorUsedError;
+  String? get dollarCardCustomerId => throw _privateConstructorUsedError;
+  double get conversionRate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserEntityCopyWith<UserEntity> get copyWith =>
@@ -58,7 +60,9 @@ abstract class $UserEntityCopyWith<$Res> {
       bool isKycSubmitted,
       bool isPinSet,
       bool hasCustomer,
-      int tier});
+      int tier,
+      String? dollarCardCustomerId,
+      double conversionRate});
 }
 
 /// @nodoc
@@ -89,6 +93,8 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? isPinSet = null,
     Object? hasCustomer = null,
     Object? tier = null,
+    Object? dollarCardCustomerId = freezed,
+    Object? conversionRate = null,
   }) {
     return _then(_value.copyWith(
       fullName: null == fullName
@@ -151,6 +157,14 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.tier
           : tier // ignore: cast_nullable_to_non_nullable
               as int,
+      dollarCardCustomerId: freezed == dollarCardCustomerId
+          ? _value.dollarCardCustomerId
+          : dollarCardCustomerId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      conversionRate: null == conversionRate
+          ? _value.conversionRate
+          : conversionRate // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -178,7 +192,9 @@ abstract class _$$UserEntityImplCopyWith<$Res>
       bool isKycSubmitted,
       bool isPinSet,
       bool hasCustomer,
-      int tier});
+      int tier,
+      String? dollarCardCustomerId,
+      double conversionRate});
 }
 
 /// @nodoc
@@ -207,6 +223,8 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? isPinSet = null,
     Object? hasCustomer = null,
     Object? tier = null,
+    Object? dollarCardCustomerId = freezed,
+    Object? conversionRate = null,
   }) {
     return _then(_$UserEntityImpl(
       fullName: null == fullName
@@ -269,6 +287,14 @@ class __$$UserEntityImplCopyWithImpl<$Res>
           ? _value.tier
           : tier // ignore: cast_nullable_to_non_nullable
               as int,
+      dollarCardCustomerId: freezed == dollarCardCustomerId
+          ? _value.dollarCardCustomerId
+          : dollarCardCustomerId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      conversionRate: null == conversionRate
+          ? _value.conversionRate
+          : conversionRate // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -291,7 +317,9 @@ class _$UserEntityImpl implements _UserEntity {
       required this.isKycSubmitted,
       required this.isPinSet,
       required this.hasCustomer,
-      required this.tier});
+      required this.tier,
+      this.dollarCardCustomerId,
+      this.conversionRate = 0});
 
   @override
   final String fullName;
@@ -323,10 +351,15 @@ class _$UserEntityImpl implements _UserEntity {
   final bool hasCustomer;
   @override
   final int tier;
+  @override
+  final String? dollarCardCustomerId;
+  @override
+  @JsonKey()
+  final double conversionRate;
 
   @override
   String toString() {
-    return 'UserEntity(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, dob: $dob, referralCode: $referralCode, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier)';
+    return 'UserEntity(fullName: $fullName, emailAddress: $emailAddress, phoneNumber: $phoneNumber, picture: $picture, dob: $dob, referralCode: $referralCode, isEmailVerified: $isEmailVerified, isPhoneNumberVerified: $isPhoneNumberVerified, isBvnVerified: $isBvnVerified, isBvnSubmitted: $isBvnSubmitted, isKycVerified: $isKycVerified, isKycSubmitted: $isKycSubmitted, isPinSet: $isPinSet, hasCustomer: $hasCustomer, tier: $tier, dollarCardCustomerId: $dollarCardCustomerId, conversionRate: $conversionRate)';
   }
 
   @override
@@ -360,7 +393,11 @@ class _$UserEntityImpl implements _UserEntity {
                 other.isPinSet == isPinSet) &&
             (identical(other.hasCustomer, hasCustomer) ||
                 other.hasCustomer == hasCustomer) &&
-            (identical(other.tier, tier) || other.tier == tier));
+            (identical(other.tier, tier) || other.tier == tier) &&
+            (identical(other.dollarCardCustomerId, dollarCardCustomerId) ||
+                other.dollarCardCustomerId == dollarCardCustomerId) &&
+            (identical(other.conversionRate, conversionRate) ||
+                other.conversionRate == conversionRate));
   }
 
   @override
@@ -380,7 +417,9 @@ class _$UserEntityImpl implements _UserEntity {
       isKycSubmitted,
       isPinSet,
       hasCustomer,
-      tier);
+      tier,
+      dollarCardCustomerId,
+      conversionRate);
 
   @JsonKey(ignore: true)
   @override
@@ -405,7 +444,9 @@ abstract class _UserEntity implements UserEntity {
       required final bool isKycSubmitted,
       required final bool isPinSet,
       required final bool hasCustomer,
-      required final int tier}) = _$UserEntityImpl;
+      required final int tier,
+      final String? dollarCardCustomerId,
+      final double conversionRate}) = _$UserEntityImpl;
 
   @override
   String get fullName;
@@ -437,6 +478,10 @@ abstract class _UserEntity implements UserEntity {
   bool get hasCustomer;
   @override
   int get tier;
+  @override
+  String? get dollarCardCustomerId;
+  @override
+  double get conversionRate;
   @override
   @JsonKey(ignore: true)
   _$$UserEntityImplCopyWith<_$UserEntityImpl> get copyWith =>
