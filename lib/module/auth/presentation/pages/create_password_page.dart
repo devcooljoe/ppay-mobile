@@ -1,16 +1,17 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/di/injection.dart';
+import 'package:ppay_mobile/core/services/firebase_messaging_service.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
@@ -51,7 +52,9 @@ class CreatePasswordPage extends HookConsumerWidget {
         hasUppercase.value = password.contains(RegExp(r'[A-Z]'));
         hasLowercase.value = password.contains(RegExp(r'[a-z]'));
         hasNumber.value = password.contains(RegExp(r'[0-9]'));
-        hasSpecialChar.value = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+        hasSpecialChar.value = password.contains(
+          RegExp(r'[!@#$%^&*(),.?":{}|<>]'),
+        );
         isMinLength.value = password.length >= 8;
       }
 
@@ -83,32 +86,45 @@ class CreatePasswordPage extends HookConsumerWidget {
           return;
         }
 
-        if (!hasUppercase.value || !hasLowercase.value || !hasNumber.value || !hasSpecialChar.value || !isMinLength.value) {
-          MessageHandler.showErrorSnackBar(context, 'Password does not meet all requirements');
+        if (!hasUppercase.value ||
+            !hasLowercase.value ||
+            !hasNumber.value ||
+            !hasSpecialChar.value ||
+            !isMinLength.value) {
+          MessageHandler.showErrorSnackBar(
+            context,
+            'Password does not meet all requirements',
+          );
           return;
         }
 
         try {
-          final deviceToken = await FirebaseMessaging.instance.getToken();
-          ref.read(registerProvider.notifier).call(
-            fullName: fullName,
-            emailAddress: emailAddress,
-            phoneNumber: phoneNumber,
-            password: password,
-            confirmPassword: confirmPassword,
-            deviceToken: deviceToken,
-            referralCode: referralCode,
-          );
+          final messagingService = getIt<FirebaseMessagingService>();
+          final deviceToken = await messagingService.getDeviceToken();
+
+          ref
+              .read(registerProvider.notifier)
+              .call(
+                fullName: fullName,
+                emailAddress: emailAddress,
+                phoneNumber: phoneNumber,
+                password: password,
+                confirmPassword: confirmPassword,
+                deviceToken: deviceToken,
+                referralCode: referralCode,
+              );
         } catch (_) {
-          ref.read(registerProvider.notifier).call(
-            fullName: fullName,
-            emailAddress: emailAddress,
-            phoneNumber: phoneNumber,
-            password: password,
-            confirmPassword: confirmPassword,
-            deviceToken: null,
-            referralCode: referralCode,
-          );
+          ref
+              .read(registerProvider.notifier)
+              .call(
+                fullName: fullName,
+                emailAddress: emailAddress,
+                phoneNumber: phoneNumber,
+                password: password,
+                confirmPassword: confirmPassword,
+                deviceToken: null,
+                referralCode: referralCode,
+              );
         }
       }
     }
@@ -186,7 +202,8 @@ class CreatePasswordPage extends HookConsumerWidget {
                     child: SvgPicture.asset('assets/icon/lock.svg'),
                   ),
                   suffixIcon: TouchOpacity(
-                    onTap: () => obscureConfirmPassword.value = !obscureConfirmPassword.value,
+                    onTap: () => obscureConfirmPassword.value =
+                        !obscureConfirmPassword.value,
                     child: Padding(
                       padding: const EdgeInsets.all(14.0).r,
                       child: SvgPicture.asset(
@@ -212,7 +229,9 @@ class CreatePasswordPage extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0).r,
                       child: SvgPicture.asset(
-                        hasUppercase.value ? 'assets/icon/tick_pass.svg' : 'assets/icon/tick_fail.svg',
+                        hasUppercase.value
+                            ? 'assets/icon/tick_pass.svg'
+                            : 'assets/icon/tick_fail.svg',
                       ),
                     ),
                     Text(
@@ -232,7 +251,9 @@ class CreatePasswordPage extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0).r,
                       child: SvgPicture.asset(
-                        hasLowercase.value ? 'assets/icon/tick_pass.svg' : 'assets/icon/tick_fail.svg',
+                        hasLowercase.value
+                            ? 'assets/icon/tick_pass.svg'
+                            : 'assets/icon/tick_fail.svg',
                       ),
                     ),
                     Text(
@@ -252,7 +273,9 @@ class CreatePasswordPage extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0).r,
                       child: SvgPicture.asset(
-                        hasNumber.value ? 'assets/icon/tick_pass.svg' : 'assets/icon/tick_fail.svg',
+                        hasNumber.value
+                            ? 'assets/icon/tick_pass.svg'
+                            : 'assets/icon/tick_fail.svg',
                       ),
                     ),
                     Text(
@@ -272,7 +295,9 @@ class CreatePasswordPage extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0).r,
                       child: SvgPicture.asset(
-                        hasSpecialChar.value ? 'assets/icon/tick_pass.svg' : 'assets/icon/tick_fail.svg',
+                        hasSpecialChar.value
+                            ? 'assets/icon/tick_pass.svg'
+                            : 'assets/icon/tick_fail.svg',
                       ),
                     ),
                     Text(
@@ -292,7 +317,9 @@ class CreatePasswordPage extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0).r,
                       child: SvgPicture.asset(
-                        isMinLength.value ? 'assets/icon/tick_pass.svg' : 'assets/icon/tick_fail.svg',
+                        isMinLength.value
+                            ? 'assets/icon/tick_pass.svg'
+                            : 'assets/icon/tick_fail.svg',
                       ),
                     ),
                     Text(

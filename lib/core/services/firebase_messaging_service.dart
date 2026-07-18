@@ -12,7 +12,6 @@ class FirebaseMessagingService {
   FirebaseMessagingService(this._firebaseMessaging, this._localNotifications);
 
   Future<void> initialize() async {
-    await requestPermission();
     await _setupLocalNotifications();
     await _setupMessageHandlers();
   }

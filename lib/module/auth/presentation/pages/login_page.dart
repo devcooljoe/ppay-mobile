@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/di/injection.dart';
+import 'package:ppay_mobile/core/services/firebase_messaging_service.dart';
 import 'package:ppay_mobile/core/services/token_service.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
@@ -81,7 +81,9 @@ class LoginPage extends HookConsumerWidget {
       final password = passwordController.text.trim();
 
       try {
-        final deviceToken = await FirebaseMessaging.instance.getToken();
+        final messagingService = getIt<FirebaseMessagingService>();
+        final deviceToken = await messagingService.getDeviceToken();
+
         ref
             .read(loginProvider.notifier)
             .call(

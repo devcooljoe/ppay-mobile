@@ -23,6 +23,8 @@ import 'package:ppay_mobile/module/transaction/presentation/providers/transactio
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 import 'package:ppay_mobile/shared/widgets/wallet_detail_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/withdrawal_bottomsheet.dart';
+import 'package:ppay_mobile/core/di/injection.dart';
+import 'package:ppay_mobile/core/services/firebase_messaging_service.dart';
 import 'package:ppay_mobile/module/notification/presentation/providers/notification_providers.dart';
 
 @RoutePage()
@@ -32,6 +34,12 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authenticatedUserProvider).value;
+
+    // Request notification permission once on first dashboard visit
+    useEffect(() {
+      getIt<FirebaseMessagingService>().requestPermission();
+      return null;
+    }, const []);
 
     // Show create-pin bottomsheet once after 1s if pin is not set
     useEffect(() {
