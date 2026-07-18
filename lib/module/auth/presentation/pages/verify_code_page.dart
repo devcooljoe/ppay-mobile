@@ -60,7 +60,7 @@ class VerifyCodePage extends HookConsumerWidget {
         });
         if (next.hasError) {
           hasError.value = true;
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });
@@ -78,7 +78,7 @@ class VerifyCodePage extends HookConsumerWidget {
           hasError.value = false;
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

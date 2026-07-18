@@ -45,8 +45,10 @@ _$PassengerRequestImpl _$$PassengerRequestImplFromJson(
       gender: json['gender'] as String,
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      documents: PassengerDocumentRequest.fromJson(
-          json['documents'] as Map<String, dynamic>),
+      documents: json['documents'] == null
+          ? null
+          : PassengerDocumentRequest.fromJson(
+              json['documents'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$PassengerRequestImplToJson(

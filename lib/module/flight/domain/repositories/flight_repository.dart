@@ -83,7 +83,26 @@ class FlightRepositoryImpl implements FlightRepository {
       final result = await _remoteDataSource.bookFlight(
         BookFlightRequest(
           offerId: offerId,
-          passengers: passengers.map((e) => PassengerRequest.fromJson(e)).toList(),
+          passengers: passengers.map((e) => PassengerRequest(
+            passengerType: e['passengerType'] as String,
+            firstName: e['firstName'] as String,
+            lastName: e['lastName'] as String,
+            title: e['title'] as String,
+            dob: e['dob'] as String,
+            gender: e['gender'] as String,
+            email: e['email'] as String,
+            phoneNumber: e['phoneNumber'] as String,
+            documents: e['documents'] == null
+                ? null
+                : PassengerDocumentRequest(
+                    number: (e['documents'] as Map<String, dynamic>)['number'] as String,
+                    issuingDate: (e['documents'] as Map<String, dynamic>)['issuingDate'] as String,
+                    expiryDate: (e['documents'] as Map<String, dynamic>)['expiryDate'] as String,
+                    issuingCountry: (e['documents'] as Map<String, dynamic>)['issuingCountry'] as String,
+                    nationalityCountry: (e['documents'] as Map<String, dynamic>)['nationalityCountry'] as String,
+                    documentType: (e['documents'] as Map<String, dynamic>)['documentType'] as String,
+                  ),
+          )).toList(),
         ),
       );
       return Right(result.toEntity());

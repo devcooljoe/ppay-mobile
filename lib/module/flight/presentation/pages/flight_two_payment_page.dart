@@ -30,7 +30,7 @@ class FlightTwoPaymentPage extends HookConsumerWidget {
 
     ref.listen(bookFlightProvider, (_, next) {
       if (next.hasError) {
-        MessageHandler.showErrorSnackBar(context, next.error.toString());
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
       } else if (next.hasValue && next.value != null) {
         ref.read(flightBookingResultProvider.notifier).set(next.value!);
         context.router.push(const FlightTwoPaymentSuccessRoute());

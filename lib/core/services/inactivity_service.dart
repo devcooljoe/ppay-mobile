@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class InactivityService {
   Timer? _inactivityTimer;
-  static const Duration _inactivityDuration = Duration(minutes: 15);
+  static const Duration _inactivityDuration = Duration(minutes: 30);
   bool _dialogShown = false;
   bool _isEnabled = true;
   VoidCallback? _onInactivityDetected;

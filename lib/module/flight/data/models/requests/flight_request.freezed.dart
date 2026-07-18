@@ -333,7 +333,7 @@ mixin _$PassengerRequest {
   String get gender => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
-  PassengerDocumentRequest get documents => throw _privateConstructorUsedError;
+  PassengerDocumentRequest? get documents => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -356,9 +356,9 @@ abstract class $PassengerRequestCopyWith<$Res> {
       String gender,
       String email,
       String phoneNumber,
-      PassengerDocumentRequest documents});
+      PassengerDocumentRequest? documents});
 
-  $PassengerDocumentRequestCopyWith<$Res> get documents;
+  $PassengerDocumentRequestCopyWith<$Res>? get documents;
 }
 
 /// @nodoc
@@ -382,7 +382,7 @@ class _$PassengerRequestCopyWithImpl<$Res, $Val extends PassengerRequest>
     Object? gender = null,
     Object? email = null,
     Object? phoneNumber = null,
-    Object? documents = null,
+    Object? documents = freezed,
   }) {
     return _then(_value.copyWith(
       passengerType: null == passengerType
@@ -417,17 +417,21 @@ class _$PassengerRequestCopyWithImpl<$Res, $Val extends PassengerRequest>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      documents: null == documents
+      documents: freezed == documents
           ? _value.documents
           : documents // ignore: cast_nullable_to_non_nullable
-              as PassengerDocumentRequest,
+              as PassengerDocumentRequest?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PassengerDocumentRequestCopyWith<$Res> get documents {
-    return $PassengerDocumentRequestCopyWith<$Res>(_value.documents, (value) {
+  $PassengerDocumentRequestCopyWith<$Res>? get documents {
+    if (_value.documents == null) {
+      return null;
+    }
+
+    return $PassengerDocumentRequestCopyWith<$Res>(_value.documents!, (value) {
       return _then(_value.copyWith(documents: value) as $Val);
     });
   }
@@ -450,10 +454,10 @@ abstract class _$$PassengerRequestImplCopyWith<$Res>
       String gender,
       String email,
       String phoneNumber,
-      PassengerDocumentRequest documents});
+      PassengerDocumentRequest? documents});
 
   @override
-  $PassengerDocumentRequestCopyWith<$Res> get documents;
+  $PassengerDocumentRequestCopyWith<$Res>? get documents;
 }
 
 /// @nodoc
@@ -475,7 +479,7 @@ class __$$PassengerRequestImplCopyWithImpl<$Res>
     Object? gender = null,
     Object? email = null,
     Object? phoneNumber = null,
-    Object? documents = null,
+    Object? documents = freezed,
   }) {
     return _then(_$PassengerRequestImpl(
       passengerType: null == passengerType
@@ -510,10 +514,10 @@ class __$$PassengerRequestImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      documents: null == documents
+      documents: freezed == documents
           ? _value.documents
           : documents // ignore: cast_nullable_to_non_nullable
-              as PassengerDocumentRequest,
+              as PassengerDocumentRequest?,
     ));
   }
 }
@@ -530,7 +534,7 @@ class _$PassengerRequestImpl implements _PassengerRequest {
       required this.gender,
       required this.email,
       required this.phoneNumber,
-      required this.documents});
+      this.documents});
 
   factory _$PassengerRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$PassengerRequestImplFromJson(json);
@@ -552,7 +556,7 @@ class _$PassengerRequestImpl implements _PassengerRequest {
   @override
   final String phoneNumber;
   @override
-  final PassengerDocumentRequest documents;
+  final PassengerDocumentRequest? documents;
 
   @override
   String toString() {
@@ -602,16 +606,15 @@ class _$PassengerRequestImpl implements _PassengerRequest {
 
 abstract class _PassengerRequest implements PassengerRequest {
   const factory _PassengerRequest(
-          {required final String passengerType,
-          required final String firstName,
-          required final String lastName,
-          required final String title,
-          required final String dob,
-          required final String gender,
-          required final String email,
-          required final String phoneNumber,
-          required final PassengerDocumentRequest documents}) =
-      _$PassengerRequestImpl;
+      {required final String passengerType,
+      required final String firstName,
+      required final String lastName,
+      required final String title,
+      required final String dob,
+      required final String gender,
+      required final String email,
+      required final String phoneNumber,
+      final PassengerDocumentRequest? documents}) = _$PassengerRequestImpl;
 
   factory _PassengerRequest.fromJson(Map<String, dynamic> json) =
       _$PassengerRequestImpl.fromJson;
@@ -633,7 +636,7 @@ abstract class _PassengerRequest implements PassengerRequest {
   @override
   String get phoneNumber;
   @override
-  PassengerDocumentRequest get documents;
+  PassengerDocumentRequest? get documents;
   @override
   @JsonKey(ignore: true)
   _$$PassengerRequestImplCopyWith<_$PassengerRequestImpl> get copyWith =>

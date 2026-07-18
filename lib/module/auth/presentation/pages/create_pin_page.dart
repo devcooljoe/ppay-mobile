@@ -51,7 +51,7 @@ class CreatePinPage extends HookConsumerWidget {
           context.router.replace(const CreatedPinRoute());
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
           isConfirming.value = false;
           confirmPinController.clear();
           pinController.clear();

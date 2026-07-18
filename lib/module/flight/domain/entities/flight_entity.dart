@@ -21,9 +21,9 @@ class FlightEntity with _$FlightEntity {
 @freezed
 class TravelerPriceEntity with _$TravelerPriceEntity {
   const factory TravelerPriceEntity({
-    required double adult,
-    required double child,
-    required double infant,
+    @Default(0.0) double adult,
+    @Default(0.0) double child,
+    @Default(0.0) double infant,
   }) = _TravelerPriceEntity;
 }
 
@@ -36,7 +36,7 @@ class FlightSegmentEntity with _$FlightSegmentEntity {
     required String arrivalTime,
     required String flightNumber,
     @Default('economy') String cabinType,
-    required int duration,
+    @Default(0) int duration,
     @Default('') String equipmentType,
     @Default('') String operatingAirline,
     @Default('') String marketingAirline,
@@ -46,6 +46,8 @@ class FlightSegmentEntity with _$FlightSegmentEntity {
     @Default('') String baggage,
     @Default(false) bool overnight,
     int? layover,
+    @Default(false) bool refundable,
+    @Default([]) List<String> fareRules,
   }) = _FlightSegmentEntity;
 }
 

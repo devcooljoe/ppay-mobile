@@ -58,7 +58,7 @@ class ClothsDetailsPage extends HookConsumerWidget {
       if (!context.mounted) return;
       final state = ref.read(addToCartProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, state.error.toString());
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
       } else {
         ref.read(getCartProvider.notifier).call();
         await showModalBottomSheet(

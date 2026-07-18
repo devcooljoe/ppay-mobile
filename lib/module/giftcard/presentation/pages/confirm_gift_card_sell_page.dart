@@ -54,7 +54,7 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });
@@ -75,7 +75,7 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
       if (!context.mounted) return;
       final state = ref.read(sellGiftcardProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, state.error.toString());
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
       } else {
         context.router.replace(SellGiftCardSuccessRoute(
           cardType: cardType,

@@ -27,7 +27,7 @@ class VerifyPasswordDetailPage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else if (next.value != null) {
           context.router.push(LoginPasswordResetRoute(resetToken: next.value!));
         }

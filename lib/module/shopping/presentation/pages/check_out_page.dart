@@ -70,7 +70,7 @@ class CheckOutPage extends HookConsumerWidget {
             .call(subtotal, promoCode: code);
         final state = ref.read(getCheckoutSummaryProvider);
         if (state.hasError) {
-          if (context.mounted) MessageHandler.showErrorSnackBar(context, state.error.toString());
+          if (context.mounted) MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
         } else {
           appliedPromo.value = code;
           if (context.mounted) MessageHandler.showSuccessSnackBar(context, 'Promo code applied!');
@@ -129,7 +129,7 @@ class CheckOutPage extends HookConsumerWidget {
       if (!context.mounted) return;
       final state = ref.read(createOrderProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, state.error.toString());
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
       } else if (state.value != null) {
         context.router.replace(OrderSuccessfulRoute(order: state.value!));
       }

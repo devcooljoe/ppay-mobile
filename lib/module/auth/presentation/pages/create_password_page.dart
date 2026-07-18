@@ -71,7 +71,7 @@ class CreatePasswordPage extends HookConsumerWidget {
           context.router.push(const VerifyEmailOtpRoute());
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

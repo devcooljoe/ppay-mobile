@@ -35,7 +35,7 @@ class KycVerificationPage extends HookConsumerWidget {
           context.router.replace(const KycVerificationCompleteRoute());
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

@@ -1,3 +1,4 @@
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
@@ -102,7 +103,7 @@ class CardTransactionPage extends HookConsumerWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(txState.error.toString(), textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp)),
+                        Text(MessageHandler.getErrorMessage(txState.error), textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp)),
                         16.verticalSpace,
                         TextButton(onPressed: () => ref.read(getDollarCardTransactionsProvider.notifier).call(), child: const Text('Retry')),
                       ],

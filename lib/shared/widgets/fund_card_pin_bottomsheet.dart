@@ -1,3 +1,4 @@
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,7 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final displayController = useTextEditingController();
     final realPin = useState('');
-    final hasError = useState(false);
+    final errorMessage = useState<String?>(null);
     final isLoading = useState(false);
 
     final emptyPinTheme = useMemoized(
@@ -48,13 +49,16 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
 
     Future<void> onPinComplete(String pin) async {
       isLoading.value = true;
-      hasError.value = false;
+      errorMessage.value = null;
 
       final verified = await ref.read(verifyPinProvider.notifier).call(pin: pin);
 
       if (!verified) {
         isLoading.value = false;
-        hasError.value = true;
+        final pinState = ref.read(verifyPinProvider);
+        errorMessage.value = pinState.hasError
+            ? MessageHandler.getErrorMessage(pinState.error)
+            : 'Incorrect PIN. Please try again.';
         realPin.value = '';
         displayController.text = '';
         return;
@@ -69,9 +73,7 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
 
       if (fundState is AsyncError) {
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(fundState.error.toString()), backgroundColor: Colors.red),
-        );
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(fundState.error));
         return;
       }
 
@@ -89,7 +91,7 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
 
     void onKeyTap(String value) {
       if (realPin.value.length >= 4 || isLoading.value) return;
-      hasError.value = false;
+      errorMessage.value = null;
       realPin.value += value;
       displayController.text = realPin.value;
 
@@ -143,8 +145,8 @@ class FundCardPinBottomsheet extends HookConsumerWidget {
                   14.verticalSpace,
                   if (isLoading.value)
                     const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                  else if (hasError.value)
-                    Text('Incorrect Transaction Pin. Try again', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp, fontWeight: FontWeight.w500, color: PPaymobileColors.redTextfield))
+                  else if (errorMessage.value != null)
+                    Text(errorMessage.value!, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp, fontWeight: FontWeight.w500, color: PPaymobileColors.redTextfield))
                   else
                     14.verticalSpace,
                   14.verticalSpace,

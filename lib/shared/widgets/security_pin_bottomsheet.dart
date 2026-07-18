@@ -34,7 +34,7 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
     final displayController = useTextEditingController();
     final realPin = useState('');
     final isVerifying = useState(false);
-    final hasError = useState(false);
+    final errorMessage = useState<String?>(null);
 
     final biometricEnabled = useState(false);
     final biometricTypes = useState<List<BiometricType>>([]);
@@ -75,13 +75,16 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
 
     Future<void> verifyWithPin(String pin) async {
       isVerifying.value = true;
-      hasError.value = false;
+      errorMessage.value = null;
       final success = await ref.read(verifyPinProvider.notifier).call(pin: pin);
       isVerifying.value = false;
       if (success) {
         if (context.mounted) Navigator.pop(context, true);
       } else {
-        hasError.value = true;
+        final pinState = ref.read(verifyPinProvider);
+        errorMessage.value = pinState.hasError
+            ? MessageHandler.getErrorMessage(pinState.error)
+            : 'Incorrect PIN. Please try again.';
         realPin.value = '';
         displayController.text = '';
       }
@@ -106,7 +109,7 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
     void onKeyTap(String value) {
       if (isVerifying.value) return;
       if (realPin.value.length >= 4) return;
-      hasError.value = false;
+      errorMessage.value = null;
       realPin.value += value;
       displayController.text = realPin.value;
       if (realPin.value.length == 4) {
@@ -117,7 +120,7 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
     void onDelete() {
       if (isVerifying.value) return;
       if (realPin.value.isEmpty) return;
-      hasError.value = false;
+      errorMessage.value = null;
       realPin.value = realPin.value.substring(0, realPin.value.length - 1);
       displayController.text = realPin.value;
     }
@@ -209,9 +212,10 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
                       separatorBuilder: (_) => 40.horizontalSpace,
                     ),
                   14.verticalSpace,
-                  if (hasError.value)
+                  if (errorMessage.value != null)
                     Text(
-                      'Incorrect transaction pin. Try again',
+                      errorMessage.value!,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         fontSize: 14.sp,

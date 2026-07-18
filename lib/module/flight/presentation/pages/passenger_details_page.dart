@@ -147,6 +147,8 @@ class PassengerDetailsPage extends HookConsumerWidget {
       );
       if (result != null) {
         dobCtrl.text = DateFormat('yyyy-MM-dd').format(result);
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        dobCtrl.notifyListeners();
       }
     }
 
@@ -212,16 +214,25 @@ class PassengerDetailsPage extends HookConsumerWidget {
                       4.verticalSpace,
                       TouchOpacity(
                         onTap: _pickDob,
-                        child: Container(
-                          height: 54.h,
-                          width: 189.5.w,
-                          padding: EdgeInsets.symmetric(horizontal: 14.w),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(9.r), border: Border.all(color: PPaymobileColors.lightGrey, width: 1.w)),
-                          child: Row(children: [
-                            SvgPicture.asset('assets/icon/calendar.svg', height: 18.w, width: 18.w),
-                            SizedBox(width: 8.w),
-                            Text(dobCtrl.text.isEmpty ? 'Select' : dobCtrl.text, style: TextStyle(fontFamily: 'InstrumentSans', color: dobCtrl.text.isEmpty ? PPaymobileColors.lightGrey : Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
-                          ]),
+                        child: ValueListenableBuilder<TextEditingValue>(
+                          valueListenable: dobCtrl,
+                          builder: (_, val, __) => Container(
+                            height: 54.h,
+                            width: 189.5.w,
+                            padding: EdgeInsets.symmetric(horizontal: 14.w),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(9.r), border: Border.all(color: PPaymobileColors.lightGrey, width: 1.w)),
+                            child: Row(children: [
+                              SvgPicture.asset('assets/icon/calendar.svg', height: 18.w, width: 18.w),
+                              SizedBox(width: 8.w),
+                              Expanded(
+                                child: Text(
+                                  val.text.isEmpty ? 'Select' : val.text,
+                                  style: TextStyle(fontFamily: 'InstrumentSans', color: val.text.isEmpty ? PPaymobileColors.lightGrey : Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ]),
+                          ),
                         ),
                       ),
                     ],
@@ -241,7 +252,10 @@ class PassengerDetailsPage extends HookConsumerWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(genderValue.value.isEmpty ? 'Select' : genderValue.value, style: TextStyle(fontFamily: 'InstrumentSans', color: genderValue.value.isEmpty ? PPaymobileColors.lightGrey : Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                              Text(
+                                genderValue.value.isEmpty ? 'Select' : _capitalise(genderValue.value),
+                                style: TextStyle(fontFamily: 'InstrumentSans', color: genderValue.value.isEmpty ? PPaymobileColors.lightGrey : Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500),
+                              ),
                               SvgPicture.asset('assets/icon/arrow_down.svg', height: 13.h, width: 7.w, fit: BoxFit.scaleDown),
                             ],
                           ),
@@ -309,3 +323,5 @@ class _DropdownField extends StatelessWidget {
     );
   }
 }
+
+String _capitalise(String s) => s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';

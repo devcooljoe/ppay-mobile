@@ -1,3 +1,4 @@
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
@@ -200,7 +201,7 @@ class CardPage extends HookConsumerWidget {
       if (next is AsyncData && next.value == null) {
         ref.read(getDollarCardProvider.notifier).call();
       } else if (next is AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString()), backgroundColor: Colors.red));
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
       }
     });
 
@@ -208,16 +209,16 @@ class CardPage extends HookConsumerWidget {
       if (next is AsyncData && next.value == null) {
         ref.read(getDollarCardProvider.notifier).call();
       } else if (next is AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString()), backgroundColor: Colors.red));
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
       }
     });
 
     ref.listen(terminateDollarCardProvider, (_, next) {
       if (next is AsyncData && next.value == null) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Card terminated successfully')));
+        MessageHandler.showSuccessSnackBar(context, 'Card terminated successfully');
         context.router.popUntilRoot();
       } else if (next is AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(next.error.toString()), backgroundColor: Colors.red));
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
       }
     });
 
@@ -269,7 +270,7 @@ class CardPage extends HookConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(cardState.error.toString(), textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp)),
+                      Text(MessageHandler.getErrorMessage(cardState.error), textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp)),
                       16.verticalSpace,
                       TextButton(onPressed: () => ref.read(getDollarCardProvider.notifier).call(), child: const Text('Retry')),
                     ],

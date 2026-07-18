@@ -462,13 +462,16 @@ class __$$TravelerPriceEntityImplCopyWithImpl<$Res>
 
 class _$TravelerPriceEntityImpl implements _TravelerPriceEntity {
   const _$TravelerPriceEntityImpl(
-      {required this.adult, required this.child, required this.infant});
+      {this.adult = 0.0, this.child = 0.0, this.infant = 0.0});
 
   @override
+  @JsonKey()
   final double adult;
   @override
+  @JsonKey()
   final double child;
   @override
+  @JsonKey()
   final double infant;
 
   @override
@@ -499,9 +502,9 @@ class _$TravelerPriceEntityImpl implements _TravelerPriceEntity {
 
 abstract class _TravelerPriceEntity implements TravelerPriceEntity {
   const factory _TravelerPriceEntity(
-      {required final double adult,
-      required final double child,
-      required final double infant}) = _$TravelerPriceEntityImpl;
+      {final double adult,
+      final double child,
+      final double infant}) = _$TravelerPriceEntityImpl;
 
   @override
   double get adult;
@@ -533,6 +536,8 @@ mixin _$FlightSegmentEntity {
   String get baggage => throw _privateConstructorUsedError;
   bool get overnight => throw _privateConstructorUsedError;
   int? get layover => throw _privateConstructorUsedError;
+  bool get refundable => throw _privateConstructorUsedError;
+  List<String> get fareRules => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FlightSegmentEntityCopyWith<FlightSegmentEntity> get copyWith =>
@@ -561,7 +566,9 @@ abstract class $FlightSegmentEntityCopyWith<$Res> {
       String bookingClass,
       String baggage,
       bool overnight,
-      int? layover});
+      int? layover,
+      bool refundable,
+      List<String> fareRules});
 
   $AirlineDetailsEntityCopyWith<$Res> get airlineDetails;
 }
@@ -595,6 +602,8 @@ class _$FlightSegmentEntityCopyWithImpl<$Res, $Val extends FlightSegmentEntity>
     Object? baggage = null,
     Object? overnight = null,
     Object? layover = freezed,
+    Object? refundable = null,
+    Object? fareRules = null,
   }) {
     return _then(_value.copyWith(
       airportFrom: null == airportFrom
@@ -661,6 +670,14 @@ class _$FlightSegmentEntityCopyWithImpl<$Res, $Val extends FlightSegmentEntity>
           ? _value.layover
           : layover // ignore: cast_nullable_to_non_nullable
               as int?,
+      refundable: null == refundable
+          ? _value.refundable
+          : refundable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fareRules: null == fareRules
+          ? _value.fareRules
+          : fareRules // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 
@@ -697,7 +714,9 @@ abstract class _$$FlightSegmentEntityImplCopyWith<$Res>
       String bookingClass,
       String baggage,
       bool overnight,
-      int? layover});
+      int? layover,
+      bool refundable,
+      List<String> fareRules});
 
   @override
   $AirlineDetailsEntityCopyWith<$Res> get airlineDetails;
@@ -730,6 +749,8 @@ class __$$FlightSegmentEntityImplCopyWithImpl<$Res>
     Object? baggage = null,
     Object? overnight = null,
     Object? layover = freezed,
+    Object? refundable = null,
+    Object? fareRules = null,
   }) {
     return _then(_$FlightSegmentEntityImpl(
       airportFrom: null == airportFrom
@@ -796,6 +817,14 @@ class __$$FlightSegmentEntityImplCopyWithImpl<$Res>
           ? _value.layover
           : layover // ignore: cast_nullable_to_non_nullable
               as int?,
+      refundable: null == refundable
+          ? _value.refundable
+          : refundable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fareRules: null == fareRules
+          ? _value._fareRules
+          : fareRules // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -810,7 +839,7 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
       required this.arrivalTime,
       required this.flightNumber,
       this.cabinType = 'economy',
-      required this.duration,
+      this.duration = 0,
       this.equipmentType = '',
       this.operatingAirline = '',
       this.marketingAirline = '',
@@ -819,7 +848,10 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
       this.bookingClass = '',
       this.baggage = '',
       this.overnight = false,
-      this.layover});
+      this.layover,
+      this.refundable = false,
+      final List<String> fareRules = const []})
+      : _fareRules = fareRules;
 
   @override
   final String airportFrom;
@@ -835,6 +867,7 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
   @JsonKey()
   final String cabinType;
   @override
+  @JsonKey()
   final int duration;
   @override
   @JsonKey()
@@ -860,10 +893,21 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
   final bool overnight;
   @override
   final int? layover;
+  @override
+  @JsonKey()
+  final bool refundable;
+  final List<String> _fareRules;
+  @override
+  @JsonKey()
+  List<String> get fareRules {
+    if (_fareRules is EqualUnmodifiableListView) return _fareRules;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_fareRules);
+  }
 
   @override
   String toString() {
-    return 'FlightSegmentEntity(airportFrom: $airportFrom, airportTo: $airportTo, departureTime: $departureTime, arrivalTime: $arrivalTime, flightNumber: $flightNumber, cabinType: $cabinType, duration: $duration, equipmentType: $equipmentType, operatingAirline: $operatingAirline, marketingAirline: $marketingAirline, airlineDetails: $airlineDetails, marriageGroup: $marriageGroup, bookingClass: $bookingClass, baggage: $baggage, overnight: $overnight, layover: $layover)';
+    return 'FlightSegmentEntity(airportFrom: $airportFrom, airportTo: $airportTo, departureTime: $departureTime, arrivalTime: $arrivalTime, flightNumber: $flightNumber, cabinType: $cabinType, duration: $duration, equipmentType: $equipmentType, operatingAirline: $operatingAirline, marketingAirline: $marketingAirline, airlineDetails: $airlineDetails, marriageGroup: $marriageGroup, bookingClass: $bookingClass, baggage: $baggage, overnight: $overnight, layover: $layover, refundable: $refundable, fareRules: $fareRules)';
   }
 
   @override
@@ -900,7 +944,11 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
             (identical(other.baggage, baggage) || other.baggage == baggage) &&
             (identical(other.overnight, overnight) ||
                 other.overnight == overnight) &&
-            (identical(other.layover, layover) || other.layover == layover));
+            (identical(other.layover, layover) || other.layover == layover) &&
+            (identical(other.refundable, refundable) ||
+                other.refundable == refundable) &&
+            const DeepCollectionEquality()
+                .equals(other._fareRules, _fareRules));
   }
 
   @override
@@ -921,7 +969,9 @@ class _$FlightSegmentEntityImpl implements _FlightSegmentEntity {
       bookingClass,
       baggage,
       overnight,
-      layover);
+      layover,
+      refundable,
+      const DeepCollectionEquality().hash(_fareRules));
 
   @JsonKey(ignore: true)
   @override
@@ -939,7 +989,7 @@ abstract class _FlightSegmentEntity implements FlightSegmentEntity {
       required final String arrivalTime,
       required final String flightNumber,
       final String cabinType,
-      required final int duration,
+      final int duration,
       final String equipmentType,
       final String operatingAirline,
       final String marketingAirline,
@@ -948,7 +998,9 @@ abstract class _FlightSegmentEntity implements FlightSegmentEntity {
       final String bookingClass,
       final String baggage,
       final bool overnight,
-      final int? layover}) = _$FlightSegmentEntityImpl;
+      final int? layover,
+      final bool refundable,
+      final List<String> fareRules}) = _$FlightSegmentEntityImpl;
 
   @override
   String get airportFrom;
@@ -982,6 +1034,10 @@ abstract class _FlightSegmentEntity implements FlightSegmentEntity {
   bool get overnight;
   @override
   int? get layover;
+  @override
+  bool get refundable;
+  @override
+  List<String> get fareRules;
   @override
   @JsonKey(ignore: true)
   _$$FlightSegmentEntityImplCopyWith<_$FlightSegmentEntityImpl> get copyWith =>

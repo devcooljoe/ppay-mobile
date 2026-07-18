@@ -45,7 +45,7 @@ class LoginPasswordResetPage extends HookConsumerWidget {
           }
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

@@ -3,7 +3,7 @@ import 'package:ppay_mobile/module/flight/domain/entities/flight_entity.dart';
 
 part 'selected_flight_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SelectedFlight extends _$SelectedFlight {
   @override
   FlightEntity? build() => null;
@@ -12,7 +12,7 @@ class SelectedFlight extends _$SelectedFlight {
   void clear() => state = null;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SelectedConfirmation extends _$SelectedConfirmation {
   @override
   FlightConfirmationEntity? build() => null;
@@ -21,7 +21,7 @@ class SelectedConfirmation extends _$SelectedConfirmation {
   void clear() => state = null;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FlightBookingResult extends _$FlightBookingResult {
   @override
   FlightBookingResponseEntity? build() => null;

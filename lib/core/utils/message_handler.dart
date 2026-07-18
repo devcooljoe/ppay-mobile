@@ -39,12 +39,8 @@ class MessageHandler {
   }
 
   static String getErrorMessage(dynamic error) {
-    if (error is Failure) {
-      return error.message;
-    } else if (error is String) {
-      return error;
-    } else {
-      return 'An unexpected error occurred';
-    }
+    if (error is Failure) return error.message;
+    if (error is String && error.isNotEmpty) return error;
+    return 'An unexpected error occurred';
   }
 }

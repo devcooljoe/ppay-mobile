@@ -45,7 +45,7 @@ class ConfirmSellPage extends ConsumerWidget {
       if (!context.mounted) return;
       final state = ref.read(sellCryptoProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, state.error.toString());
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
       } else {
         ref.read(walletProvider.notifier).fetch();
         ref.read(estimatedAssetValueProvider.notifier).refresh();

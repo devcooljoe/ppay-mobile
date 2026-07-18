@@ -5,11 +5,11 @@ part 'flight_request.g.dart';
 
 @freezed
 class ConfirmFlightRequest with _$ConfirmFlightRequest {
-  const factory ConfirmFlightRequest({
-    required String offerId,
-  }) = _ConfirmFlightRequest;
+  const factory ConfirmFlightRequest({required String offerId}) =
+      _ConfirmFlightRequest;
 
-  factory ConfirmFlightRequest.fromJson(Map<String, dynamic> json) => _$ConfirmFlightRequestFromJson(json);
+  factory ConfirmFlightRequest.fromJson(Map<String, dynamic> json) =>
+      _$ConfirmFlightRequestFromJson(json);
 }
 
 @freezed
@@ -19,7 +19,8 @@ class BookFlightRequest with _$BookFlightRequest {
     required List<PassengerRequest> passengers,
   }) = _BookFlightRequest;
 
-  factory BookFlightRequest.fromJson(Map<String, dynamic> json) => _$BookFlightRequestFromJson(json);
+  factory BookFlightRequest.fromJson(Map<String, dynamic> json) =>
+      _$BookFlightRequestFromJson(json);
 }
 
 @freezed
@@ -33,10 +34,11 @@ class PassengerRequest with _$PassengerRequest {
     required String gender,
     required String email,
     required String phoneNumber,
-    required PassengerDocumentRequest documents,
+    PassengerDocumentRequest? documents,
   }) = _PassengerRequest;
 
-  factory PassengerRequest.fromJson(Map<String, dynamic> json) => _$PassengerRequestFromJson(json);
+  factory PassengerRequest.fromJson(Map<String, dynamic> json) =>
+      _$PassengerRequestFromJson(json);
 }
 
 @freezed
@@ -50,14 +52,15 @@ class PassengerDocumentRequest with _$PassengerDocumentRequest {
     required String documentType,
   }) = _PassengerDocumentRequest;
 
-  factory PassengerDocumentRequest.fromJson(Map<String, dynamic> json) => _$PassengerDocumentRequestFromJson(json);
+  factory PassengerDocumentRequest.fromJson(Map<String, dynamic> json) =>
+      _$PassengerDocumentRequestFromJson(json);
 }
 
 @freezed
 class CancelFlightRequest with _$CancelFlightRequest {
-  const factory CancelFlightRequest({
-    required String bookingReference,
-  }) = _CancelFlightRequest;
+  const factory CancelFlightRequest({required String bookingReference}) =
+      _CancelFlightRequest;
 
-  factory CancelFlightRequest.fromJson(Map<String, dynamic> json) => _$CancelFlightRequestFromJson(json);
+  factory CancelFlightRequest.fromJson(Map<String, dynamic> json) =>
+      _$CancelFlightRequestFromJson(json);
 }

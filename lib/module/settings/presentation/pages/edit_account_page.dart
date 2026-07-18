@@ -63,7 +63,7 @@ class EditAccountPage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else if (!next.isLoading) {
           MessageHandler.showSuccessSnackBar(
             context,
@@ -80,7 +80,7 @@ class EditAccountPage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else if (!next.isLoading) {
           MessageHandler.showSuccessSnackBar(context, 'Bank account removed');
           Navigator.pop(context);

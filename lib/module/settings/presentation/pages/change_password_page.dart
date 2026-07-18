@@ -43,7 +43,7 @@ class ChangePasswordPage extends HookConsumerWidget {
       } else if (previous?.isLoading == true) {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else {
           MessageHandler.showSuccessSnackBar(context, 'Password changed successfully');
           context.router.push(const PasswordChangedRoute());

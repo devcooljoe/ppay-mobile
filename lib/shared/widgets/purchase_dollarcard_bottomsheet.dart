@@ -1,3 +1,4 @@
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,9 +25,7 @@ class PurchaseDollarcardBottomsheet extends HookConsumerWidget {
         Navigator.pop(context);
         context.router.push(VirtualCardSuccessRoute());
       } else if (next is AsyncError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.error.toString()), backgroundColor: Colors.red),
-        );
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
       }
     });
 

@@ -6,12 +6,12 @@ part of 'selected_flight_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedFlightHash() => r'b726e0e7c9f228c2ecc493a5285a08f8345153e9';
+String _$selectedFlightHash() => r'41cc5ce2cf3d68e85778249192362372f05a5708';
 
 /// See also [SelectedFlight].
 @ProviderFor(SelectedFlight)
 final selectedFlightProvider =
-    AutoDisposeNotifierProvider<SelectedFlight, FlightEntity?>.internal(
+    NotifierProvider<SelectedFlight, FlightEntity?>.internal(
   SelectedFlight.new,
   name: r'selectedFlightProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,14 +21,14 @@ final selectedFlightProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$SelectedFlight = AutoDisposeNotifier<FlightEntity?>;
+typedef _$SelectedFlight = Notifier<FlightEntity?>;
 String _$selectedConfirmationHash() =>
-    r'5a956a7bfcca231cde49ca5ea5c0215d28717781';
+    r'727429211dd09a3db5950a94e6b0339fd4981e0d';
 
 /// See also [SelectedConfirmation].
 @ProviderFor(SelectedConfirmation)
-final selectedConfirmationProvider = AutoDisposeNotifierProvider<
-    SelectedConfirmation, FlightConfirmationEntity?>.internal(
+final selectedConfirmationProvider =
+    NotifierProvider<SelectedConfirmation, FlightConfirmationEntity?>.internal(
   SelectedConfirmation.new,
   name: r'selectedConfirmationProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -38,14 +38,14 @@ final selectedConfirmationProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$SelectedConfirmation = AutoDisposeNotifier<FlightConfirmationEntity?>;
+typedef _$SelectedConfirmation = Notifier<FlightConfirmationEntity?>;
 String _$flightBookingResultHash() =>
-    r'aa71b1fbe6054a59a1435922ccfdab2c04f53c8c';
+    r'4e76a192edf12b9168f2e4d9d1cbdaf309b65e83';
 
 /// See also [FlightBookingResult].
 @ProviderFor(FlightBookingResult)
-final flightBookingResultProvider = AutoDisposeNotifierProvider<
-    FlightBookingResult, FlightBookingResponseEntity?>.internal(
+final flightBookingResultProvider = NotifierProvider<FlightBookingResult,
+    FlightBookingResponseEntity?>.internal(
   FlightBookingResult.new,
   name: r'flightBookingResultProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -55,7 +55,6 @@ final flightBookingResultProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$FlightBookingResult
-    = AutoDisposeNotifier<FlightBookingResponseEntity?>;
+typedef _$FlightBookingResult = Notifier<FlightBookingResponseEntity?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

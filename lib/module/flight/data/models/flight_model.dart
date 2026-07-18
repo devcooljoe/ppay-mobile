@@ -40,9 +40,9 @@ class FlightModel with _$FlightModel {
 @freezed
 class TravelerPriceModel with _$TravelerPriceModel {
   const factory TravelerPriceModel({
-    required double adult,
-    required double child,
-    required double infant,
+    @Default(0.0) double adult,
+    @Default(0.0) double child,
+    @Default(0.0) double infant,
   }) = _TravelerPriceModel;
 
   const TravelerPriceModel._();
@@ -61,7 +61,7 @@ class FlightSegmentModel with _$FlightSegmentModel {
     required String arrivalTime,
     required String flightNumber,
     @Default('economy') String cabinType,
-    required int duration,
+    @Default(0) int duration,
     @Default('') String equipmentType,
     @Default('') String operatingAirline,
     @Default('') String marketingAirline,
@@ -71,6 +71,8 @@ class FlightSegmentModel with _$FlightSegmentModel {
     @Default('') String baggage,
     @Default(false) bool overnight,
     int? layover,
+    @Default(false) bool refundable,
+    @Default([]) List<String> fareRules,
   }) = _FlightSegmentModel;
 
   const FlightSegmentModel._();
@@ -94,6 +96,8 @@ class FlightSegmentModel with _$FlightSegmentModel {
     baggage: baggage,
     overnight: overnight,
     layover: layover,
+    refundable: refundable,
+    fareRules: fareRules,
   );
 }
 

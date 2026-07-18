@@ -63,7 +63,7 @@ class LoginPage extends HookConsumerWidget {
       } else {
         if (next.hasError) {
           AppLoader.hide(context);
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
         next.whenData((_) async {
           await ref.read(authenticatedUserProvider.notifier).call();

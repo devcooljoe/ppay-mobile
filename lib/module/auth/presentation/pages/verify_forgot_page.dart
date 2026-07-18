@@ -58,7 +58,7 @@ class VerifyForgotPage extends HookConsumerWidget {
         });
         if (next.hasError) {
           hasError.value = true;
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });
@@ -71,7 +71,7 @@ class VerifyForgotPage extends HookConsumerWidget {
           secondsLeft.value = 60;
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

@@ -58,7 +58,7 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
           }
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });
@@ -74,7 +74,7 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
           canResend.value = false;
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

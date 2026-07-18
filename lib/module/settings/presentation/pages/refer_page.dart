@@ -34,7 +34,7 @@ class ReferPage extends HookConsumerWidget {
       } else if (previous?.isLoading == true) {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else {
           MessageHandler.showSuccessSnackBar(context, 'Points withdrawn to your wallet!');
           ref.read(getMyReferralsProvider.notifier).call();

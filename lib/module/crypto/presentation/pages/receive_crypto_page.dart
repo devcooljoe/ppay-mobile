@@ -283,7 +283,7 @@ class ReceiveCryptoPage extends HookConsumerWidget {
               if (walletState.hasError) ...[
                 8.verticalSpace,
                 Text(
-                  walletState.error.toString(),
+                  msg_handler.MessageHandler.getErrorMessage(walletState.error),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'InstrumentSans',

@@ -35,7 +35,7 @@ class BankAccountPage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else if (!next.isLoading) {
           ref.read(getBankAccountsProvider.notifier).call();
           MessageHandler.showSuccessSnackBar(context, 'Bank account removed');

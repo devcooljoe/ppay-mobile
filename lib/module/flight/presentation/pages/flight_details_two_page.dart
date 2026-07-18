@@ -25,7 +25,7 @@ class FlightDetailsTwoPage extends HookConsumerWidget {
 
     ref.listen(confirmFlightProvider, (_, next) {
       if (next.hasError) {
-        MessageHandler.showErrorSnackBar(context, next.error.toString());
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
       } else if (next.hasValue && next.value != null) {
         ref.read(selectedConfirmationProvider.notifier).set(next.value!);
         context.router.push(const PassengerDetailsTwoRoute());

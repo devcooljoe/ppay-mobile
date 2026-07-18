@@ -47,7 +47,7 @@ class VerifyPhonePage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else {
           next.whenData((_) {
             countdown.value = 60;
@@ -68,7 +68,7 @@ class VerifyPhonePage extends HookConsumerWidget {
         if (next.hasError) {
           hasError.value = true;
           otpController.clear();
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

@@ -37,7 +37,7 @@ class BvnVerificationPage extends HookConsumerWidget {
           context.router.replace(const KycVerificationRoute());
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, next.error.toString());
+          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         }
       }
     });

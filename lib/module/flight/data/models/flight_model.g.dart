@@ -49,9 +49,9 @@ Map<String, dynamic> _$$FlightModelImplToJson(_$FlightModelImpl instance) =>
 _$TravelerPriceModelImpl _$$TravelerPriceModelImplFromJson(
         Map<String, dynamic> json) =>
     _$TravelerPriceModelImpl(
-      adult: (json['adult'] as num).toDouble(),
-      child: (json['child'] as num).toDouble(),
-      infant: (json['infant'] as num).toDouble(),
+      adult: (json['adult'] as num?)?.toDouble() ?? 0.0,
+      child: (json['child'] as num?)?.toDouble() ?? 0.0,
+      infant: (json['infant'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$$TravelerPriceModelImplToJson(
@@ -71,7 +71,7 @@ _$FlightSegmentModelImpl _$$FlightSegmentModelImplFromJson(
       arrivalTime: json['arrivalTime'] as String,
       flightNumber: json['flightNumber'] as String,
       cabinType: json['cabinType'] as String? ?? 'economy',
-      duration: (json['duration'] as num).toInt(),
+      duration: (json['duration'] as num?)?.toInt() ?? 0,
       equipmentType: json['equipmentType'] as String? ?? '',
       operatingAirline: json['operatingAirline'] as String? ?? '',
       marketingAirline: json['marketingAirline'] as String? ?? '',
@@ -82,6 +82,11 @@ _$FlightSegmentModelImpl _$$FlightSegmentModelImplFromJson(
       baggage: json['baggage'] as String? ?? '',
       overnight: json['overnight'] as bool? ?? false,
       layover: (json['layover'] as num?)?.toInt(),
+      refundable: json['refundable'] as bool? ?? false,
+      fareRules: (json['fareRules'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$FlightSegmentModelImplToJson(
@@ -103,6 +108,8 @@ Map<String, dynamic> _$$FlightSegmentModelImplToJson(
       'baggage': instance.baggage,
       'overnight': instance.overnight,
       'layover': instance.layover,
+      'refundable': instance.refundable,
+      'fareRules': instance.fareRules,
     };
 
 _$AirlineDetailsModelImpl _$$AirlineDetailsModelImplFromJson(

@@ -29,7 +29,7 @@ class RoundWayTripPage extends HookConsumerWidget {
 
     ref.listen(searchFlightsProvider, (_, next) {
       if (next.hasError) {
-        MessageHandler.showErrorSnackBar(context, next.error.toString());
+        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
       }
     });
 
