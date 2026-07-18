@@ -17,7 +17,6 @@ class CreateDollarCard extends _$CreateDollarCard {
     required String street,
     required String city,
     required String cardState,
-    required String country,
     required String postalCode,
     required File photo,
   }) async {
@@ -26,7 +25,6 @@ class CreateDollarCard extends _$CreateDollarCard {
       street: street,
       city: city,
       state: cardState,
-      country: country,
       postalCode: postalCode,
       photo: photo,
     );

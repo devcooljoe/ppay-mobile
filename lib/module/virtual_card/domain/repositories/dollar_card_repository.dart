@@ -10,7 +10,6 @@ abstract class DollarCardRepository {
     required String street,
     required String city,
     required String state,
-    required String country,
     required String postalCode,
     required File photo,
   });

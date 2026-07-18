@@ -23,7 +23,6 @@ class DollarCardRemoteDataSourceImpl implements DollarCardRemoteDataSource {
     required String street,
     required String city,
     required String state,
-    required String country,
     required String postalCode,
     required File photo,
   }) async {
@@ -33,7 +32,6 @@ class DollarCardRemoteDataSourceImpl implements DollarCardRemoteDataSource {
       'street': street,
       'city': city,
       'state': state,
-      'country': country,
       'postalCode': postalCode,
       'file': await MultipartFile.fromFile(
         photo.path,

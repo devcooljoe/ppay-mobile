@@ -17,14 +17,12 @@ class CreateDollarCardUseCase {
     required String street,
     required String city,
     required String state,
-    required String country,
     required String postalCode,
     required File photo,
   }) => _repository.createDollarCard(
     street: street,
     city: city,
     state: state,
-    country: country,
     postalCode: postalCode,
     photo: photo,
   );

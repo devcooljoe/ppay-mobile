@@ -22,7 +22,6 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
     required String street,
     required String city,
     required String state,
-    required String country,
     required String postalCode,
     required File photo,
   }) async {
@@ -31,7 +30,6 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
         street: street,
         city: city,
         state: state,
-        country: country,
         postalCode: postalCode,
         photo: photo,
       );

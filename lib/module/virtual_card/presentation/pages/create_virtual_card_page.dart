@@ -27,7 +27,6 @@ class CreateVirtualCardPage extends HookConsumerWidget {
     final streetCtrl = useTextEditingController();
     final cityCtrl = useTextEditingController();
     final stateCtrl = useTextEditingController();
-    final countryCtrl = useTextEditingController();
     final postalCtrl = useTextEditingController();
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final photo = useState<File?>(null);
@@ -45,39 +44,10 @@ class CreateVirtualCardPage extends HookConsumerWidget {
       }
     });
 
-    Future<void> pickPhoto(ImageSource source) async {
+    Future<void> takePhoto() async {
       final picker = ImagePicker();
-      final picked = await picker.pickImage(source: source, imageQuality: 85, maxWidth: 1024);
+      final picked = await picker.pickImage(source: ImageSource.camera, imageQuality: 85, maxWidth: 1024);
       if (picked != null) photo.value = File(picked.path);
-    }
-
-    void showPhotoOptions() {
-      showModalBottomSheet(
-        context: context,
-        backgroundColor: PPaymobileColors.mainScreenBackground,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-        builder: (_) => SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              8.verticalSpace,
-              Container(width: 40.w, height: 4.h, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
-              16.verticalSpace,
-              ListTile(
-                leading: const Icon(Icons.camera_alt_outlined),
-                title: Text('Take a photo', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 15.sp)),
-                onTap: () { Navigator.pop(context); pickPhoto(ImageSource.camera); },
-              ),
-              ListTile(
-                leading: const Icon(Icons.photo_library_outlined),
-                title: Text('Choose from gallery', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 15.sp)),
-                onTap: () { Navigator.pop(context); pickPhoto(ImageSource.gallery); },
-              ),
-              16.verticalSpace,
-            ],
-          ),
-        ),
-      );
     }
 
     Future<void> onSubmit() async {
@@ -96,7 +66,6 @@ class CreateVirtualCardPage extends HookConsumerWidget {
         street: streetCtrl.text.trim(),
         city: cityCtrl.text.trim(),
         cardState: stateCtrl.text.trim(),
-        country: countryCtrl.text.trim(),
         postalCode: postalCtrl.text.trim(),
         photo: photo.value!,
       );
@@ -196,25 +165,11 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                   ],
                 ),
                 12.verticalSpace,
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: countryCtrl,
-                        decoration: fieldDecoration('Country (e.g. NG)'),
-                        validator: (v) => (v == null || v.trim().isEmpty) ? 'Required' : null,
-                      ),
-                    ),
-                    12.horizontalSpace,
-                    Expanded(
-                      child: TextFormField(
-                        controller: postalCtrl,
-                        decoration: fieldDecoration('Postal Code'),
-                        keyboardType: TextInputType.number,
-                        validator: (v) => (v == null || v.trim().isEmpty) ? 'Required' : null,
-                      ),
-                    ),
-                  ],
+                TextFormField(
+                  controller: postalCtrl,
+                  decoration: fieldDecoration('Postal Code'),
+                  keyboardType: TextInputType.number,
+                  validator: (v) => (v == null || v.trim().isEmpty) ? 'Required' : null,
                 ),
                 24.verticalSpace,
                 Text('Identity Photo', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w500)),
@@ -222,7 +177,7 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                 Text('Take a clear photo of your face for identity verification', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp, fontWeight: FontWeight.w400)),
                 16.verticalSpace,
                 GestureDetector(
-                  onTap: showPhotoOptions,
+                  onTap: takePhoto,
                   child: Container(
                     height: 160.h,
                     width: double.infinity,
@@ -241,7 +196,7 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                             children: [
                               Icon(Icons.camera_alt_outlined, size: 40.w, color: PPaymobileColors.svgIconColor),
                               8.verticalSpace,
-                              Text('Tap to add photo', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp)),
+                              Text('Tap to take a photo', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp)),
                             ],
                           ),
                   ),
