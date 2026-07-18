@@ -6,7 +6,7 @@ part of 'virtual_card_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$createDollarCardHash() => r'd6d5806e922f285356826ee6984082b5ef54f658';
+String _$createDollarCardHash() => r'0988408ab82266ab4997fbed1c85cc4cc15d0c50';
 
 /// See also [CreateDollarCard].
 @ProviderFor(CreateDollarCard)

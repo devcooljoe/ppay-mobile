@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ppay_mobile/core/error/failures.dart';
@@ -17,12 +19,14 @@ class CreateDollarCardUseCase {
     required String state,
     required String country,
     required String postalCode,
+    required File photo,
   }) => _repository.createDollarCard(
     street: street,
     city: city,
     state: state,
     country: country,
     postalCode: postalCode,
+    photo: photo,
   );
 }
 

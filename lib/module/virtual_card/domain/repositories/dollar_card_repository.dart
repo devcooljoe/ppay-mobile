@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:ppay_mobile/core/error/failures.dart';
 import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_entity.dart';
@@ -10,6 +12,7 @@ abstract class DollarCardRepository {
     required String state,
     required String country,
     required String postalCode,
+    required File photo,
   });
   Future<Either<Failure, DollarCardEntity>> getDollarCard();
   Future<Either<Failure, void>> fundDollarCard({required double amount});

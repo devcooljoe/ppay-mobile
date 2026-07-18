@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mime/mime.dart';
 import 'package:ppay_mobile/core/models/base_response.dart';
 import 'package:ppay_mobile/module/virtual_card/data/models/dollar_card_model.dart';
 import 'package:ppay_mobile/module/virtual_card/data/models/dollar_card_transaction_model.dart';
-import 'package:ppay_mobile/module/virtual_card/data/models/requests/create_dollar_card_request.dart';
 import 'package:ppay_mobile/module/virtual_card/data/models/requests/fund_dollar_card_request.dart';
 import 'package:ppay_mobile/module/virtual_card/data/models/requests/withdraw_dollar_card_request.dart';
 import 'package:ppay_mobile/module/virtual_card/data/sources/dollar_card_remote_datasource.dart';
@@ -16,8 +19,29 @@ class DollarCardRemoteDataSourceImpl implements DollarCardRemoteDataSource {
   DollarCardRemoteDataSourceImpl(this._dio);
 
   @override
-  Future<void> createDollarCard(CreateDollarCardRequest request) async {
-    await _dio.post('$_baseUrl/wallet/dollar-card', data: request.toJson());
+  Future<void> createDollarCard({
+    required String street,
+    required String city,
+    required String state,
+    required String country,
+    required String postalCode,
+    required File photo,
+  }) async {
+    final mimeType = lookupMimeType(photo.path) ?? 'image/jpeg';
+    final mimeParts = mimeType.split('/');
+    final formData = FormData.fromMap({
+      'street': street,
+      'city': city,
+      'state': state,
+      'country': country,
+      'postalCode': postalCode,
+      'file': await MultipartFile.fromFile(
+        photo.path,
+        filename: photo.path.split('/').last,
+        contentType: MediaType(mimeParts[0], mimeParts[1]),
+      ),
+    });
+    await _dio.post('$_baseUrl/wallet/dollar-card', data: formData);
   }
 
   @override

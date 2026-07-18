@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_entity.dart';
 import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_transaction_entity.dart';
@@ -17,6 +19,7 @@ class CreateDollarCard extends _$CreateDollarCard {
     required String cardState,
     required String country,
     required String postalCode,
+    required File photo,
   }) async {
     state = const AsyncValue.loading();
     final result = await getIt<CreateDollarCardUseCase>()(
@@ -25,6 +28,7 @@ class CreateDollarCard extends _$CreateDollarCard {
       state: cardState,
       country: country,
       postalCode: postalCode,
+      photo: photo,
     );
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),

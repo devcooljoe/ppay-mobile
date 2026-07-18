@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ppay_mobile/core/error/failures.dart';
-import 'package:ppay_mobile/module/virtual_card/data/models/requests/create_dollar_card_request.dart';
 import 'package:ppay_mobile/module/virtual_card/data/models/requests/fund_dollar_card_request.dart';
 import 'package:ppay_mobile/module/virtual_card/data/models/requests/withdraw_dollar_card_request.dart';
 import 'package:ppay_mobile/module/virtual_card/data/sources/dollar_card_remote_datasource.dart';
@@ -23,16 +24,16 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
     required String state,
     required String country,
     required String postalCode,
+    required File photo,
   }) async {
     try {
       await _remoteDataSource.createDollarCard(
-        CreateDollarCardRequest(
-          street: street,
-          city: city,
-          state: state,
-          country: country,
-          postalCode: postalCode,
-        ),
+        street: street,
+        city: city,
+        state: state,
+        country: country,
+        postalCode: postalCode,
+        photo: photo,
       );
       return const Right(null);
     } on DioException catch (e) {
