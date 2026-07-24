@@ -59,9 +59,9 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
   }
 
   @override
-  Future<Either<Failure, DollarCardEntity>> getDollarCard({required String cardId}) async {
+  Future<Either<Failure, DollarCardEntity>> getDollarCard({required String cardId, required String brand}) async {
     try {
-      final result = await _remoteDataSource.getDollarCard(cardId: cardId);
+      final result = await _remoteDataSource.getDollarCard(cardId: cardId, brand: brand);
       return Right(result.toEntity());
     } on DioException catch (e) {
       return Left(e.error as Failure);

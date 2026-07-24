@@ -6,7 +6,7 @@ part of 'auth_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$registerHash() => r'3e73603a98c3638f3d809ac716dcdee7a7d800f1';
+String _$registerHash() => r'36443efdd7e990bee011b793bd6f4ea630cdf5f8';
 
 /// See also [Register].
 @ProviderFor(Register)
@@ -21,7 +21,7 @@ final registerProvider =
 );
 
 typedef _$Register = AutoDisposeNotifier<AsyncValue<void>>;
-String _$loginHash() => r'c9b2e728803f121ef785a02ddff7416967b08e6b';
+String _$loginHash() => r'72434f9002a66f05d8635eae47dfe35f56575e21';
 
 /// See also [Login].
 @ProviderFor(Login)

@@ -16,7 +16,7 @@ abstract class DollarCardRepository {
   });
   Future<Either<Failure, void>> addDollarCard({required String brand, required double amount});
   Future<Either<Failure, List<DollarCardEntity>>> getDollarCards();
-  Future<Either<Failure, DollarCardEntity>> getDollarCard({required String cardId});
+  Future<Either<Failure, DollarCardEntity>> getDollarCard({required String cardId, required String brand});
   Future<Either<Failure, void>> fundDollarCard({required String cardId, required double amount});
   Future<Either<Failure, void>> withdrawDollarCard({required String cardId, required double amount});
   Future<Either<Failure, List<DollarCardTransactionEntity>>> getDollarCardTransactions({required String cardId});

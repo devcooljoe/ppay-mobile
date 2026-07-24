@@ -46,7 +46,7 @@ class PPAYCardWidget extends StatelessWidget {
     final accent = cardAccent(card.color);
     final isFrozen = card.status == 'INACTIVE' || card.status == 'FROZEN';
     final last4 = card.maskedPan.length >= 4 ? card.maskedPan.substring(card.maskedPan.length - 4) : '****';
-    final isMastercard = card.brand.toUpperCase() == 'MASTERCARD' || card.issuer.toUpperCase() == 'MASTERCARD';
+    final isMastercard = card.issuer.toUpperCase() == 'MASTERCARD';
 
     return Container(
       height: compact ? 140.h : 180.h,

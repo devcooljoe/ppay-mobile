@@ -60,11 +60,16 @@ class DollarCardRemoteDataSourceImpl implements DollarCardRemoteDataSource {
   }
 
   @override
-  Future<DollarCardModel> getDollarCard({required String cardId}) async {
+  Future<DollarCardModel> getDollarCard({required String cardId, required String brand}) async {
     final response = await _dio.get('$_base/dollar-card/$cardId');
     final baseResponse = BaseResponse<DollarCardModel>.fromJson(
       response.data,
-      (data) => DollarCardModel.fromJson(data as Map<String, dynamic>),
+      (data) {
+        final map = Map<String, dynamic>.from(data as Map<String, dynamic>);
+        map['dbId'] = cardId;
+        map['brand'] = brand;
+        return DollarCardModel.fromJson(map);
+      },
     );
     return baseResponse.data!;
   }

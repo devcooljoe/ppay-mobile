@@ -78,10 +78,8 @@ class AppRouter extends $AppRouter {
 
     // Crypto
     AutoRoute(page: CryptoRoute.page),
-    AutoRoute(page: AllTokensRoute.page),
     AutoRoute(page: TokenDetailRoute.page),
     AutoRoute(page: WatchlistRoute.page),
-    AutoRoute(page: AssetsRoute.page),
     AutoRoute(page: YourAssetsRoute.page),
     AutoRoute(page: SelectAssetRoute.page),
     AutoRoute(page: FetchWalletProgressRoute.page),

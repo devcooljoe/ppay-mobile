@@ -650,6 +650,7 @@ class HomePage extends HookConsumerWidget {
             subtitle: _statusLabel(tx.status),
             amount: amount,
             amountColor: amountColor,
+            onTap: () => context.router.push(TransactionHistoryDetailRoute(transaction: tx)),
           ),
         );
       }).toList(),

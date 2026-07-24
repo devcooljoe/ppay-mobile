@@ -16,7 +16,7 @@ abstract class DollarCardRemoteDataSource {
   });
   Future<void> addDollarCard({required String brand, required double amount});
   Future<List<DollarCardModel>> getDollarCards();
-  Future<DollarCardModel> getDollarCard({required String cardId});
+  Future<DollarCardModel> getDollarCard({required String cardId, required String brand});
   Future<void> fundDollarCard({required String cardId, required FundDollarCardRequest request});
   Future<void> withdrawDollarCard({required String cardId, required WithdrawDollarCardRequest request});
   Future<List<DollarCardTransactionModel>> getDollarCardTransactions({required String cardId});

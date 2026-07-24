@@ -122,7 +122,7 @@ class FundCardPage extends HookConsumerWidget {
                                 isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
                                 builder: (_) => ConfirmFundCardBottomsheet(
-                                  cardId: card.dbId,
+                                  cardId: card.id,
                                   amountUsd: amount,
                                   nairaAmount: nairaAmount,
                                   rate: rate,

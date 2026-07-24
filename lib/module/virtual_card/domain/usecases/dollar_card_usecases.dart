@@ -48,8 +48,8 @@ class GetDollarCardUseCase {
   final DollarCardRepository _repository;
   GetDollarCardUseCase(this._repository);
 
-  Future<Either<Failure, DollarCardEntity>> call({required String cardId}) =>
-      _repository.getDollarCard(cardId: cardId);
+  Future<Either<Failure, DollarCardEntity>> call({required String cardId, required String brand}) =>
+      _repository.getDollarCard(cardId: cardId, brand: brand);
 }
 
 @lazySingleton

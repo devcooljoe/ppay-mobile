@@ -31,7 +31,7 @@ class DollarCardModel with _$DollarCardModel {
   factory DollarCardModel.fromJson(Map<String, dynamic> json) => _$DollarCardModelFromJson(json);
 
   DollarCardEntity toEntity({String color = 'teal'}) => DollarCardEntity(
-    id: id,
+    id: dbId,
     dbId: dbId,
     brand: brand,
     name: name,

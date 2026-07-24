@@ -68,9 +68,9 @@ class GetDollarCard extends _$GetDollarCard {
   @override
   AsyncValue<DollarCardEntity?> build() => const AsyncValue.data(null);
 
-  Future<void> call({required String cardId}) async {
+  Future<void> call({required String cardId, required String brand}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<GetDollarCardUseCase>()(cardId: cardId);
+    final result = await getIt<GetDollarCardUseCase>()(cardId: cardId, brand: brand);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (card) => AsyncValue.data(card),

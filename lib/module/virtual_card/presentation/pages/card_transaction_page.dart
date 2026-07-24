@@ -25,7 +25,7 @@ class CardTransactionPage extends HookConsumerWidget {
     final searchQuery = useState('');
 
     useEffect(() {
-      Future.microtask(() => ref.read(getDollarCardTransactionsProvider.notifier).call(cardId: card.dbId));
+      Future.microtask(() => ref.read(getDollarCardTransactionsProvider.notifier).call(cardId: card.id));
       searchCtrl.addListener(() => searchQuery.value = searchCtrl.text.toLowerCase());
       return null;
     }, []);
@@ -107,7 +107,7 @@ class CardTransactionPage extends HookConsumerWidget {
                       children: [
                         Text(MessageHandler.getErrorMessage(txState.error), textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp)),
                         16.verticalSpace,
-                        TextButton(onPressed: () => ref.read(getDollarCardTransactionsProvider.notifier).call(cardId: card.dbId), child: const Text('Retry')),
+                        TextButton(onPressed: () => ref.read(getDollarCardTransactionsProvider.notifier).call(cardId: card.id), child: const Text('Retry')),
                       ],
                     ),
                   ),

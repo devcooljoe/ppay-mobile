@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/crypto/domain/entities/crypto_entity.dart';
@@ -154,8 +153,6 @@ class CryptoPage extends HookConsumerWidget {
                     37.verticalSpace,
                     SectionHeader(
                       title: 'Market Rates',
-                      actionText: 'See all',
-                      onActionTap: () => context.router.push(AllTokensRoute()),
                     ),
                     20.verticalSpace,
                     ratesState.isLoading
