@@ -50,7 +50,6 @@ class Register extends _$Register {
       (l) => state = AsyncValue.error(l.message, StackTrace.current),
       (authEntity) async {
         await getIt<TokenService>().saveToken(authEntity.token);
-        await ref.read(authenticatedUserProvider.notifier).call();
         state = const AsyncValue.data(null);
       },
     );
@@ -80,7 +79,6 @@ class Login extends _$Login {
       (authEntity) async {
         await tokenService.saveToken(authEntity.token);
         await tokenService.saveEmail(emailAddress);
-        await ref.read(authenticatedUserProvider.notifier).call();
         state = const AsyncValue.data(null);
       },
     );

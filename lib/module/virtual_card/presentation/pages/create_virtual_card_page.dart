@@ -64,7 +64,8 @@ class CreateVirtualCardPage extends HookConsumerWidget {
 
     ref.listen(createDollarCardProvider, (_, next) {
       if (next is AsyncData && !next.isLoading) {
-        context.router.replace(VirtualCardSuccessRoute());
+        ref.read(authenticatedUserProvider.notifier).silentRefresh();
+        context.router.replace(AddDollarCardRoute());
       } else if (next is AsyncError) {
         MessageHandler.showErrorSnackBar(
           context,

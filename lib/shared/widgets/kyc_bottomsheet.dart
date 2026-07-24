@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +8,7 @@ import 'package:ppay_mobile/module/auth/domain/entities/user_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
-class KycBottomsheet extends HookConsumerWidget {
+class KycBottomsheet extends ConsumerWidget {
   final UserEntity? user;
 
   const KycBottomsheet({super.key, this.user});
@@ -17,11 +16,10 @@ class KycBottomsheet extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bvnDone = (user?.isBvnVerified ?? false) || (user?.isBvnSubmitted ?? false);
-    // Auto-select the first item the user still needs to action.
-    // BVN is done if submitted or verified → land on KYC (index 1).
-    // If neither is done → land on BVN (index 0).
-    final initialIndex = bvnDone ? 1 : 0;
-    final selectedIndex = useState(initialIndex);
+
+    // BVN is always the active step until it's done, then KYC becomes active.
+    // The user cannot manually switch — the active step is determined by state.
+    final activeIndex = bvnDone ? 1 : 0;
 
     final items = [
       _KycItem(
@@ -34,8 +32,7 @@ class KycBottomsheet extends HookConsumerWidget {
       _KycItem(
         leadingIcon: 'assets/icon/userid.svg',
         title: 'KYC Verification',
-        subtitle:
-            'Confirm your personal information with your issued country ID',
+        subtitle: 'Confirm your personal information with your issued country ID',
         isVerified: user?.isKycVerified ?? false,
         isSubmitted: user?.isKycSubmitted ?? false,
       ),
@@ -43,7 +40,7 @@ class KycBottomsheet extends HookConsumerWidget {
 
     void handleContinue() {
       Navigator.pop(context);
-      if (selectedIndex.value == 0) {
+      if (activeIndex == 0) {
         context.router.push(const BvnVerificationRoute());
       } else {
         context.router.push(const KycVerificationRoute());
@@ -116,112 +113,106 @@ class KycBottomsheet extends HookConsumerWidget {
                     ),
                   ),
                   12.verticalSpace,
-                  Expanded(
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: items.length,
-                      separatorBuilder: (_, __) => 12.verticalSpace,
-                      itemBuilder: (context, index) {
-                        final item = items[index];
-                        final isSelected = selectedIndex.value == index;
-                        final isDisabled = item.isVerified || item.isSubmitted;
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: items.length,
+                    separatorBuilder: (_, __) => 12.verticalSpace,
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+                      final isActive = activeIndex == index;
+                      final isDone = item.isVerified || item.isSubmitted;
+                      // KYC is locked (not tappable) until BVN is done
+                      final isLocked = index == 1 && !bvnDone;
 
-                        return TouchOpacity(
-                          onTap: isDisabled
-                              ? null
-                              : () => selectedIndex.value = index,
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 14.w,
-                              vertical: 14.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected && !isDisabled
-                                  ? PPaymobileColors.buttonColor
-                                      .withValues(alpha: 0.06)
-                                  : Colors.transparent,
-                              border: Border.all(
-                                color: isDisabled
-                                    ? PPaymobileColors.lightGrey
-                                    : isSelected
-                                        ? PPaymobileColors.buttonColor
-                                        : PPaymobileColors.textfiedBorder,
-                                width: isSelected && !isDisabled ? 1.5.w : 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Row(
-                              children: [
-                                Opacity(
-                                  opacity: isDisabled ? 0.4 : 1.0,
-                                  child: SizedBox(
-                                    height: 24.h,
-                                    width: 24.h,
-                                    child: SvgPicture.asset(
-                                      item.leadingIcon,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                12.horizontalSpace,
-                                Expanded(
-                                  child: Opacity(
-                                    opacity: isDisabled ? 0.4 : 1.0,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          item.title,
-                                          style: TextStyle(
-                                            fontFamily: 'InstrumentSans',
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        4.verticalSpace,
-                                        Text(
-                                          item.isVerified
-                                              ? 'Verified'
-                                              : item.isSubmitted
-                                                  ? 'Under review'
-                                                  : item.subtitle,
-                                          style: TextStyle(
-                                            fontFamily: 'InstrumentSans',
-                                            fontSize: 12.sp,
-                                            color: item.isVerified
-                                                ? PPaymobileColors.doneTextColor
-                                                : item.isSubmitted
-                                                    ? PPaymobileColors.warningTextColor
-                                                    : const Color(0xff5B5B5B),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                12.horizontalSpace,
-                                SizedBox(
-                                  height: 24.w,
-                                  width: 24.w,
-                                  child: SvgPicture.asset(
-                                    isDisabled
-                                        ? 'assets/icon/check.svg'
-                                        : isSelected
-                                            ? 'assets/icon/check_circle.svg'
-                                            : 'assets/icon/arrow_forward.svg',
-                                  ),
-                                ),
-                              ],
-                            ),
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 14.w,
+                          vertical: 14.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isActive && !isDone
+                              ? PPaymobileColors.buttonColor.withValues(alpha: 0.06)
+                              : Colors.transparent,
+                          border: Border.all(
+                            color: isDone
+                                ? PPaymobileColors.lightGrey
+                                : isActive
+                                    ? PPaymobileColors.buttonColor
+                                    : PPaymobileColors.textfiedBorder,
+                            width: isActive && !isDone ? 1.5.w : 1.w,
                           ),
-                        );
-                      },
-                    ),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Row(
+                          children: [
+                            Opacity(
+                              opacity: isLocked || isDone ? 0.4 : 1.0,
+                              child: SizedBox(
+                                height: 24.h,
+                                width: 24.h,
+                                child: SvgPicture.asset(
+                                  item.leadingIcon,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                            12.horizontalSpace,
+                            Expanded(
+                              child: Opacity(
+                                opacity: isLocked || isDone ? 0.4 : 1.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.title,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    4.verticalSpace,
+                                    Text(
+                                      item.isVerified
+                                          ? 'Verified'
+                                          : item.isSubmitted
+                                              ? 'Under review'
+                                              : item.subtitle,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        fontSize: 12.sp,
+                                        color: item.isVerified
+                                            ? PPaymobileColors.doneTextColor
+                                            : item.isSubmitted
+                                                ? PPaymobileColors.warningTextColor
+                                                : const Color(0xff5B5B5B),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            12.horizontalSpace,
+                            SizedBox(
+                              height: 24.w,
+                              width: 24.w,
+                              child: SvgPicture.asset(
+                                isDone
+                                    ? 'assets/icon/check.svg'
+                                    : isActive
+                                        ? 'assets/icon/check_circle.svg'
+                                        : 'assets/icon/arrow_forward.svg',
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
+                  const Spacer(),
                   16.verticalSpace,
                   Row(
                     children: [

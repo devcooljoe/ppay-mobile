@@ -38,7 +38,7 @@ class AddDollarCardPage extends HookConsumerWidget {
     ref.listen(addDollarCardProvider, (_, next) {
       if (next is AsyncData && next.value == null) {
         ref.read(getDollarCardsProvider.notifier).call();
-        context.router.replace(VirtualCardSuccessRoute());
+        context.router.replaceAll([MyCardsRoute(), VirtualCardSuccessRoute()]);
       } else if (next is AsyncError) {
         MessageHandler.showErrorSnackBar(
           context,

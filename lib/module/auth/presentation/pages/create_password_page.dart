@@ -67,7 +67,9 @@ class CreatePasswordPage extends HookConsumerWidget {
         AppLoader.show(context);
       } else {
         AppLoader.hide(context);
-        next.whenData((_) {
+        next.whenData((_) async {
+          await ref.read(authenticatedUserProvider.notifier).call();
+          if (!context.mounted) return;
           context.router.push(const VerifyEmailOtpRoute());
         });
         if (next.hasError) {

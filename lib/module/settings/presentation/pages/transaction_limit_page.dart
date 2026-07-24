@@ -208,26 +208,32 @@ class TransactionLimitPage extends HookConsumerWidget {
                 _TierSection(
                   tierNumber: 1,
                   isCurrent: tier == 1,
-                  withdrawalMin: '₦5,000',
-                  withdrawalMax: '₦50,000',
+                  requirement: 'Email & Phone Verified',
+                  singleTransferLimit: '₦50,000',
+                  dailyTransferLimit: '₦200,000',
+                  walletBalance: '₦300,000',
                   fundingMin: '₦100',
-                  fundingMax: '₦50,000',
+                  fundingMax: '₦300,000',
                 ),
                 32.verticalSpace,
                 _TierSection(
                   tierNumber: 2,
                   isCurrent: tier == 2,
-                  withdrawalMin: '₦5,000',
-                  withdrawalMax: '₦200,000',
+                  requirement: 'Email, Phone & BVN Verified',
+                  singleTransferLimit: '₦200,000',
+                  dailyTransferLimit: '₦500,000',
+                  walletBalance: '₦500,000',
                   fundingMin: '₦100',
-                  fundingMax: '₦200,000',
+                  fundingMax: '₦500,000',
                 ),
                 32.verticalSpace,
                 _TierSection(
                   tierNumber: 3,
                   isCurrent: tier == 3,
-                  withdrawalMin: '₦5,000',
-                  withdrawalMax: 'Unlimited',
+                  requirement: 'Email, Phone, BVN & ID Verified',
+                  singleTransferLimit: '₦1,000,000',
+                  dailyTransferLimit: '₦5,000,000',
+                  walletBalance: 'Unlimited',
                   fundingMin: '₦100',
                   fundingMax: 'Unlimited',
                 ),
@@ -244,16 +250,20 @@ class TransactionLimitPage extends HookConsumerWidget {
 class _TierSection extends StatelessWidget {
   final int tierNumber;
   final bool isCurrent;
-  final String withdrawalMin;
-  final String withdrawalMax;
+  final String requirement;
+  final String singleTransferLimit;
+  final String dailyTransferLimit;
+  final String walletBalance;
   final String fundingMin;
   final String fundingMax;
 
   const _TierSection({
     required this.tierNumber,
     required this.isCurrent,
-    required this.withdrawalMin,
-    required this.withdrawalMax,
+    required this.requirement,
+    required this.singleTransferLimit,
+    required this.dailyTransferLimit,
+    required this.walletBalance,
     required this.fundingMin,
     required this.fundingMax,
   });
@@ -296,16 +306,25 @@ class _TierSection extends StatelessWidget {
             ],
           ],
         ),
-        8.verticalSpace,
+        4.verticalSpace,
+        Text(
+          requirement,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black54,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        10.verticalSpace,
         Container(
-          height: 44.h,
           width: double.infinity,
           padding: EdgeInsets.all(10).r,
           color: PPaymobileColors.deepBackgroundColor,
           child: Row(
             children: [
               Text(
-                'Transaction',
+                'Limit Type',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: Colors.black,
@@ -315,17 +334,7 @@ class _TierSection extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                'Minimum',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: Colors.black,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              40.horizontalSpace,
-              Text(
-                'Maximum',
+                'Amount',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: Colors.black,
@@ -337,9 +346,15 @@ class _TierSection extends StatelessWidget {
           ),
         ),
         14.verticalSpace,
-        _LimitRow(label: 'Withdrawal', min: withdrawalMin, max: withdrawalMax),
+        _LimitRow(label: 'Single Transfer', value: singleTransferLimit),
         10.verticalSpace,
-        _LimitRow(label: 'Funding', min: fundingMin, max: fundingMax),
+        _LimitRow(label: 'Daily Transfer', value: dailyTransferLimit),
+        10.verticalSpace,
+        _LimitRow(label: 'Max Wallet Balance', value: walletBalance),
+        10.verticalSpace,
+        _LimitRow(label: 'Min Funding', value: fundingMin),
+        10.verticalSpace,
+        _LimitRow(label: 'Max Funding', value: fundingMax),
       ],
     );
   }
@@ -347,10 +362,9 @@ class _TierSection extends StatelessWidget {
 
 class _LimitRow extends StatelessWidget {
   final String label;
-  final String min;
-  final String max;
+  final String value;
 
-  const _LimitRow({required this.label, required this.min, required this.max});
+  const _LimitRow({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -369,17 +383,7 @@ class _LimitRow extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            min,
-            style: TextStyle(
-              fontFamily: 'InstrumentSans',
-              color: Colors.black,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          40.horizontalSpace,
-          Text(
-            max,
+            value,
             style: TextStyle(
               fontFamily: 'InstrumentSans',
               color: Colors.black,
