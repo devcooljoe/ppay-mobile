@@ -421,16 +421,18 @@ extension GetItInjectableX on _i174.GetIt {
         _i912.DeleteBankAccountUseCase(gh<_i629.BankAccountRepository>()));
     gh.lazySingleton<_i201.GetMyTransactionsUseCase>(() =>
         _i201.GetMyTransactionsUseCase(gh<_i1002.TransactionRepository>()));
-    gh.lazySingleton<_i1052.GetMyReferralsUseCase>(
-        () => _i1052.GetMyReferralsUseCase(gh<_i454.ReferralRepository>()));
     gh.lazySingleton<_i144.WithdrawPointsUseCase>(
         () => _i144.WithdrawPointsUseCase(gh<_i454.ReferralRepository>()));
+    gh.lazySingleton<_i1052.GetMyReferralsUseCase>(
+        () => _i1052.GetMyReferralsUseCase(gh<_i454.ReferralRepository>()));
     gh.lazySingleton<_i509.VerifyForgotPinOtpUseCase>(
         () => _i509.VerifyForgotPinOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i1043.ForgotPasswordUseCase>(
         () => _i1043.ForgotPasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i700.ForgotPinUseCase>(
         () => _i700.ForgotPinUseCase(gh<_i117.UserRepository>()));
+    gh.lazySingleton<_i1012.VerifyPasswordUseCase>(
+        () => _i1012.VerifyPasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i1047.RegisterUseCase>(
         () => _i1047.RegisterUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i125.ResendPhoneOtpUseCase>(
@@ -457,8 +459,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i470.ChangePasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i882.VerifyEmailOtpUseCase>(
         () => _i882.VerifyEmailOtpUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i1012.VerifyPasswordUseCase>(
-        () => _i1012.VerifyPasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i672.GetWalletUseCase>(
         () => _i672.GetWalletUseCase(gh<_i836.WalletRepository>()));
     gh.lazySingleton<_i690.CalculateFeeUseCase>(

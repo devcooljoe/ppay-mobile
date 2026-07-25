@@ -327,6 +327,7 @@ class CardPage extends HookConsumerWidget {
     final currentCard = cardState.value ?? card;
     final isFrozen =
         currentCard.status == 'INACTIVE' || currentCard.status == 'FROZEN';
+    final canWithdraw = !isFrozen && currentCard.balance > 0;
     final isLoading =
         freezeState is AsyncLoading ||
         unfreezeState is AsyncLoading ||
@@ -611,6 +612,24 @@ class CardPage extends HookConsumerWidget {
                             CardDetailsBottomsheet(card: currentCard),
                       );
                     },
+                  ),
+                  27.verticalSpace,
+                  menuRow(
+                    'Withdraw from Card',
+                    'Move money from your card back to your wallet',
+                    SizedBox(
+                      height: 24.h,
+                      width: 12.w,
+                      child: SvgPicture.asset(
+                        'assets/icon/arrow_forward.svg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    canWithdraw
+                        ? () => context.router.push(
+                            WithdrawCardRoute(card: currentCard),
+                          )
+                        : null,
                   ),
                   27.verticalSpace,
                   menuRow(

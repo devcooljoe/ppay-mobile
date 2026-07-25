@@ -119,6 +119,7 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: CardTransactionRoute.page),
     AutoRoute(page: TransactionDetailsRoute.page),
     AutoRoute(page: FundCardRoute.page),
+    AutoRoute(page: WithdrawCardRoute.page),
     AutoRoute(page: FundCardReceiptRoute.page),
     AutoRoute(page: FundCardSuccessfulRoute.page),
     AutoRoute(page: CardLimitRoute.page),

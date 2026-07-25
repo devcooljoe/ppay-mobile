@@ -80,14 +80,18 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
       isVerifying.value = false;
       if (success) {
         if (context.mounted) Navigator.pop(context, true);
-      } else {
-        final pinState = ref.read(verifyPinProvider);
-        errorMessage.value = pinState.hasError
-            ? MessageHandler.getErrorMessage(pinState.error)
-            : 'Incorrect PIN. Please try again.';
-        realPin.value = '';
-        displayController.text = '';
+        return;
       }
+
+      final pinState = ref.read(verifyPinProvider);
+      final message = pinState.when(
+        data: (_) => null,
+        loading: () => null,
+        error: (error, _) => MessageHandler.getErrorMessage(error),
+      );
+      errorMessage.value = message ?? 'Incorrect PIN. Please try again.';
+      realPin.value = '';
+      displayController.text = '';
     }
 
     Future<void> verifyWithBiometric() async {
@@ -101,7 +105,10 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
         if (context.mounted) Navigator.pop(context, true);
       } else {
         if (context.mounted) {
-          MessageHandler.showErrorSnackBar(context, 'Biometric authentication failed');
+          MessageHandler.showErrorSnackBar(
+            context,
+            'Biometric authentication failed',
+          );
         }
       }
     }
@@ -150,7 +157,10 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
                 child: SizedBox(
                   height: 18.h,
                   width: 18.h,
-                  child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+                  child: SvgPicture.asset(
+                    'assets/icon/cancel.svg',
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
               ),
             ),
@@ -286,7 +296,10 @@ class _PinKeyboard extends StatelessWidget {
         child: SizedBox(
           height: 22.h,
           width: 28.w,
-          child: SvgPicture.asset('assets/icon/delete.svg', fit: BoxFit.scaleDown),
+          child: SvgPicture.asset(
+            'assets/icon/delete.svg',
+            fit: BoxFit.scaleDown,
+          ),
         ),
       );
     }
@@ -310,9 +323,15 @@ class _PinKeyboard extends StatelessWidget {
       mainAxisSpacing: 24.h,
       crossAxisSpacing: 48.w,
       children: [
-        numKey('1'), numKey('2'), numKey('3'),
-        numKey('4'), numKey('5'), numKey('6'),
-        numKey('7'), numKey('8'), numKey('9'),
+        numKey('1'),
+        numKey('2'),
+        numKey('3'),
+        numKey('4'),
+        numKey('5'),
+        numKey('6'),
+        numKey('7'),
+        numKey('8'),
+        numKey('9'),
         if (showBiometric) biometricKey() else const SizedBox.shrink(),
         numKey('0'),
         deleteKey(),

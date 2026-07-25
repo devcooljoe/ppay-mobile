@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:ppay_mobile/core/utils/message_handler.dart';
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/virtual_card/presentation/providers/virtual_card_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -119,14 +119,16 @@ class CreateVirtualCardPage extends HookConsumerWidget {
         );
         return;
       }
-      await ref.read(createDollarCardProvider.notifier).call(
-        street: streetCtrl.text.trim(),
-        city: cityCtrl.text.trim(),
-        cardState: stateCtrl.text.trim(),
-        postalCode: postalCtrl.text.trim(),
-        photo: photo.value!,
-        ninPhoto: ninPhoto.value!,
-      );
+      await ref
+          .read(createDollarCardProvider.notifier)
+          .call(
+            street: streetCtrl.text.trim(),
+            city: cityCtrl.text.trim(),
+            cardState: stateCtrl.text.trim(),
+            postalCode: postalCtrl.text.trim(),
+            photo: photo.value!,
+            ninPhoto: ninPhoto.value!,
+          );
     }
 
     Widget verificationRow(
@@ -414,7 +416,10 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                     child: ninPhoto.value != null
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(6).r,
-                            child: Image.file(ninPhoto.value!, fit: BoxFit.cover),
+                            child: Image.file(
+                              ninPhoto.value!,
+                              fit: BoxFit.cover,
+                            ),
                           )
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -472,10 +477,9 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                 ),
                 24.verticalSpace,
                 PPButton(
-                  text: createState is AsyncLoading
-                      ? 'Creating...'
-                      : 'Create Dollar Card',
-                  onPressed: createState is AsyncLoading ? null : onSubmit,
+                  isLoading: createState is AsyncLoading,
+                  text: 'Create Dollar Card',
+                  onPressed: onSubmit,
                   backgroundColor: PPaymobileColors.backgroundColor,
                 ),
                 17.verticalSpace,
@@ -497,9 +501,7 @@ class _DobRequiredDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.r),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 28.h),
         child: Column(

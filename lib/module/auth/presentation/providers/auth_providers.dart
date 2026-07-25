@@ -15,9 +15,9 @@ import 'package:ppay_mobile/module/auth/domain/usecases/set_pin_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_email_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_password_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_pin_otp_usecase.dart';
+import 'package:ppay_mobile/module/auth/domain/usecases/verify_password_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_phone_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_pin_usecase.dart';
-import 'package:ppay_mobile/module/auth/domain/usecases/verify_password_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
@@ -152,7 +152,10 @@ class SetPin extends _$SetPin {
 
   Future<void> call({required String pin, required String confirmPin}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<SetPinUseCase>()(pin: pin, confirmPin: confirmPin);
+    final result = await getIt<SetPinUseCase>()(
+      pin: pin,
+      confirmPin: confirmPin,
+    );
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),
@@ -167,7 +170,9 @@ class ForgotPassword extends _$ForgotPassword {
 
   Future<void> call({required String emailAddress}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<ForgotPasswordUseCase>()(emailAddress: emailAddress);
+    final result = await getIt<ForgotPasswordUseCase>()(
+      emailAddress: emailAddress,
+    );
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),
@@ -180,7 +185,10 @@ class VerifyForgotPasswordOtp extends _$VerifyForgotPasswordOtp {
   @override
   AsyncValue<String?> build() => const AsyncValue.data(null);
 
-  Future<void> call({required String emailAddress, required String otpCode}) async {
+  Future<void> call({
+    required String emailAddress,
+    required String otpCode,
+  }) async {
     state = const AsyncValue.loading();
     final result = await getIt<VerifyForgotPasswordOtpUseCase>()(
       emailAddress: emailAddress,
@@ -238,9 +246,7 @@ class VerifyForgotPinOtp extends _$VerifyForgotPinOtp {
 
   Future<void> call({required String otpCode}) async {
     state = const AsyncValue.loading();
-    final result = await getIt<VerifyForgotPinOtpUseCase>()(
-      otpCode: otpCode,
-    );
+    final result = await getIt<VerifyForgotPinOtpUseCase>()(otpCode: otpCode);
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (resetToken) => AsyncValue.data(resetToken),
@@ -310,10 +316,7 @@ class AuthenticatedUser extends _$AuthenticatedUser {
 
   Future<void> silentRefresh() async {
     final result = await getIt<GetUserUseCase>()();
-    result.fold(
-      (l) => null,
-      (user) => state = AsyncValue.data(user),
-    );
+    result.fold((l) => null, (user) => state = AsyncValue.data(user));
   }
 
   void updateUser(UserEntity user) {
@@ -324,14 +327,14 @@ class AuthenticatedUser extends _$AuthenticatedUser {
 @riverpod
 class VerifyPin extends _$VerifyPin {
   @override
-  AsyncValue<void> build() => const AsyncValue.data(null);
+  AsyncValue<String?> build() => const AsyncValue.data(null);
 
   Future<bool> call({required String pin}) async {
     state = const AsyncValue.loading();
     final result = await getIt<VerifyPinUseCase>()(pin: pin);
     state = result.fold(
-      (l) => AsyncValue.error(l.message, StackTrace.current),
-      (_) => const AsyncValue.data(null),
+      (l) => AsyncValue<String?>.error(l.message, StackTrace.current),
+      (_) => const AsyncValue<String?>.data(null),
     );
     return result.isRight();
   }

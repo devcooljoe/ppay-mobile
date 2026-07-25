@@ -1,9 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide MessageHandler;
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
@@ -56,10 +56,9 @@ class AddDollarCardPage extends HookConsumerWidget {
         );
         return;
       }
-      ref.read(addDollarCardProvider.notifier).call(
-        brand: selectedBrand.value,
-        amount: amount,
-      );
+      ref
+          .read(addDollarCardProvider.notifier)
+          .call(brand: selectedBrand.value, amount: amount);
     }
 
     final previewCard = DollarCardEntity(
@@ -77,7 +76,11 @@ class AddDollarCardPage extends HookConsumerWidget {
       currency: 'USD',
       balance: 0.0,
       address: const DollarCardAddressEntity(
-        street: '', city: '', state: '', postalCode: '', country: '',
+        street: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        country: '',
       ),
       createdAt: '',
       updatedAt: '',
@@ -195,7 +198,10 @@ class AddDollarCardPage extends HookConsumerWidget {
                 child: Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 16.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 14.w,
+                        vertical: 16.h,
+                      ),
                       decoration: BoxDecoration(
                         color: PPaymobileColors.backgroundColor,
                         borderRadius: BorderRadius.only(
@@ -216,9 +222,13 @@ class AddDollarCardPage extends HookConsumerWidget {
                     Expanded(
                       child: TextField(
                         controller: amountController,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}'),
+                          ),
                         ],
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
@@ -228,7 +238,9 @@ class AddDollarCardPage extends HookConsumerWidget {
                         ),
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 14.w),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 14.w,
+                          ),
                           hintText: '2.00',
                           hintStyle: TextStyle(
                             fontFamily: 'InstrumentSans',
@@ -258,7 +270,10 @@ class AddDollarCardPage extends HookConsumerWidget {
               // Rate info
               if (conversionRate > 0)
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14.w,
+                    vertical: 12.h,
+                  ),
                   decoration: BoxDecoration(
                     color: PPaymobileColors.deepBackgroundColor,
                     borderRadius: BorderRadius.circular(8).r,
@@ -347,11 +362,10 @@ class AddDollarCardPage extends HookConsumerWidget {
               ),
               24.verticalSpace,
               PPButton(
-                text: addState is AsyncLoading
-                    ? 'Creating...'
-                    : 'Create ${selectedBrand.value == 'MASTERCARD' ? 'Mastercard' : 'Visa'} Card',
-                onPressed: addState is AsyncLoading ? null : onSubmit,
-                backgroundColor: PPaymobileColors.backgroundColor,
+                isLoading: addState is AsyncLoading,
+                text:
+                    'Create ${selectedBrand.value == 'MASTERCARD' ? 'Mastercard' : 'Visa'} Card',
+                onPressed: onSubmit,
               ),
               20.verticalSpace,
             ],
@@ -436,7 +450,9 @@ class _BrandCard extends StatelessWidget {
                 'VISA',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
-                  color: selected ? Colors.white : PPaymobileColors.svgIconColor,
+                  color: selected
+                      ? Colors.white
+                      : PPaymobileColors.svgIconColor,
                   fontSize: 22.sp,
                   fontWeight: FontWeight.w800,
                   fontStyle: FontStyle.italic,

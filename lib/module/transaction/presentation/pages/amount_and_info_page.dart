@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
+import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -15,6 +14,7 @@ import 'package:ppay_mobile/shared/widgets/custom_keyboard.dart';
 import 'package:ppay_mobile/shared/widgets/custom_keyboard_container.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class AmountAndInfoPage extends HookConsumerWidget {
@@ -47,8 +47,10 @@ class AmountAndInfoPage extends HookConsumerWidget {
 
     void onDelete() {
       if (rawAmount.value.isNotEmpty) {
-        rawAmount.value =
-            rawAmount.value.substring(0, rawAmount.value.length - 1);
+        rawAmount.value = rawAmount.value.substring(
+          0,
+          rawAmount.value.length - 1,
+        );
       }
     }
 
@@ -75,7 +77,7 @@ class AmountAndInfoPage extends HookConsumerWidget {
           Expanded(
             child: ListView(
               children: [
-                46.verticalSpace,
+                20.verticalSpace,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
                   child: Column(
@@ -101,7 +103,7 @@ class AmountAndInfoPage extends HookConsumerWidget {
                                 fit: BoxFit.contain,
                               ),
                       ),
-                      17.verticalSpace,
+                      10.verticalSpace,
                       Text(
                         account.accountName,
                         style: TextStyle(
@@ -121,7 +123,7 @@ class AmountAndInfoPage extends HookConsumerWidget {
                           color: PPaymobileColors.svgIconColor,
                         ),
                       ),
-                      40.verticalSpace,
+                      20.verticalSpace,
                       Text(
                         displayAmount,
                         style: TextStyle(
@@ -183,7 +185,7 @@ class AmountAndInfoPage extends HookConsumerWidget {
                           ),
                         ),
                       ],
-                      39.verticalSpace,
+                      29.verticalSpace,
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(
@@ -215,7 +217,7 @@ class AmountAndInfoPage extends HookConsumerWidget {
                                       fit: BoxFit.contain,
                                     ),
                             ),
-                            14.horizontalSpace,
+                            10.horizontalSpace,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -259,7 +261,8 @@ class AmountAndInfoPage extends HookConsumerWidget {
                                             fontFamily: 'InstrumentSans',
                                             fontWeight: FontWeight.w500,
                                             fontSize: 12.sp,
-                                            color: PPaymobileColors.svgIconColor,
+                                            color:
+                                                PPaymobileColors.svgIconColor,
                                           ),
                                         ),
                                       ),
@@ -313,7 +316,6 @@ class AmountAndInfoPage extends HookConsumerWidget {
                     ),
                   ),
                 ),
-                24.verticalSpace,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                   child: PPButton(
@@ -328,11 +330,11 @@ class AmountAndInfoPage extends HookConsumerWidget {
                     ),
                     onPressed: canProceed
                         ? () => context.router.push(
-                              ConfirmTransactionRoute(
-                                account: account,
-                                amount: amount,
-                              ),
-                            )
+                            ConfirmTransactionRoute(
+                              account: account,
+                              amount: amount,
+                            ),
+                          )
                         : null,
                     backgroundColor: canProceed
                         ? PPaymobileColors.backgroundColor
