@@ -48,15 +48,9 @@ class VerifyCodePage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         next.whenData((_) async {
-          // Refresh user profile to get latest verification flags
           await ref.read(authenticatedUserProvider.notifier).call();
           if (!context.mounted) return;
-          final user = ref.read(authenticatedUserProvider).value;
-          if (user != null && !user.isPhoneNumberVerified) {
-            context.router.replace(const VerifyPhoneRoute());
-          } else {
-            context.router.replaceAll([const ExploreRoute()]);
-          }
+          context.router.replaceAll([const ExploreRoute()]);
         });
         if (next.hasError) {
           hasError.value = true;

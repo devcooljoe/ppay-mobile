@@ -376,8 +376,6 @@ class LoginPage extends HookConsumerWidget {
 
     if (!user.isEmailVerified) {
       context.router.replaceAll([const VerifyCodeRoute()]);
-    } else if (!user.isPhoneNumberVerified) {
-      context.router.replaceAll([const VerifyPhoneRoute()]);
     } else {
       context.router.replaceAll([const ExploreRoute()]);
     }

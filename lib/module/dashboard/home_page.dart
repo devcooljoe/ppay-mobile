@@ -213,8 +213,19 @@ class HomePage extends HookConsumerWidget {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
+        child: RefreshIndicator(
+          color: PPaymobileColors.buttonColor,
+          onRefresh: () async {
+            await Future.wait([
+              ref.read(authenticatedUserProvider.notifier).call(),
+              ref.read(walletProvider.notifier).fetch(),
+              ref.read(getMyTransactionsProvider.notifier).call(),
+              ref.read(getMyNotificationsProvider.notifier).call(),
+            ]);
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
             children: [
               19.verticalSpace,
               Padding(
@@ -579,6 +590,7 @@ class HomePage extends HookConsumerWidget {
               ),
             ],
           ),
+        ),
         ),
       ),
     );

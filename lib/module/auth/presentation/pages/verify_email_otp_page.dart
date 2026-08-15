@@ -50,12 +50,7 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
         next.whenData((_) async {
           await ref.read(authenticatedUserProvider.notifier).call();
           if (!context.mounted) return;
-          final user = ref.read(authenticatedUserProvider).value;
-          if (user != null && !user.isPhoneNumberVerified) {
-            context.router.replace(const VerifyPhoneRoute());
-          } else {
-            context.router.replaceAll([const ExploreRoute()]);
-          }
+          context.router.replaceAll([const ExploreRoute()]);
         });
         if (next.hasError) {
           MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
