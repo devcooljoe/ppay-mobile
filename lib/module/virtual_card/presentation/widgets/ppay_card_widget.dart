@@ -44,7 +44,7 @@ class PPAYCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final gradient = cardGradient(card.color);
     final accent = cardAccent(card.color);
-    final isFrozen = card.status == 'INACTIVE' || card.status == 'FROZEN';
+    final isFrozen = card.status == 'DISABLED';
     final last4 = card.maskedPan.length >= 4 ? card.maskedPan.substring(card.maskedPan.length - 4) : '****';
     final isMastercard = card.issuer.toUpperCase() == 'MASTERCARD';
 
@@ -115,11 +115,19 @@ class PPAYCardWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: isFrozen ? Colors.red.withValues(alpha: 0.2) : accent.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(20).r,
-                        border: Border.all(color: isFrozen ? Colors.red.withValues(alpha: 0.5) : accent.withValues(alpha: 0.5)),
+                        border: Border.all(
+                          color: isFrozen ? Colors.red.withValues(alpha: 0.5) : accent.withValues(alpha: 0.5),
+                        ),
                       ),
                       child: Text(
                         isFrozen ? 'FROZEN' : 'ACTIVE',
-                        style: TextStyle(fontFamily: 'InstrumentSans', color: isFrozen ? Colors.red[300] : accent, fontSize: 10.sp, fontWeight: FontWeight.w600, letterSpacing: 0.8),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: isFrozen ? Colors.red[300] : accent,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.8,
+                        ),
                       ),
                     ),
                   ],

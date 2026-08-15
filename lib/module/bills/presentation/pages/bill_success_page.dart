@@ -43,9 +43,10 @@ class BillSuccessPage extends HookConsumerWidget {
     );
 
     final fadeAnim = useMemoized(
-      () => Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: animController, curve: Curves.easeIn),
-      ),
+      () => Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(CurvedAnimation(parent: animController, curve: Curves.easeIn)),
       [animController],
     );
 
@@ -130,12 +131,14 @@ class BillSuccessPage extends HookConsumerWidget {
                     PPButton(
                       text: 'View Receipt',
                       backgroundColor: PPaymobileColors.buttonColorandText,
-                      onPressed: () => context.router.push(BillReceiptRoute(
-                        args: args,
-                        reference: reference,
-                        fee: fee,
-                        purchasedAt: purchasedAt,
-                      )),
+                      onPressed: () => context.router.push(
+                        BillReceiptRoute(
+                          args: args,
+                          reference: reference,
+                          fee: fee,
+                          purchasedAt: purchasedAt,
+                        ),
+                      ),
                     ),
                     12.verticalSpace,
                     PPButton(
@@ -143,7 +146,7 @@ class BillSuccessPage extends HookConsumerWidget {
                       backgroundColor: PPaymobileColors.deepBackgroundColor,
                       textColor: PPaymobileColors.buttonColorandText,
                       onPressed: () {
-                        context.router.replaceAll([HomeRoute()]);
+                        context.router.replaceAll([ExploreRoute()]);
                       },
                     ),
                     20.verticalSpace,

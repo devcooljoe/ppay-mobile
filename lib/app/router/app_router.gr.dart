@@ -1470,8 +1470,7 @@ abstract class $AppRouter extends _i167.RootStackRouter {
         routeData: routeData,
         child: _i151.TransactionSuccessfulPage(
           key: args.key,
-          account: args.account,
-          amount: args.amount,
+          description: args.description,
         ),
       );
     },
@@ -4838,15 +4837,13 @@ class TransactionSuccessfulRoute
     extends _i167.PageRouteInfo<TransactionSuccessfulRouteArgs> {
   TransactionSuccessfulRoute({
     _i168.Key? key,
-    required _i169.BankAccountEntity account,
-    required double amount,
+    required String description,
     List<_i167.PageRouteInfo>? children,
   }) : super(
           TransactionSuccessfulRoute.name,
           args: TransactionSuccessfulRouteArgs(
             key: key,
-            account: account,
-            amount: amount,
+            description: description,
           ),
           initialChildren: children,
         );
@@ -4860,19 +4857,16 @@ class TransactionSuccessfulRoute
 class TransactionSuccessfulRouteArgs {
   const TransactionSuccessfulRouteArgs({
     this.key,
-    required this.account,
-    required this.amount,
+    required this.description,
   });
 
   final _i168.Key? key;
 
-  final _i169.BankAccountEntity account;
-
-  final double amount;
+  final String description;
 
   @override
   String toString() {
-    return 'TransactionSuccessfulRouteArgs{key: $key, account: $account, amount: $amount}';
+    return 'TransactionSuccessfulRouteArgs{key: $key, description: $description}';
   }
 }
 

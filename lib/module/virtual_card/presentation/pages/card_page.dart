@@ -325,8 +325,7 @@ class CardPage extends HookConsumerWidget {
     final terminateState = ref.watch(terminateDollarCardProvider);
 
     final currentCard = cardState.value ?? card;
-    final isFrozen =
-        currentCard.status == 'INACTIVE' || currentCard.status == 'FROZEN';
+    final isFrozen = currentCard.status == 'DISABLED';
     final canWithdraw = !isFrozen && currentCard.balance > 0;
     final isLoading =
         freezeState is AsyncLoading ||
@@ -342,30 +341,45 @@ class CardPage extends HookConsumerWidget {
       return null;
     }, []);
 
-    ref.listen(freezeDollarCardProvider, (_, next) {
-      if (next is AsyncData && next.value == null) {
-        ref
-            .read(getDollarCardProvider.notifier)
-            .call(cardId: card.id, brand: card.brand);
-      } else if (next is AsyncError) {
+    ref.listen(freezeDollarCardProvider, (previous, next) {
+      // Only react to transitions — ignore the initial AsyncData(null) on mount
+      if (previous == null) return;
+      if (next.isLoading) return;
+      if (next.hasError) {
         MessageHandler.showErrorSnackBar(
           context,
           MessageHandler.getErrorMessage(next.error),
         );
+        return;
       }
+      // Success: optimistically mark the card as frozen in local state
+      final frozen = currentCard.copyWith(status: 'DISABLED');
+      ref.read(getDollarCardProvider.notifier).updateCard(frozen);
+      // Then re-fetch in the background to sync with server
+      ref.read(getDollarCardProvider.notifier).call(
+            cardId: card.id,
+            brand: card.brand,
+          );
     });
 
-    ref.listen(unfreezeDollarCardProvider, (_, next) {
-      if (next is AsyncData && next.value == null) {
-        ref
-            .read(getDollarCardProvider.notifier)
-            .call(cardId: card.id, brand: card.brand);
-      } else if (next is AsyncError) {
+    ref.listen(unfreezeDollarCardProvider, (previous, next) {
+      if (previous == null) return;
+      if (next.isLoading) return;
+      if (next.hasError) {
         MessageHandler.showErrorSnackBar(
           context,
           MessageHandler.getErrorMessage(next.error),
         );
+        return;
       }
+      // Success: optimistically mark the card as active in local state
+      final unfrozen = currentCard.copyWith(status: 'ACTIVE');
+      ref.read(getDollarCardProvider.notifier).updateCard(unfrozen);
+      // Then re-fetch in the background to sync with server
+      ref.read(getDollarCardProvider.notifier).call(
+            cardId: card.id,
+            brand: card.brand,
+          );
     });
 
     ref.listen(terminateDollarCardProvider, (_, next) {

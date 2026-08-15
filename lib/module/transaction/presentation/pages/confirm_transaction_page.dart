@@ -8,7 +8,10 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart';
 import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
@@ -30,6 +33,8 @@ class ConfirmTransactionPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final feeState = ref.watch(calculateFeeProvider);
 
+    final wasLoading = useRef(false);
+
     useEffect(() {
       Future.microtask(() => ref.read(calculateFeeProvider.notifier).call(
             transactionType: 'wallet_withdrawal',
@@ -37,6 +42,31 @@ class ConfirmTransactionPage extends HookConsumerWidget {
           ));
       return null;
     }, []);
+
+    ref.listen(withdrawProvider, (_, next) {
+      if (next.isLoading) {
+        wasLoading.value = true;
+        AppLoader.show(context);
+      } else {
+        AppLoader.hide(context);
+        if (next.hasError) {
+          wasLoading.value = false;
+          MessageHandler.showErrorSnackBar(
+            context,
+            next.error?.toString() ?? 'Transfer failed. Please try again.',
+          );
+        } else if (next.hasValue && wasLoading.value) {
+          wasLoading.value = false;
+          ref.read(walletProvider.notifier).fetch();
+          context.router.push(
+            TransactionSuccessfulRoute(
+              description:
+                  '₦${AmountFormatter.formatBalance(amount.toString())} has been sent to ${account.accountName}.',
+            ),
+          );
+        }
+      }
+    });
 
     final fee = feeState.value ?? 0.0;
     final total = amount + fee;
@@ -231,12 +261,6 @@ class ConfirmTransactionPage extends HookConsumerWidget {
                   final verified = await showSecurityPinBottomsheet(context);
                   if (!verified) return;
                   if (!context.mounted) return;
-                  context.router.push(
-                    TransactionSuccessfulRoute(
-                      account: account,
-                      amount: amount,
-                    ),
-                  );
                   ref.read(withdrawProvider.notifier).call(
                     amount: amount,
                     accountNumber: account.accountNumber,

@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/crypto/domain/entities/crypto_entity.dart';
-import 'package:ppay_mobile/module/crypto/presentation/providers/crypto_providers.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -59,16 +58,22 @@ class CryptoTransactionPage extends HookConsumerWidget {
     final walletState = ref.watch(walletProvider);
 
     final price = double.tryParse(rate.price) ?? 0;
-    final nairaRate = price *
+    final nairaRate =
+        price *
         (isForSelling
             ? (double.tryParse(rate.sellRatePerDollar) ?? 0)
             : (double.tryParse(rate.buyRatePerDollar) ?? 0));
 
     final amount = double.tryParse(amountText.value) ?? 0;
-    final cryptoAmount = (!isForSelling && nairaRate > 0) ? amount / nairaRate : 0.0;
-    final nairaValue = (isForSelling && nairaRate > 0) ? amount * nairaRate : 0.0;
+    final cryptoAmount = (!isForSelling && nairaRate > 0)
+        ? amount / nairaRate
+        : 0.0;
+    final nairaValue = (isForSelling && nairaRate > 0)
+        ? amount * nairaRate
+        : 0.0;
 
-    final walletBalance = double.tryParse(walletState.value?.balance ?? '0') ?? 0;
+    final walletBalance =
+        double.tryParse(walletState.value?.balance ?? '0') ?? 0;
     final cryptoBalance = double.tryParse(wallet.balance) ?? 0;
 
     final isInsufficient = isForSelling
@@ -100,7 +105,10 @@ class CryptoTransactionPage extends HookConsumerWidget {
 
     void onDelete() {
       if (amountText.value.length > 1) {
-        amountText.value = amountText.value.substring(0, amountText.value.length - 1);
+        amountText.value = amountText.value.substring(
+          0,
+          amountText.value.length - 1,
+        );
       } else {
         amountText.value = '0';
       }
@@ -124,7 +132,10 @@ class CryptoTransactionPage extends HookConsumerWidget {
         return;
       }
       if (isBelowMin) {
-        MessageHandler.showErrorSnackBar(context, 'Minimum buy amount is ₦6,000');
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Minimum buy amount is ₦6,000',
+        );
         return;
       }
       if (isInsufficient) {
@@ -137,19 +148,23 @@ class CryptoTransactionPage extends HookConsumerWidget {
         return;
       }
       if (isForSelling) {
-        context.router.push(ConfirmSellRoute(
-          rate: rate,
-          wallet: wallet,
-          cryptoAmount: amount,
-          nairaValue: nairaValue,
-        ));
+        context.router.push(
+          ConfirmSellRoute(
+            rate: rate,
+            wallet: wallet,
+            cryptoAmount: amount,
+            nairaValue: nairaValue,
+          ),
+        );
       } else {
-        context.router.push(ConfirmBuyRoute(
-          rate: rate,
-          wallet: wallet,
-          nairaAmount: amount,
-          cryptoAmount: cryptoAmount,
-        ));
+        context.router.push(
+          ConfirmBuyRoute(
+            rate: rate,
+            wallet: wallet,
+            nairaAmount: amount,
+            cryptoAmount: cryptoAmount,
+          ),
+        );
       }
     }
 
@@ -157,7 +172,10 @@ class CryptoTransactionPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(title: '${isForSelling ? 'Sell' : 'Buy'} ${rate.currency.toUpperCase()}'),
+      appBar: PPAppBar(
+        title:
+            '${isForSelling ? 'Sell' : 'Buy'} ${rate.currency.toUpperCase()}',
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -179,34 +197,83 @@ class CryptoTransactionPage extends HookConsumerWidget {
                           errorWidget: (_, __, ___) => Container(
                             width: 20.w,
                             height: 20.w,
-                            decoration: BoxDecoration(color: PPaymobileColors.textfiedBorder, shape: BoxShape.circle),
-                            child: Center(child: Text(rate.currency[0].toUpperCase(), style: TextStyle(color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.w600))),
+                            decoration: BoxDecoration(
+                              color: PPaymobileColors.textfiedBorder,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Text(
+                                rate.currency[0].toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         6.horizontalSpace,
                         if (isForSelling)
                           Text(
                             'Bal: ${cryptoBalance.toStringAsFixed(6)} ${rate.currency.toUpperCase()}',
-                            style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp, color: PPaymobileColors.svgIconColor),
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 14.sp,
+                              color: PPaymobileColors.svgIconColor,
+                            ),
                           )
                         else ...[
-                          Text('Bal: ', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp, color: PPaymobileColors.svgIconColor)),
-                          Text('₦', style: TextStyle(fontFamily: 'Roboto', fontSize: 14.sp, color: PPaymobileColors.svgIconColor)),
                           Text(
-                            AmountFormatter.formatBalance(walletBalance.toStringAsFixed(0)),
-                            style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 14.sp, color: PPaymobileColors.svgIconColor),
+                            'Bal: ',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 14.sp,
+                              color: PPaymobileColors.svgIconColor,
+                            ),
+                          ),
+                          Text(
+                            '₦',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 14.sp,
+                              color: PPaymobileColors.svgIconColor,
+                            ),
+                          ),
+                          Text(
+                            AmountFormatter.formatBalance(
+                              walletBalance.toStringAsFixed(0),
+                            ),
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 14.sp,
+                              color: PPaymobileColors.svgIconColor,
+                            ),
                           ),
                         ],
                         8.horizontalSpace,
                         TouchOpacity(
                           onTap: onMax,
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.w,
+                              vertical: 4.h,
+                            ),
                             decoration: BoxDecoration(
-                              color: PPaymobileColors.buttonColor.withOpacity(0.1),
+                              color: PPaymobileColors.buttonColor.withOpacity(
+                                0.1,
+                              ),
                               borderRadius: BorderRadius.circular(4.r),
                             ),
-                            child: Text('MAX', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 12.sp, color: PPaymobileColors.buttonColor, fontWeight: FontWeight.w700)),
+                            child: Text(
+                              'MAX',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontSize: 12.sp,
+                                color: PPaymobileColors.buttonColor,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -225,7 +292,9 @@ class CryptoTransactionPage extends HookConsumerWidget {
                             '₦',
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              color: (isInsufficient || isBelowMin) ? PPaymobileColors.redTextfield : Colors.black,
+                              color: (isInsufficient || isBelowMin)
+                                  ? PPaymobileColors.redTextfield
+                                  : Colors.black,
                               fontSize: _fontSize(amountText.value) * 0.6,
                               fontWeight: FontWeight.w600,
                             ),
@@ -234,7 +303,9 @@ class CryptoTransactionPage extends HookConsumerWidget {
                           _formatDisplay(amountText.value),
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
-                            color: (isInsufficient || isBelowMin) ? PPaymobileColors.redTextfield : Colors.black,
+                            color: (isInsufficient || isBelowMin)
+                                ? PPaymobileColors.redTextfield
+                                : Colors.black,
                             fontSize: _fontSize(amountText.value),
                             fontWeight: FontWeight.w600,
                           ),
@@ -259,14 +330,24 @@ class CryptoTransactionPage extends HookConsumerWidget {
                       8.verticalSpace,
                       Text(
                         'Minimum purchase is ₦6,000',
-                        style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 12.sp, color: PPaymobileColors.redTextfield),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          fontSize: 12.sp,
+                          color: PPaymobileColors.redTextfield,
+                        ),
                       ),
                     ],
                     if (isInsufficient) ...[
                       8.verticalSpace,
                       Text(
-                        isForSelling ? 'Insufficient ${rate.currency.toUpperCase()} balance' : 'Insufficient wallet balance',
-                        style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 12.sp, color: PPaymobileColors.redTextfield),
+                        isForSelling
+                            ? 'Insufficient ${rate.currency.toUpperCase()} balance'
+                            : 'Insufficient wallet balance',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          fontSize: 12.sp,
+                          color: PPaymobileColors.redTextfield,
+                        ),
                       ),
                     ],
 
@@ -298,7 +379,10 @@ class CryptoTransactionPage extends HookConsumerWidget {
                   16.verticalSpace,
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: PPButton(text: 'Continue', onPressed: isValid ? onContinue : null),
+                    child: PPButton(
+                      text: 'Continue',
+                      onPressed: isValid ? onContinue : null,
+                    ),
                   ),
                   20.verticalSpace,
                 ],
@@ -333,7 +417,12 @@ class _ConversionPreview extends StatelessWidget {
     if (amount <= 0) {
       return Text(
         isForSelling ? '~₦0.00' : '~0.000000 ${rate.currency.toUpperCase()}',
-        style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          fontFamily: 'InstrumentSans',
+          fontSize: 13.sp,
+          color: PPaymobileColors.svgIconColor,
+          fontWeight: FontWeight.w600,
+        ),
         textAlign: TextAlign.center,
       );
     }
@@ -347,19 +436,57 @@ class _ConversionPreview extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('~', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600)),
-              Text('₦', style: TextStyle(fontFamily: 'Roboto', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600)),
-              Text(AmountFormatter.formatBalance(nairaValue.toStringAsFixed(2)),
-                  style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600)),
+              Text(
+                '~',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                '₦',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                AmountFormatter.formatBalance(nairaValue.toStringAsFixed(2)),
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
           4.verticalSpace,
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('~\$', style: TextStyle(fontFamily: 'Roboto', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600)),
-              Text(dollarValue.toStringAsFixed(2),
-                  style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600)),
+              Text(
+                '~\$',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                dollarValue.toStringAsFixed(2),
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ],
@@ -370,16 +497,36 @@ class _ConversionPreview extends StatelessWidget {
         children: [
           Text(
             '~${cryptoAmount.toStringAsFixed(6)} ${rate.currency.toUpperCase()}',
-            style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              fontSize: 13.sp,
+              color: PPaymobileColors.svgIconColor,
+              fontWeight: FontWeight.w600,
+            ),
             textAlign: TextAlign.center,
           ),
           4.verticalSpace,
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('~\$', style: TextStyle(fontFamily: 'Roboto', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600)),
-              Text(dollarValue.toStringAsFixed(2),
-                  style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 13.sp, color: PPaymobileColors.svgIconColor, fontWeight: FontWeight.w600)),
+              Text(
+                '~\$',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                dollarValue.toStringAsFixed(2),
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 13.sp,
+                  color: PPaymobileColors.svgIconColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ],

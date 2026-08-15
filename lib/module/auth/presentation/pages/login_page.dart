@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,9 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final emailController = useTextEditingController();
-    final passwordController = useTextEditingController(text: 'Password@123');
+    final passwordController = useTextEditingController(
+      text: kDebugMode ? 'Password@123' : null,
+    );
     final obscurePassword = useState(true);
     final rememberMe = useState(false);
     final isBiometricEnabled = useState(false);
@@ -63,7 +66,10 @@ class LoginPage extends HookConsumerWidget {
       } else {
         if (next.hasError) {
           AppLoader.hide(context);
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
         next.whenData((_) async {
           await ref.read(authenticatedUserProvider.notifier).call();
@@ -73,6 +79,33 @@ class LoginPage extends HookConsumerWidget {
         });
       }
     });
+
+    Future<void> handleReturningUserSignIn() async {
+      if (!(formKey.currentState?.validate() ?? false)) return;
+
+      final password = passwordController.text.trim();
+
+      AppLoader.show(context);
+      final verified = await ref
+          .read(verifyPasswordProvider.notifier)
+          .call(password: password);
+      if (!context.mounted) return;
+
+      if (!verified) {
+        AppLoader.hide(context);
+        final error = ref.read(verifyPasswordProvider).error;
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(error),
+        );
+        return;
+      }
+
+      await ref.read(authenticatedUserProvider.notifier).call();
+      if (!context.mounted) return;
+      AppLoader.hide(context);
+      _navigateAfterAuth(context, ref);
+    }
 
     Future<void> handleSignIn() async {
       if (!(formKey.currentState?.validate() ?? false)) return;
@@ -142,12 +175,14 @@ class LoginPage extends HookConsumerWidget {
                   ],
                 ),
                 60.verticalSpace,
+                // Email field: always shown, but read-only when a session exists
                 const PPLabel(text: 'Email Address'),
                 4.verticalSpace,
                 PPTextField(
                   controller: emailController,
                   hintText: 'e.g johndoe@gmail.com',
                   keyboardType: TextInputType.emailAddress,
+                  readOnly: hasStoredSession.value,
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(14.0).r,
                     child: SvgPicture.asset('assets/icon/message_icon.svg'),
@@ -205,8 +240,6 @@ class LoginPage extends HookConsumerWidget {
                 ),
                 6.verticalSpace,
                 // Only show "Remember Me" when there is no stored session yet.
-                // Once the user is remembered, this checkbox is hidden permanently
-                // until they explicitly log out from inside the app.
                 if (!hasStoredSession.value)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -287,7 +320,12 @@ class LoginPage extends HookConsumerWidget {
                     ),
                   ),
                 36.verticalSpace,
-                PPButton(text: 'Sign In', onPressed: handleSignIn),
+                PPButton(
+                  text: 'Sign In',
+                  onPressed: hasStoredSession.value
+                      ? handleReturningUserSignIn
+                      : handleSignIn,
+                ),
                 16.verticalSpace,
                 if (isBiometricEnabled.value)
                   Column(

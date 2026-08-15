@@ -243,12 +243,12 @@ final authenticatedUserProvider =
 );
 
 typedef _$AuthenticatedUser = Notifier<AsyncValue<UserEntity?>>;
-String _$verifyPinHash() => r'1195ccb864255ea9f534427f480b4e3585ce10d7';
+String _$verifyPinHash() => r'3d0c235984142e29d1d7b427a1c4c255cea544e0';
 
 /// See also [VerifyPin].
 @ProviderFor(VerifyPin)
 final verifyPinProvider =
-    AutoDisposeNotifierProvider<VerifyPin, AsyncValue<void>>.internal(
+    AutoDisposeNotifierProvider<VerifyPin, AsyncValue<String?>>.internal(
   VerifyPin.new,
   name: r'verifyPinProvider',
   debugGetCreateSourceHash:
@@ -257,7 +257,7 @@ final verifyPinProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$VerifyPin = AutoDisposeNotifier<AsyncValue<void>>;
+typedef _$VerifyPin = AutoDisposeNotifier<AsyncValue<String?>>;
 String _$verifyPasswordHash() => r'5a0fcbc8e4a7f9b844a0232b17a06d8b431086eb';
 
 /// See also [VerifyPassword].

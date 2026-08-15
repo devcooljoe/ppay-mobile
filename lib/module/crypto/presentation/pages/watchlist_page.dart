@@ -14,6 +14,7 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/empty_state.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/delete_confirm_sheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
@@ -139,6 +140,12 @@ class _WatchlistItem extends HookConsumerWidget {
     final displayPrice = hasDiscount ? product.discountPrice! : product.price;
 
     Future<void> onRemove() async {
+      final confirmed = await showDeleteConfirmSheet(
+        context,
+        title: 'Remove from Watchlist?',
+        message: 'Are you sure you want to remove "${product.name}" from your watchlist?',
+      );
+      if (!confirmed || !context.mounted) return;
       await ref.read(removeFromWatchlistProvider.notifier).call(product.id);
       if (!context.mounted) return;
       final state = ref.read(removeFromWatchlistProvider);

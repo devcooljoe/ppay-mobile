@@ -27,6 +27,7 @@ _$DollarCardModelImpl _$$DollarCardModelImplFromJson(
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
       rate: (json['rate'] as num).toDouble(),
+      color: json['color'] as String? ?? 'teal',
     );
 
 Map<String, dynamic> _$$DollarCardModelImplToJson(
@@ -49,6 +50,7 @@ Map<String, dynamic> _$$DollarCardModelImplToJson(
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       'rate': instance.rate,
+      'color': instance.color,
     };
 
 _$DollarCardAddressModelImpl _$$DollarCardAddressModelImplFromJson(

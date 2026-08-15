@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
@@ -17,6 +18,7 @@ import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_input_decoration.dart';
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_provider_selector_widget.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_verification_status.dart';
 
 @RoutePage()
 class ElectricityPage extends HookConsumerWidget {
@@ -32,6 +34,8 @@ class ElectricityPage extends HookConsumerWidget {
     final meterController = useTextEditingController();
     final amountController = useTextEditingController();
     final phoneController = useTextEditingController();
+    final isVerifying = useState(false);
+    final debounceTimer = useRef<Timer?>(null);
 
     void selectBiller(BillerEntity biller) {
       selectedBiller.value = biller;
@@ -41,20 +45,28 @@ class ElectricityPage extends HookConsumerWidget {
       ref.read(verifyBillCustomerProvider.notifier).reset();
     }
 
-    Future<void> verifyMeter() async {
-      if (selectedItem.value == null) {
-        MessageHandler.showErrorSnackBar(context, 'Please select meter type first');
-        return;
-      }
-      if (meterController.text.trim().isEmpty) {
-        MessageHandler.showErrorSnackBar(context, 'Please enter meter number');
-        return;
-      }
-      await ref.read(verifyBillCustomerProvider.notifier).call(
-        kudaBillItemIdentifier: selectedItem.value!.kudaIdentifier,
-        customerIdentification: meterController.text.trim(),
-      );
+    void onMeterChanged(String value) {
+      ref.read(verifyBillCustomerProvider.notifier).reset();
+      isVerifying.value = false;
+      debounceTimer.value?.cancel();
+
+      // Nigerian prepaid/postpaid meter numbers are 11 digits
+      if (value.trim().length < 11 || selectedItem.value == null) return;
+
+      isVerifying.value = true;
+      debounceTimer.value = Timer(const Duration(milliseconds: 600), () {
+        if (context.mounted) {
+          ref.read(verifyBillCustomerProvider.notifier).call(
+                kudaBillItemIdentifier: selectedItem.value!.kudaIdentifier,
+                customerIdentification: value.trim(),
+              );
+        }
+      });
     }
+
+    ref.listen(verifyBillCustomerProvider, (_, next) {
+      isVerifying.value = next.isLoading;
+    });
 
     void proceed() {
       if (selectedBiller.value == null) {
@@ -71,17 +83,20 @@ class ElectricityPage extends HookConsumerWidget {
       }
       final customerName = verifyState.value?.customerName;
       if (customerName == null || customerName.isEmpty) {
-        MessageHandler.showErrorSnackBar(context, 'Please verify your meter number');
+        MessageHandler.showErrorSnackBar(
+            context, 'Please wait for meter verification to complete');
         return;
       }
       if (phoneController.text.trim().isEmpty) {
-        MessageHandler.showErrorSnackBar(context, 'Please enter your phone number');
+        MessageHandler.showErrorSnackBar(
+            context, 'Please enter your phone number');
         return;
       }
       final amountText = amountController.text.trim().replaceAll(',', '');
       final amount = double.tryParse(amountText) ?? 0;
       if (amount <= 0) {
-        MessageHandler.showErrorSnackBar(context, 'Please enter a valid amount');
+        MessageHandler.showErrorSnackBar(
+            context, 'Please enter a valid amount');
         return;
       }
 
@@ -180,93 +195,20 @@ class ElectricityPage extends HookConsumerWidget {
             32.verticalSpace,
             const PPLabel(text: 'Meter Number'),
             8.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: meterController,
-                    keyboardType: TextInputType.number,
-                    style:
-                        TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
-                    onChanged: (_) =>
-                        ref.read(verifyBillCustomerProvider.notifier).reset(),
-                    decoration: billInputDecoration(hint: 'Enter meter number'),
-                  ),
-                ),
-                12.horizontalSpace,
-                TouchOpacity(
-                  onTap: verifyMeter,
-                  child: Container(
-                    height: 54.h,
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    decoration: BoxDecoration(
-                      color: PPaymobileColors.buttonColorandText,
-                      borderRadius: BorderRadius.circular(6.r),
-                    ),
-                    child: Center(
-                      child: verifyState.isLoading
-                          ? SizedBox(
-                              height: 18.w,
-                              width: 18.w,
-                              child: const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            )
-                          : Text(
-                              'Verify',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
-                    ),
-                  ),
-                ),
-              ],
+            TextFormField(
+              controller: meterController,
+              keyboardType: TextInputType.number,
+              style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
+              onChanged: onMeterChanged,
+              decoration: billInputDecoration(hint: 'Enter meter number'),
             ),
-            if (verifyState.value != null &&
-                verifyState.value!.customerName.isNotEmpty) ...[
-              8.verticalSpace,
-              Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: PPaymobileColors.doneColor,
-                  borderRadius: BorderRadius.circular(6.r),
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/icon/tick_circle.svg',
-                        height: 16.w, width: 16.w),
-                    8.horizontalSpace,
-                    Expanded(
-                      child: Text(
-                        verifyState.value!.customerName,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: PPaymobileColors.doneTextColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ] else if (verifyState.hasError) ...[
-              8.verticalSpace,
-              Text(
-                'Meter number not found. Please check and try again',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  fontSize: 13.sp,
-                  color: PPaymobileColors.redTextfield,
-                ),
-              ),
-            ],
+            8.verticalSpace,
+            BillVerificationStatus(
+              isLoading: isVerifying.value,
+              customerName: verifyState.value?.customerName,
+              hasError: verifyState.hasError,
+              errorMessage: 'Meter number not found. Please check and try again',
+            ),
             32.verticalSpace,
             const PPLabel(text: 'Phone Number'),
             8.verticalSpace,
@@ -298,3 +240,5 @@ class ElectricityPage extends HookConsumerWidget {
     );
   }
 }
+
+

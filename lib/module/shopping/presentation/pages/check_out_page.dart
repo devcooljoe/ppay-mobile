@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppay_mobile/shared/widgets/delete_confirm_sheet.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
@@ -212,6 +213,12 @@ class CheckOutPage extends HookConsumerWidget {
                                             ),
                                             TouchOpacity(
                                               onTap: () async {
+                                                final confirmed = await showDeleteConfirmSheet(
+                                                  context,
+                                                  title: 'Remove Item?',
+                                                  message: 'Are you sure you want to remove "${item.product.name}" from your order?',
+                                                );
+                                                if (!confirmed || !context.mounted) return;
                                                 await ref.read(removeFromCartProvider.notifier).call(item.id);
                                                 ref.read(getCartProvider.notifier).call();
                                               },

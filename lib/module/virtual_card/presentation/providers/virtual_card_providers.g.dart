@@ -22,7 +22,7 @@ final createDollarCardProvider =
 );
 
 typedef _$CreateDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
-String _$addDollarCardHash() => r'4f72de2e996bf0050c9d4b7cd2724b9a430b3a9a';
+String _$addDollarCardHash() => r'86213b87070d7a56270e905cec4ba5a6b1acbcb8';
 
 /// See also [AddDollarCard].
 @ProviderFor(AddDollarCard)
@@ -54,7 +54,7 @@ final getDollarCardsProvider = NotifierProvider<GetDollarCards,
 );
 
 typedef _$GetDollarCards = Notifier<AsyncValue<List<DollarCardEntity>>>;
-String _$getDollarCardHash() => r'5e2fe3524e67d5fd910732a29cf67b5398fa68c9';
+String _$getDollarCardHash() => r'0f6f76d28c6dbed3d41c5cd4d34cd5bde592cab7';
 
 /// See also [GetDollarCard].
 @ProviderFor(GetDollarCard)
@@ -87,7 +87,7 @@ final fundDollarCardProvider =
 
 typedef _$FundDollarCard = AutoDisposeNotifier<AsyncValue<void>>;
 String _$withdrawDollarCardHash() =>
-    r'b41deb7ca384483929340e79eb95a81efa20ac5e';
+    r'aff4340220d35121a86fe7b43332aaf07d91ee85';
 
 /// See also [WithdrawDollarCard].
 @ProviderFor(WithdrawDollarCard)

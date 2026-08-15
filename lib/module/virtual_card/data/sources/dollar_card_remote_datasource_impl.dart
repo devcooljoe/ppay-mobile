@@ -43,8 +43,8 @@ class DollarCardRemoteDataSourceImpl implements DollarCardRemoteDataSource {
   }
 
   @override
-  Future<void> addDollarCard({required String brand, required double amount}) async {
-    await _dio.post('$_base/dollar-card/add', data: {'brand': brand, 'amount': amount});
+  Future<void> addDollarCard({required String brand, required double amount, required String color}) async {
+    await _dio.post('$_base/dollar-card/add', data: {'brand': brand, 'amount': amount, 'color': color});
   }
 
   @override

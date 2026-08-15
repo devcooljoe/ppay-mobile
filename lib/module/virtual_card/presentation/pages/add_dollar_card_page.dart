@@ -58,7 +58,7 @@ class AddDollarCardPage extends HookConsumerWidget {
       }
       ref
           .read(addDollarCardProvider.notifier)
-          .call(brand: selectedBrand.value, amount: amount);
+          .call(brand: selectedBrand.value, amount: amount, color: selectedColor.value);
     }
 
     final previewCard = DollarCardEntity(

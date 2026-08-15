@@ -329,14 +329,20 @@ class VerifyPin extends _$VerifyPin {
   @override
   AsyncValue<String?> build() => const AsyncValue.data(null);
 
-  Future<bool> call({required String pin}) async {
+  /// Returns null on success, or the backend error message on failure.
+  Future<String?> call({required String pin}) async {
     state = const AsyncValue.loading();
     final result = await getIt<VerifyPinUseCase>()(pin: pin);
-    state = result.fold(
-      (l) => AsyncValue<String?>.error(l.message, StackTrace.current),
-      (_) => const AsyncValue<String?>.data(null),
+    return result.fold(
+      (failure) {
+        state = AsyncValue<String?>.error(failure.message, StackTrace.current);
+        return failure.message;
+      },
+      (_) {
+        state = const AsyncValue<String?>.data(null);
+        return null;
+      },
     );
-    return result.isRight();
   }
 }
 

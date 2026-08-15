@@ -42,11 +42,12 @@ class AddDollarCard extends _$AddDollarCard {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
 
-  Future<void> call({required String brand, required double amount}) async {
+  Future<void> call({required String brand, required double amount, required String color}) async {
     state = const AsyncValue.loading();
     final result = await getIt<AddDollarCardUseCase>()(
       brand: brand,
       amount: amount,
+      color: color,
     );
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
@@ -85,6 +86,12 @@ class GetDollarCard extends _$GetDollarCard {
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (card) => AsyncValue.data(card),
     );
+  }
+
+  /// Immediately updates the in-memory card without a network call.
+  /// Used for optimistic UI updates after freeze/unfreeze.
+  void updateCard(DollarCardEntity card) {
+    state = AsyncValue.data(card);
   }
 }
 

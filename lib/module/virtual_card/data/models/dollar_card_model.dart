@@ -24,13 +24,14 @@ class DollarCardModel with _$DollarCardModel {
     required String createdAt,
     required String updatedAt,
     required double rate,
+    @Default('teal') String color,
   }) = _DollarCardModel;
 
   const DollarCardModel._();
 
   factory DollarCardModel.fromJson(Map<String, dynamic> json) => _$DollarCardModelFromJson(json);
 
-  DollarCardEntity toEntity({String color = 'teal'}) => DollarCardEntity(
+  DollarCardEntity toEntity() => DollarCardEntity(
     id: dbId,
     dbId: dbId,
     brand: brand,

@@ -14,7 +14,7 @@ abstract class DollarCardRemoteDataSource {
     required File photo,
     required File ninPhoto,
   });
-  Future<void> addDollarCard({required String brand, required double amount});
+  Future<void> addDollarCard({required String brand, required double amount, required String color});
   Future<List<DollarCardModel>> getDollarCards();
   Future<DollarCardModel> getDollarCard({required String cardId, required String brand});
   Future<void> fundDollarCard({required String cardId, required FundDollarCardRequest request});

@@ -76,20 +76,13 @@ class _SecurityPinBottomsheet extends HookConsumerWidget {
     Future<void> verifyWithPin(String pin) async {
       isVerifying.value = true;
       errorMessage.value = null;
-      final success = await ref.read(verifyPinProvider.notifier).call(pin: pin);
+      final error = await ref.read(verifyPinProvider.notifier).call(pin: pin);
       isVerifying.value = false;
-      if (success) {
+      if (error == null) {
         if (context.mounted) Navigator.pop(context, true);
         return;
       }
-
-      final pinState = ref.read(verifyPinProvider);
-      final message = pinState.when(
-        data: (_) => null,
-        loading: () => null,
-        error: (error, _) => MessageHandler.getErrorMessage(error),
-      );
-      errorMessage.value = message ?? 'Incorrect PIN. Please try again.';
+      errorMessage.value = error;
       realPin.value = '';
       displayController.text = '';
     }

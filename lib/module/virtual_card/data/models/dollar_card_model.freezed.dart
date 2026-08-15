@@ -37,6 +37,7 @@ mixin _$DollarCardModel {
   String get createdAt => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
+  String get color => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -67,7 +68,8 @@ abstract class $DollarCardModelCopyWith<$Res> {
       DollarCardAddressModel address,
       String createdAt,
       String updatedAt,
-      double rate});
+      double rate,
+      String color});
 
   $DollarCardAddressModelCopyWith<$Res> get address;
 }
@@ -102,6 +104,7 @@ class _$DollarCardModelCopyWithImpl<$Res, $Val extends DollarCardModel>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? rate = null,
+    Object? color = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -172,6 +175,10 @@ class _$DollarCardModelCopyWithImpl<$Res, $Val extends DollarCardModel>
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -209,7 +216,8 @@ abstract class _$$DollarCardModelImplCopyWith<$Res>
       DollarCardAddressModel address,
       String createdAt,
       String updatedAt,
-      double rate});
+      double rate,
+      String color});
 
   @override
   $DollarCardAddressModelCopyWith<$Res> get address;
@@ -243,6 +251,7 @@ class __$$DollarCardModelImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? rate = null,
+    Object? color = null,
   }) {
     return _then(_$DollarCardModelImpl(
       id: null == id
@@ -313,6 +322,10 @@ class __$$DollarCardModelImplCopyWithImpl<$Res>
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -337,7 +350,8 @@ class _$DollarCardModelImpl extends _DollarCardModel {
       required this.address,
       required this.createdAt,
       required this.updatedAt,
-      required this.rate})
+      required this.rate,
+      this.color = 'teal'})
       : super._();
 
   factory _$DollarCardModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -377,10 +391,13 @@ class _$DollarCardModelImpl extends _DollarCardModel {
   final String updatedAt;
   @override
   final double rate;
+  @override
+  @JsonKey()
+  final String color;
 
   @override
   String toString() {
-    return 'DollarCardModel(id: $id, dbId: $dbId, brand: $brand, name: $name, cardNumber: $cardNumber, maskedPan: $maskedPan, expiry: $expiry, cvv: $cvv, status: $status, type: $type, issuer: $issuer, currency: $currency, balance: $balance, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, rate: $rate)';
+    return 'DollarCardModel(id: $id, dbId: $dbId, brand: $brand, name: $name, cardNumber: $cardNumber, maskedPan: $maskedPan, expiry: $expiry, cvv: $cvv, status: $status, type: $type, issuer: $issuer, currency: $currency, balance: $balance, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, rate: $rate, color: $color)';
   }
 
   @override
@@ -409,7 +426,8 @@ class _$DollarCardModelImpl extends _DollarCardModel {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.rate, rate) || other.rate == rate));
+            (identical(other.rate, rate) || other.rate == rate) &&
+            (identical(other.color, color) || other.color == color));
   }
 
   @JsonKey(ignore: true)
@@ -432,7 +450,8 @@ class _$DollarCardModelImpl extends _DollarCardModel {
       address,
       createdAt,
       updatedAt,
-      rate);
+      rate,
+      color);
 
   @JsonKey(ignore: true)
   @override
@@ -467,7 +486,8 @@ abstract class _DollarCardModel extends DollarCardModel {
       required final DollarCardAddressModel address,
       required final String createdAt,
       required final String updatedAt,
-      required final double rate}) = _$DollarCardModelImpl;
+      required final double rate,
+      final String color}) = _$DollarCardModelImpl;
   const _DollarCardModel._() : super._();
 
   factory _DollarCardModel.fromJson(Map<String, dynamic> json) =
@@ -507,6 +527,8 @@ abstract class _DollarCardModel extends DollarCardModel {
   String get updatedAt;
   @override
   double get rate;
+  @override
+  String get color;
   @override
   @JsonKey(ignore: true)
   _$$DollarCardModelImplCopyWith<_$DollarCardModelImpl> get copyWith =>

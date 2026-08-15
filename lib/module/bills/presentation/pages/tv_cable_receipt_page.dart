@@ -10,7 +10,7 @@ class TvCableReceiptPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.router.replaceAll([HomeRoute()]);
+      context.router.replaceAll([ExploreRoute()]);
     });
     return const SizedBox.shrink();
   }

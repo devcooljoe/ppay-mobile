@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
@@ -12,11 +13,11 @@ import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_input_decoration.dart';
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_package_selector_widget.dart';
 import 'package:ppay_mobile/module/bills/presentation/widgets/bill_provider_selector_widget.dart';
+import 'package:ppay_mobile/module/bills/presentation/widgets/bill_verification_status.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class TvCablePage extends HookConsumerWidget {
@@ -31,6 +32,8 @@ class TvCablePage extends HookConsumerWidget {
     final selectedItem = useState<BillItemEntity?>(null);
     final smartCardController = useTextEditingController();
     final phoneController = useTextEditingController();
+    final isVerifying = useState(false);
+    final debounceTimer = useRef<Timer?>(null);
 
     final requiresVerification =
         selectedBiller.value?.requiresCustomerVerification ?? false;
@@ -44,21 +47,35 @@ class TvCablePage extends HookConsumerWidget {
       ref.read(verifyBillCustomerProvider.notifier).reset();
     }
 
-    Future<void> verifySmartCard() async {
-      if (smartCardController.text.trim().isEmpty) {
-        MessageHandler.showErrorSnackBar(
-            context, 'Please enter smart card / IUC number');
-        return;
-      }
-      final activeItems =
-          selectedBiller.value!.billItems.where((i) => i.isActive).toList();
+    void onSmartCardChanged(String value) {
+      ref.read(verifyBillCustomerProvider.notifier).reset();
+      isVerifying.value = false;
+      debounceTimer.value?.cancel();
+
+      if (!requiresVerification) return;
+
+      // DSTV/GOTV/Startimes smart card / IUC numbers are 10 digits
+      if (value.trim().length < 10 || selectedBiller.value == null) return;
+
+      final activeItems = selectedBiller.value!.billItems
+          .where((i) => i.isActive)
+          .toList();
       if (activeItems.isEmpty) return;
 
-      await ref.read(verifyBillCustomerProvider.notifier).call(
-            kudaBillItemIdentifier: activeItems.first.kudaIdentifier,
-            customerIdentification: smartCardController.text.trim(),
-          );
+      isVerifying.value = true;
+      debounceTimer.value = Timer(const Duration(milliseconds: 600), () {
+        if (context.mounted) {
+          ref.read(verifyBillCustomerProvider.notifier).call(
+                kudaBillItemIdentifier: activeItems.first.kudaIdentifier,
+                customerIdentification: value.trim(),
+              );
+        }
+      });
     }
+
+    ref.listen(verifyBillCustomerProvider, (_, next) {
+      isVerifying.value = next.isLoading;
+    });
 
     void proceed() {
       if (selectedBiller.value == null) {
@@ -73,7 +90,10 @@ class TvCablePage extends HookConsumerWidget {
         }
         if (!isVerified) {
           MessageHandler.showErrorSnackBar(
-              context, 'Please verify your smart card / IUC number');
+              context,
+              isVerifying.value
+                  ? 'Please wait for verification to complete'
+                  : 'Smart card / IUC number could not be verified');
           return;
         }
       }
@@ -139,91 +159,23 @@ class TvCablePage extends HookConsumerWidget {
               32.verticalSpace,
               const PPLabel(text: 'Smart Card / IUC Number'),
               8.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: smartCardController,
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(
-                          fontFamily: 'InstrumentSans', fontSize: 16.sp),
-                      onChanged: (_) =>
-                          ref.read(verifyBillCustomerProvider.notifier).reset(),
-                      decoration:
-                          billInputDecoration(hint: 'Enter smart card number'),
-                    ),
-                  ),
-                  12.horizontalSpace,
-                  TouchOpacity(
-                    onTap: verifySmartCard,
-                    child: Container(
-                      height: 54.h,
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      decoration: BoxDecoration(
-                        color: PPaymobileColors.buttonColorandText,
-                        borderRadius: BorderRadius.circular(6.r),
-                      ),
-                      child: Center(
-                        child: verifyState.isLoading
-                            ? SizedBox(
-                                height: 18.w,
-                                width: 18.w,
-                                child: const CircularProgressIndicator(
-                                    strokeWidth: 2, color: Colors.white),
-                              )
-                            : Text(
-                                'Verify',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                      ),
-                    ),
-                  ),
-                ],
+              TextFormField(
+                controller: smartCardController,
+                keyboardType: TextInputType.number,
+                style:
+                    TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
+                onChanged: onSmartCardChanged,
+                decoration:
+                    billInputDecoration(hint: 'Enter smart card number'),
               ),
-              if (isVerified) ...[
-                8.verticalSpace,
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-                  decoration: BoxDecoration(
-                    color: PPaymobileColors.doneColor,
-                    borderRadius: BorderRadius.circular(6.r),
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset('assets/icon/tick_circle.svg',
-                          height: 16.w, width: 16.w),
-                      8.horizontalSpace,
-                      Expanded(
-                        child: Text(
-                          verifyState.value!.customerName,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: PPaymobileColors.doneTextColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ] else if (verifyState.hasError) ...[
-                8.verticalSpace,
-                Text(
-                  'Smart card not found. Please check and try again',
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    fontSize: 13.sp,
-                    color: PPaymobileColors.redTextfield,
-                  ),
-                ),
-              ],
+              8.verticalSpace,
+              BillVerificationStatus(
+                isLoading: isVerifying.value,
+                customerName: verifyState.value?.customerName,
+                hasError: verifyState.hasError,
+                errorMessage:
+                    'Smart card not found. Please check and try again',
+              ),
             ],
 
             // Show packages:
@@ -237,7 +189,7 @@ class TvCablePage extends HookConsumerWidget {
               BillPackageSelectorWidget(
                 items: selectedBiller.value!.billItems,
                 billerName: selectedBiller.value!.name,
-              billType: BillType.tv,
+                billType: BillType.tv,
                 selectedItem: selectedItem.value,
                 onSelected: (item) => selectedItem.value = item,
               ),
@@ -269,3 +221,5 @@ class TvCablePage extends HookConsumerWidget {
     );
   }
 }
+
+

@@ -30,8 +30,8 @@ class AddDollarCardUseCase {
   final DollarCardRepository _repository;
   AddDollarCardUseCase(this._repository);
 
-  Future<Either<Failure, void>> call({required String brand, required double amount}) =>
-      _repository.addDollarCard(brand: brand, amount: amount);
+  Future<Either<Failure, void>> call({required String brand, required double amount, required String color}) =>
+      _repository.addDollarCard(brand: brand, amount: amount, color: color);
 }
 
 @lazySingleton
