@@ -384,6 +384,8 @@ mixin _$ProductModel {
   @JsonKey(defaultValue: [])
   List<ProductVariantModel> get variants => throw _privateConstructorUsedError;
   List<ProductImageModel>? get images => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: [])
+  List<ReviewModel>? get reviews => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -406,7 +408,8 @@ abstract class $ProductModelCopyWith<$Res> {
       bool inStock,
       int stockQuantity,
       @JsonKey(defaultValue: []) List<ProductVariantModel> variants,
-      List<ProductImageModel>? images});
+      List<ProductImageModel>? images,
+      @JsonKey(defaultValue: []) List<ReviewModel>? reviews});
 }
 
 /// @nodoc
@@ -431,6 +434,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? stockQuantity = null,
     Object? variants = null,
     Object? images = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -469,6 +473,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<ProductImageModel>?,
+      reviews: freezed == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewModel>?,
     ) as $Val);
   }
 }
@@ -490,7 +498,8 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       bool inStock,
       int stockQuantity,
       @JsonKey(defaultValue: []) List<ProductVariantModel> variants,
-      List<ProductImageModel>? images});
+      List<ProductImageModel>? images,
+      @JsonKey(defaultValue: []) List<ReviewModel>? reviews});
 }
 
 /// @nodoc
@@ -513,6 +522,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? stockQuantity = null,
     Object? variants = null,
     Object? images = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_$ProductModelImpl(
       id: null == id
@@ -551,6 +561,10 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
               as List<ProductImageModel>?,
+      reviews: freezed == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewModel>?,
     ));
   }
 }
@@ -568,9 +582,11 @@ class _$ProductModelImpl extends _ProductModel {
       required this.stockQuantity,
       @JsonKey(defaultValue: [])
       required final List<ProductVariantModel> variants,
-      final List<ProductImageModel>? images})
+      final List<ProductImageModel>? images,
+      @JsonKey(defaultValue: []) final List<ReviewModel>? reviews})
       : _variants = variants,
         _images = images,
+        _reviews = reviews,
         super._();
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -611,9 +627,20 @@ class _$ProductModelImpl extends _ProductModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<ReviewModel>? _reviews;
+  @override
+  @JsonKey(defaultValue: [])
+  List<ReviewModel>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, description: $description, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, variants: $variants, images: $images)';
+    return 'ProductModel(id: $id, name: $name, description: $description, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, variants: $variants, images: $images, reviews: $reviews)';
   }
 
   @override
@@ -632,7 +659,8 @@ class _$ProductModelImpl extends _ProductModel {
             (identical(other.stockQuantity, stockQuantity) ||
                 other.stockQuantity == stockQuantity) &&
             const DeepCollectionEquality().equals(other._variants, _variants) &&
-            const DeepCollectionEquality().equals(other._images, _images));
+            const DeepCollectionEquality().equals(other._images, _images) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews));
   }
 
   @JsonKey(ignore: true)
@@ -647,7 +675,8 @@ class _$ProductModelImpl extends _ProductModel {
       inStock,
       stockQuantity,
       const DeepCollectionEquality().hash(_variants),
-      const DeepCollectionEquality().hash(_images));
+      const DeepCollectionEquality().hash(_images),
+      const DeepCollectionEquality().hash(_reviews));
 
   @JsonKey(ignore: true)
   @override
@@ -665,16 +694,18 @@ class _$ProductModelImpl extends _ProductModel {
 
 abstract class _ProductModel extends ProductModel {
   const factory _ProductModel(
-      {required final String id,
-      required final String name,
-      required final String description,
-      @JsonKey(fromJson: _toDouble) required final double price,
-      @JsonKey(fromJson: _toDoubleNullable) final double? discountPrice,
-      required final bool inStock,
-      required final int stockQuantity,
-      @JsonKey(defaultValue: [])
-      required final List<ProductVariantModel> variants,
-      final List<ProductImageModel>? images}) = _$ProductModelImpl;
+          {required final String id,
+          required final String name,
+          required final String description,
+          @JsonKey(fromJson: _toDouble) required final double price,
+          @JsonKey(fromJson: _toDoubleNullable) final double? discountPrice,
+          required final bool inStock,
+          required final int stockQuantity,
+          @JsonKey(defaultValue: [])
+          required final List<ProductVariantModel> variants,
+          final List<ProductImageModel>? images,
+          @JsonKey(defaultValue: []) final List<ReviewModel>? reviews}) =
+      _$ProductModelImpl;
   const _ProductModel._() : super._();
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
@@ -701,6 +732,9 @@ abstract class _ProductModel extends ProductModel {
   List<ProductVariantModel> get variants;
   @override
   List<ProductImageModel>? get images;
+  @override
+  @JsonKey(defaultValue: [])
+  List<ReviewModel>? get reviews;
   @override
   @JsonKey(ignore: true)
   _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>
@@ -1068,12 +1102,261 @@ abstract class _CategoryModel extends CategoryModel {
       throw _privateConstructorUsedError;
 }
 
+BannerModel _$BannerModelFromJson(Map<String, dynamic> json) {
+  return _BannerModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BannerModel {
+  String get id => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
+  int get sortOrder => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $BannerModelCopyWith<BannerModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BannerModelCopyWith<$Res> {
+  factory $BannerModelCopyWith(
+          BannerModel value, $Res Function(BannerModel) then) =
+      _$BannerModelCopyWithImpl<$Res, BannerModel>;
+  @useResult
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      String imageUrl,
+      bool isActive,
+      int sortOrder});
+}
+
+/// @nodoc
+class _$BannerModelCopyWithImpl<$Res, $Val extends BannerModel>
+    implements $BannerModelCopyWith<$Res> {
+  _$BannerModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? description = null,
+    Object? imageUrl = null,
+    Object? isActive = null,
+    Object? sortOrder = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BannerModelImplCopyWith<$Res>
+    implements $BannerModelCopyWith<$Res> {
+  factory _$$BannerModelImplCopyWith(
+          _$BannerModelImpl value, $Res Function(_$BannerModelImpl) then) =
+      __$$BannerModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      String imageUrl,
+      bool isActive,
+      int sortOrder});
+}
+
+/// @nodoc
+class __$$BannerModelImplCopyWithImpl<$Res>
+    extends _$BannerModelCopyWithImpl<$Res, _$BannerModelImpl>
+    implements _$$BannerModelImplCopyWith<$Res> {
+  __$$BannerModelImplCopyWithImpl(
+      _$BannerModelImpl _value, $Res Function(_$BannerModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? description = null,
+    Object? imageUrl = null,
+    Object? isActive = null,
+    Object? sortOrder = null,
+  }) {
+    return _then(_$BannerModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BannerModelImpl extends _BannerModel {
+  const _$BannerModelImpl(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.imageUrl,
+      required this.isActive,
+      required this.sortOrder})
+      : super._();
+
+  factory _$BannerModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BannerModelImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String title;
+  @override
+  final String description;
+  @override
+  final String imageUrl;
+  @override
+  final bool isActive;
+  @override
+  final int sortOrder;
+
+  @override
+  String toString() {
+    return 'BannerModel(id: $id, title: $title, description: $description, imageUrl: $imageUrl, isActive: $isActive, sortOrder: $sortOrder)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BannerModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, title, description, imageUrl, isActive, sortOrder);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BannerModelImplCopyWith<_$BannerModelImpl> get copyWith =>
+      __$$BannerModelImplCopyWithImpl<_$BannerModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BannerModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BannerModel extends BannerModel {
+  const factory _BannerModel(
+      {required final String id,
+      required final String title,
+      required final String description,
+      required final String imageUrl,
+      required final bool isActive,
+      required final int sortOrder}) = _$BannerModelImpl;
+  const _BannerModel._() : super._();
+
+  factory _BannerModel.fromJson(Map<String, dynamic> json) =
+      _$BannerModelImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  String get title;
+  @override
+  String get description;
+  @override
+  String get imageUrl;
+  @override
+  bool get isActive;
+  @override
+  int get sortOrder;
+  @override
+  @JsonKey(ignore: true)
+  _$$BannerModelImplCopyWith<_$BannerModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 HomepageModel _$HomepageModelFromJson(Map<String, dynamic> json) {
   return _HomepageModel.fromJson(json);
 }
 
 /// @nodoc
 mixin _$HomepageModel {
+  @JsonKey(defaultValue: [])
+  List<BannerModel> get banners => throw _privateConstructorUsedError;
   List<ProductModel> get featuredProducts => throw _privateConstructorUsedError;
   List<CategoryModel> get categories => throw _privateConstructorUsedError;
 
@@ -1090,7 +1373,9 @@ abstract class $HomepageModelCopyWith<$Res> {
       _$HomepageModelCopyWithImpl<$Res, HomepageModel>;
   @useResult
   $Res call(
-      {List<ProductModel> featuredProducts, List<CategoryModel> categories});
+      {@JsonKey(defaultValue: []) List<BannerModel> banners,
+      List<ProductModel> featuredProducts,
+      List<CategoryModel> categories});
 }
 
 /// @nodoc
@@ -1106,10 +1391,15 @@ class _$HomepageModelCopyWithImpl<$Res, $Val extends HomepageModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? banners = null,
     Object? featuredProducts = null,
     Object? categories = null,
   }) {
     return _then(_value.copyWith(
+      banners: null == banners
+          ? _value.banners
+          : banners // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>,
       featuredProducts: null == featuredProducts
           ? _value.featuredProducts
           : featuredProducts // ignore: cast_nullable_to_non_nullable
@@ -1131,7 +1421,9 @@ abstract class _$$HomepageModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<ProductModel> featuredProducts, List<CategoryModel> categories});
+      {@JsonKey(defaultValue: []) List<BannerModel> banners,
+      List<ProductModel> featuredProducts,
+      List<CategoryModel> categories});
 }
 
 /// @nodoc
@@ -1145,10 +1437,15 @@ class __$$HomepageModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? banners = null,
     Object? featuredProducts = null,
     Object? categories = null,
   }) {
     return _then(_$HomepageModelImpl(
+      banners: null == banners
+          ? _value._banners
+          : banners // ignore: cast_nullable_to_non_nullable
+              as List<BannerModel>,
       featuredProducts: null == featuredProducts
           ? _value._featuredProducts
           : featuredProducts // ignore: cast_nullable_to_non_nullable
@@ -1165,14 +1462,25 @@ class __$$HomepageModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$HomepageModelImpl extends _HomepageModel {
   const _$HomepageModelImpl(
-      {required final List<ProductModel> featuredProducts,
+      {@JsonKey(defaultValue: []) required final List<BannerModel> banners,
+      required final List<ProductModel> featuredProducts,
       required final List<CategoryModel> categories})
-      : _featuredProducts = featuredProducts,
+      : _banners = banners,
+        _featuredProducts = featuredProducts,
         _categories = categories,
         super._();
 
   factory _$HomepageModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HomepageModelImplFromJson(json);
+
+  final List<BannerModel> _banners;
+  @override
+  @JsonKey(defaultValue: [])
+  List<BannerModel> get banners {
+    if (_banners is EqualUnmodifiableListView) return _banners;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_banners);
+  }
 
   final List<ProductModel> _featuredProducts;
   @override
@@ -1193,7 +1501,7 @@ class _$HomepageModelImpl extends _HomepageModel {
 
   @override
   String toString() {
-    return 'HomepageModel(featuredProducts: $featuredProducts, categories: $categories)';
+    return 'HomepageModel(banners: $banners, featuredProducts: $featuredProducts, categories: $categories)';
   }
 
   @override
@@ -1201,6 +1509,7 @@ class _$HomepageModelImpl extends _HomepageModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomepageModelImpl &&
+            const DeepCollectionEquality().equals(other._banners, _banners) &&
             const DeepCollectionEquality()
                 .equals(other._featuredProducts, _featuredProducts) &&
             const DeepCollectionEquality()
@@ -1211,6 +1520,7 @@ class _$HomepageModelImpl extends _HomepageModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(_banners),
       const DeepCollectionEquality().hash(_featuredProducts),
       const DeepCollectionEquality().hash(_categories));
 
@@ -1230,13 +1540,17 @@ class _$HomepageModelImpl extends _HomepageModel {
 
 abstract class _HomepageModel extends HomepageModel {
   const factory _HomepageModel(
-      {required final List<ProductModel> featuredProducts,
+      {@JsonKey(defaultValue: []) required final List<BannerModel> banners,
+      required final List<ProductModel> featuredProducts,
       required final List<CategoryModel> categories}) = _$HomepageModelImpl;
   const _HomepageModel._() : super._();
 
   factory _HomepageModel.fromJson(Map<String, dynamic> json) =
       _$HomepageModelImpl.fromJson;
 
+  @override
+  @JsonKey(defaultValue: [])
+  List<BannerModel> get banners;
   @override
   List<ProductModel> get featuredProducts;
   @override
@@ -1915,6 +2229,7 @@ mixin _$CartItemProductModel {
   @JsonKey(fromJson: _toDoubleNullable)
   double? get discountPrice => throw _privateConstructorUsedError;
   bool get inStock => throw _privateConstructorUsedError;
+  int get stockQuantity => throw _privateConstructorUsedError;
   List<ProductImageModel>? get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1935,6 +2250,7 @@ abstract class $CartItemProductModelCopyWith<$Res> {
       @JsonKey(fromJson: _toDouble) double price,
       @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
       bool inStock,
+      int stockQuantity,
       List<ProductImageModel>? images});
 }
 
@@ -1957,6 +2273,7 @@ class _$CartItemProductModelCopyWithImpl<$Res,
     Object? price = null,
     Object? discountPrice = freezed,
     Object? inStock = null,
+    Object? stockQuantity = null,
     Object? images = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1980,6 +2297,10 @@ class _$CartItemProductModelCopyWithImpl<$Res,
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
+      stockQuantity: null == stockQuantity
+          ? _value.stockQuantity
+          : stockQuantity // ignore: cast_nullable_to_non_nullable
+              as int,
       images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -2002,6 +2323,7 @@ abstract class _$$CartItemProductModelImplCopyWith<$Res>
       @JsonKey(fromJson: _toDouble) double price,
       @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
       bool inStock,
+      int stockQuantity,
       List<ProductImageModel>? images});
 }
 
@@ -2021,6 +2343,7 @@ class __$$CartItemProductModelImplCopyWithImpl<$Res>
     Object? price = null,
     Object? discountPrice = freezed,
     Object? inStock = null,
+    Object? stockQuantity = null,
     Object? images = freezed,
   }) {
     return _then(_$CartItemProductModelImpl(
@@ -2044,6 +2367,10 @@ class __$$CartItemProductModelImplCopyWithImpl<$Res>
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
+      stockQuantity: null == stockQuantity
+          ? _value.stockQuantity
+          : stockQuantity // ignore: cast_nullable_to_non_nullable
+              as int,
       images: freezed == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
@@ -2061,6 +2388,7 @@ class _$CartItemProductModelImpl extends _CartItemProductModel {
       @JsonKey(fromJson: _toDouble) required this.price,
       @JsonKey(fromJson: _toDoubleNullable) this.discountPrice,
       required this.inStock,
+      required this.stockQuantity,
       final List<ProductImageModel>? images})
       : _images = images,
         super._();
@@ -2080,6 +2408,8 @@ class _$CartItemProductModelImpl extends _CartItemProductModel {
   final double? discountPrice;
   @override
   final bool inStock;
+  @override
+  final int stockQuantity;
   final List<ProductImageModel>? _images;
   @override
   List<ProductImageModel>? get images {
@@ -2092,7 +2422,7 @@ class _$CartItemProductModelImpl extends _CartItemProductModel {
 
   @override
   String toString() {
-    return 'CartItemProductModel(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, images: $images)';
+    return 'CartItemProductModel(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, images: $images)';
   }
 
   @override
@@ -2106,13 +2436,15 @@ class _$CartItemProductModelImpl extends _CartItemProductModel {
             (identical(other.discountPrice, discountPrice) ||
                 other.discountPrice == discountPrice) &&
             (identical(other.inStock, inStock) || other.inStock == inStock) &&
+            (identical(other.stockQuantity, stockQuantity) ||
+                other.stockQuantity == stockQuantity) &&
             const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, price, discountPrice,
-      inStock, const DeepCollectionEquality().hash(_images));
+      inStock, stockQuantity, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
@@ -2137,6 +2469,7 @@ abstract class _CartItemProductModel extends CartItemProductModel {
       @JsonKey(fromJson: _toDouble) required final double price,
       @JsonKey(fromJson: _toDoubleNullable) final double? discountPrice,
       required final bool inStock,
+      required final int stockQuantity,
       final List<ProductImageModel>? images}) = _$CartItemProductModelImpl;
   const _CartItemProductModel._() : super._();
 
@@ -2155,6 +2488,8 @@ abstract class _CartItemProductModel extends CartItemProductModel {
   double? get discountPrice;
   @override
   bool get inStock;
+  @override
+  int get stockQuantity;
   @override
   List<ProductImageModel>? get images;
   @override
@@ -2341,9 +2676,13 @@ mixin _$OrderModel {
   String get id => throw _privateConstructorUsedError;
   String get orderNumber => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
   double get subtotal => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
   double get deliveryFee => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
   double get discount => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _toDouble)
   double get total => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   List<OrderItemModel>? get items => throw _privateConstructorUsedError;
@@ -2367,10 +2706,10 @@ abstract class $OrderModelCopyWith<$Res> {
       {String id,
       String orderNumber,
       String status,
-      double subtotal,
-      double deliveryFee,
-      double discount,
-      double total,
+      @JsonKey(fromJson: _toDouble) double subtotal,
+      @JsonKey(fromJson: _toDouble) double deliveryFee,
+      @JsonKey(fromJson: _toDouble) double discount,
+      @JsonKey(fromJson: _toDouble) double total,
       String createdAt,
       List<OrderItemModel>? items,
       OrderShippingAddressModel? shippingAddress,
@@ -2478,10 +2817,10 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       {String id,
       String orderNumber,
       String status,
-      double subtotal,
-      double deliveryFee,
-      double discount,
-      double total,
+      @JsonKey(fromJson: _toDouble) double subtotal,
+      @JsonKey(fromJson: _toDouble) double deliveryFee,
+      @JsonKey(fromJson: _toDouble) double discount,
+      @JsonKey(fromJson: _toDouble) double total,
       String createdAt,
       List<OrderItemModel>? items,
       OrderShippingAddressModel? shippingAddress,
@@ -2570,10 +2909,10 @@ class _$OrderModelImpl extends _OrderModel {
       {required this.id,
       required this.orderNumber,
       required this.status,
-      required this.subtotal,
-      required this.deliveryFee,
-      required this.discount,
-      required this.total,
+      @JsonKey(fromJson: _toDouble) required this.subtotal,
+      @JsonKey(fromJson: _toDouble) required this.deliveryFee,
+      @JsonKey(fromJson: _toDouble) required this.discount,
+      @JsonKey(fromJson: _toDouble) required this.total,
       required this.createdAt,
       final List<OrderItemModel>? items,
       this.shippingAddress,
@@ -2592,12 +2931,16 @@ class _$OrderModelImpl extends _OrderModel {
   @override
   final String status;
   @override
+  @JsonKey(fromJson: _toDouble)
   final double subtotal;
   @override
+  @JsonKey(fromJson: _toDouble)
   final double deliveryFee;
   @override
+  @JsonKey(fromJson: _toDouble)
   final double discount;
   @override
+  @JsonKey(fromJson: _toDouble)
   final double total;
   @override
   final String createdAt;
@@ -2687,10 +3030,10 @@ abstract class _OrderModel extends OrderModel {
       {required final String id,
       required final String orderNumber,
       required final String status,
-      required final double subtotal,
-      required final double deliveryFee,
-      required final double discount,
-      required final double total,
+      @JsonKey(fromJson: _toDouble) required final double subtotal,
+      @JsonKey(fromJson: _toDouble) required final double deliveryFee,
+      @JsonKey(fromJson: _toDouble) required final double discount,
+      @JsonKey(fromJson: _toDouble) required final double total,
       required final String createdAt,
       final List<OrderItemModel>? items,
       final OrderShippingAddressModel? shippingAddress,
@@ -2707,12 +3050,16 @@ abstract class _OrderModel extends OrderModel {
   @override
   String get status;
   @override
+  @JsonKey(fromJson: _toDouble)
   double get subtotal;
   @override
+  @JsonKey(fromJson: _toDouble)
   double get deliveryFee;
   @override
+  @JsonKey(fromJson: _toDouble)
   double get discount;
   @override
+  @JsonKey(fromJson: _toDouble)
   double get total;
   @override
   String get createdAt;

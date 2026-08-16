@@ -17,6 +17,24 @@ class OrderSuccessfulPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final status = order.status.toLowerCase();
+    final String imagePath;
+    final String title;
+    final String subtitle;
+
+    if (status == 'failed') {
+      imagePath = 'assets/images/cancel_1.png';
+      title = 'Order Failed';
+      subtitle = 'Transaction failed. There was an issue in your order. Please try again';
+    } else if (status == 'pending' || status == 'processing') {
+      imagePath = 'assets/images/failed_1.png';
+      title = 'Order Pending';
+      subtitle = 'Your order is being processed. Please wait as we process your order';
+    } else {
+      imagePath = 'assets/images/success1.png';
+      title = 'Order Placed';
+      subtitle = 'Your order has been successfully placed';
+    }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: const PPAppBar(),
@@ -30,13 +48,13 @@ class OrderSuccessfulPage extends HookConsumerWidget {
                 height: 120.w,
                 width: 120.w,
                 child: Image.asset(
-                  'assets/images/success1.png', // for fail use 'assets/images/cancel_1.png' for pending use 'assets/images/failed_1.png'
+                  imagePath,
                   fit: BoxFit.contain,
                 ),
               ),
               25.verticalSpace,
               Text(
-                'Order Placed', // for pending use Order Pending and for failed use Order Failed
+                title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
@@ -47,7 +65,7 @@ class OrderSuccessfulPage extends HookConsumerWidget {
               ),
               4.verticalSpace,
               Text(
-                'Your order has been successfully placed', // for pending use 'Your order is being processed. Please wait has we process your order' and for failed use 'Transaction failed. There was an issue in your order. Please try again',
+                subtitle,
                 textAlign: TextAlign.center,
 
                 style: TextStyle(

@@ -20,6 +20,8 @@ class ProductEntity with _$ProductEntity {
     double? discountPrice,
     required bool inStock,
     required int stockQuantity,
+    required double averageRating,
+    required int reviewCount,
     required List<ProductVariantEntity> variants,
     List<ProductImageEntity>? images,
   }) = _ProductEntity;
@@ -44,8 +46,21 @@ class CategoryEntity with _$CategoryEntity {
 }
 
 @freezed
+class BannerEntity with _$BannerEntity {
+  const factory BannerEntity({
+    required String id,
+    required String title,
+    required String description,
+    required String imageUrl,
+    required bool isActive,
+    required int sortOrder,
+  }) = _BannerEntity;
+}
+
+@freezed
 class HomepageEntity with _$HomepageEntity {
   const factory HomepageEntity({
+    required List<BannerEntity> banners,
     required List<ProductEntity> featuredProducts,
     required List<CategoryEntity> categories,
   }) = _HomepageEntity;
@@ -98,6 +113,7 @@ class CartItemProductEntity with _$CartItemProductEntity {
     required double price,
     double? discountPrice,
     required bool inStock,
+    required int stockQuantity,
     List<ProductImageEntity>? images,
   }) = _CartItemProductEntity;
 }

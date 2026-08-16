@@ -46,10 +46,11 @@ class ReviewBottomsheet extends HookConsumerWidget {
       if (!context.mounted) return;
       final state = ref.read(createReviewProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(
-          context,
-          MessageHandler.getErrorMessage(state.error),
-        );
+        final errorMsg = MessageHandler.getErrorMessage(state.error);
+        final displayMsg = errorMsg.toLowerCase().contains('already')
+            ? 'You have already reviewed this product.'
+            : errorMsg;
+        MessageHandler.showErrorSnackBar(context, displayMsg);
       } else {
         commentController.clear();
         selectedRating.value = 0;

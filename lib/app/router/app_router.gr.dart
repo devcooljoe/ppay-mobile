@@ -543,9 +543,15 @@ abstract class $AppRouter extends _i148.RootStackRouter {
       );
     },
     ClothsRoute.name: (routeData) {
+      final args = routeData.argsAs<ClothsRouteArgs>(
+          orElse: () => const ClothsRouteArgs());
       return _i148.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i31.ClothsPage(),
+        child: _i31.ClothsPage(
+          key: args.key,
+          categoryId: args.categoryId,
+          categoryName: args.categoryName,
+        ),
       );
     },
     ConfirmBuyRoute.name: (routeData) {
@@ -2070,16 +2076,45 @@ class ClothsDetailsRouteArgs {
 
 /// generated route for
 /// [_i31.ClothsPage]
-class ClothsRoute extends _i148.PageRouteInfo<void> {
-  const ClothsRoute({List<_i148.PageRouteInfo>? children})
-      : super(
+class ClothsRoute extends _i148.PageRouteInfo<ClothsRouteArgs> {
+  ClothsRoute({
+    _i149.Key? key,
+    String? categoryId,
+    String? categoryName,
+    List<_i148.PageRouteInfo>? children,
+  }) : super(
           ClothsRoute.name,
+          args: ClothsRouteArgs(
+            key: key,
+            categoryId: categoryId,
+            categoryName: categoryName,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ClothsRoute';
 
-  static const _i148.PageInfo<void> page = _i148.PageInfo<void>(name);
+  static const _i148.PageInfo<ClothsRouteArgs> page =
+      _i148.PageInfo<ClothsRouteArgs>(name);
+}
+
+class ClothsRouteArgs {
+  const ClothsRouteArgs({
+    this.key,
+    this.categoryId,
+    this.categoryName,
+  });
+
+  final _i149.Key? key;
+
+  final String? categoryId;
+
+  final String? categoryName;
+
+  @override
+  String toString() {
+    return 'ClothsRouteArgs{key: $key, categoryId: $categoryId, categoryName: $categoryName}';
+  }
 }
 
 /// generated route for

@@ -65,19 +65,22 @@ class CheckOutPage extends HookConsumerWidget {
       final code = promoController.text.trim();
       if (code.isEmpty) return;
       promoLoading.value = true;
-      try {
-        await ref
-            .read(getCheckoutSummaryProvider.notifier)
-            .call(subtotal, promoCode: code);
-        final state = ref.read(getCheckoutSummaryProvider);
-        if (state.hasError) {
-          if (context.mounted) MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
-        } else {
-          appliedPromo.value = code;
-          if (context.mounted) MessageHandler.showSuccessSnackBar(context, 'Promo code applied!');
-        }
-      } finally {
-        promoLoading.value = false;
+      await ref
+          .read(getCheckoutSummaryProvider.notifier)
+          .call(subtotal, promoCode: code);
+      promoLoading.value = false;
+      if (!context.mounted) return;
+      final state = ref.read(getCheckoutSummaryProvider);
+      if (state.hasError) {
+        // Revert summary to no-promo state so the page doesn't break
+        ref.read(getCheckoutSummaryProvider.notifier).call(subtotal);
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(state.error),
+        );
+      } else {
+        appliedPromo.value = code;
+        MessageHandler.showSuccessSnackBar(context, 'Promo code applied!');
       }
     }
 
@@ -132,6 +135,8 @@ class CheckOutPage extends HookConsumerWidget {
       if (state.hasError) {
         MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
       } else if (state.value != null) {
+        // Clear cart state after successful order
+        ref.invalidate(getCartProvider);
         context.router.replace(OrderSuccessfulRoute(order: state.value!));
       }
     }

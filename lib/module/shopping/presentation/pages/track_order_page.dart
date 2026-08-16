@@ -51,7 +51,11 @@ class TrackOrderPage extends HookConsumerWidget {
                   )
                 : orderState.value == null
                     ? const SizedBox.shrink()
-                    : _OrderTrackingContent(order: orderState.value!),
+                    : RefreshIndicator(
+                        onRefresh: () async => ref.read(getOrderDetailsProvider.notifier).call(orderId),
+                        color: PPaymobileColors.buttonColor,
+                        child: _OrderTrackingContent(order: orderState.value!),
+                      ),
       ),
     );
   }
@@ -84,6 +88,7 @@ class _OrderTrackingContent extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
         children: [
           46.verticalSpace,
 

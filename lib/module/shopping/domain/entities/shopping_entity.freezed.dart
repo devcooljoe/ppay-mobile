@@ -159,6 +159,8 @@ mixin _$ProductEntity {
   double? get discountPrice => throw _privateConstructorUsedError;
   bool get inStock => throw _privateConstructorUsedError;
   int get stockQuantity => throw _privateConstructorUsedError;
+  double get averageRating => throw _privateConstructorUsedError;
+  int get reviewCount => throw _privateConstructorUsedError;
   List<ProductVariantEntity> get variants => throw _privateConstructorUsedError;
   List<ProductImageEntity>? get images => throw _privateConstructorUsedError;
 
@@ -181,6 +183,8 @@ abstract class $ProductEntityCopyWith<$Res> {
       double? discountPrice,
       bool inStock,
       int stockQuantity,
+      double averageRating,
+      int reviewCount,
       List<ProductVariantEntity> variants,
       List<ProductImageEntity>? images});
 }
@@ -205,6 +209,8 @@ class _$ProductEntityCopyWithImpl<$Res, $Val extends ProductEntity>
     Object? discountPrice = freezed,
     Object? inStock = null,
     Object? stockQuantity = null,
+    Object? averageRating = null,
+    Object? reviewCount = null,
     Object? variants = null,
     Object? images = freezed,
   }) {
@@ -237,6 +243,14 @@ class _$ProductEntityCopyWithImpl<$Res, $Val extends ProductEntity>
           ? _value.stockQuantity
           : stockQuantity // ignore: cast_nullable_to_non_nullable
               as int,
+      averageRating: null == averageRating
+          ? _value.averageRating
+          : averageRating // ignore: cast_nullable_to_non_nullable
+              as double,
+      reviewCount: null == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       variants: null == variants
           ? _value.variants
           : variants // ignore: cast_nullable_to_non_nullable
@@ -265,6 +279,8 @@ abstract class _$$ProductEntityImplCopyWith<$Res>
       double? discountPrice,
       bool inStock,
       int stockQuantity,
+      double averageRating,
+      int reviewCount,
       List<ProductVariantEntity> variants,
       List<ProductImageEntity>? images});
 }
@@ -287,6 +303,8 @@ class __$$ProductEntityImplCopyWithImpl<$Res>
     Object? discountPrice = freezed,
     Object? inStock = null,
     Object? stockQuantity = null,
+    Object? averageRating = null,
+    Object? reviewCount = null,
     Object? variants = null,
     Object? images = freezed,
   }) {
@@ -319,6 +337,14 @@ class __$$ProductEntityImplCopyWithImpl<$Res>
           ? _value.stockQuantity
           : stockQuantity // ignore: cast_nullable_to_non_nullable
               as int,
+      averageRating: null == averageRating
+          ? _value.averageRating
+          : averageRating // ignore: cast_nullable_to_non_nullable
+              as double,
+      reviewCount: null == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       variants: null == variants
           ? _value._variants
           : variants // ignore: cast_nullable_to_non_nullable
@@ -342,6 +368,8 @@ class _$ProductEntityImpl implements _ProductEntity {
       this.discountPrice,
       required this.inStock,
       required this.stockQuantity,
+      required this.averageRating,
+      required this.reviewCount,
       required final List<ProductVariantEntity> variants,
       final List<ProductImageEntity>? images})
       : _variants = variants,
@@ -361,6 +389,10 @@ class _$ProductEntityImpl implements _ProductEntity {
   final bool inStock;
   @override
   final int stockQuantity;
+  @override
+  final double averageRating;
+  @override
+  final int reviewCount;
   final List<ProductVariantEntity> _variants;
   @override
   List<ProductVariantEntity> get variants {
@@ -381,7 +413,7 @@ class _$ProductEntityImpl implements _ProductEntity {
 
   @override
   String toString() {
-    return 'ProductEntity(id: $id, name: $name, description: $description, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, variants: $variants, images: $images)';
+    return 'ProductEntity(id: $id, name: $name, description: $description, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, averageRating: $averageRating, reviewCount: $reviewCount, variants: $variants, images: $images)';
   }
 
   @override
@@ -399,6 +431,10 @@ class _$ProductEntityImpl implements _ProductEntity {
             (identical(other.inStock, inStock) || other.inStock == inStock) &&
             (identical(other.stockQuantity, stockQuantity) ||
                 other.stockQuantity == stockQuantity) &&
+            (identical(other.averageRating, averageRating) ||
+                other.averageRating == averageRating) &&
+            (identical(other.reviewCount, reviewCount) ||
+                other.reviewCount == reviewCount) &&
             const DeepCollectionEquality().equals(other._variants, _variants) &&
             const DeepCollectionEquality().equals(other._images, _images));
   }
@@ -413,6 +449,8 @@ class _$ProductEntityImpl implements _ProductEntity {
       discountPrice,
       inStock,
       stockQuantity,
+      averageRating,
+      reviewCount,
       const DeepCollectionEquality().hash(_variants),
       const DeepCollectionEquality().hash(_images));
 
@@ -432,6 +470,8 @@ abstract class _ProductEntity implements ProductEntity {
       final double? discountPrice,
       required final bool inStock,
       required final int stockQuantity,
+      required final double averageRating,
+      required final int reviewCount,
       required final List<ProductVariantEntity> variants,
       final List<ProductImageEntity>? images}) = _$ProductEntityImpl;
 
@@ -449,6 +489,10 @@ abstract class _ProductEntity implements ProductEntity {
   bool get inStock;
   @override
   int get stockQuantity;
+  @override
+  double get averageRating;
+  @override
+  int get reviewCount;
   @override
   List<ProductVariantEntity> get variants;
   @override
@@ -782,7 +826,234 @@ abstract class _CategoryEntity implements CategoryEntity {
 }
 
 /// @nodoc
+mixin _$BannerEntity {
+  String get id => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
+  int get sortOrder => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $BannerEntityCopyWith<BannerEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BannerEntityCopyWith<$Res> {
+  factory $BannerEntityCopyWith(
+          BannerEntity value, $Res Function(BannerEntity) then) =
+      _$BannerEntityCopyWithImpl<$Res, BannerEntity>;
+  @useResult
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      String imageUrl,
+      bool isActive,
+      int sortOrder});
+}
+
+/// @nodoc
+class _$BannerEntityCopyWithImpl<$Res, $Val extends BannerEntity>
+    implements $BannerEntityCopyWith<$Res> {
+  _$BannerEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? description = null,
+    Object? imageUrl = null,
+    Object? isActive = null,
+    Object? sortOrder = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BannerEntityImplCopyWith<$Res>
+    implements $BannerEntityCopyWith<$Res> {
+  factory _$$BannerEntityImplCopyWith(
+          _$BannerEntityImpl value, $Res Function(_$BannerEntityImpl) then) =
+      __$$BannerEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      String imageUrl,
+      bool isActive,
+      int sortOrder});
+}
+
+/// @nodoc
+class __$$BannerEntityImplCopyWithImpl<$Res>
+    extends _$BannerEntityCopyWithImpl<$Res, _$BannerEntityImpl>
+    implements _$$BannerEntityImplCopyWith<$Res> {
+  __$$BannerEntityImplCopyWithImpl(
+      _$BannerEntityImpl _value, $Res Function(_$BannerEntityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? description = null,
+    Object? imageUrl = null,
+    Object? isActive = null,
+    Object? sortOrder = null,
+  }) {
+    return _then(_$BannerEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BannerEntityImpl implements _BannerEntity {
+  const _$BannerEntityImpl(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.imageUrl,
+      required this.isActive,
+      required this.sortOrder});
+
+  @override
+  final String id;
+  @override
+  final String title;
+  @override
+  final String description;
+  @override
+  final String imageUrl;
+  @override
+  final bool isActive;
+  @override
+  final int sortOrder;
+
+  @override
+  String toString() {
+    return 'BannerEntity(id: $id, title: $title, description: $description, imageUrl: $imageUrl, isActive: $isActive, sortOrder: $sortOrder)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BannerEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, title, description, imageUrl, isActive, sortOrder);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BannerEntityImplCopyWith<_$BannerEntityImpl> get copyWith =>
+      __$$BannerEntityImplCopyWithImpl<_$BannerEntityImpl>(this, _$identity);
+}
+
+abstract class _BannerEntity implements BannerEntity {
+  const factory _BannerEntity(
+      {required final String id,
+      required final String title,
+      required final String description,
+      required final String imageUrl,
+      required final bool isActive,
+      required final int sortOrder}) = _$BannerEntityImpl;
+
+  @override
+  String get id;
+  @override
+  String get title;
+  @override
+  String get description;
+  @override
+  String get imageUrl;
+  @override
+  bool get isActive;
+  @override
+  int get sortOrder;
+  @override
+  @JsonKey(ignore: true)
+  _$$BannerEntityImplCopyWith<_$BannerEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$HomepageEntity {
+  List<BannerEntity> get banners => throw _privateConstructorUsedError;
   List<ProductEntity> get featuredProducts =>
       throw _privateConstructorUsedError;
   List<CategoryEntity> get categories => throw _privateConstructorUsedError;
@@ -799,7 +1070,9 @@ abstract class $HomepageEntityCopyWith<$Res> {
       _$HomepageEntityCopyWithImpl<$Res, HomepageEntity>;
   @useResult
   $Res call(
-      {List<ProductEntity> featuredProducts, List<CategoryEntity> categories});
+      {List<BannerEntity> banners,
+      List<ProductEntity> featuredProducts,
+      List<CategoryEntity> categories});
 }
 
 /// @nodoc
@@ -815,10 +1088,15 @@ class _$HomepageEntityCopyWithImpl<$Res, $Val extends HomepageEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? banners = null,
     Object? featuredProducts = null,
     Object? categories = null,
   }) {
     return _then(_value.copyWith(
+      banners: null == banners
+          ? _value.banners
+          : banners // ignore: cast_nullable_to_non_nullable
+              as List<BannerEntity>,
       featuredProducts: null == featuredProducts
           ? _value.featuredProducts
           : featuredProducts // ignore: cast_nullable_to_non_nullable
@@ -840,7 +1118,9 @@ abstract class _$$HomepageEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<ProductEntity> featuredProducts, List<CategoryEntity> categories});
+      {List<BannerEntity> banners,
+      List<ProductEntity> featuredProducts,
+      List<CategoryEntity> categories});
 }
 
 /// @nodoc
@@ -854,10 +1134,15 @@ class __$$HomepageEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? banners = null,
     Object? featuredProducts = null,
     Object? categories = null,
   }) {
     return _then(_$HomepageEntityImpl(
+      banners: null == banners
+          ? _value._banners
+          : banners // ignore: cast_nullable_to_non_nullable
+              as List<BannerEntity>,
       featuredProducts: null == featuredProducts
           ? _value._featuredProducts
           : featuredProducts // ignore: cast_nullable_to_non_nullable
@@ -874,10 +1159,20 @@ class __$$HomepageEntityImplCopyWithImpl<$Res>
 
 class _$HomepageEntityImpl implements _HomepageEntity {
   const _$HomepageEntityImpl(
-      {required final List<ProductEntity> featuredProducts,
+      {required final List<BannerEntity> banners,
+      required final List<ProductEntity> featuredProducts,
       required final List<CategoryEntity> categories})
-      : _featuredProducts = featuredProducts,
+      : _banners = banners,
+        _featuredProducts = featuredProducts,
         _categories = categories;
+
+  final List<BannerEntity> _banners;
+  @override
+  List<BannerEntity> get banners {
+    if (_banners is EqualUnmodifiableListView) return _banners;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_banners);
+  }
 
   final List<ProductEntity> _featuredProducts;
   @override
@@ -898,7 +1193,7 @@ class _$HomepageEntityImpl implements _HomepageEntity {
 
   @override
   String toString() {
-    return 'HomepageEntity(featuredProducts: $featuredProducts, categories: $categories)';
+    return 'HomepageEntity(banners: $banners, featuredProducts: $featuredProducts, categories: $categories)';
   }
 
   @override
@@ -906,6 +1201,7 @@ class _$HomepageEntityImpl implements _HomepageEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomepageEntityImpl &&
+            const DeepCollectionEquality().equals(other._banners, _banners) &&
             const DeepCollectionEquality()
                 .equals(other._featuredProducts, _featuredProducts) &&
             const DeepCollectionEquality()
@@ -915,6 +1211,7 @@ class _$HomepageEntityImpl implements _HomepageEntity {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(_banners),
       const DeepCollectionEquality().hash(_featuredProducts),
       const DeepCollectionEquality().hash(_categories));
 
@@ -928,9 +1225,12 @@ class _$HomepageEntityImpl implements _HomepageEntity {
 
 abstract class _HomepageEntity implements HomepageEntity {
   const factory _HomepageEntity(
-      {required final List<ProductEntity> featuredProducts,
+      {required final List<BannerEntity> banners,
+      required final List<ProductEntity> featuredProducts,
       required final List<CategoryEntity> categories}) = _$HomepageEntityImpl;
 
+  @override
+  List<BannerEntity> get banners;
   @override
   List<ProductEntity> get featuredProducts;
   @override
@@ -1703,6 +2003,7 @@ mixin _$CartItemProductEntity {
   double get price => throw _privateConstructorUsedError;
   double? get discountPrice => throw _privateConstructorUsedError;
   bool get inStock => throw _privateConstructorUsedError;
+  int get stockQuantity => throw _privateConstructorUsedError;
   List<ProductImageEntity>? get images => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1722,6 +2023,7 @@ abstract class $CartItemProductEntityCopyWith<$Res> {
       double price,
       double? discountPrice,
       bool inStock,
+      int stockQuantity,
       List<ProductImageEntity>? images});
 }
 
@@ -1744,6 +2046,7 @@ class _$CartItemProductEntityCopyWithImpl<$Res,
     Object? price = null,
     Object? discountPrice = freezed,
     Object? inStock = null,
+    Object? stockQuantity = null,
     Object? images = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1767,6 +2070,10 @@ class _$CartItemProductEntityCopyWithImpl<$Res,
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
+      stockQuantity: null == stockQuantity
+          ? _value.stockQuantity
+          : stockQuantity // ignore: cast_nullable_to_non_nullable
+              as int,
       images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -1790,6 +2097,7 @@ abstract class _$$CartItemProductEntityImplCopyWith<$Res>
       double price,
       double? discountPrice,
       bool inStock,
+      int stockQuantity,
       List<ProductImageEntity>? images});
 }
 
@@ -1810,6 +2118,7 @@ class __$$CartItemProductEntityImplCopyWithImpl<$Res>
     Object? price = null,
     Object? discountPrice = freezed,
     Object? inStock = null,
+    Object? stockQuantity = null,
     Object? images = freezed,
   }) {
     return _then(_$CartItemProductEntityImpl(
@@ -1833,6 +2142,10 @@ class __$$CartItemProductEntityImplCopyWithImpl<$Res>
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
+      stockQuantity: null == stockQuantity
+          ? _value.stockQuantity
+          : stockQuantity // ignore: cast_nullable_to_non_nullable
+              as int,
       images: freezed == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
@@ -1850,6 +2163,7 @@ class _$CartItemProductEntityImpl implements _CartItemProductEntity {
       required this.price,
       this.discountPrice,
       required this.inStock,
+      required this.stockQuantity,
       final List<ProductImageEntity>? images})
       : _images = images;
 
@@ -1863,6 +2177,8 @@ class _$CartItemProductEntityImpl implements _CartItemProductEntity {
   final double? discountPrice;
   @override
   final bool inStock;
+  @override
+  final int stockQuantity;
   final List<ProductImageEntity>? _images;
   @override
   List<ProductImageEntity>? get images {
@@ -1875,7 +2191,7 @@ class _$CartItemProductEntityImpl implements _CartItemProductEntity {
 
   @override
   String toString() {
-    return 'CartItemProductEntity(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, images: $images)';
+    return 'CartItemProductEntity(id: $id, name: $name, price: $price, discountPrice: $discountPrice, inStock: $inStock, stockQuantity: $stockQuantity, images: $images)';
   }
 
   @override
@@ -1889,12 +2205,14 @@ class _$CartItemProductEntityImpl implements _CartItemProductEntity {
             (identical(other.discountPrice, discountPrice) ||
                 other.discountPrice == discountPrice) &&
             (identical(other.inStock, inStock) || other.inStock == inStock) &&
+            (identical(other.stockQuantity, stockQuantity) ||
+                other.stockQuantity == stockQuantity) &&
             const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, name, price, discountPrice,
-      inStock, const DeepCollectionEquality().hash(_images));
+      inStock, stockQuantity, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
@@ -1911,6 +2229,7 @@ abstract class _CartItemProductEntity implements CartItemProductEntity {
       required final double price,
       final double? discountPrice,
       required final bool inStock,
+      required final int stockQuantity,
       final List<ProductImageEntity>? images}) = _$CartItemProductEntityImpl;
 
   @override
@@ -1923,6 +2242,8 @@ abstract class _CartItemProductEntity implements CartItemProductEntity {
   double? get discountPrice;
   @override
   bool get inStock;
+  @override
+  int get stockQuantity;
   @override
   List<ProductImageEntity>? get images;
   @override

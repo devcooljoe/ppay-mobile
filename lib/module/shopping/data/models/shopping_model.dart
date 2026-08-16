@@ -52,23 +52,30 @@ class ProductModel with _$ProductModel {
     required int stockQuantity,
     @JsonKey(defaultValue: []) required List<ProductVariantModel> variants,
     List<ProductImageModel>? images,
+    @JsonKey(defaultValue: []) List<ReviewModel>? reviews,
   }) = _ProductModel;
 
   const ProductModel._();
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
 
-  ProductEntity toEntity() => ProductEntity(
-    id: id,
-    name: name,
-    description: description,
-    price: price,
-    discountPrice: discountPrice,
-    inStock: inStock,
-    stockQuantity: stockQuantity,
-    variants: variants.map((e) => e.toEntity()).toList(),
-    images: images?.map((e) => e.toEntity()).toList(),
-  );
+  ProductEntity toEntity() {
+    final r = reviews ?? [];
+    final avg = r.isEmpty ? 0.0 : r.map((e) => e.rating).reduce((a, b) => a + b) / r.length;
+    return ProductEntity(
+      id: id,
+      name: name,
+      description: description,
+      price: price,
+      discountPrice: discountPrice,
+      inStock: inStock,
+      stockQuantity: stockQuantity,
+      averageRating: double.parse(avg.toStringAsFixed(1)),
+      reviewCount: r.length,
+      variants: variants.map((e) => e.toEntity()).toList(),
+      images: images?.map((e) => e.toEntity()).toList(),
+    );
+  }
 }
 
 @freezed
@@ -106,8 +113,34 @@ class CategoryModel with _$CategoryModel {
 }
 
 @freezed
+class BannerModel with _$BannerModel {
+  const factory BannerModel({
+    required String id,
+    required String title,
+    required String description,
+    required String imageUrl,
+    required bool isActive,
+    required int sortOrder,
+  }) = _BannerModel;
+
+  const BannerModel._();
+
+  factory BannerModel.fromJson(Map<String, dynamic> json) => _$BannerModelFromJson(json);
+
+  BannerEntity toEntity() => BannerEntity(
+    id: id,
+    title: title,
+    description: description,
+    imageUrl: imageUrl,
+    isActive: isActive,
+    sortOrder: sortOrder,
+  );
+}
+
+@freezed
 class HomepageModel with _$HomepageModel {
   const factory HomepageModel({
+    @JsonKey(defaultValue: []) required List<BannerModel> banners,
     required List<ProductModel> featuredProducts,
     required List<CategoryModel> categories,
   }) = _HomepageModel;
@@ -117,6 +150,7 @@ class HomepageModel with _$HomepageModel {
   factory HomepageModel.fromJson(Map<String, dynamic> json) => _$HomepageModelFromJson(json);
 
   HomepageEntity toEntity() => HomepageEntity(
+    banners: banners.map((e) => e.toEntity()).toList(),
     featuredProducts: featuredProducts.map((e) => e.toEntity()).toList(),
     categories: categories.map((e) => e.toEntity()).toList(),
   );
@@ -193,6 +227,7 @@ class CartItemProductModel with _$CartItemProductModel {
     @JsonKey(fromJson: _toDouble) required double price,
     @JsonKey(fromJson: _toDoubleNullable) double? discountPrice,
     required bool inStock,
+    required int stockQuantity,
     List<ProductImageModel>? images,
   }) = _CartItemProductModel;
 
@@ -206,6 +241,7 @@ class CartItemProductModel with _$CartItemProductModel {
     price: price,
     discountPrice: discountPrice,
     inStock: inStock,
+    stockQuantity: stockQuantity,
     images: images?.map((e) => e.toEntity()).toList(),
   );
 }
@@ -230,10 +266,10 @@ class OrderModel with _$OrderModel {
     required String id,
     required String orderNumber,
     required String status,
-    required double subtotal,
-    required double deliveryFee,
-    required double discount,
-    required double total,
+    @JsonKey(fromJson: _toDouble) required double subtotal,
+    @JsonKey(fromJson: _toDouble) required double deliveryFee,
+    @JsonKey(fromJson: _toDouble) required double discount,
+    @JsonKey(fromJson: _toDouble) required double total,
     required String createdAt,
     List<OrderItemModel>? items,
     OrderShippingAddressModel? shippingAddress,

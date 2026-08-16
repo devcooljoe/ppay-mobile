@@ -175,10 +175,12 @@ class YourCartBottomsheet extends HookConsumerWidget {
                                                     12.horizontalSpace,
                                                     _QtyButton(
                                                       icon: 'assets/icon/add.svg',
-                                                      onTap: () async {
-                                                        await ref.read(updateCartItemProvider.notifier).call(cartItemId: item.id, quantity: item.quantity + 1);
-                                                        ref.read(getCartProvider.notifier).call();
-                                                      },
+                                                      onTap: item.quantity < item.product.stockQuantity
+                                                          ? () async {
+                                                              await ref.read(updateCartItemProvider.notifier).call(cartItemId: item.id, quantity: item.quantity + 1);
+                                                              ref.read(getCartProvider.notifier).call();
+                                                            }
+                                                          : null,
                                                     ),
                                                   ],
                                                 ),

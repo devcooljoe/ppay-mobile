@@ -53,6 +53,10 @@ _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => ProductImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      reviews: (json['reviews'] as List<dynamic>?)
+              ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
@@ -66,6 +70,7 @@ Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
       'stockQuantity': instance.stockQuantity,
       'variants': instance.variants,
       'images': instance.images,
+      'reviews': instance.reviews,
     };
 
 _$ProductVariantModelImpl _$$ProductVariantModelImplFromJson(
@@ -98,8 +103,32 @@ Map<String, dynamic> _$$CategoryModelImplToJson(_$CategoryModelImpl instance) =>
       'iconUrl': instance.iconUrl,
     };
 
+_$BannerModelImpl _$$BannerModelImplFromJson(Map<String, dynamic> json) =>
+    _$BannerModelImpl(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      imageUrl: json['imageUrl'] as String,
+      isActive: json['isActive'] as bool,
+      sortOrder: (json['sortOrder'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$BannerModelImplToJson(_$BannerModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'description': instance.description,
+      'imageUrl': instance.imageUrl,
+      'isActive': instance.isActive,
+      'sortOrder': instance.sortOrder,
+    };
+
 _$HomepageModelImpl _$$HomepageModelImplFromJson(Map<String, dynamic> json) =>
     _$HomepageModelImpl(
+      banners: (json['banners'] as List<dynamic>?)
+              ?.map((e) => BannerModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       featuredProducts: (json['featuredProducts'] as List<dynamic>)
           .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -110,6 +139,7 @@ _$HomepageModelImpl _$$HomepageModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$HomepageModelImplToJson(_$HomepageModelImpl instance) =>
     <String, dynamic>{
+      'banners': instance.banners,
       'featuredProducts': instance.featuredProducts,
       'categories': instance.categories,
     };
@@ -180,6 +210,7 @@ _$CartItemProductModelImpl _$$CartItemProductModelImplFromJson(
       price: _toDouble(json['price']),
       discountPrice: _toDoubleNullable(json['discountPrice']),
       inStock: json['inStock'] as bool,
+      stockQuantity: (json['stockQuantity'] as num).toInt(),
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => ProductImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -193,6 +224,7 @@ Map<String, dynamic> _$$CartItemProductModelImplToJson(
       'price': instance.price,
       'discountPrice': instance.discountPrice,
       'inStock': instance.inStock,
+      'stockQuantity': instance.stockQuantity,
       'images': instance.images,
     };
 
@@ -215,10 +247,10 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       orderNumber: json['orderNumber'] as String,
       status: json['status'] as String,
-      subtotal: (json['subtotal'] as num).toDouble(),
-      deliveryFee: (json['deliveryFee'] as num).toDouble(),
-      discount: (json['discount'] as num).toDouble(),
-      total: (json['total'] as num).toDouble(),
+      subtotal: _toDouble(json['subtotal']),
+      deliveryFee: _toDouble(json['deliveryFee']),
+      discount: _toDouble(json['discount']),
+      total: _toDouble(json['total']),
       createdAt: json['createdAt'] as String,
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => OrderItemModel.fromJson(e as Map<String, dynamic>))
