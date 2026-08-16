@@ -72,12 +72,10 @@ class CheckOutPage extends HookConsumerWidget {
       if (!context.mounted) return;
       final state = ref.read(getCheckoutSummaryProvider);
       if (state.hasError) {
+        final errorMessage = MessageHandler.getErrorMessage(state.error);
         // Revert summary to no-promo state so the page doesn't break
         ref.read(getCheckoutSummaryProvider.notifier).call(subtotal);
-        MessageHandler.showErrorSnackBar(
-          context,
-          MessageHandler.getErrorMessage(state.error),
-        );
+        MessageHandler.showErrorSnackBar(context, errorMessage);
       } else {
         appliedPromo.value = code;
         MessageHandler.showSuccessSnackBar(context, 'Promo code applied!');
@@ -135,8 +133,10 @@ class CheckOutPage extends HookConsumerWidget {
       if (state.hasError) {
         MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
       } else if (state.value != null) {
-        // Clear cart state after successful order
+        // Invalidate stale data so sold-out products disappear from lists
         ref.invalidate(getCartProvider);
+        ref.invalidate(getProductsProvider);
+        ref.invalidate(getHomepageProvider);
         context.router.replace(OrderSuccessfulRoute(order: state.value!));
       }
     }

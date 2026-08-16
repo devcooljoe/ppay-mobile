@@ -270,7 +270,7 @@ class SignupPage extends HookConsumerWidget {
                   5.horizontalSpace,
                   TouchOpacity(
                     onTap: () {
-                      context.router.push(LoginRoute());
+                      context.router.replace(LoginRoute());
                     },
                     child: Text(
                       'Sign In',

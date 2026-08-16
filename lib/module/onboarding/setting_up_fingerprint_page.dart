@@ -137,7 +137,7 @@ class SettingUpFingerprintPage extends HookConsumerWidget {
                           elevation: 0,
                         ),
                         onPressed: () {
-                          context.router.push(FingerprintCompleteRoute());
+                          context.router.replace(FingerprintCompleteRoute());
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

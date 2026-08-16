@@ -61,8 +61,7 @@ class PasswordChangedPage extends HookConsumerWidget {
                         76.verticalSpace,
                         PPButton(
                           text: 'Back to Login',
-                          onPressed: () =>
-                              context.router.push(LoginRoute()),
+                          onPressed: () => context.router.replaceAll([const LoginRoute()]),
                           backgroundColor: PPaymobileColors.buttonColorandText,
                         ),
                       ],

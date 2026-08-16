@@ -50,17 +50,17 @@ class CryptoSellSuccessfulPage extends HookConsumerWidget {
               const Spacer(),
               PPButton(
                 text: 'Make another Trade',
-                onPressed: () => context.router.replace(SellCryptoRoute()),
+                onPressed: () => context.router.replaceAll([SellCryptoRoute()]),
               ),
               8.verticalSpace,
               PPButton(
                 text: 'View Transaction History',
-                onPressed: () => context.router.replace(CryptoTransactionsHistoryRoute()),
+                onPressed: () => context.router.replaceAll([CryptoTransactionsHistoryRoute()]),
               ),
               8.verticalSpace,
               PPButton(
                 text: 'Back to Home',
-                onPressed: () => context.router.replace(HomeRoute()),
+                onPressed: () => context.router.replaceAll([HomeRoute()]),
               ),
               20.verticalSpace,
             ],

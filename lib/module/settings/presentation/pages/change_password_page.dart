@@ -46,7 +46,7 @@ class ChangePasswordPage extends HookConsumerWidget {
           MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
         } else {
           MessageHandler.showSuccessSnackBar(context, 'Password changed successfully');
-          context.router.push(const PasswordChangedRoute());
+          context.router.replace(const PasswordChangedRoute());
         }
       }
     });

@@ -328,6 +328,12 @@ class SettingsPage extends HookConsumerWidget {
                     title: 'Saved Bank Account',
                     onTap: () => context.router.push(BankAccountRoute()),
                   ),
+                  12.verticalSpace,
+                  SettingsMenuItem(
+                    imagePath: 'assets/images/place_order.png',
+                    title: 'My Orders',
+                    onTap: () => context.router.push(YourOrderRoute()),
+                  ),
                 ],
               ),
             ),

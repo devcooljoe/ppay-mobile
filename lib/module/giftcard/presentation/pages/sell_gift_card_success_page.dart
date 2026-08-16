@@ -30,7 +30,7 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: PPAppBar(
-        onBackPressed: () => context.router.replace(HomeRoute()),
+        onBackPressed: () => context.router.replaceAll([HomeRoute()]),
       ),
       body: SafeArea(
         child: Padding(
@@ -147,7 +147,7 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
               24.verticalSpace,
               PPButton(
                 text: 'Go to App',
-                onPressed: () => context.router.replace(HomeRoute()),
+                onPressed: () => context.router.replaceAll([HomeRoute()]),
                 icon: SvgPicture.asset(
                   'assets/icon/arrow_forward_1.svg',
                   fit: BoxFit.contain,

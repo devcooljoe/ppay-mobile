@@ -60,10 +60,7 @@ class TransactionSuccessfulPage extends StatelessWidget {
                   161.verticalSpace,
                   PPButton(
                     text: 'Go to Home',
-                    onPressed: () => context.router.pushAndPopUntil(
-                      const ExploreRoute(),
-                      predicate: (route) => false,
-                    ),
+                    onPressed: () => context.router.replaceAll([const ExploreRoute()]),
                     icon: SvgPicture.asset(
                       'assets/icon/arrow_forward.svg',
                       height: 24.w,

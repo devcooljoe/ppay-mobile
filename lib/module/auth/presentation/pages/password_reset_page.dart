@@ -168,7 +168,7 @@ class PasswordResetPage extends HookConsumerWidget {
               91.verticalSpace,
               PPButton(
                 text: 'Reset Password',
-                onPressed: () => context.router.push(PasswordChangedRoute()),
+                onPressed: () => context.router.replace(PasswordChangedRoute()),
               ),
               21.verticalSpace,
               Row(

@@ -88,6 +88,22 @@ class ShoppingPage extends HookConsumerWidget {
             child: Row(
               children: [
                 TouchOpacity(
+                  onTap: () => context.router.push(YourOrderRoute()),
+                  child: SizedBox(
+                    height: 24.w,
+                    width: 24.w,
+                    child: SvgPicture.asset(
+                      'assets/icon/package.svg',
+                      fit: BoxFit.contain,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ),
+                14.horizontalSpace,
+                TouchOpacity(
                   onTap: () => context.router.push(WatchlistRoute()),
                   child: SizedBox(
                     height: 40.w,
@@ -458,6 +474,87 @@ class ShoppingPage extends HookConsumerWidget {
                     ),
               41.verticalSpace,
 
+              // Personal Shopper
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: TouchOpacity(
+                  onTap: () =>
+                      context.router.push(const PersonalShopperIntroRoute()),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(16.w),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Color(0xFF0C3C40), Color(0xFF429E6E)],
+                      ),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 48.w,
+                          width: 48.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.15),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              'assets/icon/shop.svg',
+                              width: 24.w,
+                              height: 24.w,
+                              colorFilter: const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                          ),
+                        ),
+                        14.horizontalSpace,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Personal Shopper',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.white,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              4.verticalSpace,
+                              Text(
+                                'Can\'t find it? We\'ll source it for you.',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.white.withValues(alpha: 0.8),
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SvgPicture.asset(
+                          'assets/icon/arrow_forward_1.svg',
+                          width: 20.w,
+                          height: 20.w,
+                          colorFilter: const ColorFilter.mode(
+                            Colors.white,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              22.verticalSpace,
+
               // All Products
               Padding(
                 padding: EdgeInsets.only(left: 20.w),
@@ -781,7 +878,7 @@ class _BannerPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 6.w),
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.r),
         child: Container(

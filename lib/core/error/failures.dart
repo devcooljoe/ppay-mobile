@@ -12,7 +12,7 @@ class Failure with _$Failure {
   const factory Failure.cache(String message) = CacheFailure;
 
   static Failure fromDioException(DioException e) {
-    if (e.error is Failure) return Failure.fromDioException(e);
+    if (e.error is Failure) return e.error as Failure;
     final data = e.response?.data;
     String? message;
     if (data is Map) message = data['message']?.toString();

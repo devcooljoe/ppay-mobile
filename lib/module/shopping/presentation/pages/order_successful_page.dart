@@ -78,17 +78,17 @@ class OrderSuccessfulPage extends HookConsumerWidget {
               220.verticalSpace,
               PPButton(
                 text: 'Track Order',
-                onPressed: () => context.router.push(TrackOrderRoute(orderId: order.id)),
+                onPressed: () => context.router.replaceAll([TrackOrderRoute(orderId: order.id)]),
               ),
               18.verticalSpace,
               PPButton(
                 text: 'Place Another Order',
-                onPressed: () => context.router.push(ShoppingRoute()),
+                onPressed: () => context.router.replaceAll([ShoppingRoute()]),
               ),
               10.verticalSpace,
               TouchOpacity(
                 onTap: () {
-                  context.router.push(OrderReceiptRoute(order: order));
+                  context.router.replace(OrderReceiptRoute(order: order));
                 },
                 child: Text(
                   'Access Receipt',

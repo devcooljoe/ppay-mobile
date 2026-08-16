@@ -58,8 +58,10 @@ class ClothsDetailsPage extends HookConsumerWidget {
     final cartedQuantity = existingCartItem?.quantity ?? 0;
     final stockQuantity = product?.stockQuantity ?? 0;
     final remainingStock = stockQuantity - cartedQuantity;
-    final isOutOfStock = product != null && (!product.inStock || stockQuantity <= 0);
-    final isFullyInCart = product != null && !isOutOfStock && cartedQuantity >= stockQuantity;
+    final isOutOfStock =
+        product != null && (!product.inStock || stockQuantity <= 0);
+    final isFullyInCart =
+        product != null && !isOutOfStock && cartedQuantity >= stockQuantity;
 
     Future<void> onAddToCart() async {
       if (product == null) return;
@@ -75,16 +77,20 @@ class ClothsDetailsPage extends HookConsumerWidget {
         return;
       }
       if (existingCartItem != null) {
-        final newQuantity = (cartedQuantity + quantity.value).clamp(1, stockQuantity);
-        await ref.read(updateCartItemProvider.notifier).call(
-          cartItemId: existingCartItem.id,
-          quantity: newQuantity,
+        final newQuantity = (cartedQuantity + quantity.value).clamp(
+          1,
+          stockQuantity,
         );
+        await ref
+            .read(updateCartItemProvider.notifier)
+            .call(cartItemId: existingCartItem.id, quantity: newQuantity);
         if (!context.mounted) return;
         if (ref.read(updateCartItemProvider).hasError) {
           MessageHandler.showErrorSnackBar(
             context,
-            MessageHandler.getErrorMessage(ref.read(updateCartItemProvider).error),
+            MessageHandler.getErrorMessage(
+              ref.read(updateCartItemProvider).error,
+            ),
           );
         } else {
           ref.read(getCartProvider.notifier).call();
@@ -96,11 +102,13 @@ class ClothsDetailsPage extends HookConsumerWidget {
           );
         }
       } else {
-        await ref.read(addToCartProvider.notifier).call(
-          productId: product.id,
-          variantId: selectedVariantId.value,
-          quantity: quantity.value,
-        );
+        await ref
+            .read(addToCartProvider.notifier)
+            .call(
+              productId: product.id,
+              variantId: selectedVariantId.value,
+              quantity: quantity.value,
+            );
         if (!context.mounted) return;
         if (ref.read(addToCartProvider).hasError) {
           MessageHandler.showErrorSnackBar(
@@ -126,14 +134,19 @@ class ClothsDetailsPage extends HookConsumerWidget {
         final itemId = currentList
             .firstWhere((w) => w.product?.id == productId)
             .id;
-        ref.read(getWatchlistProvider.notifier).setData(
-          currentList.where((w) => w.product?.id != productId).toList(),
-        );
+        ref
+            .read(getWatchlistProvider.notifier)
+            .setData(
+              currentList.where((w) => w.product?.id != productId).toList(),
+            );
         await ref.read(removeFromWatchlistProvider.notifier).call(itemId);
         if (!context.mounted) return;
         if (ref.read(removeFromWatchlistProvider).hasError) {
           ref.read(getWatchlistProvider.notifier).setData(currentList);
-          MessageHandler.showErrorSnackBar(context, 'Failed to remove from wishlist');
+          MessageHandler.showErrorSnackBar(
+            context,
+            'Failed to remove from wishlist',
+          );
         }
       } else {
         ref.read(getWatchlistProvider.notifier).setData([
@@ -157,7 +170,10 @@ class ClothsDetailsPage extends HookConsumerWidget {
         if (!context.mounted) return;
         if (ref.read(addToWatchlistProvider).hasError) {
           ref.read(getWatchlistProvider.notifier).setData(currentList);
-          MessageHandler.showErrorSnackBar(context, 'Failed to add to wishlist');
+          MessageHandler.showErrorSnackBar(
+            context,
+            'Failed to add to wishlist',
+          );
         } else {
           MessageHandler.showSuccessSnackBar(context, 'Added to wishlist');
         }
@@ -168,30 +184,42 @@ class ClothsDetailsPage extends HookConsumerWidget {
         product != null &&
         product.discountPrice != null &&
         product.discountPrice! < product.price;
-    final displayPrice = hasDiscount ? product!.discountPrice! : (product?.price ?? 0.0);
+    final displayPrice = hasDiscount
+        ? product!.discountPrice!
+        : (product?.price ?? 0.0);
     final originalPrice = product?.price ?? 0.0;
 
-    final sizes = product?.variants
+    final sizes =
+        product?.variants
             .map((v) => v.attributes['size']?.toString())
             .where((s) => s != null)
             .toSet()
             .toList() ??
         [];
-    final colors = product?.variants
+    final colors =
+        product?.variants
             .map((v) => v.attributes['color']?.toString())
             .where((c) => c != null)
             .toSet()
             .toList() ??
         [];
 
-    final selectedSize = useState<String?>(sizes.isNotEmpty ? sizes.first : null);
-    final selectedColor = useState<String?>(colors.isNotEmpty ? colors.first : null);
+    final selectedSize = useState<String?>(
+      sizes.isNotEmpty ? sizes.first : null,
+    );
+    final selectedColor = useState<String?>(
+      colors.isNotEmpty ? colors.first : null,
+    );
 
     useEffect(() {
       if (product == null) return null;
       final match = product.variants.where((v) {
-        final sizeMatch = selectedSize.value == null || v.attributes['size'] == selectedSize.value;
-        final colorMatch = selectedColor.value == null || v.attributes['color'] == selectedColor.value;
+        final sizeMatch =
+            selectedSize.value == null ||
+            v.attributes['size'] == selectedSize.value;
+        final colorMatch =
+            selectedColor.value == null ||
+            v.attributes['color'] == selectedColor.value;
         return sizeMatch && colorMatch;
       }).firstOrNull;
       selectedVariantId.value = match?.id;
@@ -203,12 +231,12 @@ class ClothsDetailsPage extends HookConsumerWidget {
     final buttonLabel = isLoading
         ? (existingCartItem != null ? 'Updating...' : 'Adding...')
         : isOutOfStock
-            ? 'Sold Out'
-            : isFullyInCart
-                ? 'In Cart'
-                : existingCartItem != null
-                    ? 'Update Cart'
-                    : 'Add to cart';
+        ? 'Sold Out'
+        : isFullyInCart
+        ? 'In Cart'
+        : existingCartItem != null
+        ? 'Update Cart'
+        : 'Add to cart';
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
@@ -219,26 +247,26 @@ class ClothsDetailsPage extends HookConsumerWidget {
             padding: EdgeInsets.only(right: 20.w),
             child: Row(
               children: [
-                TouchOpacity(
-                  onTap: onToggleWatchlist,
-                  child: Container(
-                    height: 36.w,
-                    width: 36.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
-                      color: PPaymobileColors.mainScreenBackground,
-                    ),
-                    child: Center(
-                      child: Icon(
-                        isInWatchlist ? Icons.favorite : Icons.favorite_border,
-                        color: isInWatchlist ? const Color(0xFFE53935) : Colors.black,
-                        size: 18.w,
-                      ),
-                    ),
-                  ),
-                ),
-                10.horizontalSpace,
+                // TouchOpacity(
+                //   onTap: onToggleWatchlist,
+                //   child: Container(
+                //     height: 36.w,
+                //     width: 36.w,
+                //     decoration: BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
+                //       color: PPaymobileColors.mainScreenBackground,
+                //     ),
+                //     child: Center(
+                //       child: Icon(
+                //         isInWatchlist ? Icons.favorite : Icons.favorite_border,
+                //         color: isInWatchlist ? const Color(0xFFE53935) : Colors.black,
+                //         size: 18.w,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // 10.horizontalSpace,
                 TouchOpacity(
                   onTap: () async {
                     await showModalBottomSheet(
@@ -253,7 +281,10 @@ class ClothsDetailsPage extends HookConsumerWidget {
                     width: 36.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
+                      border: Border.all(
+                        color: PPaymobileColors.filterBorderColor,
+                        width: 1.w,
+                      ),
                       color: PPaymobileColors.mainScreenBackground,
                     ),
                     child: Center(
@@ -278,7 +309,10 @@ class ClothsDetailsPage extends HookConsumerWidget {
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
                 border: Border(
-                  top: BorderSide(color: PPaymobileColors.filterBorderColor, width: 1.h),
+                  top: BorderSide(
+                    color: PPaymobileColors.filterBorderColor,
+                    width: 1.h,
+                  ),
                 ),
               ),
               child: Row(
@@ -322,8 +356,8 @@ class ClothsDetailsPage extends HookConsumerWidget {
                           color: isOutOfStock
                               ? PPaymobileColors.lightGrey
                               : isFullyInCart
-                                  ? PPaymobileColors.buttonColor
-                                  : PPaymobileColors.buttonColorandText,
+                              ? PPaymobileColors.buttonColor
+                              : PPaymobileColors.buttonColorandText,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -337,7 +371,7 @@ class ClothsDetailsPage extends HookConsumerWidget {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            if (!isFullyInCart && !isOutOfStock) ...[ 
+                            if (!isFullyInCart && !isOutOfStock) ...[
                               8.horizontalSpace,
                               SvgPicture.asset(
                                 'assets/icon/cart_!.svg',
@@ -372,8 +406,9 @@ class ClothsDetailsPage extends HookConsumerWidget {
                   ),
                   16.verticalSpace,
                   TextButton(
-                    onPressed: () =>
-                        ref.read(getProductDetailsProvider.notifier).call(productId),
+                    onPressed: () => ref
+                        .read(getProductDetailsProvider.notifier)
+                        .call(productId),
                     child: Text(
                       'Retry',
                       style: TextStyle(color: PPaymobileColors.buttonColor),
@@ -460,8 +495,12 @@ class ClothsDetailsPage extends HookConsumerWidget {
                             _ImageOverlayButton(
                               onTap: onToggleWatchlist,
                               child: Icon(
-                                isInWatchlist ? Icons.favorite : Icons.favorite_border,
-                                color: isInWatchlist ? const Color(0xFFE53935) : Colors.black54,
+                                isInWatchlist
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: isInWatchlist
+                                    ? const Color(0xFFE53935)
+                                    : Colors.black54,
                                 size: 18.w,
                               ),
                             ),
@@ -518,15 +557,25 @@ class ClothsDetailsPage extends HookConsumerWidget {
                         children: [
                           // Star rating pill
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 5.h,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20).r,
-                              border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
+                              border: Border.all(
+                                color: PPaymobileColors.filterBorderColor,
+                                width: 1.w,
+                              ),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.star_rounded, color: const Color(0xFFFFC107), size: 16.w),
+                                Icon(
+                                  Icons.star_rounded,
+                                  color: const Color(0xFFFFC107),
+                                  size: 16.w,
+                                ),
                                 4.horizontalSpace,
                                 Text(
                                   product.averageRating > 0
@@ -545,15 +594,25 @@ class ClothsDetailsPage extends HookConsumerWidget {
                           12.horizontalSpace,
                           // Heart rating pill
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 5.h,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20).r,
-                              border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
+                              border: Border.all(
+                                color: PPaymobileColors.filterBorderColor,
+                                width: 1.w,
+                              ),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.favorite, color: PPaymobileColors.buttonColor, size: 16.w),
+                                Icon(
+                                  Icons.favorite,
+                                  color: PPaymobileColors.buttonColor,
+                                  size: 16.w,
+                                ),
                                 4.horizontalSpace,
                                 Text(
                                   product.averageRating > 0
@@ -709,9 +768,12 @@ class ClothsDetailsPage extends HookConsumerWidget {
                           ),
                           _QtyStepperButton(
                             icon: 'assets/icon/add.svg',
-                            enabled: quantity.value < remainingStock && !isFullyInCart,
+                            enabled:
+                                quantity.value < remainingStock &&
+                                !isFullyInCart,
                             onTap: () {
-                              if (quantity.value < remainingStock) quantity.value++;
+                              if (quantity.value < remainingStock)
+                                quantity.value++;
                             },
                           ),
                         ],
@@ -765,7 +827,9 @@ class ClothsDetailsPage extends HookConsumerWidget {
                                   size!,
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
-                                    color: isSelected ? Colors.white : Colors.black,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontSize: 13.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -811,7 +875,10 @@ class ClothsDetailsPage extends HookConsumerWidget {
                 // ── Divider ───────────────────────────────────────────────
                 Padding(
                   padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 0),
-                  child: Divider(color: PPaymobileColors.filterBorderColor, height: 1.h),
+                  child: Divider(
+                    color: PPaymobileColors.filterBorderColor,
+                    height: 1.h,
+                  ),
                 ),
 
                 // ── Product Detail row ────────────────────────────────────
@@ -821,7 +888,8 @@ class ClothsDetailsPage extends HookConsumerWidget {
                       context: context,
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
-                      builder: (_) => ProductDetailBottomsheet(product: product),
+                      builder: (_) =>
+                          ProductDetailBottomsheet(product: product),
                     );
                   },
                   child: Padding(
@@ -830,12 +898,20 @@ class ClothsDetailsPage extends HookConsumerWidget {
                       height: 56.h,
                       decoration: BoxDecoration(
                         border: Border(
-                          bottom: BorderSide(color: PPaymobileColors.filterBorderColor, width: 1.h),
+                          bottom: BorderSide(
+                            color: PPaymobileColors.filterBorderColor,
+                            width: 1.h,
+                          ),
                         ),
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/icon/detail.svg', height: 22.w, width: 22.w, fit: BoxFit.contain),
+                          SvgPicture.asset(
+                            'assets/icon/detail.svg',
+                            height: 22.w,
+                            width: 22.w,
+                            fit: BoxFit.contain,
+                          ),
                           14.horizontalSpace,
                           Expanded(
                             child: Text(
@@ -848,7 +924,12 @@ class ClothsDetailsPage extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                          SvgPicture.asset('assets/icon/arrow_forward.svg', height: 20.w, width: 20.w, fit: BoxFit.contain),
+                          SvgPicture.asset(
+                            'assets/icon/arrow_forward.svg',
+                            height: 20.w,
+                            width: 20.w,
+                            fit: BoxFit.contain,
+                          ),
                         ],
                       ),
                     ),
@@ -871,12 +952,20 @@ class ClothsDetailsPage extends HookConsumerWidget {
                       height: 56.h,
                       decoration: BoxDecoration(
                         border: Border(
-                          bottom: BorderSide(color: PPaymobileColors.filterBorderColor, width: 1.h),
+                          bottom: BorderSide(
+                            color: PPaymobileColors.filterBorderColor,
+                            width: 1.h,
+                          ),
                         ),
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/icon/review.svg', height: 22.w, width: 22.w, fit: BoxFit.contain),
+                          SvgPicture.asset(
+                            'assets/icon/review.svg',
+                            height: 22.w,
+                            width: 22.w,
+                            fit: BoxFit.contain,
+                          ),
                           14.horizontalSpace,
                           Expanded(
                             child: Text(
@@ -889,7 +978,12 @@ class ClothsDetailsPage extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                          SvgPicture.asset('assets/icon/arrow_forward.svg', height: 20.w, width: 20.w, fit: BoxFit.contain),
+                          SvgPicture.asset(
+                            'assets/icon/arrow_forward.svg',
+                            height: 20.w,
+                            width: 20.w,
+                            fit: BoxFit.contain,
+                          ),
                         ],
                       ),
                     ),
@@ -912,24 +1006,41 @@ String _formatCount(int count) {
 
 Color _colorFromName(String name) {
   switch (name.toLowerCase()) {
-    case 'black': return Colors.black;
-    case 'white': return Colors.white;
-    case 'red': return const Color(0xFFE53935);
-    case 'green': return const Color(0xFF43A047);
-    case 'blue': return const Color(0xFF1E88E5);
-    case 'navy': return const Color(0xFF1A237E);
+    case 'black':
+      return Colors.black;
+    case 'white':
+      return Colors.white;
+    case 'red':
+      return const Color(0xFFE53935);
+    case 'green':
+      return const Color(0xFF43A047);
+    case 'blue':
+      return const Color(0xFF1E88E5);
+    case 'navy':
+      return const Color(0xFF1A237E);
     case 'grey':
-    case 'gray': return const Color(0xFF9E9E9E);
-    case 'yellow': return const Color(0xFFFDD835);
-    case 'orange': return const Color(0xFFFB8C00);
-    case 'pink': return const Color(0xFFE91E8C);
-    case 'purple': return const Color(0xFF8E24AA);
-    case 'brown': return const Color(0xFF6D4C41);
-    default: return const Color(0xFFEEEEEE);
+    case 'gray':
+      return const Color(0xFF9E9E9E);
+    case 'yellow':
+      return const Color(0xFFFDD835);
+    case 'orange':
+      return const Color(0xFFFB8C00);
+    case 'pink':
+      return const Color(0xFFE91E8C);
+    case 'purple':
+      return const Color(0xFF8E24AA);
+    case 'brown':
+      return const Color(0xFF6D4C41);
+    default:
+      return const Color(0xFFEEEEEE);
   }
 }
 
-void _openFullScreen(BuildContext context, List<String> imageUrls, int initialIndex) {
+void _openFullScreen(
+  BuildContext context,
+  List<String> imageUrls,
+  int initialIndex,
+) {
   Navigator.of(context).push(
     PageRouteBuilder(
       opaque: false,
@@ -990,10 +1101,18 @@ class _QtyStepperButton extends StatelessWidget {
           width: 44.w,
           height: 44.w,
           decoration: BoxDecoration(
-            border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
+            border: Border.all(
+              color: PPaymobileColors.filterBorderColor,
+              width: 1.w,
+            ),
           ),
           child: Center(
-            child: SvgPicture.asset(icon, height: 16.w, width: 16.w, fit: BoxFit.contain),
+            child: SvgPicture.asset(
+              icon,
+              height: 16.w,
+              width: 16.w,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),
@@ -1067,7 +1186,10 @@ class _FullScreenImageViewer extends HookWidget {
                   ),
                   if (imageUrls.length > 1)
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 6.h,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(20.r),
@@ -1110,20 +1232,40 @@ class _LoadingSkeleton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               21.verticalSpace,
-              SkeletonLoader(width: 220.w, height: 26.h, borderRadius: BorderRadius.circular(4.r)),
+              SkeletonLoader(
+                width: 220.w,
+                height: 26.h,
+                borderRadius: BorderRadius.circular(4.r),
+              ),
               14.verticalSpace,
-              SkeletonLoader(width: 180.w, height: 18.h, borderRadius: BorderRadius.circular(4.r)),
+              SkeletonLoader(
+                width: 180.w,
+                height: 18.h,
+                borderRadius: BorderRadius.circular(4.r),
+              ),
               16.verticalSpace,
-              SkeletonLoader(width: double.infinity, height: 60.h, borderRadius: BorderRadius.circular(4.r)),
+              SkeletonLoader(
+                width: double.infinity,
+                height: 60.h,
+                borderRadius: BorderRadius.circular(4.r),
+              ),
               28.verticalSpace,
-              SkeletonLoader(width: 120.w, height: 18.h, borderRadius: BorderRadius.circular(4.r)),
+              SkeletonLoader(
+                width: 120.w,
+                height: 18.h,
+                borderRadius: BorderRadius.circular(4.r),
+              ),
               14.verticalSpace,
               Row(
                 children: List.generate(
                   5,
                   (_) => Padding(
                     padding: EdgeInsets.only(right: 10.w),
-                    child: SkeletonLoader(width: 44.w, height: 44.w, borderRadius: BorderRadius.circular(6.r)),
+                    child: SkeletonLoader(
+                      width: 44.w,
+                      height: 44.w,
+                      borderRadius: BorderRadius.circular(6.r),
+                    ),
                   ),
                 ),
               ),

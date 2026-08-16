@@ -137,7 +137,7 @@ class SetUpFingerprintPage extends HookConsumerWidget {
                   107.verticalSpace,
                   PPButton(
                     text: 'Activate',
-                    onPressed: () => context.router.push(SettingUpFingerprintRoute()),
+                    onPressed: () => context.router.replace(SettingUpFingerprintRoute()),
                     backgroundColor: PPaymobileColors.buttonColor,
                   ),
                 ],

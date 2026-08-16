@@ -53,10 +53,7 @@ class FingerprintCompletePage extends HookConsumerWidget {
             91.verticalSpace,
             PPButton(
               text: 'Go To App',
-              onPressed: () => context.router.pushAndPopUntil(
-                ExploreRoute(),
-                predicate: (route) => false,
-              ),
+              onPressed: () => context.router.replaceAll([const ExploreRoute()]),
               icon: SvgPicture.asset(
                 'assets/icon/arrow_forwardw.svg',
                 fit: BoxFit.contain,

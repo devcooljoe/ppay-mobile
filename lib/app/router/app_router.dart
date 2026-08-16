@@ -149,8 +149,13 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: ClothsDetailsRoute.page),
     AutoRoute(page: CheckOutRoute.page),
     AutoRoute(page: OrderSuccessfulRoute.page),
+    AutoRoute(page: OrderReceiptRoute.page),
     AutoRoute(page: YourOrderRoute.page),
     AutoRoute(page: TrackOrderRoute.page),
+    AutoRoute(page: PersonalShopperIntroRoute.page),
+    AutoRoute(page: PersonalShopperRoute.page),
+    AutoRoute(page: PersonalShopperNewRequestRoute.page),
+    AutoRoute(page: PersonalShopperChatRoute.page),
 
     // Settings
     AutoRoute(page: SettingsRoute.page),

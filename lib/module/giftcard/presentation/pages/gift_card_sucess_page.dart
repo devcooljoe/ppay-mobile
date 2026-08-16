@@ -109,7 +109,7 @@ class GiftCardSuccessPage extends HookConsumerWidget {
               const Spacer(),
               PPButton(
                 text: 'Go To App',
-                onPressed: () => context.router.replace(HomeRoute()),
+                onPressed: () => context.router.replaceAll([HomeRoute()]),
                 icon: SvgPicture.asset(
                   'assets/icon/arrow_forwardw.svg',
                   fit: BoxFit.contain,
