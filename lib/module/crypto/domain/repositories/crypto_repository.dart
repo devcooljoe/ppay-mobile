@@ -88,7 +88,7 @@ class CryptoRepositoryImpl implements CryptoRepository {
       final result = await _remoteDataSource.getCryptoRates();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -98,7 +98,7 @@ class CryptoRepositoryImpl implements CryptoRepository {
       final result = await _remoteDataSource.getEstimatedAssetValue();
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -108,7 +108,7 @@ class CryptoRepositoryImpl implements CryptoRepository {
       final result = await _remoteDataSource.getCryptoWallet(currency, network: network);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -118,7 +118,7 @@ class CryptoRepositoryImpl implements CryptoRepository {
       await _remoteDataSource.buyCrypto(BuyCryptoRequest(amount: amount, walletAddressId: walletAddressId));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -128,7 +128,7 @@ class CryptoRepositoryImpl implements CryptoRepository {
       await _remoteDataSource.sellCrypto(SellCryptoRequest(amount: amount, walletAddressId: walletAddressId));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

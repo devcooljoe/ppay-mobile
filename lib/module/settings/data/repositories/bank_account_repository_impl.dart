@@ -15,7 +15,7 @@ class BankAccountRepositoryImpl implements BankAccountRepository {
   BankAccountRepositoryImpl(this._remoteDataSource);
 
   Failure _toFailure(DioException e) {
-    if (e.error is Failure) return e.error as Failure;
+    if (e.error is Failure) return Failure.fromDioException(e);
     final message = e.response?.data is Map
         ? (e.response!.data as Map)['message'] as String? ?? e.message ?? 'Something went wrong'
         : e.message ?? 'Something went wrong';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class CustomSwitch extends HookConsumerWidget {
   final bool value;
@@ -11,7 +12,7 @@ class CustomSwitch extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
+    return TouchOpacity(
       onTap: () => onChanged(!value),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
@@ -26,9 +27,7 @@ class CustomSwitch extends HookConsumerWidget {
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Align(
-          alignment: value
-              ? Alignment.centerRight
-              : Alignment.centerLeft,
+          alignment: value ? Alignment.centerRight : Alignment.centerLeft,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             width: 20.w, // bigger thumb

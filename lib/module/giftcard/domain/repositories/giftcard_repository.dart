@@ -123,7 +123,7 @@ class GiftcardRepositoryImpl implements GiftcardRepository {
       final result = await _remoteDataSource.getBuyGiftcardRates();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -133,7 +133,7 @@ class GiftcardRepositoryImpl implements GiftcardRepository {
       final result = await _remoteDataSource.getSellGiftcardRates();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -165,7 +165,7 @@ class GiftcardRepositoryImpl implements GiftcardRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -189,7 +189,7 @@ class GiftcardRepositoryImpl implements GiftcardRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

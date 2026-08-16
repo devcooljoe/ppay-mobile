@@ -18,7 +18,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
       final result = await _remoteDataSource.getMyNotifications();
       return Right(result.map((m) => m.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

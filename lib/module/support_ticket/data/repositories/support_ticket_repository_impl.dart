@@ -28,7 +28,7 @@ class SupportTicketRepositoryImpl implements SupportTicketRepository {
       );
       return Right(model.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -38,7 +38,7 @@ class SupportTicketRepositoryImpl implements SupportTicketRepository {
       final models = await _dataSource.getMyTickets();
       return Right(models.map((m) => m.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -48,7 +48,7 @@ class SupportTicketRepositoryImpl implements SupportTicketRepository {
       final models = await _dataSource.getTicketMessages(ticketId);
       return Right(models.map((m) => m.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -58,7 +58,7 @@ class SupportTicketRepositoryImpl implements SupportTicketRepository {
       final model = await _dataSource.sendMessage(ticketId, body);
       return Right(model.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

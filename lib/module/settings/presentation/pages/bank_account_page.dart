@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart';
@@ -15,6 +15,7 @@ import 'package:ppay_mobile/shared/widgets/empty_state.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class BankAccountPage extends HookConsumerWidget {
@@ -35,7 +36,10 @@ class BankAccountPage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         } else if (!next.isLoading) {
           ref.read(getBankAccountsProvider.notifier).call();
           MessageHandler.showSuccessSnackBar(context, 'Bank account removed');
@@ -77,69 +81,77 @@ class BankAccountPage extends HookConsumerWidget {
                 child: accountsState.isLoading
                     ? _buildSkeleton()
                     : accountsState.hasError
-                        ? Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Failed to load bank accounts',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: PPaymobileColors.svgIconColor,
-                                    fontSize: 14.sp,
-                                  ),
-                                ),
-                                16.verticalSpace,
-                                TextButton(
-                                  onPressed: () => ref.read(getBankAccountsProvider.notifier).call(),
-                                  child: const Text('Retry'),
-                                ),
-                              ],
-                            ),
-                          )
-                        : (accountsState.value?.isEmpty ?? true)
-                            ? Column(
-                                children: [
-                                  EmptyState(
-                                    imagePath: 'assets/images/transactionimage.png',
-                                    message: 'No bank accounts added yet',
-                                  ),
-                                  24.verticalSpace,
-                                  PPButton(
-                                    text: 'Add Bank Account',
-                                    onPressed: () => context.router.push(EditAccountRoute()),
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                children: [
-                                  Expanded(
-                                    child: ListView.separated(
-                                      itemCount: accountsState.value!.length,
-                                      separatorBuilder: (_, __) => Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                                        child: Divider(color: PPaymobileColors.textfiedBorder, height: 1),
-                                      ),
-                                      itemBuilder: (context, index) {
-                                        final account = accountsState.value![index];
-                                        return _BankAccountTile(
-                                          account: account,
-                                          onManage: () => context.router.push(
-                                            EditAccountRoute(account: account),
-                                          ),
-                                          onDelete: () => _confirmDelete(context, ref, account),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  16.verticalSpace,
-                                  PPButton(
-                                    text: 'Add Bank Account',
-                                    onPressed: () => context.router.push(EditAccountRoute()),
-                                  ),
-                                  16.verticalSpace,
-                                ],
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Failed to load bank accounts',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: PPaymobileColors.svgIconColor,
+                                fontSize: 14.sp,
                               ),
+                            ),
+                            16.verticalSpace,
+                            TextButton(
+                              onPressed: () => ref
+                                  .read(getBankAccountsProvider.notifier)
+                                  .call(),
+                              child: const Text('Retry'),
+                            ),
+                          ],
+                        ),
+                      )
+                    : (accountsState.value?.isEmpty ?? true)
+                    ? Column(
+                        children: [
+                          EmptyState(
+                            imagePath: 'assets/images/transactionimage.png',
+                            message: 'No bank accounts added yet',
+                          ),
+                          24.verticalSpace,
+                          PPButton(
+                            text: 'Add Bank Account',
+                            onPressed: () =>
+                                context.router.push(EditAccountRoute()),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Expanded(
+                            child: ListView.separated(
+                              itemCount: accountsState.value!.length,
+                              separatorBuilder: (_, __) => Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Divider(
+                                  color: PPaymobileColors.textfiedBorder,
+                                  height: 1,
+                                ),
+                              ),
+                              itemBuilder: (context, index) {
+                                final account = accountsState.value![index];
+                                return _BankAccountTile(
+                                  account: account,
+                                  onManage: () => context.router.push(
+                                    EditAccountRoute(account: account),
+                                  ),
+                                  onDelete: () =>
+                                      _confirmDelete(context, ref, account),
+                                );
+                              },
+                            ),
+                          ),
+                          16.verticalSpace,
+                          PPButton(
+                            text: 'Add Bank Account',
+                            onPressed: () =>
+                                context.router.push(EditAccountRoute()),
+                          ),
+                          16.verticalSpace,
+                        ],
+                      ),
               ),
             ],
           ),
@@ -159,7 +171,11 @@ class BankAccountPage extends HookConsumerWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Row(
           children: [
-            SkeletonLoader(width: 53.w, height: 40.h, borderRadius: BorderRadius.circular(2.r)),
+            SkeletonLoader(
+              width: 53.w,
+              height: 40.h,
+              borderRadius: BorderRadius.circular(2.r),
+            ),
             16.horizontalSpace,
             Expanded(
               child: Column(
@@ -171,14 +187,22 @@ class BankAccountPage extends HookConsumerWidget {
                 ],
               ),
             ),
-            SkeletonLoader(width: 97.w, height: 36.h, borderRadius: BorderRadius.circular(6.r)),
+            SkeletonLoader(
+              width: 97.w,
+              height: 36.h,
+              borderRadius: BorderRadius.circular(6.r),
+            ),
           ],
         ),
       ),
     );
   }
 
-  void _confirmDelete(BuildContext context, WidgetRef ref, BankAccountEntity account) {
+  void _confirmDelete(
+    BuildContext context,
+    WidgetRef ref,
+    BankAccountEntity account,
+  ) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -218,8 +242,16 @@ class _BankAccountTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(2.r),
         ),
         child: account.bankLogo.isNotEmpty
-            ? AppImage(imageUrl: account.bankLogo, width: 28.w, height: 28.w, fit: BoxFit.contain)
-            : SvgPicture.asset('assets/icon/bank_black.svg', fit: BoxFit.contain),
+            ? AppImage(
+                imageUrl: account.bankLogo,
+                width: 28.w,
+                height: 28.w,
+                fit: BoxFit.contain,
+              )
+            : SvgPicture.asset(
+                'assets/icon/bank_black.svg',
+                fit: BoxFit.contain,
+              ),
       ),
       title: Text(
         account.accountName,
@@ -239,7 +271,7 @@ class _BankAccountTile extends StatelessWidget {
           color: PPaymobileColors.svgIconColor,
         ),
       ),
-      trailing: GestureDetector(
+      trailing: TouchOpacity(
         onTap: onManage,
         child: Container(
           height: 36.h,
@@ -247,7 +279,10 @@ class _BankAccountTile extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 6.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6.r),
-            border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.w),
+            border: Border.all(
+              color: PPaymobileColors.textfiedBorder,
+              width: 1.w,
+            ),
           ),
           child: Center(
             child: Text(
@@ -270,7 +305,10 @@ class _DeleteConfirmSheet extends StatelessWidget {
   final String accountName;
   final VoidCallback onConfirm;
 
-  const _DeleteConfirmSheet({required this.accountName, required this.onConfirm});
+  const _DeleteConfirmSheet({
+    required this.accountName,
+    required this.onConfirm,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +317,7 @@ class _DeleteConfirmSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,
@@ -289,7 +327,10 @@ class _DeleteConfirmSheet extends StatelessWidget {
                 color: PPaymobileColors.mainScreenBackground,
               ),
               child: Center(
-                child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
           ),
@@ -329,7 +370,7 @@ class _DeleteConfirmSheet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: GestureDetector(
+                        child: TouchOpacity(
                           onTap: () => Navigator.pop(context),
                           child: Container(
                             height: 54.h,
@@ -353,7 +394,7 @@ class _DeleteConfirmSheet extends StatelessWidget {
                       ),
                       12.horizontalSpace,
                       Expanded(
-                        child: GestureDetector(
+                        child: TouchOpacity(
                           onTap: onConfirm,
                           child: Container(
                             height: 54.h,

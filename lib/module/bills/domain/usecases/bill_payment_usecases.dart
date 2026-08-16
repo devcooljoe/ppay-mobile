@@ -70,7 +70,7 @@ class PurchaseBillUseCase {
 
   PurchaseBillUseCase(this._repository);
 
-  Future<Either<Failure, BillPurchaseEntity>> call({
+  Future<Either<Failure, void>> call({
     required String billItemIdentifier,
     required String customerIdentifier,
     required String phoneNumber,

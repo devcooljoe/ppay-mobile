@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/crypto/domain/entities/crypto_entity.dart';
@@ -18,6 +17,7 @@ import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class SellCryptoPage extends HookConsumerWidget {
@@ -56,13 +56,17 @@ class SellCryptoPage extends HookConsumerWidget {
 
     void onDelete() {
       if (amountText.value.isNotEmpty) {
-        amountText.value = amountText.value.substring(0, amountText.value.length - 1);
+        amountText.value = amountText.value.substring(
+          0,
+          amountText.value.length - 1,
+        );
       }
     }
 
     final amount = double.tryParse(amountText.value) ?? 0;
     final rate = selectedRate.value;
-    final cryptoBalance = double.tryParse(walletState.value?.balance ?? '0') ?? 0;
+    final cryptoBalance =
+        double.tryParse(walletState.value?.balance ?? '0') ?? 0;
     final isInsufficient = amount > 0 && amount > cryptoBalance;
     final nairaEquivalent = rate != null
         ? amount * (double.tryParse(rate.sellRatePerDollar) ?? 0)
@@ -74,7 +78,10 @@ class SellCryptoPage extends HookConsumerWidget {
         return;
       }
       if (isInsufficient) {
-        MessageHandler.showErrorSnackBar(context, 'Insufficient crypto balance');
+        MessageHandler.showErrorSnackBar(
+          context,
+          'Insufficient crypto balance',
+        );
         return;
       }
       final wallet = walletState.value;
@@ -86,15 +93,17 @@ class SellCryptoPage extends HookConsumerWidget {
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
 
-      await ref.read(sellCryptoProvider.notifier).call(
-        amount: amount,
-        walletAddressId: wallet.id,
-      );
+      await ref
+          .read(sellCryptoProvider.notifier)
+          .call(amount: amount, walletAddressId: wallet.id);
 
       if (!context.mounted) return;
       final state = ref.read(sellCryptoProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(state.error),
+        );
       } else {
         context.router.push(CryptoSellSuccessfulRoute());
       }
@@ -120,7 +129,10 @@ class SellCryptoPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(title: 'Sell Crypto', onBackPressed: () => Navigator.pop(context)),
+      appBar: PPAppBar(
+        title: 'Sell Crypto',
+        onBackPressed: () => Navigator.pop(context),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -135,7 +147,7 @@ class SellCryptoPage extends HookConsumerWidget {
                       37.verticalSpace,
                       Align(
                         alignment: Alignment.center,
-                        child: GestureDetector(
+                        child: TouchOpacity(
                           onTap: showCurrencyPicker,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -149,12 +161,19 @@ class SellCryptoPage extends HookConsumerWidget {
                                         width: 24.w,
                                         height: 24.w,
                                         decoration: BoxDecoration(
-                                          color: PPaymobileColors.textfiedBorder,
+                                          color:
+                                              PPaymobileColors.textfiedBorder,
                                           shape: BoxShape.circle,
                                         ),
                                       ),
                                     )
-                                  : SkeletonLoader(width: 24.w, height: 24.w, borderRadius: BorderRadius.circular(100.r)),
+                                  : SkeletonLoader(
+                                      width: 24.w,
+                                      height: 24.w,
+                                      borderRadius: BorderRadius.circular(
+                                        100.r,
+                                      ),
+                                    ),
                               8.horizontalSpace,
                               RichText(
                                 text: TextSpan(
@@ -181,7 +200,11 @@ class SellCryptoPage extends HookConsumerWidget {
                                 ),
                               ),
                               8.horizontalSpace,
-                              SvgPicture.asset('assets/icon/arrow_down.svg', width: 12.w, height: 12.w),
+                              SvgPicture.asset(
+                                'assets/icon/arrow_down.svg',
+                                width: 12.w,
+                                height: 12.w,
+                              ),
                             ],
                           ),
                         ),
@@ -201,16 +224,21 @@ class SellCryptoPage extends HookConsumerWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text: amountText.value.isEmpty ? '0' : amountText.value,
+                                  text: amountText.value.isEmpty
+                                      ? '0'
+                                      : amountText.value,
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
-                                    color: isInsufficient ? PPaymobileColors.redTextfield : Colors.black,
+                                    color: isInsufficient
+                                        ? PPaymobileColors.redTextfield
+                                        : Colors.black,
                                     fontSize: 48.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' ${rate?.currency.toUpperCase() ?? ''}',
+                                  text:
+                                      ' ${rate?.currency.toUpperCase() ?? ''}',
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
                                     color: PPaymobileColors.svgIconColor,
@@ -288,7 +316,10 @@ class SellCryptoPage extends HookConsumerWidget {
               height: showKeyboard.value ? 424.h : 0,
               child: showKeyboard.value
                   ? KeyboardContainer(
-                      child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
+                      child: CustomKeyboard(
+                        onKeyTap: onKeyTap,
+                        onDelete: onDelete,
+                      ),
                     )
                   : null,
             ),
@@ -316,7 +347,7 @@ class _SellCurrencyPickerSheet extends StatelessWidget {
       heightFactor: 0.6,
       child: Column(
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,
@@ -326,7 +357,10 @@ class _SellCurrencyPickerSheet extends StatelessWidget {
                 color: PPaymobileColors.mainScreenBackground,
               ),
               child: Center(
-                child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
           ),
@@ -354,7 +388,10 @@ class _SellCurrencyPickerSheet extends StatelessWidget {
                   Expanded(
                     child: ListView.separated(
                       itemCount: rates.length,
-                      separatorBuilder: (_, __) => Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                      separatorBuilder: (_, __) => Divider(
+                        height: 1.h,
+                        color: PPaymobileColors.deepBackgroundColor,
+                      ),
                       itemBuilder: (context, index) {
                         final rate = rates[index];
                         final isSelected = selected?.id == rate.id;
@@ -391,7 +428,11 @@ class _SellCurrencyPickerSheet extends StatelessWidget {
                             ),
                           ),
                           trailing: isSelected
-                              ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w)
+                              ? Icon(
+                                  Icons.check_circle,
+                                  color: PPaymobileColors.buttonColor,
+                                  size: 20.w,
+                                )
                               : null,
                           onTap: () {
                             onSelect(rate);

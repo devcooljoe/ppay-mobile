@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class SubscriptionPackageCard extends StatelessWidget {
   final String packageName;
@@ -18,7 +19,7 @@ class SubscriptionPackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchOpacity(
       onTap: onTap,
       child: Container(
         height: 84.h,

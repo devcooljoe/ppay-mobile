@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/option_picker.dart';
@@ -18,24 +18,24 @@ class SortBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                height: 60.w,
-                width: 60.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30).r,
-                  color: PPaymobileColors.mainScreenBackground,
-                ),
-                child: SizedBox(
-                  height: 18.h,
-                  width: 18.h,
-                  child: SvgPicture.asset(
-                    'assets/icon/cancel.svg',
-                    fit: BoxFit.scaleDown,
-                  ),
+          TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: SizedBox(
+                height: 18.h,
+                width: 18.h,
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
                 ),
               ),
+            ),
           ),
           10.verticalSpace,
           Expanded(

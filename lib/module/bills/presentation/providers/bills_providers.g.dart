@@ -187,12 +187,12 @@ final verifyBillCustomerProvider = AutoDisposeNotifierProvider<
 
 typedef _$VerifyBillCustomer
     = AutoDisposeNotifier<AsyncValue<CustomerVerificationEntity?>>;
-String _$purchaseBillHash() => r'e1d2c0c5803ebf72da2d7a3be9fbc4d83d481b33';
+String _$purchaseBillHash() => r'266febc9b9afdcb5c38a0956db7d9c0b82f36140';
 
 /// See also [PurchaseBill].
 @ProviderFor(PurchaseBill)
-final purchaseBillProvider = AutoDisposeNotifierProvider<PurchaseBill,
-    AsyncValue<BillPurchaseEntity?>>.internal(
+final purchaseBillProvider =
+    AutoDisposeNotifierProvider<PurchaseBill, AsyncValue<void>>.internal(
   PurchaseBill.new,
   name: r'purchaseBillProvider',
   debugGetCreateSourceHash:
@@ -201,6 +201,6 @@ final purchaseBillProvider = AutoDisposeNotifierProvider<PurchaseBill,
   allTransitiveDependencies: null,
 );
 
-typedef _$PurchaseBill = AutoDisposeNotifier<AsyncValue<BillPurchaseEntity?>>;
+typedef _$PurchaseBill = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

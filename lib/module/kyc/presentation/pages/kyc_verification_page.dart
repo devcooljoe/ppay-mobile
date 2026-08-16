@@ -14,6 +14,7 @@ import 'package:ppay_mobile/shared/widgets/document_bottom_sheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class KycVerificationPage extends HookConsumerWidget {
@@ -35,7 +36,10 @@ class KycVerificationPage extends HookConsumerWidget {
           context.router.replace(const KycVerificationCompleteRoute());
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -43,7 +47,9 @@ class KycVerificationPage extends HookConsumerWidget {
     void handleContinue() {
       if (!(formKey.currentState?.validate() ?? false)) return;
 
-      ref.read(verifyKycProvider.notifier).call(
+      ref
+          .read(verifyKycProvider.notifier)
+          .call(
             idType: selectedDoc.value!.idType,
             idNumber: idNumberController.text.trim(),
           );
@@ -102,7 +108,7 @@ class KycVerificationPage extends HookConsumerWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
+                        TouchOpacity(
                           onTap: () {
                             showModalBottomSheet(
                               context: context,
@@ -210,28 +216,38 @@ class KycVerificationPage extends HookConsumerWidget {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
-                      borderSide:
-                          BorderSide(color: PPaymobileColors.lightGrey, width: 1.w),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
-                      borderSide:
-                          BorderSide(color: PPaymobileColors.lightGrey, width: 1.w),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.lightGrey,
+                        width: 1.w,
+                      ),
                     ),
                     disabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
-                      borderSide:
-                          BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
+                      borderSide: BorderSide(
+                        color: PPaymobileColors.textfiedBorder,
+                        width: 1.w,
+                      ),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                          color: PPaymobileColors.redTextfield, width: 1.w),
+                        color: PPaymobileColors.redTextfield,
+                        width: 1.w,
+                      ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.r),
                       borderSide: BorderSide(
-                          color: PPaymobileColors.redTextfield, width: 1.w),
+                        color: PPaymobileColors.redTextfield,
+                        width: 1.w,
+                      ),
                     ),
                   ),
                 ),
@@ -261,10 +277,7 @@ class KycVerificationPage extends HookConsumerWidget {
                   ),
                 ],
                 60.verticalSpace,
-                PPButton(
-                  text: 'Continue',
-                  onPressed: handleContinue,
-                ),
+                PPButton(text: 'Continue', onPressed: handleContinue),
                 20.verticalSpace,
               ],
             ),

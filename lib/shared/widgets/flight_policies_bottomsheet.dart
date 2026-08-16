@@ -6,6 +6,7 @@ import 'package:ppay_mobile/module/flight/presentation/pages/baggage_page.dart';
 import 'package:ppay_mobile/module/flight/presentation/pages/booking_policies_page.dart';
 import 'package:ppay_mobile/module/flight/presentation/pages/refund_policy_page.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class FlightPoliciesBottomsheet extends HookConsumerWidget {
   const FlightPoliciesBottomsheet({super.key});
@@ -17,24 +18,24 @@ class FlightPoliciesBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                height: 60.w,
-                width: 60.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30).r,
-                  color: PPaymobileColors.mainScreenBackground,
-                ),
-                child: SizedBox(
-                  height: 18.h,
-                  width: 18.h,
-                  child: SvgPicture.asset(
-                    'assets/icon/cancel.svg',
-                    fit: BoxFit.scaleDown,
-                  ),
+          TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: SizedBox(
+                height: 18.h,
+                width: 18.h,
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
                 ),
               ),
+            ),
           ),
           10.verticalSpace,
           Expanded(

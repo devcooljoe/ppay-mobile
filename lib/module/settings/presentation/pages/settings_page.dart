@@ -15,6 +15,7 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/settings_menu_item.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class SettingsPage extends HookConsumerWidget {
@@ -139,7 +140,7 @@ class SettingsPage extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () => context.router.push(EditProfileRoute()),
                     child: Container(
                       height: 68.w,

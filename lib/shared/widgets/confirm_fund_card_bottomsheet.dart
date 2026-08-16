@@ -9,6 +9,7 @@ import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/module/virtual_card/presentation/providers/virtual_card_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class ConfirmFundCardBottomsheet extends HookConsumerWidget {
   final String cardId;
@@ -106,7 +107,7 @@ class ConfirmFundCardBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,

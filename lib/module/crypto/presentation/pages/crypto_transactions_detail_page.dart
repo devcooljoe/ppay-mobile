@@ -1,14 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class CryptoTransactionsDetailPage extends HookConsumerWidget {
@@ -17,15 +18,23 @@ class CryptoTransactionsDetailPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currency = (transaction.details?['currency'] as String? ?? '').toUpperCase();
-    final cryptoAmount = transaction.details?['amountInCrypto']?.toString() ?? '';
+    final currency = (transaction.details?['currency'] as String? ?? '')
+        .toUpperCase();
+    final cryptoAmount =
+        transaction.details?['amountInCrypto']?.toString() ?? '';
     final rate = transaction.details?['ratePerDollar']?.toString();
 
     final isSale = transaction.type == TransactionType.cryptoSale;
     final isDeposit = transaction.type == TransactionType.cryptoDeposit;
 
-    final typeLabel = isSale ? 'Sold' : isDeposit ? 'Received' : 'Bought';
-    final badgeColor = isSale ? const Color(0xFFFF3336) : PPaymobileColors.buttonColor;
+    final typeLabel = isSale
+        ? 'Sold'
+        : isDeposit
+        ? 'Received'
+        : 'Bought';
+    final badgeColor = isSale
+        ? const Color(0xFFFF3336)
+        : PPaymobileColors.buttonColor;
     final arrowIcon = isSale
         ? 'assets/icon/arrow_up_white.svg'
         : 'assets/icon/arrow_down_white.svg';
@@ -91,7 +100,10 @@ class CryptoTransactionsDetailPage extends HookConsumerWidget {
                         child: SizedBox(
                           height: 18.w,
                           width: 18.w,
-                          child: SvgPicture.asset(arrowIcon, fit: BoxFit.contain),
+                          child: SvgPicture.asset(
+                            arrowIcon,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                     ),
@@ -173,9 +185,11 @@ class CryptoTransactionsDetailPage extends HookConsumerWidget {
                       ),
                     ),
                     7.horizontalSpace,
-                    GestureDetector(
+                    TouchOpacity(
                       onTap: () {
-                        Clipboard.setData(ClipboardData(text: transaction.transactionId));
+                        Clipboard.setData(
+                          ClipboardData(text: transaction.transactionId),
+                        );
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Transaction ID copied'),
@@ -186,7 +200,10 @@ class CryptoTransactionsDetailPage extends HookConsumerWidget {
                       child: SizedBox(
                         height: 21.w,
                         width: 21.w,
-                        child: SvgPicture.asset('assets/icon/paste_black1.svg', fit: BoxFit.contain),
+                        child: SvgPicture.asset(
+                          'assets/icon/paste_black1.svg',
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ],
@@ -210,7 +227,10 @@ class CryptoTransactionsDetailPage extends HookConsumerWidget {
               icon: SizedBox(
                 height: 24.w,
                 width: 24.w,
-                child: SvgPicture.asset('assets/icon/download.svg', fit: BoxFit.contain),
+                child: SvgPicture.asset(
+                  'assets/icon/download.svg',
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             24.verticalSpace,
@@ -222,8 +242,19 @@ class CryptoTransactionsDetailPage extends HookConsumerWidget {
 
   String _formatDate(DateTime date) {
     const months = [
-      '', 'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
     final hour = date.hour % 12 == 0 ? 12 : date.hour % 12;
     final minute = date.minute.toString().padLeft(2, '0');

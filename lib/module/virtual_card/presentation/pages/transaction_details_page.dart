@@ -1,12 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/virtual_card/domain/entities/dollar_card_transaction_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class TransactionDetailsPage extends HookConsumerWidget {
@@ -27,7 +28,20 @@ class TransactionDetailsPage extends HookConsumerWidget {
           final period = dt.hour >= 12 ? 'PM' : 'AM';
           return '$h:$m$period';
         }
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ];
         return '${dt.day} ${months[dt.month - 1]}, ${dt.year}';
       } catch (_) {
         return createdAt;
@@ -40,7 +54,15 @@ class TransactionDetailsPage extends HookConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+            Text(
+              label,
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             value,
           ],
         ),
@@ -64,35 +86,74 @@ class TransactionDetailsPage extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      height: 55.w, width: 55.w,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: PPaymobileColors.deepBackgroundColor),
+                      height: 55.w,
+                      width: 55.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: PPaymobileColors.deepBackgroundColor,
+                      ),
                       child: Center(
                         child: Text(
-                          transaction.merchant.name.isNotEmpty ? transaction.merchant.name[0].toUpperCase() : transaction.description[0].toUpperCase(),
-                          style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 24.sp, fontWeight: FontWeight.w600, color: PPaymobileColors.backgroundColor),
+                          transaction.merchant.name.isNotEmpty
+                              ? transaction.merchant.name[0].toUpperCase()
+                              : transaction.description[0].toUpperCase(),
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w600,
+                            color: PPaymobileColors.backgroundColor,
+                          ),
                         ),
                       ),
                     ),
                     8.verticalSpace,
                     Text(
                       '${isDebit ? '-' : '+'}\$${transaction.amount.toStringAsFixed(2)}',
-                      style: TextStyle(fontFamily: 'InstrumentSans', color: isDebit ? PPaymobileColors.transactRed : PPaymobileColors.doneTextColor, fontSize: 32.sp, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: isDebit
+                            ? PPaymobileColors.transactRed
+                            : PPaymobileColors.doneTextColor,
+                        fontSize: 32.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     3.verticalSpace,
                     Text(
-                      transaction.merchant.name.isNotEmpty ? transaction.merchant.name : transaction.description,
-                      style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 16.sp, fontWeight: FontWeight.w500),
+                      transaction.merchant.name.isNotEmpty
+                          ? transaction.merchant.name
+                          : transaction.description,
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: PPaymobileColors.svgIconColor,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     12.verticalSpace,
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 4.h,
+                      ),
                       decoration: BoxDecoration(
-                        color: transaction.status == 'SUCCESS' ? PPaymobileColors.doneTextColor.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
+                        color: transaction.status == 'SUCCESS'
+                            ? PPaymobileColors.doneTextColor.withValues(
+                                alpha: 0.1,
+                              )
+                            : Colors.red.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12).r,
                       ),
                       child: Text(
                         transaction.status,
-                        style: TextStyle(fontFamily: 'InstrumentSans', color: transaction.status == 'SUCCESS' ? PPaymobileColors.doneTextColor : Colors.red, fontSize: 12.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: transaction.status == 'SUCCESS'
+                              ? PPaymobileColors.doneTextColor
+                              : Colors.red,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ],
@@ -106,38 +167,164 @@ class TransactionDetailsPage extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    detailRow('Date:', Text(formatDateTime(transaction.createdAt), style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
-                    detailRow('Time:', Text(formatDateTime(transaction.createdAt, timeOnly: true), style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    detailRow(
+                      'Date:',
+                      Text(
+                        formatDateTime(transaction.createdAt),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    detailRow(
+                      'Time:',
+                      Text(
+                        formatDateTime(transaction.createdAt, timeOnly: true),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                     detailRow(
                       'Transaction ID:',
                       Row(
                         children: [
-                          Text(transaction.id.length > 12 ? '${transaction.id.substring(0, 12)}...' : transaction.id, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                          Text(
+                            transaction.id.length > 12
+                                ? '${transaction.id.substring(0, 12)}...'
+                                : transaction.id,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                           7.horizontalSpace,
-                          GestureDetector(
+                          TouchOpacity(
                             onTap: () {
-                              Clipboard.setData(ClipboardData(text: transaction.id));
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Transaction ID copied'), duration: Duration(seconds: 1)));
+                              Clipboard.setData(
+                                ClipboardData(text: transaction.id),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Transaction ID copied'),
+                                  duration: Duration(seconds: 1),
+                                ),
+                              );
                             },
-                            child: SizedBox(height: 21.w, width: 21.w, child: SvgPicture.asset('assets/icon/paste_black1.svg', fit: BoxFit.contain)),
+                            child: SizedBox(
+                              height: 21.w,
+                              width: 21.w,
+                              child: SvgPicture.asset(
+                                'assets/icon/paste_black1.svg',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    detailRow('Amount:', Text('\$${transaction.amount.toStringAsFixed(2)}', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
-                    detailRow('Type:', Text(transaction.entry, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                    detailRow(
+                      'Amount:',
+                      Text(
+                        '\$${transaction.amount.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    detailRow(
+                      'Type:',
+                      Text(
+                        transaction.entry,
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                     if (transaction.description.isNotEmpty)
-                      detailRow('Description:', Flexible(child: Text(transaction.description, textAlign: TextAlign.end, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)))),
+                      detailRow(
+                        'Description:',
+                        Flexible(
+                          child: Text(
+                            transaction.description,
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
                     if (transaction.merchant.name.isNotEmpty) ...[
-                      Divider(color: PPaymobileColors.textfiedBorder, thickness: 1.h),
+                      Divider(
+                        color: PPaymobileColors.textfiedBorder,
+                        thickness: 1.h,
+                      ),
                       24.verticalSpace,
-                      Text('Merchant', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w600)),
+                      Text(
+                        'Merchant',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       16.verticalSpace,
-                      detailRow('Name:', Text(transaction.merchant.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                      detailRow(
+                        'Name:',
+                        Text(
+                          transaction.merchant.name,
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
                       if (transaction.merchant.city.isNotEmpty)
-                        detailRow('City:', Text(transaction.merchant.city, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                        detailRow(
+                          'City:',
+                          Text(
+                            transaction.merchant.city,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       if (transaction.merchant.country.isNotEmpty)
-                        detailRow('Country:', Text(transaction.merchant.country, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500))),
+                        detailRow(
+                          'Country:',
+                          Text(
+                            transaction.merchant.country,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                     ],
                   ],
                 ),

@@ -72,7 +72,7 @@ class PassengersBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,

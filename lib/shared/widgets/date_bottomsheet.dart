@@ -98,8 +98,15 @@ class DateBottomsheet extends HookConsumerWidget {
             children: [
               TouchOpacity(
                 onTap: () {
-                  final prev = DateTime(focusedDay.value.year, focusedDay.value.month - 1);
-                  final firstMonth = DateTime(_firstDay.year, _firstDay.month, 1);
+                  final prev = DateTime(
+                    focusedDay.value.year,
+                    focusedDay.value.month - 1,
+                  );
+                  final firstMonth = DateTime(
+                    _firstDay.year,
+                    _firstDay.month,
+                    1,
+                  );
                   if (!prev.isBefore(firstMonth)) {
                     focusedDay.value = prev;
                   }
@@ -107,7 +114,10 @@ class DateBottomsheet extends HookConsumerWidget {
                 child: SizedBox(
                   height: 24.h,
                   width: 24.w,
-                  child: SvgPicture.asset('assets/icon/arrow_back_black.svg', fit: BoxFit.contain),
+                  child: SvgPicture.asset(
+                    'assets/icon/arrow_back_black.svg',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               TouchOpacity(
@@ -130,7 +140,9 @@ class DateBottomsheet extends HookConsumerWidget {
                     ),
                     4.horizontalSpace,
                     Icon(
-                      showPicker.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                      showPicker.value
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
                       size: 18.sp,
                       color: Colors.black,
                     ),
@@ -139,12 +151,18 @@ class DateBottomsheet extends HookConsumerWidget {
               ),
               TouchOpacity(
                 onTap: () {
-                  focusedDay.value = DateTime(focusedDay.value.year, focusedDay.value.month + 1);
+                  focusedDay.value = DateTime(
+                    focusedDay.value.year,
+                    focusedDay.value.month + 1,
+                  );
                 },
                 child: SizedBox(
                   height: 24.h,
                   width: 24.w,
-                  child: SvgPicture.asset('assets/icon/arrow_forward.svg', fit: BoxFit.contain),
+                  child: SvgPicture.asset(
+                    'assets/icon/arrow_forward.svg',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ],
@@ -202,7 +220,10 @@ class DateBottomsheet extends HookConsumerWidget {
                 ),
                 todayDecoration: BoxDecoration(
                   color: Colors.transparent,
-                  border: Border.all(color: PPaymobileColors.buttonColor, width: 1.w),
+                  border: Border.all(
+                    color: PPaymobileColors.buttonColor,
+                    width: 1.w,
+                  ),
                   shape: BoxShape.circle,
                 ),
                 selectedTextStyle: TextStyle(
@@ -250,7 +271,9 @@ class DateBottomsheet extends HookConsumerWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(65).r,
                 color: selectedDay.value == null
-                    ? PPaymobileColors.navContainerbgColor.withValues(alpha: 0.5)
+                    ? PPaymobileColors.navContainerbgColor.withValues(
+                        alpha: 0.5,
+                      )
                     : PPaymobileColors.navContainerbgColor,
               ),
               child: Center(
@@ -273,7 +296,20 @@ class DateBottomsheet extends HookConsumerWidget {
   }
 
   String _formatDisplay(DateTime d) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return '${days[d.weekday - 1]}, ${d.day} ${months[d.month - 1]} ${d.year}';
   }
@@ -296,7 +332,20 @@ class _MonthYearPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthLabels = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     final years = List.generate(4, (i) => minYear + i);
 
     return Container(
@@ -312,15 +361,22 @@ class _MonthYearPicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: years.map((y) {
               final sel = y == selectedYear;
-              return GestureDetector(
+              return TouchOpacity(
                 onTap: () => onChanged(y, selectedMonth),
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 5.w),
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 6.h,
+                  ),
                   decoration: BoxDecoration(
-                    color: sel ? PPaymobileColors.buttonColor : Colors.transparent,
+                    color: sel
+                        ? PPaymobileColors.buttonColor
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(20.r),
-                    border: sel ? null : Border.all(color: Colors.grey.shade300),
+                    border: sel
+                        ? null
+                        : Border.all(color: Colors.grey.shade300),
                   ),
                   child: Text(
                     '$y',
@@ -343,15 +399,19 @@ class _MonthYearPicker extends StatelessWidget {
             children: List.generate(12, (i) {
               final m = i + 1;
               final sel = m == selectedMonth;
-              return GestureDetector(
+              return TouchOpacity(
                 onTap: () => onChanged(selectedYear, m),
                 child: Container(
                   width: 52.w,
                   padding: EdgeInsets.symmetric(vertical: 7.h),
                   decoration: BoxDecoration(
-                    color: sel ? PPaymobileColors.buttonColor : Colors.transparent,
+                    color: sel
+                        ? PPaymobileColors.buttonColor
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(20.r),
-                    border: sel ? null : Border.all(color: Colors.grey.shade300),
+                    border: sel
+                        ? null
+                        : Border.all(color: Colors.grey.shade300),
                   ),
                   child: Center(
                     child: Text(

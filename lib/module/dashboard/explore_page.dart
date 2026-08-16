@@ -81,8 +81,8 @@ class ExplorePage extends HookConsumerWidget {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: const [
-          HomePage(),
+        children: [
+          HomePage(onSeeAllTransactions: () => onTapped(1)),
           TransactionHistoryPage(),
           FeaturesPage(),
           SettingsPage(),

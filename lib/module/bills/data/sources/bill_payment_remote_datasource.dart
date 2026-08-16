@@ -8,5 +8,5 @@ abstract class BillPaymentRemoteDataSource {
   Future<List<BillerModel>> getBettingBillers();
   Future<List<BillerModel>> getTvBillers();
   Future<CustomerVerificationModel> verifyCustomer(VerifyBillCustomerRequest request);
-  Future<BillPurchaseModel> purchaseBill(PurchaseBillRequest request);
+  Future<void> purchaseBill(PurchaseBillRequest request);
 }

@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:ppay_mobile/app/router/app_router.gr.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class ProfilePage extends HookConsumerWidget {
@@ -44,7 +45,7 @@ class ProfilePage extends HookConsumerWidget {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20.w),
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => context.router.push(EditProfileRoute()),
               child: Text(
                 'Edit',
@@ -69,7 +70,7 @@ class ProfilePage extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () => context.router.push(EditProfileRoute()),
                     child: Stack(
                       children: [
@@ -80,12 +81,14 @@ class ProfilePage extends HookConsumerWidget {
                               )
                             : CircleAvatar(
                                 radius: 40.r,
-                                backgroundColor: PPaymobileColors.backgroundColor,
+                                backgroundColor:
+                                    PPaymobileColors.backgroundColor,
                                 child: Text(
                                   initials,
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
-                                    color: PPaymobileColors.mainScreenBackground,
+                                    color:
+                                        PPaymobileColors.mainScreenBackground,
                                     fontSize: 26.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -95,7 +98,8 @@ class ProfilePage extends HookConsumerWidget {
                           right: 0,
                           bottom: 0,
                           child: CircleAvatar(
-                            backgroundColor: PPaymobileColors.deepBackgroundColor,
+                            backgroundColor:
+                                PPaymobileColors.deepBackgroundColor,
                             radius: 10.r,
                             child: SvgPicture.asset(
                               'assets/icon/edit.svg',
@@ -151,11 +155,20 @@ class ProfilePage extends HookConsumerWidget {
                   20.verticalSpace,
                   _ProfileRow(label: 'Full Name', value: user?.fullName ?? '—'),
                   _ProfileDivider(),
-                  _ProfileRow(label: 'Email Address', value: user?.emailAddress ?? '—'),
+                  _ProfileRow(
+                    label: 'Email Address',
+                    value: user?.emailAddress ?? '—',
+                  ),
                   _ProfileDivider(),
-                  _ProfileRow(label: 'Phone Number', value: user?.phoneNumber ?? '—'),
+                  _ProfileRow(
+                    label: 'Phone Number',
+                    value: user?.phoneNumber ?? '—',
+                  ),
                   _ProfileDivider(),
-                  _ProfileRow(label: 'Date of Birth', value: formatDob(user?.dob)),
+                  _ProfileRow(
+                    label: 'Date of Birth',
+                    value: formatDob(user?.dob),
+                  ),
                 ],
               ),
             ),

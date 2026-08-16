@@ -1,12 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class FundCardReceiptPage extends HookConsumerWidget {
@@ -67,7 +68,10 @@ class FundCardReceiptPage extends HookConsumerWidget {
                     SizedBox(
                       height: 24.h,
                       width: 99.w,
-                      child: Image.asset('assets/images/success.png', fit: BoxFit.contain),
+                      child: Image.asset(
+                        'assets/images/success.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ],
                 ),
@@ -84,19 +88,27 @@ class FundCardReceiptPage extends HookConsumerWidget {
                     22.verticalSpace,
                     _ReceiptRow(label: 'Time', value: formattedTime),
                     22.verticalSpace,
-                    _ReceiptRow(label: 'Amount', value: '\$${amountUsd.toStringAsFixed(2)}'),
+                    _ReceiptRow(
+                      label: 'Amount',
+                      value: '\$${amountUsd.toStringAsFixed(2)}',
+                    ),
                     22.verticalSpace,
                     _ReceiptRow(
                       label: 'Naira Amount',
-                      value: '₦${AmountFormatter.formatBalance(nairaAmount.toStringAsFixed(2))}',
+                      value:
+                          '₦${AmountFormatter.formatBalance(nairaAmount.toStringAsFixed(2))}',
                     ),
                     22.verticalSpace,
                     _ReceiptRow(
                       label: 'Exchange Rate',
-                      value: '₦${AmountFormatter.formatBalance(rate.toStringAsFixed(0))}/\$',
+                      value:
+                          '₦${AmountFormatter.formatBalance(rate.toStringAsFixed(0))}/\$',
                     ),
                     21.verticalSpace,
-                    Divider(color: PPaymobileColors.textfiedBorder, thickness: 1.h),
+                    Divider(
+                      color: PPaymobileColors.textfiedBorder,
+                      thickness: 1.h,
+                    ),
                     24.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,8 +145,19 @@ class FundCardReceiptPage extends HookConsumerWidget {
 
   String _formatDate(DateTime date) {
     const months = [
-      '', 'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
     return '${date.day} ${months[date.month]}, ${date.year}';
   }
@@ -152,7 +175,11 @@ class _ReceiptRow extends StatelessWidget {
   final String value;
   final bool copyable;
 
-  const _ReceiptRow({required this.label, required this.value, this.copyable = false});
+  const _ReceiptRow({
+    required this.label,
+    required this.value,
+    this.copyable = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -186,17 +213,23 @@ class _ReceiptRow extends StatelessWidget {
             ),
             if (copyable) ...[
               7.horizontalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: value));
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('$label copied'), duration: const Duration(seconds: 2)),
+                    SnackBar(
+                      content: Text('$label copied'),
+                      duration: const Duration(seconds: 2),
+                    ),
                   );
                 },
                 child: SizedBox(
                   height: 21.w,
                   width: 21.w,
-                  child: SvgPicture.asset('assets/icon/paste_black1.svg', fit: BoxFit.contain),
+                  child: SvgPicture.asset(
+                    'assets/icon/paste_black1.svg',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ],

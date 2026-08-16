@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 Future<bool> showDeleteConfirmSheet(
   BuildContext context, {
@@ -40,7 +41,7 @@ class _DeleteConfirmSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context, false),
             child: Container(
               height: 60.w,
@@ -50,7 +51,10 @@ class _DeleteConfirmSheet extends StatelessWidget {
                 color: PPaymobileColors.mainScreenBackground,
               ),
               child: Center(
-                child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
           ),
@@ -89,7 +93,7 @@ class _DeleteConfirmSheet extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: GestureDetector(
+                        child: TouchOpacity(
                           onTap: () => Navigator.pop(context, false),
                           child: Container(
                             height: 54.h,
@@ -113,7 +117,7 @@ class _DeleteConfirmSheet extends StatelessWidget {
                       ),
                       12.horizontalSpace,
                       Expanded(
-                        child: GestureDetector(
+                        child: TouchOpacity(
                           onTap: () => Navigator.pop(context, true),
                           child: Container(
                             height: 54.h,

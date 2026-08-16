@@ -60,7 +60,7 @@ class FlightRepositoryImpl implements FlightRepository {
       );
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -70,7 +70,7 @@ class FlightRepositoryImpl implements FlightRepository {
       final result = await _remoteDataSource.confirmFlight(ConfirmFlightRequest(offerId: offerId));
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -107,7 +107,7 @@ class FlightRepositoryImpl implements FlightRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -117,7 +117,7 @@ class FlightRepositoryImpl implements FlightRepository {
       final result = await _remoteDataSource.getBookings(status: status);
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -127,7 +127,7 @@ class FlightRepositoryImpl implements FlightRepository {
       final result = await _remoteDataSource.getBoardingPass(bookingReference);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -137,7 +137,7 @@ class FlightRepositoryImpl implements FlightRepository {
       await _remoteDataSource.cancelFlight(CancelFlightRequest(bookingReference: bookingReference));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

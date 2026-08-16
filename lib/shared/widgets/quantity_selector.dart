@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class QuantitySelector extends StatelessWidget {
   final int quantity;
@@ -32,7 +33,7 @@ class QuantitySelector extends StatelessWidget {
             borderRadius: BorderRadius.circular(7).r,
             color: PPaymobileColors.mainScreenBackground,
           ),
-          child: GestureDetector(
+          child: TouchOpacity(
             onTap: onDecrement,
             child: Center(
               child: SizedBox(
@@ -69,7 +70,7 @@ class QuantitySelector extends StatelessWidget {
             borderRadius: BorderRadius.circular(7).r,
             color: PPaymobileColors.mainScreenBackground,
           ),
-          child: GestureDetector(
+          child: TouchOpacity(
             onTap: onIncrement,
             child: Center(
               child: SizedBox(

@@ -46,7 +46,7 @@ class UserRepositoryImpl implements UserRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -66,7 +66,7 @@ class UserRepositoryImpl implements UserRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -76,7 +76,7 @@ class UserRepositoryImpl implements UserRepository {
       final result = await _remoteDataSource.getUser();
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -86,7 +86,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.verifyEmailOtp(VerifyOtpRequest(otpCode: otpCode));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -96,7 +96,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.verifyPhoneOtp(VerifyOtpRequest(otpCode: otpCode));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -106,7 +106,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.resendEmailOtp();
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -116,7 +116,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.resendPhoneOtp();
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -126,7 +126,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.forgotPassword(ForgotPasswordRequest(emailAddress: emailAddress));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -141,7 +141,7 @@ class UserRepositoryImpl implements UserRepository {
       );
       return Right(result.resetToken);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -161,7 +161,7 @@ class UserRepositoryImpl implements UserRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -174,7 +174,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.setPin(SetPinRequest(pin: pin, confirmPin: confirmPin));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -194,7 +194,7 @@ class UserRepositoryImpl implements UserRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -204,7 +204,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.forgotPin();
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -214,7 +214,7 @@ class UserRepositoryImpl implements UserRepository {
       final result = await _remoteDataSource.verifyForgotPinOtp(VerifyOtpRequest(otpCode: otpCode));
       return Right(result.resetToken);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -230,7 +230,7 @@ class UserRepositoryImpl implements UserRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -240,7 +240,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.verifyPin(pin);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -250,7 +250,7 @@ class UserRepositoryImpl implements UserRepository {
       await _remoteDataSource.verifyPassword(password);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

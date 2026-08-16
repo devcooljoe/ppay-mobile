@@ -52,7 +52,7 @@ class _TicketListSheet extends HookConsumerWidget {
       heightFactor: 0.84,
       child: Column(
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,
@@ -323,7 +323,7 @@ class _CreateTicketSheet extends HookConsumerWidget {
       heightFactor: 0.92,
       child: Column(
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: onBack,
             child: Container(
               height: 60.w,
@@ -681,7 +681,7 @@ class _TicketChatSheet extends HookConsumerWidget {
       heightFactor: 0.88,
       child: Column(
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,

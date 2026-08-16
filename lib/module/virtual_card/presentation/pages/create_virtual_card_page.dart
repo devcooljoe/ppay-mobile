@@ -14,6 +14,7 @@ import 'package:ppay_mobile/module/virtual_card/presentation/providers/virtual_c
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class CreateVirtualCardPage extends HookConsumerWidget {
@@ -137,7 +138,7 @@ class CreateVirtualCardPage extends HookConsumerWidget {
       bool done,
       VoidCallback? onTap,
     ) {
-      return GestureDetector(
+      return TouchOpacity(
         onTap: done ? null : onTap,
         child: Container(
           width: double.infinity,
@@ -336,7 +337,7 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                   ),
                 ),
                 16.verticalSpace,
-                GestureDetector(
+                TouchOpacity(
                   onTap: takePhoto,
                   child: Container(
                     height: 160.h,
@@ -398,7 +399,7 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                   ),
                 ),
                 16.verticalSpace,
-                GestureDetector(
+                TouchOpacity(
                   onTap: pickNinPhoto,
                   child: Container(
                     height: 160.h,
@@ -556,7 +557,7 @@ class _DobRequiredDialog extends StatelessWidget {
               backgroundColor: PPaymobileColors.backgroundColor,
             ),
             12.verticalSpace,
-            GestureDetector(
+            TouchOpacity(
               onTap: () => Navigator.of(context).pop(),
               child: Text(
                 'Cancel',

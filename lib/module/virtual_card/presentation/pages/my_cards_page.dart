@@ -106,7 +106,7 @@ class _CardListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TouchOpacity(
-          onTap: onTap,
+          onTap: card.status == 'TERMINATED' ? null : onTap,
           child: PPAYCardWidget(card: card),
         ),
         // 12.verticalSpace,

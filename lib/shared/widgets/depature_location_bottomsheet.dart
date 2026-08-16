@@ -19,12 +19,15 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
     final filtered = useMemoized(() {
       final q = query.value.toLowerCase().trim();
       if (q.isEmpty) return kAirports;
-      return kAirports.where((a) =>
-        a.code.toLowerCase().contains(q) ||
-        a.city.toLowerCase().contains(q) ||
-        a.name.toLowerCase().contains(q) ||
-        a.country.toLowerCase().contains(q),
-      ).toList();
+      return kAirports
+          .where(
+            (a) =>
+                a.code.toLowerCase().contains(q) ||
+                a.city.toLowerCase().contains(q) ||
+                a.name.toLowerCase().contains(q) ||
+                a.country.toLowerCase().contains(q),
+          )
+          .toList();
     }, [query.value]);
 
     return FractionallySizedBox(
@@ -32,7 +35,7 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,
@@ -44,7 +47,10 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
               child: SizedBox(
                 height: 18.h,
                 width: 18.h,
-                child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
           ),
@@ -55,7 +61,9 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(24),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,28 +94,43 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                         ),
                         prefixIcon: Padding(
                           padding: EdgeInsets.all(10.r),
-                          child: SvgPicture.asset('assets/icon/takeoff_1.svg', fit: BoxFit.contain),
+                          child: SvgPicture.asset(
+                            'assets/icon/takeoff_1.svg',
+                            fit: BoxFit.contain,
+                          ),
                         ),
                         suffixIcon: query.value.isNotEmpty
-                            ? GestureDetector(
+                            ? TouchOpacity(
                                 onTap: () {
                                   controller.clear();
                                   query.value = '';
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.all(10.r),
-                                  child: SvgPicture.asset('assets/icon/cancel_1.svg', fit: BoxFit.scaleDown),
+                                  child: SvgPicture.asset(
+                                    'assets/icon/cancel_1.svg',
+                                    fit: BoxFit.scaleDown,
+                                  ),
                                 ),
                               )
                             : null,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 10.h,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
-                          borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1.w),
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.textfiedBorder,
+                            width: 1.w,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.r),
-                          borderSide: BorderSide(color: PPaymobileColors.buttonColor, width: 1.5.w),
+                          borderSide: BorderSide(
+                            color: PPaymobileColors.buttonColor,
+                            width: 1.5.w,
+                          ),
                         ),
                       ),
                     ),
@@ -117,7 +140,9 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        query.value.isEmpty ? 'All Airports' : 'Results (${filtered.length})',
+                        query.value.isEmpty
+                            ? 'All Airports'
+                            : 'Results (${filtered.length})',
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
                           fontWeight: FontWeight.w500,
@@ -134,7 +159,11 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                SvgPicture.asset('assets/icon/takeoff_1.svg', height: 48.h, width: 48.h),
+                                SvgPicture.asset(
+                                  'assets/icon/takeoff_1.svg',
+                                  height: 48.h,
+                                  width: 48.h,
+                                ),
                                 16.verticalSpace,
                                 Text(
                                   'No airports found',
@@ -157,7 +186,8 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                               final airport = filtered[i];
                               return TouchOpacity(
                                 onTap: () {
-                                  ref.read(flightSearchStateProvider.notifier)
+                                  ref
+                                      .read(flightSearchStateProvider.notifier)
                                       .setFrom(airport.code, airport.label);
                                   Navigator.pop(context);
                                 },
@@ -169,8 +199,11 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                                         height: 40.w,
                                         width: 40.w,
                                         decoration: BoxDecoration(
-                                          color: PPaymobileColors.deepBackgroundColor,
-                                          borderRadius: BorderRadius.circular(8.r),
+                                          color: PPaymobileColors
+                                              .deepBackgroundColor,
+                                          borderRadius: BorderRadius.circular(
+                                            8.r,
+                                          ),
                                         ),
                                         child: Center(
                                           child: SvgPicture.asset(
@@ -184,7 +217,8 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                                       12.horizontalSpace,
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Row(
                                               children: [
@@ -192,28 +226,42 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                                                   child: Text(
                                                     airport.city,
                                                     style: TextStyle(
-                                                      fontFamily: 'InstrumentSans',
-                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily:
+                                                          'InstrumentSans',
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontSize: 14.sp,
                                                       color: Colors.black,
                                                     ),
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                                 8.horizontalSpace,
                                                 Container(
-                                                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: 6.w,
+                                                    vertical: 2.h,
+                                                  ),
                                                   decoration: BoxDecoration(
-                                                    color: PPaymobileColors.buttonColor.withValues(alpha: 0.1),
-                                                    borderRadius: BorderRadius.circular(4.r),
+                                                    color: PPaymobileColors
+                                                        .buttonColor
+                                                        .withValues(alpha: 0.1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          4.r,
+                                                        ),
                                                   ),
                                                   child: Text(
                                                     airport.code,
                                                     style: TextStyle(
-                                                      fontFamily: 'InstrumentSans',
-                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily:
+                                                          'InstrumentSans',
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontSize: 12.sp,
-                                                      color: PPaymobileColors.buttonColor,
+                                                      color: PPaymobileColors
+                                                          .buttonColor,
                                                     ),
                                                   ),
                                                 ),
@@ -226,7 +274,8 @@ class DepatureLocationBottomsheet extends HookConsumerWidget {
                                                 fontFamily: 'InstrumentSans',
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 11.sp,
-                                                color: PPaymobileColors.anotherGreyColor,
+                                                color: PPaymobileColors
+                                                    .anotherGreyColor,
                                               ),
                                               overflow: TextOverflow.ellipsis,
                                             ),

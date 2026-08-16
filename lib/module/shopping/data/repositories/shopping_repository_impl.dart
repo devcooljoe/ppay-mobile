@@ -19,7 +19,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getHomepage();
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -45,7 +45,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -55,7 +55,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getProductDetails(productId);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -65,7 +65,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getCategories();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -75,7 +75,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getCheckoutSummary(subtotal, promoCode: promoCode);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -85,7 +85,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getCart();
       return Right(result?.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -101,7 +101,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -117,7 +117,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -127,7 +127,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       await _remoteDataSource.removeFromCart(cartItemId);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -157,7 +157,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -167,7 +167,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getOrders();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -177,7 +177,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getOrderDetails(orderId);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -193,7 +193,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -203,7 +203,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getProductReviews(productId);
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -213,7 +213,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       final result = await _remoteDataSource.getWatchlist();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -223,7 +223,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       await _remoteDataSource.addToWatchlist(AddToWatchlistRequest(productId: productId));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -233,7 +233,7 @@ class ShoppingRepositoryImpl implements ShoppingRepository {
       await _remoteDataSource.removeFromWatchlist(productId);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class TermsAndConditionsActionBar extends HookConsumerWidget {
   const TermsAndConditionsActionBar({super.key});
@@ -20,7 +21,7 @@ class TermsAndConditionsActionBar extends HookConsumerWidget {
         children: [
           // Disagree
           Expanded(
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => agreed.value = false,
               child: Container(
                 height: 54.h,
@@ -46,7 +47,7 @@ class TermsAndConditionsActionBar extends HookConsumerWidget {
           24.horizontalSpace,
           // Agree / Agreed
           Expanded(
-            child: GestureDetector(
+            child: TouchOpacity(
               onTap: () => agreed.value = true,
               child: Container(
                 height: 54.h,

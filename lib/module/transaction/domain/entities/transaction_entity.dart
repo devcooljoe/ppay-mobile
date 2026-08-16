@@ -8,6 +8,7 @@ enum TransactionType {
   walletWithdrawal,
   cardFunding,
   cardWithdrawal,
+  cardTermination,
   billPayment,
   shopping,
   flightBooking,
@@ -25,6 +26,7 @@ extension TransactionTypeX on TransactionType {
       case 'wallet_withdrawal': return TransactionType.walletWithdrawal;
       case 'card_funding': return TransactionType.cardFunding;
       case 'card_withdrawal': return TransactionType.cardWithdrawal;
+      case 'card_termination': return TransactionType.cardTermination;
       case 'bill_payment': return TransactionType.billPayment;
       case 'shopping': return TransactionType.shopping;
       case 'flight_booking': return TransactionType.flightBooking;
@@ -35,6 +37,7 @@ extension TransactionTypeX on TransactionType {
   bool get isCredit {
     return this == TransactionType.walletFunding ||
         this == TransactionType.cardFunding ||
+        this == TransactionType.cardTermination ||
         this == TransactionType.cryptoDeposit;
   }
 }

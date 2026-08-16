@@ -21,7 +21,7 @@ class WalletRepositoryImpl implements WalletRepository {
       final result = await _remoteDataSource.getWallet();
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -36,7 +36,7 @@ class WalletRepositoryImpl implements WalletRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -60,7 +60,7 @@ class WalletRepositoryImpl implements WalletRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -76,7 +76,7 @@ class WalletRepositoryImpl implements WalletRepository {
       );
       return Right(fee);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

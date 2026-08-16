@@ -18,7 +18,7 @@ class ReferralRepositoryImpl implements ReferralRepository {
       final result = await _remoteDataSource.getMyReferrals();
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -28,7 +28,7 @@ class ReferralRepositoryImpl implements ReferralRepository {
       await _remoteDataSource.withdrawPoints();
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

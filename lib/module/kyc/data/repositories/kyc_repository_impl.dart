@@ -23,7 +23,7 @@ class KycRepositoryImpl implements KycRepository {
       final result = await _remoteDataSource.getUser();
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -33,7 +33,7 @@ class KycRepositoryImpl implements KycRepository {
       final result = await _remoteDataSource.getKycDocumentTypes();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -48,7 +48,7 @@ class KycRepositoryImpl implements KycRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -63,7 +63,7 @@ class KycRepositoryImpl implements KycRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -75,7 +75,7 @@ class KycRepositoryImpl implements KycRepository {
       final result = await _remoteDataSource.uploadProfilePicture(filePath);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -90,7 +90,7 @@ class KycRepositoryImpl implements KycRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

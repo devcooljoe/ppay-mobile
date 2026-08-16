@@ -7,6 +7,7 @@ import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entit
 import 'package:ppay_mobile/module/transaction/presentation/widgets/transaction_filter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/custom_date_picker.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class FilterTransactionsBottomsheet extends HookConsumerWidget {
   final TransactionFilter initialFilter;
@@ -41,7 +42,7 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,
@@ -63,8 +64,9 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(24),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,9 +98,10 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                     runSpacing: 8.h,
                     children: _typeOptions.map((entry) {
                       final isSelected = selectedType.value == entry.value;
-                      return GestureDetector(
-                        onTap: () => selectedType.value =
-                            isSelected ? null : entry.value,
+                      return TouchOpacity(
+                        onTap: () => selectedType.value = isSelected
+                            ? null
+                            : entry.value,
                         child: Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: 14.w,
@@ -143,10 +146,9 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                       Expanded(
                         child: _DateField(
                           label: 'From',
-                          value:
-                              dateFrom.value != null
-                                  ? formatDate(dateFrom.value!)
-                                  : null,
+                          value: dateFrom.value != null
+                              ? formatDate(dateFrom.value!)
+                              : null,
                           onTap: () => pickDate(dateFrom),
                         ),
                       ),
@@ -154,10 +156,9 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                       Expanded(
                         child: _DateField(
                           label: 'To',
-                          value:
-                              dateTo.value != null
-                                  ? formatDate(dateTo.value!)
-                                  : null,
+                          value: dateTo.value != null
+                              ? formatDate(dateTo.value!)
+                              : null,
                           onTap: () => pickDate(dateTo),
                         ),
                       ),
@@ -240,10 +241,7 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                             selectedType.value = null;
                             dateFrom.value = null;
                             dateTo.value = null;
-                            Navigator.pop(
-                              context,
-                              const TransactionFilter(),
-                            );
+                            Navigator.pop(context, const TransactionFilter());
                           },
                         ),
                       ),
@@ -308,7 +306,7 @@ class _DateField extends StatelessWidget {
           ),
         ),
         6.verticalSpace,
-        GestureDetector(
+        TouchOpacity(
           onTap: onTap,
           child: Container(
             height: 48.h,
@@ -364,7 +362,7 @@ class _StatusOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchOpacity(
       onTap: onTap,
       child: Row(
         mainAxisSize: MainAxisSize.min,

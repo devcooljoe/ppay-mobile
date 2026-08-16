@@ -33,7 +33,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       );
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -43,7 +43,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       await _remoteDataSource.addDollarCard(brand: brand, amount: amount, color: color);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -54,7 +54,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       return Right(result.map((m) => m.toEntity()).toList());
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) return const Right([]);
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -64,7 +64,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       final result = await _remoteDataSource.getDollarCard(cardId: cardId, brand: brand);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -74,7 +74,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       await _remoteDataSource.fundDollarCard(cardId: cardId, request: FundDollarCardRequest(amount: amount));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -84,7 +84,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       await _remoteDataSource.withdrawDollarCard(cardId: cardId, request: WithdrawDollarCardRequest(amount: amount));
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -94,7 +94,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       final result = await _remoteDataSource.getDollarCardTransactions(cardId: cardId);
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -104,7 +104,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       await _remoteDataSource.freezeDollarCard(cardId: cardId);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -114,7 +114,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       await _remoteDataSource.unfreezeDollarCard(cardId: cardId);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -124,7 +124,7 @@ class DollarCardRepositoryImpl implements DollarCardRepository {
       await _remoteDataSource.terminateDollarCard(cardId: cardId);
       return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

@@ -1,15 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide MessageHandler;
-import 'package:auto_route/auto_route.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:share_plus/share_plus.dart';
 
 @RoutePage()
@@ -160,7 +161,7 @@ class FundWalletPage extends ConsumerWidget {
                                     ),
                                   ),
                                   30.horizontalSpace,
-                                  GestureDetector(
+                                  TouchOpacity(
                                     onTap: copyAccountNumber,
                                     child: SizedBox(
                                       height: 23.w,
@@ -242,10 +243,7 @@ class _InfoTile extends StatelessWidget {
       padding: EdgeInsets.all(10).w,
       decoration: BoxDecoration(
         color: PPaymobileColors.mainScreenBackground,
-        border: Border.all(
-          width: 1.w,
-          color: PPaymobileColors.textfiedBorder,
-        ),
+        border: Border.all(width: 1.w, color: PPaymobileColors.textfiedBorder),
         boxShadow: [
           BoxShadow(
             blurRadius: 7.r,
@@ -261,10 +259,7 @@ class _InfoTile extends StatelessWidget {
           SizedBox(
             height: 40.h,
             width: 44.h,
-            child: SvgPicture.asset(
-              iconPath,
-              fit: BoxFit.contain,
-            ),
+            child: SvgPicture.asset(iconPath, fit: BoxFit.contain),
           ),
           10.horizontalSpace,
           Column(

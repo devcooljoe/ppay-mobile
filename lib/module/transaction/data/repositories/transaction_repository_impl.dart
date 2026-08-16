@@ -21,7 +21,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
       final result = await _remoteDataSource.getMyTransactions(pageNumber, pageSize);
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

@@ -83,12 +83,7 @@ class BillPaymentRemoteDataSourceImpl implements BillPaymentRemoteDataSource {
   }
 
   @override
-  Future<BillPurchaseModel> purchaseBill(PurchaseBillRequest request) async {
-    final response = await _dio.post('$_baseUrl/bill-payment/purchase', data: request.toJson());
-    final baseResponse = BaseResponse<BillPurchaseModel>.fromJson(
-      response.data,
-      (data) => BillPurchaseModel.fromJson(data as Map<String, dynamic>),
-    );
-    return baseResponse.data!;
+  Future<void> purchaseBill(PurchaseBillRequest request) async {
+    await _dio.post('$_baseUrl/bill-payment/purchase', data: request.toJson());
   }
 }

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:ppay_mobile/module/live_chat/presentation/providers/live_chat_provider.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/ticket_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 void showLiveChatSheet(BuildContext context) {
   showModalBottomSheet(
@@ -61,7 +62,7 @@ class _LiveChatSheet extends HookConsumerWidget {
       heightFactor: 0.92,
       child: Column(
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () {
               if (state.status == LiveChatStatus.active ||
                   state.status == LiveChatStatus.waiting) {
@@ -554,14 +555,17 @@ class _TypingIndicatorState extends State<_TypingIndicator>
     _dot3 = _offsetAnim(0.6);
   }
 
-  Animation<double> _offsetAnim(double delay) => TweenSequence([
+  Animation<double> _offsetAnim(double delay) =>
+      TweenSequence([
         TweenSequenceItem(tween: Tween(begin: 0.0, end: -4.0), weight: 25),
         TweenSequenceItem(tween: Tween(begin: -4.0, end: 0.0), weight: 25),
         TweenSequenceItem(tween: ConstantTween(0.0), weight: 50),
-      ]).animate(CurvedAnimation(
-        parent: _ctrl,
-        curve: Interval(delay, (delay + 0.4).clamp(0.0, 1.0)),
-      ));
+      ]).animate(
+        CurvedAnimation(
+          parent: _ctrl,
+          curve: Interval(delay, (delay + 0.4).clamp(0.0, 1.0)),
+        ),
+      );
 
   @override
   void dispose() {
@@ -706,7 +710,7 @@ class _Composer extends StatelessWidget {
             ),
           ),
           8.horizontalSpace,
-          GestureDetector(
+          TouchOpacity(
             onTap: enabled ? onSend : null,
             child: SizedBox(
               height: 26.w,
@@ -738,7 +742,7 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchOpacity(
       onTap: onTap,
       child: Container(
         height: 46.h,
@@ -829,7 +833,7 @@ class _IdleInfoScreen extends StatelessWidget {
         ),
         24.verticalSpace,
         // Use ticket suggestion
-        GestureDetector(
+        TouchOpacity(
           onTap: onUseTicket,
           child: Container(
             width: double.infinity,

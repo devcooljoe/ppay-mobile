@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 enum PPAlertType { warning, success, error }
 
@@ -57,10 +58,7 @@ class PPAlert extends StatelessWidget {
     final content = Container(
       height: 56.h,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: 11.w,
-        vertical: 9.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 9.h),
       decoration: BoxDecoration(
         color: _backgroundColor,
         borderRadius: BorderRadius.circular(4.r),
@@ -70,10 +68,7 @@ class PPAlert extends StatelessWidget {
           SizedBox(
             height: 24.w,
             width: 24.w,
-            child: SvgPicture.asset(
-              _iconPath,
-              fit: BoxFit.contain,
-            ),
+            child: SvgPicture.asset(_iconPath, fit: BoxFit.contain),
           ),
           8.horizontalSpace,
           Expanded(
@@ -109,7 +104,7 @@ class PPAlert extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
       color: PPaymobileColors.mainScreenBackground,
       child: onTap != null
-          ? GestureDetector(onTap: onTap, child: content)
+          ? TouchOpacity(onTap: onTap, child: content)
           : content,
     );
   }

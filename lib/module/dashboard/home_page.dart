@@ -29,7 +29,8 @@ import 'package:ppay_mobile/shared/widgets/withdrawal_bottomsheet.dart';
 
 @RoutePage()
 class HomePage extends HookConsumerWidget {
-  const HomePage({super.key});
+  final VoidCallback? onSeeAllTransactions;
+  const HomePage({super.key, this.onSeeAllTransactions});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -603,8 +604,8 @@ class HomePage extends HookConsumerWidget {
                     children: [
                       SectionHeader(
                         title: 'Transaction History',
-
-                        // actionText: 'See all',
+                        actionText: 'See all',
+                        onActionTap: onSeeAllTransactions,
                       ),
                       26.verticalSpace,
                       _buildRecentTransactions(context, transactionAsync),
@@ -671,7 +672,7 @@ class HomePage extends HookConsumerWidget {
         final tx = recent[index];
         return Padding(
           padding: EdgeInsets.only(bottom: index < recent.length - 1 ? 20.h : 0),
-          child: GestureDetector(
+          child: TouchOpacity(
             onTap: () => context.router.push(
               TransactionHistoryDetailRoute(transaction: tx),
             ),
@@ -791,6 +792,7 @@ class _HomeTransactionRow extends StatelessWidget {
     switch (type) {
       case TransactionType.walletFunding:
       case TransactionType.cardFunding:
+      case TransactionType.cardTermination:
         return PPaymobileColors.backgroundColor;
       case TransactionType.walletWithdrawal:
       case TransactionType.cardWithdrawal:
@@ -815,6 +817,7 @@ class _HomeTransactionRow extends StatelessWidget {
     switch (type) {
       case TransactionType.walletFunding:
       case TransactionType.cardFunding:
+      case TransactionType.cardTermination:
       case TransactionType.walletWithdrawal:
       case TransactionType.cardWithdrawal:
         return 'assets/icon/money.svg';

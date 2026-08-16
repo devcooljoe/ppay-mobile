@@ -102,7 +102,10 @@ class CustomDatePickerDialog extends HookConsumerWidget {
             children: [
               TouchOpacity(
                 onTap: () {
-                  final prev = DateTime(focusedDay.value.year, focusedDay.value.month - 1);
+                  final prev = DateTime(
+                    focusedDay.value.year,
+                    focusedDay.value.month - 1,
+                  );
                   if (!prev.isBefore(_firstDay)) {
                     focusedDay.value = prev;
                   }
@@ -110,7 +113,10 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                 child: SizedBox(
                   height: 24.h,
                   width: 24.w,
-                  child: SvgPicture.asset('assets/icon/arrow_back_black.svg', fit: BoxFit.contain),
+                  child: SvgPicture.asset(
+                    'assets/icon/arrow_back_black.svg',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               TouchOpacity(
@@ -133,7 +139,9 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                     ),
                     4.horizontalSpace,
                     Icon(
-                      showPicker.value ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                      showPicker.value
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
                       size: 18.sp,
                       color: Colors.black,
                     ),
@@ -142,7 +150,10 @@ class CustomDatePickerDialog extends HookConsumerWidget {
               ),
               TouchOpacity(
                 onTap: () {
-                  final next = DateTime(focusedDay.value.year, focusedDay.value.month + 1);
+                  final next = DateTime(
+                    focusedDay.value.year,
+                    focusedDay.value.month + 1,
+                  );
                   if (!next.isAfter(DateTime(_lastDay.year, _lastDay.month))) {
                     focusedDay.value = next;
                   }
@@ -150,7 +161,10 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                 child: SizedBox(
                   height: 24.h,
                   width: 24.w,
-                  child: SvgPicture.asset('assets/icon/arrow_forward.svg', fit: BoxFit.contain),
+                  child: SvgPicture.asset(
+                    'assets/icon/arrow_forward.svg',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ],
@@ -209,7 +223,10 @@ class CustomDatePickerDialog extends HookConsumerWidget {
                 ),
                 todayDecoration: BoxDecoration(
                   color: Colors.transparent,
-                  border: Border.all(color: PPaymobileColors.buttonColor, width: 1.w),
+                  border: Border.all(
+                    color: PPaymobileColors.buttonColor,
+                    width: 1.w,
+                  ),
                   shape: BoxShape.circle,
                 ),
                 selectedTextStyle: TextStyle(
@@ -258,7 +275,9 @@ class CustomDatePickerDialog extends HookConsumerWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(65).r,
                 color: selectedDay.value == null
-                    ? PPaymobileColors.navContainerbgColor.withValues(alpha: 0.5)
+                    ? PPaymobileColors.navContainerbgColor.withValues(
+                        alpha: 0.5,
+                      )
                     : PPaymobileColors.navContainerbgColor,
               ),
               child: Center(
@@ -281,7 +300,20 @@ class CustomDatePickerDialog extends HookConsumerWidget {
   }
 
   String _formatDisplay(DateTime d) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return '${days[d.weekday - 1]}, ${d.day} ${months[d.month - 1]} ${d.year}';
   }
@@ -325,7 +357,10 @@ class _DobMonthYearPickerState extends State<_DobMonthYearPicker> {
     final selectedIndex = widget.maxYear - _year; // newest first
     final initialOffset = (selectedIndex - _visibleCount ~/ 2) * _itemHeight;
     _yearScrollCtrl = ScrollController(
-      initialScrollOffset: initialOffset.clamp(0.0, (totalYears - _visibleCount) * _itemHeight),
+      initialScrollOffset: initialOffset.clamp(
+        0.0,
+        (totalYears - _visibleCount) * _itemHeight,
+      ),
     );
   }
 
@@ -337,9 +372,25 @@ class _DobMonthYearPickerState extends State<_DobMonthYearPicker> {
 
   @override
   Widget build(BuildContext context) {
-    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthLabels = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     // Years newest-first so user scrolls down to go further back
-    final years = List.generate(widget.maxYear - widget.minYear + 1, (i) => widget.maxYear - i);
+    final years = List.generate(
+      widget.maxYear - widget.minYear + 1,
+      (i) => widget.maxYear - i,
+    );
 
     return Container(
       padding: EdgeInsets.all(12.r),
@@ -360,16 +411,21 @@ class _DobMonthYearPickerState extends State<_DobMonthYearPicker> {
               itemBuilder: (context, index) {
                 final y = years[index];
                 final sel = y == _year;
-                return GestureDetector(
+                return TouchOpacity(
                   onTap: () => setState(() {
                     _year = y;
                     widget.onChanged(_year, _month);
                   }),
                   child: Container(
                     alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 40.w, vertical: 2.h),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 40.w,
+                      vertical: 2.h,
+                    ),
                     decoration: BoxDecoration(
-                      color: sel ? PPaymobileColors.buttonColor : Colors.transparent,
+                      color: sel
+                          ? PPaymobileColors.buttonColor
+                          : Colors.transparent,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
@@ -395,7 +451,7 @@ class _DobMonthYearPickerState extends State<_DobMonthYearPicker> {
             children: List.generate(12, (i) {
               final m = i + 1;
               final sel = m == _month;
-              return GestureDetector(
+              return TouchOpacity(
                 onTap: () => setState(() {
                   _month = m;
                   widget.onChanged(_year, _month);
@@ -404,9 +460,13 @@ class _DobMonthYearPickerState extends State<_DobMonthYearPicker> {
                   width: 52.w,
                   padding: EdgeInsets.symmetric(vertical: 7.h),
                   decoration: BoxDecoration(
-                    color: sel ? PPaymobileColors.buttonColor : Colors.transparent,
+                    color: sel
+                        ? PPaymobileColors.buttonColor
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(20.r),
-                    border: sel ? null : Border.all(color: Colors.grey.shade300),
+                    border: sel
+                        ? null
+                        : Border.all(color: Colors.grey.shade300),
                   ),
                   child: Center(
                     child: Text(

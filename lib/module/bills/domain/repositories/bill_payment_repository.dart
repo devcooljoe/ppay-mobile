@@ -12,7 +12,7 @@ abstract class BillPaymentRepository {
     required String kudaBillItemIdentifier,
     required String customerIdentification,
   });
-  Future<Either<Failure, BillPurchaseEntity>> purchaseBill({
+  Future<Either<Failure, void>> purchaseBill({
     required String billItemIdentifier,
     required String customerIdentifier,
     required String phoneNumber,

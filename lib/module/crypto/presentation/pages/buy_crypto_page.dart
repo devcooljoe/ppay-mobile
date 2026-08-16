@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/crypto/domain/entities/crypto_entity.dart';
@@ -19,6 +18,7 @@ import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class BuyCryptoPage extends HookConsumerWidget {
@@ -58,7 +58,10 @@ class BuyCryptoPage extends HookConsumerWidget {
 
     void onDelete() {
       if (amountText.value.isNotEmpty) {
-        amountText.value = amountText.value.substring(0, amountText.value.length - 1);
+        amountText.value = amountText.value.substring(
+          0,
+          amountText.value.length - 1,
+        );
       }
     }
 
@@ -66,7 +69,8 @@ class BuyCryptoPage extends HookConsumerWidget {
     final rate = selectedRate.value;
     final ratePerNaira = double.tryParse(rate?.buyRatePerDollar ?? '0') ?? 0;
     final cryptoAmount = ratePerNaira > 0 ? amount / ratePerNaira : 0.0;
-    final walletBalance = double.tryParse(walletState.value?.balance ?? '0') ?? 0;
+    final walletBalance =
+        double.tryParse(walletState.value?.balance ?? '0') ?? 0;
     final isInsufficient = amount > 0 && amount > walletBalance;
 
     Future<void> onBuy() async {
@@ -87,24 +91,28 @@ class BuyCryptoPage extends HookConsumerWidget {
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
 
-      await ref.read(buyCryptoProvider.notifier).call(
-        amount: amount,
-        walletAddressId: wallet.id,
-      );
+      await ref
+          .read(buyCryptoProvider.notifier)
+          .call(amount: amount, walletAddressId: wallet.id);
 
       if (!context.mounted) return;
       final state = ref.read(buyCryptoProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(state.error),
+        );
       } else {
         ref.read(walletProvider.notifier).fetch();
-        context.router.push(CryptoTransactionSuccessfulRoute(
-          cryptoAmount: cryptoAmount,
-          currency: rate?.currency ?? '',
-          nairaAmount: amount,
-          logoUrl: rate?.logoUrl ?? '',
-          isBuy: true,
-        ));
+        context.router.push(
+          CryptoTransactionSuccessfulRoute(
+            cryptoAmount: cryptoAmount,
+            currency: rate?.currency ?? '',
+            nairaAmount: amount,
+            logoUrl: rate?.logoUrl ?? '',
+            isBuy: true,
+          ),
+        );
       }
     }
 
@@ -128,7 +136,10 @@ class BuyCryptoPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(title: 'Buy Crypto', onBackPressed: () => Navigator.pop(context)),
+      appBar: PPAppBar(
+        title: 'Buy Crypto',
+        onBackPressed: () => Navigator.pop(context),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -148,7 +159,10 @@ class BuyCryptoPage extends HookConsumerWidget {
                             height: 23.h,
                             padding: EdgeInsets.symmetric(horizontal: 17.w),
                             decoration: BoxDecoration(
-                              border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.w),
+                              border: Border.all(
+                                color: PPaymobileColors.textfiedBorder,
+                                width: 1.w,
+                              ),
                               borderRadius: BorderRadius.circular(12).r,
                             ),
                             child: Center(
@@ -163,7 +177,8 @@ class BuyCryptoPage extends HookConsumerWidget {
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: '₦${AmountFormatter.formatBalance(walletState.value?.balance ?? '0')}',
+                                      text:
+                                          '₦${AmountFormatter.formatBalance(walletState.value?.balance ?? '0')}',
                                       style: TextStyle(
                                         fontFamily: 'InstrumentSans',
                                         color: Colors.black,
@@ -193,10 +208,14 @@ class BuyCryptoPage extends HookConsumerWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text: amountText.value.isEmpty ? '0' : amountText.value,
+                                  text: amountText.value.isEmpty
+                                      ? '0'
+                                      : amountText.value,
                                   style: TextStyle(
                                     fontFamily: 'InstrumentSans',
-                                    color: isInsufficient ? PPaymobileColors.redTextfield : Colors.black,
+                                    color: isInsufficient
+                                        ? PPaymobileColors.redTextfield
+                                        : Colors.black,
                                     fontSize: 48.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -237,17 +256,25 @@ class BuyCryptoPage extends HookConsumerWidget {
                         child: TextFormField(
                           readOnly: true,
                           controller: TextEditingController(
-                            text: amount > 0 ? cryptoAmount.toStringAsFixed(8) : '',
+                            text: amount > 0
+                                ? cryptoAmount.toStringAsFixed(8)
+                                : '',
                           ),
                           decoration: InputDecoration(
                             prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                              child: GestureDetector(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.w,
+                                vertical: 12.h,
+                              ),
+                              child: TouchOpacity(
                                 onTap: showCurrencyPicker,
                                 child: Container(
                                   height: 44.h,
                                   width: 95.w,
-                                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w,
+                                    vertical: 4.h,
+                                  ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(37).r,
                                     color: PPaymobileColors.deepBackgroundColor,
@@ -260,18 +287,29 @@ class BuyCryptoPage extends HookConsumerWidget {
                                               imageUrl: rate.logoUrl,
                                               width: 28.w,
                                               height: 28.w,
-                                              errorWidget: (_, __, ___) => Container(
-                                                width: 28.w,
-                                                height: 28.w,
-                                                decoration: BoxDecoration(
-                                                  color: PPaymobileColors.textfiedBorder,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                              ),
+                                              errorWidget: (_, __, ___) =>
+                                                  Container(
+                                                    width: 28.w,
+                                                    height: 28.w,
+                                                    decoration: BoxDecoration(
+                                                      color: PPaymobileColors
+                                                          .textfiedBorder,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  ),
                                             )
-                                          : SkeletonLoader(width: 28.w, height: 28.w, borderRadius: BorderRadius.circular(100.r)),
+                                          : SkeletonLoader(
+                                              width: 28.w,
+                                              height: 28.w,
+                                              borderRadius:
+                                                  BorderRadius.circular(100.r),
+                                            ),
                                       8.horizontalSpace,
-                                      SvgPicture.asset('assets/icon/arrow_down.svg', width: 12.w, height: 12.w),
+                                      SvgPicture.asset(
+                                        'assets/icon/arrow_down.svg',
+                                        width: 12.w,
+                                        height: 12.w,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -285,7 +323,10 @@ class BuyCryptoPage extends HookConsumerWidget {
                               color: PPaymobileColors.svgIconColor,
                             ),
                             suffixIcon: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 20.h),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.w,
+                                vertical: 20.h,
+                              ),
                               child: Text(
                                 rate?.currency.toUpperCase() ?? '',
                                 style: TextStyle(
@@ -297,11 +338,17 @@ class BuyCryptoPage extends HookConsumerWidget {
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(width: 1.w, color: PPaymobileColors.textfiedBorder),
+                              borderSide: BorderSide(
+                                width: 1.w,
+                                color: PPaymobileColors.textfiedBorder,
+                              ),
                               borderRadius: BorderRadius.circular(6).r,
                             ),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 1.w, color: PPaymobileColors.textfiedBorder),
+                              borderSide: BorderSide(
+                                width: 1.w,
+                                color: PPaymobileColors.textfiedBorder,
+                              ),
                               borderRadius: BorderRadius.circular(6).r,
                             ),
                           ),
@@ -338,7 +385,10 @@ class BuyCryptoPage extends HookConsumerWidget {
               height: showKeyboard.value ? 424.h : 0,
               child: showKeyboard.value
                   ? KeyboardContainer(
-                      child: CustomKeyboard(onKeyTap: onKeyTap, onDelete: onDelete),
+                      child: CustomKeyboard(
+                        onKeyTap: onKeyTap,
+                        onDelete: onDelete,
+                      ),
                     )
                   : null,
             ),
@@ -374,7 +424,10 @@ class _CurrencyPickerSheet extends StatelessWidget {
               color: PPaymobileColors.mainScreenBackground,
             ),
             child: Center(
-              child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+              child: SvgPicture.asset(
+                'assets/icon/cancel.svg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ).onTap(() => Navigator.pop(context)),
           8.verticalSpace,
@@ -401,7 +454,10 @@ class _CurrencyPickerSheet extends StatelessWidget {
                   Expanded(
                     child: ListView.separated(
                       itemCount: rates.length,
-                      separatorBuilder: (_, __) => Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                      separatorBuilder: (_, __) => Divider(
+                        height: 1.h,
+                        color: PPaymobileColors.deepBackgroundColor,
+                      ),
                       itemBuilder: (context, index) {
                         final rate = rates[index];
                         final isSelected = selected?.id == rate.id;
@@ -438,7 +494,11 @@ class _CurrencyPickerSheet extends StatelessWidget {
                             ),
                           ),
                           trailing: isSelected
-                              ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w)
+                              ? Icon(
+                                  Icons.check_circle,
+                                  color: PPaymobileColors.buttonColor,
+                                  size: 20.w,
+                                )
                               : null,
                           onTap: () {
                             onSelect(rate);
@@ -459,5 +519,5 @@ class _CurrencyPickerSheet extends StatelessWidget {
 }
 
 extension on Widget {
-  Widget onTap(VoidCallback onTap) => GestureDetector(onTap: onTap, child: this);
+  Widget onTap(VoidCallback onTap) => TouchOpacity(onTap: onTap, child: this);
 }

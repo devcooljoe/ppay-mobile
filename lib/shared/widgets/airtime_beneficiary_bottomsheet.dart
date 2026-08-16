@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class AirtimeBeneficiaryBottomsheet extends HookWidget {
   const AirtimeBeneficiaryBottomsheet({super.key});
@@ -14,7 +15,7 @@ class AirtimeBeneficiaryBottomsheet extends HookWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
+          TouchOpacity(
               onTap: () => Navigator.pop(context),
               child: Container(
                 height: 60.w,

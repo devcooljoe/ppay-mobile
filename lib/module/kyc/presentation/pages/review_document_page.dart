@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
 @RoutePage()
@@ -52,7 +52,8 @@ class ReviewDocumentPage extends HookConsumerWidget {
             _VerificationStep(
               stepNumber: '1',
               title: 'BVN Verification',
-              description: 'Link your Bank Verification Number to confirm your identity.',
+              description:
+                  'Link your Bank Verification Number to confirm your identity.',
               isCompleted: isBvnVerified,
               isPending: isBvnSubmitted && !isBvnVerified,
               isLocked: false,
@@ -64,7 +65,8 @@ class ReviewDocumentPage extends HookConsumerWidget {
             _VerificationStep(
               stepNumber: '2',
               title: 'Document Verification',
-              description: 'Submit a government-issued ID to complete your KYC.',
+              description:
+                  'Submit a government-issued ID to complete your KYC.',
               isCompleted: isKycVerified,
               isPending: isKycSubmitted && !isKycVerified,
               isLocked: !isBvnVerified,
@@ -83,14 +85,16 @@ class ReviewDocumentPage extends HookConsumerWidget {
             ] else if (isKycSubmitted && !isKycVerified) ...[
               _StatusBanner(
                 icon: 'assets/icon/warning.svg',
-                message: 'Your documents are under review. This usually takes 1–2 business days.',
+                message:
+                    'Your documents are under review. This usually takes 1–2 business days.',
                 color: PPaymobileColors.warningColor,
                 textColor: PPaymobileColors.warningTextColor,
               ),
             ] else if (!isBvnVerified) ...[
               _StatusBanner(
                 icon: 'assets/icon/warning.svg',
-                message: 'Start with BVN verification to unlock document submission.',
+                message:
+                    'Start with BVN verification to unlock document submission.',
                 color: PPaymobileColors.warningColor,
                 textColor: PPaymobileColors.warningTextColor,
               ),
@@ -139,10 +143,10 @@ class _VerificationStep extends StatelessWidget {
     final Color borderColor = isCompleted
         ? PPaymobileColors.buttonColor
         : isPending
-            ? PPaymobileColors.itemsColor
-            : isLocked
-                ? PPaymobileColors.textfiedBorder
-                : PPaymobileColors.textfiedBorder;
+        ? PPaymobileColors.itemsColor
+        : isLocked
+        ? PPaymobileColors.textfiedBorder
+        : PPaymobileColors.textfiedBorder;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -152,7 +156,9 @@ class _VerificationStep extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 1.w),
           borderRadius: BorderRadius.circular(8.r),
-          color: isLocked ? PPaymobileColors.deepBackgroundColor : PPaymobileColors.mainScreenBackground,
+          color: isLocked
+              ? PPaymobileColors.deepBackgroundColor
+              : PPaymobileColors.mainScreenBackground,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,12 +181,18 @@ class _VerificationStep extends StatelessWidget {
                         title,
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
-                          color: isLocked ? PPaymobileColors.svgIconColor : Colors.black,
+                          color: isLocked
+                              ? PPaymobileColors.svgIconColor
+                              : Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      _StatusChip(isCompleted: isCompleted, isPending: isPending, isLocked: isLocked),
+                      _StatusChip(
+                        isCompleted: isCompleted,
+                        isPending: isPending,
+                        isLocked: isLocked,
+                      ),
                     ],
                   ),
                   6.verticalSpace,
@@ -250,7 +262,11 @@ class _StepIndicator extends StatelessWidget {
           color: PPaymobileColors.doneColor,
         ),
         child: Center(
-          child: SvgPicture.asset('assets/icon/check.svg', width: 16.w, height: 16.w),
+          child: SvgPicture.asset(
+            'assets/icon/check.svg',
+            width: 16.w,
+            height: 16.w,
+          ),
         ),
       );
     }
@@ -263,7 +279,9 @@ class _StepIndicator extends StatelessWidget {
             ? PPaymobileColors.deepBackgroundColor
             : PPaymobileColors.anotherButtonColor,
         border: Border.all(
-          color: isLocked ? PPaymobileColors.textfiedBorder : PPaymobileColors.buttonColor,
+          color: isLocked
+              ? PPaymobileColors.textfiedBorder
+              : PPaymobileColors.buttonColor,
           width: 1.w,
         ),
       ),
@@ -274,7 +292,9 @@ class _StepIndicator extends StatelessWidget {
             fontFamily: 'InstrumentSans',
             fontSize: 13.sp,
             fontWeight: FontWeight.w600,
-            color: isLocked ? PPaymobileColors.svgIconColor : PPaymobileColors.buttonColor,
+            color: isLocked
+                ? PPaymobileColors.svgIconColor
+                : PPaymobileColors.buttonColor,
           ),
         ),
       ),
@@ -296,15 +316,31 @@ class _StatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isCompleted) {
-      return _Chip(label: 'Verified', bg: PPaymobileColors.doneColor, textColor: PPaymobileColors.doneTextColor);
+      return _Chip(
+        label: 'Verified',
+        bg: PPaymobileColors.doneColor,
+        textColor: PPaymobileColors.doneTextColor,
+      );
     }
     if (isPending) {
-      return _Chip(label: 'Pending', bg: PPaymobileColors.warningColor, textColor: PPaymobileColors.warningTextColor);
+      return _Chip(
+        label: 'Pending',
+        bg: PPaymobileColors.warningColor,
+        textColor: PPaymobileColors.warningTextColor,
+      );
     }
     if (isLocked) {
-      return _Chip(label: 'Locked', bg: PPaymobileColors.deepBackgroundColor, textColor: PPaymobileColors.svgIconColor);
+      return _Chip(
+        label: 'Locked',
+        bg: PPaymobileColors.deepBackgroundColor,
+        textColor: PPaymobileColors.svgIconColor,
+      );
     }
-    return _Chip(label: 'Not started', bg: PPaymobileColors.deepBackgroundColor, textColor: PPaymobileColors.svgIconColor);
+    return _Chip(
+      label: 'Not started',
+      bg: PPaymobileColors.deepBackgroundColor,
+      textColor: PPaymobileColors.svgIconColor,
+    );
   }
 }
 
@@ -360,7 +396,12 @@ class _StatusBanner extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SvgPicture.asset(icon, width: 18.w, height: 18.w, fit: BoxFit.contain),
+          SvgPicture.asset(
+            icon,
+            width: 18.w,
+            height: 18.w,
+            fit: BoxFit.contain,
+          ),
           10.horizontalSpace,
           Expanded(
             child: Text(

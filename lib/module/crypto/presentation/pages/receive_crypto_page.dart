@@ -1,12 +1,11 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart' as msg_handler;
 import 'package:ppay_mobile/module/crypto/domain/entities/crypto_entity.dart';
 import 'package:ppay_mobile/module/crypto/presentation/providers/crypto_providers.dart';
@@ -14,6 +13,7 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class ReceiveCryptoPage extends HookConsumerWidget {
@@ -44,10 +44,9 @@ class ReceiveCryptoPage extends HookConsumerWidget {
     void fetchWallet() {
       final rate = selectedRate.value;
       if (rate == null) return;
-      ref.read(getCryptoWalletProvider.notifier).call(
-        rate.currency,
-        network: selectedNetwork.value,
-      );
+      ref
+          .read(getCryptoWalletProvider.notifier)
+          .call(rate.currency, network: selectedNetwork.value);
     }
 
     void showAssetPicker() {
@@ -124,14 +123,17 @@ class ReceiveCryptoPage extends HookConsumerWidget {
                 ),
               ),
               4.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: showAssetPicker,
                 child: Container(
                   height: 68.h,
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: PPaymobileColors.textfiedBorder),
+                    border: Border.all(
+                      width: 1.w,
+                      color: PPaymobileColors.textfiedBorder,
+                    ),
                     borderRadius: BorderRadius.circular(6).r,
                   ),
                   child: Row(
@@ -150,7 +152,11 @@ class ReceiveCryptoPage extends HookConsumerWidget {
                                 ),
                               ),
                             )
-                          : SkeletonLoader(width: 32.w, height: 32.w, borderRadius: BorderRadius.circular(100.r)),
+                          : SkeletonLoader(
+                              width: 32.w,
+                              height: 32.w,
+                              borderRadius: BorderRadius.circular(100.r),
+                            ),
                       12.horizontalSpace,
                       Expanded(
                         child: Text(
@@ -163,7 +169,12 @@ class ReceiveCryptoPage extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      SvgPicture.asset('assets/icon/arrow_down.svg', width: 12.w, height: 12.w, fit: BoxFit.scaleDown),
+                      SvgPicture.asset(
+                        'assets/icon/arrow_down.svg',
+                        width: 12.w,
+                        height: 12.w,
+                        fit: BoxFit.scaleDown,
+                      ),
                     ],
                   ),
                 ),
@@ -179,14 +190,17 @@ class ReceiveCryptoPage extends HookConsumerWidget {
                 ),
               ),
               4.verticalSpace,
-              GestureDetector(
+              TouchOpacity(
                 onTap: showNetworkPicker,
                 child: Container(
                   height: 68.h,
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: PPaymobileColors.textfiedBorder),
+                    border: Border.all(
+                      width: 1.w,
+                      color: PPaymobileColors.textfiedBorder,
+                    ),
                     borderRadius: BorderRadius.circular(6).r,
                   ),
                   child: Row(
@@ -196,13 +210,20 @@ class ReceiveCryptoPage extends HookConsumerWidget {
                           selectedNetwork.value ?? 'Select network (optional)',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
-                            color: selectedNetwork.value != null ? Colors.black : PPaymobileColors.svgIconColor,
+                            color: selectedNetwork.value != null
+                                ? Colors.black
+                                : PPaymobileColors.svgIconColor,
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                      SvgPicture.asset('assets/icon/arrow_down.svg', width: 12.w, height: 12.w, fit: BoxFit.scaleDown),
+                      SvgPicture.asset(
+                        'assets/icon/arrow_down.svg',
+                        width: 12.w,
+                        height: 12.w,
+                        fit: BoxFit.scaleDown,
+                      ),
                     ],
                   ),
                 ),
@@ -246,8 +267,13 @@ class ReceiveCryptoPage extends HookConsumerWidget {
                           8.horizontalSpace,
                           TouchOpacity(
                             onTap: () {
-                              Clipboard.setData(ClipboardData(text: wallet.address));
-                              msg_handler.MessageHandler.showSuccessSnackBar(context, 'Address copied!');
+                              Clipboard.setData(
+                                ClipboardData(text: wallet.address),
+                              );
+                              msg_handler.MessageHandler.showSuccessSnackBar(
+                                context,
+                                'Address copied!',
+                              );
                             },
                             child: SvgPicture.asset(
                               'assets/icon/paste_black1.svg',
@@ -275,9 +301,15 @@ class ReceiveCryptoPage extends HookConsumerWidget {
               ],
               40.verticalSpace,
               walletState.isLoading
-                  ? SkeletonLoader(width: double.infinity, height: 50.h, borderRadius: BorderRadius.circular(56.r))
+                  ? SkeletonLoader(
+                      width: double.infinity,
+                      height: 50.h,
+                      borderRadius: BorderRadius.circular(56.r),
+                    )
                   : PPButton(
-                      text: wallet != null ? 'Refresh Address' : 'Get Wallet Address',
+                      text: wallet != null
+                          ? 'Refresh Address'
+                          : 'Get Wallet Address',
                       onPressed: fetchWallet,
                     ),
               if (walletState.hasError) ...[
@@ -306,7 +338,11 @@ class _AssetPickerSheet extends StatelessWidget {
   final CryptoRateEntity? selected;
   final ValueChanged<CryptoRateEntity> onSelect;
 
-  const _AssetPickerSheet({required this.rates, required this.selected, required this.onSelect});
+  const _AssetPickerSheet({
+    required this.rates,
+    required this.selected,
+    required this.onSelect,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -314,7 +350,7 @@ class _AssetPickerSheet extends StatelessWidget {
       heightFactor: 0.6,
       child: Column(
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,
@@ -323,7 +359,12 @@ class _AssetPickerSheet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30).r,
                 color: PPaymobileColors.mainScreenBackground,
               ),
-              child: Center(child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown)),
+              child: Center(
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
             ),
           ),
           8.verticalSpace,
@@ -339,13 +380,21 @@ class _AssetPickerSheet extends StatelessWidget {
                 children: [
                   Text(
                     'Select Asset',
-                    style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.black),
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
                   ),
                   16.verticalSpace,
                   Expanded(
                     child: ListView.separated(
                       itemCount: rates.length,
-                      separatorBuilder: (_, __) => Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                      separatorBuilder: (_, __) => Divider(
+                        height: 1.h,
+                        color: PPaymobileColors.deepBackgroundColor,
+                      ),
                       itemBuilder: (context, index) {
                         final rate = rates[index];
                         return ListTile(
@@ -357,12 +406,36 @@ class _AssetPickerSheet extends StatelessWidget {
                             errorWidget: (_, __, ___) => Container(
                               width: 40.w,
                               height: 40.w,
-                              decoration: BoxDecoration(color: PPaymobileColors.textfiedBorder, shape: BoxShape.circle),
+                              decoration: BoxDecoration(
+                                color: PPaymobileColors.textfiedBorder,
+                                shape: BoxShape.circle,
+                              ),
                             ),
                           ),
-                          title: Text(rate.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
-                          subtitle: Text(rate.currency.toUpperCase(), style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp)),
-                          trailing: selected?.id == rate.id ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w) : null,
+                          title: Text(
+                            rate.name,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          subtitle: Text(
+                            rate.currency.toUpperCase(),
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: PPaymobileColors.svgIconColor,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                          trailing: selected?.id == rate.id
+                              ? Icon(
+                                  Icons.check_circle,
+                                  color: PPaymobileColors.buttonColor,
+                                  size: 20.w,
+                                )
+                              : null,
                           onTap: () {
                             onSelect(rate);
                             Navigator.pop(context);
@@ -386,16 +459,26 @@ class _NetworkPickerSheet extends StatelessWidget {
   final String? selected;
   final ValueChanged<String> onSelect;
 
-  const _NetworkPickerSheet({required this.currency, required this.selected, required this.onSelect});
+  const _NetworkPickerSheet({
+    required this.currency,
+    required this.selected,
+    required this.onSelect,
+  });
 
   List<String> get _networks {
     switch (currency.toLowerCase()) {
-      case 'btc': return ['bitcoin', 'lightning'];
-      case 'eth': return ['ethereum', 'erc20'];
-      case 'usdt': return ['trc20', 'erc20', 'bep20'];
-      case 'bnb': return ['bep20', 'bep2'];
-      case 'sol': return ['solana'];
-      default: return [currency.toLowerCase()];
+      case 'btc':
+        return ['bitcoin', 'lightning'];
+      case 'eth':
+        return ['ethereum', 'erc20'];
+      case 'usdt':
+        return ['trc20', 'erc20', 'bep20'];
+      case 'bnb':
+        return ['bep20', 'bep2'];
+      case 'sol':
+        return ['solana'];
+      default:
+        return [currency.toLowerCase()];
     }
   }
 
@@ -405,13 +488,21 @@ class _NetworkPickerSheet extends StatelessWidget {
       heightFactor: 0.5,
       child: Column(
         children: [
-          GestureDetector(
+          TouchOpacity(
             onTap: () => Navigator.pop(context),
             child: Container(
               height: 60.w,
               width: 60.w,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30).r, color: PPaymobileColors.mainScreenBackground),
-              child: Center(child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: Center(
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
             ),
           ),
           8.verticalSpace,
@@ -425,18 +516,43 @@ class _NetworkPickerSheet extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Select Network', style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.black)),
+                  Text(
+                    'Select Network',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
                   16.verticalSpace,
                   Expanded(
                     child: ListView.separated(
                       itemCount: _networks.length,
-                      separatorBuilder: (_, __) => Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                      separatorBuilder: (_, __) => Divider(
+                        height: 1.h,
+                        color: PPaymobileColors.deepBackgroundColor,
+                      ),
                       itemBuilder: (context, index) {
                         final network = _networks[index];
                         return ListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: Text(network.toUpperCase(), style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
-                          trailing: selected == network ? Icon(Icons.check_circle, color: PPaymobileColors.buttonColor, size: 20.w) : null,
+                          title: Text(
+                            network.toUpperCase(),
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          trailing: selected == network
+                              ? Icon(
+                                  Icons.check_circle,
+                                  color: PPaymobileColors.buttonColor,
+                                  size: 20.w,
+                                )
+                              : null,
                           onTap: () {
                             onSelect(network);
                             Navigator.pop(context);

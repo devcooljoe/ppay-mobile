@@ -1,13 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class SellGiftcardPage extends HookConsumerWidget {
@@ -18,9 +19,11 @@ class SellGiftcardPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final details = transaction.details ?? {};
     final cardType = details['type'] as String? ?? transaction.title;
-    final region = details['region'] as String? ?? details['country'] as String? ?? '—';
+    final region =
+        details['region'] as String? ?? details['country'] as String? ?? '—';
     final amountInUsd = details['amountInUsd']?.toString() ?? '—';
-    final nairaEquivalent = '₦${AmountFormatter.formatBalance(transaction.amount)}';
+    final nairaEquivalent =
+        '₦${AmountFormatter.formatBalance(transaction.amount)}';
     final fee = '₦${AmountFormatter.formatBalance(transaction.fee)}';
     final total = () {
       final a = double.tryParse(transaction.amount) ?? 0;
@@ -108,19 +111,31 @@ class SellGiftcardPage extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _DetailRow(label: 'Date', value: _formatDate(transaction.date)),
-                    _DetailRow(label: 'Time', value: _formatTime(transaction.date)),
+                    _DetailRow(
+                      label: 'Date',
+                      value: _formatDate(transaction.date),
+                    ),
+                    _DetailRow(
+                      label: 'Time',
+                      value: _formatTime(transaction.date),
+                    ),
                     _DetailRow(label: 'Region', value: region),
                     _DetailRow(
                       label: 'Transaction ID',
                       value: transaction.transactionId,
                       copyable: true,
                     ),
-                    _DetailRow(label: 'Naira Equivalent', value: nairaEquivalent),
+                    _DetailRow(
+                      label: 'Naira Equivalent',
+                      value: nairaEquivalent,
+                    ),
                     if (amountInUsd != '—')
                       _DetailRow(label: 'Amount', value: '\$$amountInUsd'),
                     _DetailRow(label: 'Fee', value: fee),
-                    Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                    Divider(
+                      height: 1.h,
+                      color: PPaymobileColors.deepBackgroundColor,
+                    ),
                     18.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,8 +172,19 @@ class SellGiftcardPage extends HookConsumerWidget {
 
   String _formatDate(DateTime date) {
     const months = [
-      '', 'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
     return '${date.day} ${months[date.month]}, ${date.year}';
   }
@@ -220,7 +246,11 @@ class _DetailRow extends StatelessWidget {
   final String label;
   final String value;
   final bool copyable;
-  const _DetailRow({required this.label, required this.value, this.copyable = false});
+  const _DetailRow({
+    required this.label,
+    required this.value,
+    this.copyable = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -256,17 +286,23 @@ class _DetailRow extends StatelessWidget {
               ),
               if (copyable) ...[
                 6.horizontalSpace,
-                GestureDetector(
+                TouchOpacity(
                   onTap: () {
                     Clipboard.setData(ClipboardData(text: value));
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('$label copied'), duration: const Duration(seconds: 2)),
+                      SnackBar(
+                        content: Text('$label copied'),
+                        duration: const Duration(seconds: 2),
+                      ),
                     );
                   },
                   child: SizedBox(
                     height: 20.w,
                     width: 20.w,
-                    child: SvgPicture.asset('assets/icon/paste.svg', fit: BoxFit.contain),
+                    child: SvgPicture.asset(
+                      'assets/icon/paste.svg',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ],

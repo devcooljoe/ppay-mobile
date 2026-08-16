@@ -325,8 +325,9 @@ class CardPage extends HookConsumerWidget {
     final terminateState = ref.watch(terminateDollarCardProvider);
 
     final currentCard = cardState.value ?? card;
-    final isFrozen = currentCard.status == 'DISABLED';
-    final canWithdraw = !isFrozen && currentCard.balance > 0;
+    final isTerminated = currentCard.status == 'TERMINATED';
+    final isFrozen = !isTerminated && currentCard.status == 'DISABLED';
+    final canWithdraw = !isFrozen && !isTerminated && currentCard.balance > 0;
     final isLoading =
         freezeState is AsyncLoading ||
         unfreezeState is AsyncLoading ||
@@ -519,13 +520,13 @@ class CardPage extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TouchOpacity(
-                        onTap: isFrozen
+                        onTap: isFrozen || isTerminated
                             ? null
                             : () => context.router.push(
                                 FundCardRoute(card: currentCard),
                               ),
                         child: Opacity(
-                          opacity: isFrozen ? 0.4 : 1.0,
+                          opacity: isFrozen || isTerminated ? 0.4 : 1.0,
                           child: Container(
                             height: 49.h,
                             width: 190.w,
@@ -661,6 +662,15 @@ class CardPage extends HookConsumerWidget {
                                   strokeWidth: 2,
                                 ),
                               ),
+                            ),
+                          )
+                        : isTerminated
+                        ? SizedBox(
+                            width: 43.w,
+                            height: 25.h,
+                            child: Opacity(
+                              opacity: 0.4,
+                              child: CustomSwitch(value: false, onChanged: (_) {}),
                             ),
                           )
                         : SizedBox(

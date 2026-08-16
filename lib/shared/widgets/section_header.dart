@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -29,7 +30,7 @@ class SectionHeader extends StatelessWidget {
           ),
         ),
         if (actionText != null)
-          GestureDetector(
+          TouchOpacity(
             onTap: onActionTap,
             child: Text(
               actionText!,

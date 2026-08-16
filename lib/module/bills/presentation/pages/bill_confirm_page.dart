@@ -7,8 +7,8 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
 import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
-import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
+import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -27,15 +27,17 @@ class BillConfirmPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final purchaseState = ref.watch(purchaseBillProvider);
     final feeState = ref.watch(calculateFeeProvider);
-    final formattedAmount =
-        AmountFormatter.formatBalance(args.amount.toString());
+    final formattedAmount = AmountFormatter.formatBalance(
+      args.amount.toString(),
+    );
 
     // Fetch fee on mount
     useEffect(() {
-      Future.microtask(() => ref.read(calculateFeeProvider.notifier).call(
-            transactionType: 'bill_payment',
-            amount: args.amount,
-          ));
+      Future.microtask(
+        () => ref
+            .read(calculateFeeProvider.notifier)
+            .call(transactionType: 'bill_payment', amount: args.amount),
+      );
       return null;
     }, []);
 
@@ -49,7 +51,9 @@ class BillConfirmPage extends HookConsumerWidget {
       if (!verified) return;
       if (!context.mounted) return;
 
-      await ref.read(purchaseBillProvider.notifier).call(
+      await ref
+          .read(purchaseBillProvider.notifier)
+          .call(
             billItemIdentifier: args.billItem.kudaIdentifier,
             customerIdentifier: args.customerIdentifier,
             phoneNumber: args.phoneNumber,
@@ -78,17 +82,17 @@ class BillConfirmPage extends HookConsumerWidget {
       // Refresh wallet balance after successful purchase
       ref.read(walletProvider.notifier).fetch();
 
-      final purchase = ref.read(purchaseBillProvider).value;
-
-      context.router.replace(BillSuccessRoute(
-        billType: args.billType,
-        amount: formattedAmount,
-        biller: args.biller,
-        args: args,
-        reference: purchase?.reference ?? '',
-        fee: fee,
-        purchasedAt: DateTime.now(),
-      ));
+      context.router.replace(
+        BillSuccessRoute(
+          billType: args.billType,
+          amount: formattedAmount,
+          biller: args.biller,
+          args: args,
+          reference: '',
+          fee: fee,
+          purchasedAt: DateTime.now(),
+        ),
+      );
     }
 
     return Scaffold(
@@ -121,12 +125,13 @@ class BillConfirmPage extends HookConsumerWidget {
               41.verticalSpace,
               Container(
                 width: double.infinity,
-                padding:
-                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7.r),
                   border: Border.all(
-                      width: 1.w, color: PPaymobileColors.textfiedBorder),
+                    width: 1.w,
+                    color: PPaymobileColors.textfiedBorder,
+                  ),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 6.7.r,
@@ -157,8 +162,9 @@ class BillConfirmPage extends HookConsumerWidget {
                             height: 28.w,
                             width: 28.w,
                             clipBehavior: Clip.hardEdge,
-                            decoration:
-                                const BoxDecoration(shape: BoxShape.circle),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
                             child: AppImage(
                               imageUrl: args.biller.billerIconUrl,
                               fit: BoxFit.cover,
@@ -185,7 +191,9 @@ class BillConfirmPage extends HookConsumerWidget {
                     if (args.customerName.isNotEmpty) ...[
                       20.verticalSpace,
                       _DetailRow(
-                          label: 'Customer Name', value: args.customerName),
+                        label: 'Customer Name',
+                        value: args.customerName,
+                      ),
                     ],
                     20.verticalSpace,
                     _DetailRow(label: 'Package', value: args.billItem.name),
@@ -205,7 +213,9 @@ class BillConfirmPage extends HookConsumerWidget {
                     ),
                     17.verticalSpace,
                     Divider(
-                        color: PPaymobileColors.textfiedBorder, height: 1.h),
+                      color: PPaymobileColors.textfiedBorder,
+                      height: 1.h,
+                    ),
                     20.verticalSpace,
                     _DetailRow(
                       label: 'Total',

@@ -95,6 +95,7 @@ class TransactionModel {
         break;
       case TransactionType.walletFunding:
       case TransactionType.cardFunding:
+      case TransactionType.cardTermination:
         details = funding;
         break;
       case TransactionType.walletWithdrawal:

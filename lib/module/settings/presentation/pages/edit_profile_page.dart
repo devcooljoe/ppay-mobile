@@ -37,7 +37,10 @@ class EditProfilePage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         } else if (!next.isLoading) {
           ref.read(authenticatedUserProvider.notifier).silentRefresh();
           MessageHandler.showSuccessSnackBar(
@@ -55,7 +58,10 @@ class EditProfilePage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         } else if (!next.isLoading) {
           MessageHandler.showSuccessSnackBar(
             context,
@@ -110,7 +116,7 @@ class EditProfilePage extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   51.verticalSpace,
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: pickAndUploadImage,
                     child: Stack(
                       children: [

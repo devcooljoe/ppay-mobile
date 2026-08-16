@@ -137,7 +137,7 @@ class VerifyBillCustomer extends _$VerifyBillCustomer {
 @riverpod
 class PurchaseBill extends _$PurchaseBill {
   @override
-  AsyncValue<BillPurchaseEntity?> build() => const AsyncValue.data(null);
+  AsyncValue<void> build() => const AsyncValue.data(null);
 
   Future<void> call({
     required String billItemIdentifier,
@@ -168,7 +168,7 @@ class PurchaseBill extends _$PurchaseBill {
     );
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
-      (purchase) => AsyncValue.data(purchase),
+      (_) => const AsyncValue.data(null),
     );
   }
 }

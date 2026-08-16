@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class ProductCard extends StatelessWidget {
   final String imagePath;
@@ -17,7 +18,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchOpacity(
       onTap: onTap,
       child: SizedBox(
         height: 170.h,
@@ -28,10 +29,7 @@ class ProductCard extends StatelessWidget {
             SizedBox(
               height: 141.h,
               width: 192.w,
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
+              child: Image.asset(imagePath, fit: BoxFit.contain),
             ),
             6.verticalSpace,
             Row(

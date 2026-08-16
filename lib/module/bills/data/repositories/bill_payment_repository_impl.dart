@@ -19,7 +19,7 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
       final result = await _remoteDataSource.getAirtimeBillers();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -29,7 +29,7 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
       final result = await _remoteDataSource.getDataBillers();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -39,7 +39,7 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
       final result = await _remoteDataSource.getElectricityBillers();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -49,7 +49,7 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
       final result = await _remoteDataSource.getBettingBillers();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -59,7 +59,7 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
       final result = await _remoteDataSource.getTvBillers();
       return Right(result.map((e) => e.toEntity()).toList());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
@@ -77,12 +77,12 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
       );
       return Right(result.toEntity());
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 
   @override
-  Future<Either<Failure, BillPurchaseEntity>> purchaseBill({
+  Future<Either<Failure, void>> purchaseBill({
     required String billItemIdentifier,
     required String customerIdentifier,
     required String phoneNumber,
@@ -96,7 +96,7 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
     String? logoUrl,
   }) async {
     try {
-      final result = await _remoteDataSource.purchaseBill(
+      await _remoteDataSource.purchaseBill(
         PurchaseBillRequest(
           billItemIdentifier: billItemIdentifier,
           customerIdentifier: customerIdentifier,
@@ -111,9 +111,9 @@ class BillPaymentRepositoryImpl implements BillPaymentRepository {
           logoUrl: logoUrl,
         ),
       );
-      return Right(result.toEntity());
+      return const Right(null);
     } on DioException catch (e) {
-      return Left(e.error as Failure);
+      return Left(Failure.fromDioException(e));
     }
   }
 }

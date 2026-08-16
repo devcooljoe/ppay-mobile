@@ -14,6 +14,7 @@ import 'package:ppay_mobile/shared/widgets/empty_state.dart';
 import 'package:ppay_mobile/shared/widgets/filter_transactions_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class TransactionHistoryPage extends HookConsumerWidget {
@@ -191,7 +192,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  TouchOpacity(
                     onTap: () async {
                       final result =
                           await showModalBottomSheet<TransactionFilter>(
@@ -225,8 +226,9 @@ class TransactionHistoryPage extends HookConsumerWidget {
                               : PPaymobileColors.filterBorderColor,
                         ),
                         color: hasActiveFilter
-                            ? PPaymobileColors.buttonColor
-                                .withValues(alpha: 0.08)
+                            ? PPaymobileColors.buttonColor.withValues(
+                                alpha: 0.08,
+                              )
                             : PPaymobileColors.mainScreenBackground,
                       ),
                       child: Center(
@@ -277,28 +279,32 @@ class TransactionHistoryPage extends HookConsumerWidget {
                       if (activeFilter.value.type != null)
                         _FilterChip(
                           label: _typeLabel(activeFilter.value.type!),
-                          onRemove: () => activeFilter.value =
-                              activeFilter.value.copyWith(type: null),
+                          onRemove: () => activeFilter.value = activeFilter
+                              .value
+                              .copyWith(type: null),
                         ),
                       if (activeFilter.value.status != null)
                         _FilterChip(
                           label: _statusLabel(activeFilter.value.status!),
-                          onRemove: () => activeFilter.value =
-                              activeFilter.value.copyWith(status: null),
+                          onRemove: () => activeFilter.value = activeFilter
+                              .value
+                              .copyWith(status: null),
                         ),
                       if (activeFilter.value.dateFrom != null)
                         _FilterChip(
                           label:
                               'From ${_formatDate(activeFilter.value.dateFrom!)}',
-                          onRemove: () => activeFilter.value =
-                              activeFilter.value.copyWith(dateFrom: null),
+                          onRemove: () => activeFilter.value = activeFilter
+                              .value
+                              .copyWith(dateFrom: null),
                         ),
                       if (activeFilter.value.dateTo != null)
                         _FilterChip(
                           label:
                               'To ${_formatDate(activeFilter.value.dateTo!)}',
-                          onRemove: () => activeFilter.value =
-                              activeFilter.value.copyWith(dateTo: null),
+                          onRemove: () => activeFilter.value = activeFilter
+                              .value
+                              .copyWith(dateTo: null),
                         ),
                     ],
                   ),
@@ -337,10 +343,12 @@ class TransactionHistoryPage extends HookConsumerWidget {
                           padding: EdgeInsets.only(top: 40.h),
                           child: EmptyState(
                             imagePath: 'assets/images/transactionimage.png',
-                            message: hasActiveFilter || searchQuery.value.isNotEmpty
+                            message:
+                                hasActiveFilter || searchQuery.value.isNotEmpty
                                 ? 'No Matching Transactions'
                                 : 'No Transactions Yet',
-                            subtitle: hasActiveFilter || searchQuery.value.isNotEmpty
+                            subtitle:
+                                hasActiveFilter || searchQuery.value.isNotEmpty
                                 ? 'Try adjusting your search or filters.'
                                 : 'Your transaction history will appear here.',
                           ),
@@ -389,11 +397,10 @@ class TransactionHistoryPage extends HookConsumerWidget {
                                   itemCount: group.transactions.length,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  separatorBuilder: (_, __) =>
-                                      20.verticalSpace,
+                                  separatorBuilder: (_, __) => 20.verticalSpace,
                                   itemBuilder: (context, index) {
                                     final tx = group.transactions[index];
-                                    return GestureDetector(
+                                    return TouchOpacity(
                                       onTap: () =>
                                           _navigateToDetail(context, tx),
                                       child: _TransactionRow(transaction: tx),
@@ -477,8 +484,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
       } else if (txDate == yesterday) {
         label = 'Yesterday';
       } else {
-        label =
-            '${_monthName(tx.date.month)} ${tx.date.day}, ${tx.date.year}';
+        label = '${_monthName(tx.date.month)} ${tx.date.day}, ${tx.date.year}';
       }
       groups.putIfAbsent(label, () => []).add(tx);
     }
@@ -489,16 +495,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
   }
 
   void _navigateToDetail(BuildContext context, TransactionEntity tx) {
-    switch (tx.type) {
-      case TransactionType.giftcardPurchase:
-        context.router.push(BuyGiftcardRoute(transaction: tx));
-        break;
-      case TransactionType.giftcardSale:
-        context.router.push(SellGiftcardRoute(transaction: tx));
-        break;
-      default:
-        context.router.push(TransactionHistoryDetailRoute(transaction: tx));
-    }
+    context.router.push(TransactionHistoryDetailRoute(transaction: tx));
   }
 
   String _monthName(int month) {
@@ -594,7 +591,7 @@ class _FilterChip extends StatelessWidget {
             ),
           ),
           6.horizontalSpace,
-          GestureDetector(
+          TouchOpacity(
             onTap: onRemove,
             child: Icon(
               Icons.close,
@@ -634,8 +631,10 @@ class _TransactionRow extends StatelessWidget {
               width: 22.w,
               height: 22.w,
               fit: BoxFit.contain,
-              colorFilter:
-                  const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
@@ -718,6 +717,7 @@ class _TransactionRow extends StatelessWidget {
     switch (type) {
       case TransactionType.walletFunding:
       case TransactionType.cardFunding:
+      case TransactionType.cardTermination:
         return PPaymobileColors.backgroundColor;
       case TransactionType.walletWithdrawal:
       case TransactionType.cardWithdrawal:
@@ -742,6 +742,7 @@ class _TransactionRow extends StatelessWidget {
     switch (type) {
       case TransactionType.walletFunding:
       case TransactionType.cardFunding:
+      case TransactionType.cardTermination:
       case TransactionType.walletWithdrawal:
       case TransactionType.cardWithdrawal:
         return 'assets/icon/money.svg';

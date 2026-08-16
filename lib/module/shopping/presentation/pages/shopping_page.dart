@@ -89,7 +89,7 @@ class ShoppingPage extends HookConsumerWidget {
             padding: EdgeInsets.only(right: 20.w),
             child: Row(
               children: [
-                GestureDetector(
+                TouchOpacity(
                   onTap: () => context.router.push(WatchlistRoute()),
                   child: SizedBox(
                     height: 40.w,
@@ -101,7 +101,7 @@ class ShoppingPage extends HookConsumerWidget {
                   ),
                 ),
                 14.horizontalSpace,
-                GestureDetector(
+                TouchOpacity(
                   onTap: () async {
                     await showModalBottomSheet(
                       context: context,
@@ -468,7 +468,7 @@ class _CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchOpacity(
       onTap: onTap,
       child: Column(
         children: [
@@ -519,7 +519,7 @@ class _ProductCard extends StatelessWidget {
         ? (((product.price - product.discountPrice!) / product.price) * 100)
               .round()
         : 0;
-    return GestureDetector(
+    return TouchOpacity(
       onTap: () =>
           context.router.push(ClothsDetailsRoute(productId: product.id)),
       child: Container(

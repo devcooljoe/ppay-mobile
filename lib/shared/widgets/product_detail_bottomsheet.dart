@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/module/shopping/domain/entities/shopping_entity.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class ProductDetailBottomsheet extends HookConsumerWidget {
   final ProductEntity product;
@@ -17,24 +18,24 @@ class ProductDetailBottomsheet extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                height: 60.w,
-                width: 60.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30).r,
-                  color: PPaymobileColors.mainScreenBackground,
-                ),
-                child: SizedBox(
-                  height: 18.h,
-                  width: 18.h,
-                  child: SvgPicture.asset(
-                    'assets/icon/cancel.svg',
-                    fit: BoxFit.scaleDown,
-                  ),
+          TouchOpacity(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              height: 60.w,
+              width: 60.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30).r,
+                color: PPaymobileColors.mainScreenBackground,
+              ),
+              child: SizedBox(
+                height: 18.h,
+                width: 18.h,
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
                 ),
               ),
+            ),
           ),
           10.verticalSpace,
           Expanded(
@@ -78,28 +79,33 @@ class ProductDetailBottomsheet extends HookConsumerWidget {
                       ),
                     ),
                     12.verticalSpace,
-                    ...product.variants.first.attributes.entries.map((entry) => Padding(
-                      padding: EdgeInsets.only(bottom: 12.h),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            height: 11.w,
-                            width: 11.w,
-                            child: Image.asset('assets/images/rectangle.png', fit: BoxFit.contain),
-                          ),
-                          12.horizontalSpace,
-                          Text(
-                            '${entry.key}: ${entry.value}',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp,
-                              color: Colors.black,
+                    ...product.variants.first.attributes.entries.map(
+                      (entry) => Padding(
+                        padding: EdgeInsets.only(bottom: 12.h),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              height: 11.w,
+                              width: 11.w,
+                              child: Image.asset(
+                                'assets/images/rectangle.png',
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                        ],
+                            12.horizontalSpace,
+                            Text(
+                              '${entry.key}: ${entry.value}',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )),
+                    ),
                   ],
                   40.verticalSpace,
                   Text(
@@ -120,7 +126,9 @@ class ProductDetailBottomsheet extends HookConsumerWidget {
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
                       fontSize: 16.sp,
-                      color: product.inStock ? Colors.black : PPaymobileColors.redTextfield,
+                      color: product.inStock
+                          ? Colors.black
+                          : PPaymobileColors.redTextfield,
                     ),
                   ),
                   20.verticalSpace,

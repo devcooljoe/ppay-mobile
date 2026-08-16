@@ -1,23 +1,25 @@
 import 'dart:async';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' hide MessageHandler;
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/settings/domain/entities/bank_entity.dart';
 import 'package:ppay_mobile/module/settings/presentation/providers/settings_providers.dart';
 import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
+import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/select_bank_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
+import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
-import 'package:ppay_mobile/shared/widgets/pp_button.dart';
-import 'package:ppay_mobile/shared/widgets/app_loader.dart';
-import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/shared/widgets/select_bank_bottomsheet.dart';
+import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class TransferFundsPage extends HookConsumerWidget {
@@ -35,7 +37,8 @@ class TransferFundsPage extends HookConsumerWidget {
 
     final addBankAsync = ref.watch(addBankAccountProvider);
 
-    final canSubmit = selectedBank.value != null &&
+    final canSubmit =
+        selectedBank.value != null &&
         resolvedName.value != null &&
         resolvedName.value!.isNotEmpty &&
         !isEnquiryLoading.value;
@@ -53,7 +56,9 @@ class TransferFundsPage extends HookConsumerWidget {
       isEnquiryLoading.value = true;
       debounceTimer.value = Timer(const Duration(milliseconds: 400), () {
         if (context.mounted) {
-          ref.read(nameEnquiryProvider.notifier).call(
+          ref
+              .read(nameEnquiryProvider.notifier)
+              .call(
                 accountNumber: value.trim(),
                 bankCode: selectedBank.value!.bankCode,
               );
@@ -71,10 +76,9 @@ class TransferFundsPage extends HookConsumerWidget {
       final accountNumber = accountController.text.trim();
       if (accountNumber.length == 10) {
         isEnquiryLoading.value = true;
-        ref.read(nameEnquiryProvider.notifier).call(
-              accountNumber: accountNumber,
-              bankCode: bank.bankCode,
-            );
+        ref
+            .read(nameEnquiryProvider.notifier)
+            .call(accountNumber: accountNumber, bankCode: bank.bankCode);
       }
     }
 
@@ -98,12 +102,16 @@ class TransferFundsPage extends HookConsumerWidget {
         AppLoader.hide(context);
         if (next.hasError) {
           MessageHandler.showErrorSnackBar(
-              context, next.error?.toString() ?? 'Failed to add bank account');
+            context,
+            next.error?.toString() ?? 'Failed to add bank account',
+          );
         } else if (next.hasValue) {
           // Refresh the bank accounts list so the bottom sheet is up to date
           ref.read(getBankAccountsProvider.notifier).call();
           MessageHandler.showSuccessSnackBar(
-              context, 'Bank account added successfully');
+            context,
+            'Bank account added successfully',
+          );
           Navigator.pop(context);
         }
       }
@@ -111,7 +119,9 @@ class TransferFundsPage extends HookConsumerWidget {
 
     void handleAddBank() {
       if (!canSubmit) return;
-      ref.read(addBankAccountProvider.notifier).call(
+      ref
+          .read(addBankAccountProvider.notifier)
+          .call(
             accountName: resolvedName.value!,
             accountNumber: accountController.text.trim(),
             bankName: selectedBank.value!.bankName,
@@ -149,7 +159,7 @@ class TransferFundsPage extends HookConsumerWidget {
             64.verticalSpace,
             const PPLabel(text: 'Select Bank'),
             4.verticalSpace,
-            GestureDetector(
+            TouchOpacity(
               onTap: () async {
                 final bank = await showModalBottomSheet<BankEntity>(
                   context: context,

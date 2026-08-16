@@ -128,19 +128,7 @@ class BillSuccessPage extends HookConsumerWidget {
                       ),
                     ),
                     16.verticalSpace,
-                    PPButton(
-                      text: 'View Receipt',
-                      backgroundColor: PPaymobileColors.buttonColorandText,
-                      onPressed: () => context.router.push(
-                        BillReceiptRoute(
-                          args: args,
-                          reference: reference,
-                          fee: fee,
-                          purchasedAt: purchasedAt,
-                        ),
-                      ),
-                    ),
-                    12.verticalSpace,
+                    
                     PPButton(
                       text: 'Back to Home',
                       backgroundColor: PPaymobileColors.deepBackgroundColor,
