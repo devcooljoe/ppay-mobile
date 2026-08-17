@@ -17,9 +17,7 @@ abstract class UserRemoteDataSource {
   Future<AuthModel> login(LoginRequest request);
   Future<UserModel> getUser();
   Future<void> verifyEmailOtp(VerifyOtpRequest request);
-  Future<void> verifyPhoneOtp(VerifyOtpRequest request);
   Future<void> resendEmailOtp();
-  Future<void> resendPhoneOtp();
   Future<void> forgotPassword(ForgotPasswordRequest request);
   Future<ResetTokenModel> verifyForgotPasswordOtp(VerifyForgotPasswordOtpRequest request);
   Future<void> resetPassword(ResetPasswordRequest request);

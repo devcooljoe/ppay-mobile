@@ -215,16 +215,10 @@ class LoginPage extends HookConsumerWidget {
                     onTap: () => obscurePassword.value = !obscurePassword.value,
                     child: Padding(
                       padding: const EdgeInsets.all(14.0).r,
-                      child: ColorFiltered(
-                        colorFilter: const ColorFilter.mode(
-                          Colors.black,
-                          BlendMode.srcIn,
-                        ),
-                        child: SvgPicture.asset(
-                          obscurePassword.value
-                              ? 'assets/icon/eye-slash.svg'
-                              : 'assets/icon/eye.svg',
-                        ),
+                      child: SvgPicture.asset(
+                        obscurePassword.value
+                            ? 'assets/icon/eye-slash.svg'
+                            : 'assets/icon/lock_eye.svg',
                       ),
                     ),
                   ),

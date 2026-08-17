@@ -87,6 +87,22 @@ class FlightBookingResponseEntity with _$FlightBookingResponseEntity {
 }
 
 @freezed
+class BookingSegmentEntity with _$BookingSegmentEntity {
+  const factory BookingSegmentEntity({
+    @Default('') String flightNumber,
+    @Default('') String airline,
+    @Default('') String airlineLogo,
+    @Default('') String origin,
+    @Default('') String destination,
+    @Default('') String departureTime,
+    @Default('') String arrivalTime,
+    @Default(0) int duration,
+    @Default('') String cabinClass,
+    @Default('') String baggage,
+  }) = _BookingSegmentEntity;
+}
+
+@freezed
 class FlightBookingEntity with _$FlightBookingEntity {
   const factory FlightBookingEntity({
     required String bookingId,
@@ -103,8 +119,8 @@ class FlightBookingEntity with _$FlightBookingEntity {
     required String totalAmount,
     required String currency,
     @Default([]) List<PassengerEntity> passengers,
-    @Default([]) List<FlightSegmentEntity> outbound,
-    @Default([]) List<FlightSegmentEntity> inbound,
+    @Default([]) List<BookingSegmentEntity> outbound,
+    @Default([]) List<BookingSegmentEntity> inbound,
     @Default([]) List<TicketEntity> tickets,
     required String createdAt,
   }) = _FlightBookingEntity;
@@ -155,8 +171,8 @@ class BoardingPassEntity with _$BoardingPassEntity {
     required String currency,
     required List<PassengerEntity> passengers,
     required List<TicketEntity> tickets,
-    required List<FlightSegmentEntity> outbound,
-    required List<FlightSegmentEntity> inbound,
+    required List<BookingSegmentEntity> outbound,
+    required List<BookingSegmentEntity> inbound,
     required String createdAt,
     String? expiresAt,
   }) = _BoardingPassEntity;

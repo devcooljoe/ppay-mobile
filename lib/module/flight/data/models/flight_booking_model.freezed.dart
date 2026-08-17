@@ -34,8 +34,8 @@ mixin _$FlightBookingModel {
   String get totalAmount => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   List<PassengerModel> get passengers => throw _privateConstructorUsedError;
-  List<FlightSegmentModel> get outbound => throw _privateConstructorUsedError;
-  List<FlightSegmentModel> get inbound => throw _privateConstructorUsedError;
+  List<BookingSegmentModel> get outbound => throw _privateConstructorUsedError;
+  List<BookingSegmentModel> get inbound => throw _privateConstructorUsedError;
   List<TicketModel> get tickets => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
 
@@ -66,8 +66,8 @@ abstract class $FlightBookingModelCopyWith<$Res> {
       String totalAmount,
       String currency,
       List<PassengerModel> passengers,
-      List<FlightSegmentModel> outbound,
-      List<FlightSegmentModel> inbound,
+      List<BookingSegmentModel> outbound,
+      List<BookingSegmentModel> inbound,
       List<TicketModel> tickets,
       String createdAt});
 }
@@ -164,11 +164,11 @@ class _$FlightBookingModelCopyWithImpl<$Res, $Val extends FlightBookingModel>
       outbound: null == outbound
           ? _value.outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       inbound: null == inbound
           ? _value.inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       tickets: null == tickets
           ? _value.tickets
           : tickets // ignore: cast_nullable_to_non_nullable
@@ -204,8 +204,8 @@ abstract class _$$FlightBookingModelImplCopyWith<$Res>
       String totalAmount,
       String currency,
       List<PassengerModel> passengers,
-      List<FlightSegmentModel> outbound,
-      List<FlightSegmentModel> inbound,
+      List<BookingSegmentModel> outbound,
+      List<BookingSegmentModel> inbound,
       List<TicketModel> tickets,
       String createdAt});
 }
@@ -300,11 +300,11 @@ class __$$FlightBookingModelImplCopyWithImpl<$Res>
       outbound: null == outbound
           ? _value._outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       inbound: null == inbound
           ? _value._inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       tickets: null == tickets
           ? _value._tickets
           : tickets // ignore: cast_nullable_to_non_nullable
@@ -335,8 +335,8 @@ class _$FlightBookingModelImpl extends _FlightBookingModel {
       required this.totalAmount,
       required this.currency,
       final List<PassengerModel> passengers = const [],
-      final List<FlightSegmentModel> outbound = const [],
-      final List<FlightSegmentModel> inbound = const [],
+      final List<BookingSegmentModel> outbound = const [],
+      final List<BookingSegmentModel> inbound = const [],
       final List<TicketModel> tickets = const [],
       required this.createdAt})
       : _passengers = passengers,
@@ -383,19 +383,19 @@ class _$FlightBookingModelImpl extends _FlightBookingModel {
     return EqualUnmodifiableListView(_passengers);
   }
 
-  final List<FlightSegmentModel> _outbound;
+  final List<BookingSegmentModel> _outbound;
   @override
   @JsonKey()
-  List<FlightSegmentModel> get outbound {
+  List<BookingSegmentModel> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_outbound);
   }
 
-  final List<FlightSegmentModel> _inbound;
+  final List<BookingSegmentModel> _inbound;
   @override
   @JsonKey()
-  List<FlightSegmentModel> get inbound {
+  List<BookingSegmentModel> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_inbound);
@@ -509,8 +509,8 @@ abstract class _FlightBookingModel extends FlightBookingModel {
       required final String totalAmount,
       required final String currency,
       final List<PassengerModel> passengers,
-      final List<FlightSegmentModel> outbound,
-      final List<FlightSegmentModel> inbound,
+      final List<BookingSegmentModel> outbound,
+      final List<BookingSegmentModel> inbound,
       final List<TicketModel> tickets,
       required final String createdAt}) = _$FlightBookingModelImpl;
   const _FlightBookingModel._() : super._();
@@ -547,9 +547,9 @@ abstract class _FlightBookingModel extends FlightBookingModel {
   @override
   List<PassengerModel> get passengers;
   @override
-  List<FlightSegmentModel> get outbound;
+  List<BookingSegmentModel> get outbound;
   @override
-  List<FlightSegmentModel> get inbound;
+  List<BookingSegmentModel> get inbound;
   @override
   List<TicketModel> get tickets;
   @override
@@ -557,6 +557,357 @@ abstract class _FlightBookingModel extends FlightBookingModel {
   @override
   @JsonKey(ignore: true)
   _$$FlightBookingModelImplCopyWith<_$FlightBookingModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+BookingSegmentModel _$BookingSegmentModelFromJson(Map<String, dynamic> json) {
+  return _BookingSegmentModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BookingSegmentModel {
+  String get flightNumber => throw _privateConstructorUsedError;
+  String get airline => throw _privateConstructorUsedError;
+  String get airlineLogo => throw _privateConstructorUsedError;
+  String get origin => throw _privateConstructorUsedError;
+  String get destination => throw _privateConstructorUsedError;
+  String get departureTime => throw _privateConstructorUsedError;
+  String get arrivalTime => throw _privateConstructorUsedError;
+  int get duration => throw _privateConstructorUsedError;
+  String get cabinClass => throw _privateConstructorUsedError;
+  String get baggage => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $BookingSegmentModelCopyWith<BookingSegmentModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BookingSegmentModelCopyWith<$Res> {
+  factory $BookingSegmentModelCopyWith(
+          BookingSegmentModel value, $Res Function(BookingSegmentModel) then) =
+      _$BookingSegmentModelCopyWithImpl<$Res, BookingSegmentModel>;
+  @useResult
+  $Res call(
+      {String flightNumber,
+      String airline,
+      String airlineLogo,
+      String origin,
+      String destination,
+      String departureTime,
+      String arrivalTime,
+      int duration,
+      String cabinClass,
+      String baggage});
+}
+
+/// @nodoc
+class _$BookingSegmentModelCopyWithImpl<$Res, $Val extends BookingSegmentModel>
+    implements $BookingSegmentModelCopyWith<$Res> {
+  _$BookingSegmentModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? flightNumber = null,
+    Object? airline = null,
+    Object? airlineLogo = null,
+    Object? origin = null,
+    Object? destination = null,
+    Object? departureTime = null,
+    Object? arrivalTime = null,
+    Object? duration = null,
+    Object? cabinClass = null,
+    Object? baggage = null,
+  }) {
+    return _then(_value.copyWith(
+      flightNumber: null == flightNumber
+          ? _value.flightNumber
+          : flightNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      airline: null == airline
+          ? _value.airline
+          : airline // ignore: cast_nullable_to_non_nullable
+              as String,
+      airlineLogo: null == airlineLogo
+          ? _value.airlineLogo
+          : airlineLogo // ignore: cast_nullable_to_non_nullable
+              as String,
+      origin: null == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String,
+      destination: null == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String,
+      departureTime: null == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      arrivalTime: null == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
+      cabinClass: null == cabinClass
+          ? _value.cabinClass
+          : cabinClass // ignore: cast_nullable_to_non_nullable
+              as String,
+      baggage: null == baggage
+          ? _value.baggage
+          : baggage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BookingSegmentModelImplCopyWith<$Res>
+    implements $BookingSegmentModelCopyWith<$Res> {
+  factory _$$BookingSegmentModelImplCopyWith(_$BookingSegmentModelImpl value,
+          $Res Function(_$BookingSegmentModelImpl) then) =
+      __$$BookingSegmentModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String flightNumber,
+      String airline,
+      String airlineLogo,
+      String origin,
+      String destination,
+      String departureTime,
+      String arrivalTime,
+      int duration,
+      String cabinClass,
+      String baggage});
+}
+
+/// @nodoc
+class __$$BookingSegmentModelImplCopyWithImpl<$Res>
+    extends _$BookingSegmentModelCopyWithImpl<$Res, _$BookingSegmentModelImpl>
+    implements _$$BookingSegmentModelImplCopyWith<$Res> {
+  __$$BookingSegmentModelImplCopyWithImpl(_$BookingSegmentModelImpl _value,
+      $Res Function(_$BookingSegmentModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? flightNumber = null,
+    Object? airline = null,
+    Object? airlineLogo = null,
+    Object? origin = null,
+    Object? destination = null,
+    Object? departureTime = null,
+    Object? arrivalTime = null,
+    Object? duration = null,
+    Object? cabinClass = null,
+    Object? baggage = null,
+  }) {
+    return _then(_$BookingSegmentModelImpl(
+      flightNumber: null == flightNumber
+          ? _value.flightNumber
+          : flightNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      airline: null == airline
+          ? _value.airline
+          : airline // ignore: cast_nullable_to_non_nullable
+              as String,
+      airlineLogo: null == airlineLogo
+          ? _value.airlineLogo
+          : airlineLogo // ignore: cast_nullable_to_non_nullable
+              as String,
+      origin: null == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String,
+      destination: null == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String,
+      departureTime: null == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      arrivalTime: null == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
+      cabinClass: null == cabinClass
+          ? _value.cabinClass
+          : cabinClass // ignore: cast_nullable_to_non_nullable
+              as String,
+      baggage: null == baggage
+          ? _value.baggage
+          : baggage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$BookingSegmentModelImpl extends _BookingSegmentModel {
+  const _$BookingSegmentModelImpl(
+      {this.flightNumber = '',
+      this.airline = '',
+      this.airlineLogo = '',
+      this.origin = '',
+      this.destination = '',
+      this.departureTime = '',
+      this.arrivalTime = '',
+      this.duration = 0,
+      this.cabinClass = '',
+      this.baggage = ''})
+      : super._();
+
+  factory _$BookingSegmentModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BookingSegmentModelImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String flightNumber;
+  @override
+  @JsonKey()
+  final String airline;
+  @override
+  @JsonKey()
+  final String airlineLogo;
+  @override
+  @JsonKey()
+  final String origin;
+  @override
+  @JsonKey()
+  final String destination;
+  @override
+  @JsonKey()
+  final String departureTime;
+  @override
+  @JsonKey()
+  final String arrivalTime;
+  @override
+  @JsonKey()
+  final int duration;
+  @override
+  @JsonKey()
+  final String cabinClass;
+  @override
+  @JsonKey()
+  final String baggage;
+
+  @override
+  String toString() {
+    return 'BookingSegmentModel(flightNumber: $flightNumber, airline: $airline, airlineLogo: $airlineLogo, origin: $origin, destination: $destination, departureTime: $departureTime, arrivalTime: $arrivalTime, duration: $duration, cabinClass: $cabinClass, baggage: $baggage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BookingSegmentModelImpl &&
+            (identical(other.flightNumber, flightNumber) ||
+                other.flightNumber == flightNumber) &&
+            (identical(other.airline, airline) || other.airline == airline) &&
+            (identical(other.airlineLogo, airlineLogo) ||
+                other.airlineLogo == airlineLogo) &&
+            (identical(other.origin, origin) || other.origin == origin) &&
+            (identical(other.destination, destination) ||
+                other.destination == destination) &&
+            (identical(other.departureTime, departureTime) ||
+                other.departureTime == departureTime) &&
+            (identical(other.arrivalTime, arrivalTime) ||
+                other.arrivalTime == arrivalTime) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.cabinClass, cabinClass) ||
+                other.cabinClass == cabinClass) &&
+            (identical(other.baggage, baggage) || other.baggage == baggage));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      flightNumber,
+      airline,
+      airlineLogo,
+      origin,
+      destination,
+      departureTime,
+      arrivalTime,
+      duration,
+      cabinClass,
+      baggage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BookingSegmentModelImplCopyWith<_$BookingSegmentModelImpl> get copyWith =>
+      __$$BookingSegmentModelImplCopyWithImpl<_$BookingSegmentModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$BookingSegmentModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _BookingSegmentModel extends BookingSegmentModel {
+  const factory _BookingSegmentModel(
+      {final String flightNumber,
+      final String airline,
+      final String airlineLogo,
+      final String origin,
+      final String destination,
+      final String departureTime,
+      final String arrivalTime,
+      final int duration,
+      final String cabinClass,
+      final String baggage}) = _$BookingSegmentModelImpl;
+  const _BookingSegmentModel._() : super._();
+
+  factory _BookingSegmentModel.fromJson(Map<String, dynamic> json) =
+      _$BookingSegmentModelImpl.fromJson;
+
+  @override
+  String get flightNumber;
+  @override
+  String get airline;
+  @override
+  String get airlineLogo;
+  @override
+  String get origin;
+  @override
+  String get destination;
+  @override
+  String get departureTime;
+  @override
+  String get arrivalTime;
+  @override
+  int get duration;
+  @override
+  String get cabinClass;
+  @override
+  String get baggage;
+  @override
+  @JsonKey(ignore: true)
+  _$$BookingSegmentModelImplCopyWith<_$BookingSegmentModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1098,8 +1449,8 @@ mixin _$BoardingPassModel {
   String get currency => throw _privateConstructorUsedError;
   List<PassengerModel> get passengers => throw _privateConstructorUsedError;
   List<TicketModel> get tickets => throw _privateConstructorUsedError;
-  List<FlightSegmentModel> get outbound => throw _privateConstructorUsedError;
-  List<FlightSegmentModel> get inbound => throw _privateConstructorUsedError;
+  List<BookingSegmentModel> get outbound => throw _privateConstructorUsedError;
+  List<BookingSegmentModel> get inbound => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String? get expiresAt => throw _privateConstructorUsedError;
 
@@ -1133,8 +1484,8 @@ abstract class $BoardingPassModelCopyWith<$Res> {
       String currency,
       List<PassengerModel> passengers,
       List<TicketModel> tickets,
-      List<FlightSegmentModel> outbound,
-      List<FlightSegmentModel> inbound,
+      List<BookingSegmentModel> outbound,
+      List<BookingSegmentModel> inbound,
       String createdAt,
       String? expiresAt});
 }
@@ -1246,11 +1597,11 @@ class _$BoardingPassModelCopyWithImpl<$Res, $Val extends BoardingPassModel>
       outbound: null == outbound
           ? _value.outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       inbound: null == inbound
           ? _value.inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1289,8 +1640,8 @@ abstract class _$$BoardingPassModelImplCopyWith<$Res>
       String currency,
       List<PassengerModel> passengers,
       List<TicketModel> tickets,
-      List<FlightSegmentModel> outbound,
-      List<FlightSegmentModel> inbound,
+      List<BookingSegmentModel> outbound,
+      List<BookingSegmentModel> inbound,
       String createdAt,
       String? expiresAt});
 }
@@ -1400,11 +1751,11 @@ class __$$BoardingPassModelImplCopyWithImpl<$Res>
       outbound: null == outbound
           ? _value._outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       inbound: null == inbound
           ? _value._inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentModel>,
+              as List<BookingSegmentModel>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1438,8 +1789,8 @@ class _$BoardingPassModelImpl extends _BoardingPassModel {
       required this.currency,
       required final List<PassengerModel> passengers,
       required final List<TicketModel> tickets,
-      required final List<FlightSegmentModel> outbound,
-      required final List<FlightSegmentModel> inbound,
+      required final List<BookingSegmentModel> outbound,
+      required final List<BookingSegmentModel> inbound,
       required this.createdAt,
       this.expiresAt})
       : _passengers = passengers,
@@ -1497,17 +1848,17 @@ class _$BoardingPassModelImpl extends _BoardingPassModel {
     return EqualUnmodifiableListView(_tickets);
   }
 
-  final List<FlightSegmentModel> _outbound;
+  final List<BookingSegmentModel> _outbound;
   @override
-  List<FlightSegmentModel> get outbound {
+  List<BookingSegmentModel> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_outbound);
   }
 
-  final List<FlightSegmentModel> _inbound;
+  final List<BookingSegmentModel> _inbound;
   @override
-  List<FlightSegmentModel> get inbound {
+  List<BookingSegmentModel> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_inbound);
@@ -1627,8 +1978,8 @@ abstract class _BoardingPassModel extends BoardingPassModel {
       required final String currency,
       required final List<PassengerModel> passengers,
       required final List<TicketModel> tickets,
-      required final List<FlightSegmentModel> outbound,
-      required final List<FlightSegmentModel> inbound,
+      required final List<BookingSegmentModel> outbound,
+      required final List<BookingSegmentModel> inbound,
       required final String createdAt,
       final String? expiresAt}) = _$BoardingPassModelImpl;
   const _BoardingPassModel._() : super._();
@@ -1671,9 +2022,9 @@ abstract class _BoardingPassModel extends BoardingPassModel {
   @override
   List<TicketModel> get tickets;
   @override
-  List<FlightSegmentModel> get outbound;
+  List<BookingSegmentModel> get outbound;
   @override
-  List<FlightSegmentModel> get inbound;
+  List<BookingSegmentModel> get inbound;
   @override
   String get createdAt;
   @override

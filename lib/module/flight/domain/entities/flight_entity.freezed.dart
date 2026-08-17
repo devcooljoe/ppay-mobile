@@ -1740,6 +1740,338 @@ abstract class _FlightBookingResponseEntity
 }
 
 /// @nodoc
+mixin _$BookingSegmentEntity {
+  String get flightNumber => throw _privateConstructorUsedError;
+  String get airline => throw _privateConstructorUsedError;
+  String get airlineLogo => throw _privateConstructorUsedError;
+  String get origin => throw _privateConstructorUsedError;
+  String get destination => throw _privateConstructorUsedError;
+  String get departureTime => throw _privateConstructorUsedError;
+  String get arrivalTime => throw _privateConstructorUsedError;
+  int get duration => throw _privateConstructorUsedError;
+  String get cabinClass => throw _privateConstructorUsedError;
+  String get baggage => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $BookingSegmentEntityCopyWith<BookingSegmentEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BookingSegmentEntityCopyWith<$Res> {
+  factory $BookingSegmentEntityCopyWith(BookingSegmentEntity value,
+          $Res Function(BookingSegmentEntity) then) =
+      _$BookingSegmentEntityCopyWithImpl<$Res, BookingSegmentEntity>;
+  @useResult
+  $Res call(
+      {String flightNumber,
+      String airline,
+      String airlineLogo,
+      String origin,
+      String destination,
+      String departureTime,
+      String arrivalTime,
+      int duration,
+      String cabinClass,
+      String baggage});
+}
+
+/// @nodoc
+class _$BookingSegmentEntityCopyWithImpl<$Res,
+        $Val extends BookingSegmentEntity>
+    implements $BookingSegmentEntityCopyWith<$Res> {
+  _$BookingSegmentEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? flightNumber = null,
+    Object? airline = null,
+    Object? airlineLogo = null,
+    Object? origin = null,
+    Object? destination = null,
+    Object? departureTime = null,
+    Object? arrivalTime = null,
+    Object? duration = null,
+    Object? cabinClass = null,
+    Object? baggage = null,
+  }) {
+    return _then(_value.copyWith(
+      flightNumber: null == flightNumber
+          ? _value.flightNumber
+          : flightNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      airline: null == airline
+          ? _value.airline
+          : airline // ignore: cast_nullable_to_non_nullable
+              as String,
+      airlineLogo: null == airlineLogo
+          ? _value.airlineLogo
+          : airlineLogo // ignore: cast_nullable_to_non_nullable
+              as String,
+      origin: null == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String,
+      destination: null == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String,
+      departureTime: null == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      arrivalTime: null == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
+      cabinClass: null == cabinClass
+          ? _value.cabinClass
+          : cabinClass // ignore: cast_nullable_to_non_nullable
+              as String,
+      baggage: null == baggage
+          ? _value.baggage
+          : baggage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$BookingSegmentEntityImplCopyWith<$Res>
+    implements $BookingSegmentEntityCopyWith<$Res> {
+  factory _$$BookingSegmentEntityImplCopyWith(_$BookingSegmentEntityImpl value,
+          $Res Function(_$BookingSegmentEntityImpl) then) =
+      __$$BookingSegmentEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String flightNumber,
+      String airline,
+      String airlineLogo,
+      String origin,
+      String destination,
+      String departureTime,
+      String arrivalTime,
+      int duration,
+      String cabinClass,
+      String baggage});
+}
+
+/// @nodoc
+class __$$BookingSegmentEntityImplCopyWithImpl<$Res>
+    extends _$BookingSegmentEntityCopyWithImpl<$Res, _$BookingSegmentEntityImpl>
+    implements _$$BookingSegmentEntityImplCopyWith<$Res> {
+  __$$BookingSegmentEntityImplCopyWithImpl(_$BookingSegmentEntityImpl _value,
+      $Res Function(_$BookingSegmentEntityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? flightNumber = null,
+    Object? airline = null,
+    Object? airlineLogo = null,
+    Object? origin = null,
+    Object? destination = null,
+    Object? departureTime = null,
+    Object? arrivalTime = null,
+    Object? duration = null,
+    Object? cabinClass = null,
+    Object? baggage = null,
+  }) {
+    return _then(_$BookingSegmentEntityImpl(
+      flightNumber: null == flightNumber
+          ? _value.flightNumber
+          : flightNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      airline: null == airline
+          ? _value.airline
+          : airline // ignore: cast_nullable_to_non_nullable
+              as String,
+      airlineLogo: null == airlineLogo
+          ? _value.airlineLogo
+          : airlineLogo // ignore: cast_nullable_to_non_nullable
+              as String,
+      origin: null == origin
+          ? _value.origin
+          : origin // ignore: cast_nullable_to_non_nullable
+              as String,
+      destination: null == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
+              as String,
+      departureTime: null == departureTime
+          ? _value.departureTime
+          : departureTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      arrivalTime: null == arrivalTime
+          ? _value.arrivalTime
+          : arrivalTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
+      cabinClass: null == cabinClass
+          ? _value.cabinClass
+          : cabinClass // ignore: cast_nullable_to_non_nullable
+              as String,
+      baggage: null == baggage
+          ? _value.baggage
+          : baggage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$BookingSegmentEntityImpl implements _BookingSegmentEntity {
+  const _$BookingSegmentEntityImpl(
+      {this.flightNumber = '',
+      this.airline = '',
+      this.airlineLogo = '',
+      this.origin = '',
+      this.destination = '',
+      this.departureTime = '',
+      this.arrivalTime = '',
+      this.duration = 0,
+      this.cabinClass = '',
+      this.baggage = ''});
+
+  @override
+  @JsonKey()
+  final String flightNumber;
+  @override
+  @JsonKey()
+  final String airline;
+  @override
+  @JsonKey()
+  final String airlineLogo;
+  @override
+  @JsonKey()
+  final String origin;
+  @override
+  @JsonKey()
+  final String destination;
+  @override
+  @JsonKey()
+  final String departureTime;
+  @override
+  @JsonKey()
+  final String arrivalTime;
+  @override
+  @JsonKey()
+  final int duration;
+  @override
+  @JsonKey()
+  final String cabinClass;
+  @override
+  @JsonKey()
+  final String baggage;
+
+  @override
+  String toString() {
+    return 'BookingSegmentEntity(flightNumber: $flightNumber, airline: $airline, airlineLogo: $airlineLogo, origin: $origin, destination: $destination, departureTime: $departureTime, arrivalTime: $arrivalTime, duration: $duration, cabinClass: $cabinClass, baggage: $baggage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$BookingSegmentEntityImpl &&
+            (identical(other.flightNumber, flightNumber) ||
+                other.flightNumber == flightNumber) &&
+            (identical(other.airline, airline) || other.airline == airline) &&
+            (identical(other.airlineLogo, airlineLogo) ||
+                other.airlineLogo == airlineLogo) &&
+            (identical(other.origin, origin) || other.origin == origin) &&
+            (identical(other.destination, destination) ||
+                other.destination == destination) &&
+            (identical(other.departureTime, departureTime) ||
+                other.departureTime == departureTime) &&
+            (identical(other.arrivalTime, arrivalTime) ||
+                other.arrivalTime == arrivalTime) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.cabinClass, cabinClass) ||
+                other.cabinClass == cabinClass) &&
+            (identical(other.baggage, baggage) || other.baggage == baggage));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      flightNumber,
+      airline,
+      airlineLogo,
+      origin,
+      destination,
+      departureTime,
+      arrivalTime,
+      duration,
+      cabinClass,
+      baggage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BookingSegmentEntityImplCopyWith<_$BookingSegmentEntityImpl>
+      get copyWith =>
+          __$$BookingSegmentEntityImplCopyWithImpl<_$BookingSegmentEntityImpl>(
+              this, _$identity);
+}
+
+abstract class _BookingSegmentEntity implements BookingSegmentEntity {
+  const factory _BookingSegmentEntity(
+      {final String flightNumber,
+      final String airline,
+      final String airlineLogo,
+      final String origin,
+      final String destination,
+      final String departureTime,
+      final String arrivalTime,
+      final int duration,
+      final String cabinClass,
+      final String baggage}) = _$BookingSegmentEntityImpl;
+
+  @override
+  String get flightNumber;
+  @override
+  String get airline;
+  @override
+  String get airlineLogo;
+  @override
+  String get origin;
+  @override
+  String get destination;
+  @override
+  String get departureTime;
+  @override
+  String get arrivalTime;
+  @override
+  int get duration;
+  @override
+  String get cabinClass;
+  @override
+  String get baggage;
+  @override
+  @JsonKey(ignore: true)
+  _$$BookingSegmentEntityImplCopyWith<_$BookingSegmentEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$FlightBookingEntity {
   String get bookingId => throw _privateConstructorUsedError;
   String get bookingReference => throw _privateConstructorUsedError;
@@ -1755,8 +2087,8 @@ mixin _$FlightBookingEntity {
   String get totalAmount => throw _privateConstructorUsedError;
   String get currency => throw _privateConstructorUsedError;
   List<PassengerEntity> get passengers => throw _privateConstructorUsedError;
-  List<FlightSegmentEntity> get outbound => throw _privateConstructorUsedError;
-  List<FlightSegmentEntity> get inbound => throw _privateConstructorUsedError;
+  List<BookingSegmentEntity> get outbound => throw _privateConstructorUsedError;
+  List<BookingSegmentEntity> get inbound => throw _privateConstructorUsedError;
   List<TicketEntity> get tickets => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
 
@@ -1786,8 +2118,8 @@ abstract class $FlightBookingEntityCopyWith<$Res> {
       String totalAmount,
       String currency,
       List<PassengerEntity> passengers,
-      List<FlightSegmentEntity> outbound,
-      List<FlightSegmentEntity> inbound,
+      List<BookingSegmentEntity> outbound,
+      List<BookingSegmentEntity> inbound,
       List<TicketEntity> tickets,
       String createdAt});
 }
@@ -1884,11 +2216,11 @@ class _$FlightBookingEntityCopyWithImpl<$Res, $Val extends FlightBookingEntity>
       outbound: null == outbound
           ? _value.outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       inbound: null == inbound
           ? _value.inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       tickets: null == tickets
           ? _value.tickets
           : tickets // ignore: cast_nullable_to_non_nullable
@@ -1924,8 +2256,8 @@ abstract class _$$FlightBookingEntityImplCopyWith<$Res>
       String totalAmount,
       String currency,
       List<PassengerEntity> passengers,
-      List<FlightSegmentEntity> outbound,
-      List<FlightSegmentEntity> inbound,
+      List<BookingSegmentEntity> outbound,
+      List<BookingSegmentEntity> inbound,
       List<TicketEntity> tickets,
       String createdAt});
 }
@@ -2020,11 +2352,11 @@ class __$$FlightBookingEntityImplCopyWithImpl<$Res>
       outbound: null == outbound
           ? _value._outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       inbound: null == inbound
           ? _value._inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       tickets: null == tickets
           ? _value._tickets
           : tickets // ignore: cast_nullable_to_non_nullable
@@ -2055,8 +2387,8 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
       required this.totalAmount,
       required this.currency,
       final List<PassengerEntity> passengers = const [],
-      final List<FlightSegmentEntity> outbound = const [],
-      final List<FlightSegmentEntity> inbound = const [],
+      final List<BookingSegmentEntity> outbound = const [],
+      final List<BookingSegmentEntity> inbound = const [],
       final List<TicketEntity> tickets = const [],
       required this.createdAt})
       : _passengers = passengers,
@@ -2107,19 +2439,19 @@ class _$FlightBookingEntityImpl implements _FlightBookingEntity {
     return EqualUnmodifiableListView(_passengers);
   }
 
-  final List<FlightSegmentEntity> _outbound;
+  final List<BookingSegmentEntity> _outbound;
   @override
   @JsonKey()
-  List<FlightSegmentEntity> get outbound {
+  List<BookingSegmentEntity> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_outbound);
   }
 
-  final List<FlightSegmentEntity> _inbound;
+  final List<BookingSegmentEntity> _inbound;
   @override
   @JsonKey()
-  List<FlightSegmentEntity> get inbound {
+  List<BookingSegmentEntity> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_inbound);
@@ -2225,8 +2557,8 @@ abstract class _FlightBookingEntity implements FlightBookingEntity {
       required final String totalAmount,
       required final String currency,
       final List<PassengerEntity> passengers,
-      final List<FlightSegmentEntity> outbound,
-      final List<FlightSegmentEntity> inbound,
+      final List<BookingSegmentEntity> outbound,
+      final List<BookingSegmentEntity> inbound,
       final List<TicketEntity> tickets,
       required final String createdAt}) = _$FlightBookingEntityImpl;
 
@@ -2259,9 +2591,9 @@ abstract class _FlightBookingEntity implements FlightBookingEntity {
   @override
   List<PassengerEntity> get passengers;
   @override
-  List<FlightSegmentEntity> get outbound;
+  List<BookingSegmentEntity> get outbound;
   @override
-  List<FlightSegmentEntity> get inbound;
+  List<BookingSegmentEntity> get inbound;
   @override
   List<TicketEntity> get tickets;
   @override
@@ -2764,8 +3096,8 @@ mixin _$BoardingPassEntity {
   String get currency => throw _privateConstructorUsedError;
   List<PassengerEntity> get passengers => throw _privateConstructorUsedError;
   List<TicketEntity> get tickets => throw _privateConstructorUsedError;
-  List<FlightSegmentEntity> get outbound => throw _privateConstructorUsedError;
-  List<FlightSegmentEntity> get inbound => throw _privateConstructorUsedError;
+  List<BookingSegmentEntity> get outbound => throw _privateConstructorUsedError;
+  List<BookingSegmentEntity> get inbound => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String? get expiresAt => throw _privateConstructorUsedError;
 
@@ -2798,8 +3130,8 @@ abstract class $BoardingPassEntityCopyWith<$Res> {
       String currency,
       List<PassengerEntity> passengers,
       List<TicketEntity> tickets,
-      List<FlightSegmentEntity> outbound,
-      List<FlightSegmentEntity> inbound,
+      List<BookingSegmentEntity> outbound,
+      List<BookingSegmentEntity> inbound,
       String createdAt,
       String? expiresAt});
 }
@@ -2911,11 +3243,11 @@ class _$BoardingPassEntityCopyWithImpl<$Res, $Val extends BoardingPassEntity>
       outbound: null == outbound
           ? _value.outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       inbound: null == inbound
           ? _value.inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -2954,8 +3286,8 @@ abstract class _$$BoardingPassEntityImplCopyWith<$Res>
       String currency,
       List<PassengerEntity> passengers,
       List<TicketEntity> tickets,
-      List<FlightSegmentEntity> outbound,
-      List<FlightSegmentEntity> inbound,
+      List<BookingSegmentEntity> outbound,
+      List<BookingSegmentEntity> inbound,
       String createdAt,
       String? expiresAt});
 }
@@ -3065,11 +3397,11 @@ class __$$BoardingPassEntityImplCopyWithImpl<$Res>
       outbound: null == outbound
           ? _value._outbound
           : outbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       inbound: null == inbound
           ? _value._inbound
           : inbound // ignore: cast_nullable_to_non_nullable
-              as List<FlightSegmentEntity>,
+              as List<BookingSegmentEntity>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -3103,8 +3435,8 @@ class _$BoardingPassEntityImpl implements _BoardingPassEntity {
       required this.currency,
       required final List<PassengerEntity> passengers,
       required final List<TicketEntity> tickets,
-      required final List<FlightSegmentEntity> outbound,
-      required final List<FlightSegmentEntity> inbound,
+      required final List<BookingSegmentEntity> outbound,
+      required final List<BookingSegmentEntity> inbound,
       required this.createdAt,
       this.expiresAt})
       : _passengers = passengers,
@@ -3158,17 +3490,17 @@ class _$BoardingPassEntityImpl implements _BoardingPassEntity {
     return EqualUnmodifiableListView(_tickets);
   }
 
-  final List<FlightSegmentEntity> _outbound;
+  final List<BookingSegmentEntity> _outbound;
   @override
-  List<FlightSegmentEntity> get outbound {
+  List<BookingSegmentEntity> get outbound {
     if (_outbound is EqualUnmodifiableListView) return _outbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_outbound);
   }
 
-  final List<FlightSegmentEntity> _inbound;
+  final List<BookingSegmentEntity> _inbound;
   @override
-  List<FlightSegmentEntity> get inbound {
+  List<BookingSegmentEntity> get inbound {
     if (_inbound is EqualUnmodifiableListView) return _inbound;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_inbound);
@@ -3280,8 +3612,8 @@ abstract class _BoardingPassEntity implements BoardingPassEntity {
       required final String currency,
       required final List<PassengerEntity> passengers,
       required final List<TicketEntity> tickets,
-      required final List<FlightSegmentEntity> outbound,
-      required final List<FlightSegmentEntity> inbound,
+      required final List<BookingSegmentEntity> outbound,
+      required final List<BookingSegmentEntity> inbound,
       required final String createdAt,
       final String? expiresAt}) = _$BoardingPassEntityImpl;
 
@@ -3320,9 +3652,9 @@ abstract class _BoardingPassEntity implements BoardingPassEntity {
   @override
   List<TicketEntity> get tickets;
   @override
-  List<FlightSegmentEntity> get outbound;
+  List<BookingSegmentEntity> get outbound;
   @override
-  List<FlightSegmentEntity> get inbound;
+  List<BookingSegmentEntity> get inbound;
   @override
   String get createdAt;
   @override

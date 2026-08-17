@@ -22,9 +22,7 @@ abstract class UserRepository {
 
   Future<Either<Failure, UserEntity>> getUser();
   Future<Either<Failure, void>> verifyEmailOtp({required String otpCode});
-  Future<Either<Failure, void>> verifyPhoneOtp({required String otpCode});
   Future<Either<Failure, void>> resendEmailOtp();
-  Future<Either<Failure, void>> resendPhoneOtp();
   Future<Either<Failure, void>> forgotPassword({required String emailAddress});
   Future<Either<Failure, String>> verifyForgotPasswordOtp({
     required String emailAddress,

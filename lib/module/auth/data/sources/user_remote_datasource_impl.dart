@@ -58,18 +58,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<void> verifyPhoneOtp(VerifyOtpRequest request) async {
-    await _dio.post('$_baseUrl/users/verify-phone-otp', data: request.toJson());
-  }
-
-  @override
   Future<void> resendEmailOtp() async {
     await _dio.post('$_baseUrl/users/resend-email-otp');
-  }
-
-  @override
-  Future<void> resendPhoneOtp() async {
-    await _dio.post('$_baseUrl/users/resend-phone-otp');
   }
 
   @override

@@ -27,13 +27,13 @@ _$FlightBookingModelImpl _$$FlightBookingModelImplFromJson(
               .toList() ??
           const [],
       outbound: (json['outbound'] as List<dynamic>?)
-              ?.map(
-                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              ?.map((e) =>
+                  BookingSegmentModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       inbound: (json['inbound'] as List<dynamic>?)
-              ?.map(
-                  (e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+              ?.map((e) =>
+                  BookingSegmentModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       tickets: (json['tickets'] as List<dynamic>?)
@@ -64,6 +64,36 @@ Map<String, dynamic> _$$FlightBookingModelImplToJson(
       'inbound': instance.inbound,
       'tickets': instance.tickets,
       'createdAt': instance.createdAt,
+    };
+
+_$BookingSegmentModelImpl _$$BookingSegmentModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$BookingSegmentModelImpl(
+      flightNumber: json['flightNumber'] as String? ?? '',
+      airline: json['airline'] as String? ?? '',
+      airlineLogo: json['airlineLogo'] as String? ?? '',
+      origin: json['origin'] as String? ?? '',
+      destination: json['destination'] as String? ?? '',
+      departureTime: json['departureTime'] as String? ?? '',
+      arrivalTime: json['arrivalTime'] as String? ?? '',
+      duration: (json['duration'] as num?)?.toInt() ?? 0,
+      cabinClass: json['cabinClass'] as String? ?? '',
+      baggage: json['baggage'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$$BookingSegmentModelImplToJson(
+        _$BookingSegmentModelImpl instance) =>
+    <String, dynamic>{
+      'flightNumber': instance.flightNumber,
+      'airline': instance.airline,
+      'airlineLogo': instance.airlineLogo,
+      'origin': instance.origin,
+      'destination': instance.destination,
+      'departureTime': instance.departureTime,
+      'arrivalTime': instance.arrivalTime,
+      'duration': instance.duration,
+      'cabinClass': instance.cabinClass,
+      'baggage': instance.baggage,
     };
 
 _$PassengerModelImpl _$$PassengerModelImplFromJson(Map<String, dynamic> json) =>
@@ -134,10 +164,10 @@ _$BoardingPassModelImpl _$$BoardingPassModelImplFromJson(
           .map((e) => TicketModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       outbound: (json['outbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => BookingSegmentModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       inbound: (json['inbound'] as List<dynamic>)
-          .map((e) => FlightSegmentModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => BookingSegmentModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       createdAt: json['createdAt'] as String,
       expiresAt: json['expiresAt'] as String?,

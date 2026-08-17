@@ -8,7 +8,6 @@ import 'package:ppay_mobile/module/auth/domain/usecases/get_user_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/login_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/register_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/resend_email_otp_usecase.dart';
-import 'package:ppay_mobile/module/auth/domain/usecases/resend_phone_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/reset_pin_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/set_pin_usecase.dart';
@@ -16,7 +15,6 @@ import 'package:ppay_mobile/module/auth/domain/usecases/verify_email_otp_usecase
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_password_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_pin_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_password_usecase.dart';
-import 'package:ppay_mobile/module/auth/domain/usecases/verify_phone_otp_usecase.dart';
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_pin_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -86,21 +84,6 @@ class Login extends _$Login {
 }
 
 @riverpod
-class VerifyPhoneOtp extends _$VerifyPhoneOtp {
-  @override
-  AsyncValue<void> build() => const AsyncValue.data(null);
-
-  Future<void> call({required String otpCode}) async {
-    state = const AsyncValue.loading();
-    final result = await getIt<VerifyPhoneOtpUseCase>()(otpCode: otpCode);
-    state = result.fold(
-      (l) => AsyncValue.error(l.message, StackTrace.current),
-      (_) => const AsyncValue.data(null),
-    );
-  }
-}
-
-@riverpod
 class VerifyEmailOtp extends _$VerifyEmailOtp {
   @override
   AsyncValue<void> build() => const AsyncValue.data(null);
@@ -108,21 +91,6 @@ class VerifyEmailOtp extends _$VerifyEmailOtp {
   Future<void> call({required String otpCode}) async {
     state = const AsyncValue.loading();
     final result = await getIt<VerifyEmailOtpUseCase>()(otpCode: otpCode);
-    state = result.fold(
-      (l) => AsyncValue.error(l.message, StackTrace.current),
-      (_) => const AsyncValue.data(null),
-    );
-  }
-}
-
-@riverpod
-class ResendPhoneOtp extends _$ResendPhoneOtp {
-  @override
-  AsyncValue<void> build() => const AsyncValue.data(null);
-
-  Future<void> call() async {
-    state = const AsyncValue.loading();
-    final result = await getIt<ResendPhoneOtpUseCase>()();
     state = result.fold(
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),

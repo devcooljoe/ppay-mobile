@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ppay_mobile/module/flight/data/models/flight_model.dart';
 import 'package:ppay_mobile/module/flight/domain/entities/flight_entity.dart';
 
 part 'flight_booking_model.freezed.dart';
@@ -22,8 +21,8 @@ class FlightBookingModel with _$FlightBookingModel {
     required String totalAmount,
     required String currency,
     @Default([]) List<PassengerModel> passengers,
-    @Default([]) List<FlightSegmentModel> outbound,
-    @Default([]) List<FlightSegmentModel> inbound,
+    @Default([]) List<BookingSegmentModel> outbound,
+    @Default([]) List<BookingSegmentModel> inbound,
     @Default([]) List<TicketModel> tickets,
     required String createdAt,
   }) = _FlightBookingModel;
@@ -51,6 +50,39 @@ class FlightBookingModel with _$FlightBookingModel {
     inbound: inbound.map((e) => e.toEntity()).toList(),
     tickets: tickets.map((e) => e.toEntity()).toList(),
     createdAt: createdAt,
+  );
+}
+
+@freezed
+class BookingSegmentModel with _$BookingSegmentModel {
+  const factory BookingSegmentModel({
+    @Default('') String flightNumber,
+    @Default('') String airline,
+    @Default('') String airlineLogo,
+    @Default('') String origin,
+    @Default('') String destination,
+    @Default('') String departureTime,
+    @Default('') String arrivalTime,
+    @Default(0) int duration,
+    @Default('') String cabinClass,
+    @Default('') String baggage,
+  }) = _BookingSegmentModel;
+
+  const BookingSegmentModel._();
+
+  factory BookingSegmentModel.fromJson(Map<String, dynamic> json) => _$BookingSegmentModelFromJson(json);
+
+  BookingSegmentEntity toEntity() => BookingSegmentEntity(
+    flightNumber: flightNumber,
+    airline: airline,
+    airlineLogo: airlineLogo,
+    origin: origin,
+    destination: destination,
+    departureTime: departureTime,
+    arrivalTime: arrivalTime,
+    duration: duration,
+    cabinClass: cabinClass,
+    baggage: baggage,
   );
 }
 
@@ -126,8 +158,8 @@ class BoardingPassModel with _$BoardingPassModel {
     required String currency,
     required List<PassengerModel> passengers,
     required List<TicketModel> tickets,
-    required List<FlightSegmentModel> outbound,
-    required List<FlightSegmentModel> inbound,
+    required List<BookingSegmentModel> outbound,
+    required List<BookingSegmentModel> inbound,
     required String createdAt,
     String? expiresAt,
   }) = _BoardingPassModel;

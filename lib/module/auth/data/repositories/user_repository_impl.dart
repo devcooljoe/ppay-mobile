@@ -91,29 +91,9 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, void>> verifyPhoneOtp({required String otpCode}) async {
-    try {
-      await _remoteDataSource.verifyPhoneOtp(VerifyOtpRequest(otpCode: otpCode));
-      return const Right(null);
-    } on DioException catch (e) {
-      return Left(Failure.fromDioException(e));
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> resendEmailOtp() async {
     try {
       await _remoteDataSource.resendEmailOtp();
-      return const Right(null);
-    } on DioException catch (e) {
-      return Left(Failure.fromDioException(e));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> resendPhoneOtp() async {
-    try {
-      await _remoteDataSource.resendPhoneOtp();
       return const Right(null);
     } on DioException catch (e) {
       return Left(Failure.fromDioException(e));

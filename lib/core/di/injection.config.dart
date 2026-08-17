@@ -57,8 +57,6 @@ import 'package:ppay_mobile/module/auth/domain/usecases/register_usecase.dart'
     as _i1047;
 import 'package:ppay_mobile/module/auth/domain/usecases/resend_email_otp_usecase.dart'
     as _i232;
-import 'package:ppay_mobile/module/auth/domain/usecases/resend_phone_otp_usecase.dart'
-    as _i125;
 import 'package:ppay_mobile/module/auth/domain/usecases/reset_password_usecase.dart'
     as _i734;
 import 'package:ppay_mobile/module/auth/domain/usecases/reset_pin_usecase.dart'
@@ -73,8 +71,6 @@ import 'package:ppay_mobile/module/auth/domain/usecases/verify_forgot_pin_otp_us
     as _i509;
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_password_usecase.dart'
     as _i1012;
-import 'package:ppay_mobile/module/auth/domain/usecases/verify_phone_otp_usecase.dart'
-    as _i783;
 import 'package:ppay_mobile/module/auth/domain/usecases/verify_pin_usecase.dart'
     as _i370;
 import 'package:ppay_mobile/module/bills/data/repositories/bill_payment_repository_impl.dart'
@@ -435,14 +431,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1012.VerifyPasswordUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i1047.RegisterUseCase>(
         () => _i1047.RegisterUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i125.ResendPhoneOtpUseCase>(
-        () => _i125.ResendPhoneOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i789.SetPinUseCase>(
         () => _i789.SetPinUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i615.LoginUseCase>(
         () => _i615.LoginUseCase(gh<_i117.UserRepository>()));
-    gh.lazySingleton<_i783.VerifyPhoneOtpUseCase>(
-        () => _i783.VerifyPhoneOtpUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i938.ResetPinUseCase>(
         () => _i938.ResetPinUseCase(gh<_i117.UserRepository>()));
     gh.lazySingleton<_i734.ResetPasswordUseCase>(

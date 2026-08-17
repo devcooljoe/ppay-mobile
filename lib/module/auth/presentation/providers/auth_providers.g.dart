@@ -36,22 +36,6 @@ final loginProvider =
 );
 
 typedef _$Login = AutoDisposeNotifier<AsyncValue<void>>;
-String _$verifyPhoneOtpHash() => r'02ab65435951a81d2a0224e1ae02a65555f5c492';
-
-/// See also [VerifyPhoneOtp].
-@ProviderFor(VerifyPhoneOtp)
-final verifyPhoneOtpProvider =
-    AutoDisposeNotifierProvider<VerifyPhoneOtp, AsyncValue<void>>.internal(
-  VerifyPhoneOtp.new,
-  name: r'verifyPhoneOtpProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$verifyPhoneOtpHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$VerifyPhoneOtp = AutoDisposeNotifier<AsyncValue<void>>;
 String _$verifyEmailOtpHash() => r'2216fb600e7445727b795f1a7d858d097b84de31';
 
 /// See also [VerifyEmailOtp].
@@ -68,22 +52,6 @@ final verifyEmailOtpProvider =
 );
 
 typedef _$VerifyEmailOtp = AutoDisposeNotifier<AsyncValue<void>>;
-String _$resendPhoneOtpHash() => r'b372ccb301d559688e6453d16e117355ae903f14';
-
-/// See also [ResendPhoneOtp].
-@ProviderFor(ResendPhoneOtp)
-final resendPhoneOtpProvider =
-    AutoDisposeNotifierProvider<ResendPhoneOtp, AsyncValue<void>>.internal(
-  ResendPhoneOtp.new,
-  name: r'resendPhoneOtpProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$resendPhoneOtpHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$ResendPhoneOtp = AutoDisposeNotifier<AsyncValue<void>>;
 String _$resendEmailOtpHash() => r'dc8d5e3e72a9cbd021b7b1f793d1bfb22ed50225';
 
 /// See also [ResendEmailOtp].
