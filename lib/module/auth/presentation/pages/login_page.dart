@@ -94,10 +94,20 @@ class LoginPage extends HookConsumerWidget {
       if (!verified) {
         AppLoader.hide(context);
         final error = ref.read(verifyPasswordProvider).error;
-        MessageHandler.showErrorSnackBar(
-          context,
-          MessageHandler.getErrorMessage(error),
-        );
+        final errorMessage = MessageHandler.getErrorMessage(error);
+
+        // Token is expired/invalid — clear it and fall back to full login
+        // so the user can re-authenticate without losing their saved email.
+        if (errorMessage.toLowerCase().contains('expired') ||
+            errorMessage.toLowerCase().contains('unauthorized') ||
+            errorMessage.toLowerCase().contains('invalid or expired token')) {
+          await getIt<TokenService>().clearTokenOnly();
+          if (!context.mounted) return;
+          hasStoredSession.value = false;
+          return;
+        }
+
+        MessageHandler.showErrorSnackBar(context, errorMessage);
         return;
       }
 
@@ -398,6 +408,24 @@ class LoginPage extends HookConsumerWidget {
     AppLoader.show(context);
     await ref.read(authenticatedUserProvider.notifier).call();
     if (!context.mounted) return;
+
+    final userState = ref.read(authenticatedUserProvider);
+    if (userState.hasError) {
+      AppLoader.hide(context);
+      final errorMessage = MessageHandler.getErrorMessage(userState.error);
+      if (errorMessage.toLowerCase().contains('expired') ||
+          errorMessage.toLowerCase().contains('unauthorized') ||
+          errorMessage.toLowerCase().contains('invalid or expired token')) {
+        await getIt<TokenService>().clearTokenOnly();
+        if (!context.mounted) return;
+        // Rebuild the page by popping and pushing login fresh
+        context.router.replaceAll([const LoginRoute()]);
+      } else {
+        MessageHandler.showErrorSnackBar(context, errorMessage);
+      }
+      return;
+    }
+
     AppLoader.hide(context);
     _navigateAfterAuth(context, ref);
   }

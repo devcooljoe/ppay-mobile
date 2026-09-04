@@ -43,12 +43,19 @@ class TokenService {
     return token != null && token.isNotEmpty;
   }
 
-  // Full logout — clears memory and Hive.
+  // Full logout — clears memory, token, and email.
   Future<void> clearToken() async {
     _tokenInMemory = null;
     final box = await Hive.openBox(_boxName);
     await box.delete(_tokenKey);
     await box.delete(_savedEmailKey);
+  }
+
+  // Clears only the auth token, preserving the saved email for pre-fill.
+  Future<void> clearTokenOnly() async {
+    _tokenInMemory = null;
+    final box = await Hive.openBox(_boxName);
+    await box.delete(_tokenKey);
   }
 
   // Kept for compatibility with existing call sites.
