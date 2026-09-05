@@ -2,4 +2,5 @@ import 'package:ppay_mobile/module/notification/data/models/notification_model.d
 
 abstract class NotificationRemoteDataSource {
   Future<List<NotificationModel>> getMyNotifications();
+  Future<void> clearNotifications();
 }

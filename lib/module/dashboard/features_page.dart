@@ -87,6 +87,24 @@ class FeaturesPage extends HookConsumerWidget {
                   ),
                 ],
               ),
+              40.verticalSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  FeatureCard(
+                    iconPath: 'assets/icon/person.svg',
+                    label: 'Personal Shopper',
+                    onTap:
+                        () => context.router.push(PersonalShopperIntroRoute()),
+                  ),
+                  16.horizontalSpace,
+                  FeatureCard(
+                    iconPath: 'assets/icon/multiple_person.svg',
+                    label: 'Refer & Earn',
+                    onTap: () => context.router.push(ReferRoute()),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

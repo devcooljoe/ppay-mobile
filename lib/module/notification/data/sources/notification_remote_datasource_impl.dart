@@ -22,4 +22,9 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
         .map((e) => NotificationModel.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  @override
+  Future<void> clearNotifications() async {
+    await _dio.delete('$_baseUrl/notifications');
+  }
 }

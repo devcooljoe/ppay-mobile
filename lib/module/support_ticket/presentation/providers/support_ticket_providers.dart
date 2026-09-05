@@ -16,7 +16,11 @@ class TicketListState {
     this.error,
   });
 
-  TicketListState copyWith({bool? isLoading, List<SupportTicketEntity>? tickets, String? error}) {
+  TicketListState copyWith({
+    bool? isLoading,
+    List<SupportTicketEntity>? tickets,
+    String? error,
+  }) {
     return TicketListState(
       isLoading: isLoading ?? this.isLoading,
       tickets: tickets ?? this.tickets,
@@ -57,14 +61,28 @@ class CreateTicketState {
   final bool isLoading;
   final bool success;
   final String? error;
+  final SupportTicketEntity? createdTicket;
 
-  const CreateTicketState({this.isLoading = false, this.success = false, this.error});
+  const CreateTicketState({
+    this.isLoading = false,
+    this.success = false,
+    this.error,
+    this.createdTicket,
+  });
 
-  CreateTicketState copyWith({bool? isLoading, bool? success, String? error}) {
+  String? get createdTicketId => createdTicket?.id;
+
+  CreateTicketState copyWith({
+    bool? isLoading,
+    bool? success,
+    String? error,
+    SupportTicketEntity? createdTicket,
+  }) {
     return CreateTicketState(
       isLoading: isLoading ?? this.isLoading,
       success: success ?? this.success,
       error: error,
+      createdTicket: createdTicket ?? this.createdTicket,
     );
   }
 }
@@ -80,7 +98,8 @@ class TicketListNotifier extends StateNotifier<TicketListState> {
     state = state.copyWith(isLoading: true, error: null);
     final result = await _repository.getMyTickets();
     result.fold(
-      (failure) => state = state.copyWith(isLoading: false, error: failure.message),
+      (failure) =>
+          state = state.copyWith(isLoading: false, error: failure.message),
       (tickets) => state = state.copyWith(isLoading: false, tickets: tickets),
     );
   }
@@ -90,14 +109,17 @@ class TicketChatNotifier extends StateNotifier<TicketChatState> {
   final SupportTicketRepository _repository;
   final String ticketId;
 
-  TicketChatNotifier(this._repository, this.ticketId) : super(const TicketChatState());
+  TicketChatNotifier(this._repository, this.ticketId)
+    : super(const TicketChatState());
 
   Future<void> loadMessages() async {
     state = state.copyWith(isLoading: true, error: null);
     final result = await _repository.getTicketMessages(ticketId);
     result.fold(
-      (failure) => state = state.copyWith(isLoading: false, error: failure.message),
-      (messages) => state = state.copyWith(isLoading: false, messages: messages),
+      (failure) =>
+          state = state.copyWith(isLoading: false, error: failure.message),
+      (messages) =>
+          state = state.copyWith(isLoading: false, messages: messages),
     );
   }
 
@@ -106,11 +128,13 @@ class TicketChatNotifier extends StateNotifier<TicketChatState> {
     state = state.copyWith(isSending: true);
     final result = await _repository.sendMessage(ticketId, body.trim());
     result.fold(
-      (failure) => state = state.copyWith(isSending: false, error: failure.message),
-      (message) => state = state.copyWith(
-        isSending: false,
-        messages: [...state.messages, message],
-      ),
+      (failure) =>
+          state = state.copyWith(isSending: false, error: failure.message),
+      (message) =>
+          state = state.copyWith(
+            isSending: false,
+            messages: [...state.messages, message],
+          ),
     );
   }
 }
@@ -134,8 +158,14 @@ class CreateTicketNotifier extends StateNotifier<CreateTicketState> {
       isUrgent: isUrgent,
     );
     result.fold(
-      (failure) => state = state.copyWith(isLoading: false, error: failure.message),
-      (_) => state = state.copyWith(isLoading: false, success: true),
+      (failure) =>
+          state = state.copyWith(isLoading: false, error: failure.message),
+      (ticket) =>
+          state = state.copyWith(
+            isLoading: false,
+            success: true,
+            createdTicket: ticket,
+          ),
     );
   }
 
@@ -148,14 +178,18 @@ final _supportTicketRepoProvider = Provider<SupportTicketRepository>(
   (_) => getIt<SupportTicketRepository>(),
 );
 
-final ticketListProvider = StateNotifierProvider<TicketListNotifier, TicketListState>(
-  (ref) => TicketListNotifier(ref.read(_supportTicketRepoProvider)),
-);
+final ticketListProvider =
+    StateNotifierProvider<TicketListNotifier, TicketListState>(
+      (ref) => TicketListNotifier(ref.read(_supportTicketRepoProvider)),
+    );
 
-final ticketChatProvider = StateNotifierProvider.family<TicketChatNotifier, TicketChatState, String>(
-  (ref, ticketId) => TicketChatNotifier(ref.read(_supportTicketRepoProvider), ticketId),
-);
+final ticketChatProvider =
+    StateNotifierProvider.family<TicketChatNotifier, TicketChatState, String>(
+      (ref, ticketId) =>
+          TicketChatNotifier(ref.read(_supportTicketRepoProvider), ticketId),
+    );
 
-final createTicketProvider = StateNotifierProvider<CreateTicketNotifier, CreateTicketState>(
-  (ref) => CreateTicketNotifier(ref.read(_supportTicketRepoProvider)),
-);
+final createTicketProvider =
+    StateNotifierProvider<CreateTicketNotifier, CreateTicketState>(
+      (ref) => CreateTicketNotifier(ref.read(_supportTicketRepoProvider)),
+    );

@@ -4,4 +4,5 @@ import 'package:ppay_mobile/module/notification/domain/entities/notification_ent
 
 abstract class NotificationRepository {
   Future<Either<Failure, List<NotificationEntity>>> getMyNotifications();
+  Future<Either<Failure, void>> clearNotifications();
 }

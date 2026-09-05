@@ -113,7 +113,6 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: SearchCardRoute.page),
 
     // Flight
-    AutoRoute(page: FlightBookingRoute.page),
     AutoRoute(page: OneWayTripRoute.page),
     AutoRoute(page: RoundWayTripRoute.page),
     AutoRoute(page: SearchResultRoute.page),
@@ -170,6 +169,9 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: HelpAndSupportRoute.page),
     AutoRoute(page: FaqTabRoute.page),
     AutoRoute(page: ContactTabRoute.page),
+    AutoRoute(page: TicketListRoute.page),
+    AutoRoute(page: TicketChatRoute.page),
+    AutoRoute(page: CreateTicketRoute.page),
     AutoRoute(page: PrivacyRoute.page),
     AutoRoute(page: TermsAndConditionRoute.page),
     AutoRoute(page: ReferRoute.page),

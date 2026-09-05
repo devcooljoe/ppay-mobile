@@ -44,69 +44,69 @@ class SettingsPage extends HookConsumerWidget {
     Future<void> handleLogout() async {
       final confirmed = await showDialog<bool>(
         context: context,
-        builder: (ctx) => AlertDialog(
-          backgroundColor: PPaymobileColors.mainScreenBackground,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-          title: Text(
-            'Log out',
-            style: TextStyle(
-              fontFamily: 'InstrumentSans',
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          content: Text(
-            'Are you sure you want to log out of your account?',
-            style: TextStyle(
-              fontFamily: 'InstrumentSans',
-              fontSize: 14.sp,
-              color: PPaymobileColors.svgIconColor,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx, false),
-              child: Text(
-                'Cancel',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.svgIconColor,
-                  fontWeight: FontWeight.w500,
-                ),
+        builder:
+            (ctx) => AlertDialog(
+              backgroundColor: PPaymobileColors.mainScreenBackground,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
               ),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(ctx, true),
-              child: Text(
+              title: Text(
                 'Log out',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.transactRed,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
+                  color: Colors.black,
                 ),
               ),
+              content: Text(
+                'Are you sure you want to log out of your account?',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 14.sp,
+                  color: PPaymobileColors.svgIconColor,
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx, false),
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.svgIconColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx, true),
+                  child: Text(
+                    'Log out',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.transactRed,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
       );
       if (confirmed != true) return;
       AppLoader.show(context);
       await getIt<TokenService>().clearToken();
-      ref
-          .read(authenticatedUserProvider.notifier)
-          .updateUser(ref.read(authenticatedUserProvider).value!.copyWith());
+      ref.read(authenticatedUserProvider.notifier).logout();
       if (!context.mounted) return;
       AppLoader.hide(context);
       context.router.replaceAll([const LoginRoute()]);
     }
 
     Future<void> handleBiometricToggle() async {
-      final isAvailable = await ref
-          .read(biometricStateProvider.notifier)
-          .isBiometricAvailable();
+      final isAvailable =
+          await ref
+              .read(biometricStateProvider.notifier)
+              .isBiometricAvailable();
       if (!isAvailable && context.mounted) {
         MessageHandler.showErrorSnackBar(
           context,
@@ -150,26 +150,26 @@ class SettingsPage extends HookConsumerWidget {
                         children: [
                           user?.picture != null
                               ? CircleAvatar(
-                                  radius: 31.5.r,
-                                  backgroundImage: NetworkImage(user!.picture!),
-                                )
+                                radius: 31.5.r,
+                                backgroundImage: NetworkImage(user!.picture!),
+                              )
                               : CircleAvatar(
-                                  radius: 31.5.r,
-                                  backgroundColor:
-                                      PPaymobileColors.backgroundColor,
-                                  child: Center(
-                                    child: Text(
-                                      initials,
-                                      style: TextStyle(
-                                        fontFamily: 'InstrumentSans',
-                                        color: PPaymobileColors
-                                            .mainScreenBackground,
-                                        fontSize: 24.sp,
-                                        fontWeight: FontWeight.w800,
-                                      ),
+                                radius: 31.5.r,
+                                backgroundColor:
+                                    PPaymobileColors.backgroundColor,
+                                child: Center(
+                                  child: Text(
+                                    initials,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color:
+                                          PPaymobileColors.mainScreenBackground,
+                                      fontSize: 24.sp,
+                                      fontWeight: FontWeight.w800,
                                     ),
                                   ),
                                 ),
+                              ),
                           Positioned(
                             right: 5.w,
                             bottom: 5.h,
@@ -300,9 +300,10 @@ class SettingsPage extends HookConsumerWidget {
                         vertical: 3.h,
                       ),
                       decoration: BoxDecoration(
-                        color: (user?.isKycVerified ?? false)
-                            ? PPaymobileColors.doneColor
-                            : PPaymobileColors.warningColor,
+                        color:
+                            (user?.isKycVerified ?? false)
+                                ? PPaymobileColors.doneColor
+                                : PPaymobileColors.warningColor,
                         borderRadius: BorderRadius.circular(4.r),
                       ),
                       child: Text(
@@ -315,9 +316,10 @@ class SettingsPage extends HookConsumerWidget {
                           fontFamily: 'InstrumentSans',
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w500,
-                          color: (user?.isKycVerified ?? false)
-                              ? PPaymobileColors.doneTextColor
-                              : PPaymobileColors.warningTextColor,
+                          color:
+                              (user?.isKycVerified ?? false)
+                                  ? PPaymobileColors.doneTextColor
+                                  : PPaymobileColors.warningTextColor,
                         ),
                       ),
                     ),

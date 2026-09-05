@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/notification/domain/entities/notification_entity.dart';
 import 'package:ppay_mobile/module/notification/presentation/providers/notification_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -22,12 +23,15 @@ class NotificationPage extends HookConsumerWidget {
     final notifState = ref.watch(getMyNotificationsProvider);
 
     useEffect(() {
-      Future.microtask(() => ref.read(getMyNotificationsProvider.notifier).call());
+      Future.microtask(
+        () => ref.read(getMyNotificationsProvider.notifier).call(),
+      );
       return null;
     }, []);
 
     useEffect(() {
-      void listener() => searchQuery.value = searchController.text.toLowerCase();
+      void listener() =>
+          searchQuery.value = searchController.text.toLowerCase();
       searchController.addListener(listener);
       return () => searchController.removeListener(listener);
     }, []);
@@ -36,9 +40,13 @@ class NotificationPage extends HookConsumerWidget {
 
     final filtered = useMemoized(() {
       if (searchQuery.value.isEmpty) return all;
-      return all.where((n) =>
-          n.title.toLowerCase().contains(searchQuery.value) ||
-          n.body.toLowerCase().contains(searchQuery.value)).toList();
+      return all
+          .where(
+            (n) =>
+                n.title.toLowerCase().contains(searchQuery.value) ||
+                n.body.toLowerCase().contains(searchQuery.value),
+          )
+          .toList();
     }, [all, searchQuery.value]);
 
     final grouped = useMemoized(() => _groupByDate(filtered), [filtered]);
@@ -49,20 +57,89 @@ class NotificationPage extends HookConsumerWidget {
         title: 'Notification',
         onBackPressed: () => Navigator.pop(context),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 20.w),
-            child: IconButton(
-              onPressed: () {},
-              icon: SizedBox(
-                height: 24.w,
-                width: 24.w,
-                child: SvgPicture.asset(
-                  'assets/icon/settings_black.svg',
-                  fit: BoxFit.contain,
+          if (all.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.only(right: 12.w),
+              child: TextButton(
+                onPressed: () async {
+                  final confirmed = await showDialog<bool>(
+                    context: context,
+                    builder:
+                        (ctx) => AlertDialog(
+                          backgroundColor:
+                              PPaymobileColors.mainScreenBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          title: Text(
+                            'Clear notifications',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                          content: Text(
+                            'Are you sure you want to clear all your notifications?',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 14.sp,
+                              color: PPaymobileColors.svgIconColor,
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx, false),
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: PPaymobileColors.svgIconColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx, true),
+                              child: Text(
+                                'Clear',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: PPaymobileColors.buttonColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                  );
+                  if (confirmed != true || !context.mounted) return;
+                  final error =
+                      await ref
+                          .read(getMyNotificationsProvider.notifier)
+                          .clear();
+                  if (!context.mounted) return;
+                  if (error != null) {
+                    MessageHandler.showErrorSnackBar(context, error);
+                  } else {
+                    MessageHandler.showSuccessSnackBar(
+                      context,
+                      'Notifications cleared',
+                    );
+                  }
+                },
+                child: Text(
+                  'Clear',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.buttonColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
       body: Padding(
@@ -106,81 +183,88 @@ class NotificationPage extends HookConsumerWidget {
             ),
             36.verticalSpace,
             Expanded(
-              child: notifState.isLoading
-                  ? _buildSkeleton()
-                  : notifState.hasError
+              child:
+                  notifState.isLoading
+                      ? _buildSkeleton()
+                      : notifState.hasError
                       ? Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Failed to load notifications',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.svgIconColor,
-                                  fontSize: 14.sp,
-                                ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Failed to load notifications',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: PPaymobileColors.svgIconColor,
+                                fontSize: 14.sp,
                               ),
-                              16.verticalSpace,
-                              TextButton(
-                                onPressed: () =>
-                                    ref.read(getMyNotificationsProvider.notifier).call(),
-                                child: const Text('Retry'),
+                            ),
+                            16.verticalSpace,
+                            TextButton(
+                              onPressed:
+                                  () =>
+                                      ref
+                                          .read(
+                                            getMyNotificationsProvider.notifier,
+                                          )
+                                          .call(),
+                              child: const Text('Retry'),
+                            ),
+                          ],
+                        ),
+                      )
+                      : filtered.isEmpty
+                      ? EmptyState(
+                        imagePath: 'assets/images/no_notif.png',
+                        message: 'No Notifications Yet',
+                      )
+                      : ListView.separated(
+                        itemCount: grouped.length,
+                        separatorBuilder: (_, __) => 16.verticalSpace,
+                        itemBuilder: (context, groupIndex) {
+                          final group = grouped[groupIndex];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    group.label,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.black,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Text(
+                                    group.dateLabel,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.black,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              41.verticalSpace,
+                              ListView.separated(
+                                itemCount: group.notifications.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                separatorBuilder: (_, __) => 31.verticalSpace,
+                                itemBuilder: (context, index) {
+                                  final notif = group.notifications[index];
+                                  return _NotificationRow(notification: notif);
+                                },
                               ),
                             ],
-                          ),
-                        )
-                      : filtered.isEmpty
-                          ? EmptyState(
-                              imagePath: 'assets/images/no_notif.png',
-                              message: 'No Notifications Yet',
-                            )
-                          : ListView.separated(
-                              itemCount: grouped.length,
-                              separatorBuilder: (_, __) => 16.verticalSpace,
-                              itemBuilder: (context, groupIndex) {
-                                final group = grouped[groupIndex];
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          group.label,
-                                          style: TextStyle(
-                                            fontFamily: 'InstrumentSans',
-                                            color: Colors.black,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        Text(
-                                          group.dateLabel,
-                                          style: TextStyle(
-                                            fontFamily: 'InstrumentSans',
-                                            color: Colors.black,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    41.verticalSpace,
-                                    ListView.separated(
-                                      itemCount: group.notifications.length,
-                                      shrinkWrap: true,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      separatorBuilder: (_, __) => 31.verticalSpace,
-                                      itemBuilder: (context, index) {
-                                        final notif = group.notifications[index];
-                                        return _NotificationRow(notification: notif);
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
+                          );
+                        },
+                      ),
             ),
           ],
         ),
@@ -191,36 +275,39 @@ class NotificationPage extends HookConsumerWidget {
   Widget _buildSkeleton() {
     return ListView.builder(
       itemCount: 5,
-      itemBuilder: (_, __) => Padding(
-        padding: EdgeInsets.only(bottom: 31.h),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SkeletonLoader(
-              width: 54.w,
-              height: 54.w,
-              borderRadius: BorderRadius.circular(100.r),
+      itemBuilder:
+          (_, __) => Padding(
+            padding: EdgeInsets.only(bottom: 31.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SkeletonLoader(
+                  width: 54.w,
+                  height: 54.w,
+                  borderRadius: BorderRadius.circular(100.r),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SkeletonLoader(width: 160.w, height: 14.h),
+                      6.verticalSpace,
+                      SkeletonLoader(width: double.infinity, height: 12.h),
+                      4.verticalSpace,
+                      SkeletonLoader(width: 80.w, height: 10.h),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            12.horizontalSpace,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SkeletonLoader(width: 160.w, height: 14.h),
-                  6.verticalSpace,
-                  SkeletonLoader(width: double.infinity, height: 12.h),
-                  4.verticalSpace,
-                  SkeletonLoader(width: 80.w, height: 10.h),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 
-  List<_NotificationGroup> _groupByDate(List<NotificationEntity> notifications) {
+  List<_NotificationGroup> _groupByDate(
+    List<NotificationEntity> notifications,
+  ) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
@@ -250,16 +337,27 @@ class NotificationPage extends HookConsumerWidget {
     }
 
     return groups.entries
-        .map((e) => _NotificationGroup(
-              label: e.key,
-              dateLabel: dateLabels[e.key]!,
-              notifications: e.value,
-            ))
+        .map(
+          (e) => _NotificationGroup(
+            label: e.key,
+            dateLabel: dateLabels[e.key]!,
+            notifications: e.value,
+          ),
+        )
         .toList();
   }
 
   String _weekdayName(int weekday) {
-    const days = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const days = [
+      '',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
     return days[weekday];
   }
 }
@@ -355,9 +453,10 @@ class _NotificationRow extends StatelessWidget {
             height: 11.w,
             width: 11.w,
             decoration: BoxDecoration(
-              color: isRead
-                  ? PPaymobileColors.deepBackgroundColor
-                  : PPaymobileColors.currentCardColor,
+              color:
+                  isRead
+                      ? PPaymobileColors.deepBackgroundColor
+                      : PPaymobileColors.currentCardColor,
               shape: BoxShape.circle,
             ),
           ),

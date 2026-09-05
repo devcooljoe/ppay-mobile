@@ -1,5 +1,6 @@
 import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/module/notification/domain/entities/notification_entity.dart';
+import 'package:ppay_mobile/module/notification/domain/usecases/clear_notifications_usecase.dart';
 import 'package:ppay_mobile/module/notification/domain/usecases/get_my_notifications_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,5 +18,15 @@ class GetMyNotifications extends _$GetMyNotifications {
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (data) => AsyncValue.data(data),
     );
+  }
+
+  /// Clears the user's notifications on the server, then empties the list.
+  /// Returns null on success, or an error message on failure.
+  Future<String?> clear() async {
+    final result = await getIt<ClearNotificationsUseCase>()();
+    return result.fold((l) => l.message, (_) {
+      state = const AsyncValue.data([]);
+      return null;
+    });
   }
 }

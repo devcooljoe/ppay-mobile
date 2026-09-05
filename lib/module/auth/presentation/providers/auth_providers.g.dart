@@ -195,7 +195,7 @@ final changePasswordProvider =
 );
 
 typedef _$ChangePassword = AutoDisposeNotifier<AsyncValue<void>>;
-String _$authenticatedUserHash() => r'54a9432d7d5b49dd4d74d532bf8e039b007da11b';
+String _$authenticatedUserHash() => r'5b8ec7a6c45fd72cdd89b27a9af46cdd3f7a8af0';
 
 /// See also [AuthenticatedUser].
 @ProviderFor(AuthenticatedUser)

@@ -21,4 +21,14 @@ class NotificationRepositoryImpl implements NotificationRepository {
       return Left(Failure.fromDioException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> clearNotifications() async {
+    try {
+      await _remoteDataSource.clearNotifications();
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(Failure.fromDioException(e));
+    }
+  }
 }

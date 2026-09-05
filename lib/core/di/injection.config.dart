@@ -127,6 +127,8 @@ import 'package:ppay_mobile/module/notification/data/sources/notification_remote
     as _i288;
 import 'package:ppay_mobile/module/notification/domain/repositories/notification_repository.dart'
     as _i550;
+import 'package:ppay_mobile/module/notification/domain/usecases/clear_notifications_usecase.dart'
+    as _i771;
 import 'package:ppay_mobile/module/notification/domain/usecases/get_my_notifications_usecase.dart'
     as _i515;
 import 'package:ppay_mobile/module/onboarding/data/repositories/onboarding_repository_impl.dart'
@@ -480,6 +482,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i430.CryptoRepositoryImpl(gh<_i430.CryptoRemoteDataSource>()));
     gh.lazySingleton<_i515.GetMyNotificationsUseCase>(() =>
         _i515.GetMyNotificationsUseCase(gh<_i550.NotificationRepository>()));
+    gh.lazySingleton<_i771.ClearNotificationsUseCase>(() =>
+        _i771.ClearNotificationsUseCase(gh<_i550.NotificationRepository>()));
     gh.lazySingleton<_i907.GetCryptoRatesUseCase>(
         () => _i907.GetCryptoRatesUseCase(gh<_i430.CryptoRepository>()));
     gh.lazySingleton<_i907.GetEstimatedAssetValueUseCase>(() =>

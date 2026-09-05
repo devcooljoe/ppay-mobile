@@ -290,6 +290,10 @@ class AuthenticatedUser extends _$AuthenticatedUser {
   void updateUser(UserEntity user) {
     state = AsyncValue.data(user);
   }
+
+  void logout() {
+    state = const AsyncValue.data(null);
+  }
 }
 
 @riverpod

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/support_ticket/presentation/providers/support_ticket_providers.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -27,16 +28,22 @@ class PersonalShopperNewRequestPage extends HookConsumerWidget {
 
       if (subject.isEmpty) {
         MessageHandler.showErrorSnackBar(
-            context, 'Please describe what you need');
+          context,
+          'Please describe what you need',
+        );
         return;
       }
       if (message.length < 20) {
         MessageHandler.showErrorSnackBar(
-            context, 'Please provide more details (at least 20 characters)');
+          context,
+          'Please provide more details (at least 20 characters)',
+        );
         return;
       }
 
-      await ref.read(createTicketProvider.notifier).submit(
+      await ref
+          .read(createTicketProvider.notifier)
+          .submit(
             subject: subject,
             category: 'personal_shopper',
             message: message,
@@ -48,11 +55,20 @@ class PersonalShopperNewRequestPage extends HookConsumerWidget {
       if (state.error != null) {
         MessageHandler.showErrorSnackBar(context, state.error!);
       } else if (state.success) {
+        final createdTicketId = state.createdTicketId;
         ref.read(createTicketProvider.notifier).reset();
         ref.read(ticketListProvider.notifier).load();
         MessageHandler.showSuccessSnackBar(
-            context, 'Request submitted! We\'ll get back to you shortly.');
-        context.router.maybePop();
+          context,
+          'Request submitted! We\'ll get back to you shortly.',
+        );
+        if (createdTicketId != null) {
+          context.router.replace(
+            PersonalShopperChatRoute(ticketId: createdTicketId),
+          );
+        } else {
+          context.router.maybePop();
+        }
       }
     }
 
@@ -125,17 +141,18 @@ class PersonalShopperNewRequestPage extends HookConsumerWidget {
             TouchOpacity(
               onTap: () => isUrgent.value = !isUrgent.value,
               child: Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
+                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
                 decoration: BoxDecoration(
-                  color: isUrgent.value
-                      ? const Color(0xFFFFF3CD)
-                      : PPaymobileColors.deepBackgroundColor,
+                  color:
+                      isUrgent.value
+                          ? const Color(0xFFFFF3CD)
+                          : PPaymobileColors.deepBackgroundColor,
                   borderRadius: BorderRadius.circular(8.r),
                   border: Border.all(
-                    color: isUrgent.value
-                        ? const Color(0xFFFFD700)
-                        : PPaymobileColors.textfiedBorder,
+                    color:
+                        isUrgent.value
+                            ? const Color(0xFFFFD700)
+                            : PPaymobileColors.textfiedBorder,
                   ),
                 ),
                 child: Row(
@@ -143,9 +160,10 @@ class PersonalShopperNewRequestPage extends HookConsumerWidget {
                     Icon(
                       Icons.bolt_rounded,
                       size: 20.w,
-                      color: isUrgent.value
-                          ? const Color(0xFFE67E22)
-                          : PPaymobileColors.svgIconColor,
+                      color:
+                          isUrgent.value
+                              ? const Color(0xFFE67E22)
+                              : PPaymobileColors.svgIconColor,
                     ),
                     10.horizontalSpace,
                     Expanded(
@@ -178,19 +196,26 @@ class PersonalShopperNewRequestPage extends HookConsumerWidget {
                       width: 22.w,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: isUrgent.value
-                            ? const Color(0xFFE67E22)
-                            : Colors.transparent,
+                        color:
+                            isUrgent.value
+                                ? const Color(0xFFE67E22)
+                                : Colors.transparent,
                         border: Border.all(
-                          color: isUrgent.value
-                              ? const Color(0xFFE67E22)
-                              : PPaymobileColors.textfiedBorder,
+                          color:
+                              isUrgent.value
+                                  ? const Color(0xFFE67E22)
+                                  : PPaymobileColors.textfiedBorder,
                           width: 2,
                         ),
                       ),
-                      child: isUrgent.value
-                          ? Icon(Icons.check, size: 14.w, color: Colors.white)
-                          : null,
+                      child:
+                          isUrgent.value
+                              ? Icon(
+                                Icons.check,
+                                size: 14.w,
+                                color: Colors.white,
+                              )
+                              : null,
                     ),
                   ],
                 ),
@@ -212,36 +237,35 @@ class PersonalShopperNewRequestPage extends HookConsumerWidget {
   }
 
   InputDecoration _inputDecoration(String hint) => InputDecoration(
-        hintText: hint,
-        hintStyle: TextStyle(
-          fontFamily: 'InstrumentSans',
-          color: PPaymobileColors.textfiedBorder,
-          fontSize: 14.sp,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: PPaymobileColors.textfiedBorder, width: 1),
-          borderRadius: BorderRadius.circular(6).r,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: PPaymobileColors.buttonColorandText, width: 1.5),
-          borderRadius: BorderRadius.circular(6).r,
-        ),
-        border: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: PPaymobileColors.textfiedBorder, width: 1),
-          borderRadius: BorderRadius.circular(6).r,
-        ),
-        contentPadding:
-            EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
-      );
+    hintText: hint,
+    hintStyle: TextStyle(
+      fontFamily: 'InstrumentSans',
+      color: PPaymobileColors.textfiedBorder,
+      fontSize: 14.sp,
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1),
+      borderRadius: BorderRadius.circular(6).r,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: PPaymobileColors.buttonColorandText,
+        width: 1.5,
+      ),
+      borderRadius: BorderRadius.circular(6).r,
+    ),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: PPaymobileColors.textfiedBorder, width: 1),
+      borderRadius: BorderRadius.circular(6).r,
+    ),
+    contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+  );
 
   TextStyle _inputStyle() => TextStyle(
-        fontFamily: 'InstrumentSans',
-        color: Colors.black,
-        fontSize: 14.sp,
-      );
+    fontFamily: 'InstrumentSans',
+    color: Colors.black,
+    fontSize: 14.sp,
+  );
 }
 
 class _Label extends StatelessWidget {
