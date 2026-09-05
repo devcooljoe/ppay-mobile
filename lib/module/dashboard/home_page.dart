@@ -169,18 +169,21 @@ class HomePage extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(100.r),
                 color: PPaymobileColors.deepBackgroundColor,
               ),
-              child: user?.picture != null && user!.picture!.isNotEmpty
-                  ? CachedNetworkImage(
-                      imageUrl: user.picture!,
-                      fit: BoxFit.cover,
-                      width: 53.w,
-                      height: 53.w,
-                      errorWidget: (_, __, ___) =>
-                          _InitialsAvatar(initials: initials, size: 53.w),
-                      placeholder: (_, __) =>
-                          _InitialsAvatar(initials: initials, size: 53.w),
-                    )
-                  : _InitialsAvatar(initials: initials, size: 53.w),
+              child:
+                  user?.picture != null && user!.picture!.isNotEmpty
+                      ? CachedNetworkImage(
+                        imageUrl: user.picture!,
+                        fit: BoxFit.cover,
+                        width: 53.w,
+                        height: 53.w,
+                        errorWidget:
+                            (_, __, ___) =>
+                                _InitialsAvatar(initials: initials, size: 53.w),
+                        placeholder:
+                            (_, __) =>
+                                _InitialsAvatar(initials: initials, size: 53.w),
+                      )
+                      : _InitialsAvatar(initials: initials, size: 53.w),
             ),
           ),
         ),
@@ -290,9 +293,14 @@ class HomePage extends HookConsumerWidget {
                                 ),
                                 8.horizontalSpace,
                                 TouchOpacity(
-                                  onTap: () => ref
-                                      .read(balanceVisibilityProvider.notifier)
-                                      .toggle(),
+                                  onTap:
+                                      () =>
+                                          ref
+                                              .read(
+                                                balanceVisibilityProvider
+                                                    .notifier,
+                                              )
+                                              .toggle(),
                                   child: SizedBox(
                                     height: 25.w,
                                     width: 25.w,
@@ -315,9 +323,10 @@ class HomePage extends HookConsumerWidget {
                               displayBalance,
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                fontSize: isBalanceVisible && !isWalletLoading
-                                    ? 32.sp
-                                    : 28.sp,
+                                fontSize:
+                                    isBalanceVisible && !isWalletLoading
+                                        ? 32.sp
+                                        : 28.sp,
                                 fontWeight: FontWeight.w600,
                                 color: PPaymobileColors.mainScreenBackground,
                               ),
@@ -336,8 +345,8 @@ class HomePage extends HookConsumerWidget {
                                           context: context,
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,
-                                          builder: (_) =>
-                                              WalletDetailBottomsheet(
+                                          builder:
+                                              (_) => WalletDetailBottomsheet(
                                                 wallet: wallet,
                                               ),
                                         );
@@ -346,8 +355,8 @@ class HomePage extends HookConsumerWidget {
                                           context: context,
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,
-                                          builder: (_) =>
-                                              KycBottomsheet(user: user),
+                                          builder:
+                                              (_) => KycBottomsheet(user: user),
                                         );
                                       }
                                     },
@@ -398,7 +407,8 @@ class HomePage extends HookConsumerWidget {
                 ),
                 18.verticalSpace,
 
-                // Complete Verification banner — show when tier <= 1 and nothing submitted
+                // Complete Verification banner — shown when the user has not
+                // submitted KYC yet (keys off isKycSubmitted, not tier/phone).
                 if (needsVerification)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.0.w),
@@ -544,10 +554,11 @@ class HomePage extends HookConsumerWidget {
                 Container(
                   height: 180.h,
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.0.w,
-                    vertical: 20.0.h,
-                  ).r,
+                  padding:
+                      EdgeInsets.symmetric(
+                        horizontal: 20.0.w,
+                        vertical: 20.0.h,
+                      ).r,
                   decoration: const BoxDecoration(color: Colors.white),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -671,11 +682,14 @@ class HomePage extends HookConsumerWidget {
       children: List.generate(recent.length, (index) {
         final tx = recent[index];
         return Padding(
-          padding: EdgeInsets.only(bottom: index < recent.length - 1 ? 20.h : 0),
+          padding: EdgeInsets.only(
+            bottom: index < recent.length - 1 ? 20.h : 0,
+          ),
           child: TouchOpacity(
-            onTap: () => context.router.push(
-              TransactionHistoryDetailRoute(transaction: tx),
-            ),
+            onTap:
+                () => context.router.push(
+                  TransactionHistoryDetailRoute(transaction: tx),
+                ),
             child: _HomeTransactionRow(transaction: tx),
           ),
         );
@@ -708,8 +722,10 @@ class _HomeTransactionRow extends StatelessWidget {
               width: 22.w,
               height: 22.w,
               fit: BoxFit.contain,
-              colorFilter:
-                  const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
@@ -858,7 +874,6 @@ class _HomeTransactionRow extends StatelessWidget {
     }
   }
 }
-
 
 class _InitialsAvatar extends StatelessWidget {
   final String initials;

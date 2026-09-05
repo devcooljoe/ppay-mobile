@@ -31,9 +31,9 @@ String _formatLimit(double? value) {
 }
 
 const Map<int, String> _tierRequirements = {
-  1: 'Email & Phone Verified',
-  2: 'Email, Phone & BVN Verified',
-  3: 'Email, Phone, BVN & ID Verified',
+  1: 'Email Verified',
+  2: 'Email & BVN Verified',
+  3: 'Email, BVN & ID Verified',
 };
 
 @RoutePage()

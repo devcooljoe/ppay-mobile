@@ -28,12 +28,13 @@ class CreateVirtualCardPage extends HookConsumerWidget {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => _DobRequiredDialog(
-        onGoToProfile: () {
-          Navigator.of(context).pop();
-          context.router.push(EditProfileRoute());
-        },
-      ),
+      builder:
+          (_) => _DobRequiredDialog(
+            onGoToProfile: () {
+              Navigator.of(context).pop();
+              context.router.push(EditProfileRoute());
+            },
+          ),
     );
   }
 
@@ -240,8 +241,8 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                 ),
                 41.verticalSpace,
                 verificationRow(
-                  'Email & Phone Verification',
-                  'Verify your email and phone number',
+                  'Email Verification',
+                  'Verify your email',
                   isEmailDone,
                   null,
                 ),
@@ -283,8 +284,9 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                 TextFormField(
                   controller: streetCtrl,
                   decoration: fieldDecoration('Street Address'),
-                  validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          (v == null || v.trim().isEmpty) ? 'Required' : null,
                 ),
                 12.verticalSpace,
                 Row(
@@ -293,8 +295,11 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                       child: TextFormField(
                         controller: cityCtrl,
                         decoration: fieldDecoration('City'),
-                        validator: (v) =>
-                            (v == null || v.trim().isEmpty) ? 'Required' : null,
+                        validator:
+                            (v) =>
+                                (v == null || v.trim().isEmpty)
+                                    ? 'Required'
+                                    : null,
                       ),
                     ),
                     12.horizontalSpace,
@@ -302,8 +307,11 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                       child: TextFormField(
                         controller: stateCtrl,
                         decoration: fieldDecoration('State'),
-                        validator: (v) =>
-                            (v == null || v.trim().isEmpty) ? 'Required' : null,
+                        validator:
+                            (v) =>
+                                (v == null || v.trim().isEmpty)
+                                    ? 'Required'
+                                    : null,
                       ),
                     ),
                   ],
@@ -313,8 +321,9 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                   controller: postalCtrl,
                   decoration: fieldDecoration('Postal Code'),
                   keyboardType: TextInputType.number,
-                  validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          (v == null || v.trim().isEmpty) ? 'Required' : null,
                 ),
                 24.verticalSpace,
                 Text(
@@ -346,36 +355,41 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                       color: PPaymobileColors.deepBackgroundColor,
                       borderRadius: BorderRadius.circular(8).r,
                       border: Border.all(
-                        color: photo.value != null
-                            ? PPaymobileColors.backgroundColor
-                            : Colors.transparent,
+                        color:
+                            photo.value != null
+                                ? PPaymobileColors.backgroundColor
+                                : Colors.transparent,
                         width: 2,
                       ),
                     ),
-                    child: photo.value != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(6).r,
-                            child: Image.file(photo.value!, fit: BoxFit.cover),
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.camera_alt_outlined,
-                                size: 40.w,
-                                color: PPaymobileColors.svgIconColor,
+                    child:
+                        photo.value != null
+                            ? ClipRRect(
+                              borderRadius: BorderRadius.circular(6).r,
+                              child: Image.file(
+                                photo.value!,
+                                fit: BoxFit.cover,
                               ),
-                              8.verticalSpace,
-                              Text(
-                                'Tap to take a photo',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
+                            )
+                            : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 40.w,
                                   color: PPaymobileColors.svgIconColor,
-                                  fontSize: 14.sp,
                                 ),
-                              ),
-                            ],
-                          ),
+                                8.verticalSpace,
+                                Text(
+                                  'Tap to take a photo',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: PPaymobileColors.svgIconColor,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                   ),
                 ),
                 24.verticalSpace,
@@ -408,39 +422,41 @@ class CreateVirtualCardPage extends HookConsumerWidget {
                       color: PPaymobileColors.deepBackgroundColor,
                       borderRadius: BorderRadius.circular(8).r,
                       border: Border.all(
-                        color: ninPhoto.value != null
-                            ? PPaymobileColors.backgroundColor
-                            : Colors.transparent,
+                        color:
+                            ninPhoto.value != null
+                                ? PPaymobileColors.backgroundColor
+                                : Colors.transparent,
                         width: 2,
                       ),
                     ),
-                    child: ninPhoto.value != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(6).r,
-                            child: Image.file(
-                              ninPhoto.value!,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.upload_file_outlined,
-                                size: 40.w,
-                                color: PPaymobileColors.svgIconColor,
+                    child:
+                        ninPhoto.value != null
+                            ? ClipRRect(
+                              borderRadius: BorderRadius.circular(6).r,
+                              child: Image.file(
+                                ninPhoto.value!,
+                                fit: BoxFit.cover,
                               ),
-                              8.verticalSpace,
-                              Text(
-                                'Tap to upload NIN photo',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
+                            )
+                            : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.upload_file_outlined,
+                                  size: 40.w,
                                   color: PPaymobileColors.svgIconColor,
-                                  fontSize: 14.sp,
                                 ),
-                              ),
-                            ],
-                          ),
+                                8.verticalSpace,
+                                Text(
+                                  'Tap to upload NIN photo',
+                                  style: TextStyle(
+                                    fontFamily: 'InstrumentSans',
+                                    color: PPaymobileColors.svgIconColor,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                   ),
                 ),
                 24.verticalSpace,
