@@ -46,7 +46,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
       return () => searchController.removeListener(listener);
     }, []);
 
-    // Scroll-based pagination — loads next page until all pages are fetched
+    // Scroll-based pagination: loads next page until all pages are fetched
     useEffect(() {
       void onScroll() {
         if (!scrollController.hasClients) return;
@@ -88,24 +88,25 @@ class TransactionHistoryPage extends HookConsumerWidget {
 
       // Search
       if (searchQuery.value.isNotEmpty) {
-        list = list.where((t) {
-          return t.title.toLowerCase().contains(searchQuery.value) ||
-              t.transactionId.toLowerCase().contains(searchQuery.value);
-        }).toList();
+        list =
+            list.where((t) {
+              return t.title.toLowerCase().contains(searchQuery.value) ||
+                  t.transactionId.toLowerCase().contains(searchQuery.value);
+            }).toList();
       }
 
       // Status filter
       if (activeFilter.value.status != null) {
-        list = list
-            .where((t) => t.status == activeFilter.value.status)
-            .toList();
+        list =
+            list.where((t) => t.status == activeFilter.value.status).toList();
       }
 
-      // Type filter — group crypto and giftcard types together
+      // Type filter: group crypto and giftcard types together
       if (activeFilter.value.type != null) {
-        list = list.where((t) {
-          return _matchesTypeFilter(t.type, activeFilter.value.type!);
-        }).toList();
+        list =
+            list.where((t) {
+              return _matchesTypeFilter(t.type, activeFilter.value.type!);
+            }).toList();
       }
 
       // Date from
@@ -199,9 +200,10 @@ class TransactionHistoryPage extends HookConsumerWidget {
                             context: context,
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
-                            builder: (_) => FilterTransactionsBottomsheet(
-                              initialFilter: activeFilter.value,
-                            ),
+                            builder:
+                                (_) => FilterTransactionsBottomsheet(
+                                  initialFilter: activeFilter.value,
+                                ),
                           );
                       if (result != null) {
                         activeFilter.value = result;
@@ -221,15 +223,17 @@ class TransactionHistoryPage extends HookConsumerWidget {
                         ),
                         border: Border.all(
                           width: 1.w,
-                          color: hasActiveFilter
-                              ? PPaymobileColors.buttonColor
-                              : PPaymobileColors.filterBorderColor,
+                          color:
+                              hasActiveFilter
+                                  ? PPaymobileColors.buttonColor
+                                  : PPaymobileColors.filterBorderColor,
                         ),
-                        color: hasActiveFilter
-                            ? PPaymobileColors.buttonColor.withValues(
-                                alpha: 0.08,
-                              )
-                            : PPaymobileColors.mainScreenBackground,
+                        color:
+                            hasActiveFilter
+                                ? PPaymobileColors.buttonColor.withValues(
+                                  alpha: 0.08,
+                                )
+                                : PPaymobileColors.mainScreenBackground,
                       ),
                       child: Center(
                         child: Row(
@@ -254,9 +258,10 @@ class TransactionHistoryPage extends HookConsumerWidget {
                               'Filter',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: hasActiveFilter
-                                    ? PPaymobileColors.buttonColor
-                                    : PPaymobileColors.textfiedBorder,
+                                color:
+                                    hasActiveFilter
+                                        ? PPaymobileColors.buttonColor
+                                        : PPaymobileColors.textfiedBorder,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -279,32 +284,36 @@ class TransactionHistoryPage extends HookConsumerWidget {
                       if (activeFilter.value.type != null)
                         _FilterChip(
                           label: _typeLabel(activeFilter.value.type!),
-                          onRemove: () => activeFilter.value = activeFilter
-                              .value
-                              .copyWith(type: null),
+                          onRemove:
+                              () =>
+                                  activeFilter.value = activeFilter.value
+                                      .copyWith(type: null),
                         ),
                       if (activeFilter.value.status != null)
                         _FilterChip(
                           label: _statusLabel(activeFilter.value.status!),
-                          onRemove: () => activeFilter.value = activeFilter
-                              .value
-                              .copyWith(status: null),
+                          onRemove:
+                              () =>
+                                  activeFilter.value = activeFilter.value
+                                      .copyWith(status: null),
                         ),
                       if (activeFilter.value.dateFrom != null)
                         _FilterChip(
                           label:
                               'From ${_formatDate(activeFilter.value.dateFrom!)}',
-                          onRemove: () => activeFilter.value = activeFilter
-                              .value
-                              .copyWith(dateFrom: null),
+                          onRemove:
+                              () =>
+                                  activeFilter.value = activeFilter.value
+                                      .copyWith(dateFrom: null),
                         ),
                       if (activeFilter.value.dateTo != null)
                         _FilterChip(
                           label:
                               'To ${_formatDate(activeFilter.value.dateTo!)}',
-                          onRemove: () => activeFilter.value = activeFilter
-                              .value
-                              .copyWith(dateTo: null),
+                          onRemove:
+                              () =>
+                                  activeFilter.value = activeFilter.value
+                                      .copyWith(dateTo: null),
                         ),
                     ],
                   ),
@@ -312,106 +321,117 @@ class TransactionHistoryPage extends HookConsumerWidget {
               ],
               16.verticalSpace,
               Expanded(
-                child: transactionState.isLoading && allTransactions.isEmpty
-                    ? _buildSkeleton()
-                    : transactionState.hasError && allTransactions.isEmpty
-                    ? Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Failed to load transactions',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: PPaymobileColors.svgIconColor,
-                                fontSize: 14.sp,
+                child:
+                    transactionState.isLoading && allTransactions.isEmpty
+                        ? _buildSkeleton()
+                        : transactionState.hasError && allTransactions.isEmpty
+                        ? Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Failed to load transactions',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: PPaymobileColors.svgIconColor,
+                                  fontSize: 14.sp,
+                                ),
                               ),
-                            ),
-                            16.verticalSpace,
-                            TextButton(
-                              onPressed: () => ref
-                                  .read(getMyTransactionsProvider.notifier)
-                                  .call(),
-                              child: const Text('Retry'),
-                            ),
-                          ],
-                        ),
-                      )
-                    : filtered.isEmpty
-                    ? Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 40.h),
-                          child: EmptyState(
-                            imagePath: 'assets/images/transactionimage.png',
-                            message:
-                                hasActiveFilter || searchQuery.value.isNotEmpty
-                                ? 'No Matching Transactions'
-                                : 'No Transactions Yet',
-                            subtitle:
-                                hasActiveFilter || searchQuery.value.isNotEmpty
-                                ? 'Try adjusting your search or filters.'
-                                : 'Your transaction history will appear here.',
+                              16.verticalSpace,
+                              TextButton(
+                                onPressed:
+                                    () =>
+                                        ref
+                                            .read(
+                                              getMyTransactionsProvider
+                                                  .notifier,
+                                            )
+                                            .call(),
+                                child: const Text('Retry'),
+                              ),
+                            ],
                           ),
-                        ),
-                      )
-                    : RefreshIndicator(
-                        onRefresh: onRefresh,
-                        color: PPaymobileColors.backgroundColor,
-                        child: ListView.builder(
-                          controller: scrollController,
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount:
-                              grouped.length + (isLoadingMore.value ? 1 : 0),
-                          itemBuilder: (context, groupIndex) {
-                            if (groupIndex == grouped.length) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16.h),
-                                child: Center(
-                                  child: SizedBox(
-                                    height: 24.w,
-                                    width: 24.w,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: PPaymobileColors.backgroundColor,
+                        )
+                        : filtered.isEmpty
+                        ? Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 40.h),
+                            child: EmptyState(
+                              imagePath: 'assets/images/transactionimage.png',
+                              message:
+                                  hasActiveFilter ||
+                                          searchQuery.value.isNotEmpty
+                                      ? 'No Matching Transactions'
+                                      : 'No Transactions Yet',
+                              subtitle:
+                                  hasActiveFilter ||
+                                          searchQuery.value.isNotEmpty
+                                      ? 'Try adjusting your search or filters.'
+                                      : 'Your transaction history will appear here.',
+                            ),
+                          ),
+                        )
+                        : RefreshIndicator(
+                          onRefresh: onRefresh,
+                          color: PPaymobileColors.backgroundColor,
+                          child: ListView.builder(
+                            controller: scrollController,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemCount:
+                                grouped.length + (isLoadingMore.value ? 1 : 0),
+                            itemBuilder: (context, groupIndex) {
+                              if (groupIndex == grouped.length) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                                  child: Center(
+                                    child: SizedBox(
+                                      height: 24.w,
+                                      width: 24.w,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: PPaymobileColors.backgroundColor,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }
-                            final group = grouped[groupIndex];
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                24.verticalSpace,
-                                Text(
-                                  group.label,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
+                                );
+                              }
+                              final group = grouped[groupIndex];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  24.verticalSpace,
+                                  Text(
+                                    group.label,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.black,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                                20.verticalSpace,
-                                ListView.separated(
-                                  itemCount: group.transactions.length,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  separatorBuilder: (_, __) => 20.verticalSpace,
-                                  itemBuilder: (context, index) {
-                                    final tx = group.transactions[index];
-                                    return TouchOpacity(
-                                      onTap: () =>
-                                          _navigateToDetail(context, tx),
-                                      child: _TransactionRow(transaction: tx),
-                                    );
-                                  },
-                                ),
-                              ],
-                            );
-                          },
+                                  20.verticalSpace,
+                                  ListView.separated(
+                                    itemCount: group.transactions.length,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    separatorBuilder:
+                                        (_, __) => 20.verticalSpace,
+                                    itemBuilder: (context, index) {
+                                      final tx = group.transactions[index];
+                                      return TouchOpacity(
+                                        onTap:
+                                            () =>
+                                                _navigateToDetail(context, tx),
+                                        child: _TransactionRow(transaction: tx),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                      ),
               ),
             ],
           ),
@@ -443,30 +463,31 @@ class TransactionHistoryPage extends HookConsumerWidget {
   Widget _buildSkeleton() {
     return ListView.builder(
       itemCount: 6,
-      itemBuilder: (_, __) => Padding(
-        padding: EdgeInsets.only(bottom: 20.h),
-        child: Row(
-          children: [
-            SkeletonLoader(
-              width: 49.w,
-              height: 49.w,
-              borderRadius: BorderRadius.circular(100.r),
+      itemBuilder:
+          (_, __) => Padding(
+            padding: EdgeInsets.only(bottom: 20.h),
+            child: Row(
+              children: [
+                SkeletonLoader(
+                  width: 49.w,
+                  height: 49.w,
+                  borderRadius: BorderRadius.circular(100.r),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SkeletonLoader(width: 140.w, height: 14.h),
+                      6.verticalSpace,
+                      SkeletonLoader(width: 100.w, height: 12.h),
+                    ],
+                  ),
+                ),
+                SkeletonLoader(width: 80.w, height: 14.h),
+              ],
             ),
-            12.horizontalSpace,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SkeletonLoader(width: 140.w, height: 14.h),
-                  6.verticalSpace,
-                  SkeletonLoader(width: 100.w, height: 12.h),
-                ],
-              ),
-            ),
-            SkeletonLoader(width: 80.w, height: 14.h),
-          ],
-        ),
-      ),
+          ),
     );
   }
 

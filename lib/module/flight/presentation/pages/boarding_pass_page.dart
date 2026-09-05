@@ -56,9 +56,10 @@ class BoardingPassPage extends HookConsumerWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         animateColor: true,
-        backgroundColor: isOpaque.value
-            ? PPaymobileColors.buttonColorandText
-            : Colors.transparent,
+        backgroundColor:
+            isOpaque.value
+                ? PPaymobileColors.buttonColorandText
+                : Colors.transparent,
         centerTitle: true,
         title: Text(
           'Boarding Pass',
@@ -85,67 +86,69 @@ class BoardingPassPage extends HookConsumerWidget {
         ),
       ),
       body: boardingPassAsync.when(
-        loading: () => Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: ScreenUtil().screenWidth,
-                height: ScreenUtil().screenHeight * 0.5,
-                color: Colors.white,
-              ),
-            ),
-            Center(
-              child: SkeletonLoader(
-                width: 390.w,
-                height: 600.h,
-                borderRadius: BorderRadius.circular(21.r),
-              ),
-            ),
-          ],
-        ),
-        error: (e, _) => Center(
-          child: Padding(
-            padding: EdgeInsets.all(20.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        loading:
+            () => Stack(
               children: [
-                Text(
-                  e.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'InstrumentSans',
-                    fontSize: 14.sp,
-                    color: PPaymobileColors.svgIconColor,
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().screenHeight * 0.5,
+                    color: Colors.white,
                   ),
                 ),
-                24.verticalSpace,
-                TouchOpacity(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    height: 46.h,
-                    width: 200.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(56).r,
-                      color: PPaymobileColors.buttonColorandText,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Go Back',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                Center(
+                  child: SkeletonLoader(
+                    width: 390.w,
+                    height: 600.h,
+                    borderRadius: BorderRadius.circular(21.r),
                   ),
                 ),
               ],
             ),
-          ),
-        ),
+        error:
+            (e, _) => Center(
+              child: Padding(
+                padding: EdgeInsets.all(20.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      e.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        fontSize: 14.sp,
+                        color: PPaymobileColors.svgIconColor,
+                      ),
+                    ),
+                    24.verticalSpace,
+                    TouchOpacity(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        height: 46.h,
+                        width: 200.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(56).r,
+                          color: PPaymobileColors.buttonColorandText,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Go Back',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         data: (boardingPass) {
           if (boardingPass == null) {
             return Stack(
@@ -210,13 +213,14 @@ class BoardingPassPage extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TouchOpacity(
-                            onTap: isCapturing.value
-                                ? null
-                                : () => _handleDownload(
-                                    context,
-                                    cardKey,
-                                    isCapturing,
-                                  ),
+                            onTap:
+                                isCapturing.value
+                                    ? null
+                                    : () => _handleDownload(
+                                      context,
+                                      cardKey,
+                                      isCapturing,
+                                    ),
                             child: Container(
                               height: 46.h,
                               width: 190.w,
@@ -224,55 +228,60 @@ class BoardingPassPage extends HookConsumerWidget {
                                 borderRadius: BorderRadius.circular(65).r,
                                 color: PPaymobileColors.buttonColorandText,
                               ),
-                              child: isCapturing.value
-                                  ? Center(
-                                      child: SizedBox(
-                                        height: 18.w,
-                                        width: 18.w,
-                                        child: const CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          valueColor: AlwaysStoppedAnimation(
-                                            Colors.white,
-                                          ),
+                              child:
+                                  isCapturing.value
+                                      ? Center(
+                                        child: SizedBox(
+                                          height: 18.w,
+                                          width: 18.w,
+                                          child:
+                                              const CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                                valueColor:
+                                                    AlwaysStoppedAnimation(
+                                                      Colors.white,
+                                                    ),
+                                              ),
                                         ),
+                                      )
+                                      : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 24.h,
+                                            width: 24.h,
+                                            child: SvgPicture.asset(
+                                              'assets/icon/dbt.svg',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                          12.horizontalSpace,
+                                          Text(
+                                            'Download',
+                                            style: TextStyle(
+                                              fontFamily: 'InstrumentSans',
+                                              color:
+                                                  PPaymobileColors
+                                                      .mainScreenBackground,
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    )
-                                  : Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          height: 24.h,
-                                          width: 24.h,
-                                          child: SvgPicture.asset(
-                                            'assets/icon/dbt.svg',
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                        12.horizontalSpace,
-                                        Text(
-                                          'Download',
-                                          style: TextStyle(
-                                            fontFamily: 'InstrumentSans',
-                                            color: PPaymobileColors
-                                                .mainScreenBackground,
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                             ),
                           ),
                           TouchOpacity(
-                            onTap: isCapturing.value
-                                ? null
-                                : () => _handleShare(
-                                    context,
-                                    cardKey,
-                                    isCapturing,
-                                    boardingPass,
-                                  ),
+                            onTap:
+                                isCapturing.value
+                                    ? null
+                                    : () => _handleShare(
+                                      context,
+                                      cardKey,
+                                      isCapturing,
+                                      boardingPass,
+                                    ),
                             child: Container(
                               height: 46.h,
                               width: 190.w,
@@ -354,7 +363,7 @@ class BoardingPassPage extends HookConsumerWidget {
       await Share.shareXFiles(
         [XFile(file.path, mimeType: 'image/png')],
         text:
-            'Boarding Pass — ${boardingPass.bookingReference}\n${boardingPass.origin} → ${boardingPass.destination}',
+            'Boarding Pass: ${boardingPass.bookingReference}\n${boardingPass.origin} → ${boardingPass.destination}',
       );
     } finally {
       isCapturing.value = false;
@@ -506,9 +515,10 @@ class _BoardingPassContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final isRoundTrip = boardingPass.inbound.isNotEmpty;
     final isReserved = boardingPass.status.toLowerCase() == 'reserved';
-    final barcodeData = boardingPass.tickets.isNotEmpty
-        ? boardingPass.tickets.first.ticketNumber
-        : boardingPass.bookingReference;
+    final barcodeData =
+        boardingPass.tickets.isNotEmpty
+            ? boardingPass.tickets.first.ticketNumber
+            : boardingPass.bookingReference;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

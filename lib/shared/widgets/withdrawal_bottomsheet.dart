@@ -36,7 +36,10 @@ class WithdrawalBottomsheet extends HookConsumerWidget {
     }
 
     return FractionallySizedBox(
-      heightFactor: hasAccounts ? (0.18 + (accounts.length * 0.13)).clamp(0.45, 0.85) : 0.45,
+      heightFactor:
+          hasAccounts
+              ? (0.18 + (accounts.length * 0.13)).clamp(0.45, 0.85)
+              : 0.45,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -161,7 +164,7 @@ class WithdrawalBottomsheet extends HookConsumerWidget {
                       ),
                     ),
 
-                  // Empty state — Add New Bank Details button
+                  // Empty state: Add New Bank Details button
                   if (!isLoading && !hasAccounts)
                     TouchOpacity(
                       onTap: navigateToAddBankDetails,
@@ -218,10 +221,11 @@ class WithdrawalBottomsheet extends HookConsumerWidget {
                     Expanded(
                       child: ListView.separated(
                         itemCount: accounts.length,
-                        separatorBuilder: (_, __) => Divider(
-                          height: 1,
-                          color: PPaymobileColors.textfiedBorder,
-                        ),
+                        separatorBuilder:
+                            (_, __) => Divider(
+                              height: 1,
+                              color: PPaymobileColors.textfiedBorder,
+                            ),
                         itemBuilder: (context, index) {
                           final account = accounts[index];
                           return _BankAccountItem(
@@ -250,10 +254,7 @@ class _BankAccountItem extends StatelessWidget {
   final BankAccountEntity account;
   final VoidCallback onTransfer;
 
-  const _BankAccountItem({
-    required this.account,
-    required this.onTransfer,
-  });
+  const _BankAccountItem({required this.account, required this.onTransfer});
 
   @override
   Widget build(BuildContext context) {
@@ -273,17 +274,18 @@ class _BankAccountItem extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(2.r),
-              child: account.bankLogo.isNotEmpty
-                  ? AppImage(
-                      imageUrl: account.bankLogo,
-                      width: 30.w,
-                      height: 28.h,
-                      fit: BoxFit.contain,
-                    )
-                  : SvgPicture.asset(
-                      'assets/icon/bank_black.svg',
-                      fit: BoxFit.contain,
-                    ),
+              child:
+                  account.bankLogo.isNotEmpty
+                      ? AppImage(
+                        imageUrl: account.bankLogo,
+                        width: 30.w,
+                        height: 28.h,
+                        fit: BoxFit.contain,
+                      )
+                      : SvgPicture.asset(
+                        'assets/icon/bank_black.svg',
+                        fit: BoxFit.contain,
+                      ),
             ),
           ),
           14.horizontalSpace,

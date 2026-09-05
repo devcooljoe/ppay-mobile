@@ -16,7 +16,7 @@ class TokenService {
     return _tokenInMemory;
   }
 
-  // The live in-memory token — what all network calls use.
+  // The live in-memory token: what all network calls use.
   String? get token => _tokenInMemory;
 
   // Saves the token both in memory and persisted to Hive.
@@ -43,7 +43,7 @@ class TokenService {
     return token != null && token.isNotEmpty;
   }
 
-  // Full logout — clears memory, token, and email.
+  // Full logout: clears memory, token, and email.
   Future<void> clearToken() async {
     _tokenInMemory = null;
     final box = await Hive.openBox(_boxName);

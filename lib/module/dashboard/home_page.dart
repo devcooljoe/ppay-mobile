@@ -407,7 +407,7 @@ class HomePage extends HookConsumerWidget {
                 ),
                 18.verticalSpace,
 
-                // Complete Verification banner — shown when the user has not
+                // Complete Verification banner: shown when the user has not
                 // submitted KYC yet (keys off isKycSubmitted, not tier/phone).
                 if (needsVerification)
                   Padding(
@@ -488,7 +488,7 @@ class HomePage extends HookConsumerWidget {
                     ),
                   ),
 
-                // Documents under review banner — show when submitted but not yet verified
+                // Documents under review banner: show when submitted but not yet verified
                 if (underReview) ...[
                   8.verticalSpace,
                   Container(

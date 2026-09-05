@@ -25,7 +25,7 @@ class _LiveChatSheetWrapper extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-      // Do not auto-connect — user sees the info screen first and taps Start Chat
+      // Do not auto-connect: user sees the info screen first and taps Start Chat
       return () => ref.read(liveChatProvider.notifier).reset();
     }, []);
 
@@ -172,7 +172,7 @@ class _LiveChatSheet extends HookConsumerWidget {
                   // Messages
                   Expanded(child: _buildBody(context, state, scrollCtrl, ref)),
 
-                  // Composer — enabled while waiting OR active (not on idle)
+                  // Composer: enabled while waiting OR active (not on idle)
                   if (state.status == LiveChatStatus.active ||
                       state.status == LiveChatStatus.waiting) ...[
                     if (state.adminIsTyping) ...[
@@ -184,8 +184,9 @@ class _LiveChatSheet extends HookConsumerWidget {
                       controller: messageCtrl,
                       enabled: true,
                       isWaiting: state.status == LiveChatStatus.waiting,
-                      onChanged: () =>
-                          ref.read(liveChatProvider.notifier).sendTyping(),
+                      onChanged:
+                          () =>
+                              ref.read(liveChatProvider.notifier).sendTyping(),
                       onSend: () {
                         final text = messageCtrl.text.trim();
                         if (text.isEmpty) return;
@@ -224,8 +225,11 @@ class _LiveChatSheet extends HookConsumerWidget {
                             child: _ActionButton(
                               label: 'Retry',
                               color: PPaymobileColors.buttonColor,
-                              onTap: () =>
-                                  ref.read(liveChatProvider.notifier).connect(),
+                              onTap:
+                                  () =>
+                                      ref
+                                          .read(liveChatProvider.notifier)
+                                          .connect(),
                             ),
                           ),
                         if (state.status == LiveChatStatus.error)
@@ -338,24 +342,30 @@ class _LiveChatSheet extends HookConsumerWidget {
   void _showEndConfirmation(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('End Chat'),
-        content: const Text('Are you sure you want to end this chat session?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('End Chat'),
+            content: const Text(
+              'Are you sure you want to end this chat session?',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                  ref.read(liveChatProvider.notifier).endChat();
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'End Chat',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              ref.read(liveChatProvider.notifier).endChat();
-              Navigator.pop(context);
-            },
-            child: const Text('End Chat', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -451,9 +461,8 @@ class _MessageBubble extends StatelessWidget {
       child: Align(
         alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
         child: Column(
-          crossAxisAlignment: isUser
-              ? CrossAxisAlignment.end
-              : CrossAxisAlignment.start,
+          crossAxisAlignment:
+              isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             if (!isUser) ...[
               Row(
@@ -494,9 +503,10 @@ class _MessageBubble extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
                 decoration: BoxDecoration(
-                  color: isUser
-                      ? PPaymobileColors.buttonColor
-                      : PPaymobileColors.deepBackgroundColor,
+                  color:
+                      isUser
+                          ? PPaymobileColors.buttonColor
+                          : PPaymobileColors.deepBackgroundColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16).r,
                     topRight: Radius.circular(16).r,
@@ -555,17 +565,16 @@ class _TypingIndicatorState extends State<_TypingIndicator>
     _dot3 = _offsetAnim(0.6);
   }
 
-  Animation<double> _offsetAnim(double delay) =>
-      TweenSequence([
-        TweenSequenceItem(tween: Tween(begin: 0.0, end: -4.0), weight: 25),
-        TweenSequenceItem(tween: Tween(begin: -4.0, end: 0.0), weight: 25),
-        TweenSequenceItem(tween: ConstantTween(0.0), weight: 50),
-      ]).animate(
-        CurvedAnimation(
-          parent: _ctrl,
-          curve: Interval(delay, (delay + 0.4).clamp(0.0, 1.0)),
-        ),
-      );
+  Animation<double> _offsetAnim(double delay) => TweenSequence([
+    TweenSequenceItem(tween: Tween(begin: 0.0, end: -4.0), weight: 25),
+    TweenSequenceItem(tween: Tween(begin: -4.0, end: 0.0), weight: 25),
+    TweenSequenceItem(tween: ConstantTween(0.0), weight: 50),
+  ]).animate(
+    CurvedAnimation(
+      parent: _ctrl,
+      curve: Interval(delay, (delay + 0.4).clamp(0.0, 1.0)),
+    ),
+  );
 
   @override
   void dispose() {
@@ -609,16 +618,17 @@ class _TypingIndicatorState extends State<_TypingIndicator>
             ),
             child: AnimatedBuilder(
               animation: _ctrl,
-              builder: (_, __) => Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _Dot(offset: _dot1.value),
-                  4.horizontalSpace,
-                  _Dot(offset: _dot2.value),
-                  4.horizontalSpace,
-                  _Dot(offset: _dot3.value),
-                ],
-              ),
+              builder:
+                  (_, __) => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _Dot(offset: _dot1.value),
+                      4.horizontalSpace,
+                      _Dot(offset: _dot2.value),
+                      4.horizontalSpace,
+                      _Dot(offset: _dot3.value),
+                    ],
+                  ),
             ),
           ),
           8.horizontalSpace,
@@ -689,9 +699,10 @@ class _Composer extends StatelessWidget {
               enabled: enabled,
               onChanged: (_) => onChanged?.call(),
               decoration: InputDecoration(
-                hintText: isWaiting
-                    ? 'Type your message (agent will see it when they join)'
-                    : 'Send message',
+                hintText:
+                    isWaiting
+                        ? 'Type your message (agent will see it when they join)'
+                        : 'Send message',
                 hintStyle: TextStyle(
                   fontFamily: 'InstrumentSans',
                   fontSize: 13.sp,

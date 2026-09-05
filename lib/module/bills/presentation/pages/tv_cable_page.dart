@@ -37,8 +37,8 @@ class TvCablePage extends HookConsumerWidget {
 
     final requiresVerification =
         selectedBiller.value?.requiresCustomerVerification ?? false;
-    final isVerified = verifyState.value != null &&
-        verifyState.value!.customerName.isNotEmpty;
+    final isVerified =
+        verifyState.value != null && verifyState.value!.customerName.isNotEmpty;
 
     void selectBiller(BillerEntity biller) {
       selectedBiller.value = biller;
@@ -57,15 +57,16 @@ class TvCablePage extends HookConsumerWidget {
       // DSTV/GOTV/Startimes smart card / IUC numbers are 10 digits
       if (value.trim().length < 10 || selectedBiller.value == null) return;
 
-      final activeItems = selectedBiller.value!.billItems
-          .where((i) => i.isActive)
-          .toList();
+      final activeItems =
+          selectedBiller.value!.billItems.where((i) => i.isActive).toList();
       if (activeItems.isEmpty) return;
 
       isVerifying.value = true;
       debounceTimer.value = Timer(const Duration(milliseconds: 600), () {
         if (context.mounted) {
-          ref.read(verifyBillCustomerProvider.notifier).call(
+          ref
+              .read(verifyBillCustomerProvider.notifier)
+              .call(
                 kudaBillItemIdentifier: activeItems.first.kudaIdentifier,
                 customerIdentification: value.trim(),
               );
@@ -85,45 +86,56 @@ class TvCablePage extends HookConsumerWidget {
       if (requiresVerification) {
         if (smartCardController.text.trim().isEmpty) {
           MessageHandler.showErrorSnackBar(
-              context, 'Please enter smart card / IUC number');
+            context,
+            'Please enter smart card / IUC number',
+          );
           return;
         }
         if (!isVerified) {
           MessageHandler.showErrorSnackBar(
-              context,
-              isVerifying.value
-                  ? 'Please wait for verification to complete'
-                  : 'Smart card / IUC number could not be verified');
+            context,
+            isVerifying.value
+                ? 'Please wait for verification to complete'
+                : 'Smart card / IUC number could not be verified',
+          );
           return;
         }
       }
       if (selectedItem.value == null) {
         MessageHandler.showErrorSnackBar(
-            context, 'Please select a subscription package');
+          context,
+          'Please select a subscription package',
+        );
         return;
       }
       if (phoneController.text.trim().isEmpty) {
         MessageHandler.showErrorSnackBar(
-            context, 'Please enter your phone number');
+          context,
+          'Please enter your phone number',
+        );
         return;
       }
 
-      context.router.push(BillConfirmRoute(
-        args: BillConfirmArgs(
-          billType: BillType.tv,
-          biller: selectedBiller.value!,
-          billItem: selectedItem.value!,
-          customerIdentifier: requiresVerification
-              ? smartCardController.text.trim()
-              : phoneController.text.trim(),
-          customerName: requiresVerification
-              ? (verifyState.value?.customerName ?? '')
-              : '',
-          phoneNumber: phoneController.text.trim(),
-          amount: selectedItem.value!.amount,
-          billerCategory: 'Cable Tv',
+      context.router.push(
+        BillConfirmRoute(
+          args: BillConfirmArgs(
+            billType: BillType.tv,
+            biller: selectedBiller.value!,
+            billItem: selectedItem.value!,
+            customerIdentifier:
+                requiresVerification
+                    ? smartCardController.text.trim()
+                    : phoneController.text.trim(),
+            customerName:
+                requiresVerification
+                    ? (verifyState.value?.customerName ?? '')
+                    : '',
+            phoneNumber: phoneController.text.trim(),
+            amount: selectedItem.value!.amount,
+            billerCategory: 'Cable Tv',
+          ),
         ),
-      ));
+      );
     }
 
     return Scaffold(
@@ -138,23 +150,25 @@ class TvCablePage extends HookConsumerWidget {
             22.verticalSpace,
             billersAsync.when(
               loading: () => const BillProviderSelectorSkeleton(),
-              error: (e, _) => Text(
-                'Failed to load providers',
-                style: TextStyle(
-                  fontFamily: 'InstrumentSans',
-                  color: PPaymobileColors.redTextfield,
-                  fontSize: 14.sp,
-                ),
-              ),
-              data: (billers) => BillProviderSelectorWidget(
-                billers: billers,
-                selectedBiller: selectedBiller.value,
-                fallbackAsset: 'assets/images/dstv_1.png',
-                onSelected: selectBiller,
-              ),
+              error:
+                  (e, _) => Text(
+                    'Failed to load providers',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      color: PPaymobileColors.redTextfield,
+                      fontSize: 14.sp,
+                    ),
+                  ),
+              data:
+                  (billers) => BillProviderSelectorWidget(
+                    billers: billers,
+                    selectedBiller: selectedBiller.value,
+                    fallbackAsset: 'assets/images/dstv_1.png',
+                    onSelected: selectBiller,
+                  ),
             ),
 
-            // Smart card field — only for billers that require verification
+            // Smart card field: only for billers that require verification
             if (selectedBiller.value != null && requiresVerification) ...[
               32.verticalSpace,
               const PPLabel(text: 'Smart Card / IUC Number'),
@@ -162,11 +176,11 @@ class TvCablePage extends HookConsumerWidget {
               TextFormField(
                 controller: smartCardController,
                 keyboardType: TextInputType.number,
-                style:
-                    TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
+                style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
                 onChanged: onSmartCardChanged,
-                decoration:
-                    billInputDecoration(hint: 'Enter smart card number'),
+                decoration: billInputDecoration(
+                  hint: 'Enter smart card number',
+                ),
               ),
               8.verticalSpace,
               BillVerificationStatus(
@@ -202,8 +216,7 @@ class TvCablePage extends HookConsumerWidget {
               TextFormField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
-                style:
-                    TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
+                style: TextStyle(fontFamily: 'InstrumentSans', fontSize: 16.sp),
                 decoration: billInputDecoration(hint: 'Enter phone number'),
               ),
             ],
@@ -221,5 +234,3 @@ class TvCablePage extends HookConsumerWidget {
     );
   }
 }
-
-

@@ -95,7 +95,7 @@ class LoginPage extends HookConsumerWidget {
         final error = ref.read(verifyPasswordProvider).error;
         final errorMessage = MessageHandler.getErrorMessage(error);
 
-        // Token is expired/invalid — clear it and fall back to full login
+        // Token is expired/invalid: clear it and fall back to full login
         // so the user can re-authenticate without losing their saved email.
         if (errorMessage.toLowerCase().contains('expired') ||
             errorMessage.toLowerCase().contains('unauthorized') ||

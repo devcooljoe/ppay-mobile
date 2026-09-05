@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'bills_providers.g.dart';
 
-// Auto-fetch providers — load billers as soon as their page mounts
+// Auto-fetch providers: load billers as soon as their page mounts
 @riverpod
 Future<List<BillerEntity>> airtimeBillers(AirtimeBillersRef ref) async {
   final result = await getIt<GetAirtimeBillersUseCase>()();
@@ -114,7 +114,8 @@ class GetTvBillers extends _$GetTvBillers {
 @riverpod
 class VerifyBillCustomer extends _$VerifyBillCustomer {
   @override
-  AsyncValue<CustomerVerificationEntity?> build() => const AsyncValue.data(null);
+  AsyncValue<CustomerVerificationEntity?> build() =>
+      const AsyncValue.data(null);
 
   void reset() => state = const AsyncValue.data(null);
 

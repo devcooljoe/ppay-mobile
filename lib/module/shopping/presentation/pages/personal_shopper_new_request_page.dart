@@ -99,7 +99,7 @@ class PersonalShopperNewRequestPage extends HookConsumerWidget {
                   10.horizontalSpace,
                   Expanded(
                     child: Text(
-                      'Tell us exactly what you\'re looking for — product name, brand, size, color, budget, or any other details. Our team will source it and respond in your chat.',
+                      'Tell us exactly what you\'re looking for: product name, brand, size, color, budget, or any other details. Our team will source it and respond in your chat.',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: PPaymobileColors.svgIconColor,

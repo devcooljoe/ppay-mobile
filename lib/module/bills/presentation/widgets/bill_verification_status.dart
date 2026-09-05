@@ -5,7 +5,7 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 
 /// Inline verification status widget used across bill payment pages.
 /// Shows a loading indicator, a success banner with the customer name,
-/// or an error banner — matching the pattern used in TransferFundsPage.
+/// or an error banner: matching the pattern used in TransferFundsPage.
 class BillVerificationStatus extends StatelessWidget {
   final bool isLoading;
   final String? customerName;
@@ -63,8 +63,11 @@ class BillVerificationStatus extends StatelessWidget {
         ),
         child: Row(
           children: [
-            SvgPicture.asset('assets/icon/tick_circle.svg',
-                height: 16.w, width: 16.w),
+            SvgPicture.asset(
+              'assets/icon/tick_circle.svg',
+              height: 16.w,
+              width: 16.w,
+            ),
             8.horizontalSpace,
             Expanded(
               child: Text(
@@ -91,8 +94,11 @@ class BillVerificationStatus extends StatelessWidget {
         ),
         child: Row(
           children: [
-            SvgPicture.asset('assets/icon/danger.svg',
-                height: 16.w, width: 16.w),
+            SvgPicture.asset(
+              'assets/icon/danger.svg',
+              height: 16.w,
+              width: 16.w,
+            ),
             8.horizontalSpace,
             Expanded(
               child: Text(

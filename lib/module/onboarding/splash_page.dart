@@ -17,8 +17,9 @@ class SplashPage extends HookConsumerWidget {
       Future.delayed(const Duration(seconds: 3), () async {
         if (!context.mounted) return;
 
-        final hasSeenOnboarding =
-            await ref.read(onboardingStatusProvider.future);
+        final hasSeenOnboarding = await ref.read(
+          onboardingStatusProvider.future,
+        );
 
         if (!context.mounted) return;
 
@@ -27,7 +28,7 @@ class SplashPage extends HookConsumerWidget {
           return;
         }
 
-        // Always go to the login page — the login page handles
+        // Always go to the login page: the login page handles
         // token restoration, biometric prompt, and dashboard navigation.
         context.router.replace(const LoginRoute());
       });

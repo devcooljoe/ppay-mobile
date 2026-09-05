@@ -15,10 +15,11 @@ class KycBottomsheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bvnDone = (user?.isBvnVerified ?? false) || (user?.isBvnSubmitted ?? false);
+    final bvnDone =
+        (user?.isBvnVerified ?? false) || (user?.isBvnSubmitted ?? false);
 
     // BVN is always the active step until it's done, then KYC becomes active.
-    // The user cannot manually switch — the active step is determined by state.
+    // The user cannot manually switch: the active step is determined by state.
     final activeIndex = bvnDone ? 1 : 0;
 
     final items = [
@@ -32,7 +33,8 @@ class KycBottomsheet extends ConsumerWidget {
       _KycItem(
         leadingIcon: 'assets/icon/userid.svg',
         title: 'KYC Verification',
-        subtitle: 'Confirm your personal information with your issued country ID',
+        subtitle:
+            'Confirm your personal information with your issued country ID',
         isVerified: user?.isKycVerified ?? false,
         isSubmitted: user?.isKycSubmitted ?? false,
       ),
@@ -78,8 +80,9 @@ class KycBottomsheet extends ConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(24),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,13 +135,17 @@ class KycBottomsheet extends ConsumerWidget {
                           vertical: 14.h,
                         ),
                         decoration: BoxDecoration(
-                          color: isActive && !isDone
-                              ? PPaymobileColors.buttonColor.withValues(alpha: 0.06)
-                              : Colors.transparent,
+                          color:
+                              isActive && !isDone
+                                  ? PPaymobileColors.buttonColor.withValues(
+                                    alpha: 0.06,
+                                  )
+                                  : Colors.transparent,
                           border: Border.all(
-                            color: isDone
-                                ? PPaymobileColors.lightGrey
-                                : isActive
+                            color:
+                                isDone
+                                    ? PPaymobileColors.lightGrey
+                                    : isActive
                                     ? PPaymobileColors.buttonColor
                                     : PPaymobileColors.textfiedBorder,
                             width: isActive && !isDone ? 1.5.w : 1.w,
@@ -179,15 +186,17 @@ class KycBottomsheet extends ConsumerWidget {
                                       item.isVerified
                                           ? 'Verified'
                                           : item.isSubmitted
-                                              ? 'Under review'
-                                              : item.subtitle,
+                                          ? 'Under review'
+                                          : item.subtitle,
                                       style: TextStyle(
                                         fontFamily: 'InstrumentSans',
                                         fontSize: 12.sp,
-                                        color: item.isVerified
-                                            ? PPaymobileColors.doneTextColor
-                                            : item.isSubmitted
-                                                ? PPaymobileColors.warningTextColor
+                                        color:
+                                            item.isVerified
+                                                ? PPaymobileColors.doneTextColor
+                                                : item.isSubmitted
+                                                ? PPaymobileColors
+                                                    .warningTextColor
                                                 : const Color(0xff5B5B5B),
                                       ),
                                     ),
@@ -203,8 +212,8 @@ class KycBottomsheet extends ConsumerWidget {
                                 isDone
                                     ? 'assets/icon/check.svg'
                                     : isActive
-                                        ? 'assets/icon/check_circle.svg'
-                                        : 'assets/icon/arrow_forward.svg',
+                                    ? 'assets/icon/check_circle.svg'
+                                    : 'assets/icon/arrow_forward.svg',
                               ),
                             ),
                           ],

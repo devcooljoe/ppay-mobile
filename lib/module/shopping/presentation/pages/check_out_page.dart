@@ -50,9 +50,11 @@ class CheckOutPage extends HookConsumerWidget {
     // Fetch summary whenever subtotal changes (and on first load)
     useEffect(() {
       if (subtotal > 0) {
-        Future.microtask(() => ref
-            .read(getCheckoutSummaryProvider.notifier)
-            .call(subtotal, promoCode: appliedPromo.value));
+        Future.microtask(
+          () => ref
+              .read(getCheckoutSummaryProvider.notifier)
+              .call(subtotal, promoCode: appliedPromo.value),
+        );
       }
       return null;
     }, [subtotal]);
@@ -113,25 +115,38 @@ class CheckOutPage extends HookConsumerWidget {
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
 
-      await ref.read(createOrderProvider.notifier).call(
-        receiverName: receiverController.text.trim(),
-        phoneNumber: phoneController.text.trim(),
-        country: countryController.text.trim(),
-        orderState: stateController.text.trim(),
-        address: addressController.text.trim(),
-        note: noteController.text.isNotEmpty ? noteController.text.trim() : null,
-        promoCode: appliedPromo.value,
-        items: items.map((item) => {
-          'productId': item.product.id,
-          if (item.variant != null) 'variantId': item.variant!.id,
-          'quantity': item.quantity,
-        }).toList(),
-      );
+      await ref
+          .read(createOrderProvider.notifier)
+          .call(
+            receiverName: receiverController.text.trim(),
+            phoneNumber: phoneController.text.trim(),
+            country: countryController.text.trim(),
+            orderState: stateController.text.trim(),
+            address: addressController.text.trim(),
+            note:
+                noteController.text.isNotEmpty
+                    ? noteController.text.trim()
+                    : null,
+            promoCode: appliedPromo.value,
+            items:
+                items
+                    .map(
+                      (item) => {
+                        'productId': item.product.id,
+                        if (item.variant != null) 'variantId': item.variant!.id,
+                        'quantity': item.quantity,
+                      },
+                    )
+                    .toList(),
+          );
 
       if (!context.mounted) return;
       final state = ref.read(createOrderProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(state.error),
+        );
       } else if (state.value != null) {
         // Invalidate stale data so sold-out products disappear from lists
         ref.invalidate(getCartProvider);
@@ -150,132 +165,300 @@ class CheckOutPage extends HookConsumerWidget {
           child: ListView(
             children: [
               42.verticalSpace,
-              Text('Enter Receiver\'s Address', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w500)),
+              Text(
+                'Enter Receiver\'s Address',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               21.verticalSpace,
 
-              _FormField(label: 'Receiver Name', controller: receiverController, hint: 'Enter receiver name'),
+              _FormField(
+                label: 'Receiver Name',
+                controller: receiverController,
+                hint: 'Enter receiver name',
+              ),
               20.verticalSpace,
 
               Row(
                 children: [
-                  Expanded(child: _FormField(label: 'Country', controller: countryController, hint: 'Country')),
+                  Expanded(
+                    child: _FormField(
+                      label: 'Country',
+                      controller: countryController,
+                      hint: 'Country',
+                    ),
+                  ),
                   20.horizontalSpace,
-                  Expanded(child: _FormField(label: 'State', controller: stateController, hint: 'State')),
+                  Expanded(
+                    child: _FormField(
+                      label: 'State',
+                      controller: stateController,
+                      hint: 'State',
+                    ),
+                  ),
                 ],
               ),
               20.verticalSpace,
 
-              _FormField(label: 'Address', controller: addressController, hint: 'Enter delivery address'),
+              _FormField(
+                label: 'Address',
+                controller: addressController,
+                hint: 'Enter delivery address',
+              ),
               20.verticalSpace,
 
-              _FormField(label: 'Phone No', controller: phoneController, hint: '+234', keyboardType: TextInputType.phone),
+              _FormField(
+                label: 'Phone No',
+                controller: phoneController,
+                hint: '+234',
+                keyboardType: TextInputType.phone,
+              ),
               20.verticalSpace,
 
-              _FormField(label: 'Add Note', controller: noteController, hint: 'Optional', maxLines: 4),
+              _FormField(
+                label: 'Add Note',
+                controller: noteController,
+                hint: 'Optional',
+                maxLines: 4,
+              ),
               40.verticalSpace,
 
-              Text('Order List', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w600)),
+              Text(
+                'Order List',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               32.verticalSpace,
 
               cartState.isLoading
                   ? SkeletonLoader(width: double.infinity, height: 100.h)
                   : items.isEmpty
-                      ? Center(child: Text('Your cart is empty', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp)))
-                      : Column(
-                          children: items.map((item) {
-                            final price = item.product.discountPrice ?? item.product.price;
-                            final imageUrl = item.product.images?.isNotEmpty == true ? item.product.images!.first.url : null;
-                            return Padding(
-                              padding: EdgeInsets.only(bottom: 20.h),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 80.w,
-                                    height: 80.h,
-                                    decoration: BoxDecoration(
-                                      color: PPaymobileColors.deepBackgroundColor,
-                                      borderRadius: BorderRadius.circular(4.r),
-                                    ),
-                                    child: imageUrl != null
-                                        ? ClipRRect(
-                                            borderRadius: BorderRadius.circular(4.r),
-                                            child: Image.network(imageUrl, fit: BoxFit.cover,
-                                              errorBuilder: (_, __, ___) => Center(child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 32.w))),
+                  ? Center(
+                    child: Text(
+                      'Your cart is empty',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: PPaymobileColors.svgIconColor,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                  )
+                  : Column(
+                    children:
+                        items.map((item) {
+                          final price =
+                              item.product.discountPrice ?? item.product.price;
+                          final imageUrl =
+                              item.product.images?.isNotEmpty == true
+                                  ? item.product.images!.first.url
+                                  : null;
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 20.h),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 80.w,
+                                  height: 80.h,
+                                  decoration: BoxDecoration(
+                                    color: PPaymobileColors.deepBackgroundColor,
+                                    borderRadius: BorderRadius.circular(4.r),
+                                  ),
+                                  child:
+                                      imageUrl != null
+                                          ? ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              4.r,
+                                            ),
+                                            child: Image.network(
+                                              imageUrl,
+                                              fit: BoxFit.cover,
+                                              errorBuilder:
+                                                  (_, __, ___) => Center(
+                                                    child: Icon(
+                                                      Icons
+                                                          .shopping_bag_outlined,
+                                                      color:
+                                                          PPaymobileColors
+                                                              .svgIconColor,
+                                                      size: 32.w,
+                                                    ),
+                                                  ),
+                                            ),
                                           )
-                                        : Center(child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 32.w)),
-                                  ),
-                                  12.horizontalSpace,
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(item.product.name, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                                          : Center(
+                                            child: Icon(
+                                              Icons.shopping_bag_outlined,
+                                              color:
+                                                  PPaymobileColors.svgIconColor,
+                                              size: 32.w,
                                             ),
-                                            TouchOpacity(
-                                              onTap: () async {
-                                                final confirmed = await showDeleteConfirmSheet(
-                                                  context,
-                                                  title: 'Remove Item?',
-                                                  message: 'Are you sure you want to remove "${item.product.name}" from your order?',
-                                                );
-                                                if (!confirmed || !context.mounted) return;
-                                                await ref.read(removeFromCartProvider.notifier).call(item.id);
-                                                ref.read(getCartProvider.notifier).call();
-                                              },
-                                              child: SizedBox(height: 20.w, width: 20.w, child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.contain)),
-                                            ),
-                                          ],
-                                        ),
-                                        4.verticalSpace,
-                                        if (item.variant != null)
-                                          Text(
-                                            item.variant!.attributes.entries.map((e) => '${e.key}: ${e.value}').join(', '),
-                                            style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 11.sp),
                                           ),
-                                        4.verticalSpace,
-                                        Text('Qty: ${item.quantity}', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp)),
-                                        4.verticalSpace,
-                                        Text('₦${AmountFormatter.formatBalance((price * item.quantity).toStringAsFixed(2))}', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
-                                      ],
-                                    ),
+                                ),
+                                12.horizontalSpace,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              item.product.name,
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
+                                                color: Colors.black,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          TouchOpacity(
+                                            onTap: () async {
+                                              final confirmed =
+                                                  await showDeleteConfirmSheet(
+                                                    context,
+                                                    title: 'Remove Item?',
+                                                    message:
+                                                        'Are you sure you want to remove "${item.product.name}" from your order?',
+                                                  );
+                                              if (!confirmed ||
+                                                  !context.mounted)
+                                                return;
+                                              await ref
+                                                  .read(
+                                                    removeFromCartProvider
+                                                        .notifier,
+                                                  )
+                                                  .call(item.id);
+                                              ref
+                                                  .read(
+                                                    getCartProvider.notifier,
+                                                  )
+                                                  .call();
+                                            },
+                                            child: SizedBox(
+                                              height: 20.w,
+                                              width: 20.w,
+                                              child: SvgPicture.asset(
+                                                'assets/icon/cancel.svg',
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      4.verticalSpace,
+                                      if (item.variant != null)
+                                        Text(
+                                          item.variant!.attributes.entries
+                                              .map(
+                                                (e) => '${e.key}: ${e.value}',
+                                              )
+                                              .join(', '),
+                                          style: TextStyle(
+                                            fontFamily: 'InstrumentSans',
+                                            color:
+                                                PPaymobileColors.svgIconColor,
+                                            fontSize: 11.sp,
+                                          ),
+                                        ),
+                                      4.verticalSpace,
+                                      Text(
+                                        'Qty: ${item.quantity}',
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          color: PPaymobileColors.svgIconColor,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      4.verticalSpace,
+                                      Text(
+                                        '₦${AmountFormatter.formatBalance((price * item.quantity).toStringAsFixed(2))}',
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          color: Colors.black,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                        ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                  ),
 
-              if (items.isNotEmpty) ...[ 
+              if (items.isNotEmpty) ...[
                 // Promo code input
                 20.verticalSpace,
-                Text('Promo Code', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+                Text(
+                  'Promo Code',
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 8.verticalSpace,
                 if (appliedPromo.value != null)
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 10.h,
+                    ),
                     decoration: BoxDecoration(
                       color: PPaymobileColors.doneColor,
                       borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: PPaymobileColors.buttonColor, width: 1.w),
+                      border: Border.all(
+                        color: PPaymobileColors.buttonColor,
+                        width: 1.w,
+                      ),
                     ),
                     child: Row(
                       children: [
-                        SvgPicture.asset('assets/icon/done.svg', width: 16.w, height: 16.w, colorFilter: ColorFilter.mode(PPaymobileColors.buttonColor, BlendMode.srcIn)),
+                        SvgPicture.asset(
+                          'assets/icon/done.svg',
+                          width: 16.w,
+                          height: 16.w,
+                          colorFilter: ColorFilter.mode(
+                            PPaymobileColors.buttonColor,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                         8.horizontalSpace,
                         Expanded(
                           child: Text(
-                            '${appliedPromo.value} applied — saving ₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}',
-                            style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.buttonColor, fontSize: 13.sp, fontWeight: FontWeight.w500),
+                            '${appliedPromo.value} applied: saving ₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: PPaymobileColors.buttonColor,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                         TouchOpacity(
                           onTap: onRemovePromo,
-                          child: Icon(Icons.close, size: 18.w, color: PPaymobileColors.buttonColor),
+                          child: Icon(
+                            Icons.close,
+                            size: 18.w,
+                            color: PPaymobileColors.buttonColor,
+                          ),
                         ),
                       ],
                     ),
@@ -291,10 +474,29 @@ class CheckOutPage extends HookConsumerWidget {
                             textCapitalization: TextCapitalization.characters,
                             decoration: InputDecoration(
                               hintText: 'Enter promo code',
-                              hintStyle: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfieldGrey, fontSize: 14.sp),
-                              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
-                              border: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+                              hintStyle: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: PPaymobileColors.textfieldGrey,
+                                fontSize: 14.sp,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: PPaymobileColors.textfieldGrey,
+                                  width: 1.w,
+                                ),
+                                borderRadius: BorderRadius.circular(6).r,
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: PPaymobileColors.textfieldGrey,
+                                  width: 1.w,
+                                ),
+                                borderRadius: BorderRadius.circular(6).r,
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 14.h,
+                              ),
                             ),
                           ),
                         ),
@@ -310,36 +512,80 @@ class CheckOutPage extends HookConsumerWidget {
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Center(
-                            child: promoLoading.value
-                                ? SizedBox(width: 16.w, height: 16.w, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                                : Text('Apply', style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600)),
+                            child:
+                                promoLoading.value
+                                    ? SizedBox(
+                                      width: 16.w,
+                                      height: 16.w,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                    : Text(
+                                      'Apply',
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                           ),
                         ),
                       ),
                     ],
                   ),
                 24.verticalSpace,
-                Divider(height: 1.h, color: PPaymobileColors.deepBackgroundColor),
+                Divider(
+                  height: 1.h,
+                  color: PPaymobileColors.deepBackgroundColor,
+                ),
                 16.verticalSpace,
-                _SummaryRow(label: 'Subtotal', value: '₦${AmountFormatter.formatBalance(subtotal.toStringAsFixed(2))}'),
+                _SummaryRow(
+                  label: 'Subtotal',
+                  value:
+                      '₦${AmountFormatter.formatBalance(subtotal.toStringAsFixed(2))}',
+                ),
                 8.verticalSpace,
                 summaryState.isLoading
                     ? Padding(
-                        padding: EdgeInsets.symmetric(vertical: 4.h),
-                        child: SkeletonLoader(width: double.infinity, height: 16.h, borderRadius: BorderRadius.circular(4.r)),
-                      )
-                    : _SummaryRow(label: 'Delivery Fee', value: '₦${AmountFormatter.formatBalance(deliveryFee.toStringAsFixed(2))}'),
+                      padding: EdgeInsets.symmetric(vertical: 4.h),
+                      child: SkeletonLoader(
+                        width: double.infinity,
+                        height: 16.h,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    )
+                    : _SummaryRow(
+                      label: 'Delivery Fee',
+                      value:
+                          '₦${AmountFormatter.formatBalance(deliveryFee.toStringAsFixed(2))}',
+                    ),
                 8.verticalSpace,
-                if (discount > 0) ...[ 
-                  _SummaryRow(label: 'Discount', value: '-₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}', isDiscount: true),
+                if (discount > 0) ...[
+                  _SummaryRow(
+                    label: 'Discount',
+                    value:
+                        '-₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}',
+                    isDiscount: true,
+                  ),
                   8.verticalSpace,
                 ],
-                _SummaryRow(label: 'Total', value: '₦${AmountFormatter.formatBalance(total.toStringAsFixed(2))}', isBold: true),
+                _SummaryRow(
+                  label: 'Total',
+                  value:
+                      '₦${AmountFormatter.formatBalance(total.toStringAsFixed(2))}',
+                  isBold: true,
+                ),
                 24.verticalSpace,
               ],
 
               PPButton(
-                text: createOrderState.isLoading ? 'Processing...' : 'Confirm Payment',
+                text:
+                    createOrderState.isLoading
+                        ? 'Processing...'
+                        : 'Confirm Payment',
                 onPressed: createOrderState.isLoading ? null : onConfirm,
               ),
               20.verticalSpace,
@@ -371,7 +617,15 @@ class _FormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.w500)),
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         4.verticalSpace,
         SizedBox(
           height: maxLines > 1 ? null : 54.h,
@@ -381,10 +635,30 @@ class _FormField extends StatelessWidget {
             keyboardType: keyboardType,
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.textfieldGrey, fontSize: 16.sp, fontWeight: FontWeight.w500),
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
-              border: OutlineInputBorder(borderSide: BorderSide(color: PPaymobileColors.textfieldGrey, width: 1.w), borderRadius: BorderRadius.circular(6).r),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+              hintStyle: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: PPaymobileColors.textfieldGrey,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: PPaymobileColors.textfieldGrey,
+                  width: 1.w,
+                ),
+                borderRadius: BorderRadius.circular(6).r,
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: PPaymobileColors.textfieldGrey,
+                  width: 1.w,
+                ),
+                borderRadius: BorderRadius.circular(6).r,
+              ),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 12.w,
+                vertical: 14.h,
+              ),
             ),
           ),
         ),
@@ -399,15 +673,36 @@ class _SummaryRow extends StatelessWidget {
   final bool isBold;
   final bool isDiscount;
 
-  const _SummaryRow({required this.label, required this.value, this.isBold = false, this.isDiscount = false});
+  const _SummaryRow({
+    required this.label,
+    required this.value,
+    this.isBold = false,
+    this.isDiscount = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontFamily: 'InstrumentSans', color: isBold ? Colors.black : PPaymobileColors.svgIconColor, fontSize: isBold ? 16.sp : 14.sp, fontWeight: isBold ? FontWeight.w600 : FontWeight.w400)),
-        Text(value, style: TextStyle(fontFamily: 'InstrumentSans', color: isDiscount ? PPaymobileColors.buttonColor : Colors.black, fontSize: isBold ? 16.sp : 14.sp, fontWeight: isBold ? FontWeight.w600 : FontWeight.w500)),
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: isBold ? Colors.black : PPaymobileColors.svgIconColor,
+            fontSize: isBold ? 16.sp : 14.sp,
+            fontWeight: isBold ? FontWeight.w600 : FontWeight.w400,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: isDiscount ? PPaymobileColors.buttonColor : Colors.black,
+            fontSize: isBold ? 16.sp : 14.sp,
+            fontWeight: isBold ? FontWeight.w600 : FontWeight.w500,
+          ),
+        ),
       ],
     );
   }

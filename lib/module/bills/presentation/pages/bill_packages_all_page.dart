@@ -25,10 +25,10 @@ class BillPackagesAllPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final groups = useMemoized(
-      () => BillItemGrouper.group(items, billType),
-      [items, billType],
-    );
+    final groups = useMemoized(() => BillItemGrouper.group(items, billType), [
+      items,
+      billType,
+    ]);
 
     final selectedGroupIndex = useState(0);
     final selected = useState<BillItemEntity?>(selectedItem);
@@ -45,9 +45,10 @@ class BillPackagesAllPage extends HookWidget {
       return null;
     }, []);
 
-    final currentItems = groups.isEmpty
-        ? <BillItemEntity>[]
-        : groups[selectedGroupIndex.value].items;
+    final currentItems =
+        groups.isEmpty
+            ? <BillItemEntity>[]
+            : groups[selectedGroupIndex.value].items;
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
@@ -55,7 +56,7 @@ class BillPackagesAllPage extends HookWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Group filter chips — only shown when there are multiple groups
+            // Group filter chips: only shown when there are multiple groups
             if (groups.length > 1) ...[
               16.verticalSpace,
               SizedBox(
@@ -72,17 +73,22 @@ class BillPackagesAllPage extends HookWidget {
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 180),
                         padding: EdgeInsets.symmetric(
-                            horizontal: 18.w, vertical: 8.h),
+                          horizontal: 18.w,
+                          vertical: 8.h,
+                        ),
                         decoration: BoxDecoration(
-                          color: isActive
-                              ? PPaymobileColors.buttonColorandText
-                              : PPaymobileColors.deepBackgroundColor,
+                          color:
+                              isActive
+                                  ? PPaymobileColors.buttonColorandText
+                                  : PPaymobileColors.deepBackgroundColor,
                           borderRadius: BorderRadius.circular(24.r),
-                          border: isActive
-                              ? null
-                              : Border.all(
-                                  color: PPaymobileColors.textfiedBorder,
-                                  width: 1.w),
+                          border:
+                              isActive
+                                  ? null
+                                  : Border.all(
+                                    color: PPaymobileColors.textfiedBorder,
+                                    width: 1.w,
+                                  ),
                         ),
                         child: Text(
                           groups[i].label,
@@ -90,9 +96,10 @@ class BillPackagesAllPage extends HookWidget {
                             fontFamily: 'InstrumentSans',
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w600,
-                            color: isActive
-                                ? Colors.white
-                                : PPaymobileColors.darkGrey,
+                            color:
+                                isActive
+                                    ? Colors.white
+                                    : PPaymobileColors.darkGrey,
                           ),
                         ),
                       ),
@@ -104,19 +111,19 @@ class BillPackagesAllPage extends HookWidget {
             ] else
               16.verticalSpace,
 
-            // Packages grid — content-sized rows
+            // Packages grid: content-sized rows
             Expanded(
               child: ListView.builder(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
                 itemCount: (currentItems.length / 2).ceil(),
                 itemBuilder: (_, rowIndex) {
                   final leftIndex = rowIndex * 2;
                   final rightIndex = leftIndex + 1;
                   final leftItem = currentItems[leftIndex];
-                  final rightItem = rightIndex < currentItems.length
-                      ? currentItems[rightIndex]
-                      : null;
+                  final rightItem =
+                      rightIndex < currentItems.length
+                          ? currentItems[rightIndex]
+                          : null;
                   return Padding(
                     padding: EdgeInsets.only(bottom: 12.h),
                     child: IntrinsicHeight(
@@ -128,23 +135,23 @@ class BillPackagesAllPage extends HookWidget {
                               onTap: () => selected.value = leftItem,
                               child: _PackageCard(
                                 item: leftItem,
-                                isSelected:
-                                    selected.value?.id == leftItem.id,
+                                isSelected: selected.value?.id == leftItem.id,
                               ),
                             ),
                           ),
                           12.horizontalSpace,
                           Expanded(
-                            child: rightItem != null
-                                ? TouchOpacity(
-                                    onTap: () => selected.value = rightItem,
-                                    child: _PackageCard(
-                                      item: rightItem,
-                                      isSelected:
-                                          selected.value?.id == rightItem.id,
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
+                            child:
+                                rightItem != null
+                                    ? TouchOpacity(
+                                      onTap: () => selected.value = rightItem,
+                                      child: _PackageCard(
+                                        item: rightItem,
+                                        isSelected:
+                                            selected.value?.id == rightItem.id,
+                                      ),
+                                    )
+                                    : const SizedBox.shrink(),
                           ),
                         ],
                       ),
@@ -156,13 +163,14 @@ class BillPackagesAllPage extends HookWidget {
 
             // Confirm button
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
                 border: Border(
                   top: BorderSide(
-                      color: PPaymobileColors.textfiedBorder, width: 1.w),
+                    color: PPaymobileColors.textfiedBorder,
+                    width: 1.w,
+                  ),
                 ),
               ),
               child: SizedBox(
@@ -170,21 +178,23 @@ class BillPackagesAllPage extends HookWidget {
                 height: 50.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: selected.value != null
-                        ? PPaymobileColors.buttonColorandText
-                        : PPaymobileColors.buttonInactiveColor,
+                    backgroundColor:
+                        selected.value != null
+                            ? PPaymobileColors.buttonColorandText
+                            : PPaymobileColors.buttonInactiveColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(42.r),
                     ),
                     elevation: 0,
                   ),
-                  onPressed: selected.value == null
-                      ? null
-                      : () => Navigator.pop(context, selected.value),
+                  onPressed:
+                      selected.value == null
+                          ? null
+                          : () => Navigator.pop(context, selected.value),
                   child: Text(
                     selected.value == null
                         ? 'Select a Package'
-                        : 'Confirm — ₦${AmountFormatter.formatBalance(selected.value!.amount.toString())}',
+                        : 'Confirm: ₦${AmountFormatter.formatBalance(selected.value!.amount.toString())}',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
@@ -229,12 +239,17 @@ class _PackageCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        color: isSelected
-            ? PPaymobileColors.buttonColor.withValues(alpha: 0.08)
-            : PPaymobileColors.deepBackgroundColor,
-        border: isSelected
-            ? Border.all(color: PPaymobileColors.buttonColor, width: 1.5.w)
-            : Border.all(color: PPaymobileColors.textfiedBorder, width: 1.w),
+        color:
+            isSelected
+                ? PPaymobileColors.buttonColor.withValues(alpha: 0.08)
+                : PPaymobileColors.deepBackgroundColor,
+        border:
+            isSelected
+                ? Border.all(color: PPaymobileColors.buttonColor, width: 1.5.w)
+                : Border.all(
+                  color: PPaymobileColors.textfiedBorder,
+                  width: 1.w,
+                ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,20 +273,21 @@ class _PackageCard extends StatelessWidget {
               fontFamily: 'InstrumentSans',
               fontSize: 14.sp,
               fontWeight: FontWeight.w700,
-              color: isSelected
-                  ? PPaymobileColors.buttonColor
-                  : PPaymobileColors.backgroundColor,
+              color:
+                  isSelected
+                      ? PPaymobileColors.buttonColor
+                      : PPaymobileColors.backgroundColor,
             ),
           ),
           if (duration != null) ...[
             4.verticalSpace,
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+              padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? PPaymobileColors.buttonColor.withValues(alpha: 0.12)
-                    : PPaymobileColors.anotherbuttonbgColor,
+                color:
+                    isSelected
+                        ? PPaymobileColors.buttonColor.withValues(alpha: 0.12)
+                        : PPaymobileColors.anotherbuttonbgColor,
                 borderRadius: BorderRadius.circular(4.r),
               ),
               child: Text(
@@ -280,9 +296,10 @@ class _PackageCard extends StatelessWidget {
                   fontFamily: 'InstrumentSans',
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
-                  color: isSelected
-                      ? PPaymobileColors.buttonColor
-                      : PPaymobileColors.darkGrey,
+                  color:
+                      isSelected
+                          ? PPaymobileColors.buttonColor
+                          : PPaymobileColors.darkGrey,
                 ),
               ),
             ),

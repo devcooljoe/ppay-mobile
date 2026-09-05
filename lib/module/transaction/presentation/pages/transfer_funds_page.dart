@@ -174,22 +174,24 @@ class TransferFundsPage extends HookConsumerWidget {
                   controller: bankController,
                   readOnly: true,
                   hintText: 'Select',
-                  prefixIcon: selectedBank.value == null
-                      ? null
-                      : Padding(
-                          padding: EdgeInsets.all(10.r),
-                          child: selectedBank.value!.bankLogo.isNotEmpty
-                              ? AppImage(
-                                  imageUrl: selectedBank.value!.bankLogo,
-                                  width: 26.w,
-                                  height: 22.h,
-                                  fit: BoxFit.contain,
-                                )
-                              : SvgPicture.asset(
-                                  'assets/icon/bank_black.svg',
-                                  fit: BoxFit.scaleDown,
-                                ),
-                        ),
+                  prefixIcon:
+                      selectedBank.value == null
+                          ? null
+                          : Padding(
+                            padding: EdgeInsets.all(10.r),
+                            child:
+                                selectedBank.value!.bankLogo.isNotEmpty
+                                    ? AppImage(
+                                      imageUrl: selectedBank.value!.bankLogo,
+                                      width: 26.w,
+                                      height: 22.h,
+                                      fit: BoxFit.contain,
+                                    )
+                                    : SvgPicture.asset(
+                                      'assets/icon/bank_black.svg',
+                                      fit: BoxFit.scaleDown,
+                                    ),
+                          ),
                   suffixIcon: Padding(
                     padding: EdgeInsets.all(12.w),
                     child: SvgPicture.asset(
@@ -213,7 +215,7 @@ class TransferFundsPage extends HookConsumerWidget {
             ),
             20.verticalSpace,
 
-            // Name enquiry status row — only visible when account number is typed
+            // Name enquiry status row: only visible when account number is typed
             if (accountController.text.isNotEmpty)
               _NameEnquiryStatus(
                 isLoading: isEnquiryLoading.value,
@@ -227,9 +229,10 @@ class TransferFundsPage extends HookConsumerWidget {
             PPButton(
               text: 'Add Bank',
               onPressed: canSubmit ? handleAddBank : null,
-              backgroundColor: canSubmit
-                  ? PPaymobileColors.backgroundColor
-                  : PPaymobileColors.buttonInactiveColor,
+              backgroundColor:
+                  canSubmit
+                      ? PPaymobileColors.backgroundColor
+                      : PPaymobileColors.buttonInactiveColor,
               isLoading: addBankAsync.isLoading,
             ),
             20.verticalSpace,

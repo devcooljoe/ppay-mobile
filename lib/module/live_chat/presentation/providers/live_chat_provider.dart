@@ -76,18 +76,26 @@ class LiveChatNotifier extends StateNotifier<LiveChatState> {
   LiveChatNotifier() : super(const LiveChatState());
 
   Future<void> connect() async {
-    if (state.status == LiveChatStatus.connecting || state.status == LiveChatStatus.waiting || state.status == LiveChatStatus.active) return;
+    if (state.status == LiveChatStatus.connecting ||
+        state.status == LiveChatStatus.waiting ||
+        state.status == LiveChatStatus.active)
+      return;
 
     state = const LiveChatState(status: LiveChatStatus.connecting);
 
     final token = getIt<TokenService>().token;
     if (token == null) {
-      state = state.copyWith(status: LiveChatStatus.error, statusMessage: 'Not authenticated');
+      state = state.copyWith(
+        status: LiveChatStatus.error,
+        statusMessage: 'Not authenticated',
+      );
       return;
     }
 
     try {
-      final uri = Uri.parse('$_wsBaseUrl?token=${Uri.encodeComponent(token)}&role=user');
+      final uri = Uri.parse(
+        '$_wsBaseUrl?token=${Uri.encodeComponent(token)}&role=user',
+      );
       _channel = WebSocketChannel.connect(uri);
 
       _subscription = _channel!.stream.listen(
@@ -96,7 +104,10 @@ class LiveChatNotifier extends StateNotifier<LiveChatState> {
         onDone: _onDone,
       );
     } catch (e) {
-      state = state.copyWith(status: LiveChatStatus.error, statusMessage: 'Failed to connect');
+      state = state.copyWith(
+        status: LiveChatStatus.error,
+        statusMessage: 'Failed to connect',
+      );
     }
   }
 
@@ -137,14 +148,19 @@ class LiveChatNotifier extends StateNotifier<LiveChatState> {
         final newMsg = LiveChatMessage(
           body: msg['body'] as String,
           sender: msg['sender'] as String,
-          createdAt: DateTime.tryParse(msg['createdAt'] as String? ?? '') ?? DateTime.now(),
+          createdAt:
+              DateTime.tryParse(msg['createdAt'] as String? ?? '') ??
+              DateTime.now(),
         );
         // Deduplicate: if this is our own optimistic message echoed back, skip adding again
         if (msg['sender'] == 'user') {
-          // Already added optimistically in sendMessage — just update timestamp if needed
+          // Already added optimistically in sendMessage: just update timestamp if needed
           break;
         }
-        state = state.copyWith(messages: [...state.messages, newMsg], adminIsTyping: false);
+        state = state.copyWith(
+          messages: [...state.messages, newMsg],
+          adminIsTyping: false,
+        );
         break;
 
       case 'ended':
@@ -162,19 +178,27 @@ class LiveChatNotifier extends StateNotifier<LiveChatState> {
   }
 
   void _onError(dynamic error) {
-    state = state.copyWith(status: LiveChatStatus.error, statusMessage: 'Connection error');
+    state = state.copyWith(
+      status: LiveChatStatus.error,
+      statusMessage: 'Connection error',
+    );
     _cleanup();
   }
 
   void _onDone() {
     if (state.status != LiveChatStatus.ended) {
-      state = state.copyWith(status: LiveChatStatus.ended, statusMessage: 'Disconnected from server');
+      state = state.copyWith(
+        status: LiveChatStatus.ended,
+        statusMessage: 'Disconnected from server',
+      );
     }
     _cleanup();
   }
 
   void sendTyping() {
-    if (state.status != LiveChatStatus.active && state.status != LiveChatStatus.waiting) return;
+    if (state.status != LiveChatStatus.active &&
+        state.status != LiveChatStatus.waiting)
+      return;
     if (!_lastTypingSent) {
       _lastTypingSent = true;
       _channel?.sink.add(jsonEncode({'type': 'typing', 'isTyping': true}));
@@ -189,7 +213,9 @@ class LiveChatNotifier extends StateNotifier<LiveChatState> {
   void sendMessage(String body) {
     if (body.trim().isEmpty) return;
     // Allow sending while waiting (before admin joins) or active
-    if (state.status != LiveChatStatus.active && state.status != LiveChatStatus.waiting) return;
+    if (state.status != LiveChatStatus.active &&
+        state.status != LiveChatStatus.waiting)
+      return;
     final optimistic = LiveChatMessage(
       body: body.trim(),
       sender: 'user',
@@ -201,7 +227,10 @@ class LiveChatNotifier extends StateNotifier<LiveChatState> {
 
   void endChat() {
     _channel?.sink.add(jsonEncode({'type': 'end'}));
-    state = state.copyWith(status: LiveChatStatus.ended, statusMessage: 'You ended the chat.');
+    state = state.copyWith(
+      status: LiveChatStatus.ended,
+      statusMessage: 'You ended the chat.',
+    );
     _cleanup();
   }
 
@@ -228,6 +257,7 @@ class LiveChatNotifier extends StateNotifier<LiveChatState> {
 
 // ── Provider ─────────────────────────────────────────────────────────────────
 
-final liveChatProvider = StateNotifierProvider.autoDispose<LiveChatNotifier, LiveChatState>(
-  (_) => LiveChatNotifier(),
-);
+final liveChatProvider =
+    StateNotifierProvider.autoDispose<LiveChatNotifier, LiveChatState>(
+      (_) => LiveChatNotifier(),
+    );
