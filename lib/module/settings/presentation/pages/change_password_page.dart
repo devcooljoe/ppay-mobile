@@ -13,7 +13,6 @@ import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 @RoutePage()
 class ChangePasswordPage extends HookConsumerWidget {
@@ -25,10 +24,6 @@ class ChangePasswordPage extends HookConsumerWidget {
     final currentController = useTextEditingController();
     final newController = useTextEditingController();
     final confirmController = useTextEditingController();
-    final obscureCurrent = useState(true);
-    final obscureNew = useState(true);
-    final obscureConfirm = useState(true);
-
     // Live password validation
     final newPassword = useState('');
     useEffect(() {
@@ -43,9 +38,15 @@ class ChangePasswordPage extends HookConsumerWidget {
       } else if (previous?.isLoading == true) {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         } else {
-          MessageHandler.showSuccessSnackBar(context, 'Password changed successfully');
+          MessageHandler.showSuccessSnackBar(
+            context,
+            'Password changed successfully',
+          );
           context.router.replace(const PasswordChangedRoute());
         }
       }
@@ -53,7 +54,9 @@ class ChangePasswordPage extends HookConsumerWidget {
 
     void handleSubmit() {
       if (!(formKey.currentState?.validate() ?? false)) return;
-      ref.read(changePasswordProvider.notifier).call(
+      ref
+          .read(changePasswordProvider.notifier)
+          .call(
             currentPassword: currentController.text,
             newPassword: newController.text,
             confirmNewPassword: confirmController.text,
@@ -106,21 +109,12 @@ class ChangePasswordPage extends HookConsumerWidget {
                       PPTextField(
                         controller: currentController,
                         hintText: 'Enter current password',
-                        obscureText: obscureCurrent.value,
-                        validator: (v) => (v == null || v.isEmpty) ? 'Please enter your current password' : null,
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(14.0).r,
-                          child: SvgPicture.asset('assets/icon/lock.svg'),
-                        ),
-                        suffixIcon: TouchOpacity(
-                          onTap: () => obscureCurrent.value = !obscureCurrent.value,
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0).r,
-                            child: SvgPicture.asset(
-                              obscureCurrent.value ? 'assets/icon/eye-slash.svg' : 'assets/icon/lock_eye.svg',
-                            ),
-                          ),
-                        ),
+                        isPassword: true,
+                        validator:
+                            (v) =>
+                                (v == null || v.isEmpty)
+                                    ? 'Please enter your current password'
+                                    : null,
                       ),
                       24.verticalSpace,
                       const PPLabel(text: 'New Password'),
@@ -128,25 +122,16 @@ class ChangePasswordPage extends HookConsumerWidget {
                       PPTextField(
                         controller: newController,
                         hintText: 'Enter new password',
-                        obscureText: obscureNew.value,
+                        isPassword: true,
                         validator: (v) {
-                          if (v == null || v.isEmpty) return 'Please enter a new password';
-                          if (v.length < 8) return 'Password must be at least 8 characters';
+                          if (v == null || v.isEmpty) {
+                            return 'Please enter a new password';
+                          }
+                          if (v.length < 8) {
+                            return 'Password must be at least 8 characters';
+                          }
                           return null;
                         },
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(14.0).r,
-                          child: SvgPicture.asset('assets/icon/lock.svg'),
-                        ),
-                        suffixIcon: TouchOpacity(
-                          onTap: () => obscureNew.value = !obscureNew.value,
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0).r,
-                            child: SvgPicture.asset(
-                              obscureNew.value ? 'assets/icon/eye-slash.svg' : 'assets/icon/lock_eye.svg',
-                            ),
-                          ),
-                        ),
                       ),
                       24.verticalSpace,
                       const PPLabel(text: 'Confirm New Password'),
@@ -154,34 +139,37 @@ class ChangePasswordPage extends HookConsumerWidget {
                       PPTextField(
                         controller: confirmController,
                         hintText: 'Confirm new password',
-                        obscureText: obscureConfirm.value,
+                        isPassword: true,
                         validator: (v) {
-                          if (v == null || v.isEmpty) return 'Please confirm your new password';
-                          if (v != newController.text) return 'Passwords do not match';
+                          if (v == null || v.isEmpty) {
+                            return 'Please confirm your new password';
+                          }
+                          if (v != newController.text) {
+                            return 'Passwords do not match';
+                          }
                           return null;
                         },
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(14.0).r,
-                          child: SvgPicture.asset('assets/icon/lock.svg'),
-                        ),
-                        suffixIcon: TouchOpacity(
-                          onTap: () => obscureConfirm.value = !obscureConfirm.value,
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0).r,
-                            child: SvgPicture.asset(
-                              obscureConfirm.value ? 'assets/icon/eye-slash.svg' : 'assets/icon/lock_eye.svg',
-                            ),
-                          ),
-                        ),
                       ),
                       16.verticalSpace,
-                      _PasswordRule(met: hasUpper, label: 'Include uppercase letters (A–Z)'),
+                      _PasswordRule(
+                        met: hasUpper,
+                        label: 'Include uppercase letters (A–Z)',
+                      ),
                       8.verticalSpace,
-                      _PasswordRule(met: hasLower, label: 'Include lowercase letters (a–z)'),
+                      _PasswordRule(
+                        met: hasLower,
+                        label: 'Include lowercase letters (a–z)',
+                      ),
                       8.verticalSpace,
-                      _PasswordRule(met: hasNumber, label: 'Include at least one number (0–9)'),
+                      _PasswordRule(
+                        met: hasNumber,
+                        label: 'Include at least one number (0–9)',
+                      ),
                       8.verticalSpace,
-                      _PasswordRule(met: hasSpecial, label: 'Include at least one special character'),
+                      _PasswordRule(
+                        met: hasSpecial,
+                        label: 'Include at least one special character',
+                      ),
                     ],
                   ),
                 ),
@@ -219,7 +207,10 @@ class _PasswordRule extends StatelessWidget {
             fontFamily: 'InstrumentSans',
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
-            color: met ? PPaymobileColors.buttonColor : PPaymobileColors.svgIconColor,
+            color:
+                met
+                    ? PPaymobileColors.buttonColor
+                    : PPaymobileColors.svgIconColor,
           ),
         ),
       ],

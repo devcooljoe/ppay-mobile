@@ -37,9 +37,6 @@ class CreatePasswordPage extends HookConsumerWidget {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
-    final obscurePassword = useState(true);
-    final obscureConfirmPassword = useState(true);
-
     final hasUppercase = useState(false);
     final hasLowercase = useState(false);
     final hasNumber = useState(false);
@@ -73,7 +70,10 @@ class CreatePasswordPage extends HookConsumerWidget {
           context.router.push(const VerifyEmailOtpRoute());
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -166,22 +166,7 @@ class CreatePasswordPage extends HookConsumerWidget {
                 PPTextField(
                   controller: passwordController,
                   hintText: 'Enter your password',
-                  obscureText: obscurePassword.value,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/lock.svg'),
-                  ),
-                  suffixIcon: TouchOpacity(
-                    onTap: () => obscurePassword.value = !obscurePassword.value,
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset(
-                        obscurePassword.value
-                            ? 'assets/icon/eye-slash.svg'
-                            : 'assets/icon/lock_eye.svg',
-                      ),
-                    ),
-                  ),
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -198,23 +183,7 @@ class CreatePasswordPage extends HookConsumerWidget {
                 PPTextField(
                   controller: confirmPasswordController,
                   hintText: 'Re-enter your password',
-                  obscureText: obscureConfirmPassword.value,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/lock.svg'),
-                  ),
-                  suffixIcon: TouchOpacity(
-                    onTap: () => obscureConfirmPassword.value =
-                        !obscureConfirmPassword.value,
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset(
-                        obscureConfirmPassword.value
-                            ? 'assets/icon/eye-slash.svg'
-                            : 'assets/icon/lock_eye.svg',
-                      ),
-                    ),
-                  ),
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your password';

@@ -10,7 +10,6 @@ import 'package:ppay_mobile/shared/widgets/pp_text_field.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_label.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
-import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 // This widget is kept as a non-route widget for backward compatibility
 // It is used via MaterialPageRoute from veriify_password_detail_page (legacy path)
@@ -20,8 +19,6 @@ class ResetPassword extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final obscurePassword = useState(true);
-    final obscureConfirm = useState(true);
     final password = useState('');
     final passwordController = useTextEditingController();
     final confirmController = useTextEditingController();
@@ -75,20 +72,7 @@ class ResetPassword extends HookConsumerWidget {
                     PPTextField(
                       controller: passwordController,
                       hintText: 'Enter new password',
-                      obscureText: obscurePassword.value,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(14.0).r,
-                        child: SvgPicture.asset('assets/icon/lock.svg'),
-                      ),
-                      suffixIcon: TouchOpacity(
-                        onTap: () => obscurePassword.value = !obscurePassword.value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0).r,
-                          child: SvgPicture.asset(
-                            obscurePassword.value ? 'assets/icon/eye-slash.svg' : 'assets/icon/lock_eye.svg',
-                          ),
-                        ),
-                      ),
+                      isPassword: true,
                     ),
                     29.verticalSpace,
                     const PPLabel(text: 'Confirm Password'),
@@ -96,29 +80,32 @@ class ResetPassword extends HookConsumerWidget {
                     PPTextField(
                       controller: confirmController,
                       hintText: 'Confirm new password',
-                      obscureText: obscureConfirm.value,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(14.0).r,
-                        child: SvgPicture.asset('assets/icon/lock.svg'),
-                      ),
-                      suffixIcon: TouchOpacity(
-                        onTap: () => obscureConfirm.value = !obscureConfirm.value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0).r,
-                          child: SvgPicture.asset(
-                            obscureConfirm.value ? 'assets/icon/eye-slash.svg' : 'assets/icon/lock_eye.svg',
-                          ),
-                        ),
-                      ),
+                      isPassword: true,
                     ),
                     24.verticalSpace,
-                    _Rule(met: hasUpper, label: 'Include uppercase letters (A–Z)', entered: pw.isNotEmpty),
+                    _Rule(
+                      met: hasUpper,
+                      label: 'Include uppercase letters (A–Z)',
+                      entered: pw.isNotEmpty,
+                    ),
                     16.verticalSpace,
-                    _Rule(met: hasLower, label: 'Include lowercase letters (a–z)', entered: pw.isNotEmpty),
+                    _Rule(
+                      met: hasLower,
+                      label: 'Include lowercase letters (a–z)',
+                      entered: pw.isNotEmpty,
+                    ),
                     16.verticalSpace,
-                    _Rule(met: hasNumber, label: 'Include at least one number (0–9)', entered: pw.isNotEmpty),
+                    _Rule(
+                      met: hasNumber,
+                      label: 'Include at least one number (0–9)',
+                      entered: pw.isNotEmpty,
+                    ),
                     16.verticalSpace,
-                    _Rule(met: hasSpecial, label: 'Include at least one special character', entered: pw.isNotEmpty),
+                    _Rule(
+                      met: hasSpecial,
+                      label: 'Include at least one special character',
+                      entered: pw.isNotEmpty,
+                    ),
                   ],
                 ),
               ),
@@ -143,14 +130,18 @@ class _Rule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final icon = !entered
-        ? 'assets/icon/tick_circle.svg'
-        : met
+    final icon =
+        !entered
+            ? 'assets/icon/tick_circle.svg'
+            : met
             ? 'assets/icon/tick_pass.svg'
             : 'assets/icon/tick_fail.svg';
     return Row(
       children: [
-        Padding(padding: const EdgeInsets.all(4.0).r, child: SvgPicture.asset(icon)),
+        Padding(
+          padding: const EdgeInsets.all(4.0).r,
+          child: SvgPicture.asset(icon),
+        ),
         Text(
           label,
           style: TextStyle(

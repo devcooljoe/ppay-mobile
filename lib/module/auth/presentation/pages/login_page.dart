@@ -30,7 +30,6 @@ class LoginPage extends HookConsumerWidget {
     final passwordController = useTextEditingController(
       text: kDebugMode ? 'Password@123' : null,
     );
-    final obscurePassword = useState(true);
     final rememberMe = useState(false);
     final isBiometricEnabled = useState(false);
     final hasStoredSession = useState(false);
@@ -216,22 +215,7 @@ class LoginPage extends HookConsumerWidget {
                 PPTextField(
                   controller: passwordController,
                   hintText: 'Enter your password',
-                  obscureText: obscurePassword.value,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/lock.svg'),
-                  ),
-                  suffixIcon: TouchOpacity(
-                    onTap: () => obscurePassword.value = !obscurePassword.value,
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset(
-                        obscurePassword.value
-                            ? 'assets/icon/eye-slash.svg'
-                            : 'assets/icon/lock_eye.svg',
-                      ),
-                    ),
-                  ),
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -257,23 +241,26 @@ class LoginPage extends HookConsumerWidget {
                               height: 18.h,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: rememberMe.value
-                                      ? const Color(0xff429E6E)
-                                      : Colors.grey,
+                                  color:
+                                      rememberMe.value
+                                          ? const Color(0xff429E6E)
+                                          : Colors.grey,
                                   width: 2.w,
                                 ),
                                 borderRadius: BorderRadius.circular(4.r),
-                                color: rememberMe.value
-                                    ? const Color(0xff429E6E)
-                                    : Colors.transparent,
+                                color:
+                                    rememberMe.value
+                                        ? const Color(0xff429E6E)
+                                        : Colors.transparent,
                               ),
-                              child: rememberMe.value
-                                  ? Icon(
-                                      Icons.check,
-                                      size: 14.sp,
-                                      color: Colors.white,
-                                    )
-                                  : null,
+                              child:
+                                  rememberMe.value
+                                      ? Icon(
+                                        Icons.check,
+                                        size: 14.sp,
+                                        color: Colors.white,
+                                      )
+                                      : null,
                             ),
                             9.horizontalSpace,
                             Text(
@@ -326,9 +313,10 @@ class LoginPage extends HookConsumerWidget {
                 36.verticalSpace,
                 PPButton(
                   text: 'Sign In',
-                  onPressed: hasStoredSession.value
-                      ? handleReturningUserSignIn
-                      : handleSignIn,
+                  onPressed:
+                      hasStoredSession.value
+                          ? handleReturningUserSignIn
+                          : handleSignIn,
                 ),
                 16.verticalSpace,
                 if (isBiometricEnabled.value)

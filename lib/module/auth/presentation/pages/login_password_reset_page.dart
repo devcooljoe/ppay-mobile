@@ -25,14 +25,26 @@ class LoginPasswordResetPage extends HookConsumerWidget {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final passwordController = useTextEditingController();
     final confirmController = useTextEditingController();
-    final obscurePassword = useState(true);
-    final obscureConfirm = useState(true);
     final password = useState('');
 
-    final hasUppercase = useCallback(() => RegExp(r'[A-Z]').hasMatch(password.value), [password.value]);
-    final hasLowercase = useCallback(() => RegExp(r'[a-z]').hasMatch(password.value), [password.value]);
-    final hasNumber = useCallback(() => RegExp(r'[0-9]').hasMatch(password.value), [password.value]);
-    final hasSpecial = useCallback(() => RegExp(r'[!@#\$&*~^%()_\-+=\[\]{};:,.<>?/\\|`]').hasMatch(password.value), [password.value]);
+    final hasUppercase = useCallback(
+      () => RegExp(r'[A-Z]').hasMatch(password.value),
+      [password.value],
+    );
+    final hasLowercase = useCallback(
+      () => RegExp(r'[a-z]').hasMatch(password.value),
+      [password.value],
+    );
+    final hasNumber = useCallback(
+      () => RegExp(r'[0-9]').hasMatch(password.value),
+      [password.value],
+    );
+    final hasSpecial = useCallback(
+      () => RegExp(
+        r'[!@#\$&*~^%()_\-+=\[\]{};:,.<>?/\\|`]',
+      ).hasMatch(password.value),
+      [password.value],
+    );
 
     ref.listen(resetPasswordProvider, (previous, next) {
       if (next.isLoading) {
@@ -45,7 +57,10 @@ class LoginPasswordResetPage extends HookConsumerWidget {
           }
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -85,22 +100,7 @@ class LoginPasswordResetPage extends HookConsumerWidget {
                 PPTextField(
                   controller: passwordController,
                   hintText: 'Enter new password',
-                  obscureText: obscurePassword.value,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/lock.svg'),
-                  ),
-                  suffixIcon: TouchOpacity(
-                    onTap: () => obscurePassword.value = !obscurePassword.value,
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset(
-                        obscurePassword.value
-                            ? 'assets/icon/eye-slash.svg'
-                            : 'assets/icon/lock_eye.svg',
-                      ),
-                    ),
-                  ),
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a new password';
@@ -117,7 +117,9 @@ class LoginPasswordResetPage extends HookConsumerWidget {
                     if (!RegExp(r'[0-9]').hasMatch(value)) {
                       return 'Password must include a number';
                     }
-                    if (!RegExp(r'[!@#\$&*~^%()_\-+=\[\]{};:,.<>?/\\|`]').hasMatch(value)) {
+                    if (!RegExp(
+                      r'[!@#\$&*~^%()_\-+=\[\]{};:,.<>?/\\|`]',
+                    ).hasMatch(value)) {
                       return 'Password must include a special character';
                     }
                     return null;
@@ -130,22 +132,7 @@ class LoginPasswordResetPage extends HookConsumerWidget {
                 PPTextField(
                   controller: confirmController,
                   hintText: 'Confirm new password',
-                  obscureText: obscureConfirm.value,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(14.0).r,
-                    child: SvgPicture.asset('assets/icon/lock.svg'),
-                  ),
-                  suffixIcon: TouchOpacity(
-                    onTap: () => obscureConfirm.value = !obscureConfirm.value,
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0).r,
-                      child: SvgPicture.asset(
-                        obscureConfirm.value
-                            ? 'assets/icon/eye-slash.svg'
-                            : 'assets/icon/lock_eye.svg',
-                      ),
-                    ),
-                  ),
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your password';
@@ -185,16 +172,20 @@ class LoginPasswordResetPage extends HookConsumerWidget {
                   text: 'Reset Password',
                   onPressed: () {
                     if (!(formKey.currentState?.validate() ?? false)) return;
-                    ref.read(resetPasswordProvider.notifier).call(
-                      resetToken: resetToken,
-                      password: passwordController.text,
-                      confirmPassword: confirmController.text,
-                    );
+                    ref
+                        .read(resetPasswordProvider.notifier)
+                        .call(
+                          resetToken: resetToken,
+                          password: passwordController.text,
+                          confirmPassword: confirmController.text,
+                        );
                   },
                 ),
                 21.verticalSpace,
                 TouchOpacity(
-                  onTap: () => context.router.popUntilRouteWithName(LoginRoute.name),
+                  onTap:
+                      () =>
+                          context.router.popUntilRouteWithName(LoginRoute.name),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
