@@ -1,24 +1,55 @@
+class Network {
+  final String name;
+  final String description;
+
+  const Network({required this.name, required this.description});
+}
+
 class NetworkUtils {
-  static List<String> getNetworksForCurrency(String currency) {
-    switch (currency.toLowerCase()) {
-      case 'btc':
-        return ['BTC', 'BEP20'];
-      case 'eth':
-        return ['ERC20', 'BEP20', 'BASE'];
-      case 'usdt':
-        return ['ERC20', 'TRC20', 'BEP20', 'POLYGON', 'ARBITRUM', 'OPTIMISM', 'SOLANA'];
-      case 'xrp':
-        return ['RIPPLE'];
-      case 'ltc':
-        return ['LTC'];
-      case 'dash':
-        return ['DASH'];
-      case 'bnb':
-        return ['BEP20'];
-      case 'sol':
-        return ['SOLANA'];
-      default:
-        return [currency.toUpperCase()];
-    }
+  static const Map<String, List<Network>> networkMap = {
+    'btc': [
+      Network(name: 'Bitcoin Network', description: 'Bitcoin Network'),
+      Network(name: 'BEP20', description: 'BNB Smart Chain Network'),
+    ],
+    'dash': [Network(name: 'Dash Network', description: 'Dash Network')],
+    'eth': [
+      Network(name: 'ERC20', description: 'Ethereum Network'),
+      Network(name: 'BEP20', description: 'BNB Smart Chain Network'),
+      Network(name: 'BASE', description: 'Base Network'),
+      Network(name: 'ARBITRUM', description: 'Arbitrum One'),
+    ],
+    'ltc': [Network(name: 'LTC', description: 'Litecoin Network')],
+    'sol': [
+      Network(name: 'SOLANA', description: 'Solana Network'),
+      Network(name: 'BEP20', description: 'BNB Smart Chain Network'),
+    ],
+    'trx': [Network(name: 'TRC20', description: 'Tron Network')],
+    'xaut': [Network(name: 'ERC20', description: 'Ethereum Network')],
+    'usdt': [
+      Network(name: 'BEP20', description: 'BNB Smart Chain Network'),
+      Network(name: 'POLYGON', description: 'Polygon Network'),
+      Network(name: 'TRC20', description: 'Tron Network'),
+      Network(name: 'ERC20', description: 'Ethereum Network'),
+      Network(name: 'SOLANA', description: 'Solana Network'),
+      Network(name: 'TON', description: 'TON Network'),
+      Network(name: 'CELO', description: 'CELO'),
+      Network(name: 'LISK', description: 'LISK'),
+      Network(name: 'ARBITRUM', description: 'Arbitrum One'),
+      Network(name: 'OPTIMISM', description: 'Optimism Mainnet'),
+    ],
+    'usdc': [
+      Network(name: 'BEP20', description: 'BNB Smart Chain Network'),
+      Network(name: 'POLYGON', description: 'Polygon Network'),
+      Network(name: 'ERC20', description: 'Ethereum Network'),
+      Network(name: 'SOLANA', description: 'Solana Network'),
+      Network(name: 'LISK', description: 'LISK'),
+      Network(name: 'ARBITRUM', description: 'Arbitrum One'),
+      Network(name: 'BASE', description: 'Base Network'),
+    ],
+    'xrp': [Network(name: 'XRP', description: 'Ripple Network')],
+  };
+
+  static List<Network> getNetworksForCurrency(String currency) {
+    return networkMap[currency.toLowerCase()] ?? [];
   }
 }

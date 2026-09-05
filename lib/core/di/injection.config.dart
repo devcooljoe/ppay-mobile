@@ -155,14 +155,24 @@ import 'package:ppay_mobile/module/referral/domain/usecases/withdraw_points_usec
     as _i144;
 import 'package:ppay_mobile/module/settings/data/repositories/bank_account_repository_impl.dart'
     as _i1035;
+import 'package:ppay_mobile/module/settings/data/repositories/transaction_limit_repository_impl.dart'
+    as _i193;
 import 'package:ppay_mobile/module/settings/data/sources/bank_account_remote_datasource.dart'
     as _i276;
 import 'package:ppay_mobile/module/settings/data/sources/bank_account_remote_datasource_impl.dart'
     as _i687;
+import 'package:ppay_mobile/module/settings/data/sources/transaction_limit_remote_datasource.dart'
+    as _i620;
+import 'package:ppay_mobile/module/settings/data/sources/transaction_limit_remote_datasource_impl.dart'
+    as _i1006;
 import 'package:ppay_mobile/module/settings/domain/repositories/bank_account_repository.dart'
     as _i629;
+import 'package:ppay_mobile/module/settings/domain/repositories/transaction_limit_repository.dart'
+    as _i489;
 import 'package:ppay_mobile/module/settings/domain/usecases/bank_account_usecases.dart'
     as _i912;
+import 'package:ppay_mobile/module/settings/domain/usecases/transaction_limit_usecases.dart'
+    as _i370;
 import 'package:ppay_mobile/module/shopping/data/repositories/shopping_repository_impl.dart'
     as _i846;
 import 'package:ppay_mobile/module/shopping/data/sources/shopping_remote_datasource.dart'
@@ -271,6 +281,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i270.FlightRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i127.GiftcardRemoteDataSource>(
         () => _i127.GiftcardRemoteDataSourceImpl(gh<_i361.Dio>()));
+    gh.lazySingleton<_i620.TransactionLimitRemoteDataSource>(
+        () => _i1006.TransactionLimitRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i276.BankAccountRemoteDataSource>(
         () => _i687.BankAccountRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i100.FlightRepository>(
@@ -346,6 +358,9 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i540.AddToWatchlistUseCase(gh<_i766.ShoppingRepository>()));
     gh.lazySingleton<_i540.RemoveFromWatchlistUseCase>(
         () => _i540.RemoveFromWatchlistUseCase(gh<_i766.ShoppingRepository>()));
+    gh.lazySingleton<_i489.TransactionLimitRepository>(() =>
+        _i193.TransactionLimitRepositoryImpl(
+            gh<_i620.TransactionLimitRemoteDataSource>()));
     gh.lazySingleton<_i836.WalletRepository>(
         () => _i867.WalletRepositoryImpl(gh<_i813.WalletRemoteDataSource>()));
     gh.lazySingleton<_i798.GetBuyGiftcardRatesUseCase>(
@@ -480,6 +495,9 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i91.NotificationRemoteDataSource>()));
     gh.lazySingleton<_i430.CryptoRepository>(
         () => _i430.CryptoRepositoryImpl(gh<_i430.CryptoRemoteDataSource>()));
+    gh.lazySingleton<_i370.GetTransactionLimitsUseCase>(() =>
+        _i370.GetTransactionLimitsUseCase(
+            gh<_i489.TransactionLimitRepository>()));
     gh.lazySingleton<_i515.GetMyNotificationsUseCase>(() =>
         _i515.GetMyNotificationsUseCase(gh<_i550.NotificationRepository>()));
     gh.lazySingleton<_i771.ClearNotificationsUseCase>(() =>

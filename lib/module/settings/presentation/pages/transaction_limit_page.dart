@@ -8,7 +8,33 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
+import 'package:ppay_mobile/module/settings/presentation/providers/transaction_limit_provider.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+
+// Formats a limit amount, showing "Unlimited" when the value is null or 0.
+String _formatLimit(double? value) {
+  if (value == null || value <= 0) return 'Unlimited';
+  final whole = value.truncateToDouble() == value;
+  final str = value.toStringAsFixed(whole ? 0 : 2);
+  final buffer = StringBuffer();
+  final parts = str.split('.');
+  final intPart = parts[0];
+  for (int i = 0; i < intPart.length; i++) {
+    if (i > 0 && (intPart.length - i) % 3 == 0) buffer.write(',');
+    buffer.write(intPart[i]);
+  }
+  if (parts.length > 1) {
+    buffer.write('.');
+    buffer.write(parts[1]);
+  }
+  return '₦$buffer';
+}
+
+const Map<int, String> _tierRequirements = {
+  1: 'Email & Phone Verified',
+  2: 'Email, Phone & BVN Verified',
+  3: 'Email, Phone, BVN & ID Verified',
+};
 
 @RoutePage()
 class TransactionLimitPage extends HookConsumerWidget {
@@ -18,8 +44,10 @@ class TransactionLimitPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authenticatedUserProvider).value;
     final wallet = ref.watch(walletProvider).value;
+    final limitsAsync = ref.watch(transactionLimitsProvider);
+    final limits = limitsAsync.value;
 
-    final tier = user?.tier ?? 1;
+    final tier = limits?.currentTier ?? user?.tier ?? 1;
     final accountNumber = wallet?.accountNumber ?? '—';
     final accountName = wallet?.accountName ?? user?.fullName ?? '—';
     final bankName = wallet?.bankName ?? '—';
@@ -77,7 +105,9 @@ class TransactionLimitPage extends HookConsumerWidget {
                               12.horizontalSpace,
                               TouchOpacity(
                                 onTap: () {
-                                  Clipboard.setData(ClipboardData(text: accountNumber));
+                                  Clipboard.setData(
+                                    ClipboardData(text: accountNumber),
+                                  );
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text('Account number copied'),
@@ -205,39 +235,46 @@ class TransactionLimitPage extends HookConsumerWidget {
                   ),
                 ),
                 30.verticalSpace,
-                _TierSection(
-                  tierNumber: 1,
-                  isCurrent: tier == 1,
-                  requirement: 'Email & Phone Verified',
-                  singleTransferLimit: '₦50,000',
-                  dailyTransferLimit: '₦200,000',
-                  walletBalance: '₦300,000',
-                  fundingMin: '₦100',
-                  fundingMax: '₦300,000',
-                ),
-                32.verticalSpace,
-                _TierSection(
-                  tierNumber: 2,
-                  isCurrent: tier == 2,
-                  requirement: 'Email, Phone & BVN Verified',
-                  singleTransferLimit: '₦200,000',
-                  dailyTransferLimit: '₦500,000',
-                  walletBalance: '₦500,000',
-                  fundingMin: '₦100',
-                  fundingMax: '₦500,000',
-                ),
-                32.verticalSpace,
-                _TierSection(
-                  tierNumber: 3,
-                  isCurrent: tier == 3,
-                  requirement: 'Email, Phone, BVN & ID Verified',
-                  singleTransferLimit: '₦1,000,000',
-                  dailyTransferLimit: '₦5,000,000',
-                  walletBalance: 'Unlimited',
-                  fundingMin: '₦100',
-                  fundingMax: 'Unlimited',
-                ),
-                32.verticalSpace,
+                if (limitsAsync.isLoading && limits == null)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40.h),
+                    child: const Center(child: CircularProgressIndicator()),
+                  )
+                else if (limits == null || limits.tiers.isEmpty)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40.h),
+                    child: Center(
+                      child: Text(
+                        'Unable to load limits right now.',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black54,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  ...(() {
+                    final sorted = [...limits.tiers]
+                      ..sort((a, b) => a.tier.compareTo(b.tier));
+                    final widgets = <Widget>[];
+                    for (final t in sorted) {
+                      widgets.add(
+                        _TierSection(
+                          tierNumber: t.tier,
+                          isCurrent: tier == t.tier,
+                          requirement: _tierRequirements[t.tier] ?? '',
+                          singleTransferLimit: _formatLimit(t.singleLimit),
+                          dailyTransferLimit: _formatLimit(t.dailyLimit),
+                          monthlyTransferLimit: _formatLimit(t.monthlyLimit),
+                        ),
+                      );
+                      widgets.add(32.verticalSpace);
+                    }
+                    return widgets;
+                  })(),
               ],
             ),
           ],
@@ -253,9 +290,7 @@ class _TierSection extends StatelessWidget {
   final String requirement;
   final String singleTransferLimit;
   final String dailyTransferLimit;
-  final String walletBalance;
-  final String fundingMin;
-  final String fundingMax;
+  final String monthlyTransferLimit;
 
   const _TierSection({
     required this.tierNumber,
@@ -263,9 +298,7 @@ class _TierSection extends StatelessWidget {
     required this.requirement,
     required this.singleTransferLimit,
     required this.dailyTransferLimit,
-    required this.walletBalance,
-    required this.fundingMin,
-    required this.fundingMax,
+    required this.monthlyTransferLimit,
   });
 
   @override
@@ -346,15 +379,11 @@ class _TierSection extends StatelessWidget {
           ),
         ),
         14.verticalSpace,
-        _LimitRow(label: 'Single Transfer', value: singleTransferLimit),
+        _LimitRow(label: 'Single Transaction', value: singleTransferLimit),
         10.verticalSpace,
-        _LimitRow(label: 'Daily Transfer', value: dailyTransferLimit),
+        _LimitRow(label: 'Daily Transaction', value: dailyTransferLimit),
         10.verticalSpace,
-        _LimitRow(label: 'Max Wallet Balance', value: walletBalance),
-        10.verticalSpace,
-        _LimitRow(label: 'Min Funding', value: fundingMin),
-        10.verticalSpace,
-        _LimitRow(label: 'Max Funding', value: fundingMax),
+        _LimitRow(label: 'Monthly Transaction', value: monthlyTransferLimit),
       ],
     );
   }

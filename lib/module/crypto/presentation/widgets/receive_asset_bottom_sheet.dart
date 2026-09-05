@@ -20,10 +20,11 @@ void showReceiveAssetBottomSheet(BuildContext context, CryptoRateEntity rate) {
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (_) => UncontrolledProviderScope(
-      container: ProviderScope.containerOf(context),
-      child: _ReceiveAssetBottomSheet(rate: rate),
-    ),
+    builder:
+        (_) => UncontrolledProviderScope(
+          container: ProviderScope.containerOf(context),
+          child: _ReceiveAssetBottomSheet(rate: rate),
+        ),
   );
 }
 
@@ -36,109 +37,122 @@ class _ReceiveAssetBottomSheet extends HookConsumerWidget {
     final selectedNetwork = useState<String?>(null);
     final networks = NetworkUtils.getNetworksForCurrency(rate.currency);
 
-    final walletAsync = selectedNetwork.value != null
-        ? ref.watch(
-            walletAddressProvider(
-              rate.currency,
-              selectedNetwork.value!.toLowerCase(),
-            ),
-          )
-        : null;
+    final walletAsync =
+        selectedNetwork.value != null
+            ? ref.watch(
+              walletAddressProvider(
+                rate.currency,
+                selectedNetwork.value!.toLowerCase(),
+              ),
+            )
+            : null;
 
     void showNetworkPicker() {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (_) => FractionallySizedBox(
-          heightFactor: 0.5,
-          child: Column(
-            children: [
-              TouchOpacity(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  height: 60.w,
-                  width: 60.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30).r,
-                    color: PPaymobileColors.mainScreenBackground,
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/icon/cancel.svg',
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                ),
-              ),
-              8.verticalSpace,
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 20.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: PPaymobileColors.mainScreenBackground,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(36).r,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Select Network',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
+        builder:
+            (_) => FractionallySizedBox(
+              heightFactor: 0.5,
+              child: Column(
+                children: [
+                  TouchOpacity(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      height: 60.w,
+                      width: 60.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30).r,
+                        color: PPaymobileColors.mainScreenBackground,
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icon/cancel.svg',
+                          fit: BoxFit.scaleDown,
                         ),
                       ),
-                      16.verticalSpace,
-                      Expanded(
-                        child: ListView.separated(
-                          itemCount: networks.length,
-                          separatorBuilder: (_, __) => Divider(
-                            height: 1.h,
-                            color: PPaymobileColors.deepBackgroundColor,
+                    ),
+                  ),
+                  8.verticalSpace,
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 20.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: PPaymobileColors.mainScreenBackground,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(36).r,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Select Network',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
                           ),
-                          itemBuilder: (ctx, i) {
-                            final network = networks[i];
-                            return ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              title: Text(
-                                network,
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              trailing: selectedNetwork.value == network
-                                  ? Icon(
-                                      Icons.check_circle,
-                                      color: PPaymobileColors.buttonColor,
-                                      size: 20.w,
-                                    )
-                                  : null,
-                              onTap: () {
-                                selectedNetwork.value = network;
-                                Navigator.pop(ctx);
+                          16.verticalSpace,
+                          Expanded(
+                            child: ListView.separated(
+                              itemCount: networks.length,
+                              separatorBuilder:
+                                  (_, __) => Divider(
+                                    height: 1.h,
+                                    color: PPaymobileColors.deepBackgroundColor,
+                                  ),
+                              itemBuilder: (ctx, i) {
+                                final network = networks[i];
+                                return ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(
+                                    network.name,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.black,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    network.description,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.grey,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  trailing:
+                                      selectedNetwork.value == network.name
+                                          ? Icon(
+                                            Icons.check_circle,
+                                            color: PPaymobileColors.buttonColor,
+                                            size: 20.w,
+                                          )
+                                          : null,
+                                  onTap: () {
+                                    selectedNetwork.value = network.name;
+                                    Navigator.pop(ctx);
+                                  },
+                                );
                               },
-                            );
-                          },
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
       );
     }
 
@@ -181,24 +195,25 @@ class _ReceiveAssetBottomSheet extends HookConsumerWidget {
                         imageUrl: rate.logoUrl,
                         width: 36.w,
                         height: 36.w,
-                        errorWidget: (_, __, ___) => Container(
-                          width: 36.w,
-                          height: 36.w,
-                          decoration: BoxDecoration(
-                            color: PPaymobileColors.textfiedBorder,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Text(
-                              rate.currency[0].toUpperCase(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
+                        errorWidget:
+                            (_, __, ___) => Container(
+                              width: 36.w,
+                              height: 36.w,
+                              decoration: BoxDecoration(
+                                color: PPaymobileColors.textfiedBorder,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  rate.currency[0].toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
                       ),
                       12.horizontalSpace,
                       Column(
@@ -257,9 +272,10 @@ class _ReceiveAssetBottomSheet extends HookConsumerWidget {
                               selectedNetwork.value ?? 'Select network',
                               style: TextStyle(
                                 fontFamily: 'InstrumentSans',
-                                color: selectedNetwork.value != null
-                                    ? Colors.black
-                                    : PPaymobileColors.textfiedBorder,
+                                color:
+                                    selectedNetwork.value != null
+                                        ? Colors.black
+                                        : PPaymobileColors.textfiedBorder,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -278,88 +294,148 @@ class _ReceiveAssetBottomSheet extends HookConsumerWidget {
 
                   // Wallet address area
                   Expanded(
-                    child: selectedNetwork.value == null
-                        ? Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.lock_outline,
-                                  size: 48.w,
-                                  color: PPaymobileColors.textfiedBorder,
-                                ),
-                                12.verticalSpace,
-                                Text(
-                                  'Select a network to view your wallet address',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: PPaymobileColors.svgIconColor,
-                                    fontSize: 13.sp,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : walletAsync == null
-                        ? const SizedBox.shrink()
-                        : walletAsync.when(
-                            loading: () => Center(
+                    child:
+                        selectedNetwork.value == null
+                            ? Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  SkeletonLoader(width: 180.w, height: 180.w),
-                                  16.verticalSpace,
-                                  SkeletonLoader(
-                                    width: double.infinity,
-                                    height: 16.h,
+                                  Icon(
+                                    Icons.lock_outline,
+                                    size: 48.w,
+                                    color: PPaymobileColors.textfiedBorder,
+                                  ),
+                                  12.verticalSpace,
+                                  Text(
+                                    'Select a network to view your wallet address',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: PPaymobileColors.svgIconColor,
+                                      fontSize: 13.sp,
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                            error: (e, _) => Center(
-                              child: Text(
-                                e.toString().replaceAll('Exception: ', ''),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: PPaymobileColors.redTextfield,
-                                  fontSize: 13.sp,
-                                ),
-                              ),
-                            ),
-                            data: (wallet) => Column(
-                              children: [
-                                Center(
-                                  child: QrImageView(
-                                    data: wallet.address,
-                                    version: QrVersions.auto,
-                                    size: 180.w,
+                            )
+                            : walletAsync == null
+                            ? const SizedBox.shrink()
+                            : walletAsync.when(
+                              loading:
+                                  () => Center(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SkeletonLoader(
+                                          width: 180.w,
+                                          height: 180.w,
+                                        ),
+                                        16.verticalSpace,
+                                        SkeletonLoader(
+                                          width: double.infinity,
+                                          height: 16.h,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                16.verticalSpace,
-                                Container(
-                                  padding: EdgeInsets.all(12).r,
-                                  decoration: BoxDecoration(
-                                    color: PPaymobileColors.deepBackgroundColor,
-                                    borderRadius: BorderRadius.circular(8).r,
+                              error:
+                                  (e, _) => Center(
+                                    child: Text(
+                                      e.toString().replaceAll(
+                                        'Exception: ',
+                                        '',
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily: 'InstrumentSans',
+                                        color: PPaymobileColors.redTextfield,
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
                                   ),
-                                  child: Row(
+                              data:
+                                  (wallet) => Column(
                                     children: [
-                                      Expanded(
+                                      Center(
+                                        child: QrImageView(
+                                          data: wallet.address,
+                                          version: QrVersions.auto,
+                                          size: 180.w,
+                                        ),
+                                      ),
+                                      16.verticalSpace,
+                                      Container(
+                                        padding: EdgeInsets.all(12).r,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              PPaymobileColors
+                                                  .deepBackgroundColor,
+                                          borderRadius:
+                                              BorderRadius.circular(8).r,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                wallet.address,
+                                                style: TextStyle(
+                                                  fontFamily: 'InstrumentSans',
+                                                  color: Colors.black,
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            8.horizontalSpace,
+                                            TouchOpacity(
+                                              onTap: () {
+                                                Clipboard.setData(
+                                                  ClipboardData(
+                                                    text: wallet.address,
+                                                  ),
+                                                );
+                                                msg.MessageHandler.showSuccessSnackBar(
+                                                  context,
+                                                  'Address copied!',
+                                                );
+                                              },
+                                              child: SvgPicture.asset(
+                                                'assets/icon/paste_black1.svg',
+                                                width: 20.w,
+                                                height: 20.w,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      12.verticalSpace,
+                                      Container(
+                                        padding: EdgeInsets.all(12).r,
+                                        decoration: BoxDecoration(
+                                          color: Colors.orange.withOpacity(
+                                            0.08,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8).r,
+                                          border: Border.all(
+                                            color: Colors.orange.withOpacity(
+                                              0.3,
+                                            ),
+                                          ),
+                                        ),
                                         child: Text(
-                                          wallet.address,
+                                          'Only send ${rate.currency.toUpperCase()} on the ${wallet.network.toUpperCase()} network to this address. Sending other assets may result in permanent loss.',
                                           style: TextStyle(
                                             fontFamily: 'InstrumentSans',
-                                            color: Colors.black,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500,
+                                            color: Colors.orange.shade800,
+                                            fontSize: 11.sp,
                                           ),
                                         ),
                                       ),
-                                      8.horizontalSpace,
-                                      TouchOpacity(
-                                        onTap: () {
+                                      16.verticalSpace,
+                                      PPButton(
+                                        text: 'Copy Address',
+                                        onPressed: () {
                                           Clipboard.setData(
                                             ClipboardData(text: wallet.address),
                                           );
@@ -368,50 +444,10 @@ class _ReceiveAssetBottomSheet extends HookConsumerWidget {
                                             'Address copied!',
                                           );
                                         },
-                                        child: SvgPicture.asset(
-                                          'assets/icon/paste_black1.svg',
-                                          width: 20.w,
-                                          height: 20.w,
-                                        ),
                                       ),
                                     ],
                                   ),
-                                ),
-                                12.verticalSpace,
-                                Container(
-                                  padding: EdgeInsets.all(12).r,
-                                  decoration: BoxDecoration(
-                                    color: Colors.orange.withOpacity(0.08),
-                                    borderRadius: BorderRadius.circular(8).r,
-                                    border: Border.all(
-                                      color: Colors.orange.withOpacity(0.3),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Only send ${rate.currency.toUpperCase()} on the ${wallet.network.toUpperCase()} network to this address. Sending other assets may result in permanent loss.',
-                                    style: TextStyle(
-                                      fontFamily: 'InstrumentSans',
-                                      color: Colors.orange.shade800,
-                                      fontSize: 11.sp,
-                                    ),
-                                  ),
-                                ),
-                                16.verticalSpace,
-                                PPButton(
-                                  text: 'Copy Address',
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                      ClipboardData(text: wallet.address),
-                                    );
-                                    msg.MessageHandler.showSuccessSnackBar(
-                                      context,
-                                      'Address copied!',
-                                    );
-                                  },
-                                ),
-                              ],
                             ),
-                          ),
                   ),
                 ],
               ),
