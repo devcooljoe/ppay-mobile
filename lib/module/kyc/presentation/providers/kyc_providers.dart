@@ -1,5 +1,9 @@
 import 'package:ppay_mobile/core/di/injection.dart';
 import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/module/kyc/data/models/requests/create_verification_job_request.dart';
+import 'package:ppay_mobile/module/kyc/data/models/smile_id_token_response.dart';
+import 'package:ppay_mobile/module/kyc/data/models/verification_job_response.dart';
+import 'package:ppay_mobile/module/kyc/data/sources/kyc_remote_datasource.dart';
 import 'package:ppay_mobile/module/kyc/domain/entities/kyc_document_type_entity.dart';
 import 'package:ppay_mobile/module/kyc/domain/usecases/get_kyc_document_types_usecase.dart';
 import 'package:ppay_mobile/module/kyc/domain/usecases/update_profile_usecase.dart';
@@ -107,5 +111,42 @@ class UpdateProfile extends _$UpdateProfile {
       (l) => AsyncValue.error(l.message, StackTrace.current),
       (_) => const AsyncValue.data(null),
     );
+  }
+}
+
+// Smile ID Providers
+
+@riverpod
+Future<SmileIdTokenResponse> smileIdToken(ref) async {
+  final dataSource = getIt<KycRemoteDataSource>();
+  return dataSource.getSmileIdToken();
+}
+
+@riverpod
+class CreateVerificationJob extends _$CreateVerificationJob {
+  @override
+  AsyncValue<VerificationJobResponse?> build() => const AsyncValue.data(null);
+
+  Future<VerificationJobResponse?> call({
+    required String jobType,
+    required String idType,
+    required String idNumber,
+  }) async {
+    state = const AsyncValue.loading();
+    try {
+      final dataSource = getIt<KycRemoteDataSource>();
+      final result = await dataSource.createVerificationJob(
+        CreateVerificationJobRequest(
+          jobType: jobType,
+          idType: idType,
+          idNumber: idNumber,
+        ),
+      );
+      state = AsyncValue.data(result);
+      return result;
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      return null;
+    }
   }
 }

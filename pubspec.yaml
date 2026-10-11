@@ -80,6 +80,12 @@ dependencies:
   upgrader: ^13.5.0
   web_socket_channel: ^3.0.3
 
+  # Smile ID SDK for biometric KYC verification
+  usesmileid: ^12.1.0
+  # ML analyzer providers for face detection
+  usesmileid_mlkit_face: ^12.1.0      # Android (GMS)
+  usesmileid_vision_face: ^12.1.0     # iOS
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

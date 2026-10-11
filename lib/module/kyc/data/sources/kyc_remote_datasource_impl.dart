@@ -3,10 +3,13 @@ import 'package:injectable/injectable.dart';
 import 'package:ppay_mobile/core/models/base_response.dart';
 import 'package:ppay_mobile/module/kyc/data/models/kyc_document_type_model.dart';
 import 'package:ppay_mobile/module/kyc/data/models/profile_picture_model.dart';
+import 'package:ppay_mobile/module/kyc/data/models/requests/create_verification_job_request.dart';
 import 'package:ppay_mobile/module/kyc/data/models/requests/update_profile_request.dart';
 import 'package:ppay_mobile/module/kyc/data/models/requests/verify_bvn_request.dart';
 import 'package:ppay_mobile/module/kyc/data/models/requests/verify_kyc_request.dart';
+import 'package:ppay_mobile/module/kyc/data/models/smile_id_token_response.dart';
 import 'package:ppay_mobile/module/kyc/data/models/user_model.dart';
+import 'package:ppay_mobile/module/kyc/data/models/verification_job_response.dart';
 import 'package:ppay_mobile/module/kyc/data/sources/kyc_remote_datasource.dart';
 
 @LazySingleton(as: KycRemoteDataSource)
@@ -64,5 +67,30 @@ class KycRemoteDataSourceImpl implements KycRemoteDataSource {
   @override
   Future<void> updateProfile(UpdateProfileRequest request) async {
     await _dio.patch('$_baseUrl/users/profile', data: request.toJson());
+  }
+
+  // Smile ID methods
+  @override
+  Future<SmileIdTokenResponse> getSmileIdToken() async {
+    final response = await _dio.post('$_baseUrl/verification/smile-id/token');
+    final baseResponse = BaseResponse<SmileIdTokenResponse>.fromJson(
+      response.data,
+      (data) => SmileIdTokenResponse.fromJson(data as Map<String, dynamic>),
+    );
+    return baseResponse.data!;
+  }
+
+  @override
+  Future<VerificationJobResponse> createVerificationJob(
+      CreateVerificationJobRequest request) async {
+    final response = await _dio.post(
+      '$_baseUrl/verification/jobs',
+      data: request.toJson(),
+    );
+    final baseResponse = BaseResponse<VerificationJobResponse>.fromJson(
+      response.data,
+      (data) => VerificationJobResponse.fromJson(data as Map<String, dynamic>),
+    );
+    return baseResponse.data!;
   }
 }

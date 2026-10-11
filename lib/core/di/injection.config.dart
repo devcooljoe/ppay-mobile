@@ -498,10 +498,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i370.GetTransactionLimitsUseCase>(() =>
         _i370.GetTransactionLimitsUseCase(
             gh<_i489.TransactionLimitRepository>()));
-    gh.lazySingleton<_i515.GetMyNotificationsUseCase>(() =>
-        _i515.GetMyNotificationsUseCase(gh<_i550.NotificationRepository>()));
     gh.lazySingleton<_i771.ClearNotificationsUseCase>(() =>
         _i771.ClearNotificationsUseCase(gh<_i550.NotificationRepository>()));
+    gh.lazySingleton<_i515.GetMyNotificationsUseCase>(() =>
+        _i515.GetMyNotificationsUseCase(gh<_i550.NotificationRepository>()));
     gh.lazySingleton<_i907.GetCryptoRatesUseCase>(
         () => _i907.GetCryptoRatesUseCase(gh<_i430.CryptoRepository>()));
     gh.lazySingleton<_i907.GetEstimatedAssetValueUseCase>(() =>

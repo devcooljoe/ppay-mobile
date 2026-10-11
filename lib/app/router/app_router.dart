@@ -42,6 +42,7 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: KycFaceVerificationRoute.page),
     AutoRoute(page: ReviewDocumentRoute.page),
     AutoRoute(page: KycVerificationCompleteRoute.page),
+    AutoRoute(page: SmileIdVerificationRoute.page),
 
     // Transaction
     AutoRoute(page: TransactionHistoryRoute.page),

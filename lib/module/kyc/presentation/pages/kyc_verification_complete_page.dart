@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/settings/presentation/providers/biometric_provider.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
@@ -16,6 +17,8 @@ class KycVerificationCompletePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSettingUpBiometric = useState(false);
+    final biometricState = ref.watch(biometricStateProvider);
+    final isBiometricAlreadyEnabled = biometricState.valueOrNull ?? false;
 
     Future<void> handleSetUpBiometric() async {
       isSettingUpBiometric.value = true;
@@ -42,6 +45,8 @@ class KycVerificationCompletePage extends HookConsumerWidget {
     }
 
     void handleGoToDashboard() {
+      // Refresh user data to get updated verification status from backend
+      ref.invalidate(authenticatedUserProvider);
       context.router.replaceAll([const ExploreRoute()]);
     }
 
@@ -83,18 +88,23 @@ class KycVerificationCompletePage extends HookConsumerWidget {
                 ),
               ),
               const Spacer(),
-              PPButton(
-                text: isSettingUpBiometric.value
-                    ? 'Setting up...'
-                    : 'Set Up Biometrics',
-                onPressed:
-                    isSettingUpBiometric.value ? null : handleSetUpBiometric,
-              ),
-              16.verticalSpace,
+              // Only show biometric setup button if not already enabled
+              if (!isBiometricAlreadyEnabled) ...[
+                PPButton(
+                  text: isSettingUpBiometric.value
+                      ? 'Setting up...'
+                      : 'Set Up Biometrics',
+                  onPressed:
+                      isSettingUpBiometric.value ? null : handleSetUpBiometric,
+                ),
+                16.verticalSpace,
+              ],
               PPButton(
                 text: 'Go To Dashboard',
                 onPressed: handleGoToDashboard,
-                backgroundColor: PPaymobileColors.anotherButtonColor,
+                backgroundColor: isBiometricAlreadyEnabled 
+                    ? null // Use default color when it's the primary action
+                    : PPaymobileColors.anotherButtonColor,
               ),
               32.verticalSpace,
             ],

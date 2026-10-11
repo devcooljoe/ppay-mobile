@@ -6,6 +6,21 @@ part of 'kyc_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$smileIdTokenHash() => r'395ec7a891874f07eb4b1d0cea6275f0cab086db';
+
+/// See also [smileIdToken].
+@ProviderFor(smileIdToken)
+final smileIdTokenProvider =
+    AutoDisposeFutureProvider<SmileIdTokenResponse>.internal(
+  smileIdToken,
+  name: r'smileIdTokenProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$smileIdTokenHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef SmileIdTokenRef = AutoDisposeFutureProviderRef<SmileIdTokenResponse>;
 String _$getKycDocumentTypesHash() =>
     r'54b6125aceae9bc4a6860d116867d222e4ba8175';
 
@@ -87,5 +102,23 @@ final updateProfileProvider =
 );
 
 typedef _$UpdateProfile = AutoDisposeNotifier<AsyncValue<void>>;
+String _$createVerificationJobHash() =>
+    r'0665c64792ef45fdff049c75bba7265e55165033';
+
+/// See also [CreateVerificationJob].
+@ProviderFor(CreateVerificationJob)
+final createVerificationJobProvider = AutoDisposeNotifierProvider<
+    CreateVerificationJob, AsyncValue<VerificationJobResponse?>>.internal(
+  CreateVerificationJob.new,
+  name: r'createVerificationJobProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$createVerificationJobHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CreateVerificationJob
+    = AutoDisposeNotifier<AsyncValue<VerificationJobResponse?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

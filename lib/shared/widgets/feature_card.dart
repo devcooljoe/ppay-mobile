@@ -27,9 +27,7 @@ class FeatureCard extends StatelessWidget {
             height: 98.h,
             width: 122.w,
             decoration: BoxDecoration(
-              border: Border.all(
-                color: PPaymobileColors.textfiedBorder,
-              ),
+              border: Border.all(color: PPaymobileColors.textfiedBorder),
               borderRadius: BorderRadius.circular(8).r,
             ),
             child: Center(
@@ -39,6 +37,10 @@ class FeatureCard extends StatelessWidget {
                 child: SvgPicture.asset(
                   iconPath,
                   fit: BoxFit.contain,
+                  colorFilter: const ColorFilter.mode(
+                    Color(0xff72a78b),
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),
