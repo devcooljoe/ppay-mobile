@@ -67,6 +67,20 @@ class ErrorInterceptor extends Interceptor {
     }
   }
 
+  // Auth endpoints that should not trigger global logout on 401
+  static const _authEndpoints = [
+    '/users/verify-password',
+    '/users/login',
+    '/users/register',
+    '/users/forgot-password',
+    '/users/reset-password',
+  ];
+
+  bool _isAuthEndpoint(String? path) {
+    if (path == null) return false;
+    return _authEndpoints.any((endpoint) => path.contains(endpoint));
+  }
+
   Failure _handleResponseError(
     Response? response, [
     Map<String, dynamic>? payload,
@@ -75,14 +89,21 @@ class ErrorInterceptor extends Interceptor {
 
     final message = _extractMessage(payload, response.data);
     final hasErrorPayload = _isErrorPayload(payload);
+    final requestPath = response.requestOptions.path;
 
     switch (response.statusCode) {
       case 400:
         return ValidationFailure(message ?? 'Invalid request');
       case 401:
-        _eventBus.fire(
-          UnauthorizedEvent(message ?? 'Session expired. Please log in again.'),
-        );
+        // Only fire global logout event for non-auth endpoints
+        // Auth endpoints handle 401 locally (e.g., wrong password, expired token during login)
+        if (!_isAuthEndpoint(requestPath)) {
+          _eventBus.fire(
+            UnauthorizedEvent(
+              message ?? 'Session expired. Please log in again.',
+            ),
+          );
+        }
         return AuthFailure(message ?? 'Unauthorized');
       case 404:
         return ServerFailure(message ?? 'Resource not found');
