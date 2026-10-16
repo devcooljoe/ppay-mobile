@@ -45,15 +45,25 @@ class ConfirmGiftCardSellPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sellState = ref.watch(sellGiftcardProvider);
 
-    ref.listen(sellGiftcardProvider, (_, next) {
+    ref.listen(sellGiftcardProvider, (previous, next) {
       if (next.isLoading) {
         AppLoader.show(context);
-      } else {
+      } else if (previous?.isLoading == true) {
         AppLoader.hide(context);
         if (next.hasError) {
           MessageHandler.showErrorSnackBar(
             context,
             MessageHandler.getErrorMessage(next.error),
+          );
+        } else if (!next.isLoading && next.hasValue) {
+          // Success - navigate to success page
+          context.router.replace(
+            SellGiftCardSuccessRoute(
+              cardType: cardType,
+              amountInUSD: amount,
+              nairaEquivalent: nairaEquivalent,
+              sellRate: sellRate,
+            ),
           );
         }
       }
@@ -73,24 +83,6 @@ class ConfirmGiftCardSellPage extends ConsumerWidget {
             ecode: ecode,
             cardImagePaths: cardImages.map((f) => f.path).toList(),
           );
-
-      if (!context.mounted) return;
-      final state = ref.read(sellGiftcardProvider);
-      if (state.hasError) {
-        MessageHandler.showErrorSnackBar(
-          context,
-          MessageHandler.getErrorMessage(state.error),
-        );
-      } else {
-        context.router.replace(
-          SellGiftCardSuccessRoute(
-            cardType: cardType,
-            amountInUSD: amount,
-            nairaEquivalent: nairaEquivalent,
-            sellRate: sellRate,
-          ),
-        );
-      }
     }
 
     return Scaffold(
