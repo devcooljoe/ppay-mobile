@@ -1,8 +1,29 @@
 import 'dart:math';
 
+import 'package:event_bus/event_bus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import 'package:ppay_mobile/core/di/injection.dart';
+
+/// Event fired when a verification notification is received
+class VerificationNotificationEvent {
+  final String verificationType; // 'bvn', 'nin', 'kyc'
+  final String status; // 'verified', 'failed'
+  final bool isFullyVerified;
+  final String? reason;
+  final String title;
+  final String body;
+
+  const VerificationNotificationEvent({
+    required this.verificationType,
+    required this.status,
+    required this.isFullyVerified,
+    this.reason,
+    required this.title,
+    required this.body,
+  });
+}
 
 @lazySingleton
 class FirebaseMessagingService {
@@ -57,9 +78,65 @@ class FirebaseMessagingService {
   }
 
   Future<void> _setupMessageHandlers() async {
+    // Handle foreground messages
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      await _showLocalNotification(message);
+      await _handleMessage(message);
     });
+
+    // Handle background/terminated messages when app is opened from notification
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      await _handleMessage(message, showLocalNotification: false);
+    });
+
+    // Check if app was opened from a terminated state via notification
+    final initialMessage = await _firebaseMessaging.getInitialMessage();
+    if (initialMessage != null) {
+      await _handleMessage(initialMessage, showLocalNotification: false);
+    }
+  }
+
+  Future<void> _handleMessage(
+    RemoteMessage message, {
+    bool showLocalNotification = true,
+  }) async {
+    // Check if this is a verification notification
+    final data = message.data;
+    final notificationType = data['type'];
+
+    if (notificationType == 'verification') {
+      _handleVerificationNotification(message);
+    }
+
+    // Show local notification for foreground messages
+    if (showLocalNotification) {
+      await _showLocalNotification(message);
+    }
+  }
+
+  void _handleVerificationNotification(RemoteMessage message) {
+    final data = message.data;
+    final notification = message.notification;
+
+    // Parse the verification data
+    final verificationType = data['verificationType'] as String? ?? 'kyc';
+    final status = data['status'] as String? ?? 'verified';
+    final isFullyVerifiedStr = data['isFullyVerified'];
+    final isFullyVerified =
+        isFullyVerifiedStr == 'true' || isFullyVerifiedStr == true;
+    final reason = data['reason'] as String?;
+
+    // Fire event so the app can update state
+    final eventBus = getIt<EventBus>();
+    eventBus.fire(
+      VerificationNotificationEvent(
+        verificationType: verificationType,
+        status: status,
+        isFullyVerified: isFullyVerified,
+        reason: reason,
+        title: notification?.title ?? 'Verification Update',
+        body: notification?.body ?? '',
+      ),
+    );
   }
 
   Future<void> _showLocalNotification(RemoteMessage message) async {

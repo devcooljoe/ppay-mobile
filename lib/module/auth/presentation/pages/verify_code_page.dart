@@ -27,12 +27,15 @@ class VerifyCodePage extends HookConsumerWidget {
 
     useEffect(() {
       // Auto-send email OTP when page opens
+      // This is needed because login doesn't send OTP - it only authenticates
       Future.microtask(() {
         ref.read(resendEmailOtpProvider.notifier).call();
       });
 
-      final timer =
-          Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) {
+      final timer = Stream.periodic(
+        const Duration(seconds: 1),
+        (i) => i,
+      ).listen((_) {
         if (countdown.value > 0) {
           countdown.value--;
         } else {
@@ -54,7 +57,10 @@ class VerifyCodePage extends HookConsumerWidget {
         });
         if (next.hasError) {
           hasError.value = true;
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -72,7 +78,10 @@ class VerifyCodePage extends HookConsumerWidget {
           hasError.value = false;
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -97,9 +106,10 @@ class VerifyCodePage extends HookConsumerWidget {
       ),
       decoration: BoxDecoration(
         border: Border.all(
-          color: hasError.value
-              ? PPaymobileColors.redTextfield
-              : PPaymobileColors.lightGrey,
+          color:
+              hasError.value
+                  ? PPaymobileColors.redTextfield
+                  : PPaymobileColors.lightGrey,
           width: 1.w,
         ),
         borderRadius: BorderRadius.circular(6.r),
@@ -116,9 +126,10 @@ class VerifyCodePage extends HookConsumerWidget {
       ),
       decoration: BoxDecoration(
         border: Border.all(
-          color: hasError.value
-              ? PPaymobileColors.redTextfield
-              : PPaymobileColors.buttonColor,
+          color:
+              hasError.value
+                  ? PPaymobileColors.redTextfield
+                  : PPaymobileColors.buttonColor,
           width: 2.w,
         ),
         borderRadius: BorderRadius.circular(6.r),
@@ -196,18 +207,21 @@ class VerifyCodePage extends HookConsumerWidget {
                     ),
                   ),
                   TouchOpacity(
-                    onTap: canResend.value
-                        ? () => ref.read(resendEmailOtpProvider.notifier).call()
-                        : null,
+                    onTap:
+                        canResend.value
+                            ? () =>
+                                ref.read(resendEmailOtpProvider.notifier).call()
+                            : null,
                     child: Text(
                       'Resend code',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
-                        color: canResend.value
-                            ? PPaymobileColors.buttonColor
-                            : Colors.grey,
+                        color:
+                            canResend.value
+                                ? PPaymobileColors.buttonColor
+                                : Colors.grey,
                       ),
                     ),
                   ),
@@ -222,22 +236,25 @@ class VerifyCodePage extends HookConsumerWidget {
                   fontFamily: 'InstrumentSans',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: canResend.value
-                      ? PPaymobileColors.redTextfield
-                      : PPaymobileColors.svgIconColor,
+                  color:
+                      canResend.value
+                          ? PPaymobileColors.redTextfield
+                          : PPaymobileColors.svgIconColor,
                 ),
               ),
               const Spacer(),
               PPButton(
                 text: 'Verify',
-                onPressed: currentOtp.value.length == 6
-                    ? () => ref
-                        .read(verifyEmailOtpProvider.notifier)
-                        .call(otpCode: currentOtp.value)
-                    : null,
-                backgroundColor: currentOtp.value.length == 6
-                    ? null
-                    : PPaymobileColors.buttonInactiveColor,
+                onPressed:
+                    currentOtp.value.length == 6
+                        ? () => ref
+                            .read(verifyEmailOtpProvider.notifier)
+                            .call(otpCode: currentOtp.value)
+                        : null,
+                backgroundColor:
+                    currentOtp.value.length == 6
+                        ? null
+                        : PPaymobileColors.buttonInactiveColor,
               ),
               16.verticalSpace,
             ],

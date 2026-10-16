@@ -26,7 +26,9 @@ class LoginPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
-    final emailController = useTextEditingController();
+    final emailController = useTextEditingController(
+      text: kDebugMode ? 'onipedejoseph2018@gmail.com' : null,
+    );
     final passwordController = useTextEditingController(
       text: kDebugMode ? 'Password@123' : null,
     );

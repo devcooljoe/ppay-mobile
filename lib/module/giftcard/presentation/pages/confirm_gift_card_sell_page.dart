@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,11 +14,10 @@ import 'package:ppay_mobile/module/giftcard/presentation/providers/giftcard_prov
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
-import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 
 @RoutePage()
-class ConfirmGiftCardSellPage extends HookConsumerWidget {
+class ConfirmGiftCardSellPage extends ConsumerWidget {
   final String cardType;
   final String logoUrl;
   final GiftcardSubcategoryEntity? subcategory;
@@ -45,7 +43,6 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isNotifyEnabled = useState(false);
     final sellState = ref.watch(sellGiftcardProvider);
 
     ref.listen(sellGiftcardProvider, (_, next) {
@@ -54,7 +51,10 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
       } else {
         AppLoader.hide(context);
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -63,26 +63,33 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
 
-      await ref.read(sellGiftcardProvider.notifier).call(
-        type: cardType,
-        country: country,
-        subcategoryId: subcategory?.id,
-        amount: amount,
-        ecode: ecode,
-        cardImagePaths: cardImages.map((f) => f.path).toList(),
-      );
+      await ref
+          .read(sellGiftcardProvider.notifier)
+          .call(
+            type: cardType,
+            country: country,
+            subcategoryId: subcategory?.id,
+            amount: amount,
+            ecode: ecode,
+            cardImagePaths: cardImages.map((f) => f.path).toList(),
+          );
 
       if (!context.mounted) return;
       final state = ref.read(sellGiftcardProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(state.error),
+        );
       } else {
-        context.router.replace(SellGiftCardSuccessRoute(
-          cardType: cardType,
-          amountInUSD: amount,
-          nairaEquivalent: nairaEquivalent,
-          sellRate: sellRate,
-        ));
+        context.router.replace(
+          SellGiftCardSuccessRoute(
+            cardType: cardType,
+            amountInUSD: amount,
+            nairaEquivalent: nairaEquivalent,
+            sellRate: sellRate,
+          ),
+        );
       }
     }
 
@@ -120,7 +127,10 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
                 decoration: BoxDecoration(
                   color: PPaymobileColors.mainScreenBackground,
-                  border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
+                  border: Border.all(
+                    color: PPaymobileColors.filterBorderColor,
+                    width: 1.w,
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -129,7 +139,11 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                       backgroundColor: const Color(0xFF00A86B),
                       child: Text(
                         cardType.isNotEmpty ? cardType[0].toUpperCase() : 'G',
-                        style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     12.horizontalSpace,
@@ -165,10 +179,18 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
               // Details
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.only(left: 16.w, right: 40.w, top: 16.h, bottom: 15.h),
+                padding: EdgeInsets.only(
+                  left: 16.w,
+                  right: 40.w,
+                  top: 16.h,
+                  bottom: 15.h,
+                ),
                 decoration: BoxDecoration(
                   color: PPaymobileColors.mainScreenBackground,
-                  border: Border.all(color: PPaymobileColors.filterBorderColor, width: 1.w),
+                  border: Border.all(
+                    color: PPaymobileColors.filterBorderColor,
+                    width: 1.w,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,10 +198,14 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _InfoColumn(label: 'Amount', value: '\$${amount.toStringAsFixed(2)}'),
+                        _InfoColumn(
+                          label: 'Amount',
+                          value: '\$${amount.toStringAsFixed(2)}',
+                        ),
                         _InfoColumn(
                           label: 'You will Receive',
-                          value: '₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
+                          value:
+                              '₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
                         ),
                       ],
                     ),
@@ -190,7 +216,8 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                         _InfoColumn(label: 'Country', value: country),
                         _InfoColumn(
                           label: 'Rate',
-                          value: '₦${AmountFormatter.formatBalance(sellRate.toStringAsFixed(2))}/\$',
+                          value:
+                              '₦${AmountFormatter.formatBalance(sellRate.toStringAsFixed(2))}/\$',
                         ),
                       ],
                     ),
@@ -211,41 +238,28 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                       ),
                       6.verticalSpace,
                       Row(
-                        children: cardImages.take(3).map((img) => Padding(
-                          padding: EdgeInsets.only(right: 8.w),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4).r,
-                            child: Image.file(File(img.path), width: 56.w, height: 48.h, fit: BoxFit.cover),
-                          ),
-                        )).toList(),
+                        children:
+                            cardImages
+                                .take(3)
+                                .map(
+                                  (img) => Padding(
+                                    padding: EdgeInsets.only(right: 8.w),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(4).r,
+                                      child: Image.file(
+                                        File(img.path),
+                                        width: 56.w,
+                                        height: 48.h,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
                       ),
                     ],
                   ],
                 ),
-              ),
-              13.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                    width: 37.w,
-                    child: CustomSwitch(
-                      value: isNotifyEnabled.value,
-                      onChanged: (val) => isNotifyEnabled.value = val,
-                    ),
-                  ),
-                  13.horizontalSpace,
-                  Text(
-                    'Enable notifications when approved',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: PPaymobileColors.svgIconColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
               ),
               40.verticalSpace,
               Container(
@@ -258,7 +272,10 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                     SizedBox(
                       height: 19.w,
                       width: 19.w,
-                      child: SvgPicture.asset('assets/icon/warning.svg', fit: BoxFit.contain),
+                      child: SvgPicture.asset(
+                        'assets/icon/warning.svg',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                     8.horizontalSpace,
                     Expanded(
@@ -280,7 +297,10 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 23.h),
                 decoration: BoxDecoration(
-                  border: Border.all(width: 1.w, color: PPaymobileColors.filterBorderColor),
+                  border: Border.all(
+                    width: 1.w,
+                    color: PPaymobileColors.filterBorderColor,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,18 +319,20 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                       'Ensure all card details provided are correct. Incorrect information may cause delays',
                       'Uploaded images must be clear and unaltered to avoid rejection',
                       'Do not share your card code with anyone outside the app',
-                    ].map((tip) => Padding(
-                      padding: EdgeInsets.only(bottom: 19.h),
-                      child: Text(
-                        tip,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: PPaymobileColors.svgIconColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
+                    ].map(
+                      (tip) => Padding(
+                        padding: EdgeInsets.only(bottom: 19.h),
+                        child: Text(
+                          tip,
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: PPaymobileColors.svgIconColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    )),
+                    ),
                   ],
                 ),
               ),
@@ -326,7 +348,7 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                   ),
                   child: Center(
                     child: Text(
-                      sellState.isLoading ? 'Processing...' : 'Proceed to Payment',
+                      sellState.isLoading ? 'Processing...' : 'Submit Sale',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: Colors.white,
@@ -344,7 +366,10 @@ class ConfirmGiftCardSellPage extends HookConsumerWidget {
                   SizedBox(
                     height: 20.w,
                     width: 20.w,
-                    child: SvgPicture.asset('assets/icon/padlock_1.svg', fit: BoxFit.contain),
+                    child: SvgPicture.asset(
+                      'assets/icon/padlock_1.svg',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   5.horizontalSpace,
                   Text(

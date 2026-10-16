@@ -4,7 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
 
 class SettingsMenuItem extends StatelessWidget {
-  final String imagePath;
+  final String? imagePath;
+  final IconData? icon;
+  final Color? iconColor;
   final String title;
   final VoidCallback? onTap;
   final Widget? trailing;
@@ -12,12 +14,17 @@ class SettingsMenuItem extends StatelessWidget {
 
   const SettingsMenuItem({
     super.key,
-    required this.imagePath,
+    this.imagePath,
+    this.icon,
+    this.iconColor,
     required this.title,
     this.onTap,
     this.trailing,
     this.titleColor,
-  });
+  }) : assert(
+         imagePath != null || icon != null,
+         'Either imagePath or icon must be provided',
+       );
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +47,27 @@ class SettingsMenuItem extends StatelessWidget {
                     width: 38.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(19.r),
-                      image: DecorationImage(
-                        image: AssetImage(imagePath),
-                        fit: BoxFit.contain,
-                      ),
+                      color:
+                          icon != null
+                              ? (iconColor ?? Colors.grey.shade200)
+                              : null,
+                      image:
+                          imagePath != null
+                              ? DecorationImage(
+                                image: AssetImage(imagePath!),
+                                fit: BoxFit.contain,
+                              )
+                              : null,
                     ),
+                    child:
+                        icon != null
+                            ? Icon(
+                              icon,
+                              size: 20.w,
+                              color:
+                                  iconColor != null ? iconColor : Colors.black,
+                            )
+                            : null,
                   ),
                   10.horizontalSpace,
                   Text(

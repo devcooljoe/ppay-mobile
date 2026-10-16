@@ -24,21 +24,19 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
     final canResend = useState(false);
 
     useEffect(() {
-      // Auto-send email OTP when page opens
-      Future.microtask(() {
-        ref.read(resendEmailOtpProvider.notifier).call();
-      });
+      // Note: OTP is already sent by the backend during registration
+      // Only start the countdown timer here, don't auto-resend
 
-      final timer =
-          Stream.periodic(const Duration(seconds: 1), (count) => count).listen((
-            _,
-          ) {
-            if (countdown.value > 0) {
-              countdown.value--;
-            } else {
-              canResend.value = true;
-            }
-          });
+      final timer = Stream.periodic(
+        const Duration(seconds: 1),
+        (count) => count,
+      ).listen((_) {
+        if (countdown.value > 0) {
+          countdown.value--;
+        } else {
+          canResend.value = true;
+        }
+      });
       return timer.cancel;
     }, []);
 
@@ -53,7 +51,10 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
           context.router.replaceAll([const ExploreRoute()]);
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -69,7 +70,10 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
           canResend.value = false;
         });
         if (next.hasError) {
-          MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(next.error));
+          MessageHandler.showErrorSnackBar(
+            context,
+            MessageHandler.getErrorMessage(next.error),
+          );
         }
       }
     });
@@ -195,9 +199,10 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
                         fontFamily: 'InstrumentSans',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
-                        color: canResend.value
-                            ? const Color(0xff429E6E)
-                            : Colors.grey,
+                        color:
+                            canResend.value
+                                ? const Color(0xff429E6E)
+                                : Colors.grey,
                       ),
                     ),
                   ),
@@ -212,9 +217,10 @@ class VerifyEmailOtpPage extends HookConsumerWidget {
                   fontFamily: 'InstrumentSans',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: canResend.value
-                      ? PPaymobileColors.redTextfield
-                      : const Color(0xff5B5B5B),
+                  color:
+                      canResend.value
+                          ? PPaymobileColors.redTextfield
+                          : const Color(0xff5B5B5B),
                 ),
               ),
               const Spacer(),

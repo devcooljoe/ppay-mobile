@@ -48,37 +48,63 @@ class ErrorInterceptor extends Interceptor {
   }
 
   Failure _handleError(DioException error) {
+    // Always try to handle response errors first if we have a response
+    if (error.response != null) {
+      return _handleResponseError(
+        error.response,
+        _extractPayload(error.response?.data),
+      );
+    }
+
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
         return NetworkFailure('Connection timeout');
+      case DioExceptionType.cancel:
+        return NetworkFailure('Request cancelled');
+      case DioExceptionType.connectionError:
+        return NetworkFailure('No internet connection');
       case DioExceptionType.badResponse:
         return _handleResponseError(
           error.response,
           _extractPayload(error.response?.data),
         );
-      case DioExceptionType.cancel:
-        return NetworkFailure('Request cancelled');
-      case DioExceptionType.connectionError:
-        return NetworkFailure('No internet connection');
       default:
         return NetworkFailure('Unexpected error occurred');
     }
   }
 
   // Auth endpoints that should not trigger global logout on 401
+  // These handle their own authentication errors (e.g., wrong password)
   static const _authEndpoints = [
-    '/users/verify-password',
     '/users/login',
     '/users/register',
     '/users/forgot-password',
     '/users/reset-password',
   ];
 
+  // Messages that indicate token expiration/invalidity (should always logout)
+  static const _tokenExpiredMessages = [
+    'invalid or expired token',
+    'token expired',
+    'token invalid',
+    'jwt expired',
+    'jwt malformed',
+    'session expired',
+  ];
+
   bool _isAuthEndpoint(String? path) {
     if (path == null) return false;
     return _authEndpoints.any((endpoint) => path.contains(endpoint));
+  }
+
+  bool _isTokenExpiredError(String? message) {
+    if (message == null) return false;
+    final lowerMessage = message.toLowerCase();
+    return _tokenExpiredMessages.any(
+      (expiredMsg) => lowerMessage.contains(expiredMsg),
+    );
   }
 
   Failure _handleResponseError(
@@ -95,9 +121,10 @@ class ErrorInterceptor extends Interceptor {
       case 400:
         return ValidationFailure(message ?? 'Invalid request');
       case 401:
-        // Only fire global logout event for non-auth endpoints
-        // Auth endpoints handle 401 locally (e.g., wrong password, expired token during login)
-        if (!_isAuthEndpoint(requestPath)) {
+        // Always fire logout event for token expiration errors, regardless of endpoint
+        // For other 401s, only fire for non-auth endpoints (auth endpoints handle locally)
+        final isTokenExpired = _isTokenExpiredError(message);
+        if (isTokenExpired || !_isAuthEndpoint(requestPath)) {
           _eventBus.fire(
             UnauthorizedEvent(
               message ?? 'Session expired. Please log in again.',

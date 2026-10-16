@@ -332,7 +332,7 @@ class SettingsPage extends HookConsumerWidget {
                   ),
                   12.verticalSpace,
                   SettingsMenuItem(
-                    imagePath: 'assets/images/place_order.png',
+                    icon: Icons.shopping_bag_outlined,
                     title: 'My Orders',
                     onTap: () => context.router.push(YourOrderRoute()),
                   ),
