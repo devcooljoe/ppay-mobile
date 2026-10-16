@@ -7,7 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
+import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/full_screen_image_viewer.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
@@ -156,12 +158,12 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
     if (isCrypto) {
       final currency = (tx.details?['currency'] as String? ?? '').toUpperCase();
       final isSale = tx.type == TransactionType.cryptoSale;
-      final badgeColor = isSale
-          ? const Color(0xFFFF3336)
-          : PPaymobileColors.buttonColor;
-      final arrowIcon = isSale
-          ? 'assets/icon/arrow_up_white.svg'
-          : 'assets/icon/arrow_down_white.svg';
+      final badgeColor =
+          isSale ? const Color(0xFFFF3336) : PPaymobileColors.buttonColor;
+      final arrowIcon =
+          isSale
+              ? 'assets/icon/arrow_up_white.svg'
+              : 'assets/icon/arrow_down_white.svg';
 
       return SizedBox(
         height: 55.w,
@@ -353,9 +355,23 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
         ];
 
       case TransactionType.giftcardSale:
+        // Determine card format (eCode vs Physical)
+        final ecode = d['ecode'] as String?;
+        final cardUrls = (d['cardUrls'] as List<dynamic>?)?.cast<String>();
+        final hasEcode = ecode != null && ecode.isNotEmpty;
+        final hasCardUrls = cardUrls != null && cardUrls.isNotEmpty;
+
+        String cardFormat = 'Gift Card';
+        if (hasEcode) {
+          cardFormat = 'eCode';
+        } else if (hasCardUrls) {
+          cardFormat = 'Physical';
+        }
+
         return [
           if (d['type'] != null)
             _DetailRow(label: 'Card Type', value: d['type'] as String),
+          _DetailRow(label: 'Card Format', value: cardFormat),
           if (d['subcategoryName'] != null)
             _DetailRow(
               label: 'Subcategory',
@@ -374,12 +390,15 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
               label: 'Amount Range',
               value: '\$${d['minAmount']} – \$${d['maxAmount']}',
             ),
+          if (hasEcode)
+            _DetailRow(label: 'E-Code', value: ecode, copyable: true),
           if (d['rejectionReason'] != null &&
               (d['rejectionReason'] as String).isNotEmpty)
             _DetailRow(
               label: 'Rejection Reason',
               value: d['rejectionReason'] as String,
             ),
+          if (hasCardUrls) _GiftCardThumbnails(imageUrls: cardUrls),
         ];
 
       case TransactionType.shopping:
@@ -506,8 +525,8 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
           16.verticalSpace,
           PPButton(
             text: 'Track Order',
-            onPressed: () =>
-                context.router.push(TrackOrderRoute(orderId: orderId)),
+            onPressed:
+                () => context.router.push(TrackOrderRoute(orderId: orderId)),
             icon: SizedBox(
               height: 20.w,
               width: 20.w,
@@ -739,6 +758,63 @@ class _DetailRow extends StatelessWidget {
                 ),
               ],
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Displays a horizontal row of clickable gift card image thumbnails.
+/// Tapping any thumbnail opens the full-screen image viewer.
+class _GiftCardThumbnails extends StatelessWidget {
+  final List<String> imageUrls;
+
+  const _GiftCardThumbnails({required this.imageUrls});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 22.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Card Images',
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: PPaymobileColors.svgIconColor,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          12.verticalSpace,
+          SizedBox(
+            height: 80.w,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: imageUrls.length,
+              separatorBuilder: (_, __) => 8.horizontalSpace,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap:
+                      () => FullScreenImageViewer.show(
+                        context,
+                        imageUrls: imageUrls,
+                        initialIndex: index,
+                      ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: AppImage(
+                      imageUrl: imageUrls[index],
+                      width: 80.w,
+                      height: 80.w,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

@@ -12,7 +12,6 @@ import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/giftcard/domain/entities/giftcard_entity.dart';
 import 'package:ppay_mobile/module/giftcard/presentation/providers/giftcard_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
-import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 
@@ -45,30 +44,6 @@ class ConfirmGiftCardSellPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sellState = ref.watch(sellGiftcardProvider);
 
-    ref.listen(sellGiftcardProvider, (previous, next) {
-      if (next.isLoading) {
-        AppLoader.show(context);
-      } else if (previous?.isLoading == true) {
-        AppLoader.hide(context);
-        if (next.hasError) {
-          MessageHandler.showErrorSnackBar(
-            context,
-            MessageHandler.getErrorMessage(next.error),
-          );
-        } else if (!next.isLoading && next.hasValue) {
-          // Success - navigate to success page
-          context.router.replace(
-            SellGiftCardSuccessRoute(
-              cardType: cardType,
-              amountInUSD: amount,
-              nairaEquivalent: nairaEquivalent,
-              sellRate: sellRate,
-            ),
-          );
-        }
-      }
-    });
-
     Future<void> onProceed() async {
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
@@ -83,6 +58,24 @@ class ConfirmGiftCardSellPage extends ConsumerWidget {
             ecode: ecode,
             cardImagePaths: cardImages.map((f) => f.path).toList(),
           );
+
+      if (!context.mounted) return;
+      final state = ref.read(sellGiftcardProvider);
+      if (state.hasError) {
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(state.error),
+        );
+      } else {
+        context.router.replace(
+          SellGiftCardSuccessRoute(
+            cardType: cardType,
+            amountInUSD: amount,
+            nairaEquivalent: nairaEquivalent,
+            sellRate: sellRate,
+          ),
+        );
+      }
     }
 
     return Scaffold(
