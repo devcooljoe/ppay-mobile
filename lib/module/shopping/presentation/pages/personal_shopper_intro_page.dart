@@ -61,7 +61,7 @@ class PersonalShopperIntroPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'Shop Smarter with Your\nPersonal Shopper',
+                          'Can\'t Find the Perfect Gift?\nLet Us Help!',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
@@ -73,7 +73,7 @@ class PersonalShopperIntroPage extends StatelessWidget {
                         ),
                         20.verticalSpace,
                         Text(
-                          'Let our personal shoppers find the best products that match your style, needs, and budget  from fashion and gadgets to everyday essentials.',
+                          'Let our personal shoppers find the perfect gift for your loved ones in the UK, US, and Canada — from fashion and gadgets to everyday essentials.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
@@ -89,13 +89,10 @@ class PersonalShopperIntroPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
-                left: 40.w,
-                right: 40.w,
-                bottom: 40.h,
-              ),
+              padding: EdgeInsets.only(left: 40.w, right: 40.w, bottom: 40.h),
               child: TouchOpacity(
-                onTap: () => context.router.replace(const PersonalShopperRoute()),
+                onTap:
+                    () => context.router.replace(const PersonalShopperRoute()),
                 child: Container(
                   width: double.infinity,
                   height: 56.h,

@@ -29,19 +29,20 @@ class YourOrderPage extends HookConsumerWidget {
 
     final filters = ['All', 'Pending', 'Processing', 'Delivered', 'Cancelled'];
     final orders = ordersState.value ?? [];
-    final filtered = selectedFilter.value == 'All'
-        ? orders
-        : orders
-              .where(
-                (o) =>
-                    o.status.toLowerCase() ==
-                    selectedFilter.value.toLowerCase(),
-              )
-              .toList();
+    final filtered =
+        selectedFilter.value == 'All'
+            ? orders
+            : orders
+                .where(
+                  (o) =>
+                      o.status.toLowerCase() ==
+                      selectedFilter.value.toLowerCase(),
+                )
+                .toList();
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: const PPAppBar(title: 'Your Orders'),
+      appBar: const PPAppBar(title: 'Your Gift Orders'),
       body: SafeArea(
         child: Column(
           children: [
@@ -65,23 +66,26 @@ class YourOrderPage extends HookConsumerWidget {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(49.r),
-                        color: isSelected
-                            ? PPaymobileColors.tabColor
-                            : PPaymobileColors.mainScreenBackground,
-                        border: isSelected
-                            ? null
-                            : Border.all(
-                                color: PPaymobileColors.textfiedBorder,
-                                width: 1.w,
-                              ),
+                        color:
+                            isSelected
+                                ? PPaymobileColors.tabColor
+                                : PPaymobileColors.mainScreenBackground,
+                        border:
+                            isSelected
+                                ? null
+                                : Border.all(
+                                  color: PPaymobileColors.textfiedBorder,
+                                  width: 1.w,
+                                ),
                       ),
                       child: Text(
                         filter,
                         style: TextStyle(
                           fontFamily: 'InstrumentSans',
-                          color: isSelected
-                              ? PPaymobileColors.mainScreenBackground
-                              : Colors.black,
+                          color:
+                              isSelected
+                                  ? PPaymobileColors.mainScreenBackground
+                                  : Colors.black,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                         ),
@@ -93,58 +97,65 @@ class YourOrderPage extends HookConsumerWidget {
             ),
             24.verticalSpace,
             Expanded(
-              child: ordersState.isLoading
-                  ? ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      itemCount: 3,
-                      itemBuilder: (_, __) => Padding(
-                        padding: EdgeInsets.only(bottom: 20.h),
-                        child: SkeletonLoader(
-                          width: double.infinity,
-                          height: 100.h,
-                          borderRadius: BorderRadius.circular(8.r),
+              child:
+                  ordersState.isLoading
+                      ? ListView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        itemCount: 3,
+                        itemBuilder:
+                            (_, __) => Padding(
+                              padding: EdgeInsets.only(bottom: 20.h),
+                              child: SkeletonLoader(
+                                width: double.infinity,
+                                height: 100.h,
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                      )
+                      : ordersState.hasError
+                      ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Failed to load gift orders',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: PPaymobileColors.svgIconColor,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                            16.verticalSpace,
+                            TextButton(
+                              onPressed:
+                                  () =>
+                                      ref
+                                          .read(getOrdersProvider.notifier)
+                                          .call(),
+                              child: const Text('Retry'),
+                            ),
+                          ],
+                        ),
+                      )
+                      : filtered.isEmpty
+                      ? EmptyState(
+                        imagePath: 'assets/images/transactionimage.png',
+                        message: 'No gift orders found',
+                      )
+                      : RefreshIndicator(
+                        onRefresh:
+                            () async =>
+                                ref.read(getOrdersProvider.notifier).call(),
+                        color: PPaymobileColors.backgroundColor,
+                        child: ListView.separated(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          itemCount: filtered.length,
+                          separatorBuilder: (_, __) => 16.verticalSpace,
+                          itemBuilder:
+                              (context, index) =>
+                                  _OrderCard(order: filtered[index]),
                         ),
                       ),
-                    )
-                  : ordersState.hasError
-                  ? Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Failed to load orders',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: PPaymobileColors.svgIconColor,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                          16.verticalSpace,
-                          TextButton(
-                            onPressed: () =>
-                                ref.read(getOrdersProvider.notifier).call(),
-                            child: const Text('Retry'),
-                          ),
-                        ],
-                      ),
-                    )
-                  : filtered.isEmpty
-                  ? EmptyState(
-                      imagePath: 'assets/images/transactionimage.png',
-                      message: 'No orders found',
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () async =>
-                          ref.read(getOrdersProvider.notifier).call(),
-                      color: PPaymobileColors.backgroundColor,
-                      child: ListView.separated(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        itemCount: filtered.length,
-                        separatorBuilder: (_, __) => 16.verticalSpace,
-                        itemBuilder: (context, index) =>
-                            _OrderCard(order: filtered[index]),
-                      ),
-                    ),
             ),
           ],
         ),
@@ -227,8 +238,9 @@ class _OrderCard extends StatelessWidget {
                 ),
               ),
               TouchOpacity(
-                onTap: () =>
-                    context.router.push(TrackOrderRoute(orderId: order.id)),
+                onTap:
+                    () =>
+                        context.router.push(TrackOrderRoute(orderId: order.id)),
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: 16.w,

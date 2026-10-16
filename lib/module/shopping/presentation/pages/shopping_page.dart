@@ -60,7 +60,7 @@ class ShoppingPage extends HookConsumerWidget {
         toolbarHeight: 56,
         leadingWidth: 56.w,
         title: Text(
-          'Shopping',
+          'Gift Store',
           style: TextStyle(
             fontFamily: 'InstrumentSans',
             color: Colors.black,
@@ -198,7 +198,7 @@ class ShoppingPage extends HookConsumerWidget {
                           fit: BoxFit.scaleDown,
                         ),
                       ),
-                      hintText: 'Search products',
+                      hintText: 'Search gifts',
                       hintStyle: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: PPaymobileColors.textfiedBorder,
@@ -224,150 +224,160 @@ class ShoppingPage extends HookConsumerWidget {
               // Carousel
               SizedBox(
                 height: 184.h,
-                child: homepageState.isLoading
-                    ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6.w),
-                        child: SkeletonLoader(
-                          width: double.infinity,
-                          height: 184.h,
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                      )
-                    : (() {
-                        final banners = homepageState.value?.banners ?? [];
-                        if (banners.isEmpty) return _BannerPlaceholder();
-                        return PageView.builder(
-                          controller: pageController,
-                          onPageChanged: (index) => currentIndex.value = index,
-                          itemCount: banners.length,
-                          itemBuilder: (context, index) {
-                            final banner = banners[index];
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 6.w),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12.r),
-                                child: Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    CachedNetworkImage(
-                                      imageUrl: banner.imageUrl,
-                                      fit: BoxFit.cover,
-                                      placeholder: (_, __) => Container(
-                                        color: PPaymobileColors
-                                            .deepBackgroundColor,
-                                      ),
-                                      errorWidget: (_, __, ___) => Container(
-                                        color: PPaymobileColors
-                                            .deepBackgroundColor,
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.image_outlined,
-                                            color:
-                                                PPaymobileColors.svgIconColor,
-                                            size: 48.w,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          colors: [
-                                            Colors.black.withValues(
-                                              alpha: 0.55,
+                child:
+                    homepageState.isLoading
+                        ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 6.w),
+                          child: SkeletonLoader(
+                            width: double.infinity,
+                            height: 184.h,
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                        )
+                        : (() {
+                          final banners = homepageState.value?.banners ?? [];
+                          if (banners.isEmpty) return _BannerPlaceholder();
+                          return PageView.builder(
+                            controller: pageController,
+                            onPageChanged:
+                                (index) => currentIndex.value = index,
+                            itemCount: banners.length,
+                            itemBuilder: (context, index) {
+                              final banner = banners[index];
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 6.w),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl: banner.imageUrl,
+                                        fit: BoxFit.cover,
+                                        placeholder:
+                                            (_, __) => Container(
+                                              color:
+                                                  PPaymobileColors
+                                                      .deepBackgroundColor,
                                             ),
-                                            Colors.transparent,
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 25.w,
-                                        top: 32.h,
-                                        bottom: 32.h,
-                                        right: 155.w,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                banner.title,
-                                                style: TextStyle(
-                                                  fontFamily: 'InstrumentSans',
-                                                  color: Colors.white,
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.w600,
+                                        errorWidget:
+                                            (_, __, ___) => Container(
+                                              color:
+                                                  PPaymobileColors
+                                                      .deepBackgroundColor,
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.image_outlined,
+                                                  color:
+                                                      PPaymobileColors
+                                                          .svgIconColor,
+                                                  size: 48.w,
                                                 ),
                                               ),
-                                              Text(
-                                                banner.description,
-                                                style: TextStyle(
-                                                  fontFamily: 'InstrumentSans',
-                                                  color: Colors.white,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                            ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              Colors.black.withValues(
+                                                alpha: 0.55,
                                               ),
+                                              Colors.transparent,
                                             ],
                                           ),
-                                          Container(
-                                            height: 34.h,
-                                            width: 121.w,
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 13.w,
-                                              vertical: 5.h,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(55).r,
-                                              color: Colors.white,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 25.w,
+                                          top: 32.h,
+                                          bottom: 32.h,
+                                          right: 155.w,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'Shop Now',
+                                                  banner.title,
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'InstrumentSans',
-                                                    color: Colors.black,
+                                                    color: Colors.white,
+                                                    fontSize: 20.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  banner.description,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'InstrumentSans',
+                                                    color: Colors.white,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
-                                                7.horizontalSpace,
-                                                SizedBox(
-                                                  height: 19.w,
-                                                  width: 19.w,
-                                                  child: SvgPicture.asset(
-                                                    'assets/icon/arrow_forward_1.svg',
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                ),
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                            Container(
+                                              height: 34.h,
+                                              width: 121.w,
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 13.w,
+                                                vertical: 5.h,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(55).r,
+                                                color: Colors.white,
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Send Gifts',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'InstrumentSans',
+                                                      color: Colors.black,
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  7.horizontalSpace,
+                                                  SizedBox(
+                                                    height: 19.w,
+                                                    width: 19.w,
+                                                    child: SvgPicture.asset(
+                                                      'assets/icon/arrow_forward_1.svg',
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      })(),
+                              );
+                            },
+                          );
+                        })(),
               ),
               7.verticalSpace,
               (() {
@@ -383,9 +393,10 @@ class ShoppingPage extends HookConsumerWidget {
                       height: 13.w,
                       width: 13.w,
                       decoration: BoxDecoration(
-                        color: currentIndex.value == index
-                            ? PPaymobileColors.buttonColor
-                            : PPaymobileColors.deepBackgroundColor,
+                        color:
+                            currentIndex.value == index
+                                ? PPaymobileColors.buttonColor
+                                : PPaymobileColors.deepBackgroundColor,
                         borderRadius: BorderRadius.circular(6.5.r),
                       ),
                     ),
@@ -398,7 +409,7 @@ class ShoppingPage extends HookConsumerWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20.w),
                 child: Text(
-                  'Item Categories',
+                  'Gift Categories',
                   style: TextStyle(
                     fontFamily: 'InstrumentSans',
                     color: Colors.black,
@@ -410,35 +421,38 @@ class ShoppingPage extends HookConsumerWidget {
               20.verticalSpace,
               homepageState.isLoading
                   ? Padding(
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: SizedBox(
-                        height: 90.h,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          separatorBuilder: (_, __) => 12.horizontalSpace,
-                          itemBuilder: (_, __) => SkeletonLoader(
-                            width: 80.w,
-                            height: 80.w,
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                        ),
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: SizedBox(
+                      height: 90.h,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        separatorBuilder: (_, __) => 12.horizontalSpace,
+                        itemBuilder:
+                            (_, __) => SkeletonLoader(
+                              width: 80.w,
+                              height: 80.w,
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
                       ),
-                    )
+                    ),
+                  )
                   : Padding(
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: SizedBox(
-                        height: 90.h,
-                        child: categories.isEmpty
-                            ? ListView(
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: SizedBox(
+                      height: 90.h,
+                      child:
+                          categories.isEmpty
+                              ? ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: [
                                   _CategoryItem(
                                     name: 'Clothes',
                                     iconUrl: 'assets/images/item_2.png',
                                     isAsset: true,
-                                    onTap: () =>
-                                        context.router.push(ClothsRoute()),
+                                    onTap:
+                                        () =>
+                                            context.router.push(ClothsRoute()),
                                   ),
                                   _CategoryItem(
                                     name: 'Electronics',
@@ -452,7 +466,7 @@ class ShoppingPage extends HookConsumerWidget {
                                   ),
                                 ],
                               )
-                            : ListView.separated(
+                              : ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: categories.length,
                                 separatorBuilder: (_, __) => 12.horizontalSpace,
@@ -461,25 +475,28 @@ class ShoppingPage extends HookConsumerWidget {
                                   return _CategoryItem(
                                     name: cat.name,
                                     iconUrl: cat.iconUrl,
-                                    onTap: () => context.router.push(
-                                      ClothsRoute(
-                                        categoryId: cat.id,
-                                        categoryName: cat.name,
-                                      ),
-                                    ),
+                                    onTap:
+                                        () => context.router.push(
+                                          ClothsRoute(
+                                            categoryId: cat.id,
+                                            categoryName: cat.name,
+                                          ),
+                                        ),
                                   );
                                 },
                               ),
-                      ),
                     ),
+                  ),
               41.verticalSpace,
 
               // Personal Shopper
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: TouchOpacity(
-                  onTap: () =>
-                      context.router.push(const PersonalShopperIntroRoute()),
+                  onTap:
+                      () => context.router.push(
+                        const PersonalShopperIntroRoute(),
+                      ),
                   child: Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(16.w),
@@ -559,7 +576,7 @@ class ShoppingPage extends HookConsumerWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20.w),
                 child: Text(
-                  'Products',
+                  'Gift Items',
                   style: TextStyle(
                     fontFamily: 'InstrumentSans',
                     color: Colors.black,
@@ -571,55 +588,56 @@ class ShoppingPage extends HookConsumerWidget {
               14.verticalSpace,
               productsState.isLoading
                   ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Column(
-                        children: List.generate(
-                          2,
-                          (_) => Padding(
-                            padding: EdgeInsets.only(bottom: 14.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SkeletonLoader(
-                                  width: 170.w,
-                                  height: 200.h,
-                                  borderRadius: BorderRadius.circular(8.r),
-                                ),
-                                SkeletonLoader(
-                                  width: 170.w,
-                                  height: 200.h,
-                                  borderRadius: BorderRadius.circular(8.r),
-                                ),
-                              ],
-                            ),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      children: List.generate(
+                        2,
+                        (_) => Padding(
+                          padding: EdgeInsets.only(bottom: 14.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SkeletonLoader(
+                                width: 170.w,
+                                height: 200.h,
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              SkeletonLoader(
+                                width: 170.w,
+                                height: 200.h,
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    )
-                  : allProducts.isEmpty
-                  ? Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.h),
-                        child: Text(
-                          'No products found',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.svgIconColor,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                      ),
-                    )
-                  : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Wrap(
-                        spacing: 12.w,
-                        runSpacing: 14.h,
-                        children: allProducts
-                            .map((p) => _ProductCard(product: p))
-                            .toList(),
                       ),
                     ),
+                  )
+                  : allProducts.isEmpty
+                  ? Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.h),
+                      child: Text(
+                        'No gift items found',
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: PPaymobileColors.svgIconColor,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                    ),
+                  )
+                  : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Wrap(
+                      spacing: 12.w,
+                      runSpacing: 14.h,
+                      children:
+                          allProducts
+                              .map((p) => _ProductCard(product: p))
+                              .toList(),
+                    ),
+                  ),
               20.verticalSpace,
             ],
           ),
@@ -655,16 +673,18 @@ class _CategoryItem extends StatelessWidget {
               color: PPaymobileColors.deepBackgroundColor,
               borderRadius: BorderRadius.circular(8.r),
             ),
-            child: isAsset
-                ? Image.asset(iconUrl, fit: BoxFit.contain)
-                : CachedNetworkImage(
-                    imageUrl: iconUrl,
-                    fit: BoxFit.contain,
-                    errorWidget: (_, __, ___) => Icon(
-                      Icons.category,
-                      color: PPaymobileColors.svgIconColor,
+            child:
+                isAsset
+                    ? Image.asset(iconUrl, fit: BoxFit.contain)
+                    : CachedNetworkImage(
+                      imageUrl: iconUrl,
+                      fit: BoxFit.contain,
+                      errorWidget:
+                          (_, __, ___) => Icon(
+                            Icons.category,
+                            color: PPaymobileColors.svgIconColor,
+                          ),
                     ),
-                  ),
           ),
           4.verticalSpace,
           Text(
@@ -691,13 +711,14 @@ class _ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasDiscount =
         product.discountPrice != null && product.discountPrice! < product.price;
-    final discountPct = hasDiscount
-        ? (((product.price - product.discountPrice!) / product.price) * 100)
-              .round()
-        : 0;
+    final discountPct =
+        hasDiscount
+            ? (((product.price - product.discountPrice!) / product.price) * 100)
+                .round()
+            : 0;
     return TouchOpacity(
-      onTap: () =>
-          context.router.push(ClothsDetailsRoute(productId: product.id)),
+      onTap:
+          () => context.router.push(ClothsDetailsRoute(productId: product.id)),
       child: Container(
         width: 170.w,
         decoration: BoxDecoration(
@@ -717,45 +738,47 @@ class _ProductCard extends StatelessWidget {
                 children: [
                   product.images != null && product.images!.isNotEmpty
                       ? CachedNetworkImage(
-                          imageUrl: product.images!.first.url,
-                          height: 130.h,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          placeholder: (_, __) => Container(
-                            height: 130.h,
-                            color: PPaymobileColors.deepBackgroundColor,
-                            child: Center(
-                              child: Icon(
-                                Icons.shopping_bag_outlined,
-                                color: PPaymobileColors.svgIconColor,
-                                size: 40.w,
+                        imageUrl: product.images!.first.url,
+                        height: 130.h,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        placeholder:
+                            (_, __) => Container(
+                              height: 130.h,
+                              color: PPaymobileColors.deepBackgroundColor,
+                              child: Center(
+                                child: Icon(
+                                  Icons.shopping_bag_outlined,
+                                  color: PPaymobileColors.svgIconColor,
+                                  size: 40.w,
+                                ),
                               ),
                             ),
-                          ),
-                          errorWidget: (_, __, ___) => Container(
-                            height: 130.h,
-                            color: PPaymobileColors.deepBackgroundColor,
-                            child: Center(
-                              child: Icon(
-                                Icons.shopping_bag_outlined,
-                                color: PPaymobileColors.svgIconColor,
-                                size: 40.w,
+                        errorWidget:
+                            (_, __, ___) => Container(
+                              height: 130.h,
+                              color: PPaymobileColors.deepBackgroundColor,
+                              child: Center(
+                                child: Icon(
+                                  Icons.shopping_bag_outlined,
+                                  color: PPaymobileColors.svgIconColor,
+                                  size: 40.w,
+                                ),
                               ),
                             ),
-                          ),
-                        )
+                      )
                       : Container(
-                          height: 130.h,
-                          width: double.infinity,
-                          color: PPaymobileColors.deepBackgroundColor,
-                          child: Center(
-                            child: Icon(
-                              Icons.shopping_bag_outlined,
-                              color: PPaymobileColors.svgIconColor,
-                              size: 40.w,
-                            ),
+                        height: 130.h,
+                        width: double.infinity,
+                        color: PPaymobileColors.deepBackgroundColor,
+                        child: Center(
+                          child: Icon(
+                            Icons.shopping_bag_outlined,
+                            color: PPaymobileColors.svgIconColor,
+                            size: 40.w,
                           ),
                         ),
+                      ),
                   if (hasDiscount)
                     Positioned(
                       top: 8.h,

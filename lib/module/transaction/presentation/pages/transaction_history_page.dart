@@ -554,7 +554,7 @@ class TransactionHistoryPage extends HookConsumerWidget {
       case TransactionType.giftcardPurchase:
         return 'Gift Card';
       case TransactionType.shopping:
-        return 'Shopping';
+        return 'Gift Order';
       case TransactionType.flightBooking:
         return 'Flight';
       default:

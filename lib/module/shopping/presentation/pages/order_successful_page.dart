@@ -24,16 +24,18 @@ class OrderSuccessfulPage extends HookConsumerWidget {
 
     if (status == 'failed') {
       imagePath = 'assets/images/cancel_1.png';
-      title = 'Order Failed';
-      subtitle = 'Transaction failed. There was an issue in your order. Please try again';
+      title = 'Gift Order Failed';
+      subtitle =
+          'Transaction failed. There was an issue in your order. Please try again';
     } else if (status == 'pending' || status == 'processing') {
       imagePath = 'assets/images/failed_1.png';
-      title = 'Order Pending';
-      subtitle = 'Your order is being processed. Please wait as we process your order';
+      title = 'Gift Order Pending';
+      subtitle =
+          'Your order is being processed. Please wait as we process your order';
     } else {
       imagePath = 'assets/images/success1.png';
-      title = 'Order Placed';
-      subtitle = 'Your order has been successfully placed';
+      title = 'Gift Sent!';
+      subtitle = 'Your gift is on its way to your loved one!';
     }
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
@@ -47,10 +49,7 @@ class OrderSuccessfulPage extends HookConsumerWidget {
               SizedBox(
                 height: 120.w,
                 width: 120.w,
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset(imagePath, fit: BoxFit.contain),
               ),
               25.verticalSpace,
               Text(
@@ -77,12 +76,15 @@ class OrderSuccessfulPage extends HookConsumerWidget {
               ),
               220.verticalSpace,
               PPButton(
-                text: 'Track Order',
-                onPressed: () => context.router.replaceAll([TrackOrderRoute(orderId: order.id)]),
+                text: 'Track Gift',
+                onPressed:
+                    () => context.router.replaceAll([
+                      TrackOrderRoute(orderId: order.id),
+                    ]),
               ),
               18.verticalSpace,
               PPButton(
-                text: 'Place Another Order',
+                text: 'Send Another Gift',
                 onPressed: () => context.router.replaceAll([ShoppingRoute()]),
               ),
               10.verticalSpace,

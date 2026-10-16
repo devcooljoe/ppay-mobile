@@ -47,7 +47,7 @@ class OnboardPage extends HookConsumerWidget {
         highlight: '& Send Gifts',
         image: 'assets/images/third.png',
         description:
-            'Purchase items from our Shopper store and send gifts to friends or family anywhere',
+            'Send gifts to your loved ones in UK, US, and Canada directly through our Gift Store',
         imagePath: 'assets/images/WRAPPER3.png',
         imageHeight: 108,
         space1: 28,
@@ -88,14 +88,19 @@ class OnboardPage extends HookConsumerWidget {
                   opacity: isLastPage ? 0.0 : 1.0,
                   duration: const Duration(milliseconds: 200),
                   child: TouchOpacity(
-                    onTap: isLastPage ? null : () => markSeenAndNavigate(const LoginRoute()),
+                    onTap:
+                        isLastPage
+                            ? null
+                            : () => markSeenAndNavigate(const LoginRoute()),
                     child: Text(
                       'Skip',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
-                        color: PPaymobileColors.mainScreenBackground.withValues(alpha: 0.7),
+                        color: PPaymobileColors.mainScreenBackground.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
                   ),
@@ -144,8 +149,7 @@ class OnboardPage extends HookConsumerWidget {
                         children: [
                           SizedBox(
                             height: 361.h,
-                            child:
-                                Image.asset(item.image, fit: BoxFit.contain),
+                            child: Image.asset(item.image, fit: BoxFit.contain),
                           ),
                           Positioned(
                             left: item.space1.w,

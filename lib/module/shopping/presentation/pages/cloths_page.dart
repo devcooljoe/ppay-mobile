@@ -42,26 +42,30 @@ class ClothsPage extends HookConsumerWidget {
 
     Future<void> loadPage(int page, {bool replace = false}) async {
       if (page == 1) {
-        await ref.read(getProductsProvider.notifier).call(
-          categoryId: categoryId,
-          search: searchQuery.value.isNotEmpty ? searchQuery.value : null,
-          minPrice: activeMinPrice.value,
-          maxPrice: activeMaxPrice.value,
-          variantFilters: activeVariantFilters.value,
-          page: 1,
-          limit: 20,
-        );
+        await ref
+            .read(getProductsProvider.notifier)
+            .call(
+              categoryId: categoryId,
+              search: searchQuery.value.isNotEmpty ? searchQuery.value : null,
+              minPrice: activeMinPrice.value,
+              maxPrice: activeMaxPrice.value,
+              variantFilters: activeVariantFilters.value,
+              page: 1,
+              limit: 20,
+            );
       } else {
         isLoadingMore.value = true;
-        await ref.read(getProductsProvider.notifier).call(
-          categoryId: categoryId,
-          search: searchQuery.value.isNotEmpty ? searchQuery.value : null,
-          minPrice: activeMinPrice.value,
-          maxPrice: activeMaxPrice.value,
-          variantFilters: activeVariantFilters.value,
-          page: page,
-          limit: 20,
-        );
+        await ref
+            .read(getProductsProvider.notifier)
+            .call(
+              categoryId: categoryId,
+              search: searchQuery.value.isNotEmpty ? searchQuery.value : null,
+              minPrice: activeMinPrice.value,
+              maxPrice: activeMaxPrice.value,
+              variantFilters: activeVariantFilters.value,
+              page: page,
+              limit: 20,
+            );
         isLoadingMore.value = false;
       }
     }
@@ -126,7 +130,7 @@ class ClothsPage extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: PPAppBar(
-        title: categoryName ?? 'Products',
+        title: categoryName ?? 'Gift Items',
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20.w),
@@ -250,18 +254,19 @@ class ClothsPage extends HookConsumerWidget {
                   11.horizontalSpace,
                   TouchOpacity(
                     onTap: () async {
-                      final result = await showModalBottomSheet<
-                        Map<String, dynamic>
-                      >(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (_) => ClothsFilterBottomsheet(
-                          initialMinPrice: activeMinPrice.value,
-                          initialMaxPrice: activeMaxPrice.value,
-                          initialVariantFilters: activeVariantFilters.value,
-                        ),
-                      );
+                      final result =
+                          await showModalBottomSheet<Map<String, dynamic>>(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder:
+                                (_) => ClothsFilterBottomsheet(
+                                  initialMinPrice: activeMinPrice.value,
+                                  initialMaxPrice: activeMaxPrice.value,
+                                  initialVariantFilters:
+                                      activeVariantFilters.value,
+                                ),
+                          );
                       if (result != null) {
                         activeMinPrice.value = result['minPrice'] as double?;
                         activeMaxPrice.value = result['maxPrice'] as double?;
@@ -284,11 +289,12 @@ class ClothsPage extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(6.r),
                         border: Border.all(
                           width: 1.w,
-                          color: (activeMinPrice.value != null ||
-                                  activeMaxPrice.value != null ||
-                                  activeVariantFilters.value != null)
-                              ? PPaymobileColors.buttonColor
-                              : PPaymobileColors.filterBorderColor,
+                          color:
+                              (activeMinPrice.value != null ||
+                                      activeMaxPrice.value != null ||
+                                      activeVariantFilters.value != null)
+                                  ? PPaymobileColors.buttonColor
+                                  : PPaymobileColors.filterBorderColor,
                         ),
                         color: PPaymobileColors.mainScreenBackground,
                       ),
@@ -323,217 +329,246 @@ class ClothsPage extends HookConsumerWidget {
               ),
               16.verticalSpace,
               Expanded(
-                child: productsState.isLoading && currentPage.value == 1
-                    ? GridView.builder(
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 14.w,
-                          mainAxisSpacing: 14.h,
-                          childAspectRatio: 0.68,
-                        ),
-                        itemCount: 6,
-                        itemBuilder: (_, __) => SkeletonLoader(
-                          width: double.infinity,
-                          height: double.infinity,
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                      )
-                    : products.isEmpty
-                    ? Center(
-                        child: Text(
-                          'No products found',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.svgIconColor,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                      )
-                    : RefreshIndicator(
-                        onRefresh: onRefresh,
-                        color: PPaymobileColors.buttonColor,
-                        child: GridView.builder(
-                          controller: scrollController,
+                child:
+                    productsState.isLoading && currentPage.value == 1
+                        ? GridView.builder(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 14.w,
-                            mainAxisSpacing: 14.h,
-                            childAspectRatio: 0.68,
-                          ),
-                          itemCount: products.length + (isLoadingMore.value ? 2 : 0),
-                          itemBuilder: (context, index) {
-                            if (index >= products.length) {
-                              return SkeletonLoader(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 14.w,
+                                mainAxisSpacing: 14.h,
+                                childAspectRatio: 0.68,
+                              ),
+                          itemCount: 6,
+                          itemBuilder:
+                              (_, __) => SkeletonLoader(
                                 width: double.infinity,
                                 height: double.infinity,
                                 borderRadius: BorderRadius.circular(8.r),
-                              );
-                            }
-                            final product = products[index];
-                            final hasDiscount =
-                                product.discountPrice != null &&
-                                product.discountPrice! < product.price;
-                            final discountPct = hasDiscount
-                                ? (((product.price - product.discountPrice!) /
-                                              product.price) *
-                                          100)
-                                      .round()
-                                : 0;
-                            return TouchOpacity(
-                              onTap: () => context.router.push(
-                                ClothsDetailsRoute(productId: product.id),
                               ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: PPaymobileColors.mainScreenBackground,
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  border: Border.all(
-                                    color: PPaymobileColors.deepBackgroundColor,
-                                    width: 1.w,
-                                  ),
+                        )
+                        : products.isEmpty
+                        ? Center(
+                          child: Text(
+                            'No gift items found',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: PPaymobileColors.svgIconColor,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        )
+                        : RefreshIndicator(
+                          onRefresh: onRefresh,
+                          color: PPaymobileColors.buttonColor,
+                          child: GridView.builder(
+                            controller: scrollController,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 14.w,
+                                  mainAxisSpacing: 14.h,
+                                  childAspectRatio: 0.68,
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(8).r,
-                                        ),
-                                        child: Stack(
-                                          fit: StackFit.expand,
-                                          children: [
-                                            _ProductImage(
-                                              imageUrl:
-                                                  product.images?.isNotEmpty ==
-                                                      true
-                                                  ? product.images!.first.url
-                                                  : null,
-                                            ),
-                                            if (hasDiscount)
-                                              Positioned(
-                                                top: 8.h,
-                                                left: 8.w,
-                                                child: Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 6.w,
-                                                    vertical: 3.h,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    color: PPaymobileColors
-                                                        .redTextfield,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          4.r,
+                            itemCount:
+                                products.length + (isLoadingMore.value ? 2 : 0),
+                            itemBuilder: (context, index) {
+                              if (index >= products.length) {
+                                return SkeletonLoader(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                );
+                              }
+                              final product = products[index];
+                              final hasDiscount =
+                                  product.discountPrice != null &&
+                                  product.discountPrice! < product.price;
+                              final discountPct =
+                                  hasDiscount
+                                      ? (((product.price -
+                                                      product.discountPrice!) /
+                                                  product.price) *
+                                              100)
+                                          .round()
+                                      : 0;
+                              return TouchOpacity(
+                                onTap:
+                                    () => context.router.push(
+                                      ClothsDetailsRoute(productId: product.id),
+                                    ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        PPaymobileColors.mainScreenBackground,
+                                    borderRadius: BorderRadius.circular(8.r),
+                                    border: Border.all(
+                                      color:
+                                          PPaymobileColors.deepBackgroundColor,
+                                      width: 1.w,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(8).r,
+                                          ),
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            children: [
+                                              _ProductImage(
+                                                imageUrl:
+                                                    product
+                                                                .images
+                                                                ?.isNotEmpty ==
+                                                            true
+                                                        ? product
+                                                            .images!
+                                                            .first
+                                                            .url
+                                                        : null,
+                                              ),
+                                              if (hasDiscount)
+                                                Positioned(
+                                                  top: 8.h,
+                                                  left: 8.w,
+                                                  child: Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          horizontal: 6.w,
+                                                          vertical: 3.h,
                                                         ),
-                                                  ),
-                                                  child: Text(
-                                                    '-$discountPct%',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'InstrumentSans',
-                                                      color: Colors.white,
-                                                      fontSize: 10.sp,
-                                                      fontWeight:
-                                                          FontWeight.w700,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          PPaymobileColors
+                                                              .redTextfield,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            4.r,
+                                                          ),
+                                                    ),
+                                                    child: Text(
+                                                      '-$discountPct%',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'InstrumentSans',
+                                                        color: Colors.white,
+                                                        fontSize: 10.sp,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
                                                     ),
                                                   ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(8).r,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              product.name,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
+                                                color: Colors.black,
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            4.verticalSpace,
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.star_rounded,
+                                                  color: const Color(
+                                                    0xFFFFC107,
+                                                  ),
+                                                  size: 13.w,
+                                                ),
+                                                2.horizontalSpace,
+                                                Text(
+                                                  product.averageRating > 0
+                                                      ? product.averageRating
+                                                          .toStringAsFixed(1)
+                                                      : '0.0',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'InstrumentSans',
+                                                    color: Colors.black,
+                                                    fontSize: 11.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                                4.horizontalSpace,
+                                                Text(
+                                                  product.reviewCount > 0
+                                                      ? '(${product.reviewCount})'
+                                                      : 'No reviews',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'InstrumentSans',
+                                                    color:
+                                                        PPaymobileColors
+                                                            .svgIconColor,
+                                                    fontSize: 10.sp,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            4.verticalSpace,
+                                            if (hasDiscount) ...[
+                                              Text(
+                                                '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
+                                                style: TextStyle(
+                                                  fontFamily: 'InstrumentSans',
+                                                  color:
+                                                      PPaymobileColors
+                                                          .textfiedBorder,
+                                                  fontSize: 11.sp,
+                                                  decoration:
+                                                      TextDecoration
+                                                          .lineThrough,
+                                                ),
+                                              ),
+                                              Text(
+                                                '₦${AmountFormatter.formatBalance(product.discountPrice!.toStringAsFixed(2))}',
+                                                style: TextStyle(
+                                                  fontFamily: 'InstrumentSans',
+                                                  color: Colors.black,
+                                                  fontSize: 13.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ] else
+                                              Text(
+                                                '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
+                                                style: TextStyle(
+                                                  fontFamily: 'InstrumentSans',
+                                                  color: Colors.black,
+                                                  fontSize: 13.sp,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8).r,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            product.name,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontFamily: 'InstrumentSans',
-                                              color: Colors.black,
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          4.verticalSpace,
-                                          Row(
-                                            children: [
-                                              Icon(Icons.star_rounded, color: const Color(0xFFFFC107), size: 13.w),
-                                              2.horizontalSpace,
-                                              Text(
-                                                product.averageRating > 0
-                                                    ? product.averageRating.toStringAsFixed(1)
-                                                    : '0.0',
-                                                style: TextStyle(
-                                                  fontFamily: 'InstrumentSans',
-                                                  color: Colors.black,
-                                                  fontSize: 11.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              4.horizontalSpace,
-                                              Text(
-                                                product.reviewCount > 0
-                                                    ? '(${product.reviewCount})'
-                                                    : 'No reviews',
-                                                style: TextStyle(
-                                                  fontFamily: 'InstrumentSans',
-                                                  color: PPaymobileColors.svgIconColor,
-                                                  fontSize: 10.sp,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          4.verticalSpace,
-                                          if (hasDiscount) ...[
-                                            Text(
-                                              '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
-                                              style: TextStyle(
-                                                fontFamily: 'InstrumentSans',
-                                                color: PPaymobileColors
-                                                    .textfiedBorder,
-                                                fontSize: 11.sp,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                              ),
-                                            ),
-                                            Text(
-                                              '₦${AmountFormatter.formatBalance(product.discountPrice!.toStringAsFixed(2))}',
-                                              style: TextStyle(
-                                                fontFamily: 'InstrumentSans',
-                                                color: Colors.black,
-                                                fontSize: 13.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ] else
-                                            Text(
-                                              '₦${AmountFormatter.formatBalance(product.price.toStringAsFixed(2))}',
-                                              style: TextStyle(
-                                                fontFamily: 'InstrumentSans',
-                                                color: Colors.black,
-                                                fontSize: 13.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
               ),
             ],
           ),
@@ -567,18 +602,19 @@ class _ProductImage extends StatelessWidget {
       imageUrl: imageUrl!,
       fit: BoxFit.cover,
       width: double.infinity,
-      placeholder: (_, __) =>
-          Container(color: PPaymobileColors.deepBackgroundColor),
-      errorWidget: (_, __, ___) => Container(
-        color: PPaymobileColors.deepBackgroundColor,
-        child: Center(
-          child: Icon(
-            Icons.shopping_bag_outlined,
-            color: PPaymobileColors.svgIconColor,
-            size: 40.w,
+      placeholder:
+          (_, __) => Container(color: PPaymobileColors.deepBackgroundColor),
+      errorWidget:
+          (_, __, ___) => Container(
+            color: PPaymobileColors.deepBackgroundColor,
+            child: Center(
+              child: Icon(
+                Icons.shopping_bag_outlined,
+                color: PPaymobileColors.svgIconColor,
+                size: 40.w,
+              ),
+            ),
           ),
-        ),
-      ),
     );
   }
 }

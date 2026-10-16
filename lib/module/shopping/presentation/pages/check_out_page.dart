@@ -16,6 +16,13 @@ import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
+// Allowed delivery countries with display names
+const Map<String, String> allowedDeliveryCountries = {
+  'USA': 'United States of America',
+  'Canada': 'Canada',
+  'UK': 'United Kingdom',
+};
+
 @RoutePage()
 class CheckOutPage extends HookConsumerWidget {
   const CheckOutPage({super.key});
@@ -26,7 +33,9 @@ class CheckOutPage extends HookConsumerWidget {
     final phoneController = useTextEditingController();
     final addressController = useTextEditingController();
     final noteController = useTextEditingController();
-    final countryController = useTextEditingController(text: 'Nigeria');
+    final selectedCountry = useState<String>(
+      allowedDeliveryCountries.keys.first,
+    );
     final stateController = useTextEditingController();
     final promoController = useTextEditingController();
     final cartState = ref.watch(getCartProvider);
@@ -120,7 +129,7 @@ class CheckOutPage extends HookConsumerWidget {
           .call(
             receiverName: receiverController.text.trim(),
             phoneNumber: phoneController.text.trim(),
-            country: countryController.text.trim(),
+            country: selectedCountry.value,
             orderState: stateController.text.trim(),
             address: addressController.text.trim(),
             note:
@@ -158,7 +167,7 @@ class CheckOutPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
-      appBar: PPAppBar(title: 'Check Out'),
+      appBar: PPAppBar(title: 'Gift Checkout'),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -166,7 +175,7 @@ class CheckOutPage extends HookConsumerWidget {
             children: [
               42.verticalSpace,
               Text(
-                'Enter Receiver\'s Address',
+                'Enter Gift Recipient\'s Address',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: Colors.black,
@@ -186,10 +195,10 @@ class CheckOutPage extends HookConsumerWidget {
               Row(
                 children: [
                   Expanded(
-                    child: _FormField(
+                    child: _CountryDropdown(
                       label: 'Country',
-                      controller: countryController,
-                      hint: 'Country',
+                      value: selectedCountry.value,
+                      onChanged: (value) => selectedCountry.value = value,
                     ),
                   ),
                   20.horizontalSpace,
@@ -228,7 +237,7 @@ class CheckOutPage extends HookConsumerWidget {
               40.verticalSpace,
 
               Text(
-                'Order List',
+                'Gift Items',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: Colors.black,
@@ -243,7 +252,7 @@ class CheckOutPage extends HookConsumerWidget {
                   : items.isEmpty
                   ? Center(
                     child: Text(
-                      'Your cart is empty',
+                      'Your gift cart is empty',
                       style: TextStyle(
                         fontFamily: 'InstrumentSans',
                         color: PPaymobileColors.svgIconColor,
@@ -331,7 +340,7 @@ class CheckOutPage extends HookConsumerWidget {
                                                     context,
                                                     title: 'Remove Item?',
                                                     message:
-                                                        'Are you sure you want to remove "${item.product.name}" from your order?',
+                                                        'Are you sure you want to remove "${item.product.name}" from your gift order?',
                                                   );
                                               if (!confirmed ||
                                                   !context.mounted)
@@ -660,6 +669,86 @@ class _FormField extends StatelessWidget {
                 vertical: 14.h,
               ),
             ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CountryDropdown extends StatelessWidget {
+  final String label;
+  final String value;
+  final ValueChanged<String> onChanged;
+
+  const _CountryDropdown({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        4.verticalSpace,
+        SizedBox(
+          height: 54.h,
+          child: DropdownButtonFormField<String>(
+            value: value,
+            onChanged: (newValue) {
+              if (newValue != null) onChanged(newValue);
+            },
+            items:
+                allowedDeliveryCountries.entries.map((entry) {
+                  return DropdownMenuItem<String>(
+                    value: entry.key,
+                    child: Text(
+                      entry.value,
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  );
+                }).toList(),
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: PPaymobileColors.textfieldGrey,
+                  width: 1.w,
+                ),
+                borderRadius: BorderRadius.circular(6).r,
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: PPaymobileColors.textfieldGrey,
+                  width: 1.w,
+                ),
+                borderRadius: BorderRadius.circular(6).r,
+              ),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 12.w,
+                vertical: 14.h,
+              ),
+            ),
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: PPaymobileColors.textfieldGrey,
+            ),
+            dropdownColor: Colors.white,
           ),
         ),
       ],

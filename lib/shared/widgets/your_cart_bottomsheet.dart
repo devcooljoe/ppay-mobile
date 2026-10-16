@@ -50,7 +50,10 @@ class YourCartBottomsheet extends HookConsumerWidget {
               child: SizedBox(
                 height: 18.h,
                 width: 18.h,
-                child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.scaleDown),
+                child: SvgPicture.asset(
+                  'assets/icon/cancel.svg',
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
           ),
@@ -61,154 +64,315 @@ class YourCartBottomsheet extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(24),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Your Cart',
-                    style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w500, fontSize: 24.sp, color: Colors.black),
+                    'Your Gift Cart',
+                    style: TextStyle(
+                      fontFamily: 'InstrumentSans',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24.sp,
+                      color: Colors.black,
+                    ),
                   ),
                   16.verticalSpace,
                   Expanded(
-                    child: cartState.isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : items.isEmpty
+                    child:
+                        cartState.isLoading
+                            ? const Center(child: CircularProgressIndicator())
+                            : items.isEmpty
                             ? Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.shopping_cart_outlined, size: 64.w, color: PPaymobileColors.svgIconColor),
-                                    16.verticalSpace,
-                                    Text('Your cart is empty', style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 16.sp)),
-                                  ],
-                                ),
-                              )
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.shopping_cart_outlined,
+                                    size: 64.w,
+                                    color: PPaymobileColors.svgIconColor,
+                                  ),
+                                  16.verticalSpace,
+                                  Text(
+                                    'Your gift cart is empty',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: PPaymobileColors.svgIconColor,
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                             : ListView.separated(
-                                itemCount: items.length,
-                                separatorBuilder: (_, __) => 20.verticalSpace,
-                                itemBuilder: (context, index) {
-                                  final item = items[index];
-                                  final price = item.product.discountPrice ?? item.product.price;
-                                  final imageUrl = item.product.images?.isNotEmpty == true ? item.product.images!.first.url : null;
-                                  return Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: 80.w,
-                                        height: 80.h,
-                                        decoration: BoxDecoration(
-                                          color: PPaymobileColors.deepBackgroundColor,
-                                          borderRadius: BorderRadius.circular(4.r),
+                              itemCount: items.length,
+                              separatorBuilder: (_, __) => 20.verticalSpace,
+                              itemBuilder: (context, index) {
+                                final item = items[index];
+                                final price =
+                                    item.product.discountPrice ??
+                                    item.product.price;
+                                final imageUrl =
+                                    item.product.images?.isNotEmpty == true
+                                        ? item.product.images!.first.url
+                                        : null;
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 80.w,
+                                      height: 80.h,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            PPaymobileColors
+                                                .deepBackgroundColor,
+                                        borderRadius: BorderRadius.circular(
+                                          4.r,
                                         ),
-                                        child: imageUrl != null
-                                            ? ClipRRect(
-                                                borderRadius: BorderRadius.circular(4.r),
+                                      ),
+                                      child:
+                                          imageUrl != null
+                                              ? ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(4.r),
                                                 child: CachedNetworkImage(
                                                   imageUrl: imageUrl,
                                                   fit: BoxFit.cover,
-                                                  errorWidget: (_, __, ___) => Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 32.w),
+                                                  errorWidget:
+                                                      (_, __, ___) => Icon(
+                                                        Icons
+                                                            .shopping_bag_outlined,
+                                                        color:
+                                                            PPaymobileColors
+                                                                .svgIconColor,
+                                                        size: 32.w,
+                                                      ),
                                                 ),
                                               )
-                                            : Center(child: Icon(Icons.shopping_bag_outlined, color: PPaymobileColors.svgIconColor, size: 32.w)),
-                                      ),
-                                      12.horizontalSpace,
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    item.product.name,
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w500, fontSize: 14.sp, color: Colors.black),
+                                              : Center(
+                                                child: Icon(
+                                                  Icons.shopping_bag_outlined,
+                                                  color:
+                                                      PPaymobileColors
+                                                          .svgIconColor,
+                                                  size: 32.w,
+                                                ),
+                                              ),
+                                    ),
+                                    12.horizontalSpace,
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  item.product.name,
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'InstrumentSans',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 14.sp,
+                                                    color: Colors.black,
                                                   ),
                                                 ),
-                                                TouchOpacity(
-                                                  onTap: () async {
-                                                    final confirmed = await showDeleteConfirmSheet(
-                                                      context,
-                                                      title: 'Remove from Cart?',
-                                                      message: 'Are you sure you want to remove "${item.product.name}" from your cart?',
-                                                    );
-                                                    if (!confirmed || !context.mounted) return;
-                                                    await ref.read(removeFromCartProvider.notifier).call(item.id);
-                                                    ref.read(getCartProvider.notifier).call();
-                                                  },
-                                                  child: SizedBox(height: 20.w, width: 20.w, child: SvgPicture.asset('assets/icon/cancel.svg', fit: BoxFit.contain)),
+                                              ),
+                                              TouchOpacity(
+                                                onTap: () async {
+                                                  final confirmed =
+                                                      await showDeleteConfirmSheet(
+                                                        context,
+                                                        title:
+                                                            'Remove from Gift Cart?',
+                                                        message:
+                                                            'Are you sure you want to remove "${item.product.name}" from your gift cart?',
+                                                      );
+                                                  if (!confirmed ||
+                                                      !context.mounted)
+                                                    return;
+                                                  await ref
+                                                      .read(
+                                                        removeFromCartProvider
+                                                            .notifier,
+                                                      )
+                                                      .call(item.id);
+                                                  ref
+                                                      .read(
+                                                        getCartProvider
+                                                            .notifier,
+                                                      )
+                                                      .call();
+                                                },
+                                                child: SizedBox(
+                                                  height: 20.w,
+                                                  width: 20.w,
+                                                  child: SvgPicture.asset(
+                                                    'assets/icon/cancel.svg',
+                                                    fit: BoxFit.contain,
+                                                  ),
                                                 ),
-                                              ],
-                                            ),
-                                            if (item.variant != null) ...[
-                                              4.verticalSpace,
-                                              Text(
-                                                item.variant!.attributes.entries.map((e) => '${e.key}: ${e.value}').join(', '),
-                                                style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 11.sp),
                                               ),
                                             ],
-                                            8.verticalSpace,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '₦${AmountFormatter.formatBalance((price * item.quantity).toStringAsFixed(2))}',
-                                                  style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w500, fontSize: 16.sp, color: Colors.black),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    _QtyButton(
-                                                      icon: 'assets/icon/minus.svg',
-                                                      onTap: item.quantity > 1
-                                                          ? () async {
-                                                              await ref.read(updateCartItemProvider.notifier).call(cartItemId: item.id, quantity: item.quantity - 1);
-                                                              ref.read(getCartProvider.notifier).call();
-                                                            }
-                                                          : null,
-                                                    ),
-                                                    12.horizontalSpace,
-                                                    Text('${item.quantity}', style: TextStyle(fontFamily: 'InstrumentSans', fontWeight: FontWeight.w500, fontSize: 16.sp, color: Colors.black)),
-                                                    12.horizontalSpace,
-                                                    _QtyButton(
-                                                      icon: 'assets/icon/add.svg',
-                                                      onTap: item.quantity < item.product.stockQuantity
-                                                          ? () async {
-                                                              await ref.read(updateCartItemProvider.notifier).call(cartItemId: item.id, quantity: item.quantity + 1);
-                                                              ref.read(getCartProvider.notifier).call();
-                                                            }
-                                                          : null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                          ),
+                                          if (item.variant != null) ...[
+                                            4.verticalSpace,
+                                            Text(
+                                              item.variant!.attributes.entries
+                                                  .map(
+                                                    (e) =>
+                                                        '${e.key}: ${e.value}',
+                                                  )
+                                                  .join(', '),
+                                              style: TextStyle(
+                                                fontFamily: 'InstrumentSans',
+                                                color:
+                                                    PPaymobileColors
+                                                        .svgIconColor,
+                                                fontSize: 11.sp,
+                                              ),
                                             ),
                                           ],
-                                        ),
+                                          8.verticalSpace,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                '₦${AmountFormatter.formatBalance((price * item.quantity).toStringAsFixed(2))}',
+                                                style: TextStyle(
+                                                  fontFamily: 'InstrumentSans',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  _QtyButton(
+                                                    icon:
+                                                        'assets/icon/minus.svg',
+                                                    onTap:
+                                                        item.quantity > 1
+                                                            ? () async {
+                                                              await ref
+                                                                  .read(
+                                                                    updateCartItemProvider
+                                                                        .notifier,
+                                                                  )
+                                                                  .call(
+                                                                    cartItemId:
+                                                                        item.id,
+                                                                    quantity:
+                                                                        item.quantity -
+                                                                        1,
+                                                                  );
+                                                              ref
+                                                                  .read(
+                                                                    getCartProvider
+                                                                        .notifier,
+                                                                  )
+                                                                  .call();
+                                                            }
+                                                            : null,
+                                                  ),
+                                                  12.horizontalSpace,
+                                                  Text(
+                                                    '${item.quantity}',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'InstrumentSans',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16.sp,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  12.horizontalSpace,
+                                                  _QtyButton(
+                                                    icon: 'assets/icon/add.svg',
+                                                    onTap:
+                                                        item.quantity <
+                                                                item
+                                                                    .product
+                                                                    .stockQuantity
+                                                            ? () async {
+                                                              await ref
+                                                                  .read(
+                                                                    updateCartItemProvider
+                                                                        .notifier,
+                                                                  )
+                                                                  .call(
+                                                                    cartItemId:
+                                                                        item.id,
+                                                                    quantity:
+                                                                        item.quantity +
+                                                                        1,
+                                                                  );
+                                                              ref
+                                                                  .read(
+                                                                    getCartProvider
+                                                                        .notifier,
+                                                                  )
+                                                                  .call();
+                                                            }
+                                                            : null,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  );
-                                },
-                              ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
                   ),
                   if (items.isNotEmpty) ...[
                     16.verticalSpace,
-                    Divider(color: PPaymobileColors.deepBackgroundColor, height: 1.h),
+                    Divider(
+                      color: PPaymobileColors.deepBackgroundColor,
+                      height: 1.h,
+                    ),
                     16.verticalSpace,
-                    _SummaryRow(label: 'Subtotal', value: '₦${AmountFormatter.formatBalance(subtotal.toStringAsFixed(2))}'),
+                    _SummaryRow(
+                      label: 'Subtotal',
+                      value:
+                          '₦${AmountFormatter.formatBalance(subtotal.toStringAsFixed(2))}',
+                    ),
                     8.verticalSpace,
-                    _SummaryRow(label: 'Delivery Fee', value: '₦${AmountFormatter.formatBalance(deliveryFee.toStringAsFixed(2))}'),
+                    _SummaryRow(
+                      label: 'Delivery Fee',
+                      value:
+                          '₦${AmountFormatter.formatBalance(deliveryFee.toStringAsFixed(2))}',
+                    ),
                     8.verticalSpace,
-                    _SummaryRow(label: 'Discount', value: '-₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}'),
+                    _SummaryRow(
+                      label: 'Discount',
+                      value:
+                          '-₦${AmountFormatter.formatBalance(discount.toStringAsFixed(2))}',
+                    ),
                     12.verticalSpace,
-                    Divider(color: PPaymobileColors.deepBackgroundColor, height: 1.h),
+                    Divider(
+                      color: PPaymobileColors.deepBackgroundColor,
+                      height: 1.h,
+                    ),
                     12.verticalSpace,
                     _SummaryRow(
                       label: 'Total',
-                      value: '₦${AmountFormatter.formatBalance(total.toStringAsFixed(2))}',
+                      value:
+                          '₦${AmountFormatter.formatBalance(total.toStringAsFixed(2))}',
                       isBold: true,
                     ),
                     20.verticalSpace,
@@ -227,7 +391,12 @@ class YourCartBottomsheet extends HookConsumerWidget {
                         child: Center(
                           child: Text(
                             'Checkout',
-                            style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
@@ -261,7 +430,10 @@ class _QtyButton extends StatelessWidget {
           width: 25.w,
           padding: EdgeInsets.all(4).r,
           decoration: BoxDecoration(
-            border: Border.all(color: PPaymobileColors.textfiedBorder, width: 1.w),
+            border: Border.all(
+              color: PPaymobileColors.textfiedBorder,
+              width: 1.w,
+            ),
           ),
           child: SvgPicture.asset(icon, fit: BoxFit.contain),
         ),
@@ -275,15 +447,35 @@ class _SummaryRow extends StatelessWidget {
   final String value;
   final bool isBold;
 
-  const _SummaryRow({required this.label, required this.value, this.isBold = false});
+  const _SummaryRow({
+    required this.label,
+    required this.value,
+    this.isBold = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontFamily: 'InstrumentSans', color: isBold ? Colors.black : PPaymobileColors.svgIconColor, fontSize: isBold ? 16.sp : 14.sp, fontWeight: isBold ? FontWeight.w600 : FontWeight.w400)),
-        Text(value, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: isBold ? 16.sp : 14.sp, fontWeight: isBold ? FontWeight.w600 : FontWeight.w500)),
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: isBold ? Colors.black : PPaymobileColors.svgIconColor,
+            fontSize: isBold ? 16.sp : 14.sp,
+            fontWeight: isBold ? FontWeight.w600 : FontWeight.w400,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'InstrumentSans',
+            color: Colors.black,
+            fontSize: isBold ? 16.sp : 14.sp,
+            fontWeight: isBold ? FontWeight.w600 : FontWeight.w500,
+          ),
+        ),
       ],
     );
   }

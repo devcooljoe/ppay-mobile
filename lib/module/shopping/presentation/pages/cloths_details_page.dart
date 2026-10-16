@@ -50,11 +50,12 @@ class ClothsDetailsPage extends HookConsumerWidget {
 
     // Cart awareness
     final cartItems = cartState.value?.items ?? [];
-    final existingCartItem = cartItems.where((item) {
-      if (item.product.id != productId) return false;
-      if (selectedVariantId.value == null) return item.variant == null;
-      return item.variant?.id == selectedVariantId.value;
-    }).firstOrNull;
+    final existingCartItem =
+        cartItems.where((item) {
+          if (item.product.id != productId) return false;
+          if (selectedVariantId.value == null) return item.variant == null;
+          return item.variant?.id == selectedVariantId.value;
+        }).firstOrNull;
     final cartedQuantity = existingCartItem?.quantity ?? 0;
     final stockQuantity = product?.stockQuantity ?? 0;
     final remainingStock = stockQuantity - cartedQuantity;
@@ -131,9 +132,8 @@ class ClothsDetailsPage extends HookConsumerWidget {
       if (product == null) return;
       final currentList = watchlistState.value ?? [];
       if (isInWatchlist) {
-        final itemId = currentList
-            .firstWhere((w) => w.product?.id == productId)
-            .id;
+        final itemId =
+            currentList.firstWhere((w) => w.product?.id == productId).id;
         ref
             .read(getWatchlistProvider.notifier)
             .setData(
@@ -160,9 +160,10 @@ class ClothsDetailsPage extends HookConsumerWidget {
               price: product.price,
               discountPrice: product.discountPrice,
               inStock: product.inStock,
-              images: product.images
-                  ?.map((i) => ProductImageEntity(id: i.id, url: i.url))
-                  .toList(),
+              images:
+                  product.images
+                      ?.map((i) => ProductImageEntity(id: i.id, url: i.url))
+                      .toList(),
             ),
           ),
         ]);
@@ -184,9 +185,8 @@ class ClothsDetailsPage extends HookConsumerWidget {
         product != null &&
         product.discountPrice != null &&
         product.discountPrice! < product.price;
-    final displayPrice = hasDiscount
-        ? product!.discountPrice!
-        : (product?.price ?? 0.0);
+    final displayPrice =
+        hasDiscount ? product!.discountPrice! : (product?.price ?? 0.0);
     final originalPrice = product?.price ?? 0.0;
 
     final sizes =
@@ -213,35 +213,37 @@ class ClothsDetailsPage extends HookConsumerWidget {
 
     useEffect(() {
       if (product == null) return null;
-      final match = product.variants.where((v) {
-        final sizeMatch =
-            selectedSize.value == null ||
-            v.attributes['size'] == selectedSize.value;
-        final colorMatch =
-            selectedColor.value == null ||
-            v.attributes['color'] == selectedColor.value;
-        return sizeMatch && colorMatch;
-      }).firstOrNull;
+      final match =
+          product.variants.where((v) {
+            final sizeMatch =
+                selectedSize.value == null ||
+                v.attributes['size'] == selectedSize.value;
+            final colorMatch =
+                selectedColor.value == null ||
+                v.attributes['color'] == selectedColor.value;
+            return sizeMatch && colorMatch;
+          }).firstOrNull;
       selectedVariantId.value = match?.id;
       quantity.value = 1;
       return null;
     }, [selectedSize.value, selectedColor.value, product]);
 
     final isLoading = addToCartState.isLoading || updateCartItemState.isLoading;
-    final buttonLabel = isLoading
-        ? (existingCartItem != null ? 'Updating...' : 'Adding...')
-        : isOutOfStock
-        ? 'Sold Out'
-        : isFullyInCart
-        ? 'In Cart'
-        : existingCartItem != null
-        ? 'Update Cart'
-        : 'Add to cart';
+    final buttonLabel =
+        isLoading
+            ? (existingCartItem != null ? 'Updating...' : 'Adding...')
+            : isOutOfStock
+            ? 'Sold Out'
+            : isFullyInCart
+            ? 'In Cart'
+            : existingCartItem != null
+            ? 'Update Cart'
+            : 'Add to cart';
 
     return Scaffold(
       backgroundColor: PPaymobileColors.mainScreenBackground,
       appBar: PPAppBar(
-        title: product?.name ?? 'Product',
+        title: product?.name ?? 'Gift Item',
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20.w),
@@ -302,495 +304,462 @@ class ClothsDetailsPage extends HookConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: productState.isLoading || product == null
-          ? null
-          : Container(
-              padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 28.h),
-              decoration: BoxDecoration(
-                color: PPaymobileColors.mainScreenBackground,
-                border: Border(
-                  top: BorderSide(
-                    color: PPaymobileColors.filterBorderColor,
-                    width: 1.h,
+      bottomNavigationBar:
+          productState.isLoading || product == null
+              ? null
+              : Container(
+                padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 28.h),
+                decoration: BoxDecoration(
+                  color: PPaymobileColors.mainScreenBackground,
+                  border: Border(
+                    top: BorderSide(
+                      color: PPaymobileColors.filterBorderColor,
+                      width: 1.h,
+                    ),
                   ),
                 ),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (hasDiscount)
-                        Text(
-                          '₦${AmountFormatter.formatBalance(originalPrice.toStringAsFixed(2))}',
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            color: PPaymobileColors.lightGrey,
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w400,
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor: PPaymobileColors.lightGrey,
-                          ),
-                        ),
-                      Text(
-                        '₦${AmountFormatter.formatBalance(displayPrice.toStringAsFixed(2))}',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: TouchOpacity(
-                      onTap: isLoading || isOutOfStock ? null : onAddToCart,
-                      child: Container(
-                        height: 52.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(56).r,
-                          color: isOutOfStock
-                              ? PPaymobileColors.lightGrey
-                              : isFullyInCart
-                              ? PPaymobileColors.buttonColor
-                              : PPaymobileColors.buttonColorandText,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              buttonLabel,
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.white,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            if (!isFullyInCart && !isOutOfStock) ...[
-                              8.horizontalSpace,
-                              SvgPicture.asset(
-                                'assets/icon/cart_!.svg',
-                                height: 20.h,
-                                width: 20.h,
-                                fit: BoxFit.contain,
-                              ),
-                            ],
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-      body: productState.isLoading
-          ? _LoadingSkeleton()
-          : productState.hasError
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Failed to load product',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                  16.verticalSpace,
-                  TextButton(
-                    onPressed: () => ref
-                        .read(getProductDetailsProvider.notifier)
-                        .call(productId),
-                    child: Text(
-                      'Retry',
-                      style: TextStyle(color: PPaymobileColors.buttonColor),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : product == null
-          ? const SizedBox.shrink()
-          : ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                // ── Full-width image carousel ──────────────────────────────
-                SizedBox(
-                  height: 320.h,
-                  child: Stack(
-                    children: [
-                      PageView.builder(
-                        controller: pageController,
-                        onPageChanged: (i) => currentIndex.value = i,
-                        itemCount: (product.images?.isNotEmpty == true)
-                            ? product.images!.length
-                            : 1,
-                        itemBuilder: (context, index) {
-                          final images = product.images;
-                          if (images != null && images.isNotEmpty) {
-                            return GestureDetector(
-                              onTap: () => _openFullScreen(
-                                context,
-                                images.map((i) => i.url).toList(),
-                                index,
-                              ),
-                              child: Hero(
-                                tag: 'product_image_$index',
-                                child: CachedNetworkImage(
-                                  imageUrl: images[index].url,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  placeholder: (_, __) => Container(
-                                    color: PPaymobileColors.deepBackgroundColor,
-                                  ),
-                                  errorWidget: (_, __, ___) => Container(
-                                    color: PPaymobileColors.deepBackgroundColor,
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.shopping_bag_outlined,
-                                        color: PPaymobileColors.svgIconColor,
-                                        size: 80.w,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          return Container(
-                            color: PPaymobileColors.deepBackgroundColor,
-                            child: Center(
-                              child: Icon(
-                                Icons.shopping_bag_outlined,
-                                color: PPaymobileColors.svgIconColor,
-                                size: 80.w,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      // Share + heart overlay (top-right)
-                      Positioned(
-                        top: 16.h,
-                        right: 16.w,
-                        child: Row(
-                          children: [
-                            _ImageOverlayButton(
-                              child: SvgPicture.asset(
-                                'assets/icon/share.svg',
-                                height: 18.w,
-                                width: 18.w,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            8.horizontalSpace,
-                            _ImageOverlayButton(
-                              onTap: onToggleWatchlist,
-                              child: Icon(
-                                isInWatchlist
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: isInWatchlist
-                                    ? const Color(0xFFE53935)
-                                    : Colors.black54,
-                                size: 18.w,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // Dot indicators (bottom-center)
-                      if ((product.images?.length ?? 0) > 1)
-                        Positioned(
-                          bottom: 14.h,
-                          left: 0,
-                          right: 0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(
-                              product.images!.length.clamp(0, 5),
-                              (i) => AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                margin: EdgeInsets.symmetric(horizontal: 4.w),
-                                height: 8.w,
-                                width: currentIndex.value == i ? 20.w : 8.w,
-                                decoration: BoxDecoration(
-                                  color: currentIndex.value == i
-                                      ? PPaymobileColors.buttonColor
-                                      : Colors.white.withValues(alpha: 0.7),
-                                  borderRadius: BorderRadius.circular(4.r),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-
-                // ── Product name + rating ──────────────────────────────────
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        product.name,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      12.verticalSpace,
-                      // Rating row
-                      Row(
-                        children: [
-                          // Star rating pill
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                              vertical: 5.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20).r,
-                              border: Border.all(
-                                color: PPaymobileColors.filterBorderColor,
-                                width: 1.w,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.star_rounded,
-                                  color: const Color(0xFFFFC107),
-                                  size: 16.w,
-                                ),
-                                4.horizontalSpace,
-                                Text(
-                                  product.averageRating > 0
-                                      ? product.averageRating.toStringAsFixed(1)
-                                      : '0.0',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          // Heart rating pill
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                              vertical: 5.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20).r,
-                              border: Border.all(
-                                color: PPaymobileColors.filterBorderColor,
-                                width: 1.w,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.favorite,
-                                  color: PPaymobileColors.buttonColor,
-                                  size: 16.w,
-                                ),
-                                4.horizontalSpace,
-                                Text(
-                                  product.averageRating > 0
-                                      ? product.averageRating.toStringAsFixed(1)
-                                      : '0.0',
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: Colors.black,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          12.horizontalSpace,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (hasDiscount)
                           Text(
-                            product.reviewCount > 0
-                                ? '${_formatCount(product.reviewCount)} Reviews'
-                                : 'No reviews yet',
+                            '₦${AmountFormatter.formatBalance(originalPrice.toStringAsFixed(2))}',
                             style: TextStyle(
                               fontFamily: 'InstrumentSans',
                               color: PPaymobileColors.lightGrey,
                               fontSize: 13.sp,
                               fontWeight: FontWeight.w400,
+                              decoration: TextDecoration.lineThrough,
+                              decorationColor: PPaymobileColors.lightGrey,
                             ),
                           ),
-                        ],
-                      ),
-                      16.verticalSpace,
-                      // Description
-                      Text(
-                        product.description,
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          height: 1.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // ── Available Color ────────────────────────────────────────
-                if (colors.isNotEmpty) ...[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(20.w, 28.h, 20.w, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
                         Text(
-                          'Available Color',
+                          '₦${AmountFormatter.formatBalance(displayPrice.toStringAsFixed(2))}',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        14.verticalSpace,
-                        Wrap(
-                          spacing: 10.w,
-                          runSpacing: 10.h,
-                          children: colors.map((color) {
-                            final isSelected = selectedColor.value == color;
-                            final swatch = _colorFromName(color!);
-                            return TouchOpacity(
-                              onTap: () => selectedColor.value = color,
-                              child: Container(
-                                width: 44.w,
-                                height: 44.w,
-                                decoration: BoxDecoration(
-                                  color: swatch,
-                                  borderRadius: BorderRadius.circular(6).r,
-                                  border: Border.all(
-                                    color: isSelected
-                                        ? PPaymobileColors.buttonColorandText
-                                        : PPaymobileColors.filterBorderColor,
-                                    width: isSelected ? 2.w : 1.w,
-                                  ),
+                      ],
+                    ),
+                    16.horizontalSpace,
+                    Expanded(
+                      child: TouchOpacity(
+                        onTap: isLoading || isOutOfStock ? null : onAddToCart,
+                        child: Container(
+                          height: 52.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(56).r,
+                            color:
+                                isOutOfStock
+                                    ? PPaymobileColors.lightGrey
+                                    : isFullyInCart
+                                    ? PPaymobileColors.buttonColor
+                                    : PPaymobileColors.buttonColorandText,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                buttonLabel,
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.white,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                child: isSelected
-                                    ? Center(
-                                        child: SvgPicture.asset(
-                                          'assets/icon/check_white.svg',
-                                          height: 18.w,
-                                          width: 18.w,
-                                          fit: BoxFit.contain,
-                                          colorFilter: ColorFilter.mode(
-                                            swatch.computeLuminance() > 0.5
-                                                ? Colors.black
-                                                : Colors.white,
-                                            BlendMode.srcIn,
+                              ),
+                              if (!isFullyInCart && !isOutOfStock) ...[
+                                8.horizontalSpace,
+                                SvgPicture.asset(
+                                  'assets/icon/cart_!.svg',
+                                  height: 20.h,
+                                  width: 20.h,
+                                  fit: BoxFit.contain,
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+      body:
+          productState.isLoading
+              ? _LoadingSkeleton()
+              : productState.hasError
+              ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Failed to load gift item',
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    16.verticalSpace,
+                    TextButton(
+                      onPressed:
+                          () => ref
+                              .read(getProductDetailsProvider.notifier)
+                              .call(productId),
+                      child: Text(
+                        'Retry',
+                        style: TextStyle(color: PPaymobileColors.buttonColor),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              : product == null
+              ? const SizedBox.shrink()
+              : ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  // ── Full-width image carousel ──────────────────────────────
+                  SizedBox(
+                    height: 320.h,
+                    child: Stack(
+                      children: [
+                        PageView.builder(
+                          controller: pageController,
+                          onPageChanged: (i) => currentIndex.value = i,
+                          itemCount:
+                              (product.images?.isNotEmpty == true)
+                                  ? product.images!.length
+                                  : 1,
+                          itemBuilder: (context, index) {
+                            final images = product.images;
+                            if (images != null && images.isNotEmpty) {
+                              return GestureDetector(
+                                onTap:
+                                    () => _openFullScreen(
+                                      context,
+                                      images.map((i) => i.url).toList(),
+                                      index,
+                                    ),
+                                child: Hero(
+                                  tag: 'product_image_$index',
+                                  child: CachedNetworkImage(
+                                    imageUrl: images[index].url,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    placeholder:
+                                        (_, __) => Container(
+                                          color:
+                                              PPaymobileColors
+                                                  .deepBackgroundColor,
+                                        ),
+                                    errorWidget:
+                                        (_, __, ___) => Container(
+                                          color:
+                                              PPaymobileColors
+                                                  .deepBackgroundColor,
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.shopping_bag_outlined,
+                                              color:
+                                                  PPaymobileColors.svgIconColor,
+                                              size: 80.w,
+                                            ),
                                           ),
                                         ),
-                                      )
-                                    : null,
+                                  ),
+                                ),
+                              );
+                            }
+                            return Container(
+                              color: PPaymobileColors.deepBackgroundColor,
+                              child: Center(
+                                child: Icon(
+                                  Icons.shopping_bag_outlined,
+                                  color: PPaymobileColors.svgIconColor,
+                                  size: 80.w,
+                                ),
                               ),
                             );
-                          }).toList(),
+                          },
+                        ),
+                        // Share + heart overlay (top-right)
+                        Positioned(
+                          top: 16.h,
+                          right: 16.w,
+                          child: Row(
+                            children: [
+                              _ImageOverlayButton(
+                                child: SvgPicture.asset(
+                                  'assets/icon/share.svg',
+                                  height: 18.w,
+                                  width: 18.w,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              8.horizontalSpace,
+                              _ImageOverlayButton(
+                                onTap: onToggleWatchlist,
+                                child: Icon(
+                                  isInWatchlist
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color:
+                                      isInWatchlist
+                                          ? const Color(0xFFE53935)
+                                          : Colors.black54,
+                                  size: 18.w,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Dot indicators (bottom-center)
+                        if ((product.images?.length ?? 0) > 1)
+                          Positioned(
+                            bottom: 14.h,
+                            left: 0,
+                            right: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(
+                                product.images!.length.clamp(0, 5),
+                                (i) => AnimatedContainer(
+                                  duration: const Duration(milliseconds: 200),
+                                  margin: EdgeInsets.symmetric(horizontal: 4.w),
+                                  height: 8.w,
+                                  width: currentIndex.value == i ? 20.w : 8.w,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        currentIndex.value == i
+                                            ? PPaymobileColors.buttonColor
+                                            : Colors.white.withValues(
+                                              alpha: 0.7,
+                                            ),
+                                    borderRadius: BorderRadius.circular(4.r),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+
+                  // ── Product name + rating ──────────────────────────────────
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          product.name,
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.black,
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        12.verticalSpace,
+                        // Rating row
+                        Row(
+                          children: [
+                            // Star rating pill
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                                vertical: 5.h,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20).r,
+                                border: Border.all(
+                                  color: PPaymobileColors.filterBorderColor,
+                                  width: 1.w,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.star_rounded,
+                                    color: const Color(0xFFFFC107),
+                                    size: 16.w,
+                                  ),
+                                  4.horizontalSpace,
+                                  Text(
+                                    product.averageRating > 0
+                                        ? product.averageRating.toStringAsFixed(
+                                          1,
+                                        )
+                                        : '0.0',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.black,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            12.horizontalSpace,
+                            // Heart rating pill
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                                vertical: 5.h,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20).r,
+                                border: Border.all(
+                                  color: PPaymobileColors.filterBorderColor,
+                                  width: 1.w,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.favorite,
+                                    color: PPaymobileColors.buttonColor,
+                                    size: 16.w,
+                                  ),
+                                  4.horizontalSpace,
+                                  Text(
+                                    product.averageRating > 0
+                                        ? product.averageRating.toStringAsFixed(
+                                          1,
+                                        )
+                                        : '0.0',
+                                    style: TextStyle(
+                                      fontFamily: 'InstrumentSans',
+                                      color: Colors.black,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            12.horizontalSpace,
+                            Text(
+                              product.reviewCount > 0
+                                  ? '${_formatCount(product.reviewCount)} Reviews'
+                                  : 'No reviews yet',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: PPaymobileColors.lightGrey,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        16.verticalSpace,
+                        // Description
+                        Text(
+                          product.description,
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color: Colors.black,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            height: 1.5,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ],
 
-                // ── Quantity ───────────────────────────────────────────────
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20.w, 28.h, 20.w, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Quantity',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      14.verticalSpace,
-                      Row(
+                  // ── Available Color ────────────────────────────────────────
+                  if (colors.isNotEmpty) ...[
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20.w, 28.h, 20.w, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _QtyStepperButton(
-                            icon: 'assets/icon/minus.svg',
-                            enabled: quantity.value > 1 && !isFullyInCart,
-                            onTap: () {
-                              if (quantity.value > 1) quantity.value--;
-                            },
-                          ),
-                          Container(
-                            width: 52.w,
-                            height: 44.w,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: PPaymobileColors.filterBorderColor,
-                                width: 1.w,
-                              ),
-                            ),
-                            child: Text(
-                              '${quantity.value}',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          Text(
+                            'Available Color',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                          _QtyStepperButton(
-                            icon: 'assets/icon/add.svg',
-                            enabled:
-                                quantity.value < remainingStock &&
-                                !isFullyInCart,
-                            onTap: () {
-                              if (quantity.value < remainingStock)
-                                quantity.value++;
-                            },
+                          14.verticalSpace,
+                          Wrap(
+                            spacing: 10.w,
+                            runSpacing: 10.h,
+                            children:
+                                colors.map((color) {
+                                  final isSelected =
+                                      selectedColor.value == color;
+                                  final swatch = _colorFromName(color!);
+                                  return TouchOpacity(
+                                    onTap: () => selectedColor.value = color,
+                                    child: Container(
+                                      width: 44.w,
+                                      height: 44.w,
+                                      decoration: BoxDecoration(
+                                        color: swatch,
+                                        borderRadius:
+                                            BorderRadius.circular(6).r,
+                                        border: Border.all(
+                                          color:
+                                              isSelected
+                                                  ? PPaymobileColors
+                                                      .buttonColorandText
+                                                  : PPaymobileColors
+                                                      .filterBorderColor,
+                                          width: isSelected ? 2.w : 1.w,
+                                        ),
+                                      ),
+                                      child:
+                                          isSelected
+                                              ? Center(
+                                                child: SvgPicture.asset(
+                                                  'assets/icon/check_white.svg',
+                                                  height: 18.w,
+                                                  width: 18.w,
+                                                  fit: BoxFit.contain,
+                                                  colorFilter: ColorFilter.mode(
+                                                    swatch.computeLuminance() >
+                                                            0.5
+                                                        ? Colors.black
+                                                        : Colors.white,
+                                                    BlendMode.srcIn,
+                                                  ),
+                                                ),
+                                              )
+                                              : null,
+                                    ),
+                                  );
+                                }).toList(),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  ],
 
-                // ── Size ──────────────────────────────────────────────────
-                if (sizes.isNotEmpty) ...[
+                  // ── Quantity ───────────────────────────────────────────────
                   Padding(
                     padding: EdgeInsets.fromLTRB(20.w, 28.h, 20.w, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Size',
+                          'Quantity',
                           style: TextStyle(
                             fontFamily: 'InstrumentSans',
                             color: Colors.black,
@@ -799,200 +768,271 @@ class ClothsDetailsPage extends HookConsumerWidget {
                           ),
                         ),
                         14.verticalSpace,
-                        Wrap(
-                          spacing: 10.w,
-                          runSpacing: 10.h,
-                          children: sizes.map((size) {
-                            final isSelected = selectedSize.value == size;
-                            return TouchOpacity(
-                              onTap: () => selectedSize.value = size,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 18.w,
-                                  vertical: 10.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6).r,
-                                  color: isSelected
-                                      ? PPaymobileColors.buttonColor
-                                      : PPaymobileColors.mainScreenBackground,
-                                  border: Border.all(
-                                    color: isSelected
-                                        ? PPaymobileColors.buttonColor
-                                        : PPaymobileColors.filterBorderColor,
-                                    width: 1.w,
-                                  ),
-                                ),
-                                child: Text(
-                                  size!,
-                                  style: TextStyle(
-                                    fontFamily: 'InstrumentSans',
-                                    color: isSelected
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                        Row(
+                          children: [
+                            _QtyStepperButton(
+                              icon: 'assets/icon/minus.svg',
+                              enabled: quantity.value > 1 && !isFullyInCart,
+                              onTap: () {
+                                if (quantity.value > 1) quantity.value--;
+                              },
+                            ),
+                            Container(
+                              width: 52.w,
+                              height: 44.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: PPaymobileColors.filterBorderColor,
+                                  width: 1.w,
                                 ),
                               ),
-                            );
-                          }).toList(),
+                              child: Text(
+                                '${quantity.value}',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            _QtyStepperButton(
+                              icon: 'assets/icon/add.svg',
+                              enabled:
+                                  quantity.value < remainingStock &&
+                                  !isFullyInCart,
+                              onTap: () {
+                                if (quantity.value < remainingStock)
+                                  quantity.value++;
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
+
+                  // ── Size ──────────────────────────────────────────────────
+                  if (sizes.isNotEmpty) ...[
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20.w, 28.h, 20.w, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Size',
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              color: Colors.black,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          14.verticalSpace,
+                          Wrap(
+                            spacing: 10.w,
+                            runSpacing: 10.h,
+                            children:
+                                sizes.map((size) {
+                                  final isSelected = selectedSize.value == size;
+                                  return TouchOpacity(
+                                    onTap: () => selectedSize.value = size,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 18.w,
+                                        vertical: 10.h,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(6).r,
+                                        color:
+                                            isSelected
+                                                ? PPaymobileColors.buttonColor
+                                                : PPaymobileColors
+                                                    .mainScreenBackground,
+                                        border: Border.all(
+                                          color:
+                                              isSelected
+                                                  ? PPaymobileColors.buttonColor
+                                                  : PPaymobileColors
+                                                      .filterBorderColor,
+                                          width: 1.w,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        size!,
+                                        style: TextStyle(
+                                          fontFamily: 'InstrumentSans',
+                                          color:
+                                              isSelected
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+
+                  // ── Stock info ────────────────────────────────────────────
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/icon/stock.svg',
+                          height: 20.w,
+                          width: 20.w,
+                          fit: BoxFit.contain,
+                        ),
+                        10.horizontalSpace,
+                        Text(
+                          isOutOfStock
+                              ? 'Sold Out'
+                              : '${product.stockQuantity} Available in stock',
+                          style: TextStyle(
+                            fontFamily: 'InstrumentSans',
+                            color:
+                                isOutOfStock
+                                    ? PPaymobileColors.redTextfield
+                                    : Colors.black,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // ── Divider ───────────────────────────────────────────────
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 0),
+                    child: Divider(
+                      color: PPaymobileColors.filterBorderColor,
+                      height: 1.h,
+                    ),
+                  ),
+
+                  // ── Product Detail row ────────────────────────────────────
+                  TouchOpacity(
+                    onTap: () async {
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder:
+                            (_) => ProductDetailBottomsheet(product: product),
+                      );
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Container(
+                        height: 56.h,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: PPaymobileColors.filterBorderColor,
+                              width: 1.h,
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icon/detail.svg',
+                              height: 22.w,
+                              width: 22.w,
+                              fit: BoxFit.contain,
+                            ),
+                            14.horizontalSpace,
+                            Expanded(
+                              child: Text(
+                                'Product Detail',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              height: 20.w,
+                              width: 20.w,
+                              fit: BoxFit.contain,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // ── Reviews row ───────────────────────────────────────────
+                  TouchOpacity(
+                    onTap: () async {
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder:
+                            (_) => ReviewBottomsheet(productId: product.id),
+                      );
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Container(
+                        height: 56.h,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: PPaymobileColors.filterBorderColor,
+                              width: 1.h,
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icon/review.svg',
+                              height: 22.w,
+                              width: 22.w,
+                              fit: BoxFit.contain,
+                            ),
+                            14.horizontalSpace,
+                            Expanded(
+                              child: Text(
+                                'Reviews',
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  color: Colors.black,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            SvgPicture.asset(
+                              'assets/icon/arrow_forward.svg',
+                              height: 20.w,
+                              width: 20.w,
+                              fit: BoxFit.contain,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  24.verticalSpace,
                 ],
-
-                // ── Stock info ────────────────────────────────────────────
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icon/stock.svg',
-                        height: 20.w,
-                        width: 20.w,
-                        fit: BoxFit.contain,
-                      ),
-                      10.horizontalSpace,
-                      Text(
-                        isOutOfStock
-                            ? 'Sold Out'
-                            : '${product.stockQuantity} Available in stock',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: isOutOfStock
-                              ? PPaymobileColors.redTextfield
-                              : Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // ── Divider ───────────────────────────────────────────────
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 0),
-                  child: Divider(
-                    color: PPaymobileColors.filterBorderColor,
-                    height: 1.h,
-                  ),
-                ),
-
-                // ── Product Detail row ────────────────────────────────────
-                TouchOpacity(
-                  onTap: () async {
-                    await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) =>
-                          ProductDetailBottomsheet(product: product),
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Container(
-                      height: 56.h,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: PPaymobileColors.filterBorderColor,
-                            width: 1.h,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icon/detail.svg',
-                            height: 22.w,
-                            width: 22.w,
-                            fit: BoxFit.contain,
-                          ),
-                          14.horizontalSpace,
-                          Expanded(
-                            child: Text(
-                              'Product Detail',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          SvgPicture.asset(
-                            'assets/icon/arrow_forward.svg',
-                            height: 20.w,
-                            width: 20.w,
-                            fit: BoxFit.contain,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                // ── Reviews row ───────────────────────────────────────────
-                TouchOpacity(
-                  onTap: () async {
-                    await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) => ReviewBottomsheet(productId: product.id),
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Container(
-                      height: 56.h,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: PPaymobileColors.filterBorderColor,
-                            width: 1.h,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icon/review.svg',
-                            height: 22.w,
-                            width: 22.w,
-                            fit: BoxFit.contain,
-                          ),
-                          14.horizontalSpace,
-                          Expanded(
-                            child: Text(
-                              'Reviews',
-                              style: TextStyle(
-                                fontFamily: 'InstrumentSans',
-                                color: Colors.black,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          SvgPicture.asset(
-                            'assets/icon/arrow_forward.svg',
-                            height: 20.w,
-                            width: 20.w,
-                            fit: BoxFit.contain,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                24.verticalSpace,
-              ],
-            ),
+              ),
     );
   }
 }
@@ -1045,12 +1085,14 @@ void _openFullScreen(
     PageRouteBuilder(
       opaque: false,
       barrierColor: Colors.black,
-      pageBuilder: (_, __, ___) => _FullScreenImageViewer(
-        imageUrls: imageUrls,
-        initialIndex: initialIndex,
-      ),
-      transitionsBuilder: (_, animation, __, child) =>
-          FadeTransition(opacity: animation, child: child),
+      pageBuilder:
+          (_, __, ___) => _FullScreenImageViewer(
+            imageUrls: imageUrls,
+            initialIndex: initialIndex,
+          ),
+      transitionsBuilder:
+          (_, animation, __, child) =>
+              FadeTransition(opacity: animation, child: child),
     ),
   );
 }
@@ -1144,27 +1186,32 @@ class _FullScreenImageViewer extends HookWidget {
             controller: pageController,
             onPageChanged: (i) => currentIndex.value = i,
             itemCount: imageUrls.length,
-            itemBuilder: (context, index) => InteractiveViewer(
-              minScale: 0.5,
-              maxScale: 4.0,
-              child: Center(
-                child: Hero(
-                  tag: 'product_image_$index',
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrls[index],
-                    fit: BoxFit.contain,
-                    placeholder: (_, __) => const Center(
-                      child: CircularProgressIndicator(color: Colors.white),
-                    ),
-                    errorWidget: (_, __, ___) => const Icon(
-                      Icons.broken_image_outlined,
-                      color: Colors.white54,
-                      size: 64,
+            itemBuilder:
+                (context, index) => InteractiveViewer(
+                  minScale: 0.5,
+                  maxScale: 4.0,
+                  child: Center(
+                    child: Hero(
+                      tag: 'product_image_$index',
+                      child: CachedNetworkImage(
+                        imageUrl: imageUrls[index],
+                        fit: BoxFit.contain,
+                        placeholder:
+                            (_, __) => const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                        errorWidget:
+                            (_, __, ___) => const Icon(
+                              Icons.broken_image_outlined,
+                              color: Colors.white54,
+                              size: 64,
+                            ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
           ),
           SafeArea(
             child: Padding(

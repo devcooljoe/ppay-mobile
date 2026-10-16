@@ -33,7 +33,7 @@ class FeaturesPage extends HookConsumerWidget {
               ),
               6.verticalSpace,
               Text(
-                'Pay bills, trade crypto, manage giftcards, shop, book flights, and use your virtual dollar card all for you',
+                'Pay bills, trade crypto, manage giftcards, send gifts, book flights, and use your virtual dollar card all for you',
                 style: TextStyle(
                   fontFamily: 'InstrumentSans',
                   color: PPaymobileColors.svgIconColor,
@@ -82,7 +82,7 @@ class FeaturesPage extends HookConsumerWidget {
                   16.horizontalSpace,
                   FeatureCard(
                     iconPath: 'assets/icon/cart_green.svg',
-                    label: 'Shopping',
+                    label: 'Send Gifts',
                     onTap: () => context.router.push(ShoppingRoute()),
                   ),
                 ],

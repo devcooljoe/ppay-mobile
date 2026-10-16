@@ -96,37 +96,41 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                   Wrap(
                     spacing: 8.w,
                     runSpacing: 8.h,
-                    children: _typeOptions.map((entry) {
-                      final isSelected = selectedType.value == entry.value;
-                      return TouchOpacity(
-                        onTap: () => selectedType.value = isSelected
-                            ? null
-                            : entry.value,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14.w,
-                            vertical: 8.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? PPaymobileColors.buttonColor
-                                : PPaymobileColors.deepBackgroundColor,
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: Text(
-                            entry.label,
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w500,
-                              color: isSelected
-                                  ? Colors.white
-                                  : PPaymobileColors.svgIconColor,
+                    children:
+                        _typeOptions.map((entry) {
+                          final isSelected = selectedType.value == entry.value;
+                          return TouchOpacity(
+                            onTap:
+                                () =>
+                                    selectedType.value =
+                                        isSelected ? null : entry.value,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 14.w,
+                                vertical: 8.h,
+                              ),
+                              decoration: BoxDecoration(
+                                color:
+                                    isSelected
+                                        ? PPaymobileColors.buttonColor
+                                        : PPaymobileColors.deepBackgroundColor,
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                              child: Text(
+                                entry.label,
+                                style: TextStyle(
+                                  fontFamily: 'InstrumentSans',
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      isSelected
+                                          ? Colors.white
+                                          : PPaymobileColors.svgIconColor,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                          );
+                        }).toList(),
                   ),
                   24.verticalSpace,
 
@@ -146,9 +150,10 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                       Expanded(
                         child: _DateField(
                           label: 'From',
-                          value: dateFrom.value != null
-                              ? formatDate(dateFrom.value!)
-                              : null,
+                          value:
+                              dateFrom.value != null
+                                  ? formatDate(dateFrom.value!)
+                                  : null,
                           onTap: () => pickDate(dateFrom),
                         ),
                       ),
@@ -156,9 +161,10 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                       Expanded(
                         child: _DateField(
                           label: 'To',
-                          value: dateTo.value != null
-                              ? formatDate(dateTo.value!)
-                              : null,
+                          value:
+                              dateTo.value != null
+                                  ? formatDate(dateTo.value!)
+                                  : null,
                           onTap: () => pickDate(dateTo),
                         ),
                       ),
@@ -191,22 +197,27 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                         selected:
                             selectedStatus.value ==
                             TransactionStatus.successful,
-                        onTap: () =>
-                            selectedStatus.value = TransactionStatus.successful,
+                        onTap:
+                            () =>
+                                selectedStatus.value =
+                                    TransactionStatus.successful,
                       ),
                       _StatusOption(
                         label: 'Failed',
                         selected:
                             selectedStatus.value == TransactionStatus.failed,
-                        onTap: () =>
-                            selectedStatus.value = TransactionStatus.failed,
+                        onTap:
+                            () =>
+                                selectedStatus.value = TransactionStatus.failed,
                       ),
                       _StatusOption(
                         label: 'Pending',
                         selected:
                             selectedStatus.value == TransactionStatus.pending,
-                        onTap: () =>
-                            selectedStatus.value = TransactionStatus.pending,
+                        onTap:
+                            () =>
+                                selectedStatus.value =
+                                    TransactionStatus.pending,
                       ),
                     ],
                   ),
@@ -220,15 +231,16 @@ class FilterTransactionsBottomsheet extends HookConsumerWidget {
                         child: _FilterButton(
                           label: 'Apply',
                           primary: true,
-                          onPressed: () => Navigator.pop(
-                            context,
-                            TransactionFilter(
-                              status: selectedStatus.value,
-                              type: selectedType.value,
-                              dateFrom: dateFrom.value,
-                              dateTo: dateTo.value,
-                            ),
-                          ),
+                          onPressed:
+                              () => Navigator.pop(
+                                context,
+                                TransactionFilter(
+                                  status: selectedStatus.value,
+                                  type: selectedType.value,
+                                  dateFrom: dateFrom.value,
+                                  dateTo: dateTo.value,
+                                ),
+                              ),
                         ),
                       ),
                       16.horizontalSpace,
@@ -274,7 +286,7 @@ const _typeOptions = [
   _TypeEntry('Bill Payment', TransactionType.billPayment),
   _TypeEntry('Crypto', TransactionType.cryptoPurchase),
   _TypeEntry('Gift Card', TransactionType.giftcardPurchase),
-  _TypeEntry('Shopping', TransactionType.shopping),
+  _TypeEntry('Gift Orders', TransactionType.shopping),
   _TypeEntry('Flight', TransactionType.flightBooking),
 ];
 
@@ -334,9 +346,10 @@ class _DateField extends StatelessWidget {
                       fontFamily: 'InstrumentSans',
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w400,
-                      color: value != null
-                          ? Colors.black
-                          : PPaymobileColors.svgIconColor,
+                      color:
+                          value != null
+                              ? Colors.black
+                              : PPaymobileColors.svgIconColor,
                     ),
                   ),
                 ),
@@ -406,9 +419,10 @@ class _FilterButton extends StatelessWidget {
       height: 50.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primary
-              ? PPaymobileColors.buttonColorandText
-              : PPaymobileColors.deepBackgroundColor,
+          backgroundColor:
+              primary
+                  ? PPaymobileColors.buttonColorandText
+                  : PPaymobileColors.deepBackgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(42),
           ),
