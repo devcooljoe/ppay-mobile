@@ -9,6 +9,7 @@ import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entit
 import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/module/transaction/presentation/widgets/transaction_filter.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
+import 'package:ppay_mobile/shared/utils/transaction_amount_utils.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/empty_state.dart';
 import 'package:ppay_mobile/shared/widgets/filter_transactions_bottomsheet.dart';
@@ -632,8 +633,14 @@ class _TransactionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isCredit = transaction.type.isCredit;
+    final amountColor = TransactionAmountUtils.getAmountColor(
+      transaction.status,
+      isCredit,
+    );
+    final amountPrefix = TransactionAmountUtils.getAmountPrefix(isCredit);
     final formattedAmount =
-        '₦${AmountFormatter.formatBalance(transaction.amount)}';
+        '$amountPrefix₦${AmountFormatter.formatBalance(transaction.amount)}';
     final time = _formatTime(transaction.date);
 
     return Row(
@@ -717,7 +724,7 @@ class _TransactionRow extends StatelessWidget {
           formattedAmount,
           style: TextStyle(
             fontFamily: 'InstrumentSans',
-            color: Colors.black,
+            color: amountColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
           ),

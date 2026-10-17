@@ -15,6 +15,7 @@ import 'package:ppay_mobile/module/notification/presentation/providers/notificat
 import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
 import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
+import 'package:ppay_mobile/shared/utils/transaction_amount_utils.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/create_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/empty_state.dart';
@@ -695,6 +696,12 @@ class _HomeTransactionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final time = _formatTime(transaction.date);
+    final isCredit = transaction.type.isCredit;
+    final amountColor = TransactionAmountUtils.getAmountColor(
+      transaction.status,
+      isCredit,
+    );
+    final amountPrefix = TransactionAmountUtils.getAmountPrefix(isCredit);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -774,10 +781,10 @@ class _HomeTransactionRow extends StatelessWidget {
         ),
         12.horizontalSpace,
         Text(
-          '₦${AmountFormatter.formatBalance(transaction.amount)}',
+          '$amountPrefix₦${AmountFormatter.formatBalance(transaction.amount)}',
           style: TextStyle(
             fontFamily: 'InstrumentSans',
-            color: Colors.black,
+            color: amountColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
           ),

@@ -8,6 +8,7 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
 import 'package:ppay_mobile/module/transaction/presentation/helpers/transaction_detail_helper.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
+import 'package:ppay_mobile/shared/utils/transaction_amount_utils.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/full_screen_image_viewer.dart';
@@ -23,8 +24,11 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isCredit = transaction.type.isCredit;
-    final amountColor = _amountColor(transaction.status, isCredit);
-    final amountPrefix = isCredit ? '+' : '-';
+    final amountColor = TransactionAmountUtils.getAmountColor(
+      transaction.status,
+      isCredit,
+    );
+    final amountPrefix = TransactionAmountUtils.getAmountPrefix(isCredit);
 
     return Scaffold(
       backgroundColor: PPaymobileColors.deepBackgroundColor,
@@ -438,18 +442,6 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
     final minute = date.minute.toString().padLeft(2, '0');
     final period = date.hour < 12 ? 'AM' : 'PM';
     return '$hour:$minute$period';
-  }
-
-  Color _amountColor(TransactionStatus status, bool isCredit) {
-    if (status == TransactionStatus.failed) {
-      return PPaymobileColors.redTextfield;
-    }
-    if (status == TransactionStatus.pending) {
-      return PPaymobileColors.svgIconColor;
-    }
-    return isCredit
-        ? PPaymobileColors.buttonColor
-        : PPaymobileColors.redTextfield;
   }
 
   Color _iconBg(TransactionType type) {
