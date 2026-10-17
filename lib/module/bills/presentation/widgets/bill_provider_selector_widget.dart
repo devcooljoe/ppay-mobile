@@ -27,11 +27,12 @@ class BillProviderSelectorWidget extends StatelessWidget {
     final result = await Navigator.push<BillerEntity>(
       context,
       MaterialPageRoute(
-        builder: (_) => _AllProvidersPage(
-          billers: billers,
-          selectedBiller: selectedBiller,
-          fallbackAsset: fallbackAsset,
-        ),
+        builder:
+            (_) => _AllProvidersPage(
+              billers: billers,
+              selectedBiller: selectedBiller,
+              fallbackAsset: fallbackAsset,
+            ),
       ),
     );
     if (result != null) onSelected(result);
@@ -39,8 +40,11 @@ class BillProviderSelectorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Reverse the list so the last items appear first
+    final reversedBillers = billers.reversed.toList();
+
     // Selected provider always appears first in the horizontal list
-    final orderedBillers = List<BillerEntity>.from(billers);
+    final orderedBillers = List<BillerEntity>.from(reversedBillers);
     if (selectedBiller != null) {
       final idx = orderedBillers.indexWhere((b) => b.id == selectedBiller!.id);
       if (idx > 0) {
@@ -49,9 +53,10 @@ class BillProviderSelectorWidget extends StatelessWidget {
       }
     }
 
-    final visibleBillers = orderedBillers.length > _maxVisible
-        ? orderedBillers.sublist(0, _maxVisible)
-        : orderedBillers;
+    final visibleBillers =
+        orderedBillers.length > _maxVisible
+            ? orderedBillers.sublist(0, _maxVisible)
+            : orderedBillers;
     final hasMore = billers.length > _maxVisible;
 
     return SizedBox(
@@ -141,11 +146,12 @@ class BillProviderSelectorSkeleton extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: 4,
         separatorBuilder: (_, __) => 16.horizontalSpace,
-        itemBuilder: (_, __) => SkeletonLoader(
-          width: 108.w,
-          height: 104.h,
-          borderRadius: BorderRadius.circular(5.r),
-        ),
+        itemBuilder:
+            (_, __) => SkeletonLoader(
+              width: 108.w,
+              height: 104.h,
+              borderRadius: BorderRadius.circular(5.r),
+            ),
       ),
     );
   }
@@ -170,12 +176,14 @@ class _BillerCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
-        color: isSelected
-            ? PPaymobileColors.buttonColor.withValues(alpha: 0.12)
-            : PPaymobileColors.deepBackgroundColor,
-        border: isSelected
-            ? Border.all(color: PPaymobileColors.buttonColor, width: 1.5.w)
-            : null,
+        color:
+            isSelected
+                ? PPaymobileColors.buttonColor.withValues(alpha: 0.12)
+                : PPaymobileColors.deepBackgroundColor,
+        border:
+            isSelected
+                ? Border.all(color: PPaymobileColors.buttonColor, width: 1.5.w)
+                : null,
       ),
       child: Column(
         children: [
@@ -226,11 +234,14 @@ class _AllProvidersPage extends StatefulWidget {
 
 class _AllProvidersPageState extends State<_AllProvidersPage> {
   late BillerEntity? _selected;
+  late List<BillerEntity> _reversedBillers;
 
   @override
   void initState() {
     super.initState();
     _selected = widget.selectedBiller;
+    // Reverse the list so the last items appear first (matching horizontal list order)
+    _reversedBillers = widget.billers.reversed.toList();
   }
 
   @override
@@ -250,9 +261,9 @@ class _AllProvidersPageState extends State<_AllProvidersPage> {
                   mainAxisSpacing: 12.h,
                   childAspectRatio: 0.9,
                 ),
-                itemCount: widget.billers.length,
+                itemCount: _reversedBillers.length,
                 itemBuilder: (_, i) {
-                  final biller = widget.billers[i];
+                  final biller = _reversedBillers[i];
                   final isSelected = _selected?.id == biller.id;
                   return TouchOpacity(
                     onTap: () {
@@ -274,18 +285,23 @@ class _AllProvidersPageState extends State<_AllProvidersPage> {
                 height: 50.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _selected != null
-                        ? PPaymobileColors.buttonColorandText
-                        : PPaymobileColors.buttonInactiveColor,
+                    backgroundColor:
+                        _selected != null
+                            ? PPaymobileColors.buttonColorandText
+                            : PPaymobileColors.buttonInactiveColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(42.r),
                     ),
                     elevation: 0,
                   ),
                   onPressed:
-                      _selected == null ? null : () => Navigator.pop(context, _selected),
+                      _selected == null
+                          ? null
+                          : () => Navigator.pop(context, _selected),
                   child: Text(
-                    _selected == null ? 'Select a Provider' : 'Confirm Selection',
+                    _selected == null
+                        ? 'Select a Provider'
+                        : 'Confirm Selection',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
                       fontWeight: FontWeight.w500,
