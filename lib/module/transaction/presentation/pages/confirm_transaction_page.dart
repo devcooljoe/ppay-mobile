@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/settings/domain/entities/bank_account_entity.dart';
 import 'package:ppay_mobile/module/transaction/presentation/providers/transaction_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
@@ -13,6 +14,7 @@ import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
@@ -36,10 +38,11 @@ class ConfirmTransactionPage extends HookConsumerWidget {
     final wasLoading = useRef(false);
 
     useEffect(() {
-      Future.microtask(() => ref.read(calculateFeeProvider.notifier).call(
-            transactionType: 'wallet_withdrawal',
-            amount: amount,
-          ));
+      Future.microtask(
+        () => ref
+            .read(calculateFeeProvider.notifier)
+            .call(transactionType: 'wallet_withdrawal', amount: amount),
+      );
       return null;
     }, []);
 
@@ -105,10 +108,7 @@ class ConfirmTransactionPage extends HookConsumerWidget {
               41.verticalSpace,
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.w,
-                  vertical: 18.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1.w,
@@ -201,19 +201,19 @@ class ConfirmTransactionPage extends HookConsumerWidget {
                         ),
                         feeState.isLoading
                             ? SkeletonLoader(
-                                width: 60.w,
-                                height: 16.h,
-                                borderRadius: BorderRadius.circular(4.r),
-                              )
+                              width: 60.w,
+                              height: 16.h,
+                              borderRadius: BorderRadius.circular(4.r),
+                            )
                             : Text(
-                                '₦${AmountFormatter.formatBalance(fee.toString())}',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              '₦${AmountFormatter.formatBalance(fee.toString())}',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
                               ),
+                            ),
                       ],
                     ),
                     20.verticalSpace,
@@ -236,19 +236,19 @@ class ConfirmTransactionPage extends HookConsumerWidget {
                         ),
                         feeState.isLoading
                             ? SkeletonLoader(
-                                width: 80.w,
-                                height: 20.h,
-                                borderRadius: BorderRadius.circular(4.r),
-                              )
+                              width: 80.w,
+                              height: 20.h,
+                              borderRadius: BorderRadius.circular(4.r),
+                            )
                             : Text(
-                                '₦${AmountFormatter.formatBalance(total.toString())}',
-                                style: TextStyle(
-                                  fontFamily: 'InstrumentSans',
-                                  color: Colors.black,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              '₦${AmountFormatter.formatBalance(total.toString())}',
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                color: Colors.black,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
                               ),
+                            ),
                       ],
                     ),
                   ],
@@ -261,13 +261,31 @@ class ConfirmTransactionPage extends HookConsumerWidget {
                   final verified = await showSecurityPinBottomsheet(context);
                   if (!verified) return;
                   if (!context.mounted) return;
-                  ref.read(withdrawProvider.notifier).call(
-                    amount: amount,
-                    accountNumber: account.accountNumber,
-                    accountName: account.accountName,
-                    bankCode: account.bankCode,
-                    bankName: account.bankName,
-                  );
+
+                  // Check BVN+KYC verification
+                  final user = ref.read(authenticatedUserProvider).value;
+                  final isVerified =
+                      (user?.isBvnVerified ?? false) &&
+                      (user?.isKycVerified ?? false);
+                  if (!isVerified) {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) => KycBottomsheet(user: user),
+                    );
+                    return;
+                  }
+
+                  ref
+                      .read(withdrawProvider.notifier)
+                      .call(
+                        amount: amount,
+                        accountNumber: account.accountNumber,
+                        accountName: account.accountName,
+                        bankCode: account.bankCode,
+                        bankName: account.bankName,
+                      );
                 },
               ),
               20.verticalSpace,
