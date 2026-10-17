@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/module/transaction/domain/entities/transaction_entity.dart';
+import 'package:ppay_mobile/module/transaction/presentation/helpers/transaction_detail_helper.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
@@ -135,6 +136,10 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
                   ],
                 ),
               ),
+              // Nested sections for shopping transactions
+              ..._buildShoppingSections(transaction),
+              // Nested sections for flight booking transactions
+              ..._buildFlightBookingSections(transaction),
               // Type-specific action buttons
               ..._typeSpecificActions(context, transaction),
               24.verticalSpace,
@@ -246,234 +251,77 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
   }
 
   List<Widget> _typeSpecificRows(TransactionEntity tx) {
-    final d = tx.details;
-    if (d == null) return [];
+    final widgets = <Widget>[];
 
-    switch (tx.type) {
-      case TransactionType.walletFunding:
-      case TransactionType.cardFunding:
-      case TransactionType.cardTermination:
-        return [
-          if (d['fromAccountName'] != null)
-            _DetailRow(label: 'From', value: d['fromAccountName'] as String),
-          if (d['fromAccountNumber'] != null)
-            _DetailRow(
-              label: 'Account No',
-              value: d['fromAccountNumber'] as String,
-            ),
-          if (d['fromBankName'] != null)
-            _DetailRow(label: 'Bank', value: d['fromBankName'] as String),
-        ];
-
-      case TransactionType.walletWithdrawal:
-      case TransactionType.cardWithdrawal:
-        return [
-          if (d['toAccountName'] != null)
-            _DetailRow(label: 'To', value: d['toAccountName'] as String),
-          if (d['toAccountNumber'] != null)
-            _DetailRow(
-              label: 'Account No',
-              value: d['toAccountNumber'] as String,
-            ),
-          if (d['toBankName'] != null)
-            _DetailRow(label: 'Bank', value: d['toBankName'] as String),
-        ];
-
-      case TransactionType.billPayment:
-        return [
-          if (d['billerName'] != null)
-            _DetailRow(label: 'Biller', value: d['billerName'] as String),
-          if (d['billerCategory'] != null)
-            _DetailRow(label: 'Category', value: d['billerCategory'] as String),
-          if (d['provider'] != null)
-            _DetailRow(label: 'Provider', value: d['provider'] as String),
-          if (d['phoneNumber'] != null)
-            _DetailRow(label: 'Phone', value: d['phoneNumber'] as String),
-          if (d['meterNumber'] != null)
-            _DetailRow(label: 'Meter No', value: d['meterNumber'] as String),
-          if (d['accountNumber'] != null)
-            _DetailRow(
-              label: 'Account No',
-              value: d['accountNumber'] as String,
-            ),
-          if (d['plan'] != null)
-            _DetailRow(label: 'Plan', value: d['plan'] as String),
-        ];
-
-      case TransactionType.cryptoPurchase:
-      case TransactionType.cryptoSale:
-      case TransactionType.cryptoDeposit:
-        final currency = (d['currency'] as String? ?? '').toUpperCase();
-        final cryptoAmount = d['amountInCrypto']?.toString();
-        final rate = d['ratePerDollar']?.toString();
-        return [
-          if (currency.isNotEmpty)
-            _DetailRow(label: 'Currency', value: currency),
-          if (cryptoAmount != null)
-            _DetailRow(
-              label: 'Crypto Amount',
-              value: '$cryptoAmount $currency',
-            ),
-          if (rate != null)
-            _DetailRow(
-              label: 'Rate/Dollar',
-              value: '₦${AmountFormatter.formatBalance(rate)}',
-            ),
-        ];
-
-      case TransactionType.giftcardPurchase:
-        return [
-          if (d['type'] != null)
-            _DetailRow(label: 'Card Type', value: d['type'] as String),
-          if (d['region'] != null)
-            _DetailRow(label: 'Region', value: d['region'] as String),
-          if (d['currency'] != null)
-            _DetailRow(
-              label: 'Currency',
-              value: (d['currency'] as String).toUpperCase(),
-            ),
-          if (d['amountInUsd'] != null)
-            _DetailRow(label: 'Amount (USD)', value: '\$${d['amountInUsd']}'),
-          if (d['rate'] != null)
-            _DetailRow(
-              label: 'Rate',
-              value: '₦${AmountFormatter.formatBalance(d['rate'].toString())}',
-            ),
-          if (d['giftCardCode'] != null &&
-              (d['giftCardCode'] as String).isNotEmpty)
-            _DetailRow(
-              label: 'Gift Card Code',
-              value: d['giftCardCode'] as String,
-              copyable: true,
-            ),
-          if (d['instructions'] != null &&
-              (d['instructions'] as String).isNotEmpty)
-            _DetailRow(
-              label: 'Instructions',
-              value: d['instructions'] as String,
-            ),
-        ];
-
-      case TransactionType.giftcardSale:
-        // Determine card format (eCode vs Physical)
-        final ecode = d['ecode'] as String?;
-        final cardUrls = (d['cardUrls'] as List<dynamic>?)?.cast<String>();
-        final hasEcode = ecode != null && ecode.isNotEmpty;
-        final hasCardUrls = cardUrls != null && cardUrls.isNotEmpty;
-
-        String cardFormat = 'Gift Card';
-        if (hasEcode) {
-          cardFormat = 'eCode';
-        } else if (hasCardUrls) {
-          cardFormat = 'Physical';
-        }
-
-        return [
-          if (d['type'] != null)
-            _DetailRow(label: 'Card Type', value: d['type'] as String),
-          _DetailRow(label: 'Card Format', value: cardFormat),
-          if (d['subcategoryName'] != null)
-            _DetailRow(
-              label: 'Subcategory',
-              value: d['subcategoryName'] as String,
-            ),
-          if (d['country'] != null)
-            _DetailRow(label: 'Country', value: d['country'] as String),
-          if (d['ratePerDollar'] != null)
-            _DetailRow(
-              label: 'Rate/Dollar',
-              value:
-                  '₦${AmountFormatter.formatBalance(d['ratePerDollar'].toString())}',
-            ),
-          if (d['minAmount'] != null && d['maxAmount'] != null)
-            _DetailRow(
-              label: 'Amount Range',
-              value: '\$${d['minAmount']} – \$${d['maxAmount']}',
-            ),
-          if (hasEcode)
-            _DetailRow(label: 'E-Code', value: ecode, copyable: true),
-          if (d['rejectionReason'] != null &&
-              (d['rejectionReason'] as String).isNotEmpty)
-            _DetailRow(
-              label: 'Rejection Reason',
-              value: d['rejectionReason'] as String,
-            ),
-          if (hasCardUrls) _GiftCardThumbnails(imageUrls: cardUrls),
-        ];
-
-      case TransactionType.shopping:
-        final items = d['items'] as List<dynamic>?;
-        final shipping = d['shippingAddress'] as Map<String, dynamic>?;
-        return [
-          if (d['orderNumber'] != null)
-            _DetailRow(
-              label: 'Order No',
-              value: '#${d['orderNumber']}',
-              copyable: true,
-            ),
-          if (d['status'] != null)
-            _DetailRow(label: 'Order Status', value: d['status'] as String),
-          if (items != null && items.isNotEmpty)
-            _DetailRow(
-              label: 'Items',
-              value: '${items.length} item${items.length > 1 ? 's' : ''}',
-            ),
-          if (d['subtotal'] != null)
-            _DetailRow(
-              label: 'Subtotal',
-              value:
-                  '₦${AmountFormatter.formatBalance(d['subtotal'].toString())}',
-            ),
-          if (d['deliveryFee'] != null)
-            _DetailRow(
-              label: 'Delivery Fee',
-              value:
-                  '₦${AmountFormatter.formatBalance(d['deliveryFee'].toString())}',
-            ),
-          if (shipping != null && shipping['receiverName'] != null)
-            _DetailRow(
-              label: 'Recipient',
-              value: shipping['receiverName'] as String,
-            ),
-          if (shipping != null && shipping['address'] != null)
-            _DetailRow(label: 'Address', value: shipping['address'] as String),
-        ];
-
-      case TransactionType.flightBooking:
-        final flights = d['flights'] as List<dynamic>?;
-        final passengers = d['passengers'] as List<dynamic>?;
-        return [
-          if (d['bookingReference'] != null)
-            _DetailRow(
-              label: 'Booking Ref',
-              value: d['bookingReference'] as String,
-              copyable: true,
-            ),
-          if (d['tripType'] != null)
-            _DetailRow(label: 'Trip Type', value: d['tripType'] as String),
-          if (d['status'] != null)
-            _DetailRow(label: 'Booking Status', value: d['status'] as String),
-          if (d['currency'] != null)
-            _DetailRow(
-              label: 'Currency',
-              value: (d['currency'] as String).toUpperCase(),
-            ),
-          if (flights != null && flights.isNotEmpty) ...[
-            for (final f in flights.cast<Map<String, dynamic>>())
-              if (f['origin'] != null && f['destination'] != null)
-                _DetailRow(
-                  label: f['direction'] ?? 'Flight',
-                  value: '${f['origin']} → ${f['destination']}',
-                ),
-          ],
-          if (passengers != null && passengers.isNotEmpty)
-            _DetailRow(
-              label: 'Passengers',
-              value:
-                  '${passengers.length} passenger${passengers.length > 1 ? 's' : ''}',
-            ),
-        ];
+    // Get detail items from helper
+    final detailItems = TransactionDetailHelper.getDetailItems(tx);
+    for (final item in detailItems) {
+      widgets.add(
+        _DetailRow(
+          label: item.label,
+          value: item.value,
+          copyable: item.copyable,
+          compact: item.compact,
+          multiline: item.multiline,
+        ),
+      );
     }
+
+    // Add gift card thumbnails for giftcard sale
+    if (tx.type == TransactionType.giftcardSale) {
+      final cardUrls = TransactionDetailHelper.getGiftCardUrls(tx);
+      if (cardUrls.isNotEmpty) {
+        widgets.add(_GiftCardThumbnails(imageUrls: cardUrls));
+      }
+    }
+
+    return widgets;
+  }
+
+  List<Widget> _buildShoppingSections(TransactionEntity tx) {
+    if (tx.type != TransactionType.shopping) return [];
+
+    final widgets = <Widget>[];
+
+    // Order items section
+    final orderItems = TransactionDetailHelper.getShoppingItems(tx);
+    if (orderItems.isNotEmpty) {
+      widgets.add(16.verticalSpace);
+      widgets.add(_SectionHeader(title: 'Order Items'));
+      widgets.add(8.verticalSpace);
+      for (final item in orderItems) {
+        widgets.add(_OrderItemCard(item: item));
+        widgets.add(8.verticalSpace);
+      }
+    }
+
+    // Shipping and other sections
+    final sections = TransactionDetailHelper.getShoppingSections(tx);
+    for (final section in sections) {
+      widgets.add(8.verticalSpace);
+      widgets.add(_SectionHeader(title: section.title));
+      widgets.add(8.verticalSpace);
+      widgets.add(_NestedDetailCard(items: section.items));
+    }
+
+    return widgets;
+  }
+
+  List<Widget> _buildFlightBookingSections(TransactionEntity tx) {
+    if (tx.type != TransactionType.flightBooking) return [];
+
+    final sections = TransactionDetailHelper.getFlightBookingSections(tx);
+    if (sections.isEmpty) return [];
+
+    final widgets = <Widget>[];
+    for (final section in sections) {
+      widgets.add(16.verticalSpace);
+      widgets.add(_SectionHeader(title: section.title));
+      widgets.add(8.verticalSpace);
+      widgets.add(_NestedDetailCard(items: section.items));
+    }
+
+    return widgets;
   }
 
   List<Widget> _typeSpecificActions(
@@ -593,10 +441,12 @@ class TransactionHistoryDetailPage extends HookConsumerWidget {
   }
 
   Color _amountColor(TransactionStatus status, bool isCredit) {
-    if (status == TransactionStatus.failed)
+    if (status == TransactionStatus.failed) {
       return PPaymobileColors.redTextfield;
-    if (status == TransactionStatus.pending)
+    }
+    if (status == TransactionStatus.pending) {
       return PPaymobileColors.svgIconColor;
+    }
     return isCredit
         ? PPaymobileColors.buttonColor
         : PPaymobileColors.redTextfield;
@@ -654,17 +504,14 @@ class _StatusBadge extends StatelessWidget {
         bg = PPaymobileColors.doneColor;
         text = PPaymobileColors.highlightTextColor;
         label = 'Successful';
-        break;
       case TransactionStatus.failed:
         bg = const Color(0xFFFFE5E5);
         text = PPaymobileColors.redTextfield;
         label = 'Failed';
-        break;
       case TransactionStatus.pending:
         bg = const Color(0xFFFFF3CD);
         text = const Color(0xFF856404);
         label = 'Pending';
-        break;
     }
     return Container(
       height: 24.h,
@@ -693,15 +540,73 @@ class _DetailRow extends StatelessWidget {
   final String value;
   final bool copyable;
   final bool compact;
+  final bool multiline;
+
   const _DetailRow({
     required this.label,
     required this.value,
     this.copyable = false,
     this.compact = false,
+    this.multiline = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (multiline) {
+      return Padding(
+        padding: EdgeInsets.only(bottom: 22.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontFamily: 'InstrumentSans',
+                    color: PPaymobileColors.svgIconColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                if (copyable)
+                  TouchOpacity(
+                    onTap: () {
+                      Clipboard.setData(ClipboardData(text: value));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('$label copied'),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                    child: SizedBox(
+                      height: 20.w,
+                      width: 20.w,
+                      child: SvgPicture.asset(
+                        'assets/icon/paste_black1.svg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            8.verticalSpace,
+            Text(
+              value,
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.only(bottom: 22.h),
       child: Row(
@@ -759,6 +664,165 @@ class _DetailRow extends StatelessWidget {
               ],
             ],
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Section header widget for nested sections like "Flights", "Items", etc.
+class _SectionHeader extends StatelessWidget {
+  final String title;
+  const _SectionHeader({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontFamily: 'InstrumentSans',
+        color: Colors.black,
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+}
+
+/// Nested detail card for grouped information (e.g., shipping address, passenger info).
+class _NestedDetailCard extends StatelessWidget {
+  final List<DetailItem> items;
+  const _NestedDetailCard({required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      color: PPaymobileColors.mainScreenBackground,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (var i = 0; i < items.length; i++) ...[
+            _DetailRow(
+              label: items[i].label,
+              value: items[i].value,
+              copyable: items[i].copyable,
+              compact: items[i].compact,
+              multiline: items[i].multiline,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// Card widget for displaying an order item with product details.
+class _OrderItemCard extends StatelessWidget {
+  final OrderItemDetail item;
+  const _OrderItemCard({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      color: PPaymobileColors.mainScreenBackground,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            item.productName,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: Colors.black,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          12.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Qty',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.svgIconColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                'x${item.quantity}',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          8.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Unit Price',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.svgIconColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                '₦${AmountFormatter.formatBalance(item.unitPrice)}',
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          if (item.variantAttributes != null &&
+              item.variantAttributes!.isNotEmpty) ...[
+            12.verticalSpace,
+            Divider(height: 1, color: PPaymobileColors.deepBackgroundColor),
+            12.verticalSpace,
+            ...item.variantAttributes!.entries.map(
+              (entry) => Padding(
+                padding: EdgeInsets.only(bottom: 8.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      entry.key,
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: PPaymobileColors.svgIconColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      entry.value,
+                      style: TextStyle(
+                        fontFamily: 'InstrumentSans',
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );
