@@ -6,7 +6,6 @@ import 'package:ppay_mobile/app/router/app_router.gr.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 
@@ -69,84 +68,9 @@ class SellGiftCardSuccessPage extends HookConsumerWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              31.verticalSpace,
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 30.h,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.w,
-                    vertical: 3.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24).r,
-                    color: PPaymobileColors.doneColor,
-                  ),
-                  child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Amount Sold: ',
-                        style: TextStyle(
-                          fontFamily: 'InstrumentSans',
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '\$${amountInUSD.toStringAsFixed(2)} ≈ ₦${AmountFormatter.formatBalance(nairaEquivalent.toStringAsFixed(2))}',
-                            style: TextStyle(
-                              fontFamily: 'InstrumentSans',
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              13.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Status',
-                    style: TextStyle(
-                      fontFamily: 'InstrumentSans',
-                      color: Colors.black,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  SizedBox(
-                    height: 24.h,
-                    width: 95.w,
-                    child: Image.asset(
-                      'assets/images/another_pending.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
               const Spacer(),
               PPButton(
-                text: 'View Receipt',
-                onPressed: () => context.router.push(GiftcardSellReceiptRoute(
-                  cardType: cardType,
-                  amountInUSD: amountInUSD,
-                  nairaEquivalent: nairaEquivalent,
-                  sellRate: sellRate,
-                  submittedAt: DateTime.now(),
-                )),
-              ),
-              24.verticalSpace,
-              PPButton(
-                text: 'Go to App',
+                text: 'Go to Home',
                 onPressed: () => context.router.replaceAll([HomeRoute()]),
                 icon: SvgPicture.asset(
                   'assets/icon/arrow_forward_1.svg',

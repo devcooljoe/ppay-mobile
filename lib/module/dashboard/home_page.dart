@@ -89,8 +89,9 @@ class HomePage extends HookConsumerWidget {
 
     final initials = useMemoized(() {
       final parts = fullName.trim().split(' ');
-      if (parts.length >= 2)
+      if (parts.length >= 2) {
         return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+      }
       return fullName.isNotEmpty ? fullName[0].toUpperCase() : '?';
     }, [fullName]);
 
@@ -306,8 +307,8 @@ class HomePage extends HookConsumerWidget {
                                     width: 25.w,
                                     child: SvgPicture.asset(
                                       isBalanceVisible
-                                          ? 'assets/icon/eye-slash.svg'
-                                          : 'assets/icon/eye.svg',
+                                          ? 'assets/icon/eye.svg'
+                                          : 'assets/icon/eye-slash.svg',
                                       fit: BoxFit.contain,
                                       colorFilter: const ColorFilter.mode(
                                         PPaymobileColors.mainScreenBackground,
