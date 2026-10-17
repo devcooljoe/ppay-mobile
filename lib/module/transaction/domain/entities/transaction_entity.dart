@@ -17,28 +17,51 @@ enum TransactionType {
 extension TransactionTypeX on TransactionType {
   static TransactionType fromString(String value) {
     switch (value) {
-      case 'crypto_purchase': return TransactionType.cryptoPurchase;
-      case 'crypto_sale': return TransactionType.cryptoSale;
-      case 'crypto_deposit': return TransactionType.cryptoDeposit;
-      case 'giftcard_purchase': return TransactionType.giftcardPurchase;
-      case 'giftcard_sale': return TransactionType.giftcardSale;
-      case 'wallet_funding': return TransactionType.walletFunding;
-      case 'wallet_withdrawal': return TransactionType.walletWithdrawal;
-      case 'card_funding': return TransactionType.cardFunding;
-      case 'card_withdrawal': return TransactionType.cardWithdrawal;
-      case 'card_termination': return TransactionType.cardTermination;
-      case 'bill_payment': return TransactionType.billPayment;
-      case 'shopping': return TransactionType.shopping;
-      case 'flight_booking': return TransactionType.flightBooking;
-      default: return TransactionType.walletFunding;
+      case 'crypto_purchase':
+        return TransactionType.cryptoPurchase;
+      case 'crypto_sale':
+        return TransactionType.cryptoSale;
+      case 'crypto_deposit':
+        return TransactionType.cryptoDeposit;
+      case 'giftcard_purchase':
+        return TransactionType.giftcardPurchase;
+      case 'giftcard_sale':
+        return TransactionType.giftcardSale;
+      case 'wallet_funding':
+        return TransactionType.walletFunding;
+      case 'wallet_withdrawal':
+        return TransactionType.walletWithdrawal;
+      case 'card_funding':
+        return TransactionType.cardFunding;
+      case 'card_withdrawal':
+        return TransactionType.cardWithdrawal;
+      case 'card_termination':
+        return TransactionType.cardTermination;
+      case 'bill_payment':
+        return TransactionType.billPayment;
+      case 'shopping':
+        return TransactionType.shopping;
+      case 'flight_booking':
+        return TransactionType.flightBooking;
+      default:
+        return TransactionType.walletFunding;
     }
   }
 
+  /// Returns true for transactions that add money to the wallet (inflow).
+  /// - giftcardSale: user sells gift card, receives Naira
+  /// - cryptoSale: user sells crypto, receives Naira
+  /// - cryptoDeposit: user receives crypto deposit
+  /// - walletFunding: user funds wallet from external source
+  /// - cardFunding: user funds virtual card
+  /// - cardTermination: card terminated, balance returned to wallet
   bool get isCredit {
     return this == TransactionType.walletFunding ||
         this == TransactionType.cardFunding ||
         this == TransactionType.cardTermination ||
-        this == TransactionType.cryptoDeposit;
+        this == TransactionType.cryptoDeposit ||
+        this == TransactionType.cryptoSale ||
+        this == TransactionType.giftcardSale;
   }
 }
 
@@ -47,9 +70,12 @@ enum TransactionStatus { pending, successful, failed }
 extension TransactionStatusX on TransactionStatus {
   static TransactionStatus fromString(String value) {
     switch (value) {
-      case 'successful': return TransactionStatus.successful;
-      case 'failed': return TransactionStatus.failed;
-      default: return TransactionStatus.pending;
+      case 'successful':
+        return TransactionStatus.successful;
+      case 'failed':
+        return TransactionStatus.failed;
+      default:
+        return TransactionStatus.pending;
     }
   }
 }

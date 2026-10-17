@@ -12,7 +12,6 @@ import 'package:ppay_mobile/core/utils/message_handler.dart';
 import 'package:ppay_mobile/module/giftcard/domain/entities/giftcard_entity.dart';
 import 'package:ppay_mobile/module/giftcard/presentation/providers/giftcard_providers.dart';
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
-import 'package:ppay_mobile/shared/widgets/app_loader.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 
@@ -44,20 +43,6 @@ class ConfirmGiftCardSellPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final sellState = ref.watch(sellGiftcardProvider);
-
-    ref.listen(sellGiftcardProvider, (_, next) {
-      if (next.isLoading) {
-        AppLoader.show(context);
-      } else {
-        AppLoader.hide(context);
-        if (next.hasError) {
-          MessageHandler.showErrorSnackBar(
-            context,
-            MessageHandler.getErrorMessage(next.error),
-          );
-        }
-      }
-    });
 
     Future<void> onProceed() async {
       final confirmed = await showSecurityPinBottomsheet(context);

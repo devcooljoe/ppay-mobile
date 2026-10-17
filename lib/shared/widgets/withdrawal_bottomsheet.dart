@@ -293,53 +293,58 @@ class _BankAccountItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      account.accountName,
-                      style: TextStyle(
-                        fontFamily: 'InstrumentSans',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                        color: Colors.black,
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        account.accountName,
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    4.verticalSpace,
-                    Row(
-                      children: [
-                        Text(
-                          account.accountNumber,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12.sp,
-                            color: PPaymobileColors.svgIconColor,
+                      4.verticalSpace,
+                      Row(
+                        children: [
+                          Text(
+                            account.accountNumber,
+                            style: TextStyle(
+                              fontFamily: 'InstrumentSans',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12.sp,
+                              color: PPaymobileColors.svgIconColor,
+                            ),
                           ),
-                        ),
-                        8.horizontalSpace,
-                        SizedBox(
-                          height: 7.w,
-                          width: 7.w,
-                          child: SvgPicture.asset(
-                            'assets/icon/spacer.svg',
-                            fit: BoxFit.contain,
+                          8.horizontalSpace,
+                          SizedBox(
+                            height: 7.w,
+                            width: 7.w,
+                            child: SvgPicture.asset(
+                              'assets/icon/spacer.svg',
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                        ),
-                        8.horizontalSpace,
-                        Text(
-                          account.bankName,
-                          style: TextStyle(
-                            fontFamily: 'InstrumentSans',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12.sp,
-                            color: PPaymobileColors.svgIconColor,
+                          8.horizontalSpace,
+                          Expanded(
+                            child: Text(
+                              account.bankName,
+                              style: TextStyle(
+                                fontFamily: 'InstrumentSans',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12.sp,
+                                color: PPaymobileColors.svgIconColor,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 TouchOpacity(
                   onTap: onTransfer,
