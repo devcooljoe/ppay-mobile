@@ -24,20 +24,43 @@ class CancelFlightSuccessfulPage extends HookConsumerWidget {
               122.verticalSpace,
               Align(
                 alignment: Alignment.center,
-                child: SizedBox(height: 74.w, width: 74.w, child: Image.asset('assets/images/success1.png', fit: BoxFit.contain)),
+                child: SizedBox(
+                  height: 74.w,
+                  width: 74.w,
+                  child: Image.asset(
+                    'assets/images/success1.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
               25.verticalSpace,
-              Text('Flight Cancelled', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.greenTextColor, fontSize: 20.sp, fontWeight: FontWeight.w600)),
+              Text(
+                'Flight Cancelled',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.greenTextColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               4.verticalSpace,
               Text(
                 textAlign: TextAlign.center,
                 'Your flight booking has been successfully cancelled.',
-                style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 16.sp, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontFamily: 'InstrumentSans',
+                  color: PPaymobileColors.svgIconColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               241.verticalSpace,
-              PPButton(text: 'Book New Flight', onPressed: () => context.router.replaceAll([const FlightBookRoute()])),
-              18.verticalSpace,
-              PPButton(text: 'View Bookings', onPressed: () => context.router.replaceAll([const BookedFlightsRoute()])),
+              PPButton(
+                text: 'Go to Home',
+                onPressed:
+                    () => context.router.replaceAll([const ExploreRoute()]),
+              ),
             ],
           ),
         ),
