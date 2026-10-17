@@ -15,6 +15,9 @@ import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
+import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
 
 // Allowed delivery countries with display names
 const Map<String, String> allowedDeliveryCountries = {
@@ -123,6 +126,28 @@ class CheckOutPage extends HookConsumerWidget {
 
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
+
+      // Balance check
+      final wallet = ref.read(walletProvider).value;
+      final walletBalance = double.tryParse(wallet?.balance ?? '0') ?? 0.0;
+      if (walletBalance < total) {
+        MessageHandler.showErrorSnackBar(context, 'Insufficient balance');
+        return;
+      }
+
+      // Verification check
+      final user = ref.read(authenticatedUserProvider).value;
+      final isVerified =
+          (user?.isBvnVerified ?? false) && (user?.isKycVerified ?? false);
+      if (!isVerified) {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (_) => KycBottomsheet(user: user),
+        );
+        return;
+      }
 
       await ref
           .read(createOrderProvider.notifier)

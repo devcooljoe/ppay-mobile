@@ -15,6 +15,7 @@ import 'package:ppay_mobile/module/giftcard/presentation/providers/giftcard_prov
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
+import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/skeleton_loader.dart';
 
@@ -152,6 +153,19 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
 
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
+
+      // Check BVN+KYC verification
+      final isVerified =
+          (user?.isBvnVerified ?? false) && (user?.isKycVerified ?? false);
+      if (!isVerified) {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (_) => KycBottomsheet(user: user),
+        );
+        return;
+      }
 
       final item = selectedItem.value!;
       final region = selectedRegion.value!;
@@ -405,7 +419,8 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      selectedRegion.value!
+                                                      selectedRegion
+                                                              .value!
                                                               .name ??
                                                           '',
                                                       style: TextStyle(
@@ -445,7 +460,8 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
                                             style: TextStyle(
                                               fontFamily: 'InstrumentSans',
                                               color:
-                                                  PPaymobileColors.textfieldGrey,
+                                                  PPaymobileColors
+                                                      .textfieldGrey,
                                               fontSize: 15.sp,
                                             ),
                                           ),
@@ -508,7 +524,8 @@ class BuyGiftCardFeaturesPage extends HookConsumerWidget {
                                                 : Text(
                                                   'Select value',
                                                   style: TextStyle(
-                                                    fontFamily: 'InstrumentSans',
+                                                    fontFamily:
+                                                        'InstrumentSans',
                                                     color:
                                                         PPaymobileColors
                                                             .textfieldGrey,
@@ -778,9 +795,7 @@ class _OrderSummaryCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
             decoration: BoxDecoration(
               color: PPaymobileColors.backgroundColor,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(12).r,
-              ),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(12).r),
             ),
             child: Row(
               children: [
@@ -997,9 +1012,7 @@ class _CardPickerSheet extends StatelessWidget {
             },
             child: Container(
               color:
-                  isSelected
-                      ? PPaymobileColors.doneColor
-                      : Colors.transparent,
+                  isSelected ? PPaymobileColors.doneColor : Colors.transparent,
               padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 10.h),
               child: Row(
                 children: [
@@ -1097,9 +1110,7 @@ class _RegionPickerSheet extends StatelessWidget {
             },
             child: Container(
               color:
-                  isSelected
-                      ? PPaymobileColors.doneColor
-                      : Colors.transparent,
+                  isSelected ? PPaymobileColors.doneColor : Colors.transparent,
               padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 12.h),
               child: Row(
                 children: [
@@ -1188,8 +1199,7 @@ class _ValuePickerSheet extends StatelessWidget {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
-          final isSelected =
-              selected?.kudaIdentifier == item.kudaIdentifier;
+          final isSelected = selected?.kudaIdentifier == item.kudaIdentifier;
           return TouchOpacity(
             onTap: () {
               onSelect(item);
@@ -1218,10 +1228,7 @@ class _ValuePickerSheet extends StatelessWidget {
                     '\$${item.minAmount.toStringAsFixed(0)}',
                     style: TextStyle(
                       fontFamily: 'InstrumentSans',
-                      color:
-                          isSelected
-                              ? Colors.white
-                              : Colors.black,
+                      color: isSelected ? Colors.white : Colors.black,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w700,
                     ),
@@ -1265,11 +1272,7 @@ class _BottomSheet extends StatelessWidget {
   final String? subtitle;
   final Widget child;
 
-  const _BottomSheet({
-    required this.title,
-    this.subtitle,
-    required this.child,
-  });
+  const _BottomSheet({required this.title, this.subtitle, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -1304,9 +1307,7 @@ class _BottomSheet extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: PPaymobileColors.mainScreenBackground,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(28).r,
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(28).r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

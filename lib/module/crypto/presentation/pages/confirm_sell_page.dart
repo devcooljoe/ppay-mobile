@@ -13,6 +13,8 @@ import 'package:ppay_mobile/shared/widgets/colors.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
+import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
 
 @RoutePage()
 class ConfirmSellPage extends ConsumerWidget {
@@ -37,25 +39,43 @@ class ConfirmSellPage extends ConsumerWidget {
       final confirmed = await showSecurityPinBottomsheet(context);
       if (!confirmed) return;
 
-      await ref.read(sellCryptoProvider.notifier).call(
-        amount: cryptoAmount,
-        walletAddressId: wallet.id,
-      );
+      // Verification check
+      final user = ref.read(authenticatedUserProvider).value;
+      final isVerified =
+          (user?.isBvnVerified ?? false) && (user?.isKycVerified ?? false);
+      if (!isVerified) {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (_) => KycBottomsheet(user: user),
+        );
+        return;
+      }
+
+      await ref
+          .read(sellCryptoProvider.notifier)
+          .call(amount: cryptoAmount, walletAddressId: wallet.id);
 
       if (!context.mounted) return;
       final state = ref.read(sellCryptoProvider);
       if (state.hasError) {
-        MessageHandler.showErrorSnackBar(context, MessageHandler.getErrorMessage(state.error));
+        MessageHandler.showErrorSnackBar(
+          context,
+          MessageHandler.getErrorMessage(state.error),
+        );
       } else {
         ref.read(walletProvider.notifier).fetch();
         ref.read(estimatedAssetValueProvider.notifier).refresh();
-        context.router.replace(CryptoTransactionSuccessfulRoute(
-          cryptoAmount: cryptoAmount,
-          currency: rate.currency,
-          nairaAmount: nairaValue,
-          logoUrl: rate.logoUrl,
-          isBuy: false,
-        ));
+        context.router.replace(
+          CryptoTransactionSuccessfulRoute(
+            cryptoAmount: cryptoAmount,
+            currency: rate.currency,
+            nairaAmount: nairaValue,
+            logoUrl: rate.logoUrl,
+            isBuy: false,
+          ),
+        );
       }
     }
 
@@ -76,35 +96,66 @@ class ConfirmSellPage extends ConsumerWidget {
                         imageUrl: rate.logoUrl,
                         width: 64.w,
                         height: 64.w,
-                        errorWidget: (_, __, ___) => Container(
-                          width: 64.w,
-                          height: 64.w,
-                          decoration: BoxDecoration(color: PPaymobileColors.textfiedBorder, shape: BoxShape.circle),
-                          child: Center(child: Text(rate.currency[0].toUpperCase(), style: TextStyle(color: Colors.white, fontSize: 24.sp, fontWeight: FontWeight.w700))),
-                        ),
+                        errorWidget:
+                            (_, __, ___) => Container(
+                              width: 64.w,
+                              height: 64.w,
+                              decoration: BoxDecoration(
+                                color: PPaymobileColors.textfiedBorder,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  rate.currency[0].toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ),
                       ),
                     ),
                     16.verticalSpace,
                     Center(
                       child: Text(
                         '${cryptoAmount.toStringAsFixed(6)} ${rate.currency.toUpperCase()}',
-                        style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 28.sp, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: Colors.black,
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     8.verticalSpace,
                     Center(
                       child: Text(
                         '≈ ₦${AmountFormatter.formatBalance(nairaValue.toStringAsFixed(2))}',
-                        style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: PPaymobileColors.svgIconColor,
+                          fontSize: 14.sp,
+                        ),
                       ),
                     ),
                     32.verticalSpace,
                     _DetailRow(label: 'Asset', value: rate.name),
-                    _DetailRow(label: 'You sell', value: '${cryptoAmount.toStringAsFixed(6)} ${rate.currency.toUpperCase()}'),
-                    _DetailRow(label: 'You receive', value: '₦${AmountFormatter.formatBalance(nairaValue.toStringAsFixed(2))}'),
+                    _DetailRow(
+                      label: 'You sell',
+                      value:
+                          '${cryptoAmount.toStringAsFixed(6)} ${rate.currency.toUpperCase()}',
+                    ),
+                    _DetailRow(
+                      label: 'You receive',
+                      value:
+                          '₦${AmountFormatter.formatBalance(nairaValue.toStringAsFixed(2))}',
+                    ),
                     _DetailRow(
                       label: 'Sell rate',
-                      value: '1 ${rate.currency.toUpperCase()} ≈ ₦${AmountFormatter.formatBalance(rate.sellRatePerDollar)}',
+                      value:
+                          '1 ${rate.currency.toUpperCase()} ≈ ₦${AmountFormatter.formatBalance(rate.sellRatePerDollar)}',
                     ),
                     32.verticalSpace,
                     Container(
@@ -116,14 +167,21 @@ class ConfirmSellPage extends ConsumerWidget {
                       child: Text(
                         'The naira equivalent will be credited to your main wallet after the sale is processed.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 12.sp),
+                        style: TextStyle(
+                          fontFamily: 'InstrumentSans',
+                          color: PPaymobileColors.svgIconColor,
+                          fontSize: 12.sp,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               PPButton(
-                text: sellState.isLoading ? 'Processing...' : 'Sell ${rate.currency.toUpperCase()}',
+                text:
+                    sellState.isLoading
+                        ? 'Processing...'
+                        : 'Sell ${rate.currency.toUpperCase()}',
                 onPressed: sellState.isLoading ? null : onSell,
               ),
               20.verticalSpace,
@@ -147,9 +205,25 @@ class _DetailRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(fontFamily: 'InstrumentSans', color: PPaymobileColors.svgIconColor, fontSize: 14.sp)),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'InstrumentSans',
+              color: PPaymobileColors.svgIconColor,
+              fontSize: 14.sp,
+            ),
+          ),
           Flexible(
-            child: Text(value, textAlign: TextAlign.end, style: TextStyle(fontFamily: 'InstrumentSans', color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w600)),
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                fontFamily: 'InstrumentSans',
+                color: Colors.black,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),

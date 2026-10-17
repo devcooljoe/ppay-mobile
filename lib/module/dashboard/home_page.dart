@@ -98,9 +98,6 @@ class HomePage extends HookConsumerWidget {
     final wallet = walletAsync.value;
     final isWalletLoading = walletAsync.isLoading;
 
-    final isAccountVerified =
-        (user?.isBvnVerified ?? false) && (user?.isKycVerified ?? false);
-
     String displayBalance;
     if (!isBalanceVisible) {
       displayBalance = '₦••••';
@@ -341,7 +338,7 @@ class HomePage extends HookConsumerWidget {
                                 children: [
                                   TouchOpacity(
                                     onTap: () {
-                                      if (isAccountVerified && wallet != null) {
+                                      if (wallet != null) {
                                         showModalBottomSheet(
                                           context: context,
                                           isScrollControlled: true,
@@ -350,14 +347,6 @@ class HomePage extends HookConsumerWidget {
                                               (_) => WalletDetailBottomsheet(
                                                 wallet: wallet,
                                               ),
-                                        );
-                                      } else {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          builder:
-                                              (_) => KycBottomsheet(user: user),
                                         );
                                       }
                                     },

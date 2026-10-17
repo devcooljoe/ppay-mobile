@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ppay_mobile/app/router/app_router.gr.dart';
 import 'package:ppay_mobile/core/utils/message_handler.dart';
+import 'package:ppay_mobile/module/auth/presentation/providers/auth_providers.dart';
 import 'package:ppay_mobile/module/bills/domain/entities/bill_type.dart';
 import 'package:ppay_mobile/module/bills/presentation/providers/bills_providers.dart';
 import 'package:ppay_mobile/module/dashboard/providers/wallet_provider.dart';
@@ -12,6 +13,7 @@ import 'package:ppay_mobile/module/transaction/presentation/providers/transactio
 import 'package:ppay_mobile/shared/utils/amount_formatter.dart';
 import 'package:ppay_mobile/shared/widgets/app_image.dart';
 import 'package:ppay_mobile/shared/widgets/colors.dart';
+import 'package:ppay_mobile/shared/widgets/kyc_bottomsheet.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/pp_button.dart';
 import 'package:ppay_mobile/shared/widgets/security_pin_bottomsheet.dart';
@@ -51,6 +53,29 @@ class BillConfirmPage extends HookConsumerWidget {
       if (!verified) return;
       if (!context.mounted) return;
 
+      // Check balance before verification
+      final walletState = ref.read(walletProvider);
+      final walletBalance =
+          double.tryParse(walletState.value?.balance ?? '0') ?? 0;
+      if (total > walletBalance) {
+        MessageHandler.showErrorSnackBar(context, 'Insufficient balance');
+        return;
+      }
+
+      // Check BVN+KYC verification
+      final user = ref.read(authenticatedUserProvider).value;
+      final isVerified =
+          (user?.isBvnVerified ?? false) && (user?.isKycVerified ?? false);
+      if (!isVerified) {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (_) => KycBottomsheet(user: user),
+        );
+        return;
+      }
+
       await ref
           .read(purchaseBillProvider.notifier)
           .call(
@@ -58,14 +83,16 @@ class BillConfirmPage extends HookConsumerWidget {
             customerIdentifier: args.customerIdentifier,
             phoneNumber: args.phoneNumber,
             amount: args.amount,
-            customerFirstName: args.customerName.isNotEmpty
-                ? args.customerName.split(' ').first
-                : args.phoneNumber,
+            customerFirstName:
+                args.customerName.isNotEmpty
+                    ? args.customerName.split(' ').first
+                    : args.phoneNumber,
             billerName: args.biller.name,
             billerCategory: args.billerCategory,
-            logoUrl: args.biller.billerIconUrl.isNotEmpty
-                ? args.biller.billerIconUrl
-                : null,
+            logoUrl:
+                args.biller.billerIconUrl.isNotEmpty
+                    ? args.biller.billerIconUrl
+                    : null,
           );
 
       if (!context.mounted) return;
@@ -202,13 +229,14 @@ class BillConfirmPage extends HookConsumerWidget {
                     20.verticalSpace,
                     _DetailRow(
                       label: 'Charges',
-                      valueWidget: feeState.isLoading
-                          ? SkeletonLoader(
-                              width: 60.w,
-                              height: 14.h,
-                              borderRadius: BorderRadius.circular(4.r),
-                            )
-                          : null,
+                      valueWidget:
+                          feeState.isLoading
+                              ? SkeletonLoader(
+                                width: 60.w,
+                                height: 14.h,
+                                borderRadius: BorderRadius.circular(4.r),
+                              )
+                              : null,
                       value: feeState.isLoading ? null : '₦$formattedFee',
                     ),
                     17.verticalSpace,
@@ -219,13 +247,14 @@ class BillConfirmPage extends HookConsumerWidget {
                     20.verticalSpace,
                     _DetailRow(
                       label: 'Total',
-                      valueWidget: feeState.isLoading
-                          ? SkeletonLoader(
-                              width: 80.w,
-                              height: 18.h,
-                              borderRadius: BorderRadius.circular(4.r),
-                            )
-                          : null,
+                      valueWidget:
+                          feeState.isLoading
+                              ? SkeletonLoader(
+                                width: 80.w,
+                                height: 18.h,
+                                borderRadius: BorderRadius.circular(4.r),
+                              )
+                              : null,
                       value: feeState.isLoading ? null : '₦$formattedTotal',
                       isTotal: true,
                     ),
