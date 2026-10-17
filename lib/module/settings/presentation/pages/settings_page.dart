@@ -16,6 +16,7 @@ import 'package:ppay_mobile/shared/widgets/custom_switch.dart';
 import 'package:ppay_mobile/shared/widgets/pp_app_bar.dart';
 import 'package:ppay_mobile/shared/widgets/settings_menu_item.dart';
 import 'package:ppay_mobile/shared/widgets/touch_opacity.dart';
+import 'package:ppay_mobile/module/settings/presentation/widgets/delete_account_dialog.dart';
 
 @RoutePage()
 class SettingsPage extends HookConsumerWidget {
@@ -518,6 +519,13 @@ class SettingsPage extends HookConsumerWidget {
                     title: 'Logout',
                     titleColor: PPaymobileColors.transactRed,
                     onTap: handleLogout,
+                  ),
+                  12.verticalSpace,
+                  SettingsMenuItem(
+                    icon: Icons.delete_outline,
+                    title: 'Delete Account',
+                    titleColor: PPaymobileColors.transactRed,
+                    onTap: () => showDeleteAccountDialog(context),
                   ),
                 ],
               ),
