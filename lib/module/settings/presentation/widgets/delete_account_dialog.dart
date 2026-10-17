@@ -48,8 +48,8 @@ class DeleteAccountDialog extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                   launchUrl(
-                    Uri.parse('https://pinnaclepay.co.tz/delete-account'),
-                    mode: LaunchMode.externalApplication,
+                    Uri.parse('https://pinnaclepay.ng/delete-account'),
+                    mode: LaunchMode.inAppBrowserView,
                   );
                 },
                 style: ElevatedButton.styleFrom(
